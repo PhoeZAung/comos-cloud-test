@@ -1,3 +1,7 @@
+# Comos 0.3.0 — shared navigation and installation
+
+Home/Lore/Characters now switch within a shared shell. Live landing pages show Account after session restoration. Galaxy background and an Android Install Comos control are included. Read [docs/SHARED-SHELL.md](docs/SHARED-SHELL.md) for tests and integration notes.
+
 # Comos — incremental universe template
 
 Start with **docs/STATUS.md**, then **docs/ROADMAP.md**. For the chat-versus-integration work split, see **docs/MIND-MAP.md**. We build one substep at a time. This package includes 21 navigable pages, a universe-themed public Home, isolated Ghost preview, and a native backend foundation. It is not a completed game platform.

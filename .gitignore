@@ -5,3 +5,5 @@ dist-live/
 .env*
 *.sqlite*
 *service-account*.json
+
+.openai/

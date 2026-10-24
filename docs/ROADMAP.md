@@ -132,3 +132,7 @@ Implemented resumable display-name completion, idempotent/conflict-aware backend
 
 ### Version 0.2.4 — 24 October 2026
 Added auth throttling and client feedback; 29 tests pass. Added MIND-MAP.md, INTEGRATION-PACKET.md and STATUS.md to reduce repeated setup and support chat-drafted modules. User authorized efficient coherent batches. Real Firebase/HTTPS acceptance remains blocked on configuration, not more generated code. Original PC Obsidian note unchanged.
+
+
+### Phase 1.3 follow-up — shared navigation and installation
+Implemented the shared browser shell, lazy route views, session-aware public header, supplied Galaxy effect and Android install support. See SHARED-SHELL.md for acceptance evidence; phone installation and Galaxy rendering remain to test. This does not complete pending data features or merge other-chat patches.

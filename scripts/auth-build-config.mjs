@@ -11,5 +11,5 @@ export function publicAuthConfig(input) {
   return {origin:input.origin,firebase:{...f}};
 }
 export function liveAuthPolicy(config) {
- return `default-src 'none'; script-src 'self' https://apis.google.com; style-src 'self'; img-src 'self' data:; connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://${config.firebase.authDomain}; frame-src https://${config.firebase.authDomain}; font-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'none'`;
+ return `default-src 'none'; script-src 'self' https://apis.google.com; style-src 'self'; img-src 'self' data:; connect-src 'self' https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://${config.firebase.authDomain}; frame-src https://${config.firebase.authDomain}; font-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'; worker-src 'self'; manifest-src 'self'`;
 }

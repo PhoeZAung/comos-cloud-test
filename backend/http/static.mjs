@@ -5,11 +5,12 @@ import { previewPolicy } from '../../src/preview/policy.mjs';
 export async function createStaticHandler(directory) {
   const root = await realpath(directory);
   const liveHeaders = JSON.parse(await readFile(path.join(root, 'auth-headers.json'), 'utf8'));
-  const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml' };
+  const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml', '.webmanifest':'application/manifest+json', '.ico':'image/x-icon' };
   return async (req, res) => {
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'same-origin');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
     if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405, { Allow: 'GET, HEAD' }).end(); return; }
     try {
       let name = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);

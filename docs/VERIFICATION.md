@@ -78,3 +78,7 @@ All 14 automated tests pass. Added synthetic-verifier coverage of identity mappi
 ## Version 0.2.4 — 24 October 2026
 29 tests passed. New tests verify token refill, separate peer/operation budgets, concurrent capacity, global limits, map capacity, Retry-After, forged forwarded headers, failed-request cleanup and client 429 feedback. Existing 21 routes and local references pass. No UI layout changes or live provider operations. Live Firebase/HTTPS verification remains pending.
 - Live bundle compiled after 429 client feedback changes using synthetic public configuration; preview unchanged and configured output removed. LIVE-ACCEPTANCE.md records the unrun real-service gates.
+
+
+## Phase 1.3 — 0.3.0
+See SHARED-SHELL.md for behavior, verification limits and phone tests. Shared navigation, session-aware landing header, supplied Galaxy background and install support added. User confirmed phone login on preceding deployment.

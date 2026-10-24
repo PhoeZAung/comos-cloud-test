@@ -27,3 +27,7 @@ Batch related work through implementation, tests, docs and one package update. I
 
 ## Separate cloud-test copy 0.2.5
 See ../CLOUD-SETUP.md. Cloud build and 31 tests passed; no deployment or real Firebase login verified. This copy excludes other-chat Home/Phase 4.1 patches.
+
+
+## Phase 1.3 — 0.3.0
+See SHARED-SHELL.md for behavior, verification limits and phone tests. Shared navigation, session-aware landing header, supplied Galaxy background and install support added. User confirmed phone login on preceding deployment.
