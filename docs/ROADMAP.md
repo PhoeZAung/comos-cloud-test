@@ -136,3 +136,7 @@ Added auth throttling and client feedback; 29 tests pass. Added MIND-MAP.md, INT
 
 ### Phase 1.3 follow-up — shared navigation and installation
 Implemented the shared browser shell, lazy route views, session-aware public header, supplied Galaxy effect and Android install support. See SHARED-SHELL.md for acceptance evidence; phone installation and Galaxy rendering remain to test. This does not complete pending data features or merge other-chat patches.
+
+
+### Steps 3.1 / 3.2 implementation — 0.4.0
+Account name/photo editing and automatically saved themes/effect preferences are implemented. Four presets, default-off splash and theme colour matching are included. See ACCOUNT.md. Phone acceptance remains required before marking the Account done criteria complete.

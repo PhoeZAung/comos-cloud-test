@@ -20,7 +20,7 @@ export function createRouter({ afterRender, disposePage }) {
   async function navigate(url, {pop=false,state=null}={}) {
     const id=routeId(url,base);
     if(!id || document.body.dataset.layout==='sheet') { location.assign(url.href); return; }
-    if(document.body.dataset.mode==='fixture' && ['signin','signup','account'].includes(id)) { location.assign(url.href); return; }
+    if(document.body.dataset.mode==='fixture' && ['signin','signup'].includes(id)) { location.assign(url.href); return; }
     const ticket=++sequence;
     main.setAttribute('aria-busy','true');
     try {

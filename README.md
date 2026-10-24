@@ -1,3 +1,7 @@
+# Comos 0.4.0 — Account and preferences
+
+Steps 3.1/3.2 add automatic profile saving, photos, four two-colour theme circles and an optional splash cursor (off by default). See [docs/ACCOUNT.md](docs/ACCOUNT.md) for behavior, phone tests and integration details.
+
 # Comos 0.3.0 — shared navigation and installation
 
 Home/Lore/Characters now switch within a shared shell. Live landing pages show Account after session restoration. Galaxy background and an Android Install Comos control are included. Read [docs/SHARED-SHELL.md](docs/SHARED-SHELL.md) for tests and integration notes.

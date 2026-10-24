@@ -1,3 +1,4 @@
+import {cp} from 'node:fs/promises';
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { renderPage, routeView } from '../src/layouts/site.mjs';
 
@@ -31,5 +32,13 @@ for (const [id, html] of pages) await writeFile(new URL(`dist/${id}.html`, root)
 await writeFile(new URL('dist/assets/site.css', root), styles.join('\n'));
 console.log(`Built ${pages.length} Comos pages in isolated fixture preview mode.`);
 
-for (const file of ['shell.mjs','router.mjs','install.mjs','session.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
+for (const file of ['shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
 await writeFile(new URL('dist/assets/galaxy.mjs',root),await readFile(new URL('src/effects/galaxy.mjs',root)));
+
+await cp(new URL('src/account/',root),new URL('dist/account/',root),{recursive:true});
+await writeFile(new URL('dist/assets/splash.mjs',root),await readFile(new URL('src/effects/splash.mjs',root)));
+
+// Rebase fixture editor imports onto the same shared UI modules as the shell.
+for(const file of ['editor.mjs','view.mjs']) {const p=new URL('dist/account/'+file,root);await writeFile(p,(await readFile(p,'utf8')).replaceAll('../ui/preferences.mjs','../assets/preferences.mjs'));}
+await writeFile(new URL('dist/assets/effects.mjs',root),await readFile(new URL('src/ui/effects.mjs',root)));
+

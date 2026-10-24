@@ -1,3 +1,4 @@
+import {mountAccount} from '../account/editor.mjs';
 import { createFirebaseClient } from './firebase.mjs';
 import { createAuthService } from './service.mjs';
 import { validateAuth, validateProfile, authMessage } from './validation.mjs';
@@ -13,7 +14,7 @@ export function mountAuth({ onUser = () => {} } = {}) {
 const root=document.querySelector('main');
 const controller=new AbortController();
 const signal=controller.signal;
-let disposed=false;
+let disposed=false,accountCleanup=null;
 const pageStatus = root.querySelector('[data-page-status]');
 const retry = root.querySelector('[data-retry]');
 let service, currentUser = null, busy = false;
@@ -26,6 +27,8 @@ function showUser(user, navigate = false) {
   if(disposed)return;
   onUser(user);
   currentUser = user;
+  if(user?.profileState==='complete' && document.body.dataset.page==='account' && !accountCleanup) accountCleanup=mountAccount({user,onUser});
+  if(!user&&accountCleanup){accountCleanup();accountCleanup=null;const editor=root.querySelector('[data-account-editor]');if(editor)editor.hidden=true;}
   const entry = root.querySelector('[data-entry]');
   if (entry) entry.hidden = Boolean(user);
   const profile = root.querySelector('[data-profile]');
@@ -109,5 +112,5 @@ async function restore() {
 retry?.addEventListener('click',()=>void restore(),{signal});
 void restore();
 
-return () => {disposed=true;controller.abort();};
+return () => {disposed=true;controller.abort();accountCleanup?.();};
 }

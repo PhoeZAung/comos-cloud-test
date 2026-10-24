@@ -1,8 +1,15 @@
+import {applyPreferences,defaults} from './preferences.mjs';
 // Header state is presentation only; the API remains the authorization boundary.
 export let sessionUser = null;
 let pending;
-export function setSessionUser(user) {
+export function setSessionUser(user,{applyTheme=true}={}) {
   sessionUser = user || null;
+  if(applyTheme)applyPreferences(user?.preferences||defaults);
+  for(const link of document.querySelectorAll('.account')){
+    let image=link.querySelector('img');const svg=link.querySelector('svg');
+    if(user?.avatarMediaId){if(!image){image=document.createElement('img');image.alt='';image.width=32;image.height=32;link.prepend(image);}image.src='/api/v1/account/avatar?v='+encodeURIComponent(user.avatarMediaId);if(svg)svg.setAttribute('hidden','');}
+    else{image?.remove();if(svg)svg.removeAttribute('hidden');}
+  }
   for (const entry of document.querySelectorAll('[data-public-entry]')) entry.hidden = Boolean(user);
   for (const account of document.querySelectorAll('[data-public-account]')) account.hidden = !user;
   for (const action of document.querySelectorAll('[data-signed-out-only]')) action.hidden = Boolean(user);

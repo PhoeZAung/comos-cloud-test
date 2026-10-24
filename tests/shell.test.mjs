@@ -17,7 +17,7 @@ test('header uses verified session responses, resets on 401 and avoids duplicate
  const entry={hidden:false},account={hidden:true};
  t.mock.method(globalThis,'fetch',async()=>({status:200,ok:true,json:async()=>({user:{id:'synthetic-user'}})}));
  t.after(()=>{delete globalThis.document;});
-globalThis.document={body:{dataset:{mode:'live'}},querySelectorAll:selector=>selector==='[data-public-entry]'?[entry]:selector==='[data-public-account]'?[account]:[]};
+globalThis.document={documentElement:{dataset:{}},dispatchEvent:()=>{},body:{dataset:{mode:'live'}},querySelectorAll:selector=>selector==='[data-public-entry]'?[entry]:selector==='[data-public-account]'?[account]:[]};
  const session=await import('../src/ui/session.mjs');
  await Promise.all([session.refreshSession(),session.refreshSession()]);
  assert.equal(fetch.mock.callCount(),1);assert.equal(entry.hidden,true);assert.equal(account.hidden,false);

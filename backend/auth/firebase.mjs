@@ -1,3 +1,6 @@
+import { createAccountService } from '../account/service.mjs';
+import { createAccountRoutes } from '../account/routes.mjs';
+import { createFileStore } from '../media/filesystem.mjs';
 import { createSessionService } from './sessions.mjs';
 import { createSessionRoutes } from './routes.mjs';
 
@@ -14,9 +17,9 @@ export function authConfiguration(env = process.env) {
   return { projectId, origin };
 }
 
-export async function initializeAuthentication({ db, env = process.env }) {
+export async function initializeAuthentication({ db, mediaRoot, env = process.env }) {
   const config = authConfiguration(env);
-  if (!config) return { sessionRoutes: null, close: async () => {} };
+  if (!config) return { sessionRoutes: null, accountRoutes:null, close: async () => {} };
   const [{ initializeApp, applicationDefault, cert, deleteApp }, { getAuth }] = await Promise.all([
     import('firebase-admin/app'), import('firebase-admin/auth'),
   ]);
@@ -32,6 +35,7 @@ export async function initializeAuthentication({ db, env = process.env }) {
   const app = initializeApp({ credential, projectId: config.projectId }, 'comos-auth');
   try {
     const sessions = createSessionService({ db, auth: getAuth(app), projectId: config.projectId });
-    return { sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
+    const accountRoutes=mediaRoot?createAccountRoutes({sessions,origin:config.origin,account:createAccountService({db,files:await createFileStore(mediaRoot)})}):null;
+    return { accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }

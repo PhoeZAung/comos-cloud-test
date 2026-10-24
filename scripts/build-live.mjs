@@ -1,3 +1,4 @@
+import {accountEditor} from '../src/account/view.mjs';
 import { readFile, writeFile, mkdir, readdir, cp, mkdtemp, rename, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
@@ -21,7 +22,7 @@ try {
   const {default:source}=await import(new URL('src/pages/'+file,root));
   const page={...source};
   if(['signin','signup'].includes(page.id))page.content=authContent(page.id,{live:true});
-  if(page.id==='account')page.content='<section class="page-heading"><h1>Account</h1></section><section class="auth-card"><div data-entry><a class="button primary" href="signin.html">Sign in</a></div>'+profileContent({live:true})+sessionContent()+'<p class="auth-status" data-page-status role="status" tabindex="-1"></p><button class="button" data-retry hidden>Retry connection</button><p>Coming soon: Step 3</p></section>';
+  if(page.id==='account')page.content='<section class="page-heading"><h1>Account</h1></section><section class="auth-card"><div data-entry><a class="button primary" href="signin.html">Sign in</a></div>'+profileContent({live:true})+sessionContent()+'<p class="auth-status" data-page-status role="status" tabindex="-1"></p><button class="button" data-retry hidden>Retry connection</button></section>'+accountEditor();
   page.content=page.content.replace(/href="home.html">Ghost mode/g,'href="preview/home.html">Ghost mode');
   await writeFile(output+'/assets/routes/'+page.id+'.mjs', 'export default '+JSON.stringify(routeView(page))+';\n');
   await writeFile(output+'/'+page.id+'.html',renderPage(page,{policy,live:true,scripts:['assets/shell.mjs']}));

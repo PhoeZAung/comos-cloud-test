@@ -1,33 +1,20 @@
 # Comos — current handoff
 
-Version 0.2.4 · 24 October 2026. Read this first, then current files for the selected slice. ROADMAP.md defines requirements; historical verification entries are not current feature status.
+Version 0.4.0 · 24 October 2026. Active repository: PhoeZAung/comos-cloud-test. Current checkout: comos-cloud-test/. Earlier comos-template and transfer ZIPs are historical snapshots.
 
-## Implemented and checked
-- 21 portable routes, cosmic Home, shared layout/style generation and isolated Ghost preview.
-- Local Node 24 SQLite/media/API foundation; default authentication disabled.
-- Official Firebase adapters and separate configured live build; no credentials or live output included.
-- Sign-in/sign-up/reset/profile form previews; resumable backend profile completion and safe retries.
-- Authentication throttling, bounded concurrency and 429 client feedback.
-- 29 automated tests passing; prior desktop/320 px profile preview browser checks passed. Full zoom/sheet accessibility review still pending.
+## Working deployment
+Railway service feisty-freedom, domain https://feisty-freedom-production-304e.up.railway.app. Firebase project mount-aetheria retains Google and email/password identity. User confirmed phone login and the 0.3.0 shell/install update. Private server credentials are configured in Railway, never in source. Persistent database/media use /data. QNAP remains the future native host; no legacy data was imported or deleted.
 
-## Not verified or enabled
-Real Firebase credentials/project/provider/domain setup, HTTPS hosting, actual sign-in/reset/revocation and Android login. No real users or legacy data imported. No site published. Step 2.3/2.4 remain open until live integration acceptance passes. Authentication code and mocked tests do not establish production authorization.
+## Implemented
+- Shared tab navigation, direct HTML fallback, Back/refresh, isolated sheet and Ghost preview.
+- Galaxy background, static/reduced-motion fallback, PWA manifest/shortcuts and safe offline notice.
+- Firebase session/login/onboarding foundations and bounded authentication requests.
+- Steps 3.1/3.2: editable names/photos, four automatically saved two-colour themes, default-off splash and theme-colour effect preference. See ACCOUNT.md.
+- 39 automated tests pass. Current production dependency audit: zero vulnerabilities.
 
-## Next useful batch
-Finish the remaining shell keyboard/zoom/sheet checks and use the prepared LIVE-ACCEPTANCE.md staging checklist. Real service verification needs server credentials and an authorized HTTPS environment. Do not pretend another code-only pass verifies it. Requirements and pure-module drafts for later tabs may be prepared in parallel as described in MIND-MAP.md, without prematurely enabling dependent features.
+## Verification limits / next
+Authenticated phone edits, uploaded photos across sessions, splash rendering and saved theme switches need the device acceptance checklist in ACCOUNT.md. WebGL is unavailable in this QA browser. Password reset and full session revocation acceptance from LIVE-ACCEPTANCE.md remain to confirm. No test here claims a production-scale catalog, permissions model or migration.
+After Account acceptance, proceed to Step 4.1 worlds/parties/memberships, reviewing the separate feature patches before merging. Keep other planned data features as placeholders.
 
-## Run and package
-`npm start`: fixture site. `npm ci` then `npm test`: full tests. `npm run api`: loopback API, auth disabled unless explicitly configured. `npm run build:live -- /absolute/path/public-auth.json`: optional separate live build (see LIVE-AUTH.md). Node >=24, no Docker.
-
-Source of truth: comos-template/. Deliverable: comos-template.zip. Exclude node_modules, credentials, runtime data, databases, generated configured dist-live, temporary QA pages and hosting metadata from the ZIP. Preserve the original Mount Aetheria transfer and legacy repository.
-
-## Working policy
-Batch related work through implementation, tests, docs and one package update. Include What to test in every continuation. Do not guess schemas, real rules, security settings or device compatibility. Drafts from regular chat require current-file review and integration tests. See MIND-MAP.md and INTEGRATION-PACKET.md.
-
-
-## Separate cloud-test copy 0.2.5
-See ../CLOUD-SETUP.md. Cloud build and 31 tests passed; no deployment or real Firebase login verified. This copy excludes other-chat Home/Phase 4.1 patches.
-
-
-## Phase 1.3 — 0.3.0
-See SHARED-SHELL.md for behavior, verification limits and phone tests. Shared navigation, session-aware landing header, supplied Galaxy background and install support added. User confirmed phone login on preceding deployment.
+## Run
+Node >=24. npm start: isolated static preview. npm ci && npm test: checks. npm run build:cloud and npm run start:cloud: configured cloud build/server (see CLOUD-SETUP.md for environment and volume). Local API is optional and auth disabled by default. Never package credentials, runtime databases, node_modules or private backups. Deployment source is synced to the new repository; old Mount-Aetheria remains read-only.

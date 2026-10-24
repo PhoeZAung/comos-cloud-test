@@ -82,3 +82,7 @@ All 14 automated tests pass. Added synthetic-verifier coverage of identity mappi
 
 ## Phase 1.3 — 0.3.0
 See SHARED-SHELL.md for behavior, verification limits and phone tests. Shared navigation, session-aware landing header, supplied Galaxy background and install support added. User confirmed phone login on preceding deployment.
+
+
+## Steps 3.1/3.2 — 0.4.0
+39 tests passed, including private account APIs, image normalization, conflicts, cleanup and restart persistence. Browser fixture Account validated controls, error feedback, cross-tab preferences, PNG preview and 320px layout. Production dependency audit: zero vulnerabilities. WebGL and authenticated phone edits remain device checks; see ACCOUNT.md.
