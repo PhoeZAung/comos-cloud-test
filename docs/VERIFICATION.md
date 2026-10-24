@@ -86,3 +86,7 @@ See SHARED-SHELL.md for behavior, verification limits and phone tests. Shared na
 
 ## Steps 3.1/3.2 — 0.4.0
 39 tests passed, including private account APIs, image normalization, conflicts, cleanup and restart persistence. Browser fixture Account validated controls, error feedback, cross-tab preferences, PNG preview and 320px layout. Production dependency audit: zero vulnerabilities. WebGL and authenticated phone edits remain device checks; see ACCOUNT.md.
+
+
+## Step 4.1 — 0.5.0
+World/party/member controls and server-enforced admin access implemented. See GROUPS.md. 41 tests pass. Live admin access requires explicit COMOS_ADMIN_FIREBASE_UIDS configuration; no roles were auto-granted. Account edits are retained.

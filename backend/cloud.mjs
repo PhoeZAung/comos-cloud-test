@@ -22,7 +22,7 @@ await createFileStore(config.mediaRoot);
 const db = await openDatabase(config.databasePath);
 let auth;
 try { auth = await initializeAuthentication({ db,mediaRoot:config.mediaRoot }); } catch { db.close(); throw new Error('Firebase server authentication failed. Check private credentials and project settings.'); }
-const server = createApiServer({ db, sessionRoutes: auth.sessionRoutes, accountRoutes:auth.accountRoutes, staticHandler: await createStaticHandler(publicRoot) });
+const server = createApiServer({ db, sessionRoutes: auth.sessionRoutes, groupsRoutes:auth.groupsRoutes,accountRoutes:auth.accountRoutes, staticHandler: await createStaticHandler(publicRoot) });
 server.listen(port, '0.0.0.0', () => console.log('Comos cloud server ready.'));
 let closing = false;
 function close() { if (closing) return; closing = true; server.close(() => { db.close(); void auth.close(); }); server.closeIdleConnections(); }

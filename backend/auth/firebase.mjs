@@ -1,3 +1,5 @@
+import {createGroupsService} from '../groups/service.mjs';
+import {createGroupsRoutes} from '../groups/routes.mjs';
 import { createAccountService } from '../account/service.mjs';
 import { createAccountRoutes } from '../account/routes.mjs';
 import { createFileStore } from '../media/filesystem.mjs';
@@ -36,6 +38,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
   try {
     const sessions = createSessionService({ db, auth: getAuth(app), projectId: config.projectId });
     const accountRoutes=mediaRoot?createAccountRoutes({sessions,origin:config.origin,account:createAccountService({db,files:await createFileStore(mediaRoot)})}):null;
-    return { accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
+    const groupsRoutes=createGroupsRoutes({sessions,groups:createGroupsService(db),origin:config.origin,adminUids:(env.COMOS_ADMIN_FIREBASE_UIDS||'').split(',').map(s=>s.trim()).filter(Boolean)});
+    return { groupsRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }

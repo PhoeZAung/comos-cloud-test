@@ -1,6 +1,6 @@
 # Comos — current handoff
 
-Version 0.4.0 · 24 October 2026. Active repository: PhoeZAung/comos-cloud-test. Current checkout: comos-cloud-test/. Earlier comos-template and transfer ZIPs are historical snapshots.
+Version 0.5.0 · 24 October 2026. Active repository: PhoeZAung/comos-cloud-test. Current checkout: comos-cloud-test/. Earlier comos-template and transfer ZIPs are historical snapshots.
 
 ## Working deployment
 Railway service feisty-freedom, domain https://feisty-freedom-production-304e.up.railway.app. Firebase project mount-aetheria retains Google and email/password identity. User confirmed phone login and the 0.3.0 shell/install update. Private server credentials are configured in Railway, never in source. Persistent database/media use /data. QNAP remains the future native host; no legacy data was imported or deleted.
@@ -18,3 +18,7 @@ After Account acceptance, proceed to Step 4.1 worlds/parties/memberships, review
 
 ## Run
 Node >=24. npm start: isolated static preview. npm ci && npm test: checks. npm run build:cloud and npm run start:cloud: configured cloud build/server (see CLOUD-SETUP.md for environment and volume). Local API is optional and auth disabled by default. Never package credentials, runtime databases, node_modules or private backups. Deployment source is synced to the new repository; old Mount-Aetheria remains read-only.
+
+
+## Step 4.1 — 0.5.0
+World/party/member controls and server-enforced admin access implemented. See GROUPS.md. 41 tests pass. Live admin access requires explicit COMOS_ADMIN_FIREBASE_UIDS configuration; no roles were auto-granted. Account edits are retained.

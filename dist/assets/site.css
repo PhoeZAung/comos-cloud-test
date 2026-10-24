@@ -67,3 +67,5 @@ body{background:var(--bg)}header{background:var(--shell-bg)}.empty,.auth-card,.a
 .setting-row input[role=switch]:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
 .theme-choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.theme-choice{min-width:0}
 @media(max-width:700px){.theme-choices{gap:6px}.theme-choice{font-size:11px;padding:2px}.theme-swatch{width:42px;height:42px}}
+[data-groups] select,[data-groups] input:not([type=checkbox]){width:100%;min-height:44px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;margin-bottom:14px}
+[data-groups] form{margin:14px 0 24px}[data-groups] fieldset{border:1px solid var(--line);border-radius:8px;margin:18px 0;padding:12px}[data-groups] legend{font-size:14px;color:var(--muted)}.group-check{display:flex!important;gap:12px;align-items:center;min-height:44px;margin:0!important}.group-check input{accent-color:var(--accent);width:20px;height:20px;flex:none}[data-groups] small{font:14px system-ui;color:var(--muted)}

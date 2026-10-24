@@ -140,3 +140,7 @@ Implemented the shared browser shell, lazy route views, session-aware public hea
 
 ### Steps 3.1 / 3.2 implementation — 0.4.0
 Account name/photo editing and automatically saved themes/effect preferences are implemented. Four presets, default-off splash and theme colour matching are included. See ACCOUNT.md. Phone acceptance remains required before marking the Account done criteria complete.
+
+
+## Step 4.1 — 0.5.0
+World/party/member controls and server-enforced admin access implemented. See GROUPS.md. 41 tests pass. Live admin access requires explicit COMOS_ADMIN_FIREBASE_UIDS configuration; no roles were auto-granted. Account edits are retained.
