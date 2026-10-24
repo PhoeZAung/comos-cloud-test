@@ -1,0 +1,29 @@
+{
+  "name": "comos-template",
+  "version": "0.2.5",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/build.mjs && node server.mjs",
+    "test": "node scripts/build.mjs && node --test tests/*.test.mjs",
+    "api": "node backend/main.mjs",
+    "db:migrate": "node scripts/migrate.mjs",
+    "build:live": "node scripts/build.mjs && node scripts/build-live.mjs",
+    "build:cloud": "node scripts/build.mjs && node scripts/build-live.mjs public-auth.json",
+    "start:cloud": "node backend/cloud.mjs"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "firebase": "13.1.0",
+    "firebase-admin": "14.5.0"
+  },
+  "overrides": {
+    "@grpc/grpc-js": "1.13.6"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

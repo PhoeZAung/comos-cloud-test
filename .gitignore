@@ -1,0 +1,7 @@
+node_modules/
+.comos-data/
+dist-live/
+.auth-build-*/
+.env*
+*.sqlite*
+*service-account*.json

@@ -1,0 +1,8 @@
+[build]
+buildCommand = "npm ci && npm run build:cloud"
+[deploy]
+startCommand = "npm run start:cloud"
+healthcheckPath = "/api/v1/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3

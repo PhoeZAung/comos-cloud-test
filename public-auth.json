@@ -1,0 +1,9 @@
+{
+  "origin": "https://feisty-freedom-production-304e.up.railway.app",
+  "firebase": {
+    "apiKey": "AIzaSyBpoi5qvqUehnhcyhfB7d0gtelNUICIthw",
+    "authDomain": "mount-aetheria.firebaseapp.com",
+    "projectId": "mount-aetheria",
+    "appId": "1:492855693446:web:f9948569254a7220c38107"
+  }
+}
