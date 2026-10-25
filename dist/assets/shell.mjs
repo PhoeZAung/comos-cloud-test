@@ -7,6 +7,7 @@ async function mountPage() {
   const generation=++routeGeneration;
   if(live)setSessionUser(sessionUser);
   const id=document.body.dataset.page;
+  if(id==='admin'){const {mountCharacterAdmin}=await import('./character-admin.mjs');if(generation===routeGeneration)cleanup=mountCharacterAdmin({fixture:!live});}
   if(id==='admin-groups'){const {mountGroups}=await import('./groups.mjs');if(generation===routeGeneration)cleanup=mountGroups({fixture:!live});}
   if(!live && id==='account'){const {mountAccount}=await import('../account/editor.mjs');if(generation===routeGeneration)cleanup=mountAccount({fixture:true});}
   if(live && ['signin','signup','account'].includes(id)) {

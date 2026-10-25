@@ -1,3 +1,5 @@
+import {createCharactersService} from '../characters/service.mjs';
+import {createCharactersRoutes} from '../characters/routes.mjs';
 import {createGroupsService} from '../groups/service.mjs';
 import {createGroupsRoutes} from '../groups/routes.mjs';
 import { createAccountService } from '../account/service.mjs';
@@ -38,7 +40,9 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
   try {
     const sessions = createSessionService({ db, auth: getAuth(app), projectId: config.projectId });
     const accountRoutes=mediaRoot?createAccountRoutes({sessions,origin:config.origin,account:createAccountService({db,files:await createFileStore(mediaRoot)})}):null;
-    const groupsRoutes=createGroupsRoutes({sessions,groups:createGroupsService(db),origin:config.origin,adminUids:(env.COMOS_ADMIN_FIREBASE_UIDS||'').split(',').map(s=>s.trim()).filter(Boolean)});
-    return { groupsRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
+    const adminUids=(env.COMOS_ADMIN_FIREBASE_UIDS||'').split(',').map(s=>s.trim()).filter(Boolean);
+    const charactersRoutes=createCharactersRoutes({sessions,characters:createCharactersService(db),origin:config.origin,adminUids});
+    const groupsRoutes=createGroupsRoutes({sessions,groups:createGroupsService(db),origin:config.origin,adminUids});
+    return { charactersRoutes,groupsRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }

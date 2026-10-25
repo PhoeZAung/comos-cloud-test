@@ -32,7 +32,7 @@ for (const [id, html] of pages) await writeFile(new URL(`dist/${id}.html`, root)
 await writeFile(new URL('dist/assets/site.css', root), styles.join('\n'));
 console.log(`Built ${pages.length} Comos pages in isolated fixture preview mode.`);
 
-for (const file of ['shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
+for (const file of ['shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','character-admin.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
 await writeFile(new URL('dist/assets/galaxy.mjs',root),await readFile(new URL('src/effects/galaxy.mjs',root)));
 
 await cp(new URL('src/account/',root),new URL('dist/account/',root),{recursive:true});

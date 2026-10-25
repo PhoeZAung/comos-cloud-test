@@ -1,5 +1,5 @@
 import http from 'node:http';
-export function createApiServer({ db, sessionRoutes = null, staticHandler = null, accountRoutes = null, groupsRoutes = null }) {
+export function createApiServer({ db, sessionRoutes = null, staticHandler = null, accountRoutes = null, groupsRoutes = null, charactersRoutes = null }) {
   return http.createServer(async (req, res) => {
     const send = (status, payload) => {
       const body = JSON.stringify(payload);
@@ -14,6 +14,7 @@ export function createApiServer({ db, sessionRoutes = null, staticHandler = null
         const version = db.prepare('SELECT MAX(version) AS version FROM schema_migrations').get().version;
         return send(200, { status: 'ok', apiVersion: 1, database: 'ready', schemaVersion: version, authentication: sessionRoutes ? 'configured' : 'not_configured' });
       }
+      if (charactersRoutes && await charactersRoutes(req,res,url.pathname,send)) return;
       if (groupsRoutes && await groupsRoutes(req,res,url.pathname,send)) return;
       if (accountRoutes && await accountRoutes(req,res,url.pathname,send)) return;
       if (sessionRoutes && await sessionRoutes(req, res, url.pathname, send)) return;

@@ -2,8 +2,19 @@ import {applyPreferences,defaults} from './preferences.mjs';
 // Header state is presentation only; the API remains the authorization boundary.
 export let sessionUser = null;
 let pending;
+let accessUserId=null,accessGeneration=0,adminAccess=false;
+function showAdmin(){for(const link of document.querySelectorAll('[data-admin-entry]'))link.hidden=!adminAccess;}
+function refreshAccess(user){
+ const id=user?.id||null;if(accessUserId===id){showAdmin();return;}
+ accessUserId=id;adminAccess=false;showAdmin();const generation=++accessGeneration;
+ if(!id)return;
+ void fetch('/api/v1/access',{credentials:'same-origin',cache:'no-store'}).then(async response=>{
+  if(!response.ok)return;const access=await response.json();if(generation!==accessGeneration)return;adminAccess=access.admin===true;showAdmin();
+ }).catch(()=>{});
+}
 export function setSessionUser(user,{applyTheme=true}={}) {
   sessionUser = user || null;
+  refreshAccess(sessionUser);
   if(applyTheme)applyPreferences(user?.preferences||defaults);
   for(const link of document.querySelectorAll('.account')){
     let image=link.querySelector('img');const svg=link.querySelector('svg');

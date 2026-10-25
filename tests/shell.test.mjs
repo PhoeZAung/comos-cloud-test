@@ -13,19 +13,22 @@ test('soft navigation stays in the current live or fixture root and excludes the
  assert.equal(routeId(new URL('https://example.test/home.html'),fixture),null);
 });
 
-test('header uses verified session responses, resets on 401 and avoids duplicate requests',async t=>{
- const entry={hidden:false},account={hidden:true};
- t.mock.method(globalThis,'fetch',async()=>({status:200,ok:true,json:async()=>({user:{id:'synthetic-user'}})}));
+test('header derives admin entry from the server, resets on 401 and deduplicates session/access requests',async t=>{
+ const entry={hidden:false},account={hidden:true},admin={hidden:true};
+ t.mock.method(globalThis,'fetch',async url=>({status:200,ok:true,json:async()=>url==='/api/v1/access'?{admin:true}:{user:{id:'synthetic-user'}}}));
  t.after(()=>{delete globalThis.document;});
-globalThis.document={documentElement:{dataset:{}},dispatchEvent:()=>{},body:{dataset:{mode:'live'}},querySelectorAll:selector=>selector==='[data-public-entry]'?[entry]:selector==='[data-public-account]'?[account]:[]};
+ globalThis.document={documentElement:{dataset:{}},dispatchEvent:()=>{},body:{dataset:{mode:'live'}},querySelectorAll:selector=>selector==='[data-public-entry]'?[entry]:selector==='[data-public-account]'?[account]:selector==='[data-admin-entry]'?[admin]:[]};
  const session=await import('../src/ui/session.mjs');
  await Promise.all([session.refreshSession(),session.refreshSession()]);
- assert.equal(fetch.mock.callCount(),1);assert.equal(entry.hidden,true);assert.equal(account.hidden,false);
- assert.equal(fetch.mock.calls[0].arguments[0],'/api/v1/auth/session');
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(fetch.mock.calls.filter(c=>c.arguments[0]==='/api/v1/auth/session').length,1);
+ assert.equal(fetch.mock.calls.filter(c=>c.arguments[0]==='/api/v1/access').length,1);
+ assert.equal(entry.hidden,true);assert.equal(account.hidden,false);assert.equal(admin.hidden,false);
+ session.setSessionUser({...session.sessionUser,displayName:'Updated'});assert.equal(fetch.mock.callCount(),2);
  assert.equal(fetch.mock.calls[0].arguments[1].cache,'no-store');
  fetch.mock.mockImplementation(async()=>({status:401,ok:false}));
- await session.refreshSession();assert.equal(session.sessionUser,null);assert.equal(entry.hidden,false);assert.equal(account.hidden,true);
- document.body.dataset.mode='fixture';await session.refreshSession();assert.equal(fetch.mock.callCount(),2);
+ await session.refreshSession();assert.equal(session.sessionUser,null);assert.equal(entry.hidden,false);assert.equal(account.hidden,true);assert.equal(admin.hidden,true);
+ document.body.dataset.mode='fixture';await session.refreshSession();assert.equal(fetch.mock.callCount(),3);
 });
 
 test('service worker never intercepts API requests or caches authenticated pages',async()=>{

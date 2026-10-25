@@ -144,3 +144,6 @@ Account name/photo editing and automatically saved themes/effect preferences are
 
 ## Step 4.1 — 0.5.0
 World/party/member controls and server-enforced admin access implemented. See GROUPS.md. 41 tests pass. Live admin access requires explicit COMOS_ADMIN_FIREBASE_UIDS configuration; no roles were auto-granted. Account edits are retained.
+
+## Cloud continuation — Step 4.2 (0.6.0)
+Implemented admin character metadata, owner/source editing, search/pagination and archive/restore, with server-side UID allowlist and revision conflicts. See CHARACTER-CONTROLS.md for phone tests and limits. Live records start empty; Ghost has isolated sample records. Wizard, source adapters, legacy migration and player cards remain pending. Next: Step 4.3 item controls.

@@ -90,3 +90,9 @@ See SHARED-SHELL.md for behavior, verification limits and phone tests. Shared na
 
 ## Step 4.1 — 0.5.0
 World/party/member controls and server-enforced admin access implemented. See GROUPS.md. 41 tests pass. Live admin access requires explicit COMOS_ADMIN_FIREBASE_UIDS configuration; no roles were auto-granted. Account edits are retained.
+
+## Cloud 0.6.0 — Step 4.2
+- 44 automated tests pass, including persisted metadata/ownership/source changes, bounded cursors, idempotent creation, stale edit rejection, archive/restore, admin API isolation and regression checks.
+- Ghost browser: owner/name/source edits, add record and archive/restore verified. Source input sizing checked at a 320px iframe viewport; fixed narrow-field overflow.
+- All 21 generated routes and local links continue to resolve through the route checks.
+- Live Firebase admin acceptance remains owner-configured; no admin UID was inferred or granted. No legacy data migration, source compatibility validation or sheet implementation is claimed.
