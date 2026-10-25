@@ -1,0 +1,46 @@
+/* Step 7 — translucent 3D character coverflow (Dark-Grasp-inspired). */
+.cc-roster{width:100%;max-width:1040px;margin:0 auto;min-width:0}
+.cc-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:4px 2px 0}
+.cc-toolbar h2{margin:0;font:500 clamp(18px,2.7vw,24px)/1.3 Georgia,serif}
+.cc-toolbar p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.cc-toolbar-actions{display:flex;gap:8px;flex-wrap:wrap}
+.cc-toolbar-actions .button{cursor:pointer;background:color-mix(in srgb,var(--surface) 80%,transparent)}
+.cc-status{min-height:22px;margin:9px 0 0;font-size:13px;color:var(--muted)}
+.cc-stage{--cc-width:clamp(190px,28vw,240px);--cc-height:clamp(310px,43vw,370px);position:relative;display:block;height:calc(var(--cc-height) + 52px);width:100%;max-width:980px;perspective:1100px;isolation:isolate;overflow:hidden;touch-action:pan-y;outline-offset:4px}
+.cc-stage:focus-visible{outline:2px solid var(--accent)}
+.cc-panel{position:absolute;top:18px;left:50%;width:var(--cc-width);height:var(--cc-height);display:flex;flex-direction:column;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:19px;background:color-mix(in srgb,var(--surface) 68%,transparent);box-shadow:0 15px 42px #0007,inset 0 1px 0 #fff1;backdrop-filter:blur(13px);overflow:hidden;transition:transform .55s cubic-bezier(.18,.78,.16,1),opacity .4s,filter .4s,visibility .4s;transform-style:preserve-3d;will-change:transform;transform-origin:center center}
+.cc-panel.is-current{z-index:4;opacity:1;transform:translateX(-50%) translateZ(70px) rotateY(0) scale(1)}
+.cc-panel.is-prev{z-index:2;opacity:.56;filter:brightness(.67);transform:translateX(calc(-50% - min(28vw,235px))) translateZ(-85px) rotateY(32deg) scale(.83)}
+.cc-panel.is-next{z-index:2;opacity:.56;filter:brightness(.67);transform:translateX(calc(-50% + min(28vw,235px))) translateZ(-85px) rotateY(-32deg) scale(.83)}
+.cc-panel.is-offstage{z-index:0;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-50%) translateZ(-260px) rotateY(70deg) scale(.55)}
+.cc-card-select{display:flex;flex-direction:column;align-items:stretch;text-align:left;flex:1;min-height:0;width:100%;border:0;background:none;color:inherit;padding:0;cursor:pointer;font:inherit}
+.cc-card-select:focus-visible,.cc-panel-actions a:focus-visible,.cc-arrow:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.cc-portrait{height:49%;min-height:0;position:relative;flex:none;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 51% 39%,color-mix(in srgb,var(--accent) 25%,transparent),transparent 75%),linear-gradient(145deg,#26233c66,#121c2b88)}
+.cc-portrait:after{content:"";position:absolute;bottom:0;inset-inline:0;height:40px;background:linear-gradient(transparent,color-mix(in srgb,var(--surface) 74%,transparent));pointer-events:none}
+.cc-default-portrait{height:76%;width:65%;color:var(--accent);opacity:.8;filter:drop-shadow(0 0 19px color-mix(in srgb,var(--accent) 20%,transparent))}
+.cc-character-image{width:100%;height:100%;display:block;object-fit:cover}
+.cc-panel-copy{padding:10px 14px;min-height:0;flex:1}
+.cc-panel-copy h2{font:500 clamp(19px,2.9vw,25px)/1.13 Georgia,serif;overflow-wrap:anywhere;margin:0 0 7px;color:var(--text)}
+.cc-metadata{font-size:11px;line-height:1.4;color:var(--muted);margin:0 0 9px;overflow-wrap:anywhere}
+.cc-tags{display:flex;flex-wrap:wrap;gap:4px;max-height:54px;overflow:hidden}
+.cc-tags span{font-size:10px;line-height:1.3;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 34%,transparent);padding:4px 7px;border-radius:999px;background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.cc-tags .cc-untagged{color:var(--muted);border-style:dashed}
+.cc-bio{color:var(--muted);font-size:11px;line-height:1.4;margin:8px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cc-panel:not(.is-current) .cc-bio{display:none}
+.cc-panel-actions{display:flex;align-items:center;justify-content:center;gap:7px;padding:0 10px 10px;flex:none}
+.cc-panel:not(.is-current) .cc-panel-actions{visibility:hidden;pointer-events:none}
+.cc-panel-actions .button{font-size:11px;padding:6px 10px;min-height:34px}
+.cc-panel-actions .button:not(.primary){background:color-mix(in srgb,var(--bg) 60%,transparent)}
+.cc-preview-note{font-size:11px;color:var(--muted)}
+.cc-navigation{display:flex;align-items:center;justify-content:center;gap:20px;margin:0 0 12px;color:var(--muted);font-size:13px}
+.cc-arrow{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);color:var(--text);background:color-mix(in srgb,var(--surface) 70%,transparent);font-size:29px;line-height:1;cursor:pointer}
+.cc-arrow:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.cc-arrow:disabled{opacity:.3;cursor:not-allowed}
+.cc-more{text-align:center;padding:10px 0}
+.cc-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:250px;max-width:680px;margin:20px auto;border:1px dashed var(--line);border-radius:18px;background:color-mix(in srgb,var(--surface) 35%,transparent);padding:30px 18px}
+.cc-empty-emblem{font:46px Georgia,serif;color:var(--accent)}
+.cc-empty p{margin:12px 0 6px;font-size:16px}
+.cc-empty small{font-size:12px;line-height:1.6;color:var(--muted)}
+@media(max-width:650px){.cc-stage{--cc-width:clamp(185px,65vw,248px);--cc-height:clamp(302px,93vw,368px);height:calc(var(--cc-height) + 24px)}.cc-panel{top:10px;backdrop-filter:blur(7px)}.cc-panel.is-current{transform:translateX(-50%) translateZ(40px)}.cc-panel.is-prev{transform:translateX(calc(-50% - 52vw)) translateZ(-95px) rotateY(35deg) scale(.78)}.cc-panel.is-next{transform:translateX(calc(-50% + 52vw)) translateZ(-95px) rotateY(-35deg) scale(.78)}.cc-panel-copy h2{font-size:21px}.cc-toolbar .button{font-size:12px;padding:8px 12px;min-height:40px}.cc-status{margin:8px 0}}
+@media(max-width:360px){.cc-stage{--cc-width:67vw;--cc-height:315px}.cc-panel-copy{padding:8px 10px}.cc-panel-copy h2{font-size:19px}.cc-panel-actions{padding:0 6px 8px}.cc-panel-actions .button{padding:5px 7px}}
+@media(prefers-reduced-motion:reduce){.cc-panel{transition:none!important;will-change:auto}.cc-portrait{scroll-behavior:auto}}

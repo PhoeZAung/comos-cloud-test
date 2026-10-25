@@ -1,3 +1,4 @@
+import {renderAuthorAvatar} from './avatar.mjs';
 // Home renders authored posts only; all names and text are escaped.
 import {relativePostTime} from './time.mjs';
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -11,13 +12,12 @@ export function pageFeed(posts,{offset=0,limit=6}={}) {
 }
 function postMarkup(post,viewerId='',now=Date.now()) {
   const name=String(post.authorName || 'Comos member');
-  const initials=name.trim().split(/\s+/u).slice(0,2).map(s=>Array.from(s)[0]||'').join('').toUpperCase()||'✦';
   const timestamp=validDate(post.createdAt)?new Date(post.createdAt).toISOString():'';
   const id=encodeURIComponent(String(post.id ?? ''));
   const title=String(post.title ?? '').trim();
   const own=Boolean(viewerId && post.authorId===viewerId);
   return `<article class="comos-post" aria-label="Post by ${escapeHtml(name)}">
-    <div class="comos-post-avatar" aria-hidden="true">${escapeHtml(initials)}</div>
+    ${renderAuthorAvatar(post)}
     <div class="comos-post-main">
       <a class="comos-post-link" href="post.html?id=${escapeHtml(id)}" aria-label="Open post${title?' — '+escapeHtml(title):' by '+escapeHtml(name)}">
         <div class="comos-post-header"><strong>${escapeHtml(name)}</strong><time${timestamp?` datetime="${timestamp}" data-relative-post`:''}>${escapeHtml(relativePostTime(post.createdAt,now))}</time></div>

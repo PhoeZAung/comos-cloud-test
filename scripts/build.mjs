@@ -18,7 +18,7 @@ for (const file of files) {
   await mkdir(new URL('dist/assets/routes/', root), {recursive:true});
   await writeFile(new URL(`dist/assets/routes/${page.id}.mjs`,root), 'export default '+JSON.stringify(routeView(page))+';\n');
 }
-const styles = await Promise.all(['tokens.css', 'site.css', 'feed-lore.css', 'feed-additions.css', 'thread.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
+const styles = await Promise.all(['tokens.css', 'site.css', 'character-carousel.css', 'feed-lore.css', 'feed-additions.css', 'thread.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
 await mkdir(new URL('dist/assets/', root), { recursive: true });
 await mkdir(new URL('dist/preview/', root), { recursive: true });
 for (const file of ['runtime.mjs', 'store.mjs', 'fixtures.mjs']) {
@@ -32,7 +32,7 @@ for (const [id, html] of pages) await writeFile(new URL(`dist/${id}.html`, root)
 await writeFile(new URL('dist/assets/site.css', root), styles.join('\n'));
 console.log(`Built ${pages.length} Comos pages in isolated fixture preview mode.`);
 
-for (const file of ['shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','items.mjs','record-id.mjs','feed.mjs','compose.mjs','post-thread.mjs','directory.mjs','character-view.mjs','admin-icons.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
+for (const file of ['shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','items.mjs','record-id.mjs','feed.mjs','compose.mjs','post-thread.mjs','directory.mjs','character-view.mjs','character-library.mjs','admin-icons.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
 await writeFile(new URL('dist/assets/galaxy.mjs',root),await readFile(new URL('src/effects/galaxy.mjs',root)));
 
 await cp(new URL('src/account/',root),new URL('dist/account/',root),{recursive:true});

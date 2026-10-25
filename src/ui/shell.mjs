@@ -7,6 +7,7 @@ async function mountPage() {
   const generation=++routeGeneration;
   if(live)setSessionUser(sessionUser);
   const id=document.body.dataset.page;
+  if(id==='characters'){const {mountCharacterLibrary}=await import('./character-library.mjs');if(generation===routeGeneration)cleanup=mountCharacterLibrary({fixture:!live});}
   if(live&&id==='home'){const {mountFeed}=await import('./feed.mjs');if(generation===routeGeneration)cleanup=mountFeed();}
   if(id==='post'){const {mountPostThread}=await import('./post-thread.mjs');if(generation===routeGeneration)cleanup=mountPostThread({fixture:!live});}
   if(id==='compose'){const {mountCompose}=await import('./compose.mjs');if(generation===routeGeneration)cleanup=mountCompose({fixture:!live});}

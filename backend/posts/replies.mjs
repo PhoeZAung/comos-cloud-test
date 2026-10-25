@@ -6,12 +6,13 @@ const plain=(value,allowed)=>value && typeof value==='object' && !Array.isArray(
   && Object.getPrototypeOf(value)===Object.prototype && Object.keys(value).every(key=>allowed.includes(key));
 
 export function validateReply(data) {
-  if(!plain(data,['text','clientRequestId'])||typeof data.text!=='string'||typeof data.clientRequestId!=='string'||!uuid.test(data.clientRequestId))
+  if(!plain(data,['text','clientRequestId','parentReplyId'])||typeof data.text!=='string'||typeof data.clientRequestId!=='string'||!uuid.test(data.clientRequestId))
     throw fail('INVALID_REPLY','Invalid reply.');
   const text=data.text.trim();
   if(!text||[...text].length>2000||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(text))
     throw fail('INVALID_REPLY','Reply must be 1–2000 characters.');
-  return {text,clientRequestId:data.clientRequestId};
+  if(data.parentReplyId!==undefined&&data.parentReplyId!==null&&!uuid.test(data.parentReplyId))throw fail('INVALID_REPLY','Invalid reply target.');
+  return {text,clientRequestId:data.clientRequestId,parentReplyId:data.parentReplyId||null};
 }
 function parseCursor(value) {
   if(!value)return null;
@@ -27,11 +28,13 @@ const encodeCursor=row=>Buffer.from(JSON.stringify({createdAt:row.createdAt,id:r
 
 export function createRepliesService(db,{posts,now=()=>new Date().toISOString(),ids=randomUUID}={}) {
   if(typeof posts?.get!=='function')throw new TypeError('Authorized post reader required.');
-  const lookup=db.prepare(`SELECT r.id,r.post_id AS postId,r.author_id AS authorId,u.display_name AS authorName,
-    r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id WHERE r.id=?`);
-  const prior=db.prepare('SELECT id,post_id AS postId,body AS text FROM feed_replies WHERE author_id=? AND client_request_id=?');
-  const page=db.prepare(`SELECT r.id,r.post_id AS postId,r.author_id AS authorId,u.display_name AS authorName,
-    r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id
+  const lookup=db.prepare(`SELECT r.id,r.post_id AS postId,r.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,
+    r.parent_reply_id AS parentReplyId,r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id WHERE r.id=?`);
+  const prior=db.prepare('SELECT id,post_id AS postId,parent_reply_id AS parentReplyId,body AS text FROM feed_replies WHERE author_id=? AND client_request_id=?');
+  const validParent=db.prepare('SELECT post_id AS postId FROM feed_replies WHERE id=?');
+  const decorate=row=>{if(!row)return row;const {authorAvatarId,...safe}=row;return {...safe,avatarUrl:authorAvatarId?'/api/v1/member-avatars/'+encodeURIComponent(row.authorId):null};};
+  const page=db.prepare(`SELECT r.id,r.post_id AS postId,r.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,
+    r.parent_reply_id AS parentReplyId,r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id
     WHERE r.post_id=? AND (? IS NULL OR r.created_at<? OR (r.created_at=? AND r.id<?))
     ORDER BY r.created_at DESC,r.id DESC LIMIT 21`);
   return Object.freeze({
@@ -41,20 +44,21 @@ export function createRepliesService(db,{posts,now=()=>new Date().toISOString(),
       const previous=parseCursor(cursor);
       const rows=page.all(postId,previous?.createdAt??null,previous?.createdAt??null,previous?.createdAt??null,previous?.id??null);
       const replies=rows.slice(0,20);
-      return {replies,nextCursor:rows.length>20?encodeCursor(replies.at(-1)):null};
+      return {replies:replies.map(decorate),nextCursor:rows.length>20?encodeCursor(replies.at(-1)):null};
     },
     create(userId,postId,data,{admin=false}={}) {
       posts.get(userId,postId,{admin});
       const value=validateReply(data);
       const old=prior.get(userId,value.clientRequestId);
       if(old){
-        if(old.postId!==postId||old.text!==value.text)throw fail('REPLY_CONFLICT','Request ID reused for another reply.');
-        return lookup.get(old.id);
+        if(old.postId!==postId||old.text!==value.text||(old.parentReplyId||null)!==value.parentReplyId)throw fail('REPLY_CONFLICT','Request ID reused for another reply.');
+        return decorate(lookup.get(old.id));
       }
+      if(value.parentReplyId&&validParent.get(value.parentReplyId)?.postId!==postId)throw fail('INVALID_REPLY','Reply target is not in this post.');
       const id=ids();
-      db.prepare('INSERT INTO feed_replies(id,post_id,author_id,client_request_id,body,created_at) VALUES(?,?,?,?,?,?)')
-        .run(id,postId,userId,value.clientRequestId,value.text,now());
-      return lookup.get(id);
+      db.prepare('INSERT INTO feed_replies(id,post_id,author_id,client_request_id,body,created_at,parent_reply_id) VALUES(?,?,?,?,?,?,?)')
+        .run(id,postId,userId,value.clientRequestId,value.text,now(),value.parentReplyId);
+      return decorate(lookup.get(id));
     },
     remove(userId,replyId) {
       if(!userId||typeof replyId!=='string'||!uuid.test(replyId))throw fail('REPLY_NOT_FOUND','Reply not found.');

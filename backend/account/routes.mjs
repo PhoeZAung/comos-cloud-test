@@ -12,9 +12,11 @@ async function bytes(req,max) {
 }
 export function createAccountRoutes({sessions,account,origin,throttle=createAuthThrottle()}) {
  return async(req,res,pathname,send)=>{
-  if(!['/api/v1/account','/api/v1/account/avatar'].includes(pathname))return false;
+  const memberPrefix='/api/v1/member-avatars/';
+  const memberAvatar=pathname.startsWith(memberPrefix);
+  if(!memberAvatar&&!['/api/v1/account','/api/v1/account/avatar'].includes(pathname))return false;
   const read=['GET','HEAD'].includes(req.method),avatar=pathname.endsWith('/avatar');
-  if(!read&&!['POST','DELETE'].includes(req.method)||!avatar&&req.method==='DELETE'){send(405,{error:'method_not_allowed'});return true;}
+  if(memberAvatar&&!read||!read&&!['POST','DELETE'].includes(req.method)||!memberAvatar&&!avatar&&req.method==='DELETE'){send(405,{error:'method_not_allowed'});return true;}
   if(!read&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){send(403,{error:'origin_not_allowed'});return true;}
   const admission=throttle.enter(req.socket?.remoteAddress||'unknown',read?'restore':'profile');
   if(!admission.allowed){res.setHeader('Retry-After',String(admission.retryAfter));send(429,{error:'too_many_requests'});return true;}
@@ -23,9 +25,11 @@ export function createAccountRoutes({sessions,account,origin,throttle=createAuth
    try{({user}=await sessions.restore(sessionCookie(req)));}
    catch(error){if(['auth/internal-error','auth/network-request-failed','app/network-error','auth/insufficient-permission'].includes(error.code))throw error;send(401,{error:'sign_in_required'});return true;}
    if(read){
-    if(!avatar)send(200,{user:account.get(user.id)});
+    if(!avatar&&!memberAvatar)send(200,{user:account.get(user.id)});
     else {
-     const body=await account.avatar(user.id);
+     const target=memberAvatar?pathname.slice(memberPrefix.length):user.id;
+     if(memberAvatar&&!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(target)){send(404,{error:'not_found'});return true;}
+     const body=await account.avatar(target);
      if(!body)send(404,{error:'not_found'});
      else {res.writeHead(200,{'Content-Type':'image/jpeg','Content-Length':body.length,'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Cross-Origin-Resource-Policy':'same-origin'});res.end(req.method==='HEAD'?undefined:body);}
     }

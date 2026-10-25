@@ -35,9 +35,9 @@ const encodeCursor=post=>Buffer.from(JSON.stringify({createdAt:post.createdAt,id
 export function createPostsService(db,{now=()=>new Date().toISOString(),ids=randomUUID}={}) {
   const media=id=>db.prepare('SELECT m.id FROM home_post_media pm JOIN home_media m ON m.id=pm.media_id WHERE pm.post_id=? ORDER BY pm.position').all(id).map(m=>({id:m.id,url:'/api/v1/home-media/'+m.id}));
   const byRequest=db.prepare('SELECT id,title,body AS text FROM home_posts WHERE author_id=? AND client_request_id=?');
-  const byId=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,p.title,p.body AS text,p.created_at AS createdAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE p.id=?');
-  const decorate=p=>p?{...p,media:media(p.id)}:p;
-  const timeline=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,p.title,p.body AS text,p.created_at AS createdAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE (? IS NULL OR p.created_at<? OR (p.created_at=? AND p.id<?)) ORDER BY p.created_at DESC,p.id DESC LIMIT 21');
+  const byId=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,p.title,p.body AS text,p.created_at AS createdAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE p.id=?');
+  const decorate=p=>{if(!p)return p;const {authorAvatarId,...safe}=p;return {...safe,avatarUrl:authorAvatarId?'/api/v1/member-avatars/'+encodeURIComponent(p.authorId):null,media:media(p.id)};};
+  const timeline=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,p.title,p.body AS text,p.created_at AS createdAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE (? IS NULL OR p.created_at<? OR (p.created_at=? AND p.id<?)) ORDER BY p.created_at DESC,p.id DESC LIMIT 21');
   return Object.freeze({
     get(userId,id,{admin=false}={}) {
       if(!userId)throw bad('Sign in required.');

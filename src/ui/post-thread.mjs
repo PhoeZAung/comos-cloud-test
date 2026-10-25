@@ -6,11 +6,11 @@ export function mountPostThread({fixture=false}={}) {
   if(!root)return ()=>{};
   const controller=new AbortController();
   const postId=new URLSearchParams(location.search).get('id');
-  let post=null,replies=[],cursor=null,previewOffset=0,viewerId='',busy=false,closed=false,requestId=crypto.randomUUID();
+  let post=null,replies=[],cursor=null,previewOffset=0,viewerId='',busy=false,closed=false,replyTarget=null,requestId=crypto.randomUUID();
   const path=()=>'/api/v1/posts/'+encodeURIComponent(postId);
   const count=()=>{const input=root.querySelector('[name=text]'),counter=root.querySelector('[data-reply-count]'),button=root.querySelector('[data-reply-submit]');
     if(!input)return;const size=[...input.value].length;counter.textContent=size+' / 2000';button.disabled=busy||!input.value.trim()||size>2000;};
-  function paint(){if(closed||!post)return;root.innerHTML=renderPostThread({post,replies,nextCursor:cursor,more:fixture&&cursor!==null,viewerId});count();}
+  function paint(){if(closed||!post)return;root.innerHTML=renderPostThread({post,replies,nextCursor:cursor,more:fixture&&cursor!==null,viewerId,replyTarget});count();}
   function notice(message){const el=root.querySelector('[data-reply-status]');if(el)el.textContent=message;else if(!closed)root.innerHTML=renderThreadUnavailable(message);}
   async function getJson(url,options={}){
     const res=await fetch(url,{credentials:'same-origin',cache:'no-store',signal:controller.signal,...options});
@@ -52,19 +52,22 @@ export function mountPostThread({fixture=false}={}) {
     const input=form.querySelector('[name=text]');const text=input.value.trim();if(!text||[...text].length>2000)return;
     busy=true;count();notice('Publishing reply…');
     try{
-      if(fixture){currentPreview().data.create('replies',{postId,authorId:viewerId,authorName:'Preview explorer',text,createdAt:new Date().toISOString()});
+      if(fixture){currentPreview().data.create('replies',{postId,authorId:viewerId,authorName:'Preview explorer',text,parentReplyId:replyTarget?.id||null,createdAt:new Date().toISOString()});
         previewOffset=0;fixtureReplies();}
       else{
-        const res=await fetch(path()+'/replies',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,clientRequestId:requestId}),signal:controller.signal});
+        const res=await fetch(path()+'/replies',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,clientRequestId:requestId,...(replyTarget?{parentReplyId:replyTarget.id}:{})}),signal:controller.signal});
         if(!res.ok){const message=({401:'Sign in to reply.',403:'You no longer have access to reply.',404:'This post is no longer available.',429:'Too many replies. Try again later.'})[res.status]||'Could not publish reply.';throw Error(message);}
         const data=await getJson(path()+'/replies');replies=data.replies;cursor=data.nextCursor||null;
       }
-      requestId=crypto.randomUUID();busy=false;paint();notice('Reply posted.');
+      requestId=crypto.randomUUID();replyTarget=null;busy=false;paint();notice('Reply posted.');
     }catch(error){if(!closed&&!controller.signal.aborted)notice(error.message);}
     finally{busy=false;count();}
   },{signal:controller.signal});
   root.addEventListener('click',async event=>{
     const next=event.target.closest('[data-more-replies]'),del=event.target.closest('[data-reply-delete]');
+    const to=event.target.closest('[data-reply-to]'),cancel=event.target.closest('[data-cancel-reply]');
+    if(cancel){replyTarget=null;requestId=crypto.randomUUID();paint();root.querySelector('[name=text]')?.focus();return;}
+    if(to){const target=replies.find(reply=>reply.id===to.dataset.replyTo);if(target){replyTarget={id:target.id,authorName:target.authorName};requestId=crypto.randomUUID();paint();root.querySelector('[name=text]')?.focus();root.querySelector('[data-reply-form]')?.scrollIntoView({behavior:'smooth',block:'center'});}return;}
     if(next&&!busy){busy=true;next.disabled=true;
       try{if(fixture){previewOffset+=20;fixtureReplies();}else if(cursor){const page=await getJson(path()+'/replies?cursor='+encodeURIComponent(cursor));
         replies=[...replies,...page.replies];cursor=page.nextCursor||null;}paint();}
