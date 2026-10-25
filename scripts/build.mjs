@@ -18,7 +18,7 @@ for (const file of files) {
   await mkdir(new URL('dist/assets/routes/', root), {recursive:true});
   await writeFile(new URL(`dist/assets/routes/${page.id}.mjs`,root), 'export default '+JSON.stringify(routeView(page))+';\n');
 }
-const styles = await Promise.all(['tokens.css', 'site.css', 'character-carousel.css', 'feed-lore.css', 'feed-additions.css', 'thread.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
+const styles = await Promise.all(['tokens.css', 'site.css', 'character-carousel.css', 'character-wizard.css', 'feed-lore.css', 'feed-additions.css', 'thread.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
 await mkdir(new URL('dist/assets/', root), { recursive: true });
 await mkdir(new URL('dist/preview/', root), { recursive: true });
 for (const file of ['runtime.mjs', 'store.mjs', 'fixtures.mjs']) {

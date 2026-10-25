@@ -1,4 +1,5 @@
 import {randomUUID} from 'node:crypto';
+import {validateWizardFields} from './editor-fields.mjs';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 import {createAuthThrottle} from '../auth/throttle.mjs';
 const fail=(code,message)=>Object.assign(new Error(message),{code});
@@ -54,6 +55,18 @@ export function createCharacterLibraryService(db){
       const rows=page.all(ownerId,cursor);
       return {characters:rows.slice(0,40).map(roster),nextCursor:rows.length>40?rows[39].id:null};
     },
+    create(ownerId,raw){
+      if(!ownerId)throw fail('INVALID_IMPORT','Sign in first.');
+      const values=validateWizardFields('identity',raw?.fields);
+      const id=randomUUID(),now=new Date().toISOString();
+      db.exec('BEGIN IMMEDIATE');
+      try {
+        db.prepare('INSERT INTO characters(id,owner_id,name,sources_json,created_at,updated_at) VALUES(?,?,?,?,?,?)').run(id,ownerId,values.charName,'[]',now,now);
+        db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(id,JSON.stringify(values));
+        db.exec('COMMIT');
+        return {id,name:values.charName,revision:1,data:values};
+      }catch(error){db.exec('ROLLBACK');throw error;}
+    },
     import(ownerId,raw){
       if(!ownerId)throw fail('INVALID_IMPORT','Sign in first.');
       const character=parseCharacterImport(raw),id=randomUUID(),now=new Date().toISOString();
@@ -73,18 +86,22 @@ export function createCharacterLibraryRoutes({db,sessions,origin,throttle=create
   return async(req,res,pathname,send)=>{
     const list=pathname==='/api/v1/my/characters',upload=pathname==='/api/v1/my/characters/import';
     if(!list&&!upload)return false;
-    if(!(list&&req.method==='GET')&&!(upload&&req.method==='POST')){res.setHeader('Allow',list?'GET':'POST');send(405,{error:'method_not_allowed'});return true;}
-    if(upload&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){send(403,{error:'origin_not_allowed'});return true;}
-    const permit=throttle.enter(req.socket?.remoteAddress||'unknown',list?'restore':'profile');
+    if(!(list&&['GET','POST'].includes(req.method))&&!(upload&&req.method==='POST')){res.setHeader('Allow',list?'GET, POST':'POST');send(405,{error:'method_not_allowed'});return true;}
+    if(req.method==='POST'&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){send(403,{error:'origin_not_allowed'});return true;}
+    const permit=throttle.enter(req.socket?.remoteAddress||'unknown',req.method==='GET'?'restore':'profile');
     if(!permit.allowed){res.setHeader('Retry-After',String(permit.retryAfter));send(429,{error:'too_many_requests'});return true;}
     try{
       const session=await adminSession(req,sessions,new Set());
       if(!session){send(401,{error:'sign_in_required'});return true;}
       const userId=session.user.id;
-      if(list){
+      if(list&&req.method==='GET'){
         const url=new URL(req.url,origin);
         if([...url.searchParams.keys()].some(key=>key!=='cursor')){send(400,{error:'invalid_cursor'});return true;}
         send(200,service.list(userId,url.searchParams.get('cursor')||''));
+      }else if(list){
+        if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
+        const body=await adminJson(req,210000);
+        send(201,{character:service.create(userId,body)});
       }else{
         if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
         const body=await adminJson(req,270000);
@@ -92,7 +109,7 @@ export function createCharacterLibraryRoutes({db,sessions,origin,throttle=create
       }
     }catch(error){
       if(error.httpStatus)send(error.httpStatus,{error:error.error});
-      else if(error.code==='INVALID_IMPORT')send(400,{error:'invalid_import',message:error.message});
+      else if(['INVALID_IMPORT','INVALID_CHARACTER'].includes(error.code))send(400,{error:'invalid_import',message:error.message});
       else send(503,{error:'service_unavailable'});
     }finally{permit.release();}
     return true;

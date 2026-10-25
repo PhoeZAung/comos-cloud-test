@@ -19,7 +19,7 @@ function card(character,index,selected,total){
       '<div class="cc-tags">'+(tags.length?tags.map(t=>'<span>'+esc(t)+'</span>').join(''):'<span class="cc-untagged">No tags yet</span>')+'</div>'+
       '<p class="cc-bio">'+(character.bio?esc(String(character.bio).slice(0,140)):'Bio space reserved for later')+'</p>'+
       '</div></button>'+
-      (!id.startsWith('fixture:')?'<div class="cc-panel-actions"><a class="button primary" href="sheet.html?characterId='+encodeURIComponent(id)+'">Open sheet</a><a class="button" href="create-source.html?characterId='+encodeURIComponent(id)+'">Edit</a></div>':
+      (!id.startsWith('fixture:')?'<div class="cc-panel-actions"><a class="button primary" href="sheet.html?characterId='+encodeURIComponent(id)+'">Open sheet</a><a class="button" href="create-identity.html?characterId='+encodeURIComponent(id)+'">Edit</a></div>':
        '<div class="cc-panel-actions"><span class="cc-preview-note">Preview character</span></div>')+
       '</article>';
 }
@@ -46,7 +46,7 @@ function listRow(character) {
     '</div>'+
     (fixture?'':'<div class="cc-list-actions">'+
       '<a class="cc-list-action" href="sheet.html?characterId='+target+'" aria-label="Open sheet for '+name+'" title="Open character sheet">'+externalIcon+'</a>'+
-      '<a class="cc-list-action" href="create-source.html?characterId='+target+'" aria-label="Edit '+name+'" title="Edit character">'+editIcon+'</a>'+
+      '<a class="cc-list-action" href="create-identity.html?characterId='+target+'" aria-label="Edit '+name+'" title="Edit character">'+editIcon+'</a>'+
     '</div>')+
   '</article>';
 }

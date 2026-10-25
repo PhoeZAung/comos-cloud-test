@@ -6,7 +6,7 @@ export const brand = 'Comos';
 const navigation = {
   main: [['home', 'Home'], ['lore', 'Lore'], ['characters', 'Characters']],
   public: [['signin', 'Sign in'], ['signup', 'Sign up']],
-  wizard: [['create-source', 'Sources'], ['create-identity', 'Identity'], ['create-race', 'Race'], ['create-class', 'Class & level']],
+  wizard: [['create-identity', 'Identity'], ['create-race', 'Race'], ['create-class', 'Class & level']],
   admin: [['admin', 'Character controls'], ['admin-items', 'Item controls']],
   sheet: [['sheet', 'Overview'], ['sheet-inventory', 'Inventory'], ['sheet-abilities', 'Abilities'], ['sheet-shop', 'Shop']],
 };

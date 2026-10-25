@@ -1,5 +1,6 @@
 import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
+import {mergeWizardData} from './editor-fields.mjs';
 export function createDirectoryRoutes({db,sessions,adminUids,origin}){
  const admins=new Set(adminUids);
  const tags=()=>db.prepare('SELECT * FROM character_tags ORDER BY name,id').all();
@@ -26,12 +27,18 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    if(!c||(!session.admin&&c.owner_id!==session.user.id)){send(404,{error:'not_found'});return true;}
    let data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');
    if(req.method==='POST'){
-    const change=await adminJson(req,20000);if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
+    const change=await adminJson(req,230000);if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
     db.exec('BEGIN IMMEDIATE');try{
      if(db.prepare('SELECT revision FROM characters WHERE id=?').get(id).revision!==change.revision)throw Object.assign(Error('Character changed. Reload before saving.'),{httpStatus:409});
      if(change.op==='tags'){
       if(!session.admin)throw Object.assign(Error('Administrator access required.'),{httpStatus:403});if(!Array.isArray(change.tagIds)||change.tagIds.length>100||change.tagIds.some(t=>typeof t!=='string'||!db.prepare('SELECT 1 FROM character_tags WHERE id=?').get(t)))throw Error('Invalid tags.');
       db.prepare('DELETE FROM character_tag_links WHERE character_id=?').run(id);for(const t of new Set(change.tagIds))db.prepare('INSERT INTO character_tag_links VALUES(?,?)').run(id,t);data.group_tags=change.tagIds.map(t=>db.prepare('SELECT name FROM character_tags WHERE id=?').get(t).name);db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
+     }else if(change.op==='wizard'){
+      if(!['identity','race','class'].includes(change.step))throw Error('Invalid wizard step.');
+      data=mergeWizardData(data,change.step,change.fields);
+      if(Buffer.byteLength(JSON.stringify(data))>380000)throw Error('Character data is too large.');
+      db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
+      if(change.step==='identity')db.prepare('UPDATE characters SET name=? WHERE id=?').run(data.charName,id);
      }else if(change.op==='edit'){
       if(!change.fields||Object.keys(change.fields).some(k=>!['charName','race','class','level'].includes(k)))throw Error('Invalid character fields.');
       for(const [key,value] of Object.entries(change.fields)){if(typeof value!=='string'||value.length>120||/[\u0000-\u001f]/.test(value))throw Error('Invalid field.');if(key==='charName'&&(!value.trim()||value.length>80))throw Error('Enter a character name.');if(key==='level'&&!/^(?:[1-9]|[1-9][0-9])$/.test(value))throw Error('Level must be 1–99.');data[key]=value.trim();}
