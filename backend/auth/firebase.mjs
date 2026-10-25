@@ -1,3 +1,6 @@
+import {createItemsService} from '../items/service.mjs';
+import {createItemsRoutes} from '../items/routes.mjs';
+import {resolveAdministrators} from './administrators.mjs';
 import {createCharactersService} from '../characters/service.mjs';
 import {createCharactersRoutes} from '../characters/routes.mjs';
 import {createGroupsService} from '../groups/service.mjs';
@@ -40,9 +43,12 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
   try {
     const sessions = createSessionService({ db, auth: getAuth(app), projectId: config.projectId });
     const accountRoutes=mediaRoot?createAccountRoutes({sessions,origin:config.origin,account:createAccountService({db,files:await createFileStore(mediaRoot)})}):null;
-    const adminUids=(env.COMOS_ADMIN_FIREBASE_UIDS||'').split(',').map(s=>s.trim()).filter(Boolean);
+    const administrators=await resolveAdministrators({db,auth:getAuth(app),projectId:config.projectId,env});
+    const adminUids=administrators.uids;
+    if(env.COMOS_ADMIN_BOOTSTRAP_EMAIL)console.info('Comos admin bootstrap: '+administrators.status+'.');
+    const itemsRoutes=createItemsRoutes({sessions,items:createItemsService(db),origin:config.origin,adminUids});
     const charactersRoutes=createCharactersRoutes({sessions,characters:createCharactersService(db),origin:config.origin,adminUids});
     const groupsRoutes=createGroupsRoutes({sessions,groups:createGroupsService(db),origin:config.origin,adminUids});
-    return { charactersRoutes,groupsRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
+    return { itemsRoutes,charactersRoutes,groupsRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }

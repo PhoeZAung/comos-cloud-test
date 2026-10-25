@@ -82,3 +82,6 @@ Sources checked 24 October 2026:
 - https://learn.chatgpt.com/docs/learn/best-practices
 
 The task-allocation table and batching rules above are project-specific engineering recommendations, not OpenAI product guarantees.
+
+## 0.7.0 handoff update
+Step 4 admin implementations now cover Groups, Character controls and Item controls. Continue using regular ChatGPT for source-grounded item descriptions, category suggestions and import mapping drafts; keep the real import adapter, permissions, revision checks and deployment integration here. Do not upload private account exports as catalog fixtures. Next implementation slice is 5.1 scoped Home feed; first test the owner Admin entry and group assignments on the phone. The character wizard navigation is sequential (current name, Back/Next); actual wizard inputs and rule adapters are still Step 8.

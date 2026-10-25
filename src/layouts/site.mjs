@@ -27,7 +27,7 @@ export function header(page) {
 }
 
 export function routeView(page) {
-  const section = page.section ? (page.section === 'sheet' ? '' : back) + nav(page.section, page.id, 'tabs', labels[page.section]) : '';
+  const section = page.section && page.section !== 'wizard' ? (page.section === 'sheet' ? '' : back) + nav(page.section, page.id, 'tabs', labels[page.section]) : '';
   return { id:page.id, title:page.title, bodyClass:page.bodyClass, layout:page.layout, header:header(page), main:section + page.content };
 }
 

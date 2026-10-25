@@ -96,3 +96,9 @@ World/party/member controls and server-enforced admin access implemented. See GR
 - Ghost browser: owner/name/source edits, add record and archive/restore verified. Source input sizing checked at a 320px iframe viewport; fixed narrow-field overflow.
 - All 21 generated routes and local links continue to resolve through the route checks.
 - Live Firebase admin acceptance remains owner-configured; no admin UID was inferred or granted. No legacy data migration, source compatibility validation or sheet implementation is claimed.
+
+## Cloud 0.7.0 — owner administration, wizard navigation and Step 4.3
+- 49 automated tests pass. New checks cover verified Firebase administrator lookup, persistent UID pinning, unverified/disabled/mismatched/deleted account denial, and item metadata/security/pagination.
+- Item descriptions are omitted from list responses and loaded separately on edit. Existing group/character authorization tests pass with shared request parsing.
+- Browser Ghost QA at a 320px iframe width: item add, archive/search/restore and current-stage wizard Next/Back passed. The item editor has no horizontal page overflow (305px content width with the test browser scrollbar).
+- Real administrator resolution must report ready in the private deployment log. Authenticated phone access and persistent edits still require user acceptance. No browser login or synthetic token was used to bypass Firebase.

@@ -2,7 +2,7 @@
 
 Planning baseline: 23 October 2026. Source: the **New layout** section of your Obsidian Mind Map.md and read-only inspection of PhoeZAung/Mount-Aetheria. The original note and repository have not been edited.
 
-**Current progress: template and backend foundation implemented; Step 2.3/2.4 live authentication acceptance pending.** See [STATUS.md](STATUS.md) for the current state and [MIND-MAP.md](MIND-MAP.md) for what to draft in regular ChatGPT versus integrate here. Step 1.1 still needs full keyboard/zoom/sheet review. Later game features remain pending. Coherent batches are authorized; do not mark real-service acceptance complete from simulated tests.
+**Current progress: shared shell, Firebase authentication, Account and Admin implementations through Step 4.3 are available. Real-device acceptance remains tracked separately.** See [STATUS.md](STATUS.md) for the current state and [MIND-MAP.md](MIND-MAP.md) for what to draft in regular ChatGPT versus integrate here. Step 1.1 still needs full keyboard/zoom/sheet review. Later game features remain pending. Coherent batches are authorized; do not mark real-service acceptance complete from simulated tests.
 
 ## Step 0 — template and boundaries
 - [x] Separate public landing, sign-in/sign-up, Home, Lore, Characters, Account, Admin, wizard and sheet routes.
@@ -34,12 +34,13 @@ Depends on: 2. Route: account.html.
 - [ ] 3.3 Add password reset and other settings later once the identity provider is settled.
 Done when: name/icon persist across sessions, theme applies across routes, and Admin is accessed from Characters rather than Account.
 
-## Step 4 — Admin and groups
+## Step 4 — Admin and groups (IMPLEMENTED; PHONE ACCEPTANCE PENDING)
 Depends on: 2; profile presentation can use 3. Routes: admin.html, admin-items.html, admin-groups.html.
-- [ ] 4.1 Groups: configure the four worlds, parties belonging to a world, and membership assignments. Give each user a stable player identity automatically. Admin assigns world/party access. Do not infer the four world names from the old page's six categories.
-- [ ] 4.2 Character controls: list/manage authorized characters, ownership and source metadata. Show Admin panel on Characters for real admins; show it freely in fixture preview.
-- [ ] 4.3 Item controls: establish item IDs, source association, schema version, validation and later editing/import.
-- [ ] 4.4 Third admin tab is Groups for now; defer unknown tools until identified.
+- [x] 4.1 Groups: configure the four worlds, parties belonging to a world, and membership assignments. Give each user a stable player identity automatically. Admin assigns world/party access. Do not infer the four world names from the old page's six categories.
+- [x] 4.2 Character controls: list/manage authorized characters, ownership and source metadata. Show Admin panel on Characters for real admins; show it freely in fixture preview.
+- [x] 4.3 Item controls: establish item IDs, source association, schema version, validation and later editing/import.
+- [x] 4.4 Third admin tab is Groups for now; defer unknown tools until identified.
+- [ ] Phone acceptance: confirm the designated owner sees Characters → Admin panel and can persist Groups, Character controls and Item controls changes. Code completion above does not mark this real-device check complete.
 Done when: authorization tests cover another world's data, another party, a personal entry, removed memberships and admin-only writes.
 
 Access decision: each record specifies worldId, optional partyId and optional playerId. Every specified scope must match the viewer, unless the server grants admin access. A world-only record is visible to that world's members; adding party/player narrows access. Tags are access scopes, not cosmetic client filters. Model memberships as sets so future multiple parties do not require rewriting users.
@@ -147,3 +148,6 @@ World/party/member controls and server-enforced admin access implemented. See GR
 
 ## Cloud continuation — Step 4.2 (0.6.0)
 Implemented admin character metadata, owner/source editing, search/pagination and archive/restore, with server-side UID allowlist and revision conflicts. See CHARACTER-CONTROLS.md for phone tests and limits. Live records start empty; Ghost has isolated sample records. Wizard, source adapters, legacy migration and player cards remain pending. Next: Step 4.3 item controls.
+
+## Cloud continuation — 0.7.0
+Step 4.3 item metadata controls are implemented; see ITEM-CONTROLS.md for tests and deferred import/rules boundaries. Owner access is configured privately and resolved against Firebase on the server. The four wizard stages no longer display adjacent stage tabs: use the current stage name and Back/Next. Step 8 forms remain placeholders. Implementation checkboxes for 4.1–4.4 are now explicit; phone acceptance remains unchecked. Next slice: Step 5.1 scoped Home feed after owner/Groups acceptance.
