@@ -14,6 +14,7 @@ try {
  await mkdir(output+'/assets');
  await cp(new URL('dist/',root),output+'/preview',{recursive:true});
  await cp(new URL('dist/assets/',root),output+'/assets',{recursive:true});
+ await cp(new URL('dist/features/',root),output+'/features',{recursive:true});
  await build({entryPoints:[fileURLToPath(new URL('src/auth/live.mjs',root))],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:output+'/assets/auth.js',define:{COMOS_PUBLIC_AUTH:JSON.stringify(config)}});
  const policy=liveAuthPolicy(config);
  // assets/routes exists in the copied portable build.
