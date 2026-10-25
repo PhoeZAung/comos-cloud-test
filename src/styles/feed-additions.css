@@ -1,0 +1,17 @@
+/* Post-only Home. The existing shared site navigation stays unchanged. */
+.comos-feed-phase,.comos-fixture-control,.comos-feed-preview{display:none!important}
+.comos-post-delete{display:inline-flex;align-items:center;min-height:35px;color:var(--muted);border:0;background:transparent;font:13px system-ui;cursor:pointer;padding:4px 0}
+.comos-post-delete:hover{color:var(--accent)}
+.comos-composer{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.comos-composer h1{font:600 clamp(26px,4vw,33px)/1.25 system-ui,sans-serif}
+.comos-composer form,.comos-composer [data-compose-scopes]{display:flex;flex-direction:column;gap:12px}
+.comos-composer form>label,.comos-composer [data-compose-scopes]>label{font-weight:600;font-size:14px}
+.comos-composer textarea,.comos-composer select{width:100%;padding:13px 14px;background:var(--surface);border:1px solid var(--line);border-radius:11px;color:var(--text);font:15px/1.5 system-ui;min-height:44px}
+.comos-composer textarea{resize:vertical;min-height:155px}
+.comos-composer textarea:focus-visible,.comos-composer select:focus-visible,.comos-post-delete:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.comos-composer [data-compose-scopes][hidden]{display:none}
+.comos-count{margin:-5px 0 0;color:var(--muted);text-align:right;font-size:12px}
+.comos-composer [data-compose-status]{min-height:22px;margin:0;color:var(--muted);font-size:13px}
+.comos-composer button[type=submit]{align-self:flex-end;min-width:110px}
+.comos-composer button:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:640px){.comos-composer{gap:14px}}

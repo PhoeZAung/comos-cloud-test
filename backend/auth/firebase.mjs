@@ -1,3 +1,5 @@
+import {createPostsService} from '../posts/service.mjs';
+import {createPostsRoutes} from '../posts/routes.mjs';
 import {createItemsService} from '../items/service.mjs';
 import {createItemsRoutes} from '../items/routes.mjs';
 import {resolveAdministrators} from './administrators.mjs';
@@ -49,6 +51,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const itemsRoutes=createItemsRoutes({sessions,items:createItemsService(db),origin:config.origin,adminUids});
     const charactersRoutes=createCharactersRoutes({sessions,characters:createCharactersService(db),origin:config.origin,adminUids});
     const groupsRoutes=createGroupsRoutes({sessions,groups:createGroupsService(db),origin:config.origin,adminUids});
-    return { itemsRoutes,charactersRoutes,groupsRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
+    const postsRoutes=createPostsRoutes({sessions,posts:createPostsService(db),origin:config.origin,adminUids});
+    return { itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }

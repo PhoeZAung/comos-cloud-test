@@ -9,7 +9,7 @@ const db = await openDatabase(config.databasePath);
 try { await createFileStore(config.mediaRoot); } catch (error) { db.close(); throw error; }
 let authentication;
 try { authentication = await initializeAuthentication({ db,mediaRoot:config.mediaRoot }); } catch (error) { db.close(); throw error; }
-const server = createApiServer({ db, itemsRoutes:authentication.itemsRoutes, charactersRoutes:authentication.charactersRoutes, sessionRoutes: authentication.sessionRoutes,groupsRoutes:authentication.groupsRoutes,accountRoutes:authentication.accountRoutes });
+const server = createApiServer({ db, postsRoutes:authentication.postsRoutes, itemsRoutes:authentication.itemsRoutes, charactersRoutes:authentication.charactersRoutes, sessionRoutes: authentication.sessionRoutes,groupsRoutes:authentication.groupsRoutes,accountRoutes:authentication.accountRoutes });
 server.on('error', error => { void authentication.close(); db.close(); console.error(`API startup failed: ${error.code || 'unknown'}`); process.exitCode = 1; });
 server.listen(config.port, config.host, () => console.log(`Comos API: http://${config.host}:${server.address().port}/api/v1/health`));
 let closing = false;
