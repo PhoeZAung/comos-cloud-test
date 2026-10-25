@@ -8,6 +8,7 @@ async function mountPage() {
   if(live)setSessionUser(sessionUser);
   const id=document.body.dataset.page;
   if(live&&id==='home'){const {mountFeed}=await import('./feed.mjs');if(generation===routeGeneration)cleanup=mountFeed();}
+  if(id==='post'){const {mountPostThread}=await import('./post-thread.mjs');if(generation===routeGeneration)cleanup=mountPostThread({fixture:!live});}
   if(id==='compose'){const {mountCompose}=await import('./compose.mjs');if(generation===routeGeneration)cleanup=mountCompose({fixture:!live});}
   if(!live&&id==='home'){const {mountHomePreview}=await import('../preview/home-ui.mjs');if(generation===routeGeneration)cleanup=mountHomePreview();}
   if(!live&&id==='lore'){const {mountLorePreview}=await import('../preview/lore-ui.mjs');if(generation===routeGeneration)cleanup=mountLorePreview();}

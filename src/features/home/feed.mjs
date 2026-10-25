@@ -22,6 +22,7 @@ function postMarkup(post,viewerId='') {
     <div class="comos-post-main"><div class="comos-post-header"><strong>${escapeHtml(name)}</strong><time${date?` datetime="${escapeHtml(date)}"`:''}>${escapeHtml(label)}</time></div>
     ${scope?`<div class="comos-post-scope">${escapeHtml(scope)}</div>`:''}
     <p class="comos-post-text">${escapeHtml(post.text)}</p>
+    <a class="comos-post-open" href="post.html?id=${encodeURIComponent(String(post.id??''))}" aria-label="Read replies to post by ${escapeHtml(name)}">Reply</a>
     ${own?`<button type="button" class="comos-post-delete" data-delete-post="${escapeHtml(post.id)}">Delete</button>`:''}
     </div></article>`;
 }

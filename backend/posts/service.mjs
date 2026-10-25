@@ -53,6 +53,14 @@ export function createPostsService(db, {now = () => new Date().toISOString(), id
       AND (? IS NULL OR p.created_at<? OR (p.created_at=? AND p.id<?))
     ORDER BY p.created_at DESC,p.id DESC LIMIT 21`);
   return Object.freeze({
+    get(userId,id,{admin=false}={}) {
+      if (!userId) throw bad('Sign in required.');
+      if (typeof id !== 'string' || !uuid.test(id)) throw bad('Post not found.','POST_NOT_FOUND');
+      const post=byId.get(id);
+      // Absence and unauthorized scope intentionally have the same result.
+      if (!post || !visible(userId,admin,post.worldId,post.partyId)) throw bad('Post not found.','POST_NOT_FOUND');
+      return {...post, replyCount:db.prepare('SELECT COUNT(*) AS total FROM feed_replies WHERE post_id=?').get(post.id).total};
+    },
     scopes(userId,{admin=false}={}) {
       if (!userId) throw bad('Sign in required.');
       return {worlds:admin?adminWorlds.all():listScope.all(userId),parties:admin?adminParties.all():availableParties.all(userId)};

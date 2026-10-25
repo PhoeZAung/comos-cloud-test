@@ -46,6 +46,8 @@ Done when: authorization tests cover another world's data, another party, a pers
 Access decision: each record specifies worldId, optional partyId and optional playerId. Every specified scope must match the viewer, unless the server grants admin access. A world-only record is visible to that world's members; adding party/player narrows access. Tags are access scopes, not cosmetic client filters. Model memberships as sets so future multiple parties do not require rewriting users.
 
 ## Step 5 — Home feed
+Partial implementation note (24 October 2026): Step 5.1 has signed-in text posts; Step 5.2 now has secure text replies on individual post pages with lazy loading. Image/GIF replies and emoji picker remain pending. Do not treat full Step 5.2 as complete; see [STEP-5.2-POST-REPLIES.md](STEP-5.2-POST-REPLIES.md).
+
 Depends on: 3 and 4. Routes: home.html, post.html, compose.html.
 - [ ] 5.1 Chronological, group-scoped feed. Define newest-first cursor pagination, stable tie-breaking IDs, empty/error/loading states. No personal profile page or personal feed.
 - [ ] 5.2 Open a post to load its replies on demand. Replies support text, images, GIFs and emoji; do not preload reply threads into the feed.
