@@ -18,7 +18,7 @@ for (const file of files) {
   await mkdir(new URL('dist/assets/routes/', root), {recursive:true});
   await writeFile(new URL(`dist/assets/routes/${page.id}.mjs`,root), 'export default '+JSON.stringify(routeView(page))+';\n');
 }
-const styles = await Promise.all(['tokens.css', 'site.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
+const styles = await Promise.all(['tokens.css', 'site.css', 'feed-lore.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
 await mkdir(new URL('dist/assets/', root), { recursive: true });
 await mkdir(new URL('dist/preview/', root), { recursive: true });
 for (const file of ['runtime.mjs', 'store.mjs', 'fixtures.mjs']) {
@@ -44,4 +44,4 @@ await writeFile(new URL('dist/assets/effects.mjs',root),await readFile(new URL('
 
 
 await cp(new URL('src/features/',root),new URL('dist/features/',root),{recursive:true});
-for(const file of ['home-ui.mjs','characters-ui.mjs'])await writeFile(new URL('dist/preview/'+file,root),await readFile(new URL('src/preview/'+file,root)));
+for(const file of ['home-ui.mjs','characters-ui.mjs','lore-ui.mjs'])await writeFile(new URL('dist/preview/'+file,root),await readFile(new URL('src/preview/'+file,root)));

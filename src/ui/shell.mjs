@@ -8,6 +8,7 @@ async function mountPage() {
   if(live)setSessionUser(sessionUser);
   const id=document.body.dataset.page;
   if(!live&&id==='home'){const {mountHomePreview}=await import('../preview/home-ui.mjs');if(generation===routeGeneration)cleanup=mountHomePreview();}
+  if(!live&&id==='lore'){const {mountLorePreview}=await import('../preview/lore-ui.mjs');if(generation===routeGeneration)cleanup=mountLorePreview();}
   if(!live&&id==='characters'){const {mountCharacterPreview}=await import('../preview/characters-ui.mjs');if(generation===routeGeneration)cleanup=mountCharacterPreview();}
   if(id==='admin-items'){const {mountItems}=await import('./items.mjs');if(generation===routeGeneration)cleanup=mountItems({fixture:!live});}
   if(id==='admin'){const {mountCharacterAdmin}=await import('./character-admin.mjs');if(generation===routeGeneration)cleanup=mountCharacterAdmin({fixture:!live});}

@@ -28,3 +28,6 @@ Character metadata records, owner transfer, source versions, bounded search/pagi
 
 ## Step 4.3 and owner access — 0.7.0
 Item metadata add/edit/search/source filters, summary/detail separation and archive/restore implemented. Shared server admin request helpers enforce real sessions and host-selected UIDs. Host bootstrap resolves the designated owner email using Firebase, requires verification and pins the UID; no private identity is added to public source. The wizard now shows only the current stage and Back/Next, with stage forms still pending Step 8. 49 tests pass; phone-width Ghost QA passed.
+
+## Feed-only Home (Step 5.1 UI) and Lore discovery (Step 6.1 UI)
+The former Home dashboard was removed following design feedback: Home is a centered chronological social timeline only, without hero, world cards, or sidebars. The Ghost preview provides fictional paginated posts. Lore Ghost preview now has search, world/party/player filters, four sorts, and paginated cards. Live Home and Lore remain empty until authorized, scoped API data contracts are implemented. No group, admin, Firebase, or account service was modified. Eight focused UI tests passed in an isolated Node environment; full repository build/test and phone UI verification remain pending. See INTEGRATION-PHASES-5-6.md.

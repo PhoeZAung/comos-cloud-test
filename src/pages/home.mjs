@@ -1,6 +1,6 @@
-import {renderHomeDashboard} from '../features/home/dashboard.mjs';
+import {renderHomeFeed} from '../features/home/feed.mjs';
 export default {
-  id:'home', title:'Home · Comos', bodyClass:'app', layout:'app', activeMain:'home', section:null,
-  description:'Explore your worlds, characters and stories in Comos.',
-  content:`<div data-home-dashboard>${renderHomeDashboard()}</div>`,
+  id:'home',title:'Home · Comos',bodyClass:'app',layout:'app',activeMain:'home',section:null,
+  description:'Your Comos timeline.',
+  content:`<div data-home-feed>${renderHomeFeed()}</div>`,
 };

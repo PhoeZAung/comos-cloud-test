@@ -1,3 +1,5 @@
+> **Historical snapshot:** The Step 1 Home dashboard below was replaced by a feed-only layout in [INTEGRATION-PHASES-5-6.md](INTEGRATION-PHASES-5-6.md). Follow the newer guide for current testing.
+
 # Comos GitHub integration — Home + Character Cards
 
 Date: 2026-10-24. Target: PhoeZAung/comos-cloud-test. This update preserves the existing Firebase auth and backend administrative implementations (Steps 4.1, 4.2, 4.3). Only Home and Character list presentation and Ghost preview demos are added; no backend permissions or account data are changed.

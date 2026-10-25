@@ -1,0 +1,51 @@
+/* Step 5.1 — Home is a single feed, not a dashboard. */
+.comos-feed{width:min(100%,700px);margin:0 auto;min-width:0}
+.comos-feed-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 20px 20px;border-bottom:1px solid var(--line)}
+.comos-feed-heading h1{font:600 clamp(26px,4vw,33px)/1.25 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.04em}
+.comos-feed-phase,.comos-lore-phase{font-size:11px;letter-spacing:.1em;color:var(--muted)}
+.comos-feed-preview,.comos-lore-preview{margin:0;padding:12px 20px;color:var(--muted);font-size:12px;background:var(--surface);border-bottom:1px solid var(--line)}
+.comos-feed-stream{border:1px solid var(--line);border-top:0;border-radius:0 0 15px 15px;overflow:hidden;background:color-mix(in srgb,var(--surface) 56%,transparent)}
+.comos-post{display:flex;gap:13px;padding:20px 18px 16px;border-bottom:1px solid var(--line);min-width:0}
+.comos-post:last-child{border-bottom:0}
+.comos-post-avatar{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;border:1px solid #605583;background:#2b2847;color:#e5d6ff;font-size:14px;font-weight:700;letter-spacing:.02em}
+.comos-post-main{min-width:0;flex:1}
+.comos-post-header{display:flex;align-items:baseline;gap:6px 10px;flex-wrap:wrap;min-height:0;padding:0;border:0;font-size:13px}
+.comos-post-header strong{color:var(--text);font-size:15px}
+.comos-post-header time,.comos-post-persona{color:var(--muted)}
+.comos-post-header time{margin-left:auto;font-size:12px}
+.comos-post-scope{font-size:11px;color:var(--accent);margin-top:4px}
+.comos-post-text{font-size:15px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0 16px}
+.comos-post-reply{display:inline-flex;align-items:center;gap:7px;min-height:36px;color:var(--muted);font-size:12px;padding:4px 10px 4px 0}
+.comos-post-reply:hover{color:var(--accent)}
+.comos-feed-empty,.comos-lore-empty{padding:72px 20px;text-align:center;color:var(--muted)}
+.comos-feed-empty>span,.comos-lore-empty>span{font-size:35px;line-height:1;color:var(--accent)}
+.comos-feed-empty p,.comos-lore-empty p{font-size:15px;color:var(--text);margin:14px 0 8px}
+.comos-feed-empty small,.comos-lore-empty small{display:block;line-height:1.6;max-width:380px;margin:auto}
+.comos-feed-pagination,.comos-lore-pages{display:flex;justify-content:center;align-items:center;gap:15px;padding:18px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.comos-feed-pagination button,.comos-lore-pages button{background:var(--surface);border:1px solid var(--line);border-radius:9px;color:var(--text);padding:9px 16px;min-height:42px;cursor:pointer}
+.comos-feed-pagination button:disabled,.comos-lore-pages button:disabled{opacity:.4;cursor:not-allowed}
+.comos-feed-pagination button:not(:disabled):hover,.comos-lore-pages button:not(:disabled):hover{border-color:var(--accent)}
+.comos-fixture-control{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.comos-fixture-control select{min-height:38px;max-width:170px;border-radius:8px;padding:6px;background:var(--surface);border:1px solid var(--line);color:var(--text)}
+/* Step 6.1 — lore discovery, independently scoped by the future API. */
+.comos-lore{min-width:0}
+.comos-lore-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 19px}
+.comos-lore-heading>div{display:flex;align-items:baseline;gap:16px}
+.comos-lore-tools{display:grid;grid-template-columns:minmax(160px,2fr) auto repeat(4,minmax(115px,1fr));align-items:end;gap:10px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-bottom:18px}
+.comos-lore-tools label{display:flex;min-width:0;flex-direction:column;gap:7px;font-size:12px;color:var(--muted)}
+.comos-lore-tools input,.comos-lore-tools select{width:100%;min-width:0;min-height:44px;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:14px system-ui}
+.comos-lore-tools .button{white-space:nowrap}
+.comos-lore-count{font-size:13px;color:var(--muted);margin:6px 0 14px}
+.comos-lore-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.comos-lore-card{display:flex;flex-direction:column;min-width:0;gap:11px;padding:23px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.comos-lore-card-meta{display:flex;gap:6px;flex-wrap:wrap}
+.comos-lore-card-meta span{border:1px solid var(--line);padding:4px 8px;border-radius:20px;font-size:11px;color:var(--accent)}
+.comos-lore-card h2{font:400 24px/1.25 Georgia,serif;overflow-wrap:anywhere;margin:1px 0 0}
+.comos-lore-card p{color:var(--muted);font-size:14px;line-height:1.55;flex:1;overflow-wrap:anywhere;margin:0}
+.comos-lore-card-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:12px}
+.comos-lore-card-foot a{color:var(--accent);min-height:32px;display:inline-flex;align-items:center}
+.comos-lore-empty{min-height:220px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+@media(max-width:1000px){.comos-lore-tools{grid-template-columns:repeat(4,minmax(0,1fr))}.comos-lore-search{grid-column:span 3}.comos-lore-tools>.button{grid-column:span 1}}
+@media(max-width:670px){.comos-feed-heading{padding:8px 8px 16px}.comos-feed-stream{border-left:0;border-right:0}.comos-post{padding:16px 4px;gap:10px}.comos-post-avatar{width:40px;height:40px}.comos-post-header time{margin-left:0}.comos-feed-preview,.comos-lore-preview{padding:10px}.comos-lore-tools{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px}.comos-lore-search{grid-column:span 2}.comos-lore-tools>.button{grid-column:span 2}.comos-lore-list{grid-template-columns:1fr}.comos-lore-card{padding:18px}}
+@media(max-width:350px){.comos-fixture-control{width:100%;justify-content:space-between}.comos-lore-tools{grid-template-columns:1fr}.comos-lore-search,.comos-lore-tools>.button{grid-column:auto}}
+.comos-lore input:focus-visible,.comos-lore select:focus-visible,.comos-feed select:focus-visible,.comos-feed-pagination button:focus-visible,.comos-lore-pages button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
