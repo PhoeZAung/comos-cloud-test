@@ -1,46 +1,59 @@
 export function mountCompose({fixture=false}={}) {
-  const root=document.querySelector('[data-compose]');if(!root)return ()=>{};
-  const form=root.querySelector('[data-compose-form]'),input=form.querySelector('[name=text]');
+  const root=document.querySelector('[data-compose]');
+  if(!root)return ()=>{};
+  const form=root.querySelector('[data-compose-form]');
+  if(!form)return ()=>{};
+  const title=form.querySelector('[name=title]'),input=form.querySelector('[name=text]');
   const status=root.querySelector('[data-compose-status]'),submit=root.querySelector('[data-compose-submit]');
-  const scopes=root.querySelector('[data-compose-scopes]'),world=form.querySelector('[name=worldId]'),party=form.querySelector('[name=partyId]');
   const count=root.querySelector('[data-compose-count]'),controller=new AbortController();
-  world.required=!fixture;
-  let available={admin:false,worlds:[],parties:[]},busy=false,ready=fixture,requestId=crypto.randomUUID();
-  const paint=()=>{const n=Array.from(input.value).length;count.textContent=n+' / 2000';submit.disabled=busy||!ready||!input.value.trim()||n>2000;};
-  const message=value=>status.textContent=value;
-  function fill(select,rows,empty){select.replaceChildren();const first=document.createElement('option');first.value='';first.textContent=empty;select.append(first);for(const row of rows){const option=document.createElement('option');option.value=row.id;option.textContent=row.name;select.append(option);}}
-  function refreshParties(){fill(party,world.value?available.parties.filter(row=>row.worldId===world.value):[],'All members of this world');}
-  async function loadScopes(){
-    try{
-      const res=await fetch('/api/v1/feed/scopes',{credentials:'same-origin',cache:'no-store',signal:controller.signal});
-      if(res.status===401){message('Sign in to write a post.');return;}
-      if(!res.ok)throw Error('Could not load your worlds.');
-      available=await res.json();if(!Array.isArray(available.worlds)||!Array.isArray(available.parties)||typeof available.admin!=='boolean')throw Error('Invalid scope response.');
-      if(!available.worlds.length&&!available.admin){message('You need membership in a world before posting. Ask a Comos admin for access.');return;}
-      fill(world,available.worlds,available.admin?'Everyone on Comos (site-wide)':'Choose a world');
-      world.required=!available.admin;
-      if(!available.admin&&available.worlds.length===1)world.value=available.worlds[0].id;
-      refreshParties();scopes.hidden=false;ready=true;paint();
-    }catch(error){if(!controller.signal.aborted)message('Could not load worlds. Refresh and try again.');}
+  let allowed=fixture,busy=false,closed=false,requestId=crypto.randomUUID();
+  const message=value=>{if(!closed)status.textContent=value;};
+  function paint(){
+    const textLength=[...input.value].length,titleLength=[...title.value].length;
+    count.textContent=textLength+' / 2000';
+    submit.disabled=busy||!allowed||!input.value.trim()||textLength>2000||titleLength>140;
   }
-  input.addEventListener('input',()=>{requestId=crypto.randomUUID();paint();},{signal:controller.signal});
-  world.addEventListener('change',refreshParties,{signal:controller.signal});
+  async function checkPermission(){
+    message('Checking posting permission…');
+    try{
+      const res=await fetch('/api/v1/access',{credentials:'same-origin',cache:'no-store',signal:controller.signal});
+      if(res.status===401){message('Sign in with your admin account to publish.');return;}
+      if(!res.ok)throw new Error('Could not verify admin access. Refresh this page to retry.');
+      const payload=await res.json();
+      allowed=payload.admin===true;
+      message(allowed?'Ready to publish to everyone on Comos.':'Only the Comos administrator can create posts. You can still reply to posts.');
+    }catch(error){if(!controller.signal.aborted)message('Could not verify admin access. Refresh this page to retry.');}
+    finally{paint();}
+  }
+  form.addEventListener('input',()=>{requestId=crypto.randomUUID();paint();},{signal:controller.signal});
   form.addEventListener('submit',async event=>{
-    event.preventDefault();if(busy||!ready||!input.value.trim())return;
-    busy=true;paint();message('Posting…');
+    event.preventDefault();
+    if(busy)return;
+    if(!allowed){message('Only your verified admin account can publish.');return;}
+    const text=input.value.trim(),heading=title.value.trim();
+    if(!text||[...text].length>2000||[...heading].length>140){message('Enter a description of 1–2000 characters and a title of at most 140 characters.');return;}
+    busy=true;paint();message('Publishing post…');
     try{
       if(fixture){
         const {preview}=await import('../preview/runtime.mjs');
-        preview.data.create('posts',{authorId:'fixture:profile:guest',authorName:'Preview explorer',text:input.value.trim(),createdAt:new Date().toISOString()});
+        preview.data.create('posts',{authorId:'fixture:profile:guest',authorName:'Preview admin',title:heading,text,createdAt:new Date().toISOString()});
+        root.querySelector('[data-compose-return]').click();
       }else{
-        const res=await fetch('/api/v1/posts',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:input.value,worldId:world.value||null,partyId:world.value?(party.value||null):null,clientRequestId:requestId}),signal:controller.signal});
-        if(!res.ok){const data=await res.json().catch(()=>({}));throw Error(({401:'Sign in again to post.',403:'Complete your profile or check your posting access.',409:'This post was already submitted differently.',429:'Too many posts. Try again shortly.'})[res.status]||data.message||'Could not publish post.');}
+        const res=await fetch('/api/v1/posts',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({title:heading,text,clientRequestId:requestId}),signal:controller.signal});
+        const data=await res.json().catch(()=>({}));
+        if(!res.ok){
+          const known={401:'Sign in again to post.',403:'Only a verified admin account can publish posts.',409:'A different post already used this request. Try editing the text.',429:'Too many requests. Try again shortly.',503:'The server is temporarily unavailable. Try again.'};
+          throw new Error(known[res.status]||data.message||'Could not publish. Please try again.');
+        }
+        if(!data.post?.id)throw new Error('The server did not confirm the saved post. Refresh Home before retrying.');
+        message('Post published. Opening Home…');
+        location.assign('home.html');
       }
-      // A normal navigation reloads authenticated Home. Ghost uses SPA navigation to retain isolated memory.
-      if(fixture)root.querySelector('[data-compose-return]').click();else location.assign('home.html');
-    }catch(error){if(!controller.signal.aborted)message(error.message);}
+    }catch(error){if(!controller.signal.aborted)message(error?.message||'Post failed. Please try again.');}
     finally{busy=false;paint();}
   },{signal:controller.signal});
-  paint();if(!fixture)void loadScopes();
-  return ()=>controller.abort();
+  paint();
+  if(fixture)message('Ghost preview: admin posting demonstration (not saved online).');
+  else void checkPermission();
+  return ()=>{closed=true;controller.abort();};
 }

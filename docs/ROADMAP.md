@@ -153,3 +153,9 @@ Implemented admin character metadata, owner/source editing, search/pagination an
 
 ## Cloud continuation — 0.7.0
 Step 4.3 item metadata controls are implemented; see ITEM-CONTROLS.md for tests and deferred import/rules boundaries. Owner access is configured privately and resolved against Firebase on the server. The four wizard stages no longer display adjacent stage tabs: use the current stage name and Back/Next. Step 8 forms remain placeholders. Implementation checkboxes for 4.1–4.4 are now explicit; phone acceptance remains unchecked. Next slice: Step 5.1 scoped Home feed after owner/Groups acceptance.
+
+### Current Step 5 rule (2026-10-25, supersedes earlier member-posting plan)
+- **Owner/admin-only top-level posts.** New post creation is verified server-side against configured administrator Firebase UIDs. The live composer has no world/party selection; each newly published post is a global text post visible to signed-in users.
+- **Regular users:** may view and reply to global posts, but cannot create top-level posts. Prior world/party-scoped posts are preserved with their old visibility rules.
+- **Home:** only actual posts, with optional titles, three-line excerpts and relative timestamps. Tap the post to open full text and replies.
+- **Title schema:** additive migration 009; do not edit prior migrations. See [STEP-5.3-ADMIN-ONLY-TITLED-POSTS.md](STEP-5.3-ADMIN-ONLY-TITLED-POSTS.md) for tests. Prior Step 5 feature descriptions are historical goals, not the current release's behavior.

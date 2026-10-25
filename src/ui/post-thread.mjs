@@ -1,4 +1,5 @@
 import {renderPostThread,renderThreadUnavailable} from '../features/home/thread.mjs';
+import {refreshPostTimes} from '../features/home/time.mjs';
 
 export function mountPostThread({fixture=false}={}) {
   const root=document.querySelector('[data-post-thread]');
@@ -76,5 +77,6 @@ export function mountPostThread({fixture=false}={}) {
       catch{notice('Could not delete reply.');del.disabled=false;}finally{busy=false;count();}
     }
   },{signal:controller.signal});
-  void load();return ()=>{closed=true;controller.abort();};
+  const clock=setInterval(()=>{if(!closed)refreshPostTimes(root);},60000);
+  void load();return ()=>{closed=true;clearInterval(clock);controller.abort();};
 }

@@ -15,6 +15,9 @@ const people={alice:randomUUID(),bob:randomUUID(),admin:randomUUID()};
 const worlds={one:randomUUID(),two:randomUUID()};
 const parties={one:randomUUID(),two:randomUUID()};
 const message=(text='Hello')=>({text,clientRequestId:randomUUID()});
+// Historical world/party posts are seeded here to verify old access rules.
+// New posts in the public API can only be created by a verified administrator.
+const databases=new WeakMap();
 async function setup(){
   const db=new DatabaseSync(':memory:');db.exec('PRAGMA foreign_keys=ON');
   db.exec(`CREATE TABLE users(id TEXT PRIMARY KEY,display_name TEXT NOT NULL,profile_state TEXT NOT NULL DEFAULT 'complete') STRICT;
@@ -23,7 +26,7 @@ async function setup(){
     CREATE TABLE world_memberships(user_id TEXT NOT NULL REFERENCES users(id),world_id TEXT NOT NULL REFERENCES worlds(id),PRIMARY KEY(user_id,world_id)) STRICT;
     CREATE TABLE party_memberships(user_id TEXT NOT NULL REFERENCES users(id),party_id TEXT NOT NULL REFERENCES parties(id),PRIMARY KEY(user_id,party_id)) STRICT;
     CREATE TABLE schema_migrations(version INTEGER PRIMARY KEY) STRICT;INSERT INTO schema_migrations VALUES(7);`);
-  for(const number of ['006-posts.sql','007-post-replies.sql'])db.exec(await readFile(new URL('../backend/db/migrations/'+number,import.meta.url),'utf8'));
+  for(const number of ['006-posts.sql','007-post-replies.sql','008-admin-global-posts.sql','009-post-titles.sql'])db.exec(await readFile(new URL('../backend/db/migrations/'+number,import.meta.url),'utf8'));
   for(const [name,id] of Object.entries(people))db.prepare('INSERT INTO users(id,display_name) VALUES(?,?)').run(id,name);
   for(const [name,id] of Object.entries(worlds))db.prepare('INSERT INTO worlds VALUES(?,?)').run(id,name);
   for(const [name,id] of Object.entries(parties))db.prepare('INSERT INTO parties VALUES(?,?,?)').run(id,worlds[name],name);
@@ -32,11 +35,17 @@ async function setup(){
   db.prepare('INSERT INTO party_memberships VALUES(?,?)').run(people.alice,parties.one);
   db.prepare('INSERT INTO party_memberships VALUES(?,?)').run(people.bob,parties.two);
   let tick=0;const now=()=>new Date(Date.UTC(2026,9,24,20,0,Math.floor(tick++/3))).toISOString();
-  const posts=createPostsService(db,{now});
+  const posts=createPostsService(db,{now});databases.set(posts,db);
   const replies=createRepliesService(db,{posts,now});
   return {db,posts,replies};
 }
-function publish(service,author=people.alice,worldId=worlds.one,partyId=null){return service.create(author,{worldId,partyId,text:'Author post',clientRequestId:randomUUID()});}
+function publish(service,author=people.alice,worldId=worlds.one,partyId=null){
+ const db=databases.get(service);
+ const id=randomUUID();
+ db.prepare('INSERT INTO feed_posts(id,author_id,client_request_id,world_id,party_id,body,created_at,title) VALUES(?,?,?,?,?,?,?,?)')
+   .run(id,author,randomUUID(),worldId,partyId,'Author post',new Date().toISOString(),'');
+ return {id,authorId:author,worldId,partyId};
+}
 
 test('5.2 member can read original post but nonmember cannot discover its existence',async()=>{
   const {db,posts,replies}=await setup();try{

@@ -23,9 +23,12 @@ export function createPostsRoutes({sessions,posts,origin,adminUids=[],throttle=c
       if(isFeed){
         const url=new URL(req.url,origin);
         if ([...url.searchParams.keys()].some(x=>x!=='cursor')) {send(400,{error:'invalid_cursor'});return true;}
-        send(200,{...posts.list(userId,{admin,cursor:url.searchParams.get('cursor')||''}),viewerId:userId});
+        send(200,{...posts.list(userId,{admin,cursor:url.searchParams.get('cursor')||''}),viewerId:userId,canPost:admin});
       }else if(isScopes){send(200,posts.scopes(userId,{admin}));}
-      else if(isCreate){send(201,{post:posts.create(userId,await adminJson(req,8192),{admin})});}
+      else if(isCreate){
+        if(!admin){send(403,{error:'admin_required',message:'Only the Comos administrator can create posts.'});return true;}
+        send(201,{post:posts.create(userId,await adminJson(req,8192),{admin})});
+      }
       else {posts.remove(userId,deleteId);send(200,{deleted:true});}
     }catch(error){
       if(error.httpStatus)send(error.httpStatus,{error:error.error});

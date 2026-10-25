@@ -1,3 +1,5 @@
+> **Superseded on 2026-10-25:** The live composer no longer requires or offers world/party selection. Top-level publishing is admin-only, with optional titles and clickable excerpts. Follow [STEP-5.3-ADMIN-ONLY-TITLED-POSTS.md](STEP-5.3-ADMIN-ONLY-TITLED-POSTS.md) for the current requirement.
+
 # Comos Step 5.3 — Admin may post without world membership
 
 2026-10-24. Repository: `PhoeZAung/comos-cloud-test`. This focused release updates the existing feed and composer, not Firebase authentication or Admin Groups.

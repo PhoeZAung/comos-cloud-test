@@ -10,7 +10,8 @@ import {renderHomeFeed,pageFeed} from '../src/features/home/feed.mjs';
 const people={alice:randomUUID(),bob:randomUUID(),admin:randomUUID()};
 const worlds={first:randomUUID(),second:randomUUID()};
 const parties={first:randomUUID(),second:randomUUID()};
-const makePost=(worldId,partyId=null,text='Hi',clientRequestId=randomUUID())=>({text,worldId,partyId,clientRequestId});
+const makePost=(text='Hi',clientRequestId=randomUUID())=>({title:'A title',text,clientRequestId});
+function seedLegacy(db,authorId,worldId,partyId=null,text='Past post'){const id=randomUUID();db.prepare('INSERT INTO feed_posts(id,author_id,client_request_id,world_id,party_id,body,created_at,title) VALUES(?,?,?,?,?,?,?,?)').run(id,authorId,randomUUID(),worldId,partyId,text,iso(0),'');return {id};}
 const iso=(i)=>new Date(Date.UTC(2026,9,24,12,0,i)).toISOString();
 async function setup(){
  const db=new DatabaseSync(':memory:');db.exec('PRAGMA foreign_keys=ON');
@@ -20,7 +21,7 @@ async function setup(){
  CREATE TABLE world_memberships(user_id TEXT NOT NULL REFERENCES users(id),world_id TEXT NOT NULL REFERENCES worlds(id),PRIMARY KEY(user_id,world_id)) STRICT;
  CREATE TABLE party_memberships(user_id TEXT NOT NULL REFERENCES users(id),party_id TEXT NOT NULL REFERENCES parties(id),PRIMARY KEY(user_id,party_id)) STRICT;
  CREATE TABLE schema_migrations(version INTEGER PRIMARY KEY) STRICT;INSERT INTO schema_migrations VALUES(6);`);
- db.exec(await readFile(new URL('../backend/db/migrations/006-posts.sql',import.meta.url),'utf8'));
+ for(const name of ['006-posts.sql','007-post-replies.sql','008-admin-global-posts.sql','009-post-titles.sql'])db.exec(await readFile(new URL('../backend/db/migrations/'+name,import.meta.url),'utf8'));
  for(const [name,id] of Object.entries(people))db.prepare('INSERT INTO users(id,display_name) VALUES(?,?)').run(id,name);
  for(const [name,id] of Object.entries(worlds))db.prepare('INSERT INTO worlds VALUES(?,?)').run(id,name);
  for(const [name,id] of Object.entries(parties))db.prepare('INSERT INTO parties VALUES(?,?,?)').run(id,worlds[name],name);
@@ -31,22 +32,22 @@ async function setup(){
 }
 test('real authenticated authors only, validated text and idempotent retries',async()=>{
  const {db,service}=await setup();try{
-  const input=makePost(worlds.first,null,'  Posted by Alice  ');
-  const row=service.create(people.alice,input);assert.equal(row.authorName,'alice');assert.equal(row.text,'Posted by Alice');
-  assert.equal(service.create(people.alice,input).id,row.id);
+  const input=makePost('  Posted by admin  ');
+  const row=service.create(people.admin,input,{admin:true});assert.equal(row.authorName,'admin');assert.equal(row.text,'Posted by admin');
+  assert.equal(service.create(people.admin,input,{admin:true}).id,row.id);
   assert.equal(db.prepare('SELECT count(*) AS count FROM feed_posts').get().count,1);
-  assert.throws(()=>service.create(people.alice,{...input,text:'Changed'}),{code:'POST_CONFLICT'});
+  assert.throws(()=>service.create(people.admin,{...input,text:'Changed'},{admin:true}),{code:'POST_CONFLICT'});
   for(const payload of [{...input,text:''},{...input,text:'x'.repeat(2001)},{...input,text:'abc\u0000def'},{...input,authorId:people.bob},{...input,clientRequestId:'not-a-uuid'}])assert.throws(()=>validatePostInput(payload),{code:'INVALID_POST'});
-  assert.throws(()=>service.create(people.bob,makePost(worlds.first)),{code:'POST_FORBIDDEN'});
-  assert.throws(()=>service.create(people.alice,makePost(worlds.second)),{code:'POST_FORBIDDEN'});
-  assert.throws(()=>service.create(people.bob,makePost(worlds.second,parties.first)),{code:'POST_FORBIDDEN'});
+  assert.throws(()=>service.create(people.bob,makePost()),{code:'POST_FORBIDDEN'});
+  assert.throws(()=>service.create(people.alice,makePost()),{code:'POST_FORBIDDEN'});
+  assert.throws(()=>service.create(people.bob,makePost()),{code:'POST_FORBIDDEN'});
  }finally{db.close();}
 });
 test('members see only permitted worlds/parties; revocation immediately hides posts; admin can see all',async()=>{
  const {db,service}=await setup();try{
-  const a=service.create(people.alice,makePost(worlds.first));
-  service.create(people.alice,makePost(worlds.first,parties.first,'Party-only'));
-  const b=service.create(people.bob,makePost(worlds.second));
+  const a=seedLegacy(db,people.alice,worlds.first);
+  seedLegacy(db,people.alice,worlds.first,parties.first,'Party-only');
+  const b=seedLegacy(db,people.bob,worlds.second);
   assert.equal(service.list(people.alice).posts.length,2);
   assert.deepEqual(service.list(people.bob).posts.map(p=>p.id),[b.id]);
   assert.equal(service.list(people.admin,{admin:true}).posts.length,3);
@@ -55,13 +56,13 @@ test('members see only permitted worlds/parties; revocation immediately hides po
   assert.deepEqual(service.list(people.alice).posts.map(p=>p.id),[a.id]);
   db.prepare('DELETE FROM world_memberships WHERE user_id=?').run(people.alice);
   assert.equal(service.list(people.alice).posts.length,0);
-  assert.throws(()=>service.create(people.alice,makePost(worlds.first)),{code:'POST_FORBIDDEN'});
+  assert.throws(()=>service.create(people.alice,makePost()),{code:'POST_FORBIDDEN'});
  }finally{db.close();}
 });
 test('server pagination has no duplicates and rejects malformed cursors',async()=>{
  const {db,service}=await setup();try{
   const more=createPostsService(db,{now:()=>iso(7),ids:randomUUID});
-  for(let i=0;i<46;i++)more.create(people.alice,makePost(worlds.first));
+  for(let i=0;i<46;i++)more.create(people.admin,makePost(),{admin:true});
   let cursor='',count=0;const found=new Set();do{
     const page=more.list(people.alice,{cursor});assert.ok(page.posts.length<=20);
     for(const post of page.posts){assert.equal(found.has(post.id),false);found.add(post.id);}cursor=page.nextCursor||'';
@@ -73,10 +74,10 @@ test('server pagination has no duplicates and rejects malformed cursors',async()
 });
 test('only the author can remove posts and removal is permanent',async()=>{
  const {db,service}=await setup();try{
-  const a=service.create(people.alice,makePost(worlds.first));
+  const a=service.create(people.admin,makePost(),{admin:true});
   assert.throws(()=>service.remove(people.bob,a.id),{code:'POST_NOT_FOUND'});
-  assert.equal(service.remove(people.alice,a.id),true);
-  assert.throws(()=>service.remove(people.alice,a.id),{code:'POST_NOT_FOUND'});
+  assert.equal(service.remove(people.admin,a.id),true);
+  assert.throws(()=>service.remove(people.admin,a.id),{code:'POST_NOT_FOUND'});
   assert.equal(service.list(people.alice).posts.length,0);
  }finally{db.close();}
 });
@@ -100,15 +101,15 @@ test('HTTP feed requires a verified session and write origin; user cannot impers
  try{
    assert.equal((await fetch(base+'/feed')).status,401);
    assert.equal((await fetch(base+'/feed',{headers:header('bob')})).status,200);
-   assert.equal((await fetch(base+'/posts',{method:'POST',headers:header(),body:'{}'})).status,400);
-   const payload=makePost(worlds.first);const request=(headers=header(),body=payload)=>fetch(base+'/posts',{method:'POST',headers,body:JSON.stringify(body)});
+   assert.equal((await fetch(base+'/posts',{method:'POST',headers:header('admin'),body:'{}'})).status,400);
+   const payload=makePost();const request=(headers=header('admin'),body=payload)=>fetch(base+'/posts',{method:'POST',headers,body:JSON.stringify(body)});
    assert.equal((await request({...header(),Origin:'https://evil.test'})).status,403);
    assert.equal((await request(header('bob'))).status,403);
-   assert.equal((await request(header(),{...payload,authorId:people.bob})).status,400);
+   assert.equal((await request(header('admin'),{...payload,authorId:people.bob})).status,400);
    let r=await request();assert.equal(r.status,201);const created=(await r.json()).post;
-   assert.equal(created.authorId,people.alice);
+   assert.equal(created.authorId,people.admin);
    assert.equal((await request()).status,201); // retry is idempotent
    assert.equal((await fetch(base+'/posts/'+created.id,{method:'DELETE',headers:header('bob')})).status,404);
-   assert.equal((await fetch(base+'/posts/'+created.id,{method:'DELETE',headers:header()})).status,200);
+   assert.equal((await fetch(base+'/posts/'+created.id,{method:'DELETE',headers:header('admin')})).status,200);
  }finally{await new Promise(resolve=>server.close(resolve));db.close();}
 });

@@ -1,23 +1,24 @@
 import {renderHomeFeed} from '../features/home/feed.mjs';
+import {refreshPostTimes} from '../features/home/time.mjs';
 import {sessionUser} from './session.mjs';
 
 export function mountFeed() {
   const root=document.querySelector('[data-home-feed]');
   if(!root)return ()=>{};
   const controller=new AbortController();
-  let closed=false,busy=false,posts=[],cursor=null,signedOut=false,viewerId='';
-  const render=(state='ready')=>{if(!closed)root.innerHTML=renderHomeFeed({posts,state,viewerId:viewerId||sessionUser?.id||'',nextCursor:cursor,signedOut});};
+  let closed=false,busy=false,posts=[],cursor=null,signedOut=false,viewerId='',canPost=false;
+  const render=(state='ready')=>{if(!closed)root.innerHTML=renderHomeFeed({posts,state,viewerId:viewerId||sessionUser?.id||'',nextCursor:cursor,signedOut,canPost});};
   async function load({more=false}={}) {
     if(busy||closed)return;
     busy=true;if(!more)render('loading');
     try {
       const response=await fetch('/api/v1/feed'+(more&&cursor?'?cursor='+encodeURIComponent(cursor):''),{credentials:'same-origin',cache:'no-store',signal:controller.signal});
-      if(response.status===401){signedOut=true;posts=[];cursor=null;render();return;}
+      if(response.status===401){signedOut=true;posts=[];cursor=null;canPost=false;render();return;}
       if(!response.ok)throw Error('Posts could not be loaded.');
       const payload=await response.json();
       if(!Array.isArray(payload.posts)||!([null,'string'].includes(payload.nextCursor===null?null:typeof payload.nextCursor)))throw Error('Invalid feed response.');
       posts=more?[...posts,...payload.posts]:payload.posts;
-      cursor=payload.nextCursor||null;viewerId=typeof payload.viewerId==='string'?payload.viewerId:'';signedOut=false;render();
+      cursor=payload.nextCursor||null;viewerId=typeof payload.viewerId==='string'?payload.viewerId:'';canPost=payload.canPost===true;signedOut=false;render();
     }catch(error){if(!closed&&!controller.signal.aborted){if(more){const status=document.createElement('p');status.role='status';status.textContent='Could not load more posts. Please retry.';root.append(status);}else render('error');}}
     finally{busy=false;}
   }
@@ -35,6 +36,7 @@ export function mountFeed() {
     }catch(error){if(!closed&&!controller.signal.aborted){button.disabled=false;alert('Could not delete your post. Try again.');}}
     finally{busy=false;}
   },{signal:controller.signal});
+  const clock=setInterval(()=>{if(!closed)refreshPostTimes(root);},60000);
   void load();
-  return ()=>{closed=true;controller.abort();};
+  return ()=>{closed=true;clearInterval(clock);controller.abort();};
 }

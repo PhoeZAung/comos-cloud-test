@@ -7,7 +7,7 @@ test('Step 5.1 timeline sorts newest first with stable cursor-style pages',()=>{
   const later=pageFeed(shuffled,{limit:4,offset:4});assert.deepEqual(later.items.map(x=>x.id),posts.slice(4,8).map(x=>x.id));assert.equal(later.hasPrevious,true);
 });
 test('Step 5.1 renders a timeline only, without old world dashboard content',()=>{
-  const markup=renderHomeFeed({posts:posts.slice(0,2),preview:true});assert.match(markup,/comos-post/);assert.match(markup,/aria-labelledby="comos-feed-title"/);assert.doesNotMatch(markup,/cosmos-hero|cosmos-world-grid|Continue exploring|Latest activity|Explore worlds/);
+  const markup=renderHomeFeed({posts:posts.slice(0,2),preview:true,canPost:true});assert.match(markup,/comos-post/);assert.match(markup,/aria-labelledby="comos-feed-title"/);assert.doesNotMatch(markup,/cosmos-hero|cosmos-world-grid|Continue exploring|Latest activity|Explore worlds/);
   assert.match(markup,/compose.html/);
 });
 test('Step 5.1 escapes human-authored text and excludes old persona metadata',()=>{
