@@ -76,3 +76,111 @@ body{background:var(--bg)}header{background:var(--shell-bg)}.empty,.auth-card,.a
 [data-character-admin] button.button{font-family:inherit;cursor:pointer}[data-character-admin] button.button:not(.primary){background:transparent;color:var(--text)}[data-character-admin] button.button:not(.primary):hover{background:var(--surface)}[data-character-admin] button:disabled{opacity:.55;cursor:default}
 .character-admin-grid input,.character-admin-grid select{display:block;width:100%;min-width:0;min-height:46px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--text);font:inherit;padding:10px 12px;margin-bottom:18px}.character-admin-grid form>button{margin-bottom:18px}.character-admin-grid fieldset{border:1px solid var(--line);border-radius:9px;padding:14px;margin:22px 0}.character-admin-grid legend{color:var(--muted);font-size:14px}.character-admin-grid [data-owner-search]{margin-bottom:24px}.character-admin-grid [data-remove-source]{padding:10px;min-width:44px}[data-character-admin] :is(input,select,button):focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 [data-item-admin] button.button{font-family:inherit;cursor:pointer}[data-item-admin] button.button:not(.primary){background:transparent;color:var(--text)}[data-item-admin] button.button:not(.primary):hover{background:var(--surface)}[data-item-admin] button:disabled{opacity:.55;cursor:default}[data-item-admin] :is(input,textarea,button):focus-visible{outline:3px solid var(--accent);outline-offset:3px}.character-admin-grid textarea{display:block;width:100%;min-width:0;min-height:140px;resize:vertical;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--text);font:inherit;padding:12px;margin-bottom:18px}.item-source-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.item-source-fields>div{min-width:0}.item-id{overflow-wrap:anywhere;margin-top:24px}
+
+/* Step 7 Character Cards styles (Home's old dashboard CSS removed). */
+.cosmos-demo-toolbar h2{margin:0;font:400 26px Georgia,serif}.cosmos-section-heading .eyebrow,.cosmos-side .eyebrow{margin-bottom:8px}.cosmos-section-heading>span{font-size:11px;color:var(--muted)}.cosmos-world-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.cosmos-world{display:flex;flex-direction:column;min-height:210px;min-width:0;padding:20px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(150deg,#222441,#101827 78%)}.cosmos-world-top{display:flex;justify-content:space-between;color:#929cc0;font-size:12px;margin-bottom:auto}.cosmos-world-top span:last-child{font-size:28px;color:var(--accent)}.cosmos-world small{font-size:10px;letter-spacing:.15em;color:var(--accent);margin-top:26px}.cosmos-world h3{margin:8px 0 5px;font:400 23px Georgia,serif;overflow-wrap:anywhere}.cosmos-world p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}.cosmos-empty{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;min-height:200px;padding:28px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--muted)}.cosmos-empty>span{font-size:36px;color:var(--accent)}.cosmos-empty h2,.cosmos-empty h3{color:var(--text);margin:0;font:400 24px Georgia,serif}.cosmos-empty p{max-width:450px;margin:0;line-height:1.5}.cosmos-side{display:grid;gap:16px}.cosmos-side section{padding:22px;border-radius:16px;border:1px solid var(--line);background:var(--surface)}.cosmos-activity-placeholder{border-top:1px solid var(--line);margin-top:17px;padding:24px 0 4px;text-align:center;color:var(--muted)}.cosmos-activity-placeholder>span{font-size:32px;color:var(--accent)}.cosmos-activity-placeholder p{font-size:14px}.cosmos-activity-placeholder small{display:block;line-height:1.6}.cosmos-side a{display:flex;gap:12px;align-items:center;min-height:48px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}.cosmos-side a:first-of-type{margin-top:20px}.cosmos-side a span:nth-child(2){flex:1}
+.cosmos-demo-toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin:0 0 20px}.cosmos-demo-toolbar small{font:14px system-ui;color:var(--muted)}.cosmos-demo-toolbar label{color:var(--muted);font-size:13px}.cosmos-demo-toolbar select{min-height:42px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px;margin-left:8px}.cosmos-character-feedback{min-height:24px;color:var(--muted);font-size:13px}.cosmos-character-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.cosmos-character{display:flex;min-width:0;overflow:hidden;gap:18px;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}.cosmos-portrait{display:flex;flex:none;position:relative;align-items:center;justify-content:center;width:130px;min-height:152px;background:linear-gradient(150deg,#443b6c,#121a2e);border-radius:12px;color:var(--accent);font:36px Georgia,serif}.cosmos-portrait small{position:absolute;right:10px;bottom:8px;font:18px system-ui}.cosmos-character-info{display:flex;flex:1;min-width:0;flex-direction:column;justify-content:center}.cosmos-character-info h3{margin:0;font:400 23px Georgia,serif;overflow-wrap:anywhere}.cosmos-character-info p{margin:9px 0 16px;color:var(--muted);font-size:13px;line-height:1.5}.cosmos-character-actions{display:flex;flex-wrap:wrap;gap:7px}.cosmos-character-actions button,.cosmos-pagination button{cursor:pointer;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:9px 12px;min-height:40px}.cosmos-character-actions button:hover,.cosmos-pagination button:hover:not(:disabled){border-color:var(--accent)}.cosmos-character-actions button:focus-visible,.cosmos-pagination button:focus-visible,.cosmos-demo-toolbar select:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.cosmos-pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:14px;margin-top:25px;color:var(--muted);font-size:13px}.cosmos-pagination button:disabled{opacity:.35;cursor:not-allowed}
+@media(max-width:880px){.cosmos-character-grid{grid-template-columns:1fr}}@media(max-width:600px){.cosmos-character{gap:12px}.cosmos-portrait{width:90px;min-height:132px;font-size:26px}.cosmos-character-info h3{font-size:20px}.cosmos-character-actions button{padding:8px 9px}}@media(max-width:340px){.cosmos-character{flex-direction:column}.cosmos-portrait{width:100%;min-height:110px}}
+
+/* Step 5.1 — Home is a single feed, not a dashboard. */
+.comos-feed{width:min(100%,700px);margin:0 auto;min-width:0}
+.comos-feed-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 20px 20px;border-bottom:1px solid var(--line)}
+.comos-feed-heading h1{font:600 clamp(26px,4vw,33px)/1.25 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.04em}
+.comos-feed-phase,.comos-lore-phase{font-size:11px;letter-spacing:.1em;color:var(--muted)}
+.comos-feed-preview,.comos-lore-preview{margin:0;padding:12px 20px;color:var(--muted);font-size:12px;background:var(--surface);border-bottom:1px solid var(--line)}
+.comos-feed-stream{border:1px solid var(--line);border-top:0;border-radius:0 0 15px 15px;overflow:hidden;background:color-mix(in srgb,var(--surface) 56%,transparent)}
+.comos-post{display:flex;gap:13px;padding:20px 18px 16px;border-bottom:1px solid var(--line);min-width:0}
+.comos-post:last-child{border-bottom:0}
+.comos-post-avatar{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;border:1px solid #605583;background:#2b2847;color:#e5d6ff;font-size:14px;font-weight:700;letter-spacing:.02em}
+.comos-post-main{min-width:0;flex:1}
+.comos-post-header{display:flex;align-items:baseline;gap:6px 10px;flex-wrap:wrap;min-height:0;padding:0;border:0;font-size:13px}
+.comos-post-header strong{color:var(--text);font-size:15px}
+.comos-post-header time,.comos-post-persona{color:var(--muted)}
+.comos-post-header time{margin-left:auto;font-size:12px}
+.comos-post-scope{font-size:11px;color:var(--accent);margin-top:4px}
+.comos-post-text{font-size:15px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0 16px}
+.comos-post-reply{display:inline-flex;align-items:center;gap:7px;min-height:36px;color:var(--muted);font-size:12px;padding:4px 10px 4px 0}
+.comos-post-reply:hover{color:var(--accent)}
+.comos-feed-empty,.comos-lore-empty{padding:72px 20px;text-align:center;color:var(--muted)}
+.comos-feed-empty>span,.comos-lore-empty>span{font-size:35px;line-height:1;color:var(--accent)}
+.comos-feed-empty p,.comos-lore-empty p{font-size:15px;color:var(--text);margin:14px 0 8px}
+.comos-feed-empty small,.comos-lore-empty small{display:block;line-height:1.6;max-width:380px;margin:auto}
+.comos-feed-pagination,.comos-lore-pages{display:flex;justify-content:center;align-items:center;gap:15px;padding:18px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.comos-feed-pagination button,.comos-lore-pages button{background:var(--surface);border:1px solid var(--line);border-radius:9px;color:var(--text);padding:9px 16px;min-height:42px;cursor:pointer}
+.comos-feed-pagination button:disabled,.comos-lore-pages button:disabled{opacity:.4;cursor:not-allowed}
+.comos-feed-pagination button:not(:disabled):hover,.comos-lore-pages button:not(:disabled):hover{border-color:var(--accent)}
+.comos-fixture-control{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.comos-fixture-control select{min-height:38px;max-width:170px;border-radius:8px;padding:6px;background:var(--surface);border:1px solid var(--line);color:var(--text)}
+/* Step 6.1 — lore discovery, independently scoped by the future API. */
+.comos-lore{min-width:0}
+.comos-lore-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 19px}
+.comos-lore-heading>div{display:flex;align-items:baseline;gap:16px}
+.comos-lore-tools{display:grid;grid-template-columns:minmax(160px,2fr) auto repeat(4,minmax(115px,1fr));align-items:end;gap:10px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-bottom:18px}
+.comos-lore-tools label{display:flex;min-width:0;flex-direction:column;gap:7px;font-size:12px;color:var(--muted)}
+.comos-lore-tools input,.comos-lore-tools select{width:100%;min-width:0;min-height:44px;padding:10px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:14px system-ui}
+.comos-lore-tools .button{white-space:nowrap}
+.comos-lore-count{font-size:13px;color:var(--muted);margin:6px 0 14px}
+.comos-lore-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.comos-lore-card{display:flex;flex-direction:column;min-width:0;gap:11px;padding:23px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.comos-lore-card-meta{display:flex;gap:6px;flex-wrap:wrap}
+.comos-lore-card-meta span{border:1px solid var(--line);padding:4px 8px;border-radius:20px;font-size:11px;color:var(--accent)}
+.comos-lore-card h2{font:400 24px/1.25 Georgia,serif;overflow-wrap:anywhere;margin:1px 0 0}
+.comos-lore-card p{color:var(--muted);font-size:14px;line-height:1.55;flex:1;overflow-wrap:anywhere;margin:0}
+.comos-lore-card-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:12px}
+.comos-lore-card-foot a{color:var(--accent);min-height:32px;display:inline-flex;align-items:center}
+.comos-lore-empty{min-height:220px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+@media(max-width:1000px){.comos-lore-tools{grid-template-columns:repeat(4,minmax(0,1fr))}.comos-lore-search{grid-column:span 3}.comos-lore-tools>.button{grid-column:span 1}}
+@media(max-width:670px){.comos-feed-heading{padding:8px 8px 16px}.comos-feed-stream{border-left:0;border-right:0}.comos-post{padding:16px 4px;gap:10px}.comos-post-avatar{width:40px;height:40px}.comos-post-header time{margin-left:0}.comos-feed-preview,.comos-lore-preview{padding:10px}.comos-lore-tools{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px}.comos-lore-search{grid-column:span 2}.comos-lore-tools>.button{grid-column:span 2}.comos-lore-list{grid-template-columns:1fr}.comos-lore-card{padding:18px}}
+@media(max-width:350px){.comos-fixture-control{width:100%;justify-content:space-between}.comos-lore-tools{grid-template-columns:1fr}.comos-lore-search,.comos-lore-tools>.button{grid-column:auto}}
+.comos-lore input:focus-visible,.comos-lore select:focus-visible,.comos-feed select:focus-visible,.comos-feed-pagination button:focus-visible,.comos-lore-pages button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* Post-only Home. The existing shared site navigation stays unchanged. */
+.comos-feed-phase,.comos-fixture-control,.comos-feed-preview{display:none!important}
+.comos-post-delete{display:inline-flex;align-items:center;min-height:35px;color:var(--muted);border:0;background:transparent;font:13px system-ui;cursor:pointer;padding:4px 0}
+.comos-post-delete:hover{color:var(--accent)}
+.comos-composer{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.comos-composer h1{font:600 clamp(26px,4vw,33px)/1.25 system-ui,sans-serif}
+.comos-composer form,.comos-composer [data-compose-scopes]{display:flex;flex-direction:column;gap:12px}
+.comos-composer form>label,.comos-composer [data-compose-scopes]>label{font-weight:600;font-size:14px}
+.comos-composer textarea,.comos-composer select{width:100%;padding:13px 14px;background:var(--surface);border:1px solid var(--line);border-radius:11px;color:var(--text);font:15px/1.5 system-ui;min-height:44px}
+.comos-composer textarea{resize:vertical;min-height:155px}
+.comos-composer textarea:focus-visible,.comos-composer select:focus-visible,.comos-post-delete:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.comos-composer [data-compose-scopes][hidden]{display:none}
+.comos-count{margin:-5px 0 0;color:var(--muted);text-align:right;font-size:12px}
+.comos-composer [data-compose-status]{min-height:22px;margin:0;color:var(--muted);font-size:13px}
+.comos-composer button[type=submit]{align-self:flex-end;min-width:110px}
+.comos-composer button:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:640px){.comos-composer{gap:14px}}
+/* Step 5.3: post cards are wholly clickable; description is preview-clamped. */
+.comos-post-link{display:block;color:inherit;text-decoration:none;border-radius:7px;min-width:0}
+.comos-post-link:hover .comos-post-title,.comos-post-link:hover .comos-post-read-more{color:var(--accent)}
+.comos-post-link:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+.comos-post-title{font:650 clamp(17px,2.6vw,21px)/1.35 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);margin:10px 0 0;overflow-wrap:anywhere}
+.comos-post-excerpt{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden;max-height:4.8em;margin:8px 0 8px}
+.comos-post-read-more{display:inline-flex;font-size:12px;color:var(--muted);margin-bottom:4px}
+.comos-composer input[name=title]{width:100%;padding:13px 14px;background:var(--surface);border:1px solid var(--line);border-radius:11px;color:var(--text);font:15px/1.5 system-ui;min-height:44px}
+.comos-composer input[name=title]:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.comos-compose-audience{color:var(--muted);font-size:13px;margin:5px 0}
+
+.comos-feed{max-width:680px;margin:auto}.comos-post{border-radius:0;border-width:0 0 1px;padding:24px 12px}.post-image{display:block;width:100%;max-height:620px;object-fit:contain;border-radius:16px;margin:14px 0;background:var(--bg)}.post-tools{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.post-attachments{display:flex;gap:12px;flex-wrap:wrap}.post-attachments img{width:120px;height:120px;object-fit:cover;border-radius:12px}.post-attachments>div{display:grid;gap:6px}[data-emoji-picker] button{font-size:25px;min-width:44px;min-height:44px;background:transparent;border:0;cursor:pointer}.comos-post-text{white-space:pre-wrap}
+
+/* Step 5.2 — separate, lazy-loaded post detail; no extra Home panels. */
+.comos-post-open{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);min-height:40px;margin-right:12px}
+.comos-post-open:hover{color:var(--accent)}
+.comos-thread{width:min(100%,700px);margin:0 auto;min-width:0}
+.comos-thread-title{font:600 clamp(26px,4vw,33px)/1.25 system-ui,-apple-system,"Segoe UI",sans-serif;margin:20px 0}
+.comos-thread-entry{display:flex;gap:13px;padding:22px 18px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 60%,transparent);min-width:0}
+.comos-thread-original{border-radius:14px;margin-bottom:26px}
+.comos-thread-replies{border-radius:14px;border:1px solid var(--line);overflow:hidden;margin-bottom:26px}
+.comos-thread-replies h2{font-size:18px;font-weight:600;padding:16px 18px;margin:0;border-bottom:1px solid var(--line)}
+.comos-thread-reply{border:0;border-bottom:1px solid var(--line)}
+.comos-thread-reply:last-child{border-bottom:0}
+.comos-thread-replies>[data-more-replies]{margin:14px 18px}
+.comos-thread-empty{color:var(--muted);text-align:center;padding:25px 15px}
+.comos-reply-form{padding:18px;border:1px solid var(--line);background:var(--surface);border-radius:14px;display:flex;flex-direction:column;gap:12px}
+.comos-reply-form label{font-size:15px;font-weight:600}
+.comos-reply-form textarea{width:100%;resize:vertical;min-height:90px;border:1px solid var(--line);border-radius:8px;color:var(--text);background:var(--bg);padding:13px;font:15px/1.5 system-ui}
+.comos-reply-form textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.comos-reply-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.comos-reply-bottom span,.comos-reply-status{color:var(--muted);font-size:12px}
+.comos-reply-status{min-height:18px;margin:0}
+@media(max-width:670px){.comos-thread-entry{padding:16px 6px;gap:10px}.comos-reply-form{padding:14px}.comos-thread-replies h2{padding:14px}}

@@ -1,3 +1,4 @@
+import {createHomeMediaRoutes} from '../posts/media.mjs';
 import {createAdminBackupRoutes} from '../backup/routes.mjs';
 import {createPostsService} from '../posts/service.mjs';
 import {createRepliesService} from '../posts/replies.mjs';
@@ -60,10 +61,11 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const itemsRoutes=createItemsRoutes({sessions,items:createItemsService(db),origin:config.origin,adminUids});
     const charactersRoutes=createCharactersRoutes({sessions,characters:createCharactersService(db),origin:config.origin,adminUids});
     const groupsRoutes=createGroupsRoutes({sessions,groups:createGroupsService(db),origin:config.origin,adminUids});
+    const homeMediaRoutes=mediaRoot?await createHomeMediaRoutes({db,sessions,adminUids:googleOwner.uids,origin:config.origin,mediaRoot}):null;
     const posts=createPostsService(db);
     const postsRoutes=createPostsRoutes({sessions,posts,origin:config.origin,adminUids:googleOwner.uids});
     const backupRoutes=createAdminBackupRoutes({db,sessions,auth:firebaseAuth,adminUids:googleOwner.uids});
     const replyRoutes=createReplyRoutes({sessions,posts,replies:createRepliesService(db,{posts}),origin:config.origin,adminUids});
-    return { itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,replyRoutes,backupRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
+    return { homeMediaRoutes,itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,replyRoutes,backupRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }

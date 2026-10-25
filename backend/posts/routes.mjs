@@ -4,11 +4,11 @@ import { createAuthThrottle } from '../auth/throttle.mjs';
 export function createPostsRoutes({sessions,posts,origin,adminUids=[],throttle=createAuthThrottle()}) {
   const admins=new Set(adminUids);
   return async (req,res,pathname,send) => {
-    const isFeed = pathname==='/api/v1/feed', isScopes=pathname==='/api/v1/feed/scopes';
+    const isFeed = pathname==='/api/v1/feed';
     const isCreate=pathname==='/api/v1/posts', deleteId=pathname.startsWith('/api/v1/posts/')?pathname.slice('/api/v1/posts/'.length):null;
-    if (!isFeed && !isScopes && !isCreate && deleteId===null) return false;
-    if (!((isFeed||isScopes)&&req.method==='GET') && !(isCreate&&req.method==='POST') && !(deleteId!==null&&req.method==='DELETE')) {
-      res.setHeader('Allow',(isFeed||isScopes)?'GET':isCreate?'POST':'DELETE');send(405,{error:'method_not_allowed'});return true;
+    if (!isFeed && !isCreate && deleteId===null) return false;
+    if (!(isFeed&&req.method==='GET') && !(isCreate&&req.method==='POST') && !(deleteId!==null&&req.method==='DELETE')) {
+      res.setHeader('Allow',isFeed?'GET':isCreate?'POST':'DELETE');send(405,{error:'method_not_allowed'});return true;
     }
     if (['POST','DELETE'].includes(req.method) && (req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')) {
       send(403,{error:'origin_not_allowed'});return true;
@@ -24,7 +24,7 @@ export function createPostsRoutes({sessions,posts,origin,adminUids=[],throttle=c
         const url=new URL(req.url,origin);
         if ([...url.searchParams.keys()].some(x=>x!=='cursor')) {send(400,{error:'invalid_cursor'});return true;}
         send(200,{...posts.list(userId,{admin,cursor:url.searchParams.get('cursor')||''}),viewerId:userId,canPost:admin});
-      }else if(isScopes){send(200,posts.scopes(userId,{admin}));}
+      }
       else if(isCreate){
         if(!admin){send(403,{error:'admin_required',message:'Only the Comos administrator can create posts.'});return true;}
         send(201,{post:posts.create(userId,await adminJson(req,8192),{admin})});

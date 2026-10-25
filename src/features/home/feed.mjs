@@ -25,6 +25,7 @@ function postMarkup(post,viewerId='',now=Date.now()) {
         <p class="comos-post-text comos-post-excerpt">${escapeHtml(post.text)}</p>
         <span class="comos-post-read-more">Open post · Reply</span>
       </a>
+      ${(post.media||[]).filter(m=>typeof m.url==='string'&&(m.url.startsWith('/api/v1/home-media/')||m.url.startsWith('blob:'))).map(m=>`<img class="post-image" loading="lazy" src="${escapeHtml(m.url)}" alt="Post attachment">`).join('')}
       ${own?`<button type="button" class="comos-post-delete" data-delete-post="${escapeHtml(post.id)}">Delete</button>`:''}
     </div></article>`;
 }

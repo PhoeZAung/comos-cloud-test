@@ -14,6 +14,7 @@ function messageCard(record,kind,viewerId,now){
     <div class="comos-post-avatar" aria-hidden="true">${esc(initials(name))}</div>
     <div class="comos-post-main"><div class="comos-post-header"><strong>${esc(name)}</strong><time${when.iso?` datetime="${esc(when.iso)}" data-relative-post`:''}>${esc(when.label)}</time></div>
       <p class="comos-post-text">${esc(record.text)}</p>
+      ${(record.media||[]).filter(m=>typeof m.url==='string'&&(m.url.startsWith('/api/v1/home-media/')||m.url.startsWith('blob:'))).map(m=>`<img class="post-image" loading="lazy" src="${esc(m.url)}" alt="Post attachment">`).join('')}
       ${own?`<button type="button" class="comos-post-delete" data-reply-delete="${esc(record.id)}">Delete reply</button>`:''}
     </div></article>`;
 }

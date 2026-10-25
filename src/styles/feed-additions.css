@@ -25,3 +25,5 @@
 .comos-composer input[name=title]{width:100%;padding:13px 14px;background:var(--surface);border:1px solid var(--line);border-radius:11px;color:var(--text);font:15px/1.5 system-ui;min-height:44px}
 .comos-composer input[name=title]:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .comos-compose-audience{color:var(--muted);font-size:13px;margin:5px 0}
+
+.comos-feed{max-width:680px;margin:auto}.comos-post{border-radius:0;border-width:0 0 1px;padding:24px 12px}.post-image{display:block;width:100%;max-height:620px;object-fit:contain;border-radius:16px;margin:14px 0;background:var(--bg)}.post-tools{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.post-attachments{display:flex;gap:12px;flex-wrap:wrap}.post-attachments img{width:120px;height:120px;object-fit:cover;border-radius:12px}.post-attachments>div{display:grid;gap:6px}[data-emoji-picker] button{font-size:25px;min-width:44px;min-height:44px;background:transparent;border:0;cursor:pointer}.comos-post-text{white-space:pre-wrap}
