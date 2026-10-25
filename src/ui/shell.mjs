@@ -7,6 +7,8 @@ async function mountPage() {
   const generation=++routeGeneration;
   if(live)setSessionUser(sessionUser);
   const id=document.body.dataset.page;
+  if(!live&&id==='home'){const {mountHomePreview}=await import('../preview/home-ui.mjs');if(generation===routeGeneration)cleanup=mountHomePreview();}
+  if(!live&&id==='characters'){const {mountCharacterPreview}=await import('../preview/characters-ui.mjs');if(generation===routeGeneration)cleanup=mountCharacterPreview();}
   if(id==='admin-items'){const {mountItems}=await import('./items.mjs');if(generation===routeGeneration)cleanup=mountItems({fixture:!live});}
   if(id==='admin'){const {mountCharacterAdmin}=await import('./character-admin.mjs');if(generation===routeGeneration)cleanup=mountCharacterAdmin({fixture:!live});}
   if(id==='admin-groups'){const {mountGroups}=await import('./groups.mjs');if(generation===routeGeneration)cleanup=mountGroups({fixture:!live});}

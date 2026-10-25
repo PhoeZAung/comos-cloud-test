@@ -42,3 +42,6 @@ await writeFile(new URL('dist/assets/splash.mjs',root),await readFile(new URL('s
 for(const file of ['editor.mjs','view.mjs']) {const p=new URL('dist/account/'+file,root);await writeFile(p,(await readFile(p,'utf8')).replaceAll('../ui/preferences.mjs','../assets/preferences.mjs'));}
 await writeFile(new URL('dist/assets/effects.mjs',root),await readFile(new URL('src/ui/effects.mjs',root)));
 
+
+await cp(new URL('src/features/',root),new URL('dist/features/',root),{recursive:true});
+for(const file of ['home-ui.mjs','characters-ui.mjs'])await writeFile(new URL('dist/preview/'+file,root),await readFile(new URL('src/preview/'+file,root)));
