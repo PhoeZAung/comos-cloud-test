@@ -5,19 +5,21 @@ export function mountCompose({fixture=false}={}) {
   const scopes=root.querySelector('[data-compose-scopes]'),world=form.querySelector('[name=worldId]'),party=form.querySelector('[name=partyId]');
   const count=root.querySelector('[data-compose-count]'),controller=new AbortController();
   world.required=!fixture;
-  let available={worlds:[],parties:[]},busy=false,ready=fixture,requestId=crypto.randomUUID();
+  let available={admin:false,worlds:[],parties:[]},busy=false,ready=fixture,requestId=crypto.randomUUID();
   const paint=()=>{const n=Array.from(input.value).length;count.textContent=n+' / 2000';submit.disabled=busy||!ready||!input.value.trim()||n>2000;};
   const message=value=>status.textContent=value;
   function fill(select,rows,empty){select.replaceChildren();const first=document.createElement('option');first.value='';first.textContent=empty;select.append(first);for(const row of rows){const option=document.createElement('option');option.value=row.id;option.textContent=row.name;select.append(option);}}
-  function refreshParties(){fill(party,available.parties.filter(row=>row.worldId===world.value),'All members of this world');}
+  function refreshParties(){fill(party,world.value?available.parties.filter(row=>row.worldId===world.value):[],'All members of this world');}
   async function loadScopes(){
     try{
       const res=await fetch('/api/v1/feed/scopes',{credentials:'same-origin',cache:'no-store',signal:controller.signal});
       if(res.status===401){message('Sign in to write a post.');return;}
       if(!res.ok)throw Error('Could not load your worlds.');
-      available=await res.json();if(!Array.isArray(available.worlds)||!Array.isArray(available.parties))throw Error('Invalid scope response.');
-      if(!available.worlds.length){message('You need membership in a world before posting. Ask a Comos admin for access.');return;}
-      fill(world,available.worlds,'Choose a world');if(available.worlds.length===1)world.value=available.worlds[0].id;
+      available=await res.json();if(!Array.isArray(available.worlds)||!Array.isArray(available.parties)||typeof available.admin!=='boolean')throw Error('Invalid scope response.');
+      if(!available.worlds.length&&!available.admin){message('You need membership in a world before posting. Ask a Comos admin for access.');return;}
+      fill(world,available.worlds,available.admin?'Everyone on Comos (site-wide)':'Choose a world');
+      world.required=!available.admin;
+      if(!available.admin&&available.worlds.length===1)world.value=available.worlds[0].id;
       refreshParties();scopes.hidden=false;ready=true;paint();
     }catch(error){if(!controller.signal.aborted)message('Could not load worlds. Refresh and try again.');}
   }
@@ -31,8 +33,8 @@ export function mountCompose({fixture=false}={}) {
         const {preview}=await import('../preview/runtime.mjs');
         preview.data.create('posts',{authorId:'fixture:profile:guest',authorName:'Preview explorer',text:input.value.trim(),createdAt:new Date().toISOString()});
       }else{
-        const res=await fetch('/api/v1/posts',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:input.value,worldId:world.value,partyId:party.value||null,clientRequestId:requestId}),signal:controller.signal});
-        if(!res.ok){const data=await res.json().catch(()=>({}));throw Error(({401:'Sign in again to post.',403:'Complete your profile and confirm world access before posting.',409:'This post was already submitted differently.',429:'Too many posts. Try again shortly.'})[res.status]||data.message||'Could not publish post.');}
+        const res=await fetch('/api/v1/posts',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:input.value,worldId:world.value||null,partyId:world.value?(party.value||null):null,clientRequestId:requestId}),signal:controller.signal});
+        if(!res.ok){const data=await res.json().catch(()=>({}));throw Error(({401:'Sign in again to post.',403:'Complete your profile or check your posting access.',409:'This post was already submitted differently.',429:'Too many posts. Try again shortly.'})[res.status]||data.message||'Could not publish post.');}
       }
       // A normal navigation reloads authenticated Home. Ghost uses SPA navigation to retain isolated memory.
       if(fixture)root.querySelector('[data-compose-return]').click();else location.assign('home.html');

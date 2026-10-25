@@ -37,3 +37,6 @@ Home is now solely a post timeline with no welcome dashboard or preloaded fictio
 
 ## Step 5.2 — individual post details and text replies (2026-10-24)
 A Reply link on each Home post opens `/post.html?id=...`. Post and replies are loaded lazily, not from the Home timeline. Members can write text replies attributed to their real account, load more replies, and delete their own replies. Server enforces post world/party access for reads and writes, preserves idempotent retries, and deletes replies when their parent post is deleted. Ghost continues to start empty. Existing Admin and Firebase authentication are preserved; no fake people are injected. Focused Node/SQLite tests: 13 passed (7 new + 6 existing). Image/GIF replies, emoji picker, and signed-in phone/browser acceptance are pending. See STEP-5.2-POST-REPLIES.md.
+
+## Step 5.3 — Admin posting without membership (24 Oct 2026)
+Verified administrators may publish a global people-authored post without a world or membership, including before any worlds are configured. Global posts are visible only to signed-in users. Admins may also post to any existing world/party without joining; ordinary users remain restricted to their memberships. Existing posts and replies are preserved via migration 008. See STEP-5.3-ADMIN-GLOBAL-POSTS.md; phone/live acceptance remains pending.

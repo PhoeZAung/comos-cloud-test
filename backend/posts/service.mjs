@@ -7,14 +7,14 @@ const keys = (value, fields) => !!value && typeof value === 'object' && !Array.i
 
 export function validatePostInput(data) {
   if (!keys(data, ['text', 'worldId', 'partyId', 'clientRequestId'])
-    || typeof data.text !== 'string' || typeof data.worldId !== 'string'
+    || typeof data.text !== 'string' || (data.worldId !== null && typeof data.worldId !== 'string')
     || (data.partyId != null && typeof data.partyId !== 'string')
     || !uuid.test(data.clientRequestId || '')) throw bad('Invalid post.');
   const text = data.text.trim();
   if (!text || [...text].length > 2000 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(text))
     throw bad('Post text must be 1–2000 characters.');
-  if (data.worldId.length > 128 || (data.partyId?.length || 0) > 128) throw bad('Invalid scope.');
-  return {text, worldId:data.worldId, partyId:data.partyId || null, clientRequestId:data.clientRequestId};
+  if ((data.worldId?.length || 0) > 128 || (data.partyId?.length || 0) > 128) throw bad('Invalid scope.');
+  return {text, worldId:data.worldId || null, partyId:data.partyId || null, clientRequestId:data.clientRequestId};
 }
 function parseCursor(value) {
   if (!value) return null;
@@ -41,14 +41,14 @@ export function createPostsService(db, {now = () => new Date().toISOString(), id
   const worldExists = db.prepare('SELECT 1 FROM worlds WHERE id=?');
   const partyExists = db.prepare('SELECT 1 FROM parties WHERE id=? AND world_id=?');
   const byRequest = db.prepare('SELECT id,author_id AS authorId,client_request_id AS clientRequestId,world_id AS worldId,party_id AS partyId,body AS text,created_at AS createdAt FROM feed_posts WHERE author_id=? AND client_request_id=?');
-  const byId = db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,p.world_id AS worldId,w.name AS worldName,p.party_id AS partyId,pa.name AS partyName,p.body AS text,p.created_at AS createdAt FROM feed_posts p JOIN users u ON u.id=p.author_id JOIN worlds w ON w.id=p.world_id LEFT JOIN parties pa ON pa.id=p.party_id WHERE p.id=?');
-  const visible = (viewerId, isAdmin, worldId, partyId) => Boolean(isAdmin || (validWorld.get(viewerId, worldId) && (!partyId || validParty.get(viewerId,partyId,worldId))));
+  const byId = db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,p.world_id AS worldId,w.name AS worldName,p.party_id AS partyId,pa.name AS partyName,p.body AS text,p.created_at AS createdAt FROM feed_posts p JOIN users u ON u.id=p.author_id LEFT JOIN worlds w ON w.id=p.world_id LEFT JOIN parties pa ON pa.id=p.party_id WHERE p.id=?');
+  const visible = (viewerId, isAdmin, worldId, partyId) => Boolean(isAdmin || worldId === null || (validWorld.get(viewerId, worldId) && (!partyId || validParty.get(viewerId,partyId,worldId))));
   const timeline = db.prepare(`
     SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,p.world_id AS worldId,w.name AS worldName,
       p.party_id AS partyId,pa.name AS partyName,p.body AS text,p.created_at AS createdAt
     FROM feed_posts p JOIN users u ON u.id=p.author_id
-      JOIN worlds w ON w.id=p.world_id LEFT JOIN parties pa ON pa.id=p.party_id
-    WHERE (?=1 OR EXISTS (SELECT 1 FROM world_memberships wm WHERE wm.user_id=? AND wm.world_id=p.world_id))
+      LEFT JOIN worlds w ON w.id=p.world_id LEFT JOIN parties pa ON pa.id=p.party_id
+    WHERE (p.world_id IS NULL OR ?=1 OR EXISTS (SELECT 1 FROM world_memberships wm WHERE wm.user_id=? AND wm.world_id=p.world_id))
       AND (p.party_id IS NULL OR ?=1 OR EXISTS (SELECT 1 FROM party_memberships pm WHERE pm.user_id=? AND pm.party_id=p.party_id))
       AND (? IS NULL OR p.created_at<? OR (p.created_at=? AND p.id<?))
     ORDER BY p.created_at DESC,p.id DESC LIMIT 21`);
@@ -63,7 +63,7 @@ export function createPostsService(db, {now = () => new Date().toISOString(), id
     },
     scopes(userId,{admin=false}={}) {
       if (!userId) throw bad('Sign in required.');
-      return {worlds:admin?adminWorlds.all():listScope.all(userId),parties:admin?adminParties.all():availableParties.all(userId)};
+      return {admin:Boolean(admin),worlds:admin?adminWorlds.all():listScope.all(userId),parties:admin?adminParties.all():availableParties.all(userId)};
     },
     list(userId,{admin=false,cursor=''}={}) {
       if (!userId) throw bad('Sign in required.');
@@ -75,7 +75,9 @@ export function createPostsService(db, {now = () => new Date().toISOString(), id
     create(userId,data,{admin=false}={}) {
       if (!userId) throw bad('Sign in required.');
       const input = validatePostInput(data);
-      if (!worldExists.get(input.worldId) || (input.partyId && !partyExists.get(input.partyId,input.worldId))
+      if ((input.worldId === null && (!admin || input.partyId !== null))
+        || (input.worldId !== null && !worldExists.get(input.worldId))
+        || (input.partyId && !partyExists.get(input.partyId,input.worldId))
         || !visible(userId,admin,input.worldId,input.partyId)) throw bad('You cannot post to this world or party.','POST_FORBIDDEN');
       const existing=byRequest.get(userId,input.clientRequestId);
       if (existing) {
