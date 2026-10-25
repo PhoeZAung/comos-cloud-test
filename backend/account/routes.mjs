@@ -40,7 +40,7 @@ export function createAccountRoutes({sessions,account,origin,throttle=createAuth
    }
   }catch(error){
    if(error.code==='IMAGE_BUSY'){res.setHeader('Retry-After','2');send(429,{error:'too_many_requests'});}
-   else if(error.code==='INVALID_ACCOUNT')send(400,{error:'invalid_account',message:error.message});
+   else if(['INVALID_ACCOUNT','INVALID_PROFILE'].includes(error.code))send(400,{error:'invalid_account',message:error.message});
    else if(error.code==='REVISION_CONFLICT')send(409,{error:'account_conflict'});
    else if(error.code==='TOO_LARGE')send(413,{error:'image_too_large',message:'Choose an image up to 3 MB.'});
    else if(['auth/session-cookie-expired','auth/session-cookie-revoked','auth/argument-error'].includes(error.code)||error.message==='Session required.')send(401,{error:'sign_in_required'});

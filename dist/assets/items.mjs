@@ -28,7 +28,7 @@ export function mountItems({fixture=false}={}){
     items=rows.slice(0,20).map(({description,...summary})=>structuredClone(summary));nextCursor=rows.length>20?rows[19].id:null;
    }else{const result=await request('?'+new URLSearchParams({q,sourceId,archived:archived?'1':'0',cursor}));items=result.items;nextCursor=result.nextCursor;}
    draw();status(message);
-  }catch(error){if(!closed)root.innerHTML=`<p role="status">${esc(error.message)}</p><button class="button" type="button" data-reload>Reload</button>${fixture?'':'<a class="button" href="preview/admin-items.html">Ghost preview</a>'}`;}
+  }catch(error){if(!closed)root.innerHTML=`<p role="status">${esc(error.message)}</p><button class="button" type="button" data-reload>Reload</button>${fixture?'':'<a class="button" href="signin.html">Sign in</a>'}`;}
   finally{setBusy(false);}
  }
  root.addEventListener('click',async event=>{

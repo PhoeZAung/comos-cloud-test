@@ -22,7 +22,7 @@ test('cloud host isolates preview CSP and blocks private files, traversal, symli
  const base = `http://127.0.0.1:${server.address().port}`;
  try {
   let r = await fetch(base); assert.equal(r.status, 200); assert.equal(r.headers.get('content-security-policy'), "connect-src 'self'");
-  r = await fetch(base+'/preview/'); assert.equal(r.status,200); assert.match(r.headers.get('content-security-policy'), /connect-src 'none'/);
+  r = await fetch(base+'/preview/'); assert.equal(r.status,404);
   for(const name of ['/escape.html','/auth-headers.json','/%2e%2e%2fprivate.html','/.env','/backend/cloud.mjs']) assert.equal((await fetch(base+name)).status,404,name);
   assert.equal((await fetch(base+'/',{method:'POST'})).status,405);
   assert.equal((await fetch(base+'/api/v1/characters')).status,401);

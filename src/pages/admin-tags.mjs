@@ -1,0 +1,1 @@
+export default {id:'admin-tags',title:'Tags · Comos',bodyClass:'admin',layout:'app',activeMain:'characters',section:null,description:'',content:'<a class="back" href="admin.html">← Characters</a><h1>Tags</h1><section data-tag-manager></section>'};

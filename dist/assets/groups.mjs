@@ -20,7 +20,7 @@ export function mountGroups({fixture=false}={}){
    if(fixture){ghost??={revision:1,worlds:[1,2,3,4].map(i=>({id:'fixture:world:'+i,name:'World '+i})),parties:[],users:[{id:'fixture:player:1',displayName:'Preview explorer'},{id:'fixture:player:2',displayName:'Second player'}],assignments:{}};state=structuredClone(ghost);state.users=state.users.filter(u=>u.displayName.toLowerCase().includes(search.toLowerCase()));state.selectedUser=state.users.find(u=>u.id===selected)||state.users[0]||null;state.memberships=ghost.assignments[state.selectedUser?.id]||{worldIds:[],partyIds:[]};}
    else state=await request();
    selected=state.selectedUser?.id||'';draw();
-  }catch(error){if(!closed){root.innerHTML='<p role="status">'+esc(error.message)+'</p><button class="button" data-reload>Reload</button>'+(!fixture?'<a class="button" href="preview/admin-groups.html">Ghost preview</a>':'');}}
+  }catch(error){if(!closed){root.innerHTML='<p role="status">'+esc(error.message)+'</p><button class="button" data-reload>Reload</button>'+(!fixture?'<a class="button" href="signin.html">Sign in</a>':'');}}
   finally{busy=false;}
  }
  root.addEventListener('change',event=>{

@@ -10,13 +10,12 @@ async function mountPage() {
   if(live&&id==='home'){const {mountFeed}=await import('./feed.mjs');if(generation===routeGeneration)cleanup=mountFeed();}
   if(id==='post'){const {mountPostThread}=await import('./post-thread.mjs');if(generation===routeGeneration)cleanup=mountPostThread({fixture:!live});}
   if(id==='compose'){const {mountCompose}=await import('./compose.mjs');if(generation===routeGeneration)cleanup=mountCompose({fixture:!live});}
-  if(!live&&id==='home'){const {mountHomePreview}=await import('../preview/home-ui.mjs');if(generation===routeGeneration)cleanup=mountHomePreview();}
-  if(!live&&id==='lore'){const {mountLorePreview}=await import('../preview/lore-ui.mjs');if(generation===routeGeneration)cleanup=mountLorePreview();}
-  if(!live&&id==='characters'){const {mountCharacterPreview}=await import('../preview/characters-ui.mjs');if(generation===routeGeneration)cleanup=mountCharacterPreview();}
   if(id==='admin-items'){const {mountItems}=await import('./items.mjs');if(generation===routeGeneration)cleanup=mountItems({fixture:!live});}
-  if(id==='admin'){const {mountCharacterAdmin}=await import('./character-admin.mjs');if(generation===routeGeneration)cleanup=mountCharacterAdmin({fixture:!live});}
+  if(id==='admin-tags'){const {mountTags}=await import('./directory.mjs');if(generation===routeGeneration)cleanup=mountTags();}
+  if(id.startsWith('sheet')||id.startsWith('create-')){const {mountCharacterView}=await import('./character-view.mjs');if(generation===routeGeneration)cleanup=mountCharacterView();}
+  if(id==='admin'){const {mountCharacterAdmin}=await import('./directory.mjs');if(generation===routeGeneration)cleanup=mountCharacterAdmin({fixture:!live});}
   if(id==='admin-groups'){const {mountGroups}=await import('./groups.mjs');if(generation===routeGeneration)cleanup=mountGroups({fixture:!live});}
-  if(!live && id==='account'){const {mountAccount}=await import('../account/editor.mjs');if(generation===routeGeneration)cleanup=mountAccount({fixture:true});}
+
   if(live && ['signin','signup','account'].includes(id)) {
     const {mountAuth}=await import('./auth.js');
     if(generation!==routeGeneration)return;

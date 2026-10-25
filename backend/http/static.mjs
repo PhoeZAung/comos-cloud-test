@@ -14,6 +14,7 @@ export async function createStaticHandler(directory) {
     if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405, { Allow: 'GET, HEAD' }).end(); return; }
     try {
       let name = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
+      if(name==='/preview'||name.startsWith('/preview/'))throw Error('Preview retired');
       if (name.endsWith('/')) name += 'index.html';
       if (name.includes('\\') || name.split('/').some(part => part.startsWith('.'))) throw new Error('Invalid path');
       const target = await realpath(path.resolve(root, '.' + name));

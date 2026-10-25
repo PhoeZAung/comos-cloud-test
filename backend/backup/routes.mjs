@@ -7,13 +7,13 @@ const tables=[
   'users','external_identities','user_preferences','characters',
   'worlds','parties','world_memberships','party_memberships',
   'items','feed_posts','feed_replies','media','legacy_record_map',
-  'admin_bootstrap','group_state','schema_migrations',
+  'admin_bootstrap','group_state','schema_migrations','character_details','character_tags','character_tag_links','home_media','home_post_media',
 ];
 export function snapshotComosData(db,{now=()=>new Date().toISOString()}={}) {
   const records={};
   db.exec('BEGIN');
   try{
-    for(const table of tables) records[table]=db.prepare(`SELECT * FROM ${table}`).all();
+    for(const table of tables)records[table]=db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name=?").get(table)?db.prepare(`SELECT * FROM ${table}`).all():[];
     db.exec('COMMIT');
   }catch(error){db.exec('ROLLBACK');throw error;}
   return {format:'comos-admin-export-v1',exportedAt:now(),records};

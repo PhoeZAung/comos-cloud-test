@@ -1,3 +1,4 @@
+import {party,item} from '../ui/admin-icons.mjs';
 import { previewPolicy } from '../preview/policy.mjs';
 
 export const brand = 'Comos';
@@ -6,7 +7,7 @@ const navigation = {
   main: [['home', 'Home'], ['lore', 'Lore'], ['characters', 'Characters']],
   public: [['signin', 'Sign in'], ['signup', 'Sign up']],
   wizard: [['create-source', 'Sources'], ['create-identity', 'Identity'], ['create-race', 'Race'], ['create-class', 'Class & level']],
-  admin: [['admin', 'Character controls'], ['admin-items', 'Item controls'], ['admin-groups', 'Groups']],
+  admin: [['admin', 'Character controls'], ['admin-items', 'Item controls']],
   sheet: [['sheet', 'Overview'], ['sheet-inventory', 'Inventory'], ['sheet-abilities', 'Abilities'], ['sheet-shop', 'Shop']],
 };
 
@@ -14,7 +15,7 @@ const labels = { wizard: 'Character creation', admin: 'Admin panel', sheet: 'Cha
 const escape = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 
 function nav(kind, current, className, label) {
-  return `<nav class="${className}" aria-label="${label}">${navigation[kind].map(([id, text]) => `<a href="${id}.html"${id === current ? ' aria-current="page"' : ''}>${escape(text)}</a>`).join('')}</nav>`;
+  return `<nav class="${className}" aria-label="${label}">${navigation[kind].map(([id, text]) => `<a href="${id}.html"${id === current ? ' aria-current="page"' : ''}>${kind==='admin'?(id==='admin'?party:item):escape(text)}${kind==='admin'?'<span class="sr-only">'+escape(text)+'</span>':''}</a>`).join('')}</nav>`;
 }
 
 const back = '<a class="back" href="characters.html">← Characters</a>';

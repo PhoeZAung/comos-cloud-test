@@ -27,7 +27,7 @@ test('SQLite records survive reopen; migrations run once and stale profile updat
   assert.throws(() => users.updateProfile(user.id, { displayName: 'Stale', theme: 'light' }, 1), { code: 'REVISION_CONFLICT' });
   db.close(); db = await openDatabase(filename);
   assert.equal(createUserRepository(db).get(user.id).displayName, 'Changed');
-  assert.equal(db.prepare('SELECT count(*) AS n FROM schema_migrations').get().n, 10);
+  assert.equal(db.prepare('SELECT count(*) AS n FROM schema_migrations').get().n, 11);
   assert.equal(db.prepare('PRAGMA foreign_keys').get().foreign_keys, 1);
   assert.equal(db.prepare('PRAGMA journal_mode').get().journal_mode, 'wal');
 });
@@ -97,7 +97,7 @@ test('API health works; forged authentication, ghost flags, writes, and private 
   const base = `http://127.0.0.1:${server.address().port}`;
   const response = await fetch(`${base}/api/v1/health`);
   assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), { status: 'ok', apiVersion: 1, database: 'ready', schemaVersion: 10, authentication: 'not_configured' });
+  assert.deepEqual(await response.json(), { status: 'ok', apiVersion: 1, database: 'ready', schemaVersion: 11, authentication: 'not_configured' });
   for (const method of ['GET','POST','PUT','PATCH','DELETE']) {
     const r = await fetch(`${base}/api/v1/users?admin=true&mode=fixture`, { method, headers: { Authorization: 'Bearer forged', 'X-User-Id': 'someone', 'X-Role': 'admin', Origin: 'https://example.invalid' } });
     assert.equal(r.status, 401);

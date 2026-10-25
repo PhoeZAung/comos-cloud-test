@@ -1,0 +1,23 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {gzipSync} from 'node:zlib';import {openDatabase} from '../backend/db/database.mjs';import {importDirectory} from '../backend/import/legacy.mjs';import {createUserRepository,createIdentityRepository} from '../backend/repositories/users.mjs';import {createAccountService} from '../backend/account/service.mjs';import {createCharactersService} from '../backend/characters/service.mjs';import {createDirectoryRoutes} from '../backend/characters/directory.mjs';import {createApiServer} from '../backend/http/app.mjs';import {randomUUID} from 'node:crypto';
+test('legacy import links Firebase UIDs, preserves sheet fields, avoids duplicates and reserves unique names',async()=>{
+ const db=await openDatabase(':memory:');try{
+ const backup={users:[{uid:'first',displayName:'Explorer'},{uid:'second',displayName:'Explorer'}],characters:[{uid:'first',legacyId:'old',data:{charName:'Mage',hp_curr:7,items:[{name:'Staff'}],group_tags:['Party']}}]};const env={COMOS_LEGACY_IMPORT_PARTS:'1',COMOS_LEGACY_IMPORT_0:gzipSync(JSON.stringify(backup)).toString('base64')},auth={listUsers:async()=>({users:[{uid:'first'},{uid:'second'}]})};
+ await importDirectory({db,auth,projectId:'example-project',env});await importDirectory({db,auth,projectId:'example-project',env});assert.equal(db.prepare('SELECT count(*) AS n FROM characters').get().n,1);assert.deepEqual(db.prepare('SELECT display_name FROM users ORDER BY display_name').all().map(u=>u.display_name),['Explorer','Explorer 2']);assert.equal(JSON.parse(db.prepare('SELECT data_json FROM character_details').get().data_json).hp_curr,7);
+ const owner=createIdentityRepository(db).find({provider:'firebase',issuer:'https://securetoken.google.com/example-project',subject:'first'}),other=db.prepare('SELECT id FROM users WHERE id<>?').get(owner).id;
+ assert.throws(()=>createUserRepository(db).completeProfile(other,'EXPLORER',1),{code:'INVALID_PROFILE'});const u=createUserRepository(db).get(other);assert.throws(()=>createAccountService({db,files:{}}).update(other,{revision:u.revision,displayName:'ｅｘｐｌｏｒｅｒ'}),{code:'INVALID_ACCOUNT'});
+ }finally{db.close();}
+});
+test('directory, tags, sheets and wizard edits enforce owner/admin access and preserve saved data',async()=>{
+ const db=await openDatabase(':memory:'),users=createUserRepository(db),owner=users.create({displayName:'Owner'}),other=users.create({displayName:'Other'}),characters=createCharactersService(db),id=randomUUID();characters.save({op:'save',id,revision:0,name:'Saved',ownerId:owner.id,sources:[]});db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(id,JSON.stringify({hp_curr:8,items:[{name:'Staff'}]}));
+ const sessions={restore:async c=>{if(!['admin','owner','other'].includes(c))throw Error();return {subject:c,user:c==='other'?other:owner};}},origin='https://example.test',server=createApiServer({db,directoryRoutes:createDirectoryRoutes({db,sessions,adminUids:['admin'],origin})});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}/api/v1`,headers={Cookie:'__Host-comos_session=admin',Origin:origin,'Content-Type':'application/json'};
+ try{
+  assert.equal((await fetch(base+'/admin/directory')).status,401);assert.equal((await fetch(base+'/admin/directory',{headers:{Cookie:'__Host-comos_session=owner'}})).status,403);
+  assert.equal((await fetch(base+'/character-records/'+id,{headers:{Cookie:'__Host-comos_session=other'}})).status,404);
+  let r=await fetch(base+'/admin/tags',{method:'POST',headers,body:JSON.stringify({name:'Adventurers'})});assert.equal(r.status,200);const tag=(await r.json()).tags[0];
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers,body:JSON.stringify({op:'tags',revision:1,tagIds:[tag.id]})});assert.equal(r.status,200);
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers:{...headers,Cookie:'__Host-comos_session=owner'},body:JSON.stringify({op:'tags',revision:2,tagIds:[]})});assert.equal(r.status,403);
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers,body:JSON.stringify({op:'edit',revision:2,fields:{charName:'Renamed',level:'4'}})});assert.equal(r.status,200);const d=(await r.json()).character;assert.equal(d.data.hp_curr,8);assert.deepEqual(d.data.items,[{name:'Staff'}]);assert.equal(d.tags[0],tag.id);
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers,body:JSON.stringify({op:'edit',revision:2,fields:{charName:'Stale'}})});assert.equal(r.status,409);
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers:{...headers,Origin:'https://evil.test'},body:'{}'});assert.equal(r.status,403);
+ }finally{await new Promise(r=>server.close(r));db.close();}
+});

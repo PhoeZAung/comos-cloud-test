@@ -1,3 +1,4 @@
+import {uniqueName,nameKey} from './names.mjs';
 import { randomUUID } from 'node:crypto';
 
 function record(row) {
@@ -15,16 +16,18 @@ export function createUserRepository(db) {
   return Object.freeze({
     get,
     create({ displayName = '' } = {}) {
+      uniqueName(db,displayName);
       const id = randomUUID(), now = new Date().toISOString();
-      db.prepare('INSERT INTO users(id, display_name, created_at, updated_at) VALUES(?, ?, ?, ?)').run(id, name(displayName), now, now);
+      db.prepare('INSERT INTO users(id, display_name, display_name_key, created_at, updated_at) VALUES(?, ?, ?, ?, ?)').run(id, name(displayName), displayName.trim()?nameKey(displayName):null, now, now);
       return get(id);
     },
     completeProfile(id, displayName, expectedRevision) {
       const trimmed = name(displayName);
       if (!trimmed || /[\u0000-\u001f\u007f]/u.test(trimmed)) throw Object.assign(new Error('Enter a display name of 1–80 characters.'), { code: 'INVALID_PROFILE' });
       if (!Number.isSafeInteger(expectedRevision) || expectedRevision < 1) throw Object.assign(new Error('Invalid revision.'), { code: 'INVALID_PROFILE' });
-      const changed = db.prepare("UPDATE users SET display_name = ?, profile_state = 'complete', updated_at = ?, revision = revision + 1 WHERE id = ? AND revision = ? AND profile_state = 'incomplete'")
-        .run(trimmed, new Date().toISOString(), id, expectedRevision);
+      uniqueName(db,trimmed,id);
+      const changed = db.prepare("UPDATE users SET display_name = ?,display_name_key=?, profile_state = 'complete', updated_at = ?, revision = revision + 1 WHERE id = ? AND revision = ? AND profile_state = 'incomplete'")
+        .run(trimmed,nameKey(trimmed), new Date().toISOString(), id, expectedRevision);
       const user = get(id);
       // Lost-response retries never create another user or overwrite a completed profile.
       if (changed.changes === 1 || (user?.profileState === 'complete' && user.displayName === trimmed)) return user;
@@ -33,8 +36,9 @@ export function createUserRepository(db) {
     updateProfile(id, { displayName, theme }, expectedRevision) {
       if (!Number.isInteger(expectedRevision) || expectedRevision < 1) throw new TypeError('A positive expected revision is required.');
       if (!['system', 'dark', 'light'].includes(theme)) throw new TypeError('Unknown theme.');
-      const changed = db.prepare('UPDATE users SET display_name = ?, theme = ?, updated_at = ?, revision = revision + 1 WHERE id = ? AND revision = ?')
-        .run(name(displayName), theme, new Date().toISOString(), id, expectedRevision);
+      uniqueName(db,displayName,id);
+      const changed = db.prepare('UPDATE users SET display_name = ?,display_name_key=?, theme = ?, updated_at = ?, revision = revision + 1 WHERE id = ? AND revision = ?')
+        .run(name(displayName),displayName.trim()?nameKey(displayName):null, theme, new Date().toISOString(), id, expectedRevision);
       if (changed.changes !== 1) {
         const error = new Error('User missing or revision conflict.'); error.code = 'REVISION_CONFLICT'; throw error;
       }

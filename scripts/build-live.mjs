@@ -12,7 +12,7 @@ const config=publicAuthConfig(JSON.parse(await readFile(process.argv[2],'utf8'))
 const output=await mkdtemp(new URL('.auth-build-',root));
 try {
  await mkdir(output+'/assets');
- await cp(new URL('dist/',root),output+'/preview',{recursive:true});
+
  await cp(new URL('dist/assets/',root),output+'/assets',{recursive:true});
  await cp(new URL('dist/features/',root),output+'/features',{recursive:true});
  await build({entryPoints:[fileURLToPath(new URL('src/auth/live.mjs',root))],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:output+'/assets/auth.js',define:{COMOS_PUBLIC_AUTH:JSON.stringify(config)}});
@@ -25,7 +25,7 @@ try {
   if(['signin','signup'].includes(page.id))page.content=authContent(page.id,{live:true});
   if(page.id==='account')page.content='<section class="page-heading"><h1>Account</h1></section><section class="auth-card"><div data-entry><a class="button primary" href="signin.html">Sign in</a></div>'+profileContent({live:true})+sessionContent()+'<p class="auth-status" data-page-status role="status" tabindex="-1"></p><button class="button" data-retry hidden>Retry connection</button></section>'+accountEditor();
   page.content=page.content.replaceAll('data-admin-entry','data-admin-entry hidden');
-  page.content=page.content.replace(/href="home.html">Ghost mode/g,'href="preview/home.html">Ghost mode');
+
   await writeFile(output+'/assets/routes/'+page.id+'.mjs', 'export default '+JSON.stringify(routeView(page))+';\n');
   await writeFile(output+'/'+page.id+'.html',renderPage(page,{policy,live:true,scripts:['assets/shell.mjs']}));
  }
