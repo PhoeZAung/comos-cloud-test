@@ -3,11 +3,11 @@ import {createCharacterDemo} from '../features/characters/cards.mjs';
 export function mountCharacterLibrary({fixture=false}={}){
   const root=document.querySelector('[data-character-cards]');if(!root)return ()=>{};
   const control=new AbortController();
-  let closed=false,loading=false,characters=[],selected=0,nextCursor=null,message='',error='',suppressCardClickUntil=0;
-  const readError=async response=>{try{const data=await response.json();return data.message||({401:'Sign in to access your characters.',403:'Finish your profile to import a character.',413:'The character file is too large.'})[response.status]||'Could not complete this action.';}catch{return 'Could not complete this action.';}};
+  let closed=false,loading=false,characters=[],selected=0,view='carousel',nextCursor=null,message='',error='',suppressCardClickUntil=0;
+  const readError=async response=>{try{const data=await response.json();return data.message||({401:'Sign in to access your characters.',403:'Character access denied.'})[response.status]||'Could not complete this action.';}catch{return 'Could not complete this action.';}};
   const draw=()=>{
     if(closed)return;
-    root.innerHTML=renderCharacterRoster({characters,selected,loading,error,message,nextCursor,preview:fixture});
+    root.innerHTML=renderCharacterRoster({characters,selected,view,loading,error,message,nextCursor,preview:fixture});
     const stage=root.querySelector('[data-character-stage]');
     if(stage)stage.dataset.characterStage='ready';
   };
@@ -45,19 +45,17 @@ export function mountCharacterLibrary({fixture=false}={}){
   if(fixture){
     const demo=createCharacterDemo();
     characters=demo.snapshot().items.map(c=>({...c,tags:['Demo'],portraitUrl:null}));
-    message='Sample characters only. Sign in on the live site to use your saved collection.';
+    message='Sample preview only.';
     draw();
   }else void load();
   root.addEventListener('click',event=>{
+    const toggle=event.target.closest('[data-character-view]');
+    if(toggle){view=toggle.dataset.characterView==='list'?'list':'carousel';draw();root.querySelector('[data-character-view]')?.focus();return;}
     const rotation=event.target.closest('[data-rotate-character]');
     if(rotation){turn(Number(rotation.dataset.rotateCharacter));return;}
     const card=event.target.closest('[data-select-character]');
     if(card){if(Date.now()<suppressCardClickUntil)return;const wanted=Number(card.dataset.selectCharacter);if(Number.isInteger(wanted)&&wanted>=0&&wanted<characters.length)turn(wanted-selected);return;}
     if(event.target.closest('[data-load-characters]')){void load({more:true});return;}
-    if(event.target.closest('[data-import-character]')){
-      if(fixture){message='Import is available when signed in to the live Comos site.';draw();return;}
-      root.querySelector('[data-character-file]')?.click();
-    }
   },{signal:control.signal});
   root.addEventListener('keydown',event=>{
     if(!event.target.closest('[data-character-stage]'))return;
@@ -74,20 +72,5 @@ export function mountCharacterLibrary({fixture=false}={}){
     if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.3){suppressCardClickUntil=Date.now()+300;turn(dx<0?1:-1);}
   },{signal:control.signal});
   root.addEventListener('pointercancel',()=>{start=null;},{signal:control.signal});
-  root.addEventListener('change',async event=>{
-    const field=event.target.closest('[data-character-file]');if(!field||fixture)return;
-    const file=field.files?.[0];if(!file)return;
-    if(file.size>260000){error='Choose a single-character JSON file under 250 KB.';draw();return;}
-    loading=true;message='Importing character…';error='';draw();
-    try{
-      const data=JSON.parse(await file.text());
-      if(!data||typeof data!=='object'||Array.isArray(data))throw Error('Choose one character JSON object, not a collection.');
-      const res=await fetch('/api/v1/my/characters/import',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({character:data}),signal:control.signal});
-      if(!res.ok)throw Error(await readError(res));
-      const result=await res.json();
-      loading=false;nextCursor=null;await load();
-      if(!closed){message='Imported '+String(result.character?.name||'character')+'.';error='';draw();}
-    }catch(e){if(!closed&&!control.signal.aborted){loading=false;error=e instanceof SyntaxError?'Not a valid JSON character file.':e.message;draw();}}
-  },{signal:control.signal});
   return ()=>{closed=true;control.abort();};
 }

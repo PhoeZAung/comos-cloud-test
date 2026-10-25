@@ -1,3 +1,5 @@
+> **Updated player UI (2026-10-25):** The Characters page no longer displays the JSON Import button, “Character collection,” or saved-character counts. A single icon toggles the rotating cards and a flat, dark-gray character list, with no user grouping. The existing private import backend remains unchanged for compatibility.
+
 # Comos — Home profile photos, threaded replies and character carousel
 
 ## What changed

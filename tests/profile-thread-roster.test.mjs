@@ -55,7 +55,16 @@ test('character import is owner-scoped, preserves sheet fields, links known tags
   assert.throws(()=>parseCharacterImport({character:{name:'',data:{}}}),{code:'INVALID_IMPORT'});
   assert.throws(()=>parseCharacterImport(JSON.parse('{"charName":"A","__proto__":{"evil":1}}')),{code:'INVALID_IMPORT'});
   const rendered=renderCharacterRoster({characters:listed,selected:0});
-  assert.match(rendered,/Nyx/);assert.match(rendered,/Import character/);assert.match(rendered,/cc-panel is-current/);
+  assert.match(rendered,/Nyx/);
+  assert.match(rendered,/cc-panel is-current/);
+  assert.match(rendered,/data-character-view="list"/);
+  assert.doesNotMatch(rendered,/Import character|Character collection|saved character/i);
+  const flat=renderCharacterRoster({characters:listed,view:'list'});
+  assert.match(flat,/class="cc-list-row"/);
+  assert.match(flat,/data-character-view="carousel"/);
+  assert.match(flat,/Arcane/);
+  assert.match(flat,/sheet\.html\?characterId=/);
+  assert.doesNotMatch(flat,/directory-user|Import character|Character collection|saved character/);
   assert.doesNotMatch(rendered,/Player character cards are coming/);
  }finally{db.close();}
 });
@@ -81,4 +90,15 @@ test('library API cannot import under another account, member photos need a sess
   assert.equal((await fetch(base+'/api/v1/member-avatars/'+b.id,{headers:{Cookie:'__Host-comos_session=a'}})).status,404);
   assert.equal((await fetch(base+'/api/v1/my/characters/import',{method:'POST',headers:{...bHeaders,Origin:'https://wrong.test'},body:'{}'})).status,403);
  }finally{await new Promise(r=>srv.close(r));db.close();}
+});
+
+test('list mode keeps characters separate without user folders and escapes names and tags',()=>{
+  const html=renderCharacterRoster({view:'list',characters:[{id:'fixture:1',name:'<unsafe>',tags:['<script>'],level:2}]});
+  assert.match(html,/&lt;unsafe&gt;/);
+  assert.match(html,/&lt;script&gt;/);
+  assert.doesNotMatch(html,/<unsafe>|<script>|directory-user|data-import-character/);
+  assert.match(html,/Show rotating cards/);
+  const cards=renderCharacterRoster({characters:[{id:'fixture:1',name:'Knight',tags:['Party']}]});
+  assert.match(cards,/Show list view/);
+  assert.doesNotMatch(cards,/Import character|Character collection|saved character/i);
 });
