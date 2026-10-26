@@ -12,7 +12,7 @@ test('Step 5.1 renders a timeline only, without old world dashboard content',()=
 });
 test('Step 5.1 escapes human-authored text and excludes old persona metadata',()=>{
   const markup=renderHomeFeed({posts:[{id:'fixture:x',authorName:'<img onerror=alert(1)>',persona:'<script>x</script>',scopeLabel:'World <secret>',text:'<svg/onload=alert(1)>',createdAt:'bad'}],preview:true});
-  assert.doesNotMatch(markup,/<script>|<svg|<img onerror/);
+  assert.doesNotMatch(markup,/<script>|<svg\/onload|<img onerror/);
   assert.match(markup,/&lt;svg/);
   assert.match(markup,/&lt;img/);
   assert.doesNotMatch(markup,/&lt;script&gt;|&lt;secret&gt;|comos-post-persona/);

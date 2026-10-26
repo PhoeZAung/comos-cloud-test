@@ -1,15 +1,10 @@
+import {renderSheetFrame} from '../features/sheet/view.mjs';
 import {SOURCE_NAME,ALIGNMENTS,CLASS_NAMES,RACE_NAMES,ARCHETYPES,RACE_TRAITS,defaultTraits,characterClasses,totalClassLevel} from '../features/characters/ffd20.mjs';
 
 const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const choices=(names,selected='',placeholder='Select…')=>'<option value="">'+esc(placeholder)+'</option>'+[...new Set([...names,...(selected&&!names.includes(selected)?[selected]:[])])].map(name=>'<option value="'+esc(name)+'"'+(name===selected?' selected':'')+'>'+esc(name)+'</option>').join('');
 const portraitOK=value=>typeof value==='string'&&value.length<=160000&&/^data:image\/(?:jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(value);
 const noPortrait='<svg viewBox="0 0 100 120" aria-hidden="true" fill="none"><circle cx="50" cy="33" r="21" fill="currentColor" opacity=".7"/><path d="M11 114v-10c0-25 17-42 39-42s39 17 39 42v10" fill="currentColor" opacity=".6"/></svg>';
-function valueMarkup(value){
- if(value===null)return '';
- if(Array.isArray(value))return value.map((item,i)=>typeof item==='object'&&item?`<details><summary>${esc(item.name||item.title||item.itemName||'Entry '+(i+1))}</summary>${valueMarkup(item)}</details>`:`<p>${esc(item)}</p>`).join('')||'None';
- if(typeof value==='object')return '<dl>'+Object.entries(value).filter(([k])=>!k.startsWith('__')).map(([k,v])=>`<div><dt>${esc(k.replaceAll('_',' '))}</dt><dd>${valueMarkup(v)}</dd></div>`).join('')+'</dl>';
- return esc(value);
-}
 const route=(name,id)=>name+'.html'+(id?'?characterId='+encodeURIComponent(id):'');
 const useTraitList=(data,key)=>{
  const existing=data[key];
@@ -66,15 +61,7 @@ export function characterLevelSummary(data={}){
  const total=classes.length?totalClassLevel(classes):Number(data.character_level||data.level)||0;
  return {classes,totalLevel:total};
 }
-export function renderSheet(character,page){
- const data=character.data||{},summary=characterLevelSummary(data),id=character.id;
- const section=page==='sheet-inventory'?['items','weapons','gil','currency_gil']:page==='sheet-abilities'?['spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills']:['race','str','dex','con','int','wis','cha','hp_curr','hp_max','mp_curr','mp_max','ac_total','bab','speed','alignment'];
- const portrait=portraitOK(data.portrait)?'<img class="cw-sheet-portrait" src="'+esc(data.portrait)+'" alt="">':'';
- return `<a class="back" href="characters.html">← Characters</a><nav class="tabs" aria-label="Character sheet">${[['sheet','Overview'],['sheet-inventory','Inventory'],['sheet-abilities','Abilities']].map(([name,title])=>`<a href="${route(name,id)}" ${page===name?'aria-current="page"':''}>${title}</a>`).join('')}</nav>
-  <div class="cw-sheet-heading">${portrait}<div><h1>${esc(character.name)}</h1>${data.source?'<span class="cw-source-caption">'+esc(data.source)+'</span>':''}</div></div>
-  ${page==='sheet'?'<section class="cw-sheet-levels" aria-label="Class levels"><div><span>Total level</span><strong>'+esc(summary.totalLevel||'—')+'</strong></div>'+summary.classes.map((row,index)=>'<div><span>Class '+(index+1)+' Lv</span><strong>'+esc(row.name)+' '+esc(row.level)+'</strong>'+(row.archetype?'<small>'+esc(row.archetype)+'</small>':'')+'</div>').join('')+'</section>':''}
-  <section class="saved-sheet"><dl>${section.filter(key=>data[key]!==undefined).map(key=>`<div><dt>${esc(key.replaceAll('_',' '))}</dt><dd>${valueMarkup(data[key])}</dd></div>`).join('')||'<p>No saved values in this section.</p>'}</dl></section>`;
-}
+export function renderSheet(character,page){return renderSheetFrame(character,({'sheet-inventory':'items','sheet-abilities':'abilities'}[page]||'overview'));}
 async function processPicture(file){
  if(!file||!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>3000000)throw Error('Choose a JPG, PNG or WebP under 3 MB.');
  const bitmap=await createImageBitmap(file);

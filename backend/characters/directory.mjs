@@ -1,5 +1,6 @@
 import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
+import {mergeSheetData} from './sheet-fields.mjs';
 import {mergeWizardData} from './editor-fields.mjs';
 import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 export function createDirectoryRoutes({db,sessions,adminUids,origin}){
@@ -29,6 +30,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    }
    const id=path.slice(recordPath.length),c=db.prepare('SELECT * FROM characters WHERE id=?').get(id);
    if(!c||(!session.admin&&c.owner_id!==session.user.id)){send(404,{error:'not_found'});return true;}
+   if(req.method==='GET'&&url.searchParams.get('revision')===String(c.revision)){send(200,{unchanged:true,revision:c.revision});return true;}
    let data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');
    if(req.method==='POST'){
     const change=await adminJson(req,230000);if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
@@ -37,6 +39,9 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
      if(change.op==='tags'){
       if(!session.admin)throw Object.assign(Error('Administrator access required.'),{httpStatus:403});if(!Array.isArray(change.tagIds)||change.tagIds.length>100||change.tagIds.some(t=>typeof t!=='string'||!db.prepare('SELECT 1 FROM character_tags WHERE id=?').get(t)))throw Error('Invalid tags.');
       db.prepare('DELETE FROM character_tag_links WHERE character_id=?').run(id);for(const t of new Set(change.tagIds))db.prepare('INSERT INTO character_tag_links VALUES(?,?)').run(id,t);data.group_tags=change.tagIds.map(t=>db.prepare('SELECT name FROM character_tags WHERE id=?').get(t).name);db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
+     }else if(change.op==='sheet'){
+      data=mergeSheetData(data,change);
+      db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
      }else if(change.op==='wizard'){
       if(!['identity','race','class'].includes(change.step))throw Error('Invalid wizard step.');
       data=mergeWizardData(data,change.step,change.fields);
@@ -52,7 +57,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
     }catch(error){db.exec('ROLLBACK');throw error;}
    }
    const current=db.prepare('SELECT name,revision FROM characters WHERE id=?').get(id);
-   send(200,{character:{id,...current,data,tags:db.prepare('SELECT tag_id AS id FROM character_tag_links WHERE character_id=?').all(id).map(t=>t.id)},availableTags:session.admin?tags():[]});
+   send(200,{admin:session.admin,character:{id,...current,data,tags:db.prepare('SELECT tag_id AS id FROM character_tag_links WHERE character_id=?').all(id).map(t=>t.id)},availableTags:session.admin?tags():[]});
   }catch(error){send(error.httpStatus||400,{error:'invalid_request',message:error.message?.includes('UNIQUE')?'That name is already in use.':error.message||'Could not save.'});}return true;
  };
 }

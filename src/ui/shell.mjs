@@ -16,7 +16,8 @@ async function mountPage() {
   if(id==='compose'){const {mountCompose}=await import('./compose.mjs');if(generation===routeGeneration)cleanup=mountCompose({fixture:!live});}
   if(id==='admin-items'){const {mountItems}=await import('./items.mjs');if(generation===routeGeneration)cleanup=mountItems({fixture:!live});}
   if(id==='admin-tags'){const {mountTags}=await import('./directory.mjs');if(generation===routeGeneration)cleanup=mountTags();}
-  if(id.startsWith('sheet')||id.startsWith('create-')){const {mountCharacterView}=await import('./character-view.mjs');if(generation===routeGeneration)cleanup=mountCharacterView();}
+  if(id.startsWith('sheet')){const {mountSheet}=await import('./sheet.mjs');if(generation===routeGeneration)cleanup=mountSheet();}
+  if(id.startsWith('create-')){const {mountCharacterView}=await import('./character-view.mjs');if(generation===routeGeneration)cleanup=mountCharacterView();}
   if(id==='admin'){const {mountCharacterAdmin}=await import('./directory.mjs');if(generation===routeGeneration)cleanup=mountCharacterAdmin({fixture:!live});}
   if(id==='admin-groups'){const {mountGroups}=await import('./groups.mjs');if(generation===routeGeneration)cleanup=mountGroups({fixture:!live});}
 

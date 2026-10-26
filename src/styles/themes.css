@@ -1,0 +1,3 @@
+:root[data-theme="ocean"]{--bg:#07151e;--surface:#102b3b;--shell-bg:#091d2ade;--card-bg:#102b3bed;--line:#315665;--text:#e9f6fa;--muted:#a6c2cf;--accent:#69d7e8;--secondary:#99b6ff;--galaxy-tint:#173b56}
+:root[data-theme="ember"]{--bg:#1a0e17;--surface:#30202a;--shell-bg:#20121cde;--card-bg:#30202aed;--line:#604250;--text:#fff0e7;--muted:#d4b1be;--accent:#ffbb87;--secondary:#ef9cb6;--galaxy-tint:#482435}
+:root[data-theme="forest"]{--bg:#0b1815;--surface:#192f28;--shell-bg:#10231cde;--card-bg:#192f28ed;--line:#3c5a4d;--text:#edf5e9;--muted:#aec5b5;--accent:#91d6ae;--secondary:#e2d39c;--galaxy-tint:#264739}

@@ -25,8 +25,8 @@ test('Lore tag choices come only from the signed-in owner’s active characters'
   assign.run(aChar,arcane);assign.run(bChar,hidden);assign.run(archived,old);
   db.prepare('UPDATE characters SET archived=1 WHERE id=?').run(archived);
   const service=createCharacterLibraryService(db);
-  assert.deepEqual(service.loreTags(alice.id),[{id:arcane,name:'Arcane'}]);
-  assert.deepEqual(service.loreTags(bob.id),[{id:hidden,name:'Other player tag'}]);
+  assert.deepEqual(service.loreTags(alice.id).map(row=>({...row})),[{id:arcane,name:'Arcane'}]);
+  assert.deepEqual(service.loreTags(bob.id).map(row=>({...row})),[{id:hidden,name:'Other player tag'}]);
 
   const sessions={restore:async cookie=>{
     if(cookie==='a')return {subject:'a',user:alice};

@@ -36,7 +36,7 @@ test('Lore is saved and recovered with title, description, linked allowed tags a
   const lore=createLoreService(db);
   const request={title:'Zebra',text:'First story\nSecond paragraph.',tagIds:[magic],clientRequestId:randomUUID()};
   const entry=lore.create(owner.id,request);
-  assert.equal(entry.title,'Zebra');assert.equal(entry.text,request.text);assert.deepEqual(entry.tags,[{id:magic,name:'Magic'}]);
+  assert.equal(entry.title,'Zebra');assert.equal(entry.text,request.text);assert.deepEqual(entry.tags.map(row=>({...row})),[{id:magic,name:'Magic'}]);
   assert.equal(lore.create(owner.id,request).id,entry.id,'repeat submission must not duplicate a saved entry');
   assert.throws(()=>lore.create(owner.id,{...request,title:'Changed'}),{code:'duplicate_request',status:409});
   assert.throws(()=>lore.create(owner.id,{...request,clientRequestId:randomUUID(),tagIds:[steel]}),{code:'tag_not_available',status:403});

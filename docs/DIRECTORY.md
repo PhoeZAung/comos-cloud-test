@@ -16,7 +16,7 @@ Imports are transactional and idempotent by legacy owner/document key. The compl
 
 ## Live sheet and editing limits
 
-The external control opens a current, authenticated saved-sheet view with overview, inventory and abilities. It is a read-only saved-data view, not the fully ported legacy interactive sheet or Owlbear integration. The editing wizard currently saves name, race, class and level with revision checks. Other legacy fields are preserved; class/level edits do not recalculate stats or rebuild ability selections. Full rules adapters and calculations remain future work. Source selections remain preserved rather than guessed.
+The external control now opens the focused editable sheet described in SHEET.md. Owners and verified admins share the same revision-checked record. Combat, skills, inventory, abilities and spells support bounded edits while retaining imported fields. The existing wizard edits identity, race traits and class selections; full FFD20 progression and actual Owlbear integration remain separate work.
 
 Character reads/edits require the owner or a server-authorized admin. Directory and tag management are admin-only. Tag assignments require admin authorization and revision checks. Legacy group_tags labels are mapped to independent character tags; changing these tags does not grant unrelated world/party permissions.
 

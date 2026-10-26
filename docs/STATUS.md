@@ -46,3 +46,7 @@ The Comos Home screen contains only actual people-authored posts; no dashboard c
 
 ## Current user-directed update — directory and restored characters
 Public Ghost mode is retired. The admin directory now lists unique display names with expandable character summaries, tag modals, live saved-sheet links and basic wizard editing. Groups is removed from navigation. See DIRECTORY.md for private import behavior, sheet/rules limits and phone tests. The exact party PNG needs re-upload; a temporary SVG is used. No private backup payload is committed to this repository.
+
+## 26 October 2026 — focused shared sheet
+
+User-directed work replaces the old read-only sheet with responsive Character/Combat/Skills/Inventory/Abilities/Spells and minimal Notes, owner/admin shared writes, revision sync, resources, editable entries, local dice and a standalone compact view. See SHEET.md for behavior, data preservation, verification and remaining rules/Owlbear boundaries. No Firestore persistence or public Ghost mode was added. Existing Home/Lore privacy and character wizard changes on main were preserved.

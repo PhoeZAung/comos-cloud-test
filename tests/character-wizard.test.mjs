@@ -76,7 +76,7 @@ test('Identity bio saves paragraphs and stays optional for older characters',()=
  assert.equal(mergeWizardData({bio:'Keep me'},'identity',{charName:'Vivi',alignment:'',portrait:''}).bio,'Keep me');
  assert.equal(validateBio(' First line\r\nSecond line '),'First line\nSecond line');
  assert.throws(()=>validateBio('x'.repeat(2001)),/Bio must/);
- assert.throws(()=>validateBio('unsafe\\u0000'),/Bio must/);
+ assert.throws(()=>validateBio('unsafe'+String.fromCharCode(0)),/Bio must/);
 });
 test('Bio is below Alignment in Identity and safely escaped',()=>{
  const html=renderIdentity({}, {name:'Vivi',portrait:'',alignment:'Lawful Good',bio:'A <mage> & scholar'});

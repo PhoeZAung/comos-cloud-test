@@ -34,7 +34,7 @@ test('Lore authors can edit text, picture order, and tags without changing the e
   assert.notEqual(saved.updatedAt,created.updatedAt,'revision must change even if clock is the same');
   assert.deepEqual(saved.blocks.map(b=>b.type),['text','image','text','image','text']);
   assert.deepEqual(saved.blocks.filter(b=>b.type==='image').map(b=>b.mediaId),[imageB,imageA]);
-  assert.deepEqual(saved.tags,[{id:tagB,name:'Town'}]);
+  assert.deepEqual(saved.tags.map(row=>({...row})),[{id:tagB,name:'Town'}]);
   assert.equal(db.prepare('SELECT count(*) AS n FROM lore_entry_images WHERE entry_id=?').get(created.id).n,2);
   assert.throws(()=>lore.update(first.id,created.id,change),{code:'edit_conflict',status:409});
   const current=lore.get(created.id);

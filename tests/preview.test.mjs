@@ -65,7 +65,7 @@ test('unsupported production build fails before touching the generated site', as
 
 test('every route and local asset resolves; all pages carry the preview policy', async () => {
   const routes = (await readdir(new URL('dist/', root))).filter(file => file.endsWith('.html'));
-  assert.equal(routes.length, 22);
+  assert.equal(routes.length, (await readdir(new URL('src/pages/', root))).filter(file => file.endsWith('.mjs')).length);
   for (const route of routes) {
     const html = await readFile(new URL(`dist/${route}`, root), 'utf8');
     assert.match(html, /http-equiv="Content-Security-Policy"/);
