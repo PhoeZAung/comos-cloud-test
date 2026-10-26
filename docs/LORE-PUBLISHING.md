@@ -14,3 +14,13 @@ QA:
 3. In New Lore add paragraphs and images, reorder them, and choose tags in the icon popup. Publish and confirm both picture positions in the reading dialog.
 4. Try viewing an unpublished image from another signed-in account (must return 404); published images should load for signed-in members.
 5. On Account, toggle Pause stars and refresh: the setting should persist and the footer button should not appear.
+
+
+## Edit Lore and threaded Home discussions — 2026-10-25
+
+- **Edit Lore** is available in the Lore reading popup (and direct detail page) to the original author and verified admins. It opens `lore-compose.html?id=<entry-id>` with title, paragraphs, inline images, image descriptions and tags loaded.
+- `PUT /api/v1/lore/:id` checks the Firebase session, CSRF Origin and that the editor is the original author or an administrator. It enforces `expectedUpdatedAt` to prevent stale edits from overwriting newer ones (HTTP 409).
+- Existing inline image IDs can be reused and reordered on the *same* entry, while newly added images must be uploaded by the editor. Removing images detaches them from the published Lore. The Lore author, ID and original creation date are unchanged.
+- Edited tag choices come from the **original author’s character tags** (even when an admin edits someone else’s entry). Existing historic tag links may be retained or removed; new tags require the author to own that active character tag. This does not permit creating tags for other people.
+- Home replies now permit nested replies of any depth. The API still validates that the parent reply belongs to the same post. Replies are displayed within parent branches with muted vertical guide lines and elbows. On narrow screens, extra indentation stops after a few levels, but the “Replying to [name]” context remains. The reply editor opens directly beneath the selected comment.
+- Revisit pagination if a future high-volume post has >20 replies: the current feed can show orphaned replies until their parent page is loaded. It displays parent names from the database even if the parent record isn't loaded.

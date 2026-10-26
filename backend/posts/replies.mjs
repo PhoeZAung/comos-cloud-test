@@ -29,12 +29,13 @@ const encodeCursor=row=>Buffer.from(JSON.stringify({createdAt:row.createdAt,id:r
 export function createRepliesService(db,{posts,now=()=>new Date().toISOString(),ids=randomUUID}={}) {
   if(typeof posts?.get!=='function')throw new TypeError('Authorized post reader required.');
   const lookup=db.prepare(`SELECT r.id,r.post_id AS postId,r.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,
-    r.parent_reply_id AS parentReplyId,r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id WHERE r.id=?`);
+    r.parent_reply_id AS parentReplyId,pu.display_name AS parentAuthorName,r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id LEFT JOIN feed_replies pr ON pr.id=r.parent_reply_id LEFT JOIN users pu ON pu.id=pr.author_id WHERE r.id=?`);
   const prior=db.prepare('SELECT id,post_id AS postId,parent_reply_id AS parentReplyId,body AS text FROM feed_replies WHERE author_id=? AND client_request_id=?');
-  const validParent=db.prepare('SELECT post_id AS postId,parent_reply_id AS parentReplyId FROM feed_replies WHERE id=?');
+  const validParent=db.prepare('SELECT post_id AS postId FROM feed_replies WHERE id=?');
   const decorate=row=>{if(!row)return row;const {authorAvatarId,...safe}=row;return {...safe,avatarUrl:authorAvatarId?'/api/v1/member-avatars/'+encodeURIComponent(row.authorId):null};};
   const page=db.prepare(`SELECT r.id,r.post_id AS postId,r.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,
-    r.parent_reply_id AS parentReplyId,r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id
+    r.parent_reply_id AS parentReplyId,pu.display_name AS parentAuthorName,r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id
+    LEFT JOIN feed_replies pr ON pr.id=r.parent_reply_id LEFT JOIN users pu ON pu.id=pr.author_id
     WHERE r.post_id=? AND (? IS NULL OR r.created_at<? OR (r.created_at=? AND r.id<?))
     ORDER BY r.created_at DESC,r.id DESC LIMIT 21`);
   return Object.freeze({
@@ -43,8 +44,21 @@ export function createRepliesService(db,{posts,now=()=>new Date().toISOString(),
       posts.get(userId,postId,{admin});
       const previous=parseCursor(cursor);
       const rows=page.all(postId,previous?.createdAt??null,previous?.createdAt??null,previous?.createdAt??null,previous?.id??null);
-      const replies=rows.slice(0,20);
-      return {replies:replies.map(decorate),nextCursor:rows.length>20?encodeCursor(replies.at(-1)):null};
+      const window=rows.slice(0,20),replies=[...window],seen=new Set(replies.map(row=>row.id));
+      // Include parent context even when pagination places the parent on an
+      // older page. Keep the cursor tied to the 20 normal page results.
+      const pending=replies.map(row=>row.parentReplyId).filter(Boolean);
+      let lookups=0;
+      while(pending.length&&lookups<120){
+        const id=pending.shift();
+        if(seen.has(id))continue;
+        seen.add(id);lookups++;
+        const ancestor=lookup.get(id);
+        if(!ancestor||ancestor.postId!==postId)continue;
+        replies.push(ancestor);
+        if(ancestor.parentReplyId)pending.push(ancestor.parentReplyId);
+      }
+      return {replies:replies.map(decorate),nextCursor:rows.length>20?encodeCursor(window.at(-1)):null};
     },
     create(userId,postId,data,{admin=false}={}) {
       posts.get(userId,postId,{admin});
@@ -57,7 +71,6 @@ export function createRepliesService(db,{posts,now=()=>new Date().toISOString(),
       if(value.parentReplyId){
         const parent=validParent.get(value.parentReplyId);
         if(parent?.postId!==postId)throw fail('INVALID_REPLY','Reply target is not in this post.');
-        if(parent.parentReplyId!==null)throw fail('INVALID_REPLY','Replies are limited to one nested level.');
       }
       const id=ids();
       db.prepare('INSERT INTO feed_replies(id,post_id,author_id,client_request_id,body,created_at,parent_reply_id) VALUES(?,?,?,?,?,?,?)')

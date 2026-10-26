@@ -1,5 +1,5 @@
 const esc=v=>String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-export function renderLoreEntry(entry,{canDelete=false}={}){
+export function renderLoreEntry(entry,{canDelete=false,canEdit=false}={}){
  if(!entry)return '<p role="status">Lore entry not found.</p>';
  const labels=Array.isArray(entry.tags)?entry.tags.filter(t=>t&&typeof t.name==='string').map(t=>'<span>'+esc(t.name)+'</span>').join(''):'';
  const date=entry.createdAt&&Number.isFinite(Date.parse(entry.createdAt))?new Date(entry.createdAt).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}):'';
@@ -17,7 +17,11 @@ export function renderLoreEntry(entry,{canDelete=false}={}){
    '<p class="comos-lore-byline">'+(entry.authorName?esc(entry.authorName):'Comos member')+(date?' · '+esc(date):'')+'</p>'+
    (labels?'<div class="comos-lore-reader-tags">'+labels+'</div>':'')+
    '<div class="comos-lore-reader-body">'+content+'</div>'+ 
-   (canDelete&&typeof entry.id==='string'&&/^[0-9a-f-]{36}$/i.test(entry.id)?'<div class="comos-lore-admin-actions"><button type="button" class="comos-lore-delete" data-delete-lore="'+esc(entry.id)+'">Delete Lore</button></div>':'')+'</article>';
+   ((canEdit||canDelete)&&typeof entry.id==='string'&&/^[0-9a-f-]{36}$/i.test(entry.id)?
+    '<div class="comos-lore-admin-actions">'+
+    (canEdit?'<a class="comos-lore-edit" href="lore-compose.html?id='+encodeURIComponent(entry.id)+'" aria-label="Edit '+esc(entry.title)+'">Edit Lore</a>':'')+
+    (canDelete?'<button type="button" class="comos-lore-delete" data-delete-lore="'+esc(entry.id)+'">Delete Lore</button>':'')+
+    '</div>':'')+'</article>';
 }
 export function mountLoreEntry({fixture=false}={}){
  const root=document.querySelector('[data-lore-entry]');if(!root)return ()=>{};
@@ -51,7 +55,7 @@ export function mountLoreEntry({fixture=false}={}){
    if(!res.ok)throw Error(res.status===401?'Sign in to read Lore.':res.status===404?'Lore entry not found.':'Could not load Lore.');
    const data=await res.json();
    if(!data.entry)throw Error('Invalid Lore response.');
-   if(!closed)root.innerHTML=renderLoreEntry(data.entry,{canDelete:data.canDelete===true});
+   if(!closed)root.innerHTML=renderLoreEntry(data.entry,{canDelete:data.canDelete===true,canEdit:data.canEdit===true});
   }catch(error){if(!closed&&!control.signal.aborted){const p=document.createElement('p');p.role='status';p.textContent=error.message;root.replaceChildren(p);}}
  })();
  return ()=>{closed=true;control.abort();};

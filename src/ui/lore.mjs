@@ -5,7 +5,7 @@ export function mountLore({fixture=false}={}){
  const root=document.querySelector('[data-lore-library]');if(!root)return ()=>{};
  const controller=new AbortController();
  let closed=false,query='',searchOpen=false,tagsOpen=false,sortOpen=false,readerOpen=false,tagState=fixture?'ready':'loading',sort='newest';
- let readerId=null,readerEntry=null,readerCanDelete=false,readerError='',readerSerial=0;
+ let readerId=null,readerEntry=null,readerCanDelete=false,readerCanEdit=false,readerError='',readerSerial=0;
  let tags=[],selectedTags=[],entries=[],cursor=null,canPublish=false,state=fixture?'ready':'loading';
  let generation=0,searchTimer=null;
  const modal=name=>root.querySelector(name==='tags'?'[data-lore-tags-dialog]':name==='sort'?'[data-lore-sort-dialog]':'[data-lore-reader-dialog]');
@@ -13,7 +13,7 @@ export function mountLore({fixture=false}={}){
   const dialog=modal(name);
   if(dialog&&!dialog.open)dialog.showModal();
  };
- const readerHtml=()=>readerError?'<p role="status" class="comos-lore-popup-status"></p>':readerEntry?renderLoreEntry(readerEntry,{canDelete:readerCanDelete}):'<p role="status">Loading Lore…</p>';
+ const readerHtml=()=>readerError?'<p role="status" class="comos-lore-popup-status"></p>':readerEntry?renderLoreEntry(readerEntry,{canDelete:readerCanDelete,canEdit:readerCanEdit}):'<p role="status">Loading Lore…</p>';
  const paintReader=()=>{
   const content=root.querySelector('[data-lore-reader-content]');if(!content)return;
   content.innerHTML=readerHtml();
@@ -77,7 +77,7 @@ export function mountLore({fixture=false}={}){
  }
  async function openReader(id){
    if(!(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)))return;
-   tagsOpen=false;sortOpen=false;readerOpen=true;readerEntry=null;readerCanDelete=false;readerError='';readerId=id;
+   tagsOpen=false;sortOpen=false;readerOpen=true;readerEntry=null;readerCanDelete=false;readerCanEdit=false;readerError='';readerId=id;
    const ticket=++readerSerial;
    draw();
    try{
@@ -86,7 +86,7 @@ export function mountLore({fixture=false}={}){
      const data=await res.json();
      if(!data.entry)throw Error('Invalid Lore response.');
      if(ticket!==readerSerial||!readerOpen||closed)return;
-     readerEntry=data.entry;readerCanDelete=data.canDelete===true;paintReader();
+     readerEntry=data.entry;readerCanDelete=data.canDelete===true;readerCanEdit=data.canEdit===true;paintReader();
    }catch(error){
      if(ticket!==readerSerial||!readerOpen||closed||controller.signal.aborted)return;
      readerError=error.message||'Could not load Lore.';paintReader();
@@ -103,7 +103,7 @@ export function mountLore({fixture=false}={}){
      });
      if(!res.ok)throw Error(res.status===403?'Only admins can delete Lore.':res.status===404?'This Lore is already gone.':'Could not delete Lore.');
      modal('reader')?.close();
-     readerOpen=false;readerEntry=null;readerCanDelete=false;readerSerial++;
+     readerOpen=false;readerEntry=null;readerCanDelete=false;readerCanEdit=false;readerSerial++;
      await loadEntries();
    }catch(error){
      if(closed||controller.signal.aborted)return;

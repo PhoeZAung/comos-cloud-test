@@ -186,3 +186,8 @@ dialog.comos-lore-reader-dialog{width:min(780px,calc(100vw - 26px));max-width:ca
 .comos-lore-delete:disabled{opacity:.5;cursor:not-allowed}
 .comos-lore-delete:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .comos-lore-delete-status{font-size:13px;color:var(--muted)}
+
+/* Small, theme-aligned Edit action alongside the admin Delete control. */
+.comos-lore-edit{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 13px;border:1px solid var(--line);border-radius:9px;color:var(--text);font:500 13px/1.4 system-ui;text-decoration:none}
+.comos-lore-edit:hover{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.comos-lore-edit:focus-visible{outline:3px solid var(--accent);outline-offset:3px}

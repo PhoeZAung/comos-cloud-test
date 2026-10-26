@@ -7,42 +7,57 @@ import {createPostsService} from '../backend/posts/service.mjs';
 import {createRepliesService} from '../backend/posts/replies.mjs';
 import {renderPostThread} from '../src/features/home/thread.mjs';
 
-test('Only one nested reply level is allowed, and only top-level comments have Reply buttons',async()=>{
+test('Reddit-style nested comment threads support unlimited reply depth and keep parent connections',async()=>{
  const db=await openDatabase(':memory:');
  try{
   const users=createUserRepository(db);
   const admin=users.create({displayName:'Host'}),guest=users.create({displayName:'Guest'});
   const posts=createPostsService(db),replies=createRepliesService(db,{posts});
   const post=posts.create(admin.id,{title:'Discussion',text:'Topic',clientRequestId:randomUUID()},{admin:true});
-  const first=replies.create(guest.id,post.id,{text:'First comment',clientRequestId:randomUUID()});
-  const secondPayload={text:'Reply to comment',parentReplyId:first.id,clientRequestId:randomUUID()};
-  const second=replies.create(admin.id,post.id,secondPayload);
-  assert.equal(second.parentReplyId,first.id);
-  assert.equal(replies.create(admin.id,post.id,secondPayload).id,second.id);
-  assert.throws(()=>replies.create(guest.id,post.id,{text:'Third level is forbidden',parentReplyId:second.id,clientRequestId:randomUUID()}),{code:'INVALID_REPLY',message:'Replies are limited to one nested level.'});
-  const secondPost=posts.create(admin.id,{title:'Other',text:'Another topic',clientRequestId:randomUUID()},{admin:true});
-  assert.throws(()=>replies.create(guest.id,secondPost.id,{text:'Cross-post',parentReplyId:first.id,clientRequestId:randomUUID()}),{code:'INVALID_REPLY'});
-  const replyList=replies.list(guest.id,post.id).replies;
-  const rendered=renderPostThread({post,replies:replyList,viewerId:admin.id});
-  assert.match(rendered,/First comment/);
-  assert.match(rendered,/Reply to comment/);
-  assert.match(rendered,/style="--reply-depth:1"/);
-  assert.match(rendered,/Replying to Guest/);
-  assert.equal((rendered.match(/data-reply-to="/g)||[]).length,1);
-  assert.match(rendered,new RegExp('data-reply-to="'+first.id+'"'));
-  assert.doesNotMatch(rendered,new RegExp('data-reply-to="'+second.id+'"'));
-  // Older pre-existing records with deeper nesting are displayed at one visual depth
-  // and cannot acquire a third-level Reply button.
-  const oldThird=randomUUID();
-  db.prepare('INSERT INTO feed_replies(id,post_id,author_id,client_request_id,body,created_at,parent_reply_id) VALUES(?,?,?,?,?,?,?)')
-    .run(oldThird,post.id,guest.id,randomUUID(),'Historical reply',new Date().toISOString(),second.id);
-  const oldMarkup=renderPostThread({post,replies:replies.list(guest.id,post.id).replies});
-  assert.equal((oldMarkup.match(/data-reply-to="/g)||[]).length,1);
-  assert.equal((oldMarkup.match(/style="--reply-depth:1"/g)||[]).length,2);
-  assert.doesNotMatch(oldMarkup,/--reply-depth:2/);
-  replies.remove(guest.id,first.id);
-  const promoted=replies.list(admin.id,post.id).replies.find(row=>row.id===second.id);
-  assert.equal(promoted.parentReplyId,null,'deleting the parent promotes its reply to top level');
-  assert.match(renderPostThread({post,replies:replies.list(guest.id,post.id).replies}),new RegExp('data-reply-to="'+second.id+'"'));
+  const top=replies.create(guest.id,post.id,{text:'Top-level comment',clientRequestId:randomUUID()});
+  let parent=top;
+  const chain=[top];
+  for(let i=1;i<=10;i++){
+    const data={text:'Nested comment '+i,parentReplyId:parent.id,clientRequestId:randomUUID()};
+    const next=replies.create(i%2?admin.id:guest.id,post.id,data);
+    assert.equal(next.parentReplyId,parent.id);
+    assert.equal(replies.create(i%2?admin.id:guest.id,post.id,data).id,next.id,'idempotent retries must work at any depth');
+    chain.push(next);parent=next;
+  }
+  const other=posts.create(admin.id,{title:'Other',text:'Another topic',clientRequestId:randomUUID()},{admin:true});
+  assert.throws(()=>replies.create(guest.id,other.id,{text:'Cross-post',parentReplyId:top.id,clientRequestId:randomUUID()}),{code:'INVALID_REPLY'});
+  const page=replies.list(guest.id,post.id).replies;
+  const render=renderPostThread({post,replies:page,viewerId:admin.id});
+  assert.equal((render.match(/data-reply-to="/g)||[]).length,11,'every reply can be replied to');
+  assert.equal((render.match(/class="comos-reply-branch/g)||[]).length,11);
+  assert.match(render,/class="comos-reply-children"/);
+  assert.match(render,/role="group" aria-label="Replies to/);
+  for(let i=0;i<10;i++)assert.ok(render.indexOf(chain[i].text)<render.indexOf(chain[i+1].text),'children must follow parent comments');
+  assert.match(render,/data-reply-level="10"/);
+  assert.match(render,/--step-small:0/,'deep mobile replies stop indenting while retaining context');
+  assert.match(render,/data-reply-to="/);
+  assert.match(render,/Replying to Host|Replying to Guest/);
+  const inline=renderPostThread({post,replies:page,viewerId:admin.id,replyTarget:{id:chain[5].id,authorName:'Host'}});
+  assert.equal((inline.match(/data-reply-form/g)||[]).length,1);
+  assert.ok(inline.indexOf('data-reply-branch="'+chain[5].id+'"')<inline.indexOf('comos-reply-inline'));
+  assert.match(inline,/Replying to Host/);
+  assert.match(inline,/data-cancel-reply/);
+  // The first page of busy threads includes missing parent context, so a
+  // reply never floats free just because its parent is on an older page.
+  const crowded=posts.create(admin.id,{title:'Busy',text:'Lots of replies',clientRequestId:randomUUID()},{admin:true});
+  const oldRoot=replies.create(guest.id,crowded.id,{text:'Conversation root',clientRequestId:randomUUID()});
+  for(let i=0;i<25;i++)replies.create(admin.id,crowded.id,{text:'Busy child '+i,parentReplyId:oldRoot.id,clientRequestId:randomUUID()});
+  const firstPage=replies.list(guest.id,crowded.id);
+  assert.ok(firstPage.nextCursor);
+  assert.ok(firstPage.replies.some(r=>r.id===oldRoot.id),'parent must be included even when outside the page window');
+  assert.equal(firstPage.replies.filter(r=>r.id===oldRoot.id).length,1);
+  const grouped=renderPostThread({post:crowded,replies:firstPage.replies});
+  assert.ok(grouped.indexOf('Conversation root')<grouped.indexOf('Busy child 24'));
+  assert.match(grouped,/comos-reply-children/);
+  // Deleting a parent promotes children, without deleting their descendants.
+  replies.remove(guest.id,top.id);
+  const after=replies.list(admin.id,post.id).replies;
+  assert.equal(after.find(row=>row.id===chain[1].id).parentReplyId,null);
+  assert.equal(after.find(row=>row.id===chain[2].id).parentReplyId,chain[1].id);
  }finally{db.close();}
 });

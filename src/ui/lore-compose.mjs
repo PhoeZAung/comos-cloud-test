@@ -9,7 +9,13 @@ export function mountLoreCompose({fixture=false}={}){
  const options=root.querySelector('[data-lore-tag-options]'),tagCount=root.querySelector('[data-lore-tag-count]');
  const status=root.querySelector('[data-lore-compose-status]'),counter=root.querySelector('[data-lore-count]'),submit=root.querySelector('[data-lore-publish]');
  const controller=new AbortController(),images=new Map();
- let tags=[],selected=[],ready=false,busy=false,closed=false,requestId=recordId();
+ const editId=new URLSearchParams(location.search).get('id');
+ const isEdit=editId!==null;
+ let expectedUpdatedAt='',tags=[],selected=[],ready=false,busy=false,closed=false,requestId=recordId();
+ if(isEdit){
+   root.querySelector('h1').textContent='Edit Lore';
+   submit.textContent='Save Changes';
+ }
  const message=msg=>{if(!closed)status.textContent=msg;};
  const button=(text,name,label)=>{
    const b=document.createElement('button');b.type='button';b.textContent=text;b.dataset[name]='';b.setAttribute('aria-label',label);b.title=label;return b;
@@ -28,6 +34,17 @@ export function mountLoreCompose({fixture=false}={}){
    textarea.dataset.loreParagraph='';textarea.rows=5;textarea.maxLength=10000;
    textarea.placeholder='Write a paragraph…';textarea.setAttribute('aria-label','Lore paragraph');
    wrapper.append(textarea);blocksRoot.append(wrapper);touch();textarea.focus();return wrapper;
+ }
+ function addStoredImage(block){
+   const safe=/^\/api\/v1\/lore-images\/[a-f0-9-]{36}$/i;
+   if(!block||!safe.test(block.url)||!block.mediaId)return;
+   const wrapper=blockControls('image'),id=wrapper.dataset.loreBlockId;
+   const image=document.createElement('img');image.src=block.url;image.alt='Existing Lore picture';image.className='comos-lore-image-preview';
+   const alt=document.createElement('input');alt.type='text';alt.maxLength=140;alt.placeholder='Image description (optional)';alt.dataset.loreImageAlt='';
+   alt.value=typeof block.alt==='string'?block.alt:'';
+   alt.setAttribute('aria-label','Image description for accessibility');
+   wrapper.append(image,alt);blocksRoot.append(wrapper);
+   images.set(id,{file:null,url:null,mediaId:block.mediaId});
  }
  function addImage(file){
    const wrapper=blockControls('image'),id=wrapper.dataset.loreBlockId,url=URL.createObjectURL(file);
@@ -81,15 +98,40 @@ export function mountLoreCompose({fixture=false}={}){
    paintOrder();paintTags();
  }
  async function check(){
-   if(fixture){message('Preview only. Sign in to publish Lore.');paint();return;}
-   message('Checking character tags…');
+   if(fixture){message('Preview only. Sign in to save Lore.');paint();return;}
+   message(isEdit?'Loading Lore to edit…':'Checking character tags…');
    try{
-     const res=await fetch('/api/v1/my/lore-tags',{credentials:'same-origin',cache:'no-store',signal:controller.signal});
-     if(res.status===401){message('Sign in to publish Lore.');return;}
-     if(!res.ok)throw Error('Could not load your character tags. Refresh to retry.');
-     const data=await res.json();if(!Array.isArray(data.tags))throw Error('Invalid tag response.');
-     tags=data.tags.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string');
-     ready=true;message('Ready to publish.');
+     if(isEdit){
+       if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(editId))throw Error('Invalid Lore entry.');
+       const res=await fetch('/api/v1/lore/'+encodeURIComponent(editId),{credentials:'same-origin',cache:'no-store',signal:controller.signal});
+       if(res.status===401)throw Error('Sign in to edit Lore.');
+       if(res.status===403)throw Error('You cannot edit this Lore.');
+       if(res.status===404)throw Error('Lore not found.');
+       if(!res.ok)throw Error('Could not load this Lore.');
+       const data=await res.json();
+       if(!data.entry||data.canEdit!==true)throw Error('You do not have permission to edit this Lore.');
+       const entry=data.entry;
+       expectedUpdatedAt=entry.updatedAt;
+       title.value=entry.title||'';
+       tags=Array.isArray(data.availableEditTags)?data.availableEditTags.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string'):[];
+       selected=(Array.isArray(entry.tags)?entry.tags:[]).map(t=>t.id).filter(id=>tags.some(t=>t.id===id));
+       blocksRoot.replaceChildren();
+       for(const block of Array.isArray(entry.blocks)?entry.blocks:[{type:'text',text:entry.text||''}]){
+         if(block.type==='text'){
+           const wrapper=addParagraph();
+           wrapper.querySelector('textarea').value=typeof block.text==='string'?block.text:'';
+         }else if(block.type==='image')addStoredImage(block);
+       }
+       if(!blocksRoot.children.length)addParagraph();
+       ready=true;message('Ready to save your changes.');
+     }else{
+       const res=await fetch('/api/v1/my/lore-tags',{credentials:'same-origin',cache:'no-store',signal:controller.signal});
+       if(res.status===401){message('Sign in to publish Lore.');return;}
+       if(!res.ok)throw Error('Could not load your character tags. Refresh to retry.');
+       const data=await res.json();if(!Array.isArray(data.tags))throw Error('Invalid tag response.');
+       tags=data.tags.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string');
+       ready=true;message('Ready to publish.');
+     }
    }catch(error){if(!controller.signal.aborted)message(error.message||'Could not load character tags.');}
    finally{paint();}
  }
@@ -105,7 +147,7 @@ export function mountLoreCompose({fixture=false}={}){
    if(event.target.closest('[data-lore-move-up]')){const prev=block.previousElementSibling;if(prev)blocksRoot.insertBefore(block,prev);touch();}
    else if(event.target.closest('[data-lore-move-down]')){const next=block.nextElementSibling;if(next)blocksRoot.insertBefore(next,block);touch();}
    else if(event.target.closest('[data-lore-remove-block]')){
-     const key=block.dataset.loreBlockId,picture=images.get(key);if(picture){URL.revokeObjectURL(picture.url);images.delete(key);}
+     const key=block.dataset.loreBlockId,picture=images.get(key);if(picture){if(picture.url)URL.revokeObjectURL(picture.url);images.delete(key);}
      block.remove();touch();
    }
  },{signal:controller.signal});
@@ -160,20 +202,20 @@ export function mountLoreCompose({fixture=false}={}){
        }
      }
      if(blocks.length>40)throw Error('Use no more than 40 paragraphs and pictures.');
-     message('Publishing Lore…');
-     const res=await fetch('/api/v1/lore',{
-       method:'POST',credentials:'same-origin',cache:'no-store',
+     message(isEdit?'Saving changes…':'Publishing Lore…');
+     const res=await fetch(isEdit?'/api/v1/lore/'+encodeURIComponent(editId):'/api/v1/lore',{
+       method:isEdit?'PUT':'POST',credentials:'same-origin',cache:'no-store',
        headers:{'Content-Type':'application/json',Accept:'application/json'},
-       body:JSON.stringify({title:heading,text,blocks,tagIds:selected,clientRequestId:requestId}),
+       body:JSON.stringify({title:heading,text,blocks,tagIds:selected,...(isEdit?{expectedUpdatedAt}:{clientRequestId:requestId})}),
        signal:controller.signal
      });
      const data=await res.json().catch(()=>({}));
-     if(!res.ok)throw Error(data.message||'Lore could not be published.');
+     if(!res.ok)throw Error(data.message||(res.status===409?'This Lore was edited elsewhere. Reload before saving.':isEdit?'Changes could not be saved.':'Lore could not be published.'));
      if(!data.entry?.id)throw Error('The server did not confirm your Lore. Check the Lore list before retrying.');
-     message('Published. Returning to Lore…');location.assign('lore.html');
+     message(isEdit?'Changes saved. Returning to Lore…':'Published. Returning to Lore…');location.assign('lore.html');
    }catch(error){if(!controller.signal.aborted)message(error.message||'Lore could not be published.');}
    finally{busy=false;paint();}
  },{signal:controller.signal});
  addParagraph();paint();void check();
- return ()=>{closed=true;controller.abort();for(const image of images.values())URL.revokeObjectURL(image.url);};
+ return ()=>{closed=true;controller.abort();for(const image of images.values())if(image.url)URL.revokeObjectURL(image.url);};
 }

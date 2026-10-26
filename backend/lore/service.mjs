@@ -56,6 +56,8 @@ function cursorDecode(raw,sort){
 export function createLoreService(db,{now=()=>new Date().toISOString(),ids=randomUUID}={}){
  const allowed=db.prepare('SELECT 1 FROM character_tag_links l JOIN characters c ON c.id=l.character_id WHERE c.owner_id=? AND c.archived=0 AND l.tag_id=? LIMIT 1');
  const imageOwned=db.prepare('SELECT 1 FROM lore_images m WHERE m.id=? AND m.owner_id=? AND NOT EXISTS(SELECT 1 FROM lore_entry_images e WHERE e.image_id=m.id)');
+ const linkedHere=db.prepare('SELECT 1 FROM lore_entry_images WHERE entry_id=? AND image_id=?');
+ const activeTags=db.prepare('SELECT DISTINCT t.id,t.name FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id JOIN characters c ON c.id=l.character_id WHERE c.owner_id=? AND c.archived=0 ORDER BY t.name COLLATE NOCASE,t.id');
  const read=db.prepare('SELECT l.id,l.title,l.body AS text,l.blocks_json AS blocksJson,l.author_id AS authorId,u.display_name AS authorName,l.created_at AS createdAt,l.updated_at AS updatedAt FROM lore_entries l JOIN users u ON u.id=l.author_id WHERE l.id=?');
  const tags=db.prepare('SELECT t.id,t.name FROM lore_entry_tags l JOIN character_tags t ON t.id=l.tag_id WHERE l.entry_id=? ORDER BY t.name COLLATE NOCASE,t.id');
  function blocksFor(row){
@@ -66,6 +68,46 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
  const owns=(ownerId,tagIds)=>tagIds.every(tag=>allowed.get(ownerId,tag));
  return Object.freeze({
   get,
+  editorTags(authorId,entryId){
+    const tagsNow=activeTags.all(authorId);
+    const ids=new Set(tagsNow.map(t=>t.id));
+    for(const tag of tags.all(entryId)){
+      if(!ids.has(tag.id))tagsNow.push({...tag,legacy:true});
+    }
+    return tagsNow;
+  },
+  update(editorId,id,input,{admin=false}={}){
+    if(!editorId)throw fail('sign_in_required','Sign in to edit Lore.',401);
+    if(!uuid.test(id))throw fail('not_found','Lore entry not found.',404);
+    if(!plain(input)||Object.keys(input).some(key=>!['title','text','blocks','tagIds','expectedUpdatedAt'].includes(key)))throw fail('invalid_lore','Invalid Lore fields.');
+    if(typeof input.expectedUpdatedAt!=='string'||!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(input.expectedUpdatedAt))throw fail('invalid_lore','The Lore revision is required.');
+    if(!Array.isArray(input.blocks))throw fail('invalid_blocks','Editing requires the complete ordered content blocks.');
+    const title=validateText(input.title,140,'Title');
+    const {blocks,body,imageIds}=validateBlocks(input.blocks,input.text);
+    const tagIds=validateTagIds(input.tagIds??[]);
+    db.exec('BEGIN IMMEDIATE');
+    try{
+      const previous=read.get(id);
+      if(!previous)throw fail('not_found','Lore entry not found.',404);
+      if(previous.authorId!==editorId&&!admin)throw fail('edit_forbidden','You cannot edit this Lore.',403);
+      if(previous.updatedAt!==input.expectedUpdatedAt)throw fail('edit_conflict','This Lore was changed elsewhere. Reload before editing.',409);
+      const originalTags=new Set(tags.all(id).map(t=>t.id));
+      if(tagIds.some(tag=>!originalTags.has(tag)&&!allowed.get(previous.authorId,tag)))
+        throw fail('tag_not_available','New tags must be attached to the author’s active characters.',403);
+      if(imageIds.some(imageId=>!linkedHere.get(id,imageId)&&!imageOwned.get(imageId,editorId)))
+        throw fail('invalid_images','Only images already in this Lore or new pictures you uploaded are allowed.',403);
+      const nextDate=new Date(Math.max(Date.parse(now())||0,Date.parse(previous.updatedAt)+1)).toISOString();
+      db.prepare('UPDATE lore_entries SET title=?,body=?,blocks_json=?,updated_at=? WHERE id=?').run(title,body,JSON.stringify(blocks),nextDate,id);
+      db.prepare('DELETE FROM lore_entry_tags WHERE entry_id=?').run(id);
+      const attachTag=db.prepare('INSERT INTO lore_entry_tags(entry_id,tag_id) VALUES(?,?)');
+      for(const tag of tagIds)attachTag.run(id,tag);
+      db.prepare('DELETE FROM lore_entry_images WHERE entry_id=?').run(id);
+      const attachImage=db.prepare('INSERT INTO lore_entry_images(entry_id,image_id,position) VALUES(?,?,?)');
+      blocks.forEach((block,index)=>{if(block.type==='image')attachImage.run(id,block.mediaId,index);});
+      db.exec('COMMIT');
+      return get(id);
+    }catch(error){db.exec('ROLLBACK');throw error;}
+  },
   remove(id){
    if(typeof id!=='string'||!uuid.test(id))throw fail('not_found','Lore entry not found.',404);
    // The child tag/image links are deleted with the Lore row. Published images
@@ -127,10 +169,10 @@ export function createLoreRoutes({db,sessions,origin,adminUids=[],throttle=creat
   const collection=pathname==='/api/v1/lore',id=pathname.startsWith('/api/v1/lore/')?pathname.slice('/api/v1/lore/'.length):null;
   if(!collection&&id===null)return false;
   const method=req.method;
-  if(!(collection&&['GET','POST'].includes(method)||id&&['GET','DELETE'].includes(method))){
-   res.setHeader('Allow',collection?'GET, POST':'GET, DELETE');send(405,{error:'method_not_allowed'});return true;
+  if(!(collection&&['GET','POST'].includes(method)||id&&['GET','PUT','DELETE'].includes(method))){
+   res.setHeader('Allow',collection?'GET, POST':'GET, PUT, DELETE');send(405,{error:'method_not_allowed'});return true;
   }
-  if(['POST','DELETE'].includes(method)&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){
+  if(['POST','PUT','DELETE'].includes(method)&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){
    send(403,{error:'origin_not_allowed'});return true;
   }
   const permit=throttle.enter(req.socket?.remoteAddress||'unknown',method==='GET'?'restore':'profile');
@@ -144,13 +186,17 @@ export function createLoreRoutes({db,sessions,origin,adminUids=[],throttle=creat
     send(201,{entry:lore.create(session.user.id,data)});
    }else if(id!==null){
     if(!uuid.test(id)){send(404,{error:'not_found'});return true;}
-    if(method==='DELETE'){
+    if(method==='PUT'){
+      if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
+      const updated=lore.update(session.user.id,id,await adminJson(req,23000),{admin:session.admin});
+      send(200,{entry:updated,canEdit:true,canDelete:session.admin});
+    }else if(method==='DELETE'){
       if(!session.admin){send(403,{error:'admin_required'});return true;}
       const deleted=lore.remove(id);
       send(deleted?200:404,deleted?{deleted:true}:{error:'not_found'});
     }else{
       const entry=lore.get(id);
-      send(entry?200:404,entry?{entry,canDelete:session.admin}:{error:'not_found'});
+      send(entry?200:404,entry?{entry,canDelete:session.admin,canEdit:session.admin||entry.authorId===session.user.id,...(session.admin||entry.authorId===session.user.id?{availableEditTags:lore.editorTags(entry.authorId,entry.id)}:{})}:{error:'not_found'});
     }
    }else{
     const params=new URL(req.url,origin).searchParams;
