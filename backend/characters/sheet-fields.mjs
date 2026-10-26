@@ -2,6 +2,7 @@ import {sheetSkills} from '../../src/features/sheet/skills.mjs';
 import {entryCalculations} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
 import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
+import {equipmentSlotIds} from '../../src/features/sheet/equipment.mjs';
 export const numericFields=[...abilities,'hp_curr','hp_temp','hp_max','hp_max_temp','mp','mp_curr','mp_temp','mp_class','mp_bonus','mp_max','mp_total_max','mp_max_temp','mp_max_spell_level','init_temp','bab','bab_temp','speed','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp','touch_temp','flat_temp','cmd_temp','ar_melee_temp','ar_ranged_temp','ar_touch_temp','ar_ranged_touch_temp','cmb_temp','fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp','currency_gil','currency_moogle','slot_cap'];
 const booleanFields=['hp_favorite','mp_favorite'];
 const textFields=['languages','senses','resistances','proficiencies','notesArea'];
@@ -46,9 +47,37 @@ export function mergeSheetData(original,change){
    }
    if(change.mode==='add'){
     if(rows.length>=1000||!safe.name?.trim())bad('Enter a name; maximum 1,000 entries per section.');rows.push(safe);
-   }else rows[change.index]={...rows[change.index],...safe};
+   }else {
+     const updated={...rows[change.index],...safe};
+     if(change.collection==='items'){
+       if(safe.equipped===false){updated.equip_slot='';}
+       if(Object.hasOwn(safe,'amount')&&safe.amount<=0&&updated.equip_slot){
+         updated.equip_slot='';updated.equipped=false;
+       }
+     }
+     rows[change.index]=updated;
+   }
   }
   data[change.collection]=rows;
+ }else if(change.action==='equip'){
+  // All slot changes happen in one revision-checked sheet write. One slot can
+  // hold one inventory record, and an inventory record occupies one slot.
+  if(typeof change.slot!=='string'||!equipmentSlotIds.includes(change.slot))bad('Invalid equipment slot.');
+  const rows=Array.isArray(data.items)?data.items:[];
+  if(change.index!==null&&(!Number.isInteger(change.index)||change.index<0||change.index>=rows.length))bad('Choose an item from your inventory.');
+  if(change.index!==null){
+    const item=rows[change.index];
+    if(!item||!String(item.name||'').trim()||!Number.isFinite(Number(item.amount??1))||Number(item.amount??1)<1)bad('Only inventory items with quantity 1 or more can be equipped.');
+  }
+  rows.forEach(item=>{
+    if(item?.equip_slot===change.slot){item.equip_slot='';item.equipped=false;}
+  });
+  if(change.index!==null){
+    const selected=rows[change.index];
+    selected.equip_slot=change.slot;
+    selected.equipped=true;
+  }
+  data.items=rows;
  }else if(change.action==='damage'||change.action==='heal'){
   const amount=numeric(change.amount);if(amount<=0)bad('Enter a positive amount.');const current=sheetStats(data);
   if(change.action==='damage'){const absorbed=Math.min(Math.max(0,current.hpTemp),amount);data.hp_temp=current.hpTemp-absorbed;data.hp_curr=current.hp-(amount-absorbed);}
