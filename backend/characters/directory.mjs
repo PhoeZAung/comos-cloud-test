@@ -1,3 +1,4 @@
+import {sheetSkills} from '../../src/features/sheet/skills.mjs';
 import {publishRoll} from './rolls.mjs';
 import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
@@ -40,6 +41,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    }
    if(req.method==='GET'&&url.searchParams.get('revision')===String(c.revision)){send(200,{unchanged:true,revision:c.revision});return true;}
    let data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');
+   data.skills=sheetSkills(data);
    if(req.method==='POST'){
     const change=await adminJson(req,230000);if(change.op==='roll'){send(200,await publishRoll({db,userId:session.user.id,character:c,change,origin}));return true;}if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
     db.exec('BEGIN IMMEDIATE');try{

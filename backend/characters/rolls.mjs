@@ -1,9 +1,10 @@
+import {diceTerms} from '../../src/features/sheet/calculations.mjs';
 import {randomInt} from 'node:crypto';
 const relay='https://weathered-term-1e39.phoeaung2076.workers.dev';
 export function serverRoll(expression){
- const m=typeof expression==='string'&&/^\s*(\d{1,2})d(\d{1,4})(?:\s*([+-])\s*(\d{1,6}))?\s*$/i.exec(expression);
- if(!m||+m[1]<1||+m[1]>50||+m[2]<2||+m[2]>1000)throw Error('Use 1–50 dice with 2–1,000 sides.');
- const rolls=Array.from({length:+m[1]},()=>randomInt(1,+m[2]+1)),bonus=Number(m[4]||0)*(m[3]==='-'?-1:1);return {expression,rolls,bonus,total:rolls.reduce((a,b)=>a+b,bonus)};
+ const terms=diceTerms(expression),rolls=[],breakdown=[];let bonus=0,total=0;
+ for(const term of terms){if(term.count){const values=Array.from({length:term.count},()=>randomInt(1,term.sides+1)),subtotal=term.sign*values.reduce((a,b)=>a+b,0);rolls.push(...values.map(v=>v*term.sign));total+=subtotal;breakdown.push({type:term.type,dice:term.count+'d'+term.sides,rolls:values,total:subtotal});}else{const n=term.sign*term.flat;bonus+=n;total+=n;breakdown.push({type:term.type,total:n});}}
+ return {expression,rolls,bonus,total,breakdown};
 }
 export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch}){
  if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.label!=='string'||!change.label.trim()||change.label.length>120||/[\u0000-\u001f]/.test(change.label)||typeof change.discord!=='boolean')throw Error('Invalid roll.');

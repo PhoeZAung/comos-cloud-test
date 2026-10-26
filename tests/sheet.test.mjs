@@ -40,6 +40,10 @@ test('sheet HTTP sync enforces owner/admin access, revision conflicts and small 
   r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'fields',revision:2,fields:{group_tags:['Admin']}})});assert.equal(r.status,400);
   r=await fetch(url,{method:'POST',headers:{...headers('owner'),Origin:'https://evil.test'},body:JSON.stringify({op:'sheet',action:'rest',revision:2})});assert.equal(r.status,403);
   r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'entry',revision:2,collection:'items',index:0,mode:'update',fields:{amount:3}})});assert.equal(r.status,200);body=await r.json();assert.equal(body.character.data.items[0].sourceItemId,'original');assert.deepEqual(body.character.data.group_tags,['Keep']);
+  r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'entry',revision:3,collection:'spells',mode:'add',fields:{name:'Fire',lvl:2}})});assert.equal(r.status,200);
+  r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'cast',revision:4,index:0})});assert.equal(r.status,200);body=await r.json();assert.equal(body.character.revision,5);assert.equal(body.character.data.mp_temp,0);assert.equal(body.character.data.mp,5);
+  r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'cast',revision:4,index:0})});assert.equal(r.status,409);
+
  }finally{await new Promise(r=>server.close(r));db.close();}
 });
 
@@ -53,8 +57,8 @@ test('damage consumes temp HP first; heal caps at max and rejects negative amoun
 test('sword groups combat, abilities and spells; ability categories render only selected records',()=>{
  const c={id:'sample',name:'Mage',data:{hp_curr:5,hp_max:10,hp_temp:0,activeAbilities:[{name:'Active choice'}],passiveAbilities:[{name:'Passive choice'}],racialAbilities:[{name:'Racial choice'}],feats:[{name:'Feat choice'}]}};
  const html=renderSheetFrame(c,'abilities',{ability:'passiveAbilities'});
- assert.match(html,/aria-label="Combat, abilities and spells"/);assert.match(html,/aria-label="Combat sections"/);assert.match(html,/aria-label="Ability categories"/);
- assert.match(html,/data-ability-tab="passiveAbilities" aria-pressed="true"/);assert.match(html,/Passive choice/);assert.doesNotMatch(html,/Active choice|Racial choice|Feat choice/);
+ assert.match(html,/aria-label="Combat, abilities and spells"/);assert.match(html,/aria-label="Combat sections"/);assert.match(html,/aria-label="Ability category"/);
+ assert.match(html,/option value="passiveAbilities" selected/);assert.match(html,/Passive choice/);assert.doesNotMatch(html,/Active choice|Racial choice|Feat choice/);
  const combat=renderSection(c,'combat');assert.match(combat,/data-resource-input="hp_temp" value="0"/);assert.match(combat,/aria-label="Temporary HP"/);assert.doesNotMatch(combat,/data-health=/);
 });
 

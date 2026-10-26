@@ -1,3 +1,4 @@
+import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats} from '../features/sheet/model.mjs';
 import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
 const groupFields={
@@ -7,17 +8,17 @@ const groupFields={
  attack:['ar_melee_ability','ar_melee_temp','ar_ranged_ability','ar_ranged_temp','ar_touch_ability','ar_touch_temp','ar_ranged_touch_ability','ar_ranged_touch_temp','cmb_temp'],
  saves:['fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp'],resistances:['resistances'],proficiencies:['proficiencies'],currency:['currency_gil','currency_moogle','slot_cap'],spell:['spell_dc_base','mp_max_spell_level']
 };
-const labels={str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Armor',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Capacity',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',u_curr:'Uses remaining',u_max:'Maximum uses',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Attack ability',attack_misc:'Attack misc',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
+const labels={casting_ability:'Casting ability',caster_level:'Caster level override',dc_misc:'Save DC adjustment',mp_adjustment:'MP cost adjustment',dc_formula:'Save DC formula',uses_formula:'Maximum uses formula',str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Armor',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Capacity',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',u_curr:'Uses remaining',u_max:'Maximum uses',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Attack ability',attack_misc:'Attack misc',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
 const readable=k=>labels[k]||k.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
-const textKeys=new Set(['name','desc','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','languages','senses','resistances','proficiencies']);
+const textKeys=new Set(['name','desc','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','languages','senses','resistances','proficiencies','dc_formula','uses_formula']);
 const boolKeys=new Set(['cs','equipped','restoreOnLongRest']);
 function field(key,value){
- const label=readable(key),opts=key==='size_category'?sizes:key==='stat'||key==='ability_mod'||key==='spell_dc_base'?abilities:key.endsWith('_ability')?['str','dex']:null;
+ const label=readable(key),opts=key==='attack_type'?['none','melee','ranged','touch','ranged_touch','cmb']:key==='size_category'?sizes:key==='stat'||key==='ability_mod'||key==='spell_dc_base'||key==='casting_ability'?abilities:key.endsWith('_ability')?['str','dex']:null;
  if(opts)return `<label class="cs-field"><span>${label}</span><select name="${key}">${opts.map(opt=>'<option value="'+opt+'"'+(opt===String(value||opts[0])?' selected':'')+'>'+opt+'</option>').join('')}</select></label>`;
  if(boolKeys.has(key))return `<label class="cs-checkbox"><input type="checkbox" name="${key}" ${value?'checked':''}><span>${label}</span></label>`;
  if(['desc','resistances','proficiencies'].includes(key))return `<label class="cs-field cs-field-wide"><span>${label}</span><textarea name="${key}" rows="5" maxlength="12000">${e(value||'')}</textarea></label>`;
  const isText=textKeys.has(key);
- return `<label class="cs-field"><span>${label}</span><input name="${key}" type="${isText?'text':'number'}" ${isText?'maxlength="'+(key==='name'?120:12000)+'"':'step="any" required'} value="${e(value??(isText?'':0))}" ${key==='name'?'required':''}></label>`;
+ return `<label class="cs-field"><span>${label}</span><input name="${key}" type="${isText?'text':'number'}" ${isText?'maxlength="'+(key==='name'?120:12000)+'"':'step="any" '+(key==='caster_level'?'':'required')} value="${e(value??(isText?'':0))}" ${key==='name'?'required':''}></label>`;
 }
 export function rollDice(expression,random=limit=>{const range=4294967296,ceiling=range-range%limit;let x;do{x=crypto.getRandomValues(new Uint32Array(1))[0];}while(x>=ceiling);return x%limit+1;}){
  const match=/^\s*(\d{1,2})d(\d{1,4})(?:\s*([+-])\s*(\d{1,6}))?\s*$/i.exec(expression);if(!match)throw Error('Use dice such as 1d20+5 or 2d6.');
@@ -84,21 +85,22 @@ export function mountSheet(){
  }
  function editEntry(key,index){
   const row=character.data[key]?.[index]||{};
-  const keys=key==='skills'?['name','stat','lvl','temp','cs','subName']:key==='items'?['name','amount','equipped','desc']:key==='weapons'?['name','damage','ability_mod','attack_misc','range','crit_range','crit_mult','desc']:key==='spells'?['name','lvl','school','type','range','duration','target','saving_throw','spell_resist','damage','desc','at_higher_lvls']:key==='activeAbilities'?['name','type','u_curr','u_max','restoreOnLongRest','desc','at_higher_lvls']:['name','desc','at_higher_lvls'];
-  const values={...row,damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',ability_mod:row.ability_mod||row.mod||'str',restoreOnLongRest:row.restoreOnLongRest!==false};
-  openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'});
-  if(index!==null)root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
+  const keys=key==='skills'?['lvl','temp','cs','subName']:key==='items'?['name','amount','equipped','desc']:key==='weapons'?['name','damage','ability_mod','attack_misc','range','crit_range','crit_mult','desc']:key==='spells'?['name','lvl','school','type','attack_type','attack_misc','range','duration','target','saving_throw','spell_resist','damage','casting_ability','caster_level','dc_misc','mp_adjustment','desc','at_higher_lvls']:key==='activeAbilities'?['name','type','attack_type','attack_misc','caster_level','damage','dc_formula','uses_formula','u_curr','u_max','restoreOnLongRest','desc','at_higher_lvls']:['name','damage','attack_type','attack_misc','caster_level','dc_formula','desc','at_higher_lvls'];
+  const values={...row,lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',ability_mod:row.ability_mod||row.mod||'str',casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
+  openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='skills'?'Skill identity is fixed. Edit ranks, misc, class skill and specialization.':key==='spells'||['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(key)?'Damage examples: 2d6 fire + 1d4 cold, {CL}d6 + {INT}. DC/uses formulas accept {INT}, {LEVEL}, {CL}, arithmetic and parentheses. Fractions round down. Set special adjustments explicitly.':''});
+  if(index!==null&&key!=='skills')root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
  }
  async function roll(label,expression){
   if(busy)return;setBusy(true);const node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
-  try{const result=await request({op:'roll',expression,label,requestId:crypto.randomUUID(),discord:discordEnabled});if(closed)return;const r=result.roll;node.textContent=label+': '+r.total+' ('+r.rolls.join(', ')+(r.bonus?' '+(r.bonus>=0?'+':'−')+' '+Math.abs(r.bonus):'')+')'+(result.discord==='sent'?' · Sent to Discord':result.discord==='failed'?' · Discord delivery failed; roll kept here':result.discord==='pending'?' · Discord delivery pending':' · Local only');document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
+  try{const result=await request({op:'roll',expression,label,requestId:crypto.randomUUID(),discord:discordEnabled});if(closed)return;const r=result.roll;node.textContent=label+': '+r.total+' ('+r.rolls.join(', ')+(r.bonus?' '+(r.bonus>=0?'+':'−')+' '+Math.abs(r.bonus):'')+')'+(r.breakdown?.some(part=>part.type)?' · '+r.breakdown.filter(part=>part.type).map(part=>part.type+' '+part.total).join(', '):'')+(result.discord==='sent'?' · Sent to Discord':result.discord==='failed'?' · Discord delivery failed; roll kept here':result.discord==='pending'?' · Discord delivery pending':' · Local only');document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
   catch(err){if(!closed)node.textContent=err.message;}finally{if(!closed)setBusy(false);}
  }
  root.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||busy)return;
   if(button.matches('[data-combat-view]')){if(dirty&&!confirm('Discard unsaved edits?'))return;combatView=button.dataset.combatView;draw();const url=new URL(location.href);url.searchParams.set('combatView',combatView);history.replaceState(null,'',url);return;}
   if(button.matches('[data-favorite]')){const [collection,i]=button.dataset.favorite.split(':');void save({action:'entry',collection,index:Number(i),mode:'update',fields:{favorite:character.data[collection][Number(i)].favorite!==true}});return;}
-  if(button.matches('[data-ability-tab]')){if(dirty&&!confirm('Discard unsaved edits?'))return;ability=button.dataset.abilityTab;draw();const url=new URL(location.href);url.searchParams.set('ability',ability);history.replaceState(null,'',url);return;}
+  if(button.matches('[data-cast-entry]')){void save({action:'cast',index:Number(button.dataset.castEntry.split(':')[1])});return;}
+
   if(button.matches('[data-sheet-tab]')){
    if((dirty||dialog()?.open)&&!confirm('Discard unsaved edits?'))return;section=button.dataset.sheetTab;draw();const url=new URL(location.href);url.searchParams.set('section',section);history.replaceState(null,'',url);return;
   }
@@ -113,7 +115,7 @@ export function mountSheet(){
   if(button.matches('[data-add-entry]')){editEntry(button.dataset.addEntry,null);return;}
   if(button.matches('[data-remove-entry]')){const [key,i]=button.dataset.removeEntry.split(':');if(confirm('Delete this entry?'))void save({action:'entry',collection:key,index:Number(i),mode:'remove'});return;}
   if(button.matches('[data-resource]')){const key=button.dataset.resource,s=sheetStats(character.data),value=(key==='hp_curr'?s.hp:s.mp)+Number(button.dataset.delta);void save({action:'fields',fields:{[key]:value}});return;}
-  if(button.matches('[data-use]')){const index=Number(button.dataset.use),row=character.data.activeAbilities[index];if(number(row.u_curr)>0)void save({action:'entry',collection:'activeAbilities',index,mode:'update',fields:{u_curr:number(row.u_curr)-1}});else status('No uses remaining.');return;}
+  if(button.matches('[data-use]')){const index=Number(button.dataset.use),row=character.data.activeAbilities[index];void save({action:'useAbility',index});return;}
   if(button.matches('[data-damage-roll]')){roll(button.dataset.damageLabel+' damage',button.dataset.damageRoll);return;}
   if(button.matches('[data-roll]')){roll(button.dataset.roll,'1d20'+(Number(button.dataset.bonus)>=0?'+':'')+number(button.dataset.bonus));return;}
   if(button.matches('[data-formula]')){showFormula(button.dataset.formula);return;}
@@ -123,7 +125,7 @@ export function mountSheet(){
  root.addEventListener('submit',event=>{
   if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
-  const fields={};for(const key of dialogState.keys){const node=event.target.elements[key];fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
+  const fields={};for(const key of dialogState.keys){const node=event.target.elements[key];if(key==='caster_level'&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
@@ -133,11 +135,12 @@ export function mountSheet(){
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const key=event.target.dataset.resourceInput,value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(key!=='hp_temp'||value>=0)){pendingResourceFields[key]=value;resourceTimer=setTimeout(()=>{if(Object.keys(pendingResourceFields).length)void save({action:'fields',fields:{...pendingResourceFields}});},650);}}
  },{signal:control.signal});
  root.addEventListener('change',event=>{
+  if(event.target.matches('[data-ability-category]')){ability=event.target.value;draw();const url=new URL(location.href);url.searchParams.set('ability',ability);history.replaceState(null,'',url);return;}
   if(event.target.matches('[data-discord-rolls]'))discordEnabled=event.target.checked;
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(event.target.dataset.resourceInput!=='hp_temp'||value>=0)){pendingResourceFields[event.target.dataset.resourceInput]=value;void save({action:'fields',fields:{...pendingResourceFields}});}}
   if(event.target.matches('[data-equipment]'))void save({action:'entry',collection:'items',index:Number(event.target.dataset.equipment),mode:'update',fields:{equipped:event.target.checked}});
  },{signal:control.signal});
- root.addEventListener('toggle',event=>{const detail=event.target;if(!detail.matches?.('[data-entry-details]')||!detail.open)return;const [key,i]=detail.dataset.entryDetails.split(':');const row=character?.data[key]?.[Number(i)];if(row)detail.querySelector('[data-entry-detail-body]').innerHTML=entryDetail(row);},{capture:true,signal:control.signal});
+ root.addEventListener('toggle',event=>{const detail=event.target;if(!detail.matches?.('[data-entry-details]')||!detail.open)return;const [key,i]=detail.dataset.entryDetails.split(':');const row=character?.data[key]?.[Number(i)];if(row)detail.querySelector('[data-entry-detail-body]').innerHTML=entryDetail(row,character.data,key);},{capture:true,signal:control.signal});
  root.addEventListener('cancel',()=>{dirty=false;},{capture:true,signal:control.signal});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void refresh();},{signal:control.signal});
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
