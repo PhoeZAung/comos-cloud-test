@@ -17,7 +17,7 @@ test('bounded arithmetic and typed damage reject executable or excessive express
  const roll=serverRoll('2d6 fire + 1d4 cold + 3');assert.equal(roll.rolls.length,3);assert.ok(roll.total>=6&&roll.total<=19);assert.equal(roll.breakdown[0].type,'fire');
 });
 test('casting and ability use spend resources once per merge, consume temp MP first, and preserve data',()=>{
- const cast=mergeSheetData(d,{action:'cast',index:0});assert.equal(cast.mp,8);assert.equal(cast.mp_temp,0);assert.equal(cast.mp_curr,8);assert.equal(d.mp_temp,2);assert.deepEqual(cast.spells,d.spells);
+ const cast=mergeSheetData(d,{action:'cast',index:0});assert.equal(cast.mp,8);assert.equal(cast.mp_temp,0);assert.equal(cast.mp_curr,8);assert.equal(d.mp_temp,2);assert.equal(mergeSheetData({...d,mp:-2,mp_temp:5},{action:'cast',index:0}).mp_curr,1);assert.deepEqual(cast.spells,d.spells);
  assert.throws(()=>mergeSheetData({...d,mp:0,mp_temp:1},{action:'cast',index:0}),/Not enough/);assert.throws(()=>mergeSheetData({...d,int:10},{action:'cast',index:0}),/score/);assert.throws(()=>mergeSheetData({...d,mp_max_spell_level:1},{action:'cast',index:0}),/maximum/);
  const use=mergeSheetData(d,{action:'useAbility',index:0});assert.equal(use.activeAbilities[0].u_curr,1);assert.equal(mergeSheetData(use,{action:'rest'}).activeAbilities[0].u_curr,7);assert.throws(()=>mergeSheetData({...d,activeAbilities:[{...d.activeAbilities[0],u_curr:0}]},{action:'useAbility',index:0}),/No uses/);
 });

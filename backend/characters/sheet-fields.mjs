@@ -24,7 +24,7 @@ export function mergeSheetData(original,change){
   }
   if(Object.hasOwn(change.fields,'size_category'))data.size=data.size_category;
   if(Object.hasOwn(change.fields,'currency_gil'))data.gil=data.currency_gil;
-  if(Object.hasOwn(change.fields,'mp_curr')&&!Object.hasOwn(change.fields,'mp'))data.mp=data.mp_curr-number(data.mp_temp);
+  if(Object.hasOwn(change.fields,'mp_curr')&&!Object.hasOwn(change.fields,'mp')){if(data.mp_curr<0)bad('MP cannot be negative.');data.mp_temp=Math.min(Math.max(0,number(data.mp_temp)),data.mp_curr);data.mp=data.mp_curr-data.mp_temp;}
  }else if(change.action==='entry'){
   if(!collections.includes(change.collection)||!['add','update','remove'].includes(change.mode))bad('Invalid sheet entry.');
   const rows=change.collection==='skills'?sheetSkills(data):Array.isArray(data[change.collection])?data[change.collection]:[];
@@ -55,10 +55,10 @@ export function mergeSheetData(original,change){
   if(key==='spells'){
    if(calc.mp===null)bad('Set the spell level before casting.');const current=sheetStats(data),cost=calc.mp;if(cost>current.mp)bad('Not enough MP.');
    if(data[calc.stat]!==undefined&&number(data[calc.stat])<10+calc.level)bad('Casting ability score is too low for this spell level.');if(number(data.mp_max_spell_level)>0&&(calc.level>number(data.mp_max_spell_level)||cost>number(data.mp_max_spell_level)))bad('Spell exceeds your configured maximum spell level.');
-   const temp=Math.max(0,number(data.mp_temp)),fromTemp=Math.min(temp,cost);data.mp_temp=temp-fromTemp;data.mp=Math.max(0,current.mp-temp-(cost-fromTemp));
+   const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current.mp)),fromTemp=Math.min(temp,cost);data.mp_temp=temp-fromTemp;data.mp=Math.max(0,current.mp-temp-(cost-fromTemp));
   }else {if(calc.maxUses<=0)bad('Set maximum uses before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');row.u_curr=calc.currentUses-1;}
  }else if(change.action==='spendMp'){
-  const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.max(0,number(data.mp_temp)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
+  const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
  }else if(change.action==='rest'){
   const current=sheetStats(data),level=totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1;
   data.hp_curr=Math.min(current.hpMax,current.hp+Math.max(1,level));data.mp=current.mpMax;data.mp_temp=0;
