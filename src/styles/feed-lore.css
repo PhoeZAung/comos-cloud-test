@@ -177,3 +177,12 @@ dialog.comos-lore-reader-dialog{width:min(780px,calc(100vw - 26px));max-width:ca
  .comos-lore-inline-image img{max-height:42vh}
 }
 @media(prefers-reduced-motion:reduce){dialog.comos-lore-popup::backdrop,dialog.comos-lore-reader-dialog::backdrop{backdrop-filter:none}}
+
+
+/* Only verified admins receive the Lore deletion action in the reader. */
+.comos-lore-admin-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:30px;padding-top:17px;border-top:1px solid var(--line)}
+.comos-lore-delete{padding:9px 13px;min-height:40px;background:transparent;border:1px solid color-mix(in srgb,#b65c5c 55%,var(--line));border-radius:9px;color:var(--text);font:500 13px system-ui;cursor:pointer}
+.comos-lore-delete:hover{background:color-mix(in srgb,#b65c5c 12%,transparent);border-color:#b65c5c}
+.comos-lore-delete:disabled{opacity:.5;cursor:not-allowed}
+.comos-lore-delete:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.comos-lore-delete-status{font-size:13px;color:var(--muted)}

@@ -23,10 +23,10 @@
 .comos-post-avatar{position:relative;overflow:hidden;flex-shrink:0}
 .comos-avatar-default{width:62%;height:62%;display:block;color:var(--accent)}
 .comos-post-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--surface);border-radius:inherit}
-.comos-thread-reply{margin-left:calc(min(var(--reply-depth,0),3)*min(5.8vw,38px));width:calc(100% - min(var(--reply-depth,0),3)*min(5.8vw,38px));border-left:2px solid color-mix(in srgb,var(--accent) 32%,var(--line));background:color-mix(in srgb,var(--surface) 45%,transparent)}
+.comos-thread-reply{margin-left:calc(var(--reply-depth,0)*min(8vw,46px));width:calc(100% - var(--reply-depth,0)*min(8vw,46px));border-left:2px solid color-mix(in srgb,var(--accent) 32%,var(--line));background:color-mix(in srgb,var(--surface) 45%,transparent)}
 .comos-reply-context{font-size:12px;line-height:1.5;color:var(--muted);margin:10px 0 0}
 .comos-reply-to,.comos-reply-cancel{border:0;background:transparent;color:var(--accent);font:13px system-ui;min-height:36px;cursor:pointer;padding:5px 12px 5px 0}
 .comos-reply-to{margin-right:12px}
 .comos-reply-cancel{align-self:flex-start;margin-top:-6px}
 .comos-reply-to:focus-visible,.comos-reply-cancel:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-@media(max-width:520px){.comos-thread-reply{margin-left:calc(min(var(--reply-depth,0),3)*13px);width:calc(100% - min(var(--reply-depth,0),3)*13px)}.comos-thread-entry{padding-inline:9px}.comos-post-avatar{width:37px;height:37px}}
+@media(max-width:520px){.comos-thread-reply{margin-left:calc(var(--reply-depth,0)*20px);width:calc(100% - var(--reply-depth,0)*20px)}.comos-thread-entry{padding-inline:9px}.comos-post-avatar{width:37px;height:37px}}

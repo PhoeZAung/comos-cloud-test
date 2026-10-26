@@ -66,6 +66,12 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
  const owns=(ownerId,tagIds)=>tagIds.every(tag=>allowed.get(ownerId,tag));
  return Object.freeze({
   get,
+  remove(id){
+   if(typeof id!=='string'||!uuid.test(id))throw fail('not_found','Lore entry not found.',404);
+   // The child tag/image links are deleted with the Lore row. Published images
+   // become private to their uploader again because no published Lore references them.
+   return db.prepare('DELETE FROM lore_entries WHERE id=?').run(id).changes>0;
+  },
   list(ownerId,{query='',tagIds=[],cursor='',limit=40,sort='newest'}={}){
    if(!ownerId)throw fail('sign_in_required','Sign in to browse Lore.',401);
    if(!['newest','az'].includes(sort))throw fail('invalid_sort','Choose Latest or A–Z sorting.');
@@ -114,22 +120,23 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
   }
  });
 }
-export function createLoreRoutes({db,sessions,origin,throttle=createAuthThrottle()}){
+export function createLoreRoutes({db,sessions,origin,adminUids=[],throttle=createAuthThrottle()}){
+ const admins=new Set(adminUids);
  const lore=createLoreService(db);
  return async(req,res,pathname,send)=>{
   const collection=pathname==='/api/v1/lore',id=pathname.startsWith('/api/v1/lore/')?pathname.slice('/api/v1/lore/'.length):null;
   if(!collection&&id===null)return false;
   const method=req.method;
-  if(!(collection&&['GET','POST'].includes(method)||id&&method==='GET')){
-   res.setHeader('Allow',collection?'GET, POST':'GET');send(405,{error:'method_not_allowed'});return true;
+  if(!(collection&&['GET','POST'].includes(method)||id&&['GET','DELETE'].includes(method))){
+   res.setHeader('Allow',collection?'GET, POST':'GET, DELETE');send(405,{error:'method_not_allowed'});return true;
   }
-  if(method==='POST'&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){
+  if(['POST','DELETE'].includes(method)&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){
    send(403,{error:'origin_not_allowed'});return true;
   }
   const permit=throttle.enter(req.socket?.remoteAddress||'unknown',method==='GET'?'restore':'profile');
   if(!permit.allowed){res.setHeader('Retry-After',String(permit.retryAfter));send(429,{error:'too_many_requests'});return true;}
   try{
-   const session=await adminSession(req,sessions,new Set());
+   const session=await adminSession(req,sessions,admins);
    if(!session){send(401,{error:'sign_in_required'});return true;}
    if(collection&&method==='POST'){
     if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
@@ -137,8 +144,14 @@ export function createLoreRoutes({db,sessions,origin,throttle=createAuthThrottle
     send(201,{entry:lore.create(session.user.id,data)});
    }else if(id!==null){
     if(!uuid.test(id)){send(404,{error:'not_found'});return true;}
-    const entry=lore.get(id);
-    send(entry?200:404,entry?{entry}:{error:'not_found'});
+    if(method==='DELETE'){
+      if(!session.admin){send(403,{error:'admin_required'});return true;}
+      const deleted=lore.remove(id);
+      send(deleted?200:404,deleted?{deleted:true}:{error:'not_found'});
+    }else{
+      const entry=lore.get(id);
+      send(entry?200:404,entry?{entry,canDelete:session.admin}:{error:'not_found'});
+    }
    }else{
     const params=new URL(req.url,origin).searchParams;
     if([...params.keys()].some(key=>!['query','tagId','cursor','sort'].includes(key))){send(400,{error:'invalid_query'});return true;}

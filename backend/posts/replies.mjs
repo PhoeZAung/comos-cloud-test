@@ -31,7 +31,7 @@ export function createRepliesService(db,{posts,now=()=>new Date().toISOString(),
   const lookup=db.prepare(`SELECT r.id,r.post_id AS postId,r.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,
     r.parent_reply_id AS parentReplyId,r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id WHERE r.id=?`);
   const prior=db.prepare('SELECT id,post_id AS postId,parent_reply_id AS parentReplyId,body AS text FROM feed_replies WHERE author_id=? AND client_request_id=?');
-  const validParent=db.prepare('SELECT post_id AS postId FROM feed_replies WHERE id=?');
+  const validParent=db.prepare('SELECT post_id AS postId,parent_reply_id AS parentReplyId FROM feed_replies WHERE id=?');
   const decorate=row=>{if(!row)return row;const {authorAvatarId,...safe}=row;return {...safe,avatarUrl:authorAvatarId?'/api/v1/member-avatars/'+encodeURIComponent(row.authorId):null};};
   const page=db.prepare(`SELECT r.id,r.post_id AS postId,r.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,
     r.parent_reply_id AS parentReplyId,r.body AS text,r.created_at AS createdAt FROM feed_replies r JOIN users u ON u.id=r.author_id
@@ -54,7 +54,11 @@ export function createRepliesService(db,{posts,now=()=>new Date().toISOString(),
         if(old.postId!==postId||old.text!==value.text||(old.parentReplyId||null)!==value.parentReplyId)throw fail('REPLY_CONFLICT','Request ID reused for another reply.');
         return decorate(lookup.get(old.id));
       }
-      if(value.parentReplyId&&validParent.get(value.parentReplyId)?.postId!==postId)throw fail('INVALID_REPLY','Reply target is not in this post.');
+      if(value.parentReplyId){
+        const parent=validParent.get(value.parentReplyId);
+        if(parent?.postId!==postId)throw fail('INVALID_REPLY','Reply target is not in this post.');
+        if(parent.parentReplyId!==null)throw fail('INVALID_REPLY','Replies are limited to one nested level.');
+      }
       const id=ids();
       db.prepare('INSERT INTO feed_replies(id,post_id,author_id,client_request_id,body,created_at,parent_reply_id) VALUES(?,?,?,?,?,?,?)')
         .run(id,postId,userId,value.clientRequestId,value.text,now(),value.parentReplyId);

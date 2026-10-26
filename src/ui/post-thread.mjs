@@ -56,7 +56,7 @@ export function mountPostThread({fixture=false}={}) {
         previewOffset=0;fixtureReplies();}
       else{
         const res=await fetch(path()+'/replies',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,clientRequestId:requestId,...(replyTarget?{parentReplyId:replyTarget.id}:{})}),signal:controller.signal});
-        if(!res.ok){const message=({401:'Sign in to reply.',403:'You no longer have access to reply.',404:'This post is no longer available.',429:'Too many replies. Try again later.'})[res.status]||'Could not publish reply.';throw Error(message);}
+        if(!res.ok){const message=({400:'You can only reply directly to a top-level comment.',401:'Sign in to reply.',403:'You no longer have access to reply.',404:'This post is no longer available.',429:'Too many replies. Try again later.'})[res.status]||'Could not publish reply.';throw Error(message);}
         const data=await getJson(path()+'/replies');replies=data.replies;cursor=data.nextCursor||null;
       }
       requestId=crypto.randomUUID();replyTarget=null;busy=false;paint();notice('Reply posted.');
@@ -67,7 +67,7 @@ export function mountPostThread({fixture=false}={}) {
     const next=event.target.closest('[data-more-replies]'),del=event.target.closest('[data-reply-delete]');
     const to=event.target.closest('[data-reply-to]'),cancel=event.target.closest('[data-cancel-reply]');
     if(cancel){replyTarget=null;requestId=crypto.randomUUID();paint();root.querySelector('[name=text]')?.focus();return;}
-    if(to){const target=replies.find(reply=>reply.id===to.dataset.replyTo);if(target){replyTarget={id:target.id,authorName:target.authorName};requestId=crypto.randomUUID();paint();root.querySelector('[name=text]')?.focus();root.querySelector('[data-reply-form]')?.scrollIntoView({behavior:'smooth',block:'center'});}return;}
+    if(to){const target=replies.find(reply=>reply.id===to.dataset.replyTo&&!reply.parentReplyId);if(target){replyTarget={id:target.id,authorName:target.authorName};requestId=crypto.randomUUID();paint();root.querySelector('[name=text]')?.focus();root.querySelector('[data-reply-form]')?.scrollIntoView({behavior:'smooth',block:'center'});}return;}
     if(next&&!busy){busy=true;next.disabled=true;
       try{if(fixture){previewOffset+=20;fixtureReplies();}else if(cursor){const page=await getJson(path()+'/replies?cursor='+encodeURIComponent(cursor));
         replies=[...replies,...page.replies];cursor=page.nextCursor||null;}paint();}

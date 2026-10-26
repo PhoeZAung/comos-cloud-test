@@ -65,7 +65,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     if(googleOwner.status!=='ready')console.info('Comos Google owner: '+googleOwner.status+'.');
     if(env.COMOS_ADMIN_BOOTSTRAP_EMAIL)console.info('Comos admin bootstrap: '+administrators.status+'.');
     const directoryRoutes=createDirectoryRoutes({db,sessions,adminUids,origin:config.origin});
-    const loreRoutes=createLoreRoutes({db,sessions,origin:config.origin});
+    const loreRoutes=createLoreRoutes({db,sessions,origin:config.origin,adminUids});
     const loreImageRoutes=mediaRoot?await createLoreImageRoutes({db,sessions,origin:config.origin,mediaRoot}):null;
     const characterLibraryRoutes=createCharacterLibraryRoutes({db,sessions,origin:config.origin});
     const itemsRoutes=createItemsRoutes({sessions,items:createItemsService(db),origin:config.origin,adminUids});

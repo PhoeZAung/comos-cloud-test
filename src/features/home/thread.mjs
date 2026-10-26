@@ -10,13 +10,13 @@ function messageCard(record,kind,viewerId,now,{depth=0,parentName=''}={}){
   const name=String(record.authorName||'Comos member');
   const when=stamp(record.createdAt,now);
   const own=kind==='reply'&&viewerId&&record.authorId===viewerId;
-  return `<article class="comos-thread-entry comos-thread-${kind}"${kind==="reply"?` style="--reply-depth:${Math.min(depth,3)}"`:""}>
+  return `<article class="comos-thread-entry comos-thread-${kind}"${kind==="reply"?` style="--reply-depth:${record.parentReplyId?1:0}"`:""}>
     ${renderAuthorAvatar(record)}
     <div class="comos-post-main"><div class="comos-post-header"><strong>${esc(name)}</strong><time${when.iso?` datetime="${esc(when.iso)}" data-relative-post`:''}>${esc(when.label)}</time></div>
       ${kind==="reply"&&record.parentReplyId?`<p class="comos-reply-context">↳ Replying to ${esc(parentName||"another reply")}</p>`:""}
       <p class="comos-post-text">${esc(record.text)}</p>
       ${(record.media||[]).filter(m=>typeof m.url==='string'&&(m.url.startsWith('/api/v1/home-media/')||m.url.startsWith('blob:'))).map(m=>`<img class="post-image" loading="lazy" src="${esc(m.url)}" alt="Post attachment">`).join('')}
-      ${kind==="reply"?`<button type="button" class="comos-reply-to" data-reply-to="${esc(record.id)}">Reply</button>`:""}
+      ${kind==="reply"&&!record.parentReplyId?`<button type="button" class="comos-reply-to" data-reply-to="${esc(record.id)}">Reply</button>`:""}
       ${own?`<button type="button" class="comos-post-delete" data-reply-delete="${esc(record.id)}">Delete reply</button>`:""}
     </div></article>`;
 }
@@ -33,7 +33,7 @@ function nestedReplies(replies,viewerId,now){
     if(rendered.has(reply.id))return '';
     rendered.add(reply.id);
     const parent=byId.get(reply.parentReplyId);
-    return messageCard(reply,'reply',viewerId,now,{depth,parentName:parent?.authorName})+
+    return messageCard(reply,'reply',viewerId,now,{depth:reply.parentReplyId?1:0,parentName:parent?.authorName})+
       (children.get(reply.id)||[]).map(child=>visit(child,depth+1)).join('');
   }
   return roots.map(reply=>visit(reply,0)).join('')+replies.filter(r=>!rendered.has(r.id)).map(reply=>visit(reply,0)).join('');
