@@ -1,5 +1,5 @@
 import http from 'node:http';
-export function createApiServer({ db, directoryRoutes=null, characterLibraryRoutes=null, homeMediaRoutes=null, sessionRoutes = null, staticHandler = null, accountRoutes = null, groupsRoutes = null, charactersRoutes = null, itemsRoutes = null, postsRoutes = null, replyRoutes = null, backupRoutes = null }) {
+export function createApiServer({ db, directoryRoutes=null, characterLibraryRoutes=null, loreRoutes=null, homeMediaRoutes=null, sessionRoutes = null, staticHandler = null, accountRoutes = null, groupsRoutes = null, charactersRoutes = null, itemsRoutes = null, postsRoutes = null, replyRoutes = null, backupRoutes = null }) {
   return http.createServer(async (req, res) => {
     const send = (status, payload) => {
       const body = JSON.stringify(payload);
@@ -18,6 +18,7 @@ export function createApiServer({ db, directoryRoutes=null, characterLibraryRout
       if (replyRoutes && await replyRoutes(req,res,url.pathname,send)) return;
       if (postsRoutes && await postsRoutes(req,res,url.pathname,send)) return;
       if (directoryRoutes && await directoryRoutes(req,res,url.pathname,send))return;
+      if (loreRoutes && await loreRoutes(req,res,url.pathname,send))return;
       if (characterLibraryRoutes && await characterLibraryRoutes(req,res,url.pathname,send))return;
       if (homeMediaRoutes && await homeMediaRoutes(req,res,url.pathname,send))return;
       if (itemsRoutes && await itemsRoutes(req,res,url.pathname,send)) return;

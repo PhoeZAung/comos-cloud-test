@@ -31,24 +31,18 @@ export function browseLore(entries,{query='',worldId='',partyId='',scope='all',s
   return {entries:filtered.slice((number-1)*size,number*size),total:filtered.length,page:number,pageCount:count};
 }
 
-function entryCard(entry,preview){
-  const date=time(entry.updatedAt)?new Date(entry.updatedAt).toISOString().slice(0,10):'';
-  return '<article class="comos-lore-card">'+
-    '<div class="comos-lore-card-meta"><span>'+esc(entry.worldName||'World')+'</span>'+
-    (entry.partyId?'<span>'+esc(entry.partyName||'Party')+'</span>':'')+
-    (entry.playerId?'<span>Personal</span>':'')+'</div>'+
-    '<h2>'+esc(entry.title||'Untitled entry')+'</h2><p>'+esc(entry.excerpt||'No summary provided.')+'</p>'+
-    '<div class="comos-lore-card-foot"><span>'+(date?'Updated '+esc(date):'Lore entry')+'</span>'+
-    (preview?'<a href="lore-entry.html">Entry preview →</a>':'')+'</div></article>';
+function entryRow(entry){
+ const id=encodeURIComponent(String(entry.id||''));
+ return '<li class="comos-lore-title-row"><a href="lore-entry.html?id='+esc(id)+'">'+esc(entry.title||'Untitled entry')+'</a></li>';
 }
 
-export function renderLoreLibrary({entries=[],availableTags=[],selectedTags=[],query='',searchOpen=false,tagsOpen=false,tagState='ready',worldId='',partyId='',scope='all',sort='newest',page=1,pageSize=6,preview=false,state='ready'}={}){
+export function renderLoreLibrary({entries=[],availableTags=[],selectedTags=[],query='',searchOpen=false,tagsOpen=false,tagState='ready',worldId='',partyId='',scope='all',sort='az',page=1,pageSize=40,preview=false,state='ready',serverFiltered=false,nextCursor=null,canPublish=false}={}){
   if(!['ready','loading','error','empty'].includes(state))throw new Error('Unknown lore state');
   if(!['ready','loading','error'].includes(tagState))throw new Error('Unknown tag state');
   const eligible=Array.isArray(availableTags)?availableTags.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string'):[];
   const allowed=new Set(eligible.map(tag=>tag.id));
   const selected=[...new Set(ids(selectedTags))].filter(id=>allowed.has(id));
-  const result=browseLore(entries,{query,worldId,partyId,scope,sort,page,pageSize,selectedTags:selected,allowedTags:eligible});
+  const result=serverFiltered?{entries,total:entries.length,page:1,pageCount:1}:browseLore(entries,{query,worldId,partyId,scope,sort,page,pageSize,selectedTags:selected,allowedTags:eligible});
   const noEntries=state==='empty'||(state==='ready'&&result.total===0);
   const statuses={loading:'Loading lore entries…',error:'Could not load lore. Please try again.',empty:'No lore entries to show.',ready:'No matching lore entries.'};
   const selectedCount=selected.length;
@@ -75,11 +69,12 @@ export function renderLoreLibrary({entries=[],availableTags=[],selectedTags=[],q
     '</div>'+
     '<div class="comos-lore-results" aria-live="polite" aria-busy="'+(state==='loading')+'">'+
       (state==='ready'&&result.total>0?
-        '<p class="comos-lore-count">'+result.total+' '+(result.total===1?'entry':'entries')+'</p><div class="comos-lore-list">'+result.entries.map(entry=>entryCard(entry,preview)).join('')+'</div>':
-        '<div class="comos-lore-empty" role="status"><span aria-hidden="true">✧</span><p>'+esc(statuses[state])+'</p>'+
-          (!preview&&noEntries?'<small>Live Lore entries are not connected yet.</small>':'')+'</div>')+
+        '<ul class="comos-lore-title-list">'+result.entries.map(entryRow).join('')+'</ul>':
+        '<div class="comos-lore-empty" role="status"><span aria-hidden="true">✧</span><p>'+esc(statuses[state])+'</p></div>')+
     '</div>'+
-    (state==='ready'&&result.pageCount>1?
-      '<nav class="comos-lore-pages" aria-label="Lore pages"><button type="button" data-lore-page="prev" '+(result.page<=1?'disabled':'')+'>Previous</button><span>Page '+result.page+' of '+result.pageCount+'</span><button type="button" data-lore-page="next" '+(result.page>=result.pageCount?'disabled':'')+'>Next</button></nav>':'')+
+    (serverFiltered&&nextCursor?'<div class="comos-lore-more"><button class="button" type="button" data-lore-load-more>Load more</button></div>':'')+
+    (!serverFiltered&&state==='ready'&&result.pageCount>1?
+      '<nav class="comos-lore-pages" aria-label="Lore pages"><button type="button" data-lore-page="prev" '+(result.page<=1?'disabled':'' )+'>Previous</button><span>Page '+result.page+' of '+result.pageCount+'</span><button type="button" data-lore-page="next" '+(result.page>=result.pageCount?'disabled':'')+'>Next</button></nav>':'')+
+    (canPublish?'<a class="fab" href="lore-compose.html" aria-label="Write lore">+</a>':'')+
   '</section>';
 }

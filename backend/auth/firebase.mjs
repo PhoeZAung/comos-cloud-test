@@ -1,4 +1,5 @@
 import {createDirectoryRoutes} from '../characters/directory.mjs';
+import {createLoreRoutes} from '../lore/service.mjs';
 import {importDirectory} from '../import/legacy.mjs';
 import {createHomeMediaRoutes} from '../posts/media.mjs';
 import {createAdminBackupRoutes} from '../backup/routes.mjs';
@@ -63,6 +64,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     if(googleOwner.status!=='ready')console.info('Comos Google owner: '+googleOwner.status+'.');
     if(env.COMOS_ADMIN_BOOTSTRAP_EMAIL)console.info('Comos admin bootstrap: '+administrators.status+'.');
     const directoryRoutes=createDirectoryRoutes({db,sessions,adminUids,origin:config.origin});
+    const loreRoutes=createLoreRoutes({db,sessions,origin:config.origin});
     const characterLibraryRoutes=createCharacterLibraryRoutes({db,sessions,origin:config.origin});
     const itemsRoutes=createItemsRoutes({sessions,items:createItemsService(db),origin:config.origin,adminUids});
     const charactersRoutes=createCharactersRoutes({sessions,characters:createCharactersService(db),origin:config.origin,adminUids});
@@ -72,6 +74,6 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const postsRoutes=createPostsRoutes({sessions,posts,origin:config.origin,adminUids:googleOwner.uids});
     const backupRoutes=createAdminBackupRoutes({db,sessions,auth:firebaseAuth,adminUids:googleOwner.uids});
     const replyRoutes=createReplyRoutes({sessions,posts,replies:createRepliesService(db,{posts}),origin:config.origin,adminUids});
-    return { characterLibraryRoutes,directoryRoutes,homeMediaRoutes,itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,replyRoutes,backupRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
+    return { loreRoutes,characterLibraryRoutes,directoryRoutes,homeMediaRoutes,itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,replyRoutes,backupRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }

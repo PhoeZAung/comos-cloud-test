@@ -23,7 +23,7 @@ test('Step 6.1 search, world, party and personal filters intersect',()=>{
 });
 test('Step 6.1 client escaped markup and no live scope leakage',()=>{
  const markup=renderLoreLibrary({entries:[{id:'fixture:lore:<x>',title:'<img src=x onerror=alert(1)>',worldId:'w<svg>',worldName:'<world>',excerpt:'<script>x</script>'}],preview:true});
- assert.doesNotMatch(markup,/<img src=x|<script>|<world>/);assert.match(markup,/&lt;world&gt;/);assert.match(markup,/&lt;script&gt;/);
+ assert.doesNotMatch(markup,/<img src=x|<script>|<world>/);assert.match(markup,/&lt;img src=x onerror=alert\(1\)&gt;/);assert.doesNotMatch(markup,/No summary provided/);
  const live=renderLoreLibrary();assert.doesNotMatch(live,/World 01|fixture:/);assert.match(live,/No matching lore entries/);
 });
 test('Step 6.1 error/loading/empty states and allowed sort validate',()=>{
@@ -62,4 +62,18 @@ test('Lore tag and search inputs are escaped',()=>{
  assert.doesNotMatch(html,/<script>|<img src=x|<svg onload/);
  assert.match(html,/&lt;script&gt;/);
  assert.match(html,/&lt;img/);
+});
+
+test('Lore title list is alphabetical and has no post-style cards, excerpts or metadata',()=>{
+ const html=renderLoreLibrary({entries,canPublish:true});
+ assert.ok(html.indexOf('>Alpha</a>')<html.indexOf('>Beta</a>'));
+ assert.ok(html.indexOf('>Beta</a>')<html.indexOf('>Delta</a>'));
+ assert.match(html,/class="comos-lore-title-list"/);
+ assert.match(html,/href="lore-entry.html\?id=2"/);
+ assert.match(html,/href="lore-compose.html" aria-label="Write lore">\+/);
+ assert.doesNotMatch(html,/comos-lore-card|No summary provided|Updated 2026|class="comos-lore-card-meta"/);
+ assert.doesNotMatch(html,/>moon<|>lake</);
+ const server=renderLoreLibrary({entries:[{id:'1',title:'A'},{id:'2',title:'B'}],serverFiltered:true,nextCursor:'cursor'});
+ assert.match(server,/data-lore-load-more/);
+ assert.doesNotMatch(server,/data-lore-page/);
 });

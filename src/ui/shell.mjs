@@ -9,6 +9,8 @@ async function mountPage() {
   const id=document.body.dataset.page;
   if(id==='characters'){const {mountCharacterLibrary}=await import('./character-library.mjs');if(generation===routeGeneration)cleanup=mountCharacterLibrary({fixture:!live});}
   if(id==='lore'){const {mountLore}=await import('./lore.mjs');if(generation===routeGeneration)cleanup=mountLore({fixture:!live});}
+  if(id==='lore-compose'){const {mountLoreCompose}=await import('./lore-compose.mjs');if(generation===routeGeneration)cleanup=mountLoreCompose({fixture:!live});}
+  if(id==='lore-entry'){const {mountLoreEntry}=await import('./lore-entry.mjs');if(generation===routeGeneration)cleanup=mountLoreEntry({fixture:!live});}
   if(live&&id==='home'){const {mountFeed}=await import('./feed.mjs');if(generation===routeGeneration)cleanup=mountFeed();}
   if(id==='post'){const {mountPostThread}=await import('./post-thread.mjs');if(generation===routeGeneration)cleanup=mountPostThread({fixture:!live});}
   if(id==='compose'){const {mountCompose}=await import('./compose.mjs');if(generation===routeGeneration)cleanup=mountCompose({fixture:!live});}
