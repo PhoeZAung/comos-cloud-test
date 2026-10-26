@@ -65,7 +65,7 @@ test('Lore tag and search inputs are escaped',()=>{
 });
 
 test('Lore title list is alphabetical and has no post-style cards, excerpts or metadata',()=>{
- const html=renderLoreLibrary({entries,canPublish:true});
+ const html=renderLoreLibrary({entries,canPublish:true,sort:'az'});
  assert.ok(html.indexOf('>Alpha</a>')<html.indexOf('>Beta</a>'));
  assert.ok(html.indexOf('>Beta</a>')<html.indexOf('>Delta</a>'));
  assert.match(html,/class="comos-lore-title-list"/);
@@ -76,4 +76,21 @@ test('Lore title list is alphabetical and has no post-style cards, excerpts or m
  const server=renderLoreLibrary({entries:[{id:'1',title:'A'},{id:'2',title:'B'}],serverFiltered:true,nextCursor:'cursor'});
  assert.match(server,/data-lore-load-more/);
  assert.doesNotMatch(server,/data-lore-page/);
+});
+
+test('Latest is the default Lore sort; sort and tag controls are separate dialogs',()=>{
+ const markup=renderLoreLibrary({entries,sortOpen:true,tagsOpen:true});
+ assert.match(markup,/data-lore-toggle="search"/);
+ assert.match(markup,/data-lore-toggle="tags"/);
+ assert.match(markup,/data-lore-toggle="sort"/);
+ assert.ok(markup.indexOf('data-lore-toggle="tags"')<markup.indexOf('data-lore-toggle="sort"'));
+ assert.match(markup,/data-lore-tags-dialog/);
+ assert.match(markup,/data-lore-sort-dialog/);
+ assert.match(markup,/data-lore-reader-dialog/);
+ assert.match(markup,/value="newest" checked/);
+ assert.match(markup,/data-lore-read=/);
+ assert.match(markup,/Latest/);
+ const az=renderLoreLibrary({entries,sort:'az'});
+ assert.match(az,/value="az" checked/);
+ assert.ok(az.indexOf('>Alpha</a>')<az.indexOf('>Beta</a>'));
 });

@@ -1,28 +1,49 @@
 import {renderLoreLibrary} from '../features/lore/library.mjs';
+import {renderLoreEntry} from './lore-entry.mjs';
 
 export function mountLore({fixture=false}={}){
  const root=document.querySelector('[data-lore-library]');if(!root)return ()=>{};
  const controller=new AbortController();
- let closed=false,query='',searchOpen=false,tagsOpen=false,tagState=fixture?'ready':'loading';
+ let closed=false,query='',searchOpen=false,tagsOpen=false,sortOpen=false,readerOpen=false,tagState=fixture?'ready':'loading',sort='newest';
+ let readerId=null,readerEntry=null,readerError='',readerSerial=0;
  let tags=[],selectedTags=[],entries=[],cursor=null,canPublish=false,state=fixture?'ready':'loading';
  let generation=0,searchTimer=null;
+ const modal=name=>root.querySelector(name==='tags'?'[data-lore-tags-dialog]':name==='sort'?'[data-lore-sort-dialog]':'[data-lore-reader-dialog]');
+ const showModal=(name)=>{
+  const dialog=modal(name);
+  if(dialog&&!dialog.open)dialog.showModal();
+ };
+ const readerHtml=()=>readerError?'<p role="status" class="comos-lore-popup-status"></p>':readerEntry?renderLoreEntry(readerEntry):'<p role="status">Loading Lore…</p>';
+ const paintReader=()=>{
+  const content=root.querySelector('[data-lore-reader-content]');if(!content)return;
+  content.innerHTML=readerHtml();
+  if(readerError)content.querySelector('p').textContent=readerError;
+ };
  const draw=()=>{
    if(closed)return;
+   const keepSearchFocus=document.activeElement?.matches('[name=query]')===true;
+   const selection=keepSearchFocus?document.activeElement.selectionStart:null;
    root.innerHTML=renderLoreLibrary({
-    entries,availableTags:tags,selectedTags,query,searchOpen,tagsOpen,tagState,
+    entries,availableTags:tags,selectedTags,query,searchOpen,tagsOpen,sortOpen,tagState,sort,
     state,preview:fixture,serverFiltered:!fixture,nextCursor:cursor,canPublish
    });
+   paintReader();
+   if(tagsOpen)showModal('tags');
+   else if(sortOpen)showModal('sort');
+   else if(readerOpen)showModal('reader');
+   if(keepSearchFocus){const field=root.querySelector('[name=query]');field?.focus();if(Number.isInteger(selection))field?.setSelectionRange(selection,selection);}
  };
  async function loadEntries(more=false){
    if(fixture||closed)return;
    const seq=++generation;
    if(!more){entries=[];cursor=null;state='loading';draw();}
    const params=new URLSearchParams();
+   params.set('sort',sort);
    if(query.trim())params.set('query',query.trim());
    for(const id of selectedTags)params.append('tagId',id);
    if(more&&cursor)params.set('cursor',cursor);
    try{
-     const res=await fetch('/api/v1/lore'+(params.size?'?'+params:''),{credentials:'same-origin',cache:'no-store',signal:controller.signal});
+     const res=await fetch('/api/v1/lore?'+params,{credentials:'same-origin',cache:'no-store',signal:controller.signal});
      if(seq!==generation||closed)return;
      if(res.status===401){canPublish=false;throw Error('Sign in to browse Lore.');}
      if(!res.ok)throw Error('Could not load Lore.');
@@ -54,23 +75,57 @@ export function mountLore({fixture=false}={}){
    }catch(error){if(closed||controller.signal.aborted)return;tags=[];selectedTags=[];tagState='error';}
    draw();
  }
+ async function openReader(id){
+   if(!(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)))return;
+   tagsOpen=false;sortOpen=false;readerOpen=true;readerEntry=null;readerError='';readerId=id;
+   const ticket=++readerSerial;
+   draw();
+   try{
+     const res=await fetch('/api/v1/lore/'+encodeURIComponent(id),{credentials:'same-origin',cache:'no-store',signal:controller.signal});
+     if(!res.ok)throw Error(res.status===401?'Sign in to read Lore.':res.status===404?'Lore entry not found.':'Could not load Lore.');
+     const data=await res.json();
+     if(!data.entry)throw Error('Invalid Lore response.');
+     if(ticket!==readerSerial||!readerOpen||closed)return;
+     readerEntry=data.entry;paintReader();
+   }catch(error){
+     if(ticket!==readerSerial||!readerOpen||closed||controller.signal.aborted)return;
+     readerError=error.message||'Could not load Lore.';paintReader();
+   }
+ }
  root.addEventListener('click',event=>{
+   const reading=event.target.closest('[data-lore-read]');
+   if(reading){
+     event.preventDefault();
+     if(!fixture)void openReader(reading.dataset.loreRead);
+     return;
+   }
+   const close=event.target.closest('[data-lore-close]');
+   if(close){modal(close.dataset.loreClose)?.close();return;}
+   const clickedDialog=event.target.closest('dialog');
+   if(event.target===clickedDialog&&clickedDialog){clickedDialog.close();return;}
    const toggle=event.target.closest('[data-lore-toggle]');
    if(toggle){
      const control=toggle.dataset.loreToggle;
-     if(control==='search'){searchOpen=!searchOpen;if(searchOpen)tagsOpen=false;}
-     if(control==='tags'){tagsOpen=!tagsOpen;if(tagsOpen)searchOpen=false;}
-     const shouldRetry=control==='tags'&&tagsOpen&&tagState==='error';
+     if(control==='search'){searchOpen=!searchOpen;if(searchOpen){tagsOpen=false;sortOpen=false;}}
+     if(control==='tags'){tagsOpen=!tagsOpen;sortOpen=false;searchOpen=false;}
+     if(control==='sort'){sortOpen=!sortOpen;tagsOpen=false;searchOpen=false;}
+     const retry=control==='tags'&&tagsOpen&&tagState==='error';
      draw();
      if(searchOpen)root.querySelector('[name=query]')?.focus();
-     else root.querySelector('[data-lore-toggle="'+control+'"]')?.focus();
-     if(shouldRetry)void loadTags();
+     if(retry)void loadTags();
      return;
    }
    if(event.target.closest('[data-lore-load-more]'))void loadEntries(true);
-   const button=event.target.closest('[data-lore-page]');
-   if(button){void loadEntries();}
  },{signal:controller.signal});
+ root.addEventListener('close',event=>{
+   if(event.target.matches('[data-lore-tags-dialog]')){tagsOpen=false;root.querySelector('[data-lore-toggle=tags]')?.focus();}
+   if(event.target.matches('[data-lore-sort-dialog]')){sortOpen=false;root.querySelector('[data-lore-toggle=sort]')?.focus();}
+   if(event.target.matches('[data-lore-reader-dialog]')){
+     readerOpen=false;readerSerial++;
+     const opener=[...root.querySelectorAll('[data-lore-read]')].find(a=>a.dataset.loreRead===readerId);
+     opener?.focus();
+   }
+ },{signal:controller.signal,capture:true});
  root.addEventListener('input',event=>{
    if(!event.target.matches('[name=query]'))return;
    query=event.target.value.slice(0,120);
@@ -78,6 +133,11 @@ export function mountLore({fixture=false}={}){
    searchTimer=setTimeout(()=>{searchTimer=null;void loadEntries();},260);
  },{signal:controller.signal});
  root.addEventListener('change',event=>{
+   const chosenSort=event.target.closest('[data-lore-sort]');
+   if(chosenSort){
+     if(!['newest','az'].includes(chosenSort.value))return;
+     sort=chosenSort.value;modal('sort')?.close();sortOpen=false;void loadEntries();return;
+   }
    const input=event.target.closest('[data-lore-tag]');if(!input)return;
    const allowed=new Set(tags.map(t=>t.id));
    if(!allowed.has(input.value)){draw();return;}
@@ -93,5 +153,5 @@ export function mountLore({fixture=false}={}){
  },{signal:controller.signal});
  draw();
  if(!fixture){void loadTags();void loadEntries();}
- return ()=>{closed=true;generation++;if(searchTimer!==null)clearTimeout(searchTimer);controller.abort();};
+ return ()=>{closed=true;generation++;readerSerial++;if(searchTimer!==null)clearTimeout(searchTimer);controller.abort();};
 }

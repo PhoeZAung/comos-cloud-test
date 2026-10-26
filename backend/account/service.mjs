@@ -48,10 +48,10 @@ export function createAccountService({db,files}) {
     name=data.displayName.trim();
    }
    const p=data.preferences;
-   if(Object.hasOwn(data,'preferences')&&(!p||typeof p!=='object'||Array.isArray(p)||Object.keys(p).sort().join(',')!=='effectColors,splashCursor,theme'||!['cosmic','ocean','ember','forest'].includes(p.theme)||typeof p.splashCursor!=='boolean'||typeof p.effectColors!=='boolean'))throw invalid('Invalid preferences.');
-   return transaction(id,data.revision,()=>{
+   if(Object.hasOwn(data,'preferences')&&(!p||typeof p!=='object'||Array.isArray(p)||!['effectColors,splashCursor,theme','effectColors,pauseStars,splashCursor,theme'].includes(Object.keys(p).sort().join(','))||!['cosmic','ocean','ember','forest'].includes(p.theme)||typeof p.splashCursor!=='boolean'||typeof p.effectColors!=='boolean'||(p.pauseStars!==undefined&&typeof p.pauseStars!=='boolean')))throw invalid('Invalid preferences.');
+   return transaction(id,data.revision,current=>{
     if(name!==undefined){try{uniqueName(db,name,id);}catch(error){throw invalid(error.message);}db.prepare("UPDATE users SET display_name=?,display_name_key=?,profile_state='complete' WHERE id=?").run(name,nameKey(name),id);}
-    if(p)db.prepare('INSERT INTO user_preferences(user_id,theme_choice,splash_cursor,effect_colors) VALUES(?,?,?,?) ON CONFLICT(user_id) DO UPDATE SET theme_choice=excluded.theme_choice,splash_cursor=excluded.splash_cursor,effect_colors=excluded.effect_colors').run(id,p.theme,Number(p.splashCursor),Number(p.effectColors));
+    if(p)db.prepare('INSERT INTO user_preferences(user_id,theme_choice,splash_cursor,effect_colors,pause_stars) VALUES(?,?,?,?,?) ON CONFLICT(user_id) DO UPDATE SET theme_choice=excluded.theme_choice,splash_cursor=excluded.splash_cursor,effect_colors=excluded.effect_colors,pause_stars=excluded.pause_stars').run(id,p.theme,Number(p.splashCursor),Number(p.effectColors),Number(p.pauseStars??current.preferences.pauseStars));
    });
   },
   async uploadAvatar(id,bytes,mime,expected) {

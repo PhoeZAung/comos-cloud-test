@@ -3,10 +3,20 @@ export function renderLoreEntry(entry){
  if(!entry)return '<p role="status">Lore entry not found.</p>';
  const labels=Array.isArray(entry.tags)?entry.tags.filter(t=>t&&typeof t.name==='string').map(t=>'<span>'+esc(t.name)+'</span>').join(''):'';
  const date=entry.createdAt&&Number.isFinite(Date.parse(entry.createdAt))?new Date(entry.createdAt).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'}):'';
+ const blocks=Array.isArray(entry.blocks)&&entry.blocks.length?entry.blocks:[{type:'text',text:entry.text||''}];
+ const mediaPattern=/^\/api\/v1\/lore-images\/[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+ const content=blocks.map(block=>{
+  if(block?.type==='text'&&typeof block.text==='string')return '<p class="comos-lore-paragraph">'+esc(block.text)+'</p>';
+  if(block?.type==='image'&&typeof block.url==='string'&&mediaPattern.test(block.url)){
+   const alt=typeof block.alt==='string'?block.alt:'';
+   return '<figure class="comos-lore-inline-image"><img loading="lazy" decoding="async" src="'+esc(block.url)+'" alt="'+esc(alt)+'"></figure>';
+  }
+  return '';
+ }).join('');
  return '<article class="comos-lore-reader"><h1>'+esc(entry.title)+'</h1>'+
    '<p class="comos-lore-byline">'+(entry.authorName?esc(entry.authorName):'Comos member')+(date?' · '+esc(date):'')+'</p>'+
    (labels?'<div class="comos-lore-reader-tags">'+labels+'</div>':'')+
-   '<div class="comos-lore-reader-body">'+esc(entry.text||'')+'</div></article>';
+   '<div class="comos-lore-reader-body">'+content+'</div></article>';
 }
 export function mountLoreEntry({fixture=false}={}){
  const root=document.querySelector('[data-lore-entry]');if(!root)return ()=>{};

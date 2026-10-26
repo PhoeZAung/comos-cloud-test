@@ -5,6 +5,7 @@ const time=value=>Number.isFinite(Date.parse(value))?Date.parse(value):0;
 const allowedSorts=new Set(['newest','oldest','az','za']);
 const searchIcon='<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 5 5"/></svg>';
 const tagIcon='<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h9l9 9-8 8-10-10V4Z"/><circle cx="8" cy="9" r="1.5"/></svg>';
+const sortIcon='<svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4"/></svg>';
 const ids=tags=>Array.isArray(tags)?tags.map(tag=>typeof tag==='string'?tag:tag&&typeof tag.id==='string'?tag.id:null).filter(Boolean):[];
 
 export function browseLore(entries,{query='',worldId='',partyId='',scope='all',sort='newest',selectedTags=[],allowedTags=null,page=1,pageSize=6}={}){
@@ -33,10 +34,10 @@ export function browseLore(entries,{query='',worldId='',partyId='',scope='all',s
 
 function entryRow(entry){
  const id=encodeURIComponent(String(entry.id||''));
- return '<li class="comos-lore-title-row"><a href="lore-entry.html?id='+esc(id)+'">'+esc(entry.title||'Untitled entry')+'</a></li>';
+ return '<li class="comos-lore-title-row"><a data-lore-read="'+esc(id)+'" href="lore-entry.html?id='+esc(id)+'">'+esc(entry.title||'Untitled entry')+'</a></li>';
 }
 
-export function renderLoreLibrary({entries=[],availableTags=[],selectedTags=[],query='',searchOpen=false,tagsOpen=false,tagState='ready',worldId='',partyId='',scope='all',sort='az',page=1,pageSize=40,preview=false,state='ready',serverFiltered=false,nextCursor=null,canPublish=false}={}){
+export function renderLoreLibrary({entries=[],availableTags=[],selectedTags=[],query='',searchOpen=false,tagsOpen=false,sortOpen=false,tagState='ready',worldId='',partyId='',scope='all',sort='newest',page=1,pageSize=40,preview=false,state='ready',serverFiltered=false,nextCursor=null,canPublish=false}={}){
   if(!['ready','loading','error','empty'].includes(state))throw new Error('Unknown lore state');
   if(!['ready','loading','error'].includes(tagState))throw new Error('Unknown tag state');
   const eligible=Array.isArray(availableTags)?availableTags.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string'):[];
@@ -50,14 +51,16 @@ export function renderLoreLibrary({entries=[],availableTags=[],selectedTags=[],q
     '<div class="comos-lore-heading"><h1 id="comos-lore-title">Lore</h1>'+
       '<div class="comos-lore-icons" aria-label="Lore tools">'+
         '<button type="button" class="comos-lore-icon" data-lore-toggle="search" aria-label="Search lore" title="Search" aria-controls="comos-lore-search-panel" aria-expanded="'+searchOpen+'">'+searchIcon+'</button>'+
-        '<button type="button" class="comos-lore-icon'+(selectedCount?' has-filters':'')+'" data-lore-toggle="tags" aria-label="Filter by character tags" title="Character tags" aria-controls="comos-lore-tags-panel" aria-expanded="'+tagsOpen+'">'+tagIcon+'</button>'+
+        '<button type="button" class="comos-lore-icon'+(selectedCount?' has-filters':'')+'" data-lore-toggle="tags" aria-label="Filter by character tags" title="Character tags" aria-haspopup="dialog" aria-expanded="'+tagsOpen+'">'+tagIcon+'</button>'+
+        '<button type="button" class="comos-lore-icon" data-lore-toggle="sort" aria-label="Sort Lore" title="Sort: '+(sort==='az'?'A–Z':'Latest')+'" aria-haspopup="dialog" aria-expanded="'+sortOpen+'">'+sortIcon+'</button>'+
       '</div></div>'+
     (preview?'<p class="comos-lore-preview" role="note">Preview only — sample results cannot grant access.</p>':'')+
     '<form class="comos-lore-search-panel" id="comos-lore-search-panel" data-lore-search '+(searchOpen?'':'hidden')+' role="search">'+
       '<label for="comos-lore-query" class="sr-only">Search lore titles and stories</label>'+
       '<input id="comos-lore-query" name="query" type="search" maxlength="120" placeholder="Search lore" value="'+esc(query)+'" autocomplete="off">'+
     '</form>'+
-    '<div class="comos-lore-tags-panel" id="comos-lore-tags-panel" data-lore-tags '+(tagsOpen?'':'hidden')+'>'+
+    '<dialog class="comos-lore-popup" data-lore-tags-dialog aria-label="Filter by tags">'+
+      '<div class="comos-lore-popup-heading"><h2>Character tags</h2><button type="button" class="comos-lore-popup-close" data-lore-close="tags" aria-label="Close tags">×</button></div>'+
       '<fieldset><legend class="sr-only">Your characters’ tags</legend>'+
       (tagState==='loading'?'<p role="status">Loading your character tags…</p>':
        tagState==='error'?'<p role="status">Could not load character tags. Reopen the tag filter to retry.</p>':
@@ -66,7 +69,17 @@ export function renderLoreLibrary({entries=[],availableTags=[],selectedTags=[],q
        ).join('')+'</div>':
        '<p role="status">No tags are attached to your characters yet.</p>')+
       '<small>Only tags on your characters are available.</small></fieldset>'+
-    '</div>'+
+    '</dialog>'+
+    '<dialog class="comos-lore-popup" data-lore-sort-dialog aria-label="Sort Lore">'+
+      '<div class="comos-lore-popup-heading"><h2>Sort Lore</h2><button type="button" class="comos-lore-popup-close" data-lore-close="sort" aria-label="Close sorting">×</button></div>'+
+      '<fieldset class="comos-lore-sort-options"><legend class="sr-only">Choose sort order</legend>'+
+      '<label><input type="radio" data-lore-sort name="lore-sort" value="newest" '+(sort==='newest'?'checked':'')+'><span>Latest</span></label>'+
+      '<label><input type="radio" data-lore-sort name="lore-sort" value="az" '+(sort==='az'?'checked':'')+'><span>A–Z</span></label></fieldset>'+
+    '</dialog>'+
+    '<dialog class="comos-lore-reader-dialog" data-lore-reader-dialog aria-label="Read Lore">'+
+      '<button type="button" class="comos-lore-popup-close comos-lore-reader-close" data-lore-close="reader" aria-label="Close Lore">×</button>'+
+      '<div data-lore-reader-content></div>'+
+    '</dialog>'+
     '<div class="comos-lore-results" aria-live="polite" aria-busy="'+(state==='loading')+'">'+
       (state==='ready'&&result.total>0?
         '<ul class="comos-lore-title-list">'+result.entries.map(entryRow).join('')+'</ul>':

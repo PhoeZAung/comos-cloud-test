@@ -527,7 +527,7 @@ export function createGalaxy(container, {
       wake();
     };
 
-    const onContextLost = event => { event.preventDefault(); visible=false; cancelAnimationFrame(raf); raf=0; container.dataset.galaxyState='unavailable'; const control=document.querySelector('[data-motion]');if(control)control.hidden=true; };
+    const onContextLost = event => { event.preventDefault(); visible=false; cancelAnimationFrame(raf); raf=0; container.dataset.galaxyState='unavailable'; };
     canvas.addEventListener('webglcontextlost',onContextLost);
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);

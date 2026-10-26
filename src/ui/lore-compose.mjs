@@ -1,90 +1,179 @@
 import {recordId} from './record-id.mjs';
 
+const validImage=file=>file&&['image/jpeg','image/png','image/webp'].includes(file.type)&&file.size>0&&file.size<=5*1024*1024;
 export function mountLoreCompose({fixture=false}={}){
  const root=document.querySelector('[data-lore-compose]');if(!root)return ()=>{};
- const form=root.querySelector('[data-lore-compose-form]');
- const title=form.querySelector('[name=title]'),body=form.querySelector('[name=text]');
- const picker=root.querySelector('[data-lore-tag-select]'),add=root.querySelector('[data-lore-tag-add]'),chips=root.querySelector('[data-lore-selected-tags]');
- const hint=root.querySelector('[data-lore-tag-hint]'),status=root.querySelector('[data-lore-compose-status]');
- const counter=root.querySelector('[data-lore-count]'),submit=root.querySelector('[data-lore-publish]');
- const controller=new AbortController();
+ const form=root.querySelector('[data-lore-compose-form]'),title=form.querySelector('[name=title]');
+ const blocksRoot=root.querySelector('[data-lore-blocks]'),filesInput=root.querySelector('[data-lore-image-files]');
+ const chips=root.querySelector('[data-lore-selected-tags]'),dialog=root.querySelector('[data-lore-compose-tag-dialog]');
+ const options=root.querySelector('[data-lore-tag-options]'),tagCount=root.querySelector('[data-lore-tag-count]');
+ const status=root.querySelector('[data-lore-compose-status]'),counter=root.querySelector('[data-lore-count]'),submit=root.querySelector('[data-lore-publish]');
+ const controller=new AbortController(),images=new Map();
  let tags=[],selected=[],ready=false,busy=false,closed=false,requestId=recordId();
  const message=msg=>{if(!closed)status.textContent=msg;};
- const option=(value,label)=>{const node=document.createElement('option');node.value=value;node.textContent=label;return node;};
+ const button=(text,name,label)=>{
+   const b=document.createElement('button');b.type='button';b.textContent=text;b.dataset[name]='';b.setAttribute('aria-label',label);b.title=label;return b;
+ };
+ const touch=()=>{requestId=recordId();paint();};
+ function blockControls(kind){
+   const wrapper=document.createElement('div');wrapper.className='comos-lore-edit-block';wrapper.dataset.loreKind=kind;wrapper.dataset.loreBlockId=recordId();
+   const header=document.createElement('div');header.className='comos-lore-block-heading';
+   const label=document.createElement('span');label.className='comos-lore-block-label';label.textContent=kind==='text'?'Paragraph':'Picture';
+   const actions=document.createElement('div');actions.className='comos-lore-block-actions';
+   actions.append(button('↑','loreMoveUp','Move up'),button('↓','loreMoveDown','Move down'),button('×','loreRemoveBlock','Remove block'));
+   header.append(label,actions);wrapper.append(header);return wrapper;
+ }
+ function addParagraph(){
+   const wrapper=blockControls('text'),textarea=document.createElement('textarea');
+   textarea.dataset.loreParagraph='';textarea.rows=5;textarea.maxLength=10000;
+   textarea.placeholder='Write a paragraph…';textarea.setAttribute('aria-label','Lore paragraph');
+   wrapper.append(textarea);blocksRoot.append(wrapper);touch();textarea.focus();return wrapper;
+ }
+ function addImage(file){
+   const wrapper=blockControls('image'),id=wrapper.dataset.loreBlockId,url=URL.createObjectURL(file);
+   const image=document.createElement('img');image.src=url;image.alt='Selected image preview';image.className='comos-lore-image-preview';
+   const alt=document.createElement('input');alt.type='text';alt.maxLength=140;alt.placeholder='Image description (optional)';alt.dataset.loreImageAlt='';
+   alt.setAttribute('aria-label','Image description for accessibility');
+   wrapper.append(image,alt);blocksRoot.append(wrapper);images.set(id,{file,url,mediaId:null});
+   touch();return wrapper;
+ }
+ function paintOrder(){
+   const nodes=[...blocksRoot.children];
+   nodes.forEach((block,index)=>{
+     block.querySelector('[data-lore-move-up]').disabled=busy||index===0;
+     block.querySelector('[data-lore-move-down]').disabled=busy||index===nodes.length-1;
+     block.querySelector('[data-lore-remove-block]').disabled=busy;
+     const label=block.querySelector('.comos-lore-block-label');
+     label.textContent=block.dataset.loreKind==='text'?'Paragraph '+(nodes.slice(0,index+1).filter(node=>node.dataset.loreKind==='text').length):'Picture';
+   });
+ }
  function paintTags(){
-   if(closed)return;
-   chips.replaceChildren();
-   for(const id of selected){
-     const tag=tags.find(t=>t.id===id);if(!tag)continue;
-     const chip=document.createElement('span');chip.className='comos-lore-selected-tag';
-     const label=document.createElement('span');label.textContent=tag.name;
-     const remove=document.createElement('button');remove.type='button';remove.textContent='×';remove.title='Remove '+tag.name;
-     remove.setAttribute('aria-label','Remove tag '+tag.name);remove.dataset.removeLoreTag=id;remove.disabled=busy;
-     chip.append(label,remove);chips.append(chip);
+   chips.replaceChildren();options.replaceChildren();
+   for(const tag of tags){
+     const label=document.createElement('label');label.className='comos-lore-tag-choice';
+     const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.dataset.loreComposerTag='';checkbox.value=tag.id;checkbox.checked=selected.includes(tag.id);checkbox.disabled=busy;
+     const span=document.createElement('span');span.textContent=tag.name;
+     label.append(checkbox,span);options.append(label);
+     if(checkbox.checked){
+       const chip=document.createElement('span');chip.className='comos-lore-selected-tag';
+       const name=document.createElement('span');name.textContent=tag.name;
+       const remove=button('×','removeLoreTag','Remove tag '+tag.name);remove.dataset.removeLoreTag=tag.id;remove.disabled=busy;
+       chip.append(name,remove);chips.append(chip);
+     }
    }
-   picker.replaceChildren(option('','Add a character tag…'));
-   const available=tags.filter(t=>!selected.includes(t.id));
-   for(const tag of available)picker.append(option(tag.id,tag.name));
-   picker.disabled=!ready||busy||available.length===0;
-   add.disabled=!ready||busy||!picker.value;
-   hint.textContent=ready?(tags.length?'Only tags from your characters can be added.':'No tags assigned to your characters. You can publish without tags.'):'Checking available character tags…';
+   if(!tags.length){
+     const p=document.createElement('p');p.role='status';p.textContent=ready?'No tags assigned to your characters yet.':'Loading your character tags…';options.append(p);
+   }
+   tagCount.textContent=String(selected.length);tagCount.hidden=selected.length===0;
+   root.querySelector('[data-lore-open-tags]').disabled=busy;
+ }
+ function textBlocks(){
+   return [...blocksRoot.children].filter(node=>node.dataset.loreKind==='text').map(node=>node.querySelector('textarea').value.trim()).filter(Boolean);
  }
  function paint(){
-   const len=[...body.value].length;counter.textContent=len+' / 10000';
-   for(const control of form.querySelectorAll('input,textarea'))control.disabled=busy;
-   submit.disabled=!ready||busy||!title.value.trim()||[...title.value.trim()].length>140||!body.value.trim()||len>10000;
-   paintTags();
+   if(closed)return;
+   const paragraphs=textBlocks(),length=[...paragraphs.join('\n\n')].length;
+   counter.textContent=length+' / 10000';
+   submit.disabled=!ready||busy||![...title.value.trim()].length||[...title.value.trim()].length>140||!length||length>10000;
+   title.disabled=busy;filesInput.disabled=busy;
+   root.querySelector('[data-add-lore-paragraph]').disabled=busy;
+   for(const node of blocksRoot.querySelectorAll('textarea,input'))node.disabled=busy;
+   paintOrder();paintTags();
  }
  async function check(){
    if(fixture){message('Preview only. Sign in to publish Lore.');paint();return;}
    message('Checking character tags…');
    try{
-     const result=await fetch('/api/v1/my/lore-tags',{credentials:'same-origin',cache:'no-store',signal:controller.signal});
-     if(result.status===401){message('Sign in to create Lore.');return;}
-     if(!result.ok)throw Error('Could not load your character tags. Refresh to retry.');
-     const payload=await result.json();
-     if(!Array.isArray(payload.tags))throw Error('Invalid tag response.');
-     tags=payload.tags.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string');
+     const res=await fetch('/api/v1/my/lore-tags',{credentials:'same-origin',cache:'no-store',signal:controller.signal});
+     if(res.status===401){message('Sign in to publish Lore.');return;}
+     if(!res.ok)throw Error('Could not load your character tags. Refresh to retry.');
+     const data=await res.json();if(!Array.isArray(data.tags))throw Error('Invalid tag response.');
+     tags=data.tags.filter(t=>t&&typeof t.id==='string'&&typeof t.name==='string');
      ready=true;message('Ready to publish.');
    }catch(error){if(!controller.signal.aborted)message(error.message||'Could not load character tags.');}
    finally{paint();}
  }
- picker.addEventListener('change',()=>{add.disabled=!ready||busy||!picker.value;},{signal:controller.signal});
  root.addEventListener('click',event=>{
-   if(event.target.closest('[data-lore-tag-add]')){
-     const id=picker.value;
-     if(!ready||busy||selected.length>=20||!tags.some(t=>t.id===id)||selected.includes(id))return;
-     selected.push(id);requestId=recordId();paint();return;
+   if(event.target.closest('[data-lore-open-tags]')){dialog.showModal();return;}
+   if(event.target.closest('[data-lore-tags-close]')){dialog.close();return;}
+   if(event.target===dialog){dialog.close();return;}
+   if(busy)return;
+   if(event.target.closest('[data-add-lore-paragraph]')){addParagraph();return;}
+   const removeTag=event.target.closest('[data-remove-lore-tag]');
+   if(removeTag){selected=selected.filter(id=>id!==removeTag.dataset.removeLoreTag);touch();return;}
+   const block=event.target.closest('[data-lore-block-id]');if(!block)return;
+   if(event.target.closest('[data-lore-move-up]')){const prev=block.previousElementSibling;if(prev)blocksRoot.insertBefore(block,prev);touch();}
+   else if(event.target.closest('[data-lore-move-down]')){const next=block.nextElementSibling;if(next)blocksRoot.insertBefore(next,block);touch();}
+   else if(event.target.closest('[data-lore-remove-block]')){
+     const key=block.dataset.loreBlockId,picture=images.get(key);if(picture){URL.revokeObjectURL(picture.url);images.delete(key);}
+     block.remove();touch();
    }
-   const remove=event.target.closest('[data-remove-lore-tag]');
-   if(remove&&!busy){selected=selected.filter(id=>id!==remove.dataset.removeLoreTag);requestId=recordId();paint();}
+ },{signal:controller.signal});
+ dialog.addEventListener('close',()=>root.querySelector('[data-lore-open-tags]')?.focus(),{signal:controller.signal});
+ root.addEventListener('change',event=>{
+   const box=event.target.closest('[data-lore-composer-tag]');if(box){
+     if(busy||!tags.some(t=>t.id===box.value))return;
+     selected=box.checked?[...new Set([...selected,box.value])].slice(0,20):selected.filter(id=>id!==box.value);
+     touch();return;
+   }
+   if(event.target===filesInput){
+     if(busy)return;
+     for(const file of Array.from(filesInput.files||[])){
+       if(images.size>=12){message('Up to 12 pictures per Lore entry.');break;}
+       if(!validImage(file)){message('Choose JPEG, PNG or WebP images under 5 MB.');continue;}
+       addImage(file);
+     }
+     filesInput.value='';
+   }
  },{signal:controller.signal});
  form.addEventListener('input',event=>{
-   if(event.target===title||event.target===body){requestId=recordId();paint();}
+   if(event.target===title||event.target.closest('[data-lore-blocks]'))touch();
  },{signal:controller.signal});
+ async function upload(image,index,total){
+   if(image.mediaId)return image.mediaId;
+   message('Uploading picture '+index+' of '+total+'…');
+   const res=await fetch('/api/v1/lore-images',{
+     method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':image.file.type},
+     body:image.file,signal:controller.signal
+   });
+   const data=await res.json().catch(()=>({}));
+   if(!res.ok)throw Error(data.message||'Picture upload failed. Try again.');
+   if(typeof data.id!=='string')throw Error('Picture upload was not confirmed.');
+   image.mediaId=data.id;return image.mediaId;
+ }
  form.addEventListener('submit',async event=>{
    event.preventDefault();if(busy||!ready)return;
-   const heading=title.value.trim(),text=body.value.trim();
-   if(!heading||[...heading].length>140||!text||[...text].length>10000){message('Enter a title (1–140 characters) and description (1–10000 characters).');return;}
-   busy=true;paint();message('Publishing Lore…');
+   const heading=title.value.trim(),text=textBlocks().join('\n\n'),len=[...text].length;
+   if(!heading||[...heading].length>140||!text||len>10000){message('Enter a title up to 140 characters and up to 10,000 characters of Lore text.');return;}
+   if(![...blocksRoot.children].some(node=>node.dataset.loreKind==='text'&&node.querySelector('textarea').value.trim())){message('Add at least one paragraph.');return;}
+   busy=true;paint();message('Preparing Lore…');
    try{
-     const response=await fetch('/api/v1/lore',{
+     const blocks=[],pictureCount=images.size;let uploaded=0;
+     for(const node of blocksRoot.children){
+       if(node.dataset.loreKind==='text'){
+         const paragraph=node.querySelector('textarea').value.trim();if(paragraph)blocks.push({type:'text',text:paragraph});
+       }else{
+         const image=images.get(node.dataset.loreBlockId);
+         if(!image)throw Error('A picture could not be found.');
+         const mediaId=await upload(image,++uploaded,pictureCount);
+         blocks.push({type:'image',mediaId,alt:node.querySelector('[data-lore-image-alt]').value.trim()});
+       }
+     }
+     if(blocks.length>40)throw Error('Use no more than 40 paragraphs and pictures.');
+     message('Publishing Lore…');
+     const res=await fetch('/api/v1/lore',{
        method:'POST',credentials:'same-origin',cache:'no-store',
        headers:{'Content-Type':'application/json',Accept:'application/json'},
-       body:JSON.stringify({title:heading,text,tagIds:selected,clientRequestId:requestId}),
+       body:JSON.stringify({title:heading,text,blocks,tagIds:selected,clientRequestId:requestId}),
        signal:controller.signal
      });
-     const payload=await response.json().catch(()=>({}));
-     if(!response.ok){
-       const known={401:'Sign in again to publish Lore.',403:'One or more selected tags are no longer available on your characters.',409:'This publishing request was already used. Refresh the page.',429:'Please wait before trying again.',503:'Lore is temporarily unavailable.'};
-       throw Error(payload.message||known[response.status]||'Lore could not be published.');
-     }
-     if(!payload.entry?.id)throw Error('The server did not confirm saving your Lore. Check the Lore list before retrying.');
-     message('Lore published. Returning to the title list…');
-     location.assign('lore.html');
+     const data=await res.json().catch(()=>({}));
+     if(!res.ok)throw Error(data.message||'Lore could not be published.');
+     if(!data.entry?.id)throw Error('The server did not confirm your Lore. Check the Lore list before retrying.');
+     message('Published. Returning to Lore…');location.assign('lore.html');
    }catch(error){if(!controller.signal.aborted)message(error.message||'Lore could not be published.');}
    finally{busy=false;paint();}
  },{signal:controller.signal});
- paint();void check();
- return ()=>{closed=true;controller.abort();};
+ addParagraph();paint();void check();
+ return ()=>{closed=true;controller.abort();for(const image of images.values())URL.revokeObjectURL(image.url);};
 }

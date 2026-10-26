@@ -17,8 +17,8 @@ test('account edits, preferences and processed avatars survive restart; replacem
  try {
   db=await openDatabase(database);const files=await createFileStore(path.join(dir,'media'));
   const repo=createUserRepository(db);let user=repo.create();const service=createAccountService({db,files});
-  assert.deepEqual(user.preferences,{theme:'cosmic',splashCursor:false,effectColors:true});
-  user=service.update(user.id,{revision:user.revision,displayName:'  Explorer  ',preferences:{theme:'ocean',splashCursor:true,effectColors:false}});
+  assert.deepEqual(user.preferences,{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:false});
+  user=service.update(user.id,{revision:user.revision,displayName:'  Explorer  ',preferences:{theme:'ocean',splashCursor:true,effectColors:false,pauseStars:true}});
   assert.equal(user.displayName,'Explorer');assert.equal(user.profileState,'complete');
   assert.throws(()=>service.update(user.id,{revision:1,displayName:'Stale'}),{code:'REVISION_CONFLICT'});
   for(const patch of [{ownerId:'other'},{preferences:{theme:'arbitrary',splashCursor:false,effectColors:true}},{displayName:'\u0000bad'},{preferences:{theme:'cosmic',splashCursor:'yes',effectColors:true}}])assert.throws(()=>service.update(user.id,{revision:user.revision,...patch}),{code:'INVALID_ACCOUNT'});
@@ -28,7 +28,7 @@ test('account edits, preferences and processed avatars survive restart; replacem
   assert.equal(await service.avatar(repo.create().id),null);
   const old=user.avatarMediaId;user=await service.uploadAvatar(user.id,image,'image/png',user.revision);assert.notEqual(user.avatarMediaId,old);
   assert.equal(db.prepare('SELECT count(*) AS n FROM media').get().n,1);assert.equal((await readdir(path.join(dir,'media'))).length,1);
-  db.close();db=await openDatabase(database);const restored=createUserRepository(db).get(user.id);assert.equal(restored.preferences.theme,'ocean');assert.equal(restored.preferences.splashCursor,true);assert.equal(restored.avatarMediaId,user.avatarMediaId);
+  db.close();db=await openDatabase(database);const restored=createUserRepository(db).get(user.id);assert.equal(restored.preferences.theme,'ocean');assert.equal(restored.preferences.splashCursor,true);assert.equal(restored.preferences.pauseStars,true);assert.equal(restored.avatarMediaId,user.avatarMediaId);
   user=await createAccountService({db,files}).removeAvatar(user.id,restored.revision);assert.equal(user.avatarMediaId,null);assert.equal((await readdir(path.join(dir,'media'))).length,0);
  }finally{db?.close();await rm(dir,{recursive:true,force:true});}
 });
@@ -67,4 +67,17 @@ test('account client queues changes using the latest revision and never retries 
  assert.deepEqual(requests.map(x=>x.revision),[1,2]);
  let count=0;const broken=createAccountClient({user:{revision:3},request:async()=>{count++;return {ok:false,status:409,json:async()=>({})};}});
  await assert.rejects(broken.update({displayName:'X'}),{code:'conflict'});assert.equal(count,1);
+});
+
+test('Pause stars is a saved account switch, not a global footer button',async()=>{
+ const {accountEditor}=await import('../src/account/view.mjs');
+ const {normalizedPreferences}=await import('../src/ui/preferences.mjs');
+ const {renderPage}=await import('../src/layouts/site.mjs');
+ const {default:page}=await import('../src/pages/account.mjs');
+ const markup=accountEditor({fixture:true});
+ assert.match(markup,/data-pause-stars/);
+ assert.ok(markup.indexOf('data-splash-toggle')<markup.indexOf('data-pause-stars'));
+ assert.deepEqual(normalizedPreferences({pauseStars:true}),{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:true});
+ const pageHtml=renderPage(page);
+ assert.doesNotMatch(pageHtml,/data-motion|Pause stars<\/button>/);
 });
