@@ -58,6 +58,7 @@ export function renderIdentity(data,state){
   <label class="cw-field"><span>Name</span><input name="charName" maxlength="80" required value="${esc(state.name)}" placeholder="Character name"></label>
   <div class="cw-photo-group"><div class="cw-photo" data-portrait-preview>${portraitOK(portrait)?'<img src="'+esc(portrait)+'" alt="Character portrait preview">':noPortrait}</div><div><label class="cw-field" for="cw-photo-input"><span>Character picture</span><input type="file" id="cw-photo-input" data-portrait-upload accept="image/jpeg,image/png,image/webp"></label><p class="field-help">JPG, PNG or WebP. A small preview is saved with your character.</p>${portrait?'<button class="button" type="button" data-clear-portrait>Remove picture</button>':''}</div></div>
   <label class="cw-field"><span>Alignment</span><select name="alignment">${choices(ALIGNMENTS,state.alignment,'Choose alignment')}</select></label>
+  <label class="cw-field"><span>Bio <small>optional</small></span><textarea name="bio" rows="5" maxlength="2000" placeholder="Tell your character's story…">${esc(state.bio??'')}</textarea></label>
   <p class="cw-status" role="status" data-edit-status></p><div class="wizard-actions"><a class="button" href="characters.html">Back</a><button class="button primary" type="submit">Save &amp; next</button></div></form></section>`;
 }
 export function characterLevelSummary(data={}){
@@ -97,12 +98,12 @@ export function mountCharacterView(){
  if(editing&&!['create-identity','create-race','create-class'].includes(page))return ()=>{};
  if(editing&&!initialId&&page!=='create-identity'){location.replace(route('create-identity'));return ()=>{};}
  const root=document.querySelector('main'),control=new AbortController();let closed=false,character=null;
- let stage={id:initialId,portrait:'',name:'',alignment:'',race:'',standard:[],alternate:[],classes:[{name:'',level:1,archetype:''}]};
+ let stage={id:initialId,portrait:'',name:'',alignment:'',bio:'',race:'',standard:[],alternate:[],classes:[{name:'',level:1,archetype:''}]};
  const listId=()=>character?.id||initialId;
  const link=name=>route(name,listId());
  async function request(id,body){const res=await fetch('/api/v1/character-records/'+encodeURIComponent(id),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})});const json=await res.json();if(!res.ok)throw Error(json.message||({401:'Sign in first.',403:'You cannot edit this character.',409:'This character changed. Reload before saving.'})[res.status]||'Could not save character.');return json.character;}
  function hydrate(){const d=character?.data||{};
-   stage={id:listId(),name:character?.name||d.charName||'',portrait:portraitOK(d.portrait)?d.portrait:'',alignment:d.alignment||'',race:d.race||'',standard:useTraitList(d,'standardRacialTraits')||defaultTraits(d.race||''),alternate:useTraitList(d,'alternateRacialTraits')||[],classes:characterClasses(d)};
+   stage={id:listId(),name:character?.name||d.charName||'',portrait:portraitOK(d.portrait)?d.portrait:'',alignment:d.alignment||'',bio:typeof d.bio==='string'?d.bio:'',race:d.race||'',standard:useTraitList(d,'standardRacialTraits')||defaultTraits(d.race||''),alternate:useTraitList(d,'alternateRacialTraits')||[],classes:characterClasses(d)};
  }
  const status=message=>{const node=root.querySelector('[data-edit-status]');if(node)node.textContent=message;};
  function draw(){if(closed)return;
@@ -134,7 +135,7 @@ export function mountCharacterView(){
  root.addEventListener('submit',event=>{
   if(!event.target.matches('[data-edit-character]'))return;event.preventDefault();
   if(page==='create-identity'){
-    const form=event.target,fields={charName:form.elements.charName.value.trim(),alignment:form.elements.alignment.value,portrait:stage.portrait};
+    const form=event.target,fields={charName:form.elements.charName.value.trim(),alignment:form.elements.alignment.value,portrait:stage.portrait,bio:form.elements.bio.value};
     void save(fields,'create-race');
   }else if(page==='create-race'){
     const race=event.target.elements.race.value;
@@ -143,7 +144,7 @@ export function mountCharacterView(){
  },{signal:control.signal});
  root.addEventListener('change',async event=>{
   if(event.target.matches('[data-portrait-upload]')){
-    const file=event.target.files?.[0];if(!file)return;const form=root.querySelector('[data-edit-character]');if(form){stage.name=form.elements.charName.value;stage.alignment=form.elements.alignment.value;}status('Preparing picture…');
+    const file=event.target.files?.[0];if(!file)return;const form=root.querySelector('[data-edit-character]');if(form){stage.name=form.elements.charName.value;stage.alignment=form.elements.alignment.value;stage.bio=form.elements.bio.value;}status('Preparing picture…');
     try{stage.portrait=await processPicture(file);if(!closed){draw();status('Picture ready. Save to keep it.');}}catch(e){status(e.message);}
   }
   if(event.target.matches('[data-race-select]')){stage.race=event.target.value;stage.standard=defaultTraits(stage.race);stage.alternate=[];draw();}
@@ -155,7 +156,7 @@ export function mountCharacterView(){
   if(event.target.matches('[data-archetype-select]')){const idx=Number(event.target.dataset.archetypeSelect);const other=root.querySelector(`[data-archetype-custom="${idx}"]`);if(other){other.closest('.cw-archetype-other').hidden=event.target.value!=='__custom__';if(event.target.value==='__custom__')other.focus();}readClasses();}
  },{signal:control.signal});
  root.addEventListener('click',event=>{
-  if(event.target.matches('[data-clear-portrait]')){const form=root.querySelector('[data-edit-character]');if(form){stage.name=form.elements.charName.value;stage.alignment=form.elements.alignment.value;}stage.portrait='';draw();return;}
+  if(event.target.matches('[data-clear-portrait]')){const form=root.querySelector('[data-edit-character]');if(form){stage.name=form.elements.charName.value;stage.alignment=form.elements.alignment.value;stage.bio=form.elements.bio.value;}stage.portrait='';draw();return;}
   const add=event.target.closest('[data-add-trait]');
   if(add){const kind=add.dataset.addTrait==='standard'?'standard':'alternate';
     const text=root.querySelector(kind==='standard'?'[data-standard-new]':'[data-alternate-new]')?.value.trim();

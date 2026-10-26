@@ -1,5 +1,5 @@
 import {ALIGNMENTS,SOURCE_NAME,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
-const fieldsByStep={identity:['charName','alignment','portrait'],race:['race','standardRacialTraits','alternateRacialTraits'],class:['classes']};
+const fieldsByStep={identity:['charName','alignment','portrait','bio'],race:['race','standardRacialTraits','alternateRacialTraits'],class:['classes']};
 const control=/[\u0000-\u001f\u007f]/u;
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 export const badEditor=message=>Object.assign(new Error(message),{code:'INVALID_CHARACTER'});
@@ -7,6 +7,10 @@ const word=(value,max,label,{empty=false}={})=>{
  if(typeof value!=='string'||value.length>max||control.test(value)||(!empty&&!value.trim()))throw badEditor(`Invalid ${label}.`);
  return value.trim();
 };
+export function validateBio(value){
+ if(typeof value!=='string'||value.length>2000||/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/u.test(value))throw badEditor('Bio must be 2,000 characters or fewer.');
+ return value.replace(/\r\n?/g,'\n').trim();
+}
 export function validatePortrait(value){
  if(value===''||value===null)return '';
  if(typeof value!=='string'||value.length>160000||!/^data:image\/(?:jpeg|png|webp);base64,(?:[a-z0-9+/]{4})*(?:[a-z0-9+/]{2}==|[a-z0-9+/]{3}=)?$/i.test(value))throw badEditor('Use a small JPEG, PNG, or WebP portrait.');
@@ -25,7 +29,7 @@ export function validateWizardFields(step,values){
  if(step==='identity'){
   const charName=word(values.charName,80,'character name');
   if(typeof values.alignment!=='string'||(!ALIGNMENTS.includes(values.alignment)&&values.alignment!==''))throw badEditor('Select a valid alignment.');
-  return {charName,alignment:values.alignment,portrait:values.portrait===undefined?undefined:validatePortrait(values.portrait),source:SOURCE_NAME};
+  return {charName,alignment:values.alignment,portrait:values.portrait===undefined?undefined:validatePortrait(values.portrait),...(values.bio===undefined?{}:{bio:validateBio(values.bio)}),source:SOURCE_NAME};
  }
  if(step==='race')return {race:word(values.race,80,'race'),standardRacialTraits:traits(values.standardRacialTraits,'standard racial traits'),alternateRacialTraits:traits(values.alternateRacialTraits,'alternate racial traits'),source:SOURCE_NAME};
  if(!Array.isArray(values.classes)||values.classes.length<1||values.classes.length>8)throw badEditor('Choose one to eight classes.');

@@ -1,6 +1,12 @@
 // Lightweight 3D coverflow inspired by the Dark-Grasp character carousel.
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const validCharacterImage=url=>typeof url==='string'&&url.length<160000&&/^data:image\/(?:png|jpeg|webp);base64,[a-z0-9+/]+={0,2}$/i.test(url);
+const bioExcerpt=value=>{
+ if(typeof value!=='string')return '';
+ const clean=value.replace(/\s+/gu,' ').trim();
+ const visible=Array.from(clean);
+ return visible.length>140?visible.slice(0,139).join('').trimEnd()+'…':clean;
+};
 const silhouette='<svg viewBox="0 0 100 120" class="cc-default-portrait" role="img" aria-label="Default character portrait" fill="none"><circle cx="50" cy="35" r="20" fill="currentColor" opacity=".74"/><path d="M11 114v-11c0-24 18-42 39-42s39 18 39 42v11" fill="currentColor" opacity=".60"/><path d="M26 26c4-18 17-25 26-24 15 1 27 12 26 29-7-9-20-10-25-20-4 14-18 16-27 15Z" fill="currentColor" opacity=".9"/></svg>';
 function card(character,index,selected,total){
   const forward=(index-selected+total)%total,backward=(selected-index+total)%total;
@@ -17,7 +23,7 @@ function card(character,index,selected,total){
       '<div class="cc-portrait">'+photo+'</div>'+
       '<div class="cc-panel-copy"><h2>'+esc(name)+'</h2><p class="cc-metadata">'+(meta||'Character')+'</p>'+
       '<div class="cc-tags">'+(tags.length?tags.map(t=>'<span>'+esc(t)+'</span>').join(''):'<span class="cc-untagged">No tags yet</span>')+'</div>'+
-      '<p class="cc-bio">'+(character.bio?esc(String(character.bio).slice(0,140)):'Bio space reserved for later')+'</p>'+
+      (bioExcerpt(character.bio)?'<p class="cc-bio">'+esc(bioExcerpt(character.bio))+'</p>':'')+
       '</div></button>'+
       (!id.startsWith('fixture:')?'<div class="cc-panel-actions"><a class="button primary" href="sheet.html?characterId='+encodeURIComponent(id)+'">Open sheet</a><a class="button" href="create-identity.html?characterId='+encodeURIComponent(id)+'">Edit</a></div>':
        '<div class="cc-panel-actions"><span class="cc-preview-note">Preview character</span></div>')+

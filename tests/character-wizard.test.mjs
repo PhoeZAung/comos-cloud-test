@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {SOURCE_NAME,ALIGNMENTS,CLASS_NAMES,ARCHETYPES,defaultTraits,characterClasses,totalClassLevel} from '../src/features/characters/ffd20.mjs';
-import {validatePortrait,validateWizardFields,mergeWizardData} from '../backend/characters/editor-fields.mjs';
+import {validateBio,validatePortrait,validateWizardFields,mergeWizardData} from '../backend/characters/editor-fields.mjs';
 import {characterLevelSummary} from '../src/ui/character-view.mjs';
 const portrait='data:image/jpeg;base64,'+Buffer.from('test img').toString('base64');
 
@@ -65,4 +65,23 @@ test('identity, race, multiclass and sheet produce requested minimal control lay
  const sheet=renderSheet({id:'123e4567-e89b-42d3-a456-426614174000',name:'Vivi',data:{classes,race:'Hume'}},'sheet');
  assert.match(sheet,/Total level/);assert.match(sheet,/Class 1 Lv/);
  assert.match(sheet,/Black Mage 3/);assert.match(sheet,/Warrior 2/);
+});
+test('Identity bio saves paragraphs and stays optional for older characters',()=>{
+ const bio='A quiet mage from the coast.\nShe collects forgotten spells.';
+ const next=mergeWizardData({bio:'Older story',hp_curr:17,items:[{name:'Staff'}]},'identity',{charName:'Vivi',alignment:'Neutral Good',portrait:'',bio});
+ assert.equal(next.bio,bio);
+ assert.equal(next.hp_curr,17);
+ assert.deepEqual(next.items,[{name:'Staff'}]);
+ assert.equal(validateWizardFields('identity',{charName:'Vivi',alignment:'',portrait:''}).bio,undefined);
+ assert.equal(mergeWizardData({bio:'Keep me'},'identity',{charName:'Vivi',alignment:'',portrait:''}).bio,'Keep me');
+ assert.equal(validateBio(' First line\r\nSecond line '),'First line\nSecond line');
+ assert.throws(()=>validateBio('x'.repeat(2001)),/Bio must/);
+ assert.throws(()=>validateBio('unsafe\\u0000'),/Bio must/);
+});
+test('Bio is below Alignment in Identity and safely escaped',()=>{
+ const html=renderIdentity({}, {name:'Vivi',portrait:'',alignment:'Lawful Good',bio:'A <mage> & scholar'});
+ assert.ok(html.indexOf('<span>Alignment</span>')<html.indexOf('<span>Bio <small>optional</small></span>'));
+ assert.match(html,/name="bio" rows="5" maxlength="2000"/);
+ assert.match(html,/A &lt;mage&gt; &amp; scholar/);
+ assert.doesNotMatch(html,/A <mage>/);
 });
