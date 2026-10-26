@@ -1,6 +1,7 @@
 import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 import {createAuthThrottle} from '../auth/throttle.mjs';
+import {createLoreAccess} from './access.mjs';
 
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const fail=(code,message,status=400)=>Object.assign(new Error(message),{code,status});
@@ -54,10 +55,9 @@ function cursorDecode(raw,sort){
  }catch{throw fail('invalid_cursor','Invalid Lore cursor.');}
 }
 export function createLoreService(db,{now=()=>new Date().toISOString(),ids=randomUUID}={}){
- const allowed=db.prepare('SELECT 1 FROM character_tag_links l JOIN characters c ON c.id=l.character_id WHERE c.owner_id=? AND c.archived=0 AND l.tag_id=? LIMIT 1');
+ const access=createLoreAccess(db);
  const imageOwned=db.prepare('SELECT 1 FROM lore_images m WHERE m.id=? AND m.owner_id=? AND NOT EXISTS(SELECT 1 FROM lore_entry_images e WHERE e.image_id=m.id)');
  const linkedHere=db.prepare('SELECT 1 FROM lore_entry_images WHERE entry_id=? AND image_id=?');
- const activeTags=db.prepare('SELECT DISTINCT t.id,t.name FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id JOIN characters c ON c.id=l.character_id WHERE c.owner_id=? AND c.archived=0 ORDER BY t.name COLLATE NOCASE,t.id');
  const read=db.prepare('SELECT l.id,l.title,l.body AS text,l.blocks_json AS blocksJson,l.author_id AS authorId,u.display_name AS authorName,l.created_at AS createdAt,l.updated_at AS updatedAt FROM lore_entries l JOIN users u ON u.id=l.author_id WHERE l.id=?');
  const tags=db.prepare('SELECT t.id,t.name FROM lore_entry_tags l JOIN character_tags t ON t.id=l.tag_id WHERE l.entry_id=? ORDER BY t.name COLLATE NOCASE,t.id');
  function blocksFor(row){
@@ -65,11 +65,15 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
   return Array.isArray(parsed)&&parsed.length?parsed.map(b=>b.type==='image'?{type:'image',url:'/api/v1/lore-images/'+encodeURIComponent(b.mediaId),alt:b.alt||'',mediaId:b.mediaId}:{type:'text',text:b.text||''}):[{type:'text',text:row.text}];
  }
  const get=id=>{const entry=read.get(id);if(!entry)return null;const {blocksJson,...safe}=entry;return {...safe,blocks:blocksFor(entry),tags:tags.all(id)};};
- const owns=(ownerId,tagIds)=>tagIds.every(tag=>allowed.get(ownerId,tag));
+ const owns=(ownerId,tagIds,{admin=false}={})=>access.allowsTags(ownerId,tagIds,{admin});
  return Object.freeze({
   get,
-  editorTags(authorId,entryId){
-    const tagsNow=activeTags.all(authorId);
+  access,
+  readVisible(userId,entryId,{admin=false}={}){
+    return access.canRead(userId,entryId,{admin})?get(entryId):null;
+  },
+  editorTags(authorId,entryId,{admin=false}={}){
+    const tagsNow=access.availableTags(authorId,{admin});
     const ids=new Set(tagsNow.map(t=>t.id));
     for(const tag of tags.all(entryId)){
       if(!ids.has(tag.id))tagsNow.push({...tag,legacy:true});
@@ -92,7 +96,7 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
       if(previous.authorId!==editorId&&!admin)throw fail('edit_forbidden','You cannot edit this Lore.',403);
       if(previous.updatedAt!==input.expectedUpdatedAt)throw fail('edit_conflict','This Lore was changed elsewhere. Reload before editing.',409);
       const originalTags=new Set(tags.all(id).map(t=>t.id));
-      if(tagIds.some(tag=>!originalTags.has(tag)&&!allowed.get(previous.authorId,tag)))
+      if(tagIds.some(tag=>!originalTags.has(tag)&&!access.allowsTags(editorId,[tag],{admin})))
         throw fail('tag_not_available','New tags must be attached to the author’s active characters.',403);
       if(imageIds.some(imageId=>!linkedHere.get(id,imageId)&&!imageOwned.get(imageId,editorId)))
         throw fail('invalid_images','Only images already in this Lore or new pictures you uploaded are allowed.',403);
@@ -114,14 +118,16 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
    // become private to their uploader again because no published Lore references them.
    return db.prepare('DELETE FROM lore_entries WHERE id=?').run(id).changes>0;
   },
-  list(ownerId,{query='',tagIds=[],cursor='',limit=40,sort='newest'}={}){
+  list(ownerId,{query='',tagIds=[],cursor='',limit=40,sort='newest',admin=false}={}){
    if(!ownerId)throw fail('sign_in_required','Sign in to browse Lore.',401);
    if(!['newest','az'].includes(sort))throw fail('invalid_sort','Choose Latest or A–Z sorting.');
    if(typeof query!=='string'||[...query].length>120||badChars.test(query))throw fail('invalid_query','Search is too long.');
    const selected=validateTagIds(tagIds);
-   if(!owns(ownerId,selected))throw fail('tag_not_available','Only tags from your active characters are available.',403);
+   if(!owns(ownerId,selected,{admin}))throw fail('tag_not_available','Only tags from your active characters are available.',403);
    if(!Number.isInteger(limit)||limit<1||limit>40)throw fail('invalid_query','Invalid page size.');
    const after=cursorDecode(cursor,sort),where=[],args=[];
+   const visibility=access.restrictList(ownerId,{admin});
+   where.push(visibility.sql);args.push(...visibility.args);
    if(query.trim()){where.push('(instr(lower(l.title),lower(?))>0 OR instr(lower(l.body),lower(?))>0)');args.push(query.trim(),query.trim());}
    if(selected.length){where.push('EXISTS (SELECT 1 FROM lore_entry_tags lt WHERE lt.entry_id=l.id AND lt.tag_id IN ('+selected.map(()=>'?').join(',')+'))');args.push(...selected);}
    if(after){
@@ -134,7 +140,7 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
    const entries=rows.slice(0,limit).map(row=>({...row,tags:tags.all(row.id)}));
    return {entries,sort,nextCursor:rows.length>limit?cursorEncode(rows[limit-1],sort):null};
   },
-  create(ownerId,input){
+  create(ownerId,input,{admin=false}={}){
    if(!ownerId)throw fail('sign_in_required','Sign in to publish Lore.',401);
    if(!plain(input)||Object.keys(input).some(key=>!['title','text','blocks','tagIds','clientRequestId'].includes(key)))throw fail('invalid_lore','Invalid Lore fields.');
    const title=validateText(input.title,140,'Title');
@@ -143,7 +149,7 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
    if(typeof input.clientRequestId!=='string'||!uuid.test(input.clientRequestId))throw fail('invalid_lore','Invalid publishing request.');
    db.exec('BEGIN IMMEDIATE');
    try{
-    if(!owns(ownerId,tagIds))throw fail('tag_not_available','Only tags from your active characters can be added.',403);
+    if(!owns(ownerId,tagIds,{admin}))throw fail('tag_not_available','Only tags from your active characters can be added.',403);
     const prior=db.prepare('SELECT id,title,body,blocks_json AS blocksJson FROM lore_entries WHERE author_id=? AND client_request_id=?').get(ownerId,input.clientRequestId);
     if(prior){
      const existing=tags.all(prior.id).map(t=>t.id).sort();
@@ -180,10 +186,11 @@ export function createLoreRoutes({db,sessions,origin,adminUids=[],throttle=creat
   try{
    const session=await adminSession(req,sessions,admins);
    if(!session){send(401,{error:'sign_in_required'});return true;}
+   if(session.admin)lore.access.ensureAdminTag(session.user.id);
    if(collection&&method==='POST'){
     if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
     const data=await adminJson(req,18500);
-    send(201,{entry:lore.create(session.user.id,data)});
+    send(201,{entry:lore.create(session.user.id,data,{admin:session.admin})});
    }else if(id!==null){
     if(!uuid.test(id)){send(404,{error:'not_found'});return true;}
     if(method==='PUT'){
@@ -195,13 +202,17 @@ export function createLoreRoutes({db,sessions,origin,adminUids=[],throttle=creat
       const deleted=lore.remove(id);
       send(deleted?200:404,deleted?{deleted:true}:{error:'not_found'});
     }else{
-      const entry=lore.get(id);
-      send(entry?200:404,entry?{entry,canDelete:session.admin,canEdit:session.admin||entry.authorId===session.user.id,...(session.admin||entry.authorId===session.user.id?{availableEditTags:lore.editorTags(entry.authorId,entry.id)}:{})}:{error:'not_found'});
+      const entry=lore.readVisible(session.user.id,id,{admin:session.admin});
+      const canEdit=Boolean(entry&&(session.admin||entry.authorId===session.user.id));
+      send(entry?200:404,entry?{
+        entry,canDelete:session.admin,canEdit,
+        ...(canEdit?{availableEditTags:lore.editorTags(entry.authorId,entry.id,{admin:lore.access.isPrivileged(session.user.id,{admin:session.admin})})}:{})
+      }:{error:'not_found'});
     }
    }else{
     const params=new URL(req.url,origin).searchParams;
     if([...params.keys()].some(key=>!['query','tagId','cursor','sort'].includes(key))){send(400,{error:'invalid_query'});return true;}
-    const result=lore.list(session.user.id,{query:params.get('query')||'',tagIds:params.getAll('tagId'),cursor:params.get('cursor')||'',sort:params.get('sort')||'newest'});
+    const result=lore.list(session.user.id,{query:params.get('query')||'',tagIds:params.getAll('tagId'),cursor:params.get('cursor')||'',sort:params.get('sort')||'newest',admin:session.admin});
     send(200,result);
    }
   }catch(error){

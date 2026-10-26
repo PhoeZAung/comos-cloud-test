@@ -2,6 +2,7 @@ import {gunzipSync} from 'node:zlib';
 import {randomUUID} from 'node:crypto';
 import {createUserRepository,createIdentityRepository} from '../repositories/users.mjs';
 import {reserveName} from '../repositories/names.mjs';
+import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 export async function importDirectory({db,auth,projectId,env=process.env}){
  for(const u of db.prepare("SELECT id,display_name FROM users WHERE display_name<>'' AND display_name_key IS NULL ORDER BY created_at,id").all())reserveName(db,u.display_name,u.id);
  const count=Number(env.COMOS_LEGACY_IMPORT_PARTS||0);if(!count)return;
@@ -22,8 +23,10 @@ export async function importDirectory({db,auth,projectId,env=process.env}){
    const key=c.uid+'/'+c.legacyId;if(db.prepare('SELECT 1 FROM character_details WHERE legacy_key=?').get(key))continue;
    const id=randomUUID(),now=new Date().toISOString(),name=String(c.data.charName||c.data.name||'Unnamed character').slice(0,80);
    db.prepare('INSERT INTO characters(id,owner_id,name,sources_json,created_at,updated_at) VALUES(?,?,?,?,?,?)').run(id,owner,name,'[]',now,now);
-   db.prepare('INSERT INTO character_details VALUES(?,?,?)').run(id,JSON.stringify(c.data),key);
-   for(const label of (Array.isArray(c.data.group_tags)?c.data.group_tags:[])){if(typeof label!=='string'||!label.trim()||label.length>80)continue;let tag=db.prepare('SELECT id FROM character_tags WHERE name=? COLLATE NOCASE').get(label.trim());if(!tag){tag={id:randomUUID()};db.prepare('INSERT INTO character_tags VALUES(?,?)').run(tag.id,label.trim());}db.prepare('INSERT OR IGNORE INTO character_tag_links VALUES(?,?)').run(id,tag.id);}
+   const detail={...c.data};
+   if(Array.isArray(detail.group_tags))detail.group_tags=detail.group_tags.filter(name=>typeof name!=='string'||name.trim().toLowerCase()!=='admin');
+   db.prepare('INSERT INTO character_details VALUES(?,?,?)').run(id,JSON.stringify(detail),key);
+   for(const label of (Array.isArray(c.data.group_tags)?c.data.group_tags:[])){if(typeof label!=='string'||!label.trim()||label.length>80||label.trim().toLowerCase()==='admin')continue;let tag=db.prepare('SELECT id FROM character_tags WHERE name=? COLLATE NOCASE').get(label.trim());if(!tag){tag={id:randomUUID()};db.prepare('INSERT INTO character_tags VALUES(?,?)').run(tag.id,label.trim());}if(tag.id!==LORE_ADMIN_TAG_ID)db.prepare('INSERT OR IGNORE INTO character_tag_links VALUES(?,?)').run(id,tag.id);}
    imported++;
   }
   db.exec('COMMIT');console.info('Comos directory import: '+live.length+' accounts, '+imported+' new characters.');

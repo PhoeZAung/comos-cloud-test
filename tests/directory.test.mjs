@@ -13,7 +13,7 @@ test('directory, tags, sheets and wizard edits enforce owner/admin access and pr
  try{
   assert.equal((await fetch(base+'/admin/directory')).status,401);assert.equal((await fetch(base+'/admin/directory',{headers:{Cookie:'__Host-comos_session=owner'}})).status,403);
   assert.equal((await fetch(base+'/character-records/'+id,{headers:{Cookie:'__Host-comos_session=other'}})).status,404);
-  let r=await fetch(base+'/admin/tags',{method:'POST',headers,body:JSON.stringify({name:'Adventurers'})});assert.equal(r.status,200);const tag=(await r.json()).tags[0];
+  let r=await fetch(base+'/admin/tags',{method:'POST',headers,body:JSON.stringify({name:'Adventurers'})});assert.equal(r.status,200);const tag=(await r.json()).tags.find(t=>t.name==='Adventurers');assert.ok(tag);
   r=await fetch(base+'/character-records/'+id,{method:'POST',headers,body:JSON.stringify({op:'tags',revision:1,tagIds:[tag.id]})});assert.equal(r.status,200);
   r=await fetch(base+'/character-records/'+id,{method:'POST',headers:{...headers,Cookie:'__Host-comos_session=owner'},body:JSON.stringify({op:'tags',revision:2,tagIds:[]})});assert.equal(r.status,403);
   r=await fetch(base+'/character-records/'+id,{method:'POST',headers,body:JSON.stringify({op:'edit',revision:2,fields:{charName:'Renamed',level:'4'}})});assert.equal(r.status,200);const d=(await r.json()).character;assert.equal(d.data.hp_curr,8);assert.deepEqual(d.data.items,[{name:'Staff'}]);assert.equal(d.tags[0],tag.id);

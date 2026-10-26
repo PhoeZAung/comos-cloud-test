@@ -1,6 +1,7 @@
 import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 import {mergeWizardData} from './editor-fields.mjs';
+import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 export function createDirectoryRoutes({db,sessions,adminUids,origin}){
  const admins=new Set(adminUids);
  const tags=()=>db.prepare('SELECT * FROM character_tags ORDER BY name,id').all();
@@ -20,7 +21,10 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
     else{const rows=db.prepare("SELECT u.id,u.display_name AS displayName,(SELECT count(*) FROM characters c WHERE c.owner_id=u.id AND c.archived=0) AS characterCount FROM users u WHERE u.id>? AND (instr(lower(u.display_name),lower(?))>0 OR EXISTS(SELECT 1 FROM characters c WHERE c.owner_id=u.id AND instr(lower(c.name),lower(?))>0)) ORDER BY u.id LIMIT 51").all(cursor,q,q);send(200,{users:rows.slice(0,50),nextCursor:rows.length>50?rows[49].id:null});}return true;
    }
    if(path.endsWith('/tags')){
-    if(req.method==='POST'){const data=await adminJson(req);if(typeof data.name!=='string'||!data.name.trim()||data.name.length>80||/[\u0000-\u001f]/.test(data.name))throw Error('Use a tag name of 1–80 characters.');if(data.id){const changed=db.prepare('UPDATE character_tags SET name=? WHERE id=?').run(data.name.trim(),data.id);if(!changed.changes)throw Error('Tag not found.');}else db.prepare('INSERT INTO character_tags VALUES(?,?)').run(randomUUID(),data.name.trim());}
+    if(req.method==='POST'){const data=await adminJson(req);if(typeof data.name!=='string'||!data.name.trim()||data.name.length>80||/[\u0000-\u001f]/.test(data.name))throw Error('Use a tag name of 1–80 characters.');if(data.id){
+      if(data.id===LORE_ADMIN_TAG_ID)throw Error('The Admin tag is reserved and cannot be renamed.');
+      if(data.name.trim().toLowerCase()==='admin')throw Error('The Admin tag name is reserved.');
+      const changed=db.prepare('UPDATE character_tags SET name=? WHERE id=?').run(data.name.trim(),data.id);if(!changed.changes)throw Error('Tag not found.');}else {if(data.name.trim().toLowerCase()==='admin')throw Error('The Admin tag is reserved.');db.prepare('INSERT INTO character_tags VALUES(?,?)').run(randomUUID(),data.name.trim());}}
     send(200,{tags:tags()});return true;
    }
    const id=path.slice(recordPath.length),c=db.prepare('SELECT * FROM characters WHERE id=?').get(id);

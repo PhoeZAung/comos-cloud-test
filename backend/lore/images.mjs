@@ -3,6 +3,7 @@ import {randomUUID} from 'node:crypto';
 import {adminSession} from '../auth/admin-requests.mjs';
 import {createAuthThrottle} from '../auth/throttle.mjs';
 import {createFileStore} from '../media/filesystem.mjs';
+import {createLoreAccess} from './access.mjs';
 
 const uuid=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const MAX_BYTES=5*1024*1024;
@@ -26,9 +27,10 @@ async function readImage(req){
  if(output.length>MAX_BYTES)throw fail('image_too_large',413,'Image output is too large.');
  return output;
 }
-export async function createLoreImageRoutes({db,sessions,origin,mediaRoot,throttle=createAuthThrottle()}){
+export async function createLoreImageRoutes({db,sessions,origin,mediaRoot,adminUids=[],throttle=createAuthThrottle()}){
  const files=await createFileStore(mediaRoot,MAX_BYTES);
- const get=db.prepare('SELECT m.file_key AS key,m.mime AS mime FROM lore_images m WHERE m.id=? AND (m.owner_id=? OR EXISTS(SELECT 1 FROM lore_entry_images e WHERE e.image_id=m.id))');
+ const admins=new Set(adminUids),access=createLoreAccess(db);
+ const get=db.prepare('SELECT m.file_key AS key,m.mime AS mime,m.owner_id AS ownerId,e.entry_id AS entryId FROM lore_images m LEFT JOIN lore_entry_images e ON e.image_id=m.id WHERE m.id=?');
  const pending=db.prepare('SELECT count(*) AS total FROM lore_images m WHERE m.owner_id=? AND NOT EXISTS(SELECT 1 FROM lore_entry_images e WHERE e.image_id=m.id)');
  let processing=0;
  return async(req,res,pathname,send)=>{
@@ -45,7 +47,7 @@ export async function createLoreImageRoutes({db,sessions,origin,mediaRoot,thrott
   const permit=throttle.enter(req.socket?.remoteAddress||'unknown',upload?'profile':'restore');
   if(!permit.allowed){res.setHeader('Retry-After',String(permit.retryAfter));send(429,{error:'too_many_requests'});return true;}
   try{
-   const session=await adminSession(req,sessions,new Set());
+   const session=await adminSession(req,sessions,admins);
    if(!session){send(401,{error:'sign_in_required'});return true;}
    if(upload){
     if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
@@ -62,8 +64,10 @@ export async function createLoreImageRoutes({db,sessions,origin,mediaRoot,thrott
     }finally{processing--;}
    }else{
     if(!uuid.test(imageId)){send(404,{error:'not_found'});return true;}
-    const media=get.get(imageId,session.user.id);
-    if(!media){send(404,{error:'not_found'});return true;}
+    const media=get.get(imageId);
+    if(!media||(media.ownerId!==session.user.id&&(!media.entryId||!access.canRead(session.user.id,media.entryId,{admin:session.admin})))){
+      send(404,{error:'not_found'});return true;
+    }
     const bytes=await files.read(media.key);
     res.writeHead(200,{
      'Content-Type':media.mime,'Content-Length':bytes.length,

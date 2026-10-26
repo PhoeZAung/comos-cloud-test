@@ -70,9 +70,10 @@ test('Lore PUT checks Firebase owner/admin permissions, origin, and revision',as
  const headers=token=>({'Content-Type':'application/json',Origin:origin,Cookie:'__Host-comos_session='+token});
  const edit=(text,expectedUpdatedAt)=>({title:'Edited title',text,tagIds:[],blocks:[{type:'text',text}],expectedUpdatedAt});
  try{
-  const outsiderView=await (await fetch(base,{headers:headers('reader')})).json();
-  assert.equal(outsiderView.canEdit,false);
-  assert.equal(outsiderView.availableEditTags,undefined);
+  const outsiderResponse=await fetch(base,{headers:headers('reader')});
+  assert.equal(outsiderResponse.status,404);
+  const outsiderView=await outsiderResponse.json();
+  assert.equal(outsiderView.error,'not_found');
   assert.equal((await (await fetch(base,{headers:headers('owner')})).json()).canEdit,true);
   assert.equal((await (await fetch(base,{headers:headers('admin')})).json()).canEdit,true);
   const denied=await fetch(base,{method:'PUT',headers:headers('reader'),body:JSON.stringify(edit('Forbidden',entry.updatedAt))});
