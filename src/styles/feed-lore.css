@@ -49,3 +49,24 @@
 @media(max-width:670px){.comos-feed-heading{padding:8px 8px 16px}.comos-feed-stream{border-left:0;border-right:0}.comos-post{padding:16px 4px;gap:10px}.comos-post-avatar{width:40px;height:40px}.comos-post-header time{margin-left:0}.comos-feed-preview,.comos-lore-preview{padding:10px}.comos-lore-tools{grid-template-columns:repeat(2,minmax(0,1fr));padding:12px}.comos-lore-search{grid-column:span 2}.comos-lore-tools>.button{grid-column:span 2}.comos-lore-list{grid-template-columns:1fr}.comos-lore-card{padding:18px}}
 @media(max-width:350px){.comos-fixture-control{width:100%;justify-content:space-between}.comos-lore-tools{grid-template-columns:1fr}.comos-lore-search,.comos-lore-tools>.button{grid-column:auto}}
 .comos-lore input:focus-visible,.comos-lore select:focus-visible,.comos-feed select:focus-visible,.comos-feed-pagination button:focus-visible,.comos-lore-pages button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* Lore: icon-only search and character-tag filters. No world/party/sort toolbar. */
+.comos-lore-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 12px}
+.comos-lore-heading h1{margin:0}
+.comos-lore-heading>.comos-lore-icons{display:flex;align-items:center;gap:8px}
+.comos-lore-icon{position:relative;display:grid;place-items:center;width:44px;height:44px;min-width:44px;border:1px solid var(--line);border-radius:10px;background:color-mix(in srgb,var(--surface) 70%,transparent);color:var(--text);cursor:pointer}
+.comos-lore-icon:hover,.comos-lore-icon[aria-expanded=true]{border-color:var(--accent);color:var(--accent)}
+.comos-lore-icon:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.comos-lore-icon.has-filters:after{content:"";position:absolute;right:5px;top:5px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.comos-lore-search-panel,.comos-lore-tags-panel{border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--surface) 72%,transparent);padding:14px;margin-bottom:16px}
+.comos-lore-search-panel input{width:100%;min-height:46px;min-width:0;padding:10px 13px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--text);font:14px system-ui}
+.comos-lore-search-panel input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.comos-lore-tags-panel fieldset{border:0;padding:0;margin:0;min-width:0}
+.comos-lore-tag-options{display:flex;flex-wrap:wrap;gap:8px}
+.comos-lore-tag-choice{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:7px 11px;border:1px solid var(--line);border-radius:9px;font-size:13px;color:var(--text);cursor:pointer;background:color-mix(in srgb,var(--bg) 45%,transparent)}
+.comos-lore-tag-choice:has(input:checked){border-color:var(--accent);background:color-mix(in srgb,var(--accent) 13%,var(--surface))}
+.comos-lore-tag-choice input{width:17px;height:17px;accent-color:var(--accent)}
+.comos-lore-tag-choice:has(input:focus-visible){outline:3px solid var(--accent);outline-offset:2px}
+.comos-lore-tags-panel p{font-size:13px;color:var(--muted);margin:0 0 12px}
+.comos-lore-tags-panel small{display:block;margin-top:12px;font-size:12px;line-height:1.5;color:var(--muted)}
+@media(max-width:670px){.comos-lore-search-panel,.comos-lore-tags-panel{padding:12px}.comos-lore-heading{padding:0 2px}.comos-lore-list{grid-template-columns:1fr}}

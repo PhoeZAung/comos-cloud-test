@@ -30,3 +30,36 @@ test('Step 6.1 error/loading/empty states and allowed sort validate',()=>{
  for(const state of ['error','loading','empty'])assert.match(renderLoreLibrary({entries,state}),/role="status"/);
  assert.throws(()=>browseLore(entries,{sort:'bogus'}),/Invalid lore sort/);
 });
+test('Lore has only icon search and owned-character tag controls',()=>{
+ const html=renderLoreLibrary({entries,availableTags:[{id:'magic',name:'Arcane'},{id:'hero',name:'Heroes'}],selectedTags:['magic'],searchOpen:true,tagsOpen:true,query:'moon'});
+ assert.match(html,/data-lore-toggle="search"/);
+ assert.match(html,/data-lore-toggle="tags"/);
+ assert.match(html,/data-lore-tag value="magic" checked/);
+ assert.match(html,/name="query"/);
+ assert.doesNotMatch(html,/<select|name="worldId"|name="partyId"|name="scope"|name="sort"|>Search<\/button>/);
+ assert.doesNotMatch(html,/data-lore-tag value="missing"/);
+ const noTags=renderLoreLibrary({availableTags:[],tagsOpen:true});
+ assert.match(noTags,/No tags are attached to your characters yet/);
+ assert.doesNotMatch(noTags,/data-lore-tag value=/);
+});
+test('only explicitly permitted character tags filter Lore, even if a forged tag is supplied',()=>{
+ const tagged=[
+  {id:'a',title:'Magical',updatedAt:'2026-01-01',tags:[{id:'magic',name:'Arcane'}]},
+  {id:'b',title:'Heroic',updatedAt:'2026-01-02',tags:['hero']},
+  {id:'c',title:'Hidden',updatedAt:'2026-01-03',tags:['secret']}
+ ];
+ const allowed=[{id:'magic',name:'Arcane'},{id:'hero',name:'Heroes'}];
+ assert.deepEqual(browseLore(tagged,{selectedTags:['magic'],allowedTags:allowed}).entries.map(e=>e.id),['a']);
+ assert.deepEqual(browseLore(tagged,{selectedTags:['magic','hero'],allowedTags:allowed}).entries.map(e=>e.id),['b','a']);
+ assert.equal(browseLore(tagged,{selectedTags:['secret'],allowedTags:allowed}).total,0);
+ assert.equal(browseLore(tagged,{selectedTags:['magic','secret'],allowedTags:allowed}).total,0);
+ const markup=renderLoreLibrary({entries:tagged,availableTags:allowed,selectedTags:['secret'],tagsOpen:true});
+ assert.doesNotMatch(markup,/value="secret"/);
+ assert.match(markup,/value="magic"/);
+});
+test('Lore tag and search inputs are escaped',()=>{
+ const html=renderLoreLibrary({availableTags:[{id:'a"><svg',name:'<script>alert(1)</script>'}],tagsOpen:true,searchOpen:true,query:'<img src=x onerror=alert(1)>'});
+ assert.doesNotMatch(html,/<script>|<img src=x|<svg onload/);
+ assert.match(html,/&lt;script&gt;/);
+ assert.match(html,/&lt;img/);
+});

@@ -43,6 +43,8 @@ export function createCharacterLibraryService(db){
   const page=db.prepare('SELECT c.id,c.name,c.created_at AS createdAt,c.updated_at AS updatedAt,d.data_json AS dataJson FROM characters c LEFT JOIN character_details d ON d.character_id=c.id WHERE c.owner_id=? AND c.archived=0 AND c.id>? ORDER BY c.id LIMIT 41');
   const tags=db.prepare('SELECT t.name FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id WHERE l.character_id=? ORDER BY t.name');
   const namedTag=db.prepare('SELECT id FROM character_tags WHERE name=? COLLATE NOCASE');
+  // Only active characters owned by this Firebase-session user grant Lore tag choices.
+  const ownerLoreTags=db.prepare('SELECT DISTINCT t.id,t.name FROM character_tags t JOIN character_tag_links link ON link.tag_id=t.id JOIN characters c ON c.id=link.character_id WHERE c.owner_id=? AND c.archived=0 ORDER BY t.name COLLATE NOCASE,t.id');
   const roster=row=>{
     const data=JSON.parse(row.dataJson||'{}');
     const attached=tags.all(row.id).map(t=>t.name);
@@ -50,6 +52,10 @@ export function createCharacterLibraryService(db){
     return {id:row.id,name:row.name,level:data.level||data.character_level||null,race:data.race||'',className:data.class||data.className||'',portraitUrl:portraitFrom(data),tags:attached.length?attached:extra,bio:typeof data.bio==='string'?data.bio.slice(0,280):'',createdAt:row.createdAt,updatedAt:row.updatedAt};
   };
   return Object.freeze({
+    loreTags(ownerId){
+      if(!ownerId)throw fail('INVALID_IMPORT','Sign in first.');
+      return ownerLoreTags.all(ownerId);
+    },
     list(ownerId,cursor=''){
       if(!ownerId||cursor&&!uuid.test(cursor))throw fail('INVALID_IMPORT','Invalid character cursor.');
       const rows=page.all(ownerId,cursor);
@@ -84,9 +90,9 @@ export function createCharacterLibraryService(db){
 export function createCharacterLibraryRoutes({db,sessions,origin,throttle=createAuthThrottle()}){
   const service=createCharacterLibraryService(db);
   return async(req,res,pathname,send)=>{
-    const list=pathname==='/api/v1/my/characters',upload=pathname==='/api/v1/my/characters/import';
-    if(!list&&!upload)return false;
-    if(!(list&&['GET','POST'].includes(req.method))&&!(upload&&req.method==='POST')){res.setHeader('Allow',list?'GET, POST':'POST');send(405,{error:'method_not_allowed'});return true;}
+    const list=pathname==='/api/v1/my/characters',upload=pathname==='/api/v1/my/characters/import',loreTags=pathname==='/api/v1/my/lore-tags';
+    if(!list&&!upload&&!loreTags)return false;
+    if(!(list&&['GET','POST'].includes(req.method))&&!(upload&&req.method==='POST')&&!(loreTags&&req.method==='GET')){res.setHeader('Allow',list?'GET, POST':loreTags?'GET':'POST');send(405,{error:'method_not_allowed'});return true;}
     if(req.method==='POST'&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){send(403,{error:'origin_not_allowed'});return true;}
     const permit=throttle.enter(req.socket?.remoteAddress||'unknown',req.method==='GET'?'restore':'profile');
     if(!permit.allowed){res.setHeader('Retry-After',String(permit.retryAfter));send(429,{error:'too_many_requests'});return true;}
@@ -94,7 +100,11 @@ export function createCharacterLibraryRoutes({db,sessions,origin,throttle=create
       const session=await adminSession(req,sessions,new Set());
       if(!session){send(401,{error:'sign_in_required'});return true;}
       const userId=session.user.id;
-      if(list&&req.method==='GET'){
+      if(loreTags){
+        const url=new URL(req.url,origin);
+        if(url.search){send(400,{error:'invalid_request'});return true;}
+        send(200,{tags:service.loreTags(userId)});
+      }else if(list&&req.method==='GET'){
         const url=new URL(req.url,origin);
         if([...url.searchParams.keys()].some(key=>key!=='cursor')){send(400,{error:'invalid_cursor'});return true;}
         send(200,service.list(userId,url.searchParams.get('cursor')||''));
