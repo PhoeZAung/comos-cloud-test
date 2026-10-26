@@ -85,3 +85,12 @@ test('Bio is below Alignment in Identity and safely escaped',()=>{
  assert.match(html,/A &lt;mage&gt; &amp; scholar/);
  assert.doesNotMatch(html,/A <mage>/);
 });
+
+test('wizard headings show progress beside Identity, Race and Class',()=>{
+ const id=renderIdentity({}, {name:'Vivi',portrait:'',alignment:'',bio:''});
+ const race=renderRace({}, {race:'Hume',standard:defaultTraits('Hume'),alternate:[]});
+ const cls=renderClass({}, {classes:[{name:'Black Mage',level:1,archetype:''}]});
+ assert.match(id,/<h1>Identity <span class="cw-step-count">\(1\/3\)<\/span><\/h1>/);
+ assert.match(race,/<h1>Race <span class="cw-step-count">\(2\/3\)<\/span><\/h1>/);
+ assert.match(cls,/<h1>Class <span class="cw-step-count">\(3\/3\)<\/span><\/h1>/);
+});

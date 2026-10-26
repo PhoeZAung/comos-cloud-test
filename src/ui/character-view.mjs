@@ -20,7 +20,7 @@ export function renderRace(data,state){
  const race=state.race||'';
  const standards=state.standard,alternates=state.alternate;
  const available=(RACE_TRAITS[race]?.alternate||[]).filter(name=>!alternates.some(x=>x.name===name));
- return `<section class="cw-step"><h1>Race</h1><form data-edit-character data-step="race">
+ return `<section class="cw-step"><h1>Race <span class="cw-step-count">(2/3)</span></h1><form data-edit-character data-step="race">
   <label class="cw-field"><span>Race</span><select name="race" data-race-select required>${choices(RACE_NAMES,race,'Choose a race')}</select></label>
   <section class="cw-trait-section"><div class="cw-section-heading"><h2>Standard racial traits</h2><span>Enabled by default</span></div>
   ${standards.length?'<div class="cw-traits">'+standards.map((t,i)=>traitToggle('standard',t,i)).join('')+'</div>':'<p class="field-help">Traits for this race are not yet indexed. Add them from your FFD20 rules.</p>'}
@@ -43,7 +43,7 @@ function renderArchetype(name,selected,index){
 export function renderClass(data,state){
  const classes=state.classes;
  const total=totalClassLevel(classes);
- return `<section class="cw-step"><h1>Classes</h1><form data-edit-character data-step="class">
+ return `<section class="cw-step"><h1>Class <span class="cw-step-count">(3/3)</span></h1><form data-edit-character data-step="class">
   <div data-class-rows>${classes.map((row,index)=>`<section class="cw-class-card" data-class-index="${index}">
    <div class="cw-class-heading"><h2>Class ${index+1}</h2>${index?'<button class="cw-icon" type="button" data-remove-class="'+index+'" aria-label="Remove class '+(index+1)+'" title="Remove class">×</button>':''}</div>
    <div class="cw-class-line"><label class="cw-field"><span>Class</span><select data-class-name="${index}" required>${classOptions(row.name)}</select></label>
@@ -54,7 +54,7 @@ export function renderClass(data,state){
 }
 export function renderIdentity(data,state){
  const portrait=state.portrait;
- return `<section class="cw-step"><div class="cw-source"><span>Source</span><strong>${SOURCE_NAME}</strong></div><h1>Identity</h1><form data-edit-character data-step="identity">
+ return `<section class="cw-step"><div class="cw-source"><span>Source</span><strong>${SOURCE_NAME}</strong></div><h1>Identity <span class="cw-step-count">(1/3)</span></h1><form data-edit-character data-step="identity">
   <label class="cw-field"><span>Name</span><input name="charName" maxlength="80" required value="${esc(state.name)}" placeholder="Character name"></label>
   <div class="cw-photo-group"><div class="cw-photo" data-portrait-preview>${portraitOK(portrait)?'<img src="'+esc(portrait)+'" alt="Character portrait preview">':noPortrait}</div><div><label class="cw-field" for="cw-photo-input"><span>Character picture</span><input type="file" id="cw-photo-input" data-portrait-upload accept="image/jpeg,image/png,image/webp"></label><p class="field-help">JPG, PNG or WebP. A small preview is saved with your character.</p>${portrait?'<button class="button" type="button" data-clear-portrait>Remove picture</button>':''}</div></div>
   <label class="cw-field"><span>Alignment</span><select name="alignment">${choices(ALIGNMENTS,state.alignment,'Choose alignment')}</select></label>
