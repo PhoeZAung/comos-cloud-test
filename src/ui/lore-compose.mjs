@@ -1,4 +1,5 @@
 import {recordId} from './record-id.mjs';
+import {installLoreDrafts} from './lore-draft-controller.mjs';
 
 const validImage=file=>file&&['image/jpeg','image/png','image/webp'].includes(file.type)&&file.size>0&&file.size<=5*1024*1024;
 export function mountLoreCompose({fixture=false}={}){
@@ -9,6 +10,7 @@ export function mountLoreCompose({fixture=false}={}){
  const options=root.querySelector('[data-lore-tag-options]'),tagCount=root.querySelector('[data-lore-tag-count]');
  const status=root.querySelector('[data-lore-compose-status]'),counter=root.querySelector('[data-lore-count]'),submit=root.querySelector('[data-lore-publish]');
  const controller=new AbortController(),images=new Map();
+ let drafts=null;
  const editId=new URLSearchParams(location.search).get('id');
  const isEdit=editId!==null;
  let expectedUpdatedAt='',tags=[],selected=[],ready=false,busy=false,closed=false,requestId=recordId();
@@ -133,7 +135,19 @@ export function mountLoreCompose({fixture=false}={}){
        ready=true;message('Ready to publish.');
      }
    }catch(error){if(!controller.signal.aborted)message(error.message||'Could not load character tags.');}
-   finally{paint();}
+   finally{
+     paint();
+     if(ready&&!closed){
+       drafts=await installLoreDrafts({
+         root,editId:isEdit?editId:null,images,addParagraph,addImage,addStoredImage,
+         getSelected:()=>[...selected],
+         setSelected:ids=>{selected=ids.filter(id=>tags.some(tag=>tag.id===id));},
+         getRequestId:()=>requestId,setRequestId:value=>{if(typeof value==='string'&&value)requestId=value;},
+         getRevision:()=>expectedUpdatedAt,setRevision:value=>{expectedUpdatedAt=value;},
+         refresh:paint
+       });
+     }
+   }
  }
  root.addEventListener('click',event=>{
    if(event.target.closest('[data-lore-open-tags]')){dialog.showModal();return;}
@@ -181,7 +195,7 @@ export function mountLoreCompose({fixture=false}={}){
    const data=await res.json().catch(()=>({}));
    if(!res.ok)throw Error(data.message||'Picture upload failed. Try again.');
    if(typeof data.id!=='string')throw Error('Picture upload was not confirmed.');
-   image.mediaId=data.id;return image.mediaId;
+   image.mediaId=data.id;await drafts?.savedNow();return image.mediaId;
  }
  form.addEventListener('submit',async event=>{
    event.preventDefault();if(busy||!ready)return;
@@ -212,10 +226,11 @@ export function mountLoreCompose({fixture=false}={}){
      const data=await res.json().catch(()=>({}));
      if(!res.ok)throw Error(data.message||(res.status===409?'This Lore was edited elsewhere. Reload before saving.':isEdit?'Changes could not be saved.':'Lore could not be published.'));
      if(!data.entry?.id)throw Error('The server did not confirm your Lore. Check the Lore list before retrying.');
+     await drafts?.published();
      message(isEdit?'Changes saved. Returning to Lore…':'Published. Returning to Lore…');location.assign('lore.html');
    }catch(error){if(!controller.signal.aborted)message(error.message||'Lore could not be published.');}
    finally{busy=false;paint();}
  },{signal:controller.signal});
  addParagraph();paint();void check();
- return ()=>{closed=true;controller.abort();for(const image of images.values())if(image.url)URL.revokeObjectURL(image.url);};
+ return ()=>{drafts?.dispose();closed=true;controller.abort();for(const image of images.values())if(image.url)URL.revokeObjectURL(image.url);};
 }

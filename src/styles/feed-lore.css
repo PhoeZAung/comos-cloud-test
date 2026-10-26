@@ -191,3 +191,11 @@ dialog.comos-lore-reader-dialog{width:min(780px,calc(100vw - 26px));max-width:ca
 .comos-lore-edit{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 13px;border:1px solid var(--line);border-radius:9px;color:var(--text);font:500 13px/1.4 system-ui;text-decoration:none}
 .comos-lore-edit:hover{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
 .comos-lore-edit:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* Discreet local-draft status; no new permanent toolbar. */
+.comos-lore-draft-tools{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:2px}
+.comos-lore-draft-tools p{margin:0;font-size:12px;line-height:1.5;color:var(--muted)}
+.comos-lore-draft-tools button{border:0;background:transparent;color:var(--muted);font:12px system-ui;cursor:pointer;padding:8px}
+.comos-lore-draft-tools button:hover{color:var(--accent)}
+.comos-lore-draft-tools button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.comos-lore-draft-tools button[hidden]{display:none}

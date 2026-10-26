@@ -35,9 +35,12 @@ const encodeCursor=post=>Buffer.from(JSON.stringify({createdAt:post.createdAt,id
 export function createPostsService(db,{now=()=>new Date().toISOString(),ids=randomUUID}={}) {
   const media=id=>db.prepare('SELECT m.id FROM home_post_media pm JOIN home_media m ON m.id=pm.media_id WHERE pm.post_id=? ORDER BY pm.position').all(id).map(m=>({id:m.id,url:'/api/v1/home-media/'+m.id}));
   const byRequest=db.prepare('SELECT id,title,body AS text FROM home_posts WHERE author_id=? AND client_request_id=?');
-  const byId=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,p.title,p.body AS text,p.created_at AS createdAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE p.id=?');
+  const byId=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,p.title,p.body AS text,p.created_at AS createdAt,p.pinned_at AS pinnedAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE p.id=?');
   const decorate=p=>{if(!p)return p;const {authorAvatarId,...safe}=p;return {...safe,avatarUrl:authorAvatarId?'/api/v1/member-avatars/'+encodeURIComponent(p.authorId):null,media:media(p.id)};};
-  const timeline=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,p.title,p.body AS text,p.created_at AS createdAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE (? IS NULL OR p.created_at<? OR (p.created_at=? AND p.id<?)) ORDER BY p.created_at DESC,p.id DESC LIMIT 21');
+  const timeline=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,p.title,p.body AS text,p.created_at AS createdAt,p.pinned_at AS pinnedAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE p.pinned_at IS NULL AND (? IS NULL OR p.created_at<? OR (p.created_at=? AND p.id<?)) ORDER BY p.created_at DESC,p.id DESC LIMIT 21');
+  const pinnedTimeline=db.prepare('SELECT p.id,p.author_id AS authorId,u.display_name AS authorName,u.avatar_media_id AS authorAvatarId,p.title,p.body AS text,p.created_at AS createdAt,p.pinned_at AS pinnedAt FROM home_posts p JOIN users u ON u.id=p.author_id WHERE p.pinned_at IS NOT NULL ORDER BY p.pinned_at DESC,p.id DESC LIMIT 4');
+  const pinRecord=db.prepare('UPDATE feed_posts SET pinned_at=? WHERE id=?');
+  const pinCount=db.prepare('SELECT COUNT(*) AS total FROM feed_posts WHERE pinned_at IS NOT NULL');
   return Object.freeze({
     get(userId,id,{admin=false}={}) {
       if(!userId)throw bad('Sign in required.');
@@ -51,7 +54,7 @@ export function createPostsService(db,{now=()=>new Date().toISOString(),ids=rand
       const previous=parseCursor(cursor);
       const rows=timeline.all(previous?.createdAt??null,previous?.createdAt??null,previous?.createdAt??null,previous?.id??null);
       const posts=rows.slice(0,20).map(decorate);
-      return {posts,nextCursor:rows.length>20?encodeCursor(posts.at(-1)):null};
+      return {posts,pinnedPosts:pinnedTimeline.all().map(decorate),nextCursor:rows.length>20?encodeCursor(posts.at(-1)):null};
     },
     create(userId,data,{admin=false}={}) {
       if(!userId)throw bad('Sign in required.');
@@ -69,6 +72,20 @@ export function createPostsService(db,{now=()=>new Date().toISOString(),ids=rand
       try{
         db.prepare('INSERT INTO feed_posts(id,author_id,client_request_id,body,created_at,title) VALUES(?,?,?,?,?,?)').run(id,userId,input.clientRequestId,input.text,now(),input.title);
         input.mediaIds.forEach((m,i)=>db.prepare('INSERT INTO home_post_media VALUES(?,?,?)').run(id,m,i));db.exec('COMMIT');
+      }catch(error){db.exec('ROLLBACK');throw error;}
+      return decorate(byId.get(id));
+    },
+    pin(userId,id,pinned,{admin=false}={}){
+      if(!userId||!admin)throw bad('Only verified administrators can pin posts.','POST_FORBIDDEN');
+      if(typeof id!=='string'||!uuid.test(id))throw bad('Post not found.','POST_NOT_FOUND');
+      if(typeof pinned!=='boolean')throw bad('Invalid pin action.');
+      const record=byId.get(id);
+      if(!record)throw bad('Post not found.','POST_NOT_FOUND');
+      db.exec('BEGIN IMMEDIATE');
+      try{
+        if(pinned&&!record.pinnedAt&&pinCount.get().total>=3)throw bad('You can pin up to three posts. Unpin another first.','POST_PIN_LIMIT');
+        pinRecord.run(pinned?(record.pinnedAt||now()):null,id);
+        db.exec('COMMIT');
       }catch(error){db.exec('ROLLBACK');throw error;}
       return decorate(byId.get(id));
     },

@@ -27,3 +27,11 @@
 .comos-compose-audience{color:var(--muted);font-size:13px;margin:5px 0}
 
 .comos-feed{max-width:680px;margin:auto}.comos-post{border-radius:0;border-width:0 0 1px;padding:24px 12px}.post-image{display:block;width:100%;max-height:620px;object-fit:contain;border-radius:16px;margin:14px 0;background:var(--bg)}.post-tools{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.post-attachments{display:flex;gap:12px;flex-wrap:wrap}.post-attachments img{width:120px;height:120px;object-fit:cover;border-radius:12px}.post-attachments>div{display:grid;gap:6px}[data-emoji-picker] button{font-size:25px;min-width:44px;min-height:44px;background:transparent;border:0;cursor:pointer}.comos-post-text{white-space:pre-wrap}
+
+/* Quiet pinned-announcement distinction, visible in everyone's Home feed. */
+.comos-post.is-pinned{position:relative;background:color-mix(in srgb,var(--accent) 6%,transparent);border-bottom-color:color-mix(in srgb,var(--accent) 27%,var(--line))}
+.comos-pinned-label{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:11px;font-weight:650;letter-spacing:.02em;margin-bottom:4px}
+.comos-post-pin{display:inline-flex;align-items:center;min-height:35px;border:0;background:transparent;color:var(--muted);font:13px system-ui;cursor:pointer;padding:4px 9px 4px 0}
+.comos-post-pin:hover{color:var(--accent)}
+.comos-post-pin:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.comos-post-pin:disabled{opacity:.45;cursor:not-allowed}

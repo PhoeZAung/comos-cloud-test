@@ -28,7 +28,7 @@ function replyComposer(replyTarget=null){
       <p class="comos-reply-status" role="status" data-reply-status></p>
     </form>`;
 }
-function nestedReplies(replies,viewerId,now,replyTarget=null){
+function nestedReplies(replies,viewerId,now,replyTarget=null,collapsedIds=[]){
   const byId=new Map(replies.map(reply=>[reply.id,reply]));
   const children=new Map(),roots=[];
   // Keep API order (newest first) within each branch, rather than letting
@@ -40,24 +40,33 @@ function nestedReplies(replies,viewerId,now,replyTarget=null){
       group.push(reply);children.set(parent.id,group);
     }else roots.push(reply);
   }
-  const rendered=new Set();
+  const rendered=new Set(),collapsed=new Set(collapsedIds);
+  function descendantCount(reply,visited=new Set()){
+    if(visited.has(reply.id))return 0;
+    visited.add(reply.id);
+    return (children.get(reply.id)||[]).reduce((total,child)=>total+1+descendantCount(child,visited),0);
+  }
   function visit(reply,depth){
     if(rendered.has(reply.id))return '';
     rendered.add(reply.id);
     const parent=byId.get(reply.parentReplyId);
-    const descendants=(children.get(reply.id)||[]).map(child=>visit(child,depth+1)).join('');
+    const direct=children.get(reply.id)||[];
+    const descendantTotal=direct.length?descendantCount(reply):0;
+    const isCollapsed=descendantTotal>0&&collapsed.has(reply.id);
+    const descendants=direct.map(child=>visit(child,depth+1)).join('');
     // On small screens, stop shifting the text farther right after depth 3;
     // guide lines and "Replying to" labels still show the true relationship.
-    const guide=descendants?'<div class="comos-reply-children" style="--step-wide:'+(depth<5?1:0)+';--step-small:'+(depth<3?1:0)+'" role="group" aria-label="Replies to '+esc(reply.authorName||'comment')+'">'+descendants+'</div>':'';
+    const guide=descendants?'<div class="comos-reply-children" id="comos-branch-'+esc(reply.id)+'" style="--step-wide:'+(depth<5?1:0)+';--step-small:'+(depth<3?1:0)+'" role="group" aria-label="Replies to '+esc(reply.authorName||'comment')+'" '+(isCollapsed?'hidden':'')+'>'+descendants+'</div>':'';
+    const toggle=descendantTotal?'<button type="button" class="comos-thread-collapse" data-collapse-thread="'+esc(reply.id)+'" aria-expanded="'+(!isCollapsed)+'" aria-controls="comos-branch-'+esc(reply.id)+'" aria-label="'+(isCollapsed?'Expand':'Collapse')+' replies to '+esc(reply.authorName||'comment')+'">'+(isCollapsed?'＋ Show ':'− Hide ')+descendantTotal+' '+(descendantTotal===1?'reply':'replies')+'</button>':'';
     return '<div class="comos-reply-branch'+(depth?' has-parent':'')+'" data-reply-branch="'+esc(reply.id)+'" data-reply-level="'+depth+'">'+
       messageCard(reply,'reply',viewerId,now,{depth,parentName:parent?.authorName||reply.parentAuthorName||''})+
       (replyTarget?.id===reply.id?'<div class="comos-reply-inline">'+replyComposer(replyTarget)+'</div>':'')+
-      guide+'</div>';
+      toggle+guide+'</div>';
   }
   return roots.map(reply=>visit(reply,0)).join('')+
     replies.filter(reply=>!rendered.has(reply.id)).map(reply=>visit(reply,0)).join('');
 }
-export function renderPostThread({post,replies=[],viewerId='',nextCursor=null,more=false,loading=false,replyTarget=null,now=Date.now()}={}) {
+export function renderPostThread({post,replies=[],viewerId='',nextCursor=null,more=false,loading=false,replyTarget=null,collapsedIds=[],now=Date.now()}={}) {
   if(!post||typeof post!=='object'||!Array.isArray(replies))throw new TypeError('A post and reply list are required.');
   const title=String(post.title||'').trim();
   return `<section class="comos-thread" aria-label="Post and replies">
@@ -65,7 +74,7 @@ export function renderPostThread({post,replies=[],viewerId='',nextCursor=null,mo
     <h1 class="comos-thread-title">${esc(title||'Post')}</h1>
     ${messageCard(post,'original',viewerId,now)}
     <div class="comos-thread-replies"><h2>Replies</h2>
-      ${replies.length?nestedReplies(replies,viewerId,now,replyTarget):'<p class="comos-thread-empty">No replies yet.</p>'}
+      ${replies.length?nestedReplies(replies,viewerId,now,replyTarget,collapsedIds):'<p class="comos-thread-empty">No replies yet.</p>'}
       ${more||nextCursor?`<button type="button" class="button" data-more-replies ${loading?'disabled':''}>Show more replies</button>`:''}
     </div>
     ${replyTarget?"":replyComposer()}</section>`;

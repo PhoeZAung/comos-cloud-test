@@ -60,3 +60,10 @@
 .comos-reply-inline .comos-reply-form textarea{min-height:78px}
 .comos-reply-inline .comos-reply-form label{font-size:13px}
 @media(max-width:650px){.comos-reply-inline{padding:8px 4px 12px 6px}.comos-reply-inline .comos-reply-form{padding:10px}.comos-reply-inline .comos-reply-bottom{flex-wrap:wrap}}
+
+/* One-tap collapsing for long branches. Keeps the parent and path visible. */
+.comos-thread-collapse{display:inline-flex;align-items:center;min-height:34px;padding:4px 11px;margin:2px 0 7px 40px;border:0;border-radius:8px;color:var(--muted);background:color-mix(in srgb,var(--accent) 7%,transparent);cursor:pointer;font:600 11px/1.4 system-ui}
+.comos-thread-collapse:hover{color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.comos-thread-collapse:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.comos-reply-children[hidden]{display:none!important}
+@media(max-width:650px){.comos-thread-collapse{margin-left:36px;min-height:34px}}
