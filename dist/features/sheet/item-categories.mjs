@@ -78,3 +78,10 @@ export function itemCategoryForItem(item = {}) {
 export function itemCategorySymbol(value) {
   return ITEM_CATEGORY_SYMBOLS[normalizeItemTagLabel(value)] || ITEM_CATEGORY_SYMBOLS.Misc;
 }
+
+const escape=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export function renderCategoryTiles(counts={},selected='All',{attribute='data-item-tag',label='Item categories',groups=false}={}){
+ const categories=[...ITEM_TAG_OPTIONS,...Object.keys(counts).filter(k=>!ITEM_TAG_OPTIONS.includes(k)&&k!=='All')];
+ const total=Object.values(counts).reduce((n,v)=>n+Number(v||0),0);
+ return (groups?'<nav class="item-group-buttons" aria-label="Item groups">'+Object.keys(SHOP_ITEM_CATEGORY_GROUPS).map(g=>'<button type="button" '+attribute+'="'+g+'" aria-pressed="'+(selected===g)+'">'+g+'</button>').join('')+'</nav>':'')+'<nav class="item-category-tiles" aria-label="'+escape(label)+'">'+categories.map(tag=>'<button type="button" '+attribute+'="'+escape(tag)+'" aria-pressed="'+(selected===tag)+'"><span aria-hidden="true">'+itemCategorySymbol(tag)+'</span><span>'+escape(tag)+'</span><small>'+Number(counts[tag]||0)+'</small></button>').join('')+'<button type="button" class="item-category-all" '+attribute+'="All" aria-pressed="'+(selected==='All')+'"><span aria-hidden="true">▦</span><strong>All</strong><small>'+total+'</small></button></nav>';
+}

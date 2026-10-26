@@ -1,3 +1,4 @@
+import {renderCategoryTiles} from './item-categories.mjs';
 import {entryCalculations,damageExpression,diceTerms} from './calculations.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol} from './item-categories.mjs';
 import {skillBudget} from './skill-budget.mjs';
@@ -101,9 +102,7 @@ function calculationDetails(row,data,key){
 
 export function renderItemCategories(data,selected='All'){
  const rows=Array.isArray(data.items)?data.items:[],counts=Object.fromEntries(ITEM_TAG_OPTIONS.map(k=>[k,0]));for(const row of rows)counts[itemCategoryForItem(row)]++;
- const groupOf=Object.keys(SHOP_ITEM_CATEGORY_GROUPS).find(k=>k===selected||SHOP_ITEM_CATEGORY_GROUPS[k].includes(selected));
- const symbols={Tools:'🎒',Magic:'✨',Other:'📦'},button=(tag,label,count)=>'<button type="button" data-item-tag="'+e(tag)+'" aria-pressed="'+(selected===tag)+'">'+e(label)+' <small>'+count+'</small></button>';
- return '<div class="cs-inventory-selector"><nav class="cs-category-square" aria-label="Inventory groups">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).map(([group,tags])=>'<button type="button" data-item-tag="'+group+'" aria-pressed="'+(group===groupOf)+'"><span aria-hidden="true">'+symbols[group]+'</span><span>'+(group==='Other'?'Other':group)+'</span><small>'+tags.reduce((n,t)=>n+counts[t],0)+'</small></button>').join('')+'<button type="button" class="cs-all-square" data-item-tag="All" aria-label="All items" aria-pressed="'+(selected==='All')+'">All</button></nav></div><nav class="cs-item-categories" aria-label="Inventory categories">'+(groupOf?SHOP_ITEM_CATEGORY_GROUPS[groupOf]:ITEM_TAG_OPTIONS).map(tag=>button(tag,itemCategorySymbol(tag)+' '+tag,counts[tag])).join('')+'</nav>';
+ return renderCategoryTiles(counts,selected,{label:'Inventory categories',groups:true});
 }
 export function renderSpellLevels(data,selected='all'){
  return '<nav class="cs-spell-levels" role="tablist" aria-label="Spell levels"><button type="button" role="tab" tabindex="'+(selected==='all'?'0':'-1')+'" aria-selected="'+(selected==='all')+'" data-spell-level="all"><strong>All spells</strong><span>'+(data.spells||[]).length+' spells</span><small>All levels</small></button>'+Array.from({length:10},(_,level)=>{const rows=(data.spells||[]).filter(r=>levelOf(r.lvl)===level),calc=entryCalculations({lvl:level},data,'spells');return '<button type="button" role="tab" tabindex="'+(selected===level?'0':'-1')+'" aria-selected="'+(selected===level)+'" data-spell-level="'+level+'"><strong>'+(level===0?'Cantrip':'Level '+level)+'</strong><span>'+rows.length+' · DC '+(calc.dc??'—')+'</span><small>'+level+' MP</small></button>';}).join('')+'</nav>';

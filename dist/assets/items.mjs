@@ -1,68 +1,74 @@
 import {recordId} from './record-id.mjs';
-const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let ghost;
+import {renderCategoryTiles,ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS} from '../features/sheet/item-categories.mjs';
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const gil=v=>v===null?'Price needed':Number(v).toLocaleString(undefined,{maximumFractionDigits:2})+' gil';
+const safeLink=v=>{try{const u=new URL(v);return ['https:','http:'].includes(u.protocol)?u.href:'';}catch{return '';}};
 export function mountItems({fixture=false}={}){
  const root=document.querySelector('[data-item-admin]'),controller=new AbortController();
- let closed=false,busy=false,items=[],editing=null,draftId=null,q='',sourceId='',archived=false,cursor='',nextCursor=null;
- const status=message=>{if(!closed){const node=root.querySelector('[data-item-status]');if(node)node.textContent=message;}};
- function setBusy(value){busy=value;if(!closed)for(const input of root.querySelectorAll('input,select,textarea,button'))input.disabled=value;}
- async function request(path,body){
-  const response=await fetch('/api/v1/admin/items'+path,{signal:controller.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})});
-  const result=await response.json();if(!response.ok)throw Error(result.message||({401:'Sign in to continue.',403:'Administrator access required.',404:'Item not found. Reload the list.',409:'This item changed. Reload before saving.',429:'Too many changes. Wait a minute and try again.'}[response.status]||'Could not connect. Try again.'));return result;
+ let closed=false,busy=false,rows=[],counts={},selected='All',q='',cursor='',nextCursor=null,buyer=null,buyers=[],buyerCursor='',buyerNext=null,buyerQ='',item=null,pendingPurchase=null,editingId=null,draftId=null;
+ const status=message=>{if(!closed)for(const n of root.querySelectorAll('[data-item-status]'))n.textContent=message;};
+ const dialog=()=>root.querySelector('[data-item-dialog]');
+ const setBusy=v=>{busy=v;if(!closed)root.querySelectorAll('button,input,textarea,select').forEach(n=>n.disabled=v);if(!v){const buy=root.querySelector('[data-buy-form] button[type=submit]');if(buy)buy.disabled=!buyer||item?.priceGil===null;}};
+ async function request(path='',body){
+  if(fixture)throw Error('Open the signed-in site to manage items.');
+  const r=await fetch('/api/v1/admin/items'+path,{signal:controller.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{})});
+  const data=await r.json();if(!r.ok)throw Object.assign(Error(data.message||({401:'Sign in to continue.',403:'Administrator access required.',404:'This record is unavailable.',409:'This record changed. Reopen it before buying.',429:'Wait a moment before trying again.'}[r.status]||'Could not connect. Try again.')),{status:r.status});return data;
  }
- function drawEditor(){
-  if(closed)return;
-  const item=editing;
-  root.querySelector('[data-item-editor]').innerHTML=`<h2>${item?'Edit item':'Add item'}</h2><form data-item-form><label for="item-name">Item name</label><input type="text" id="item-name" name="name" required maxlength="80" value="${esc(item?.name)}"><div class="item-source-fields"><div><label for="item-source">Source ID</label><input type="text" id="item-source" name="sourceId" required maxlength="64" value="${esc(item?.sourceId)}"></div><div><label for="item-version">Source version</label><input type="text" id="item-version" name="sourceVersion" required maxlength="64" value="${esc(item?.sourceVersion)}"></div></div><label for="item-category">Category</label><input type="text" id="item-category" name="category" maxlength="40" value="${esc(item?.category)}"><label for="item-description">Description</label><textarea id="item-description" name="description" maxlength="4000" rows="6">${esc(item?.description)}</textarea><div class="actions"><button class="button primary" type="submit">Save item</button><button class="button" type="button" data-cancel>Cancel</button>${item?`<button class="button" type="button" data-archive>${item.archived?'Restore item':'Archive item'}</button>`:''}</div></form>${item?`<p class="field-help item-id">Item ID: ${esc(item.id)}</p>`:''}`;
+ function draw(){if(closed)return;
+  root.innerHTML='<div class="item-control"><p data-item-status role="status"></p><details class="item-buyer" '+(!buyer?'open':'')+'><summary><strong data-buyer-name>'+esc(buyer?buyer.name:'Choose a character')+'</strong><span data-buyer-gil>'+esc(buyer?gil(buyer.gil):'')+'</span></summary><form class="item-search-row" data-buyer-search><input aria-label="Find character or user" name="q" maxlength="80" placeholder="Find character / user" value="'+esc(buyerQ)+'"><button class="button" type="submit">Find</button></form><div class="item-buyer-list" data-buyers></div><div class="item-pagination" data-buyer-pages></div></details><div data-category-tiles>'+renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true})+'</div><form class="item-search-row" data-item-search><input aria-label="Find item" name="q" maxlength="80" placeholder="Find item" value="'+esc(q)+'"><button class="button" type="submit">Find</button></form><div class="item-control-bar"><h2 data-catalog-count></h2><button class="button" type="button" data-new>Add item</button></div><div class="item-catalog-list" data-item-list></div><div class="item-pagination" data-item-pages></div><dialog class="item-dialog" data-item-dialog aria-labelledby="item-dialog-title"><header><h2 id="item-dialog-title"></h2><button type="button" class="item-close" aria-label="Close item" data-close>×</button></header><p role="status" data-item-status></p><div data-item-content></div></dialog></div>';
+  drawList();drawBuyers();
  }
- function draw(){
-  if(closed)return;
-  root.innerHTML=`${fixture?'<p class="field-help">Ghost preview · Sample items. Changes reset on refresh and never reach real data.</p>':''}<p role="status" tabindex="-1" data-item-status></p><div class="actions"><button class="button" type="button" data-reload>Reload items</button><button class="button primary" type="button" data-new>Add item</button></div><form data-item-search class="character-search"><div><label for="item-search">Find item</label><input type="text" id="item-search" name="q" maxlength="80" value="${esc(q)}"></div><div><label for="source-search">Filter by source ID</label><input type="text" id="source-search" name="sourceId" maxlength="64" value="${esc(sourceId)}"></div><label class="group-check"><input type="checkbox" name="archived" ${archived?'checked':''}>Archived</label><button class="button" type="submit">Search</button></form><div class="character-admin-grid"><section class="account-section" aria-label="Item list">${items.map(item=>`<article class="character-record"><h2>${esc(item.name)}</h2><p>${esc(item.sourceId)} · ${esc(item.sourceVersion)}${item.category?' · '+esc(item.category):''}</p><button class="button" type="button" data-edit="${esc(item.id)}">Edit <span class="sr-only">${esc(item.name)}</span></button></article>`).join('')||'<p>No items found.</p>'}<div class="actions">${cursor?'<button class="button" type="button" data-first>First page</button>':''}${nextCursor?'<button class="button" type="button" data-next>Next page</button>':''}</div></section><section class="account-section" data-item-editor><p>Select an item or add one.</p></section></div>`;
+ function drawList(){
+  root.querySelector('[data-catalog-count]').textContent=(selected==='All'?'Items':selected)+' · '+(selected==='All'?Object.values(counts).reduce((a,b)=>a+b,0):SHOP_ITEM_CATEGORY_GROUPS[selected]?.reduce((a,k)=>a+(counts[k]||0),0)??counts[selected]??0).toLocaleString();
+  root.querySelector('[data-item-list]').innerHTML=rows.map(r=>'<article class="item-catalog-row"><button type="button" class="item-open" data-open="'+r.id+'">'+esc(r.name)+'<small>'+esc(r.category)+'</small></button><span class="item-price">'+esc(r.priceGil===null?(r.costText||'Price needed'):gil(r.priceGil))+'</span><button class="button" type="button" data-buy-open="'+r.id+'">Buy</button></article>').join('')||'<p>No items found.</p>';
+  root.querySelector('[data-item-pages]').innerHTML=(cursor?'<button type="button" class="button" data-first>First</button>':'')+(nextCursor?'<button type="button" class="button" data-next>Next</button>':'');
  }
- async function load(message=''){
-  if(busy||closed)return;setBusy(true);editing=null;draftId=null;
-  try{
-   if(fixture){
-    ghost??=[{id:'fixture:item:1',name:'Preview item',sourceId:'preview',sourceVersion:'1',category:'Example',description:'Sample item description.',archived:false,revision:1,schemaVersion:1}];
-    const rows=ghost.filter(item=>item.archived===archived&&item.name.toLowerCase().includes(q.toLowerCase())&&(!sourceId||item.sourceId===sourceId)&&(!cursor||item.id>cursor)).sort((a,b)=>a.id<b.id?-1:1);
-    items=rows.slice(0,20).map(({description,...summary})=>structuredClone(summary));nextCursor=rows.length>20?rows[19].id:null;
-   }else{const result=await request('?'+new URLSearchParams({q,sourceId,archived:archived?'1':'0',cursor}));items=result.items;nextCursor=result.nextCursor;}
-   draw();status(message);
-  }catch(error){if(!closed)root.innerHTML=`<p role="status">${esc(error.message)}</p><button class="button" type="button" data-reload>Reload</button>${fixture?'':'<a class="button" href="signin.html">Sign in</a>'}`;}
-  finally{setBusy(false);}
+ function drawBuyers(){
+  root.querySelector('[data-buyers]').innerHTML=buyers.map(c=>'<button type="button" data-buyer="'+c.id+'" aria-pressed="'+(buyer?.id===c.id)+'"><span>'+esc(c.name)+'<small>'+esc(c.ownerName)+'</small></span><span>'+esc(gil(c.gil))+'</span></button>').join('')||'<p>No characters found.</p>';
+  root.querySelector('[data-buyer-pages]').innerHTML=(buyerCursor?'<button class="button" type="button" data-buyer-first>First</button>':'')+(buyerNext?'<button class="button" type="button" data-buyer-next>Next</button>':'');
  }
- root.addEventListener('click',async event=>{
-  const button=event.target.closest('button');if(!button||busy)return;
-  if(button.hasAttribute('data-reload')){void load();return;}
-  if(button.hasAttribute('data-first')){cursor='';void load();return;}
-  if(button.hasAttribute('data-next')){cursor=nextCursor;void load();return;}
-  if(button.hasAttribute('data-new')){editing=null;draftId=recordId();drawEditor();root.querySelector('#item-name').focus();return;}
-  if(button.hasAttribute('data-cancel')){editing=null;draftId=null;root.querySelector('[data-item-editor]').innerHTML='<p>Select an item or add one.</p>';return;}
-  if(button.dataset.edit){
-   setBusy(true);status('Loading item…');
-   try{editing=fixture?structuredClone(ghost.find(item=>item.id===button.dataset.edit)):(await request('/'+encodeURIComponent(button.dataset.edit))).item;draftId=null;drawEditor();status('');if(!closed)root.querySelector('#item-name').focus();}catch(error){status(error.message);}finally{setBusy(false);}return;
-  }
-  if(button.hasAttribute('data-archive')&&editing){
-   const item=editing;setBusy(true);status(item.archived?'Restoring…':'Archiving…');
-   try{
-    if(fixture)Object.assign(ghost.find(i=>i.id===item.id),{archived:!item.archived,revision:item.revision+1});
-    else await request('',{op:'archive',id:item.id,revision:item.revision,archived:!item.archived});
-    setBusy(false);cursor='';await load(item.archived?'Item restored.':'Item archived.');
-   }catch(error){status(error.message);}finally{setBusy(false);}
-  }
+ async function loadList(){
+  const result=await request('?'+new URLSearchParams({q,cursor,category:selected==='All'?'':selected}));rows=result.items;nextCursor=result.nextCursor;if(!closed)drawList();
+ }
+ async function loadBuyers(){const result=await request('/buyers?'+new URLSearchParams({q:buyerQ,cursor:buyerCursor}));buyers=result.characters;buyerNext=result.nextCursor;if(!closed)drawBuyers();}
+ async function withBusy(fn){if(busy||closed)return;setBusy(true);status('');try{await fn();}catch(error){if(!closed)status(error.message);}finally{if(!closed)setBusy(false);}}
+ async function freshBuyer(){if(!buyer)return;buyer=(await request('/buyer/'+encodeURIComponent(buyer.id))).character;if(closed)return;root.querySelector('[data-buyer-name]').textContent=buyer.name;root.querySelector('[data-buyer-gil]').textContent=gil(buyer.gil);}
+ function showItem(){
+  if(closed)return;const c=item.catalog||{},details=c.details,fields=Object.entries(c).filter(([k,v])=>!['id','name','desc','special','raw','details','tags','tagFields','detailFields','sourceUrl','category','cost','priceGil'].includes(k)&&v!==null&&v!==''&&typeof v!=='object');
+  root.querySelector('#item-dialog-title').textContent=item.name;
+  root.querySelector('[data-item-content]').innerHTML='<p class="field-help">'+esc(item.category)+' · '+esc(item.priceGil===null?(item.costText||'Price needed'):gil(item.priceGil))+'</p><dl class="item-detail-grid">'+fields.map(([k,v])=>'<div><dt>'+esc(k.replace(/([a-z])([A-Z])/g,'$1 $2').replace(/^./,c=>c.toUpperCase()))+'</dt><dd>'+esc(v)+'</dd></div>').join('')+'</dl><p class="item-description">'+esc(item.description)+'</p>'+(details?.length?'<details><summary>Item details</summary><pre>'+esc(JSON.stringify(details,null,2))+'</pre></details>':'')+(safeLink(c.sourceUrl)?'<a class="button" href="'+esc(safeLink(c.sourceUrl))+'" target="_blank" rel="noopener noreferrer">Source</a>':'')+'<details><summary>All source fields</summary><pre>'+esc(JSON.stringify(c,null,2))+'</pre></details><form class="item-buy-form" data-buy-form><div><p>'+esc(buyer?buyer.name+' · '+gil(buyer.gil):'Choose a character above')+'</p><label>Quantity<input name="quantity" type="number" min="1" max="999" step="1" value="1" required></label></div><strong data-buy-total>'+esc(gil(item.priceGil))+'</strong><button class="button primary" type="submit" '+(!buyer||item.priceGil===null?'disabled':'')+'>Buy</button></form><button class="button" type="button" data-edit-item>Edit item</button>';
+  if(!dialog().open)dialog().showModal();
+ }
+ function editor(){
+  const x=item;editingId=x?.id||null;draftId=x?.id||recordId();root.querySelector('#item-dialog-title').textContent=x?'Edit item':'Add item';
+  root.querySelector('[data-item-content]').innerHTML='<form data-item-form><label for="item-name">Name</label><input id="item-name" name="name" maxlength="80" required value="'+esc(x?.name)+'"><label for="item-category">Category</label><select id="item-category" name="category">'+[...new Set([...ITEM_TAG_OPTIONS,...(x?.category?[x.category]:[])])].map(k=>'<option '+(x?.category===k?'selected':'')+'>'+esc(k)+'</option>').join('')+'</select><label for="item-price">Fixed gil price (blank = unavailable)</label><input id="item-price" name="priceGil" type="number" min="0" max="1000000000000" step="0.01" value="'+esc(x?.priceGil??'')+'"><label for="item-cost">Price label</label><input id="item-cost" name="costText" maxlength="120" value="'+esc(x?.costText)+'"><label for="item-description">Description</label><textarea id="item-description" name="description" rows="7" maxlength="30000">'+esc(x?.description)+'</textarea><details><summary>Source</summary><label for="item-source">Source ID</label><input id="item-source" name="sourceId" required maxlength="64" value="'+esc(x?.sourceId||'custom')+'"><label for="item-version">Version</label><input id="item-version" name="sourceVersion" required maxlength="64" value="'+esc(x?.sourceVersion||'1')+'"></details><button class="button primary" type="submit">Save item</button></form>';
+  if(!dialog().open)dialog().showModal();root.querySelector('#item-name').focus();
+ }
+ root.addEventListener('click',e=>{const b=e.target.closest('button');if(!b||busy)return;
+  if(b.hasAttribute('data-close')){dialog().close();return;}
+  if(b.hasAttribute('data-new')){item=null;editor();return;}
+  if(b.hasAttribute('data-edit-item')){editor();return;}
+  void withBusy(async()=>{
+   if(b.dataset.catalogCategory){selected=b.dataset.catalogCategory;cursor='';root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();}
+   else if(b.hasAttribute('data-next')||b.hasAttribute('data-first')){cursor=b.hasAttribute('data-first')?'':nextCursor;await loadList();}
+   else if(b.hasAttribute('data-buyer-next')||b.hasAttribute('data-buyer-first')){buyerCursor=b.hasAttribute('data-buyer-first')?'':buyerNext;await loadBuyers();}
+   else if(b.dataset.buyer){buyer={id:b.dataset.buyer};await freshBuyer();drawBuyers();root.querySelector('.item-buyer').open=false;}
+   else if(b.dataset.open||b.dataset.buyOpen){item=(await request('/'+encodeURIComponent(b.dataset.open||b.dataset.buyOpen))).item;pendingPurchase=null;await freshBuyer();showItem();}
+  });
  },{signal:controller.signal});
- root.addEventListener('submit',async event=>{
-  event.preventDefault();if(busy)return;const form=event.target,data=new FormData(form);
-  if(form.hasAttribute('data-item-search')){q=String(data.get('q')).trim();sourceId=String(data.get('sourceId')).trim();archived=data.has('archived');cursor='';void load();return;}
-  if(!form.hasAttribute('data-item-form'))return;
-  const change={op:'save',id:editing?.id||draftId,revision:editing?.revision||0,...Object.fromEntries(Array.from(data,([key,value])=>[key,String(value).trim()]))};
-  if(!['sourceId','sourceVersion'].every(key=>/^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(change[key]))){status('Source ID and version use letters, numbers, dots, dashes or underscores.');return;}
-  setBusy(true);status('Saving…');
-  try{
-   if(fixture){const old=ghost.find(item=>item.id===change.id),record={...change,archived:old?.archived||false,revision:change.revision+1,schemaVersion:1};if(old)Object.assign(old,record);else ghost.push(record);}
-   else await request('',change);
-   setBusy(false);cursor='';await load(fixture?'Preview updated.':'Item saved.');
-  }catch(error){status(error.message);}finally{setBusy(false);}
- },{signal:controller.signal});
- void load();return ()=>{closed=true;controller.abort();};
+ root.addEventListener('input',e=>{if(e.target.name==='quantity'&&item){pendingPurchase=null;root.querySelector('[data-buy-total]').textContent=gil(item.priceGil===null?null:Math.round(item.priceGil*100*Number(e.target.value))/100);}}, {signal:controller.signal});
+ root.addEventListener('submit',e=>{e.preventDefault();if(busy)return;const form=e.target,d=new FormData(form);void withBusy(async()=>{
+  if(form.hasAttribute('data-item-search')){q=String(d.get('q')).trim();cursor='';await loadList();}
+  else if(form.hasAttribute('data-buyer-search')){buyerQ=String(d.get('q')).trim();buyerCursor='';await loadBuyers();}
+  else if(form.hasAttribute('data-buy-form')){
+   if(!buyer||item.priceGil===null)throw Error('Choose a character and set a fixed price first.');
+   pendingPurchase??={op:'buy',requestId:recordId(),characterId:buyer.id,itemId:item.id,quantity:Number(d.get('quantity')),revision:buyer.revision,itemRevision:item.revision};
+   const {receipt}=await request('',pendingPurchase);pendingPurchase=null;buyer={...buyer,gil:receipt.remainingGil,revision:receipt.revision};dialog().close();root.querySelector('[data-buyer-gil]').textContent=gil(buyer.gil);status('Bought '+receipt.quantity+' '+receipt.itemName+' · −'+gil(receipt.totalGil)+' · '+gil(receipt.remainingGil)+' remaining');await loadBuyers();
+  }else if(form.hasAttribute('data-item-form')){
+   const change={op:'save',id:editingId||draftId,revision:editingId?item.revision:0,...Object.fromEntries(d)};change.priceGil=change.priceGil===''?null:Number(change.priceGil);
+   item=(await request('',change)).item;pendingPurchase=null;const meta=await request('/categories');counts=Object.fromEntries(meta.categories.map(x=>[x.category,x.count]));root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();showItem();status('Item saved.');
+  }
+ });},{signal:controller.signal});
+ draw();void withBusy(async()=>{const meta=await request('/categories');counts=Object.fromEntries(meta.categories.map(x=>[x.category,x.count]));root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();await loadBuyers();});
+ return ()=>{closed=true;controller.abort();};
 }

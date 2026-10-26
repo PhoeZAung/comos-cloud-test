@@ -14,7 +14,7 @@ test('item records persist, retry without duplicates, reject stale/invalid edits
  try{
   db=await openDatabase(path.join(dir,'db.sqlite'));let items=createItemsService(db),change=draft();
   const created=items.save(change);assert.equal(created.schemaVersion,1);assert.deepEqual(items.save(change),created);assert.equal(items.list().items.length,1);
-  for(const patch of [{name:' '},{sourceId:''},{sourceVersion:'<script>'},{schemaVersion:2},{description:'a'.repeat(4001)},{name:'x\ny'},{category:23}])assert.throws(()=>items.save({...draft(),...patch}),{code:'INVALID_ITEM'});
+  for(const patch of [{name:' '},{sourceId:''},{sourceVersion:'<script>'},{schemaVersion:2},{description:'a'.repeat(30001)},{name:'x\ny'},{category:23}])assert.throws(()=>items.save({...draft(),...patch}),{code:'INVALID_ITEM'});
   items.save({...change,revision:1,name:'Renamed',description:'<b>Plain text</b>'});assert.throws(()=>items.save({...change,revision:1}),{code:'REVISION_CONFLICT'});
   items.save({op:'archive',id:change.id,revision:2,archived:true});assert.equal(items.list().items.length,0);assert.equal(items.list({archived:true}).items.length,1);
   db.close();db=await openDatabase(path.join(dir,'db.sqlite'));items=createItemsService(db);const restored=items.get(change.id);assert.equal(restored.name,'Renamed');assert.equal(restored.description,'<b>Plain text</b>');assert.equal(restored.revision,3);
@@ -54,6 +54,6 @@ test('item HTTP handlers protect list/detail/writes, enforce Origin, reject role
   assert.equal((await fetch(base,{method:'DELETE',headers})).status,405);
   assert.equal((await fetch(base,{method:'POST',headers,body:'{bad json'})).status,400);
   assert.equal((await fetch(base+'?archived=maybe',{headers})).status,400);
-  response=await fetch(base,{method:'POST',headers,body:JSON.stringify({...draft(),description:'x'.repeat(25000)})});assert.equal(response.status,413);
+  response=await fetch(base,{method:'POST',headers,body:JSON.stringify({...draft(),description:'x'.repeat(51000)})});assert.equal(response.status,413);
  }finally{await new Promise(resolve=>server.close(resolve));db.close();}
 });

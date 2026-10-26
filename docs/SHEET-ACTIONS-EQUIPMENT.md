@@ -30,3 +30,6 @@ Phone checks after refreshing:
 3. Abilities: edit remaining uses, click the play/Use icon, and check it decreases once. Confirm attack/damage match the saved attack type/formula. Click dice and confirm the count stays unchanged.
 4. Spells: select All Spells, star a spell and open Favorites. Test its dice and edit controls. Check actual Discord delivery separately.
 5. Skills: inspect the updated unused-point card and its expandable calculation.
+
+## Equipment/category refinement — 26 October 2026
+The silhouette now has broader shoulders, articulated torso/limbs and region overlays. Head remains directly selectable; all individual accessory/body slots are initially visible below the figure. Inventory category buttons now share the Item Control tile grid, with All as a two-by-two square at the right. All 16 original slot IDs and two-hand reservation behavior remain intact. See ITEM-CONTROL-CATALOG.md for catalog purchases.
