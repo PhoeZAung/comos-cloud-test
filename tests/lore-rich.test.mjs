@@ -42,7 +42,7 @@ test('Rich Lore preserves paragraph/picture ordering; old Lore remains readable'
   assert.equal(entry.blocks[4].alt,'A blue tower');
   assert.equal(entry.text,'First paragraph.\n\nSecond paragraph.\n\nThird paragraph.');
   assert.equal(service.create(owner.id,payload).id,entry.id,'idempotent retry');
-  assert.throws(()=>service.create(owner.id,{...payload,blocks:[...blocks].reverse()}),{code:'duplicate_request'});
+  assert.throws(()=>service.create(owner.id,{...payload,blocks:blocks.map(b=>b.type==='image'?{...b,alt:b.alt+' updated'}:b)}),{code:'duplicate_request'});
   const html=renderLoreEntry(entry);
   assert.ok(html.indexOf('First paragraph.')<html.indexOf('Second paragraph.'));
   assert.ok(html.indexOf('Second paragraph.')<html.indexOf('src="/api/v1/lore-images/'+one+'"'));
