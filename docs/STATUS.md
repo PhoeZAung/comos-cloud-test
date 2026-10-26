@@ -66,3 +66,7 @@ Added persistent HP/MP favorites; heart combat navigation with sword/shield pane
 ## Legacy changelog features adapted to Comos — 2026-10-26
 
 The attached changelog referred to merged changes in Mount-Aetheria, while Railway builds comos-cloud-test main. Preserved the Comos equipment/initiative work from 53d7b30 and brought over missing original item categories/icons/filters, a visible tag editor above Name, derived unused skill points, spell-level tabs and MP badges/overrides. Cast now sends/rolls without changing base/temp MP, including at zero MP. See SHEET-PORT.md for source provenance, intentional adapter boundaries and phone checks. No old-site write or Firebase migration was performed.
+
+## Square selectors, equipment regions, and ability quick actions — 2026-10-26
+
+Replaced the round ability selector with a square and added the three inventory groups around a central All square. Rebuilt the equipment figure with shared connector geometry, visual equipped regions, Hand 2/Ranged/Legs and grouped accessory controls; preserved all old slot IDs. Added cross-collection weapon picking, two-handed reservations, and quantity-preserving stack equipping. Spells now have All Spells/favorites/dice actions. Ability uses are directly editable and use a distinct play icon; one atomic Use receipt includes configured attack/damage and deducts once, while dice-only rolls do not spend. Improved the unused skill-point card. 149 tests pass; see SHEET-ACTIONS-EQUIPMENT.md for phone checks and boundaries.

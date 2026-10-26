@@ -1,3 +1,4 @@
+import {mergeSheetData} from './sheet-fields.mjs';
 import {weaponAttackParts,attackTypes} from '../../src/features/sheet/model.mjs';
 import {entryCalculations,context,damageExpression,diceTerms} from '../../src/features/sheet/calculations.mjs';
 import {randomInt} from 'node:crypto';
@@ -36,21 +37,34 @@ export function spellRoll(row,data,roll=serverRoll){
  if(row.damage||row.dmg){try{damage=roll(damageExpression(String(row.damage||row.dmg),c.ctx));}catch(error){damageError=error.message;}}
  return {kind:'spell',spellName:String(row.name||'Spell'),mpAmount:c.mp,dc:c.dc,range:c.range,description:String(row.desc||'').slice(0,600),attack,damage,damageError,expression:'cast',rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
 }
+export function abilityRoll(row,data,key,roll=serverRoll){
+ const c=entryCalculations(row,data,key),attack=c.attack?roll('1d20'+(c.attack.bonus>=0?'+':'')+c.attack.bonus):null;
+ // Invalid formulas fail before any use is spent or a receipt is committed.
+ const damage=row.damage||row.dmg?roll(damageExpression(String(row.damage||row.dmg),c.ctx)):null;
+ return {kind:'ability',abilityName:String(row.name||'Ability'),dc:c.dc,attack,damage,description:String(row.desc||'').slice(0,600),expression:'ability',rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
+}
 function diceLine(r){return r.expression+': ['+r.rolls.join(', ')+'] '+(r.bonus>=0?'+':'−')+' '+Math.abs(r.bonus)+' = '+r.total+(r.breakdown?.some(p=>p.type)?' ('+r.breakdown.filter(p=>p.type).map(p=>p.type+' '+p.total).join(', ')+')':'');}
-export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch,makeWeaponRoll=weaponRoll,makeSpellRoll=spellRoll}){
- const weapon=change.kind==='weapon',spell=change.kind==='spell',entry=weapon||spell;
+export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch,makeWeaponRoll=weaponRoll,makeSpellRoll=spellRoll,makeAbilityRoll=abilityRoll}){
+ const weapon=change.kind==='weapon',spell=change.kind==='spell',ability=change.kind==='ability',entry=weapon||spell||ability;
  if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.discord!=='boolean'||(change.kind!==undefined&&!entry))throw Error('Invalid roll.');
  if(entry){if(!Number.isInteger(change.index)||change.index<0||!Number.isInteger(change.revision)||change.revision<0)throw Error('Invalid entry roll.');}
  else if(typeof change.label!=='string'||!change.label.trim()||change.label.length>120||/[\u0000-\u001f]/.test(change.label))throw Error('Invalid roll.');
- const expression=entry?change.kind+':'+change.index+':'+change.revision:change.expression;
+ if(ability&&(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)||typeof change.spendUse!=='boolean'))throw Error('Invalid ability roll.');
+ const expression=entry?change.kind+':'+(ability?change.collection+':'+(change.spendUse?'use':'roll')+':':'')+change.index+':'+change.revision:change.expression;
  const old=db.prepare('SELECT * FROM sheet_rolls WHERE id=?').get(change.requestId);
  if(old){if(old.user_id!==userId||old.character_id!==character.id||old.expression!==expression||(!entry&&old.label!==change.label))throw Error('Roll identifier already used.');return {roll:JSON.parse(old.result_json),discord:old.delivery};}
  if(entry&&(change.revision!==character.revision||change.revision!==db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision))throw Object.assign(Error('This character changed. Load the latest sheet before rolling.'),{httpStatus:409});
- const row=entry?character.data?.[weapon?'weapons':'spells']?.[change.index]:null;if(entry&&!row)throw Error('Entry not found.');
+ const row=entry?character.data?.[weapon?'weapons':spell?'spells':change.collection]?.[change.index]:null;if(entry&&!row)throw Error('Entry not found.');
  const label=entry?String(row.name||'Weapon').slice(0,120):change.label;
  const last=db.prepare('SELECT created_at FROM sheet_rolls WHERE user_id=? ORDER BY created_at DESC LIMIT 1').get(userId);if(last&&Date.now()-last.created_at<1500)throw Error('Wait a moment before rolling again.');
- const roll=weapon?makeWeaponRoll(row,character.data):spell?makeSpellRoll(row,character.data):serverRoll(expression),delivery=change.discord?'pending':'off';
- db.prepare('INSERT INTO sheet_rolls VALUES(?,?,?,?,?,?,?,?,?)').run(change.requestId,userId,character.id,expression,label,JSON.stringify(roll),delivery,Date.now(),change.discord?1:0);
+ let updated=null;if(ability&&change.spendUse&&change.collection==='activeAbilities'&&entryCalculations(row,character.data,change.collection).maxUses>0)updated=mergeSheetData(character.data,{action:'useAbility',index:change.index});
+ const roll=weapon?makeWeaponRoll(row,character.data):spell?makeSpellRoll(row,character.data):ability?makeAbilityRoll(row,character.data,change.collection):serverRoll(expression),delivery=change.discord?'pending':'off';
+ if(updated){roll.used=true;roll.remainingUses=updated.activeAbilities[change.index].u_curr;roll.characterRevision=character.revision+1;}
+ db.exec('BEGIN IMMEDIATE');try{
+  if(entry&&db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision!==change.revision)throw Object.assign(Error('This character changed. Load the latest sheet.'),{httpStatus:409});
+  if(updated){db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(character.id,JSON.stringify(updated));db.prepare('UPDATE characters SET revision=revision+1,updated_at=? WHERE id=?').run(new Date().toISOString(),character.id);}
+  db.prepare('INSERT INTO sheet_rolls VALUES(?,?,?,?,?,?,?,?,?)').run(change.requestId,userId,character.id,expression,label,JSON.stringify(roll),delivery,Date.now(),change.discord?1:0);db.exec('COMMIT');
+ }catch(error){db.exec('ROLLBACK');throw error;}
  if(!change.discord)return {roll,discord:'off'};
  const safe=s=>String(s).replaceAll('@','＠').replace(/[\r\n]/g,' ').replace(/[*_`~|<>]/g,'').slice(0,120);
  const lines=['🎲 '+safe(character.name)+' — '+safe(label)];
@@ -58,7 +72,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   lines.push(attackTypes[roll.attackType]+' attack · '+diceLine(roll)+(roll.rolls[0]===20?' · Natural 20':roll.rolls[0]===1?' · Natural 1':''));
   lines.push(roll.damage?'Damage · '+diceLine(roll.damage):'Damage · '+roll.damageError);
   if(roll.critical.threat){lines.push('Critical threat · confirmation '+diceLine(roll.critical.confirmation));lines.push('Critical damage ×'+roll.critical.multiplier+' (if confirmed) · '+(roll.critical.damage?diceLine(roll.critical.damage):roll.critical.damageError));lines.push('Compare attack and confirmation against target AC.');}
- }else if(spell){lines.push('Cast · '+roll.mpAmount+' MP · No MP spent'+(roll.dc!==null?' · Save DC '+roll.dc:''));if(roll.range)lines.push('Range · '+roll.range);if(roll.attack)lines.push('Attack · '+diceLine(roll.attack));if(roll.damage)lines.push('Damage · '+diceLine(roll.damage));else if(roll.damageError)lines.push('Damage · '+roll.damageError);if(roll.description)lines.push(safe(roll.description));}else lines.push(diceLine(roll));
+ }else if(ability){lines.push((roll.used?'Use · '+roll.remainingUses+' uses remaining':'Ability roll')+(roll.dc!==null?' · Save DC '+roll.dc:''));if(roll.attack)lines.push('Attack · '+diceLine(roll.attack));if(roll.damage)lines.push('Damage · '+diceLine(roll.damage));if(roll.description)lines.push(safe(roll.description));}else if(spell){lines.push('Cast · '+roll.mpAmount+' MP · No MP spent'+(roll.dc!==null?' · Save DC '+roll.dc:''));if(roll.range)lines.push('Range · '+roll.range);if(roll.attack)lines.push('Attack · '+diceLine(roll.attack));if(roll.damage)lines.push('Damage · '+diceLine(roll.damage));else if(roll.damageError)lines.push('Damage · '+roll.damageError);if(roll.description)lines.push(safe(roll.description));}else lines.push(diceLine(roll));
  // Escape the entire receipt, including saved damage labels, and stay within Discord's message limit.
  const content=lines.join('\n').replaceAll('@','＠').replace(/[*_`~|<>]/g,'').slice(0,1950);
  let state='failed';try{const response=await sendFetch(relay,{method:'POST',redirect:'error',headers:{'Content-Type':'application/json',Origin:origin},body:JSON.stringify({content,allowed_mentions:{parse:[]}}),signal:AbortSignal.timeout(7000)});state=response.ok?'sent':'failed';}catch{}

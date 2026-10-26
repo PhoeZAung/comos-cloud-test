@@ -1,3 +1,5 @@
+> Updated slot layout and two-handed behavior: see [SHEET-ACTIONS-EQUIPMENT.md](SHEET-ACTIONS-EQUIPMENT.md). The 13-slot layout described below is historical.
+
 # Comos character-sheet equipment layout
 
 The Items area has two tabs: **Equip** (default) and **Inventory**. Equip contains a stylized character silhouette with exactly thirteen clickable slots:

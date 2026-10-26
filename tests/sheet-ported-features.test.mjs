@@ -18,7 +18,7 @@ test('unused skill points use class levels and INT modifiers, deduplicate favore
  const legacy=skillBudget({class:'Black Mage',class_level:2,multiclasses:[{className:'Thief',level:1}],int:10});assert.equal(legacy.classBudget,16);
 });
 test('spell level tabs and MP badges filter without shifting spell indices',()=>{
- const tabs=renderSpellLevels(data,1);assert.equal((tabs.match(/role="tab"/g)||[]).length,10);assert.match(tabs,/Cantrip/);assert.match(tabs,/DC 15/);const list=collectionBlock('spells',data,'',{level:1});assert.match(list,/Fire/);assert.match(list,/data-edit-entry="spells:1"/);assert.doesNotMatch(list,/>Light<|>Ice</);assert.match(list,/1 MP/);assert.doesNotMatch(renderSection({id:'sample',name:'Mage',data},'spells',{spellLevel:1}),/Spend MP/);
+ const tabs=renderSpellLevels(data,1);assert.equal((tabs.match(/role="tab"/g)||[]).length,11);assert.match(tabs,/Cantrip/);assert.match(tabs,/DC 15/);const list=collectionBlock('spells',data,'',{level:1});assert.match(list,/Fire/);assert.match(list,/data-edit-entry="spells:1"/);assert.doesNotMatch(list,/>Light<|>Ice</);assert.match(list,/1 MP/);assert.doesNotMatch(renderSection({id:'sample',name:'Mage',data},'spells',{spellLevel:1}),/Spend MP/);
 });
 test('spell MP defaults and optional override are display-only, and clearing old aliases restores level default',()=>{
  for(let level=0;level<=9;level++)assert.equal(spellMpAmount({},level),level);assert.equal(spellMpAmount({mp_cost:0},3),0);assert.equal(spellMpAmount({mpCost:5},2),5);
