@@ -1,6 +1,8 @@
+import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol} from '../features/sheet/item-categories.mjs';
 import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
 import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
+import {equipmentSlots,equipmentSlotIds,equipmentSlotLabel,equippedInSlot} from '../features/sheet/equipment.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','speed','languages','senses'],
  resources:['hp_curr','hp_temp','hp_max','hp_max_temp','mp_curr','mp_temp','mp_class','mp_bonus','mp_max_temp','bab','bab_temp'],
@@ -8,17 +10,19 @@ const groupFields={
  attack:['init_temp','ar_melee_ability','ar_melee_temp','ar_ranged_ability','ar_ranged_temp','ar_touch_ability','ar_touch_temp','ar_ranged_touch_ability','ar_ranged_touch_temp','cmb_temp'],
  saves:['fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp'],resistances:['resistances'],proficiencies:['proficiencies'],currency:['currency_gil','currency_moogle','slot_cap'],spell:['spell_dc_base','mp_max_spell_level']
 };
-const labels={casting_ability:'Casting ability',caster_level:'Caster level override',dc_misc:'Save DC adjustment',mp_adjustment:'MP cost adjustment',dc_formula:'Save DC formula',uses_formula:'Maximum uses formula',str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Armor',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Capacity',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',u_curr:'Uses remaining',u_max:'Maximum uses',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Ability Mod',extra_damage:'Extra damage (not multiplied on crit)',attack_misc:'Attack misc',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
+const labels={mp_cost:'MP Amount (blank = spell level)',casting_ability:'Casting ability',caster_level:'Caster level override',dc_misc:'Save DC adjustment',mp_adjustment:'MP cost adjustment',dc_formula:'Save DC formula',uses_formula:'Maximum uses formula',str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Armor',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Capacity',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',u_curr:'Uses remaining',u_max:'Maximum uses',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Ability Mod',extra_damage:'Extra damage (not multiplied on crit)',attack_misc:'Attack misc',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
 const readable=k=>labels[k]||k.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
 const textKeys=new Set(['name','desc','damage','extra_damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','languages','senses','resistances','proficiencies','dc_formula','uses_formula']);
 const boolKeys=new Set(['cs','equipped','restoreOnLongRest']);
 function field(key,value,{weapon=false}={}){
+ if(key==='sourceCategory')return '<label class="cs-field cs-field-wide cs-tag-editor"><span>Item Tag / Shop Category</span><div><span data-category-icon aria-hidden="true">'+itemCategorySymbol(value)+'</span><select name="sourceCategory" aria-label="Item Tag / Shop Category">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).map(([group,tags])=>'<optgroup label="'+(group==='Other'?'Older Items':group)+'">'+tags.map(tag=>'<option value="'+tag+'"'+(value===tag?' selected':'')+'>'+tag+'</option>').join('')+'</optgroup>').join('')+'</select></div></label>';
+
  const label=readable(key),opts=key==='attack_type'?(weapon?Object.keys(attackTypes):['none',...Object.keys(attackTypes)]):key==='ability_mod'&&weapon?['auto',...abilities]:key==='size_category'?sizes:key==='stat'||key==='ability_mod'||key==='spell_dc_base'||key==='casting_ability'?abilities:key.endsWith('_ability')?['str','dex']:null;
  if(opts)return `<label class="cs-field"><span>${label}</span><select name="${key}">${opts.map(opt=>'<option value="'+opt+'"'+(opt===String(value||opts[0])?' selected':'')+'>'+(key==='attack_type'?(attackTypes[opt]||'None'):opt==='auto'?'Use attack type':abilities.includes(opt)?opt.toUpperCase():opt)+'</option>').join('')}</select></label>`;
  if(boolKeys.has(key))return `<label class="cs-checkbox"><input type="checkbox" name="${key}" ${value?'checked':''}><span>${label}</span></label>`;
  if(['desc','resistances','proficiencies'].includes(key))return `<label class="cs-field cs-field-wide"><span>${label}</span><textarea name="${key}" rows="5" maxlength="12000">${e(value||'')}</textarea></label>`;
  const isText=textKeys.has(key);
- return `<label class="cs-field"><span>${label}</span><input name="${key}" type="${isText?'text':'number'}" ${isText?'maxlength="'+(key==='name'?120:12000)+'"':'step="any" '+(key==='caster_level'?'':'required')} value="${e(value??(isText?'':0))}" ${key==='name'?'required':''}></label>`;
+ return `<label class="cs-field"><span>${label}</span><input name="${key}" type="${isText?'text':'number'}" ${isText?'maxlength="'+(key==='name'?120:12000)+'"':'step="any" '+(['caster_level','mp_cost'].includes(key)?'':'required')} value="${e(value??(isText?'':0))}" ${key==='name'?'required':''}></label>`;
 }
 export function rollDice(expression,random=limit=>{const range=4294967296,ceiling=range-range%limit;let x;do{x=crypto.getRandomValues(new Uint32Array(1))[0];}while(x>=ceiling);return x%limit+1;}){
  const match=/^\s*(\d{1,2})d(\d{1,4})(?:\s*([+-])\s*(\d{1,6}))?\s*$/i.exec(expression);if(!match)throw Error('Use dice such as 1d20+5 or 2d6.');
@@ -27,6 +31,7 @@ export function rollDice(expression,random=limit=>{const range=4294967296,ceilin
 }
 export function formatRoll(label,r){
  const receipt=x=>x.total+' ['+x.rolls.join(', ')+']'+(x.bonus?' '+(x.bonus>=0?'+':'−')+' '+Math.abs(x.bonus):'')+(x.breakdown?.some(p=>p.type)?' · '+x.breakdown.filter(p=>p.type).map(p=>p.type+' '+p.total).join(', '):'');
+ if(r.kind==='spell')return r.spellName+' · '+r.mpAmount+' MP · No MP spent'+(r.dc!==null?' · Save DC '+r.dc:'')+(r.attack?'\nAttack: '+receipt(r.attack):'')+(r.damage?'\nDamage: '+receipt(r.damage):r.damageError?'\nDamage: '+r.damageError:'');
  if(r.kind!=='weapon')return label+': '+receipt(r);
  return r.weaponName+' · '+attackTypes[r.attackType]+' · d20 '+r.rolls[0]+' '+(r.bonus>=0?'+':'−')+' '+Math.abs(r.bonus)+' = '+r.total+(r.rolls[0]===1?' · Natural 1':r.rolls[0]===20?' · Natural 20':'')+'\n'+(r.damage?'Damage: '+receipt(r.damage):'Damage: '+r.damageError)+(r.critical?.threat?'\nCritical threat · confirmation d20 '+r.critical.confirmation.rolls[0]+' '+(r.bonus>=0?'+':'−')+' '+Math.abs(r.bonus)+' = '+r.critical.confirmation.total+'\nCritical damage ×'+r.critical.multiplier+' (if confirmed): '+(r.critical.damage?receipt(r.critical.damage):r.critical.damageError)+'\nCompare attack and confirmation against target AC.':'');
 }
@@ -36,28 +41,32 @@ export function mountSheet(){
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
  let combatView=new URL(location.href).searchParams.get('combatView')==='offense'?'offense':'defense';
+ let itemTag=new URL(location.href).searchParams.get('itemTag')||'All';if(itemTag!=='All'&&!ITEM_TAG_OPTIONS.includes(itemTag))itemTag='All';
+ let spellFilter=new URL(location.href).searchParams.has('spellLevel')?Number(new URL(location.href).searchParams.get('spellLevel')):null;if(spellFilter!==null&&(!Number.isInteger(spellFilter)||spellFilter<0||spellFilter>9))spellFilter=null;
+ let itemView=new URL(location.href).searchParams.get('itemView')==='inventory'?'inventory':'equip';
  document.body.classList.toggle('sheet-compact',compact);
  if(!id){root.innerHTML='<h1>Character sheet</h1><p>Choose a character to open its sheet.</p><a class="button" href="characters.html">Characters</a>';return ()=>control.abort();}
  const endpoint='/api/v1/character-records/'+encodeURIComponent(id);
  const status=message=>{const node=root.querySelector('[data-sheet-status]');if(node)node.textContent=message;};
  const dialog=()=>root.querySelector('[data-sheet-dialog]');
+ const equipmentDialog=()=>root.querySelector('[data-equipment-dialog]');
  const setBusy=value=>{busy=value;root.querySelector('[data-sheet]')?.classList.toggle('cs-saving',value);root.querySelectorAll('button,input,select,textarea').forEach(node=>node.disabled=value);};
  async function request(body,revision){
   const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
- function draw(){if(closed)return;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView});root.querySelector('[data-discord-rolls]').checked=discordEnabled;document.title=character.name+' · Comos';dirty=false;}
+ function draw(){if(closed)return;if(spellFilter===null)spellFilter=(character.data.spells||[]).map(r=>spellLevel(r.lvl)).filter(n=>n!==null).sort((a,b)=>a-b)[0]??0;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter});root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.cs-item-categories,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}document.title=character.name+' · Comos';dirty=false;}
  async function save(change){
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
   try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;dialog()?.close();draw();status('Saved · Synced'+(admin?' · Admin':''));return true;}
-  catch(err){if(closed)return false;if(err.status===409){conflict=true;root.querySelector('[data-sheet-refresh]').hidden=false;}status(err.message);const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=err.message;return false;}
+  catch(err){if(closed)return false;if(err.status===409){conflict=true;root.querySelector('[data-sheet-refresh]').hidden=false;}status(err.message);const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=err.message;const equipStatus=root.querySelector('[data-equip-status]');if(equipStatus)equipStatus.textContent=err.message;return false;}
   finally{if(!closed)setBusy(false);}
  }
  async function refresh(force=false){
-  if(closed||busy||polling||document.hidden||(!force&&(dirty||conflict||dialog()?.open)))return;
-  if(force&&(dirty||dialog()?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
+  if(closed||busy||polling||document.hidden||(!force&&(dirty||conflict||(dialog()?.open||equipmentDialog()?.open))))return;
+  if(force&&(dirty||dialog()?.open||equipmentDialog()?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
   polling=true;const previousRevision=character?.revision;
-  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||dialog()?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
+  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||dialog()?.open||equipmentDialog()?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
   catch(err){if(!closed)status(err.message);}
   finally{polling=false;}
  }
@@ -67,6 +76,39 @@ export function mountSheet(){
   root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;dialogState={keys,change};root.querySelector('#cs-dialog-title').textContent=title;
   root.querySelector('[data-dialog-fields]').innerHTML=(help?'<p class="cs-caption">'+e(help)+'</p>':'')+'<div class="cs-form-grid">'+keys.map(k=>field(k,values[k],{weapon:change.collection==='weapons'})).join('')+'</div>';
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
+ }
+ function openEquipmentPicker({slot=null,index=null}={}){
+  if(busy||conflict){status(conflict?'Refresh to see the latest equipment.':'Saving…');return;}
+  const picker=equipmentDialog();if(!picker)return;
+  const items=Array.isArray(character.data.items)?character.data.items:[];
+  const itemMode=index!==null;
+  if(itemMode&&(!Number.isInteger(index)||!items[index]))return;
+  const chosenSlot=equipmentSlotIds.includes(slot)?slot:(equipmentSlotIds.includes(items[index]?.equip_slot)?items[index].equip_slot:'head');
+  const slotSelect=picker.querySelector('[data-equip-slot-select]'),itemSelect=picker.querySelector('[data-equip-item-select]');
+  slotSelect.replaceChildren();itemSelect.replaceChildren();
+  for(const position of equipmentSlots){
+    const opt=document.createElement('option');opt.value=position.id;opt.textContent=position.label;slotSelect.append(opt);
+  }
+  const empty=document.createElement('option');empty.value='';empty.textContent='Empty — unequip this slot';itemSelect.append(empty);
+  items.forEach((item,i)=>{
+    const qty=Number(item?.amount??1);
+    if(!item||!String(item.name||'').trim()||!Number.isFinite(qty)||qty<1)return;
+    const option=document.createElement('option');option.value=String(i);
+    const current=equipmentSlotIds.includes(item.equip_slot)&&item.equipped!==false?' · '+equipmentSlotLabel(item.equip_slot):'';
+    option.textContent=item.name+(qty>1?' ×'+qty:'')+current;itemSelect.append(option);
+  });
+  slotSelect.value=chosenSlot;slotSelect.disabled=!itemMode;
+  if(itemMode)itemSelect.value=String(index);
+  else {
+    const occupant=equippedInSlot(items,chosenSlot);
+    itemSelect.value=occupant?String(occupant.index):'';
+  }
+  itemSelect.disabled=itemMode;
+  picker.querySelector('#cs-equipment-title').textContent=itemMode?'Equip '+(items[index].name||'item'):'Equip '+equipmentSlotLabel(chosenSlot);
+  picker.querySelector('[data-equip-status]').textContent='';
+  picker.querySelector('[data-equip-hint]').textContent='Selecting a slot replaces its current item. Equipment bonuses are not applied automatically.';
+  picker.showModal();
+  if(itemMode)slotSelect.focus();else itemSelect.focus();
  }
  function showFormula(label){
   const d=character.data,s=sheetStats(d),n=k=>number(d[k]),mod=a=>s.mods[a];
@@ -90,24 +132,36 @@ export function mountSheet(){
  }
  function editEntry(key,index){
   const row=character.data[key]?.[index]||{};
-  const keys=key==='skills'?['lvl','temp','cs','subName']:key==='items'?['name','amount','equipped','desc']:key==='weapons'?['name','attack_type','ability_mod','attack_misc','damage','extra_damage','range','crit_range','crit_mult','desc']:key==='spells'?['name','lvl','school','type','attack_type','attack_misc','range','duration','target','saving_throw','spell_resist','damage','casting_ability','caster_level','dc_misc','mp_adjustment','desc','at_higher_lvls']:key==='activeAbilities'?['name','type','attack_type','attack_misc','caster_level','damage','dc_formula','uses_formula','u_curr','u_max','restoreOnLongRest','desc','at_higher_lvls']:['name','damage','attack_type','attack_misc','caster_level','dc_formula','desc','at_higher_lvls'];
-  const values={...row,lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||'auto').toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
+  const keys=key==='skills'?['lvl','temp','cs','subName']:key==='items'?['sourceCategory','name','amount','desc']:key==='weapons'?['name','attack_type','ability_mod','attack_misc','damage','extra_damage','range','crit_range','crit_mult','desc']:key==='spells'?['name','lvl','school','type','attack_type','attack_misc','range','duration','target','saving_throw','spell_resist','damage','casting_ability','caster_level','dc_misc','mp_cost','desc','at_higher_lvls']:key==='activeAbilities'?['name','type','attack_type','attack_misc','caster_level','damage','dc_formula','uses_formula','u_curr','u_max','restoreOnLongRest','desc','at_higher_lvls']:['name','damage','attack_type','attack_misc','caster_level','dc_formula','desc','at_higher_lvls'];
+  const values={...row,sourceCategory:itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||'auto').toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
   openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='weapons'?'Attack type uses the matching sheet attack total. Ability Mod replaces its ability, rather than adding it twice. Damage includes all normal flat bonuses; put flaming, sneak attack and other non-multiplied dice in Extra damage. Critical range: 20 or 19-20; multiplier: x2, x3…':key==='skills'?'Skill identity is fixed. Edit ranks, misc, class skill and specialization.':key==='spells'||['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(key)?'Damage examples: 2d6 fire + 1d4 cold, {CL}d6 + {INT}. DC/uses formulas accept {INT}, {LEVEL}, {CL}, arithmetic and parentheses. Fractions round down. Set special adjustments explicitly.':''});
   if(index!==null&&key!=='skills')root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
  }
- async function roll(label,expression,weaponIndex){
+ async function roll(label,expression,weaponIndex,spellIndex){
   if(busy)return;setBusy(true);const node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
-  try{const result=await request({op:'roll',...(weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:crypto.randomUUID(),discord:discordEnabled});if(closed)return;const r=result.roll;node.textContent=formatRoll(label,r)+(result.discord==='sent'?' · Sent to Discord':result.discord==='failed'?' · Discord delivery failed; roll kept here':result.discord==='pending'?' · Discord delivery pending':' · Local only');document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
+  try{const result=await request({op:'roll',...(spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:crypto.randomUUID(),discord:discordEnabled});if(closed)return;const r=result.roll;node.textContent=formatRoll(label,r)+(result.discord==='sent'?' · Sent to Discord':result.discord==='failed'?' · Discord delivery failed; roll kept here':result.discord==='pending'?' · Discord delivery pending':' · Local only');document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
   catch(err){if(!closed)node.textContent=err.message;}finally{if(!closed)setBusy(false);}
  }
+ function selectSpellLevel(level,focus=false){spellFilter=level;draw();const url=new URL(location.href);url.searchParams.set('spellLevel',level);history.replaceState(null,'',url);if(focus){const tab=root.querySelector('[data-spell-level="'+level+'"]');tab.focus({preventScroll:true});tab.scrollIntoView({block:'nearest',inline:'nearest'});}}
+ root.addEventListener('keydown',event=>{if(!event.target.matches('[data-spell-level]')||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const level=event.key==='Home'?0:event.key==='End'?9:(spellFilter+(event.key==='ArrowRight'?1:9))%10;selectSpellLevel(level,true);},{signal:control.signal});
  root.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||busy)return;
+  if(button.matches('[data-item-view]')){
+   if(dirty&&!confirm('Discard unsaved edits?'))return;
+   itemView=button.dataset.itemView==='inventory'?'inventory':'equip';
+   draw();const url=new URL(location.href);url.searchParams.set('itemView',itemView);history.replaceState(null,'',url);return;
+  }
+  if(button.matches('[data-equip-slot]')){openEquipmentPicker({slot:button.dataset.equipSlot});return;}
+  if(button.matches('[data-assign-item]')){openEquipmentPicker({index:Number(button.dataset.assignItem)});return;}
+  if(button.matches('[data-equipment-close]')){equipmentDialog()?.close();return;}
   if(button.matches('[data-combat-view]')){if(dirty&&!confirm('Discard unsaved edits?'))return;combatView=button.dataset.combatView;draw();const url=new URL(location.href);url.searchParams.set('combatView',combatView);history.replaceState(null,'',url);return;}
   if(button.matches('[data-ability-category]')){if(dirty&&!confirm('Discard unsaved edits?'))return;ability=button.dataset.abilityCategory;draw();const url=new URL(location.href);url.searchParams.set('ability',ability);history.replaceState(null,'',url);return;}
   if(button.matches('[data-resource-favorite]')){const key=button.dataset.resourceFavorite;clearTimeout(resourceTimer);void save({action:'fields',fields:{...pendingResourceFields,[key]:character.data[key]!==true}});return;}
   if(button.matches('[data-weapon-roll]')){void roll('Weapon',null,Number(button.dataset.weaponRoll));return;}
   if(button.matches('[data-favorite]')){const [collection,i]=button.dataset.favorite.split(':');void save({action:'entry',collection,index:Number(i),mode:'update',fields:{favorite:character.data[collection][Number(i)].favorite!==true}});return;}
-  if(button.matches('[data-cast-entry]')){void save({action:'cast',index:Number(button.dataset.castEntry.split(':')[1])});return;}
+  if(button.matches('[data-cast-entry]')){void roll('Spell',null,undefined,Number(button.dataset.castEntry.split(':')[1]));return;}
+  if(button.matches('[data-item-tag]')){itemTag=button.dataset.itemTag;draw();const url=new URL(location.href);url.searchParams.set('itemTag',itemTag);history.replaceState(null,'',url);return;}
+  if(button.matches('[data-spell-level]')){selectSpellLevel(Number(button.dataset.spellLevel));return;}
 
   if(button.matches('[data-sheet-tab]')){
    if((dirty||dialog()?.open)&&!confirm('Discard unsaved edits?'))return;section=button.dataset.sheetTab;draw();const url=new URL(location.href);url.searchParams.set('section',section);history.replaceState(null,'',url);return;
@@ -131,21 +185,35 @@ export function mountSheet(){
   if(button.matches('[data-spend-mp]')){openDialog('Spend MP',['amount'],{amount:1},{action:'spendMp'},{help:'Enter the MP cost for this cast.'});return;}
  },{signal:control.signal});
  root.addEventListener('submit',event=>{
-  if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
+  if(!event.target.matches('[data-sheet-form],[data-notes],[data-equipment-form]'))return;event.preventDefault();
+  if(event.target.matches('[data-equipment-form]')){
+    const form=event.target;
+    const slot=form.elements.slot.value;
+    const raw=form.elements.itemIndex.value;
+    const index=raw===''?null:Number(raw);
+    if(!equipmentSlotIds.includes(slot)||index!==null&&(!Number.isInteger(index)||index<0||index>=(character.data.items||[]).length)){
+      form.querySelector('[data-equip-status]').textContent='Choose a valid slot and inventory item.';return;
+    }
+    const occupied=equippedInSlot(character.data.items,slot);
+    if(occupied&&index!==occupied.index&&index!==null&&!confirm('Replace '+(occupied.item.name||'the equipped item')+' in '+equipmentSlotLabel(slot)+'?'))return;
+    void save({action:'equip',slot,index});
+    return;
+  }
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
-  const fields={};for(const key of dialogState.keys){const node=event.target.elements[key];if(key==='caster_level'&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
+  const fields={};for(const key of dialogState.keys){const node=event.target.elements[key];if(['caster_level','mp_cost'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
  root.addEventListener('input',event=>{
-  if(event.target.matches('[data-sheet-search]')){const d=character.data,q=event.target.value;root.querySelector('[data-sheet-list]').innerHTML=section==='skills'?renderSkillRows(d,q):section==='items'?collectionBlock('items',d,q):section==='spells'?collectionBlock('spells',d,q):collectionBlock(ability,d,q);return;}
-  if(event.target.closest('form')||event.target.matches('[data-resource-input]')){dirty=true;status('Unsaved changes');}
+  if(event.target.matches('[data-sheet-search]')){const d=character.data,q=event.target.value;root.querySelector('[data-sheet-list]').innerHTML=section==='skills'?renderSkillRows(d,q):section==='items'?collectionBlock('items',d,q,{category:itemTag}):section==='spells'?collectionBlock('spells',d,q,{level:spellFilter}):collectionBlock(ability,d,q);return;}
+  if((event.target.closest('form')||event.target.matches('[data-resource-input]'))&&!event.target.closest('[data-equipment-form]')){dirty=true;status('Unsaved changes');}
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const key=event.target.dataset.resourceInput,value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(key!=='hp_temp'||value>=0)){pendingResourceFields[key]=value;resourceTimer=setTimeout(()=>{if(Object.keys(pendingResourceFields).length)void save({action:'fields',fields:{...pendingResourceFields}});},650);}}
  },{signal:control.signal});
  root.addEventListener('change',event=>{
+  if(event.target.matches('[name=sourceCategory]'))root.querySelector('[data-category-icon]').textContent=itemCategorySymbol(event.target.value);
   if(event.target.matches('[data-discord-rolls]'))discordEnabled=event.target.checked;
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(event.target.dataset.resourceInput!=='hp_temp'||value>=0)){pendingResourceFields[event.target.dataset.resourceInput]=value;void save({action:'fields',fields:{...pendingResourceFields}});}}
-  if(event.target.matches('[data-equipment]'))void save({action:'entry',collection:'items',index:Number(event.target.dataset.equipment),mode:'update',fields:{equipped:event.target.checked}});
+
  },{signal:control.signal});
  root.addEventListener('toggle',event=>{const detail=event.target;if(!detail.matches?.('[data-entry-details]')||!detail.open)return;const [key,i]=detail.dataset.entryDetails.split(':');const row=character?.data[key]?.[Number(i)];if(row)detail.querySelector('[data-entry-detail-body]').innerHTML=entryDetail(row,character.data,key);},{capture:true,signal:control.signal});
  root.addEventListener('cancel',()=>{dirty=false;},{capture:true,signal:control.signal});

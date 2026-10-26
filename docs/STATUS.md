@@ -62,3 +62,7 @@ Spell/ability follow-up: explicit DC/use formulas, selected attack calculations,
 ## Sheet resources, layout and combined weapon rolls — 2026-10-26
 
 Added persistent HP/MP favorites; heart combat navigation with sword/shield panes; initiative in Offense; BAB in Recovery settings; speed/proficiencies under Character; centered armor class; four-quadrant ability selector with local SVG icons. Weapons select a sheet attack type, allow an explicit Ability Mod override, and create one server-derived attack/damage receipt with conditional critical confirmation/damage and non-multiplied extra dice. 130 tests pass. See SHEET-WEAPON-ROLLS.md for calculations, limitations and phone checks. Actual Discord delivery remains unverified; test sends are mocked.
+
+## Legacy changelog features adapted to Comos — 2026-10-26
+
+The attached changelog referred to merged changes in Mount-Aetheria, while Railway builds comos-cloud-test main. Preserved the Comos equipment/initiative work from 53d7b30 and brought over missing original item categories/icons/filters, a visible tag editor above Name, derived unused skill points, spell-level tabs and MP badges/overrides. Cast now sends/rolls without changing base/temp MP, including at zero MP. See SHEET-PORT.md for source provenance, intentional adapter boundaries and phone checks. No old-site write or Firebase migration was performed.

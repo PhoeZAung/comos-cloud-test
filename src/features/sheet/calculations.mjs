@@ -1,3 +1,4 @@
+import {spellMpAmount} from './spell-mp.mjs';
 import {abilities,number,sheetStats} from './model.mjs';
 import {characterClasses,totalClassLevel} from '../characters/ffd20.mjs';
 // Bounded arithmetic parser, never JavaScript evaluation. All fractional results floor.
@@ -21,7 +22,7 @@ export function entryCalculations(row,data,key){
  const raw=String(row.attack_type||'').toLowerCase().trim().replace(/[ -]+/g,'_');const modes={melee:s.melee,ranged:s.ranged,touch:s.touchAttack,ranged_touch:s.rangedTouch,cmb:s.cmb};
  const attack=Object.hasOwn(modes,raw)?{mode:raw,bonus:modes[raw]+number(row.attack_misc)}:null;
  const dc=spell&&level!==null&&ctx[stat.toUpperCase()]!==undefined?10+level+s.mods[stat]+number(row.dc_misc):row.dc_formula?arithmetic(row.dc_formula,ctx):null;
- const mp=spell&&level!==null?Math.max(0,level+number(row.mp_adjustment)):null;
+ const mp=spell&&level!==null?spellMpAmount(row,level):null;
  let range=String(row.range||'');if(ctx.CL!==undefined){if(/^close\b/i.test(range))range=(25+5*Math.floor(ctx.CL/2))+' ft';else if(/^medium\b/i.test(range))range=(100+10*ctx.CL)+' ft';else if(/^long\b/i.test(range))range=(400+40*ctx.CL)+' ft';}
  const maxUses=row.uses_formula?Math.max(0,arithmetic(row.uses_formula,ctx)):Math.max(0,number(row.u_max));
  return {ctx,level,stat,dc,mp,attack,range,maxUses,currentUses:row.u_curr===undefined?maxUses:Math.min(maxUses,Math.max(0,number(row.u_curr))),concentration:ctx.CL===undefined||ctx[stat.toUpperCase()]===undefined?null:ctx.CL+s.mods[stat]};

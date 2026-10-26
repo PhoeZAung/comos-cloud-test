@@ -16,9 +16,8 @@ test('bounded arithmetic and typed damage reject executable or excessive express
  const terms=diceTerms('2d6 fire + 1d4 cold - 2');assert.equal(terms[0].type,'fire');assert.equal(terms[1].sides,4);assert.equal(terms[2].sign,-1);for(const x of ['99d6','1d9999','1d6+alert(1)','1d6+-2'])assert.throws(()=>diceTerms(x));
  const roll=serverRoll('2d6 fire + 1d4 cold + 3');assert.equal(roll.rolls.length,3);assert.ok(roll.total>=6&&roll.total<=19);assert.equal(roll.breakdown[0].type,'fire');
 });
-test('casting and ability use spend resources once per merge, consume temp MP first, and preserve data',()=>{
- const cast=mergeSheetData(d,{action:'cast',index:0});assert.equal(cast.mp,8);assert.equal(cast.mp_temp,0);assert.equal(cast.mp_curr,8);assert.equal(d.mp_temp,2);assert.equal(mergeSheetData({...d,mp:-2,mp_temp:5},{action:'cast',index:0}).mp_curr,1);assert.deepEqual(cast.spells,d.spells);
- assert.throws(()=>mergeSheetData({...d,mp:0,mp_temp:1},{action:'cast',index:0}),/Not enough/);assert.throws(()=>mergeSheetData({...d,int:10},{action:'cast',index:0}),/score/);assert.throws(()=>mergeSheetData({...d,mp_max_spell_level:1},{action:'cast',index:0}),/maximum/);
+test('casting preserves MP, while active ability use spends a use and preserves data',()=>{
+ const cast=mergeSheetData(d,{action:'cast',index:0});assert.deepEqual(cast,d);assert.deepEqual(mergeSheetData({...d,mp:0,mp_temp:0},{action:'cast',index:0}),{...d,mp:0,mp_temp:0});assert.deepEqual(cast.spells,d.spells);
  const use=mergeSheetData(d,{action:'useAbility',index:0});assert.equal(use.activeAbilities[0].u_curr,1);assert.equal(mergeSheetData(use,{action:'rest'}).activeAbilities[0].u_curr,7);assert.throws(()=>mergeSheetData({...d,activeAbilities:[{...d.activeAbilities[0],u_curr:0}]},{action:'useAbility',index:0}),/No uses/);
 });
 test('fixed skills materialize for new sheets, preserve imported records and cannot be added, deleted or renamed',()=>{

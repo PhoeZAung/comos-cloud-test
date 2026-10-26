@@ -1,3 +1,4 @@
+import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
 import {sheetSkills} from '../../src/features/sheet/skills.mjs';
 import {entryCalculations} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
@@ -9,7 +10,7 @@ const textFields=['languages','senses','resistances','proficiencies','notesArea'
 const enumFields={size_category:sizes,spell_dc_base:abilities,ar_melee_ability:['str','dex'],ar_ranged_ability:['str','dex'],ar_touch_ability:['str','dex'],ar_ranged_touch_ability:['str','dex']};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
 const entryText=['name','desc','damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','dc_formula','uses_formula','casting_ability','extra_damage'];
-const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level'];
+const entryNumber=['amount','u_curr','u_max','lvl','temp','attack_misc','dc_misc','mp_adjustment','caster_level','mp_cost'];
 const plain=v=>v&&typeof v==='object'&&!Array.isArray(v)&&Object.getPrototypeOf(v)===Object.prototype;
 const bad=message=>{throw Error(message);};
 function numeric(v){if(!['string','number'].includes(typeof v)||v===''||!Number.isFinite(Number(v))||Math.abs(Number(v))>100000000)bad('Enter a valid number.');return Number(v);}
@@ -38,8 +39,9 @@ export function mergeSheetData(original,change){
    if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>30)bad('Invalid entry fields.');
    const safe={};
    for(const [key,value] of Object.entries(change.fields)){
-    if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=text(value,key==='name'?120:12000);if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
-    else if(entryNumber.includes(key)){if(key==='caster_level'&&value===''){safe[key]='';continue;}safe[key]=numeric(value);if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
+    if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
+    else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=text(value,key==='name'?120:12000);if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
+    else if(entryNumber.includes(key)){if(['mp_cost','caster_level'].includes(key)&&value===''){safe[key]='';continue;}safe[key]=numeric(value);if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
     else if(['equipped','cs','restoreOnLongRest','favorite'].includes(key)&&typeof value==='boolean')safe[key]=value;
     else if(key==='ability_mod'&&change.collection==='weapons'&&value==='auto')safe[key]=value;
     else if(['stat','ability_mod'].includes(key)&&abilities.includes(value))safe[key]=value;
@@ -49,6 +51,7 @@ export function mergeSheetData(original,change){
     if(rows.length>=1000||!safe.name?.trim())bad('Enter a name; maximum 1,000 entries per section.');rows.push(safe);
    }else {
      const updated={...rows[change.index],...safe};
+     if(change.collection==='spells'&&Object.hasOwn(safe,'mp_cost'))for(const alias of ['mpCost','mp_amount','mpAmount'])delete updated[alias];
      if(change.collection==='items'){
        if(safe.equipped===false){updated.equip_slot='';}
        if(Object.hasOwn(safe,'amount')&&safe.amount<=0&&updated.equip_slot){
@@ -82,13 +85,13 @@ export function mergeSheetData(original,change){
   const amount=numeric(change.amount);if(amount<=0)bad('Enter a positive amount.');const current=sheetStats(data);
   if(change.action==='damage'){const absorbed=Math.min(Math.max(0,current.hpTemp),amount);data.hp_temp=current.hpTemp-absorbed;data.hp_curr=current.hp-(amount-absorbed);}
   else data.hp_curr=Math.min(current.hpMax,current.hp+amount);
- }else if(change.action==='cast'||change.action==='useAbility'){
-  const key=change.action==='cast'?'spells':'activeAbilities',row=data[key]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');const calc=entryCalculations(row,data,key);
-  if(key==='spells'){
-   if(calc.mp===null)bad('Set the spell level before casting.');const current=sheetStats(data),cost=calc.mp;if(cost>current.mp)bad('Not enough MP.');
-   if(data[calc.stat]!==undefined&&number(data[calc.stat])<10+calc.level)bad('Casting ability score is too low for this spell level.');if(number(data.mp_max_spell_level)>0&&(calc.level>number(data.mp_max_spell_level)||cost>number(data.mp_max_spell_level)))bad('Spell exceeds your configured maximum spell level.');
-   const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current.mp)),fromTemp=Math.min(temp,cost);data.mp_temp=temp-fromTemp;data.mp=Math.max(0,current.mp-temp-(cost-fromTemp));
-  }else {if(calc.maxUses<=0)bad('Set maximum uses before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');row.u_curr=calc.currentUses-1;}
+ }else if(change.action==='cast'){
+  // Compatibility for older open clients: casting never changes MP.
+  if(!Number.isInteger(change.index)||!data.spells?.[change.index])bad('Entry not found.');
+  return data;
+ }else if(change.action==='useAbility'){
+  const row=data.activeAbilities?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');const calc=entryCalculations(row,data,'activeAbilities');
+  if(calc.maxUses<=0)bad('Set maximum uses before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');row.u_curr=calc.currentUses-1;
  }else if(change.action==='spendMp'){
   const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
  }else if(change.action==='rest'){

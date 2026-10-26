@@ -1,3 +1,7 @@
+# Live Comos source
+
+The active site at https://feisty-freedom-production-304e.up.railway.app deploys from **PhoeZAung/comos-cloud-test**, branch **main**. **PhoeZAung/Mount-Aetheria** is the separate legacy reference repository; changes merged there do not appear on Comos automatically. See [docs/SHEET-PORT.md](docs/SHEET-PORT.md) for the transferred sheet features.
+
 # Comos 0.4.0 — Account and preferences
 
 Steps 3.1/3.2 add automatic profile saving, photos, four two-colour theme circles and an optional splash cursor (off by default). See [docs/ACCOUNT.md](docs/ACCOUNT.md) for behavior, phone tests and integration details.

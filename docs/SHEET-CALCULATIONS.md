@@ -1,3 +1,5 @@
+> Update: spell MP is now display-only and Cast never spends MP. See [SHEET-PORT.md](SHEET-PORT.md); earlier spending behavior below is historical.
+
 # Ability, spell and fixed-skill calculations
 
 ## Calculation boundary
