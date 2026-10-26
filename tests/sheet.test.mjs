@@ -7,7 +7,7 @@ import {openDatabase} from '../backend/db/database.mjs';import {createUserReposi
 const data={str:'18',dex:'14',con:'12',int:'16',wis:'10',cha:'8',size_category:'Small',bab:'4',bab_temp:'1',ac_armor:'5',ac_natural:'1',ac_deflect:'1',ac_dodge:'1',ac_temp:'2',touch_temp:'1',flat_temp:'2',cmd_temp:'1',cmb_temp:'2',ar_melee_temp:'1',ar_ranged_temp:'2',fort_base:'3',fort_enhance:'1',ref_base:'2',will_base:'1',hp_curr:'9',hp_temp:'3',hp_max:'20',hp_max_temp:'2',mp:'5',mp_temp:'2',mp_class:'8',mp_bonus:'3',mp_max_temp:'1',classes:[{name:'Black Mage',level:4}],group_tags:['Keep'],secretLegacy:{keep:true},items:[{name:'Staff',amount:'1',sourceItemId:'original',desc:'Text'}],activeAbilities:[{name:'Power',u_curr:0,u_max:2},{name:'Once',u_curr:0,u_max:1,restoreOnLongRest:false}]};
 test('sheet formulas match legacy components, score modifiers and fallback totals',()=>{
  const s=sheetStats(data);assert.equal(modifier(9),-1);assert.equal(s.ac,23);assert.equal(s.touch,16);assert.equal(s.flat,20);assert.equal(s.cmd,16);assert.equal(s.cmb,12);assert.equal(s.melee,11);assert.equal(s.ranged,10);assert.equal(s.fort,5);assert.equal(s.hpMax,22);assert.equal(s.mp,7);assert.equal(s.mpMax,12);
- assert.equal(skillTotal({stat:'int',lvl:2,temp:1,cs:true},data),9);assert.equal(skillTotal({stat:'int',lvl:0,temp:0,cs:true},data),3);assert.equal(weaponAttack({ability_mod:'dex',attack_misc:1},data),9);
+ assert.equal(skillTotal({stat:'int',lvl:2,temp:1,cs:true},data),9);assert.equal(skillTotal({stat:'int',lvl:0,temp:0,cs:true},data),3);assert.equal(weaponAttack({ability_mod:'dex',attack_misc:1},data),10);
  assert.equal(sheetStats({ac_total:21,mp_curr:7,mp_max:12}).ac,21);assert.equal(sheetStats({ac_total:21,mp_curr:7,mp_max:12}).mpMax,12);
 });
 test('sheet patches preserve legacy metadata, entry fields and tags, and validate input',()=>{
@@ -43,6 +43,13 @@ test('sheet HTTP sync enforces owner/admin access, revision conflicts and small 
   r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'entry',revision:3,collection:'spells',mode:'add',fields:{name:'Fire',lvl:2}})});assert.equal(r.status,200);
   r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'cast',revision:4,index:0})});assert.equal(r.status,200);body=await r.json();assert.equal(body.character.revision,5);assert.equal(body.character.data.mp_temp,0);assert.equal(body.character.data.mp,5);
   r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'cast',revision:4,index:0})});assert.equal(r.status,409);
+  r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'entry',revision:5,collection:'weapons',mode:'add',fields:{name:'Sword',attack_type:'melee',ability_mod:'auto',damage:'1d8+4',crit_range:'20',crit_mult:'x2'}})});assert.equal(r.status,200);
+  const weaponRequest={op:'roll',kind:'weapon',index:0,revision:6,requestId:randomUUID(),discord:false};
+  r=await fetch(url,{method:'POST',headers:headers('other'),body:JSON.stringify(weaponRequest)});assert.equal(r.status,404);
+  r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({...weaponRequest,revision:5})});assert.equal(r.status,409);
+  r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify(weaponRequest)});assert.equal(r.status,200);const receipt=await r.json();assert.equal(receipt.roll.kind,'weapon');assert.equal(receipt.roll.weaponName,'Sword');assert.ok(receipt.roll.damage.total>=5);assert.equal(receipt.discord,'off');
+  r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify(weaponRequest)});assert.deepEqual(await r.json(),receipt);
+
 
  }finally{await new Promise(r=>server.close(r));db.close();}
 });
@@ -51,14 +58,14 @@ test('damage consumes temp HP first; heal caps at max and rejects negative amoun
  const damage=mergeSheetData(data,{action:'damage',amount:5});assert.equal(damage.hp_temp,0);assert.equal(damage.hp_curr,7);
  const absorbed=mergeSheetData(data,{action:'damage',amount:2});assert.equal(absorbed.hp_temp,1);assert.equal(absorbed.hp_curr,9);
  assert.equal(mergeSheetData(data,{action:'heal',amount:100}).hp_curr,22);assert.throws(()=>mergeSheetData(data,{action:'damage',amount:-1}));
- const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.ok(html.indexOf('>Base<')<html.indexOf('Offense and defense'));assert.doesNotMatch(html,/data-health=/);assert.match(html,/data-formula="AC"/);assert.match(renderSheetFrame({id:'sample',name:'Mage',data},'combat'),/aria-label="Recovery"/);
+ const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.doesNotMatch(html,/>Base<|>BAB<|>Speed</);assert.doesNotMatch(html,/data-health=/);assert.match(html,/data-formula="AC"/);assert.match(renderSheetFrame({id:'sample',name:'Mage',data},'combat'),/aria-label="Recovery"/);
 });
 
-test('sword groups combat, abilities and spells; ability categories render only selected records',()=>{
+test('heart groups combat, abilities and spells; ability categories render only selected records',()=>{
  const c={id:'sample',name:'Mage',data:{hp_curr:5,hp_max:10,hp_temp:0,activeAbilities:[{name:'Active choice'}],passiveAbilities:[{name:'Passive choice'}],racialAbilities:[{name:'Racial choice'}],feats:[{name:'Feat choice'}]}};
  const html=renderSheetFrame(c,'abilities',{ability:'passiveAbilities'});
- assert.match(html,/aria-label="Combat, abilities and spells"/);assert.match(html,/aria-label="Combat sections"/);assert.match(html,/aria-label="Ability category"/);
- assert.match(html,/option value="passiveAbilities" selected/);assert.match(html,/Passive choice/);assert.doesNotMatch(html,/Active choice|Racial choice|Feat choice/);
+ assert.match(html,/aria-label="Combat, abilities and spells"/);assert.match(html,/aria-label="Combat sections"/);assert.match(html,/aria-label="Ability categories"/);
+ assert.match(html,/data-ability-category="passiveAbilities" aria-pressed="true"/);assert.match(html,/Passive choice/);assert.doesNotMatch(html,/Active choice|Racial choice|Feat choice/);
  const combat=renderSection(c,'combat');assert.match(combat,/data-resource-input="hp_temp" value="0"/);assert.match(combat,/aria-label="Temporary HP"/);assert.doesNotMatch(combat,/data-health=/);
 });
 
@@ -66,7 +73,7 @@ test('icon navigation, combat layout and persistent favorites preserve original 
  const original={...data,weapons:[{name:'Staff',damage:'1d6',sourceItemId:'retained'}],activeAbilities:[{name:'Focus',u_curr:2,u_max:3}]};
  const next=mergeSheetData(original,{action:'entry',collection:'weapons',index:0,mode:'update',fields:{favorite:true}});assert.equal(next.weapons[0].favorite,true);assert.equal(next.weapons[0].sourceItemId,'retained');assert.equal(original.weapons[0].favorite,undefined);
  const c={id:'sample',name:'Mage',data:next};const html=renderSheetFrame(c,'combat');assert.match(html,/data-sheet-tab="favorites"/);assert.ok(html.indexOf('data-sheet-tab="favorites"')<html.indexOf('data-sheet-tab="overview"'));for(const label of ['Character','Skills','Inventory','Notes','Recovery','Send rolls to Discord'])assert.match(html,new RegExp('aria-label="'+label+'"'));
- assert.doesNotMatch(renderSection(c,'overview'),/At a glance/);const combat=renderSection(c,'combat');assert.ok(combat.indexOf('>Base<')<combat.indexOf('Offense and defense'));assert.ok(combat.indexOf('Offense and defense')<combat.indexOf('Saving throws'));
+ assert.doesNotMatch(renderSection(c,'overview'),/At a glance/);const combat=renderSection(c,'combat');assert.doesNotMatch(combat,/>Base<|>BAB<|>Speed</);assert.ok(combat.indexOf('Offense and defense')<combat.indexOf('Saving throws'));
  const offense=renderSection(c,'combat',{combatView:'offense'});assert.match(offense,/data-favorite="weapons:0"/);assert.match(offense,/aria-pressed="true"/);const favorites=renderSection(c,'favorites');assert.match(favorites,/Staff/);assert.doesNotMatch(favorites,/Focus/);assert.match(favorites,/data-edit-entry="weapons:0"/);
  const removed=mergeSheetData(next,{action:'entry',collection:'weapons',index:0,mode:'update',fields:{favorite:false}});assert.doesNotMatch(renderSection({id:'sample',name:'Mage',data:removed},'favorites'),/Staff/);assert.throws(()=>mergeSheetData(original,{action:'entry',collection:'weapons',index:0,mode:'update',fields:{favorite:'true'}}));
 });

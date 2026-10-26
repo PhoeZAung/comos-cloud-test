@@ -26,7 +26,7 @@ test('fixed skills materialize for new sheets, preserve imported records and can
  const changed=mergeSheetData(original,{action:'entry',collection:'skills',index:0,mode:'update',fields:{lvl:3,temp:2}});assert.equal(changed.skills[0].legacy,'keep');assert.equal(changed.skills[0].lvl,3);
  for(const change of [{mode:'add',fields:{name:'New',stat:'int'}},{mode:'remove',index:0},{mode:'update',index:0,fields:{name:'Renamed'}},{mode:'update',index:0,fields:{lvl:7}}])assert.throws(()=>mergeSheetData(original,{action:'entry',collection:'skills',...change}));
 });
-test('compact category selector and expanded calculation controls avoid list clutter',()=>{
- const c={id:'sample',name:'Mage',data:d},frame=renderSheetFrame(c,'abilities');assert.match(frame,/select data-ability-category/);assert.doesNotMatch(frame,/aria-label="Ability categories"/);const skills=renderSection(c,'skills');assert.doesNotMatch(skills,/data-add-entry="skills"/);assert.match(skills,/Spellcraft/);
+test('four-quadrant category selector and expanded calculation controls avoid list clutter',()=>{
+ const c={id:'sample',name:'Mage',data:d},frame=renderSheetFrame(c,'abilities');assert.match(frame,/cs-ability-wheel/);assert.equal((frame.match(/data-ability-category=/g)||[]).length,4);assert.doesNotMatch(frame,/<select data-ability-category/);const skills=renderSection(c,'skills');assert.doesNotMatch(skills,/data-add-entry="skills"/);assert.match(skills,/Spellcraft/);
  const details=entryDetail(d.spells[0],d,'spells');assert.match(details,/Save DC/);assert.match(details,/>16</);assert.match(details,/Cast · 2 MP/);assert.match(details,/6d6 \+ 4/);assert.match(details,/concentration/);
 });

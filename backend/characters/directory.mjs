@@ -43,7 +43,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    let data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');
    data.skills=sheetSkills(data);
    if(req.method==='POST'){
-    const change=await adminJson(req,230000);if(change.op==='roll'){send(200,await publishRoll({db,userId:session.user.id,character:c,change,origin}));return true;}if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
+    const change=await adminJson(req,230000);if(change.op==='roll'){send(200,await publishRoll({db,userId:session.user.id,character:{...c,data},change,origin}));return true;}if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
     db.exec('BEGIN IMMEDIATE');try{
      if(db.prepare('SELECT revision FROM characters WHERE id=?').get(id).revision!==change.revision)throw Object.assign(Error('Character changed. Reload before saving.'),{httpStatus:409});
      if(change.op==='tags'){

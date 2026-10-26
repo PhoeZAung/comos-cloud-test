@@ -27,4 +27,15 @@ export function sheetStats(d={}){
  };
 }
 export function skillTotal(row,d){const ranks=number(row.lvl??row.ranks);return (d[row.stat]===undefined||d[row.stat]===''?0:modifier(d[row.stat]))+ranks+number(row.temp)+(row.cs&&ranks>0?3:0);}
-export function weaponAttack(row,d){const s=sheetStats(d),ability=abilities.includes(row.ability_mod)?row.ability_mod:abilities.includes(row.mod)?row.mod:'str';return s.bab+s.mods[ability]+number(row.attack_misc)+([8,4,2,1,0,-1,-2,-4,-8][sizes.indexOf(d.size_category||d.size||'Medium')]||0);}
+export const attackTypes={melee:'Melee',ranged:'Ranged',touch:'Touch attack',ranged_touch:'Ranged touch',cmb:'CMB'};
+export function attackType(value){const key=String(value||'melee').trim().toLowerCase().replace(/[ -]+/g,'_');return key==='touch_attack'?'touch':Object.hasOwn(attackTypes,key)?key:'melee';}
+export function weaponAttackParts(row,d){
+ const s=sheetStats(d),type=attackType(row.attack_type),prefix={melee:'ar_melee',ranged:'ar_ranged',touch:'ar_touch',ranged_touch:'ar_ranged_touch'}[type];
+ const base={melee:s.melee,ranged:s.ranged,touch:s.touchAttack,ranged_touch:s.rangedTouch,cmb:s.cmb}[type];
+ const defaultAbility=prefix&&abilities.includes(d[prefix+'_ability'])?d[prefix+'_ability']:['ranged','ranged_touch'].includes(type)?'dex':'str';
+ const saved=String(row.ability_mod||row.mod||'auto').toLowerCase(),ability=abilities.includes(saved)?saved:defaultAbility;
+ const replacement=s.mods[ability]-s.mods[defaultAbility],misc=number(row.attack_misc);
+ return {type,base,ability,replacement,misc,total:base+replacement+misc};
+}
+export function weaponAttack(row,d){return weaponAttackParts(row,d).total;}
+
