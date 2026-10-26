@@ -50,3 +50,5 @@ Public Ghost mode is retired. The admin directory now lists unique display names
 ## 26 October 2026 — focused shared sheet
 
 User-directed work replaces the old read-only sheet with responsive Character/Combat/Skills/Inventory/Abilities/Spells and minimal Notes, owner/admin shared writes, revision sync, resources, editable entries, local dice and a standalone compact view. See SHEET.md for behavior, data preservation, verification and remaining rules/Owlbear boundaries. No Firestore persistence or public Ghost mode was added. Existing Home/Lore privacy and character wizard changes on main were preserved.
+
+Combat follow-up: action-first layout, Damage/Heal with temp HP handling, formula dialogs, Recovery menu, live selected-character revision events, conflict-only Load latest control, ↗ compact icon, and authenticated server-generated rolls connected to the legacy Discord relay. 118 tests pass. Actual Discord channel receipt requires the owner's first live roll; synthetic delivery tests do not claim it.

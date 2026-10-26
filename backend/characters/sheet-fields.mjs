@@ -43,6 +43,10 @@ export function mergeSheetData(original,change){
    }else rows[change.index]={...rows[change.index],...safe};
   }
   data[change.collection]=rows;
+ }else if(change.action==='damage'||change.action==='heal'){
+  const amount=numeric(change.amount);if(amount<=0)bad('Enter a positive amount.');const current=sheetStats(data);
+  if(change.action==='damage'){const absorbed=Math.min(Math.max(0,current.hpTemp),amount);data.hp_temp=current.hpTemp-absorbed;data.hp_curr=current.hp-(amount-absorbed);}
+  else data.hp_curr=Math.min(current.hpMax,current.hp+amount);
  }else if(change.action==='spendMp'){
   const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');data.mp=current-cost-number(data.mp_temp);
  }else if(change.action==='rest'){

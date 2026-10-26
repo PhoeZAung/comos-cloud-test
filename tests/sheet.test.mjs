@@ -32,6 +32,7 @@ test('sheet HTTP sync enforces owner/admin access, revision conflicts and small 
  try{
   assert.equal((await fetch(url)).status,401);assert.equal((await fetch(url,{headers:headers('other')})).status,404);
   const ownerView=await(await fetch(url,{headers:headers('owner')})).json();assert.equal(ownerView.admin,false);
+  const streamControl=new AbortController(),stream=await fetch(url+'?stream=1',{headers:headers('owner'),signal:streamControl.signal});assert.match(stream.headers.get('content-type'),/text\/event-stream/);const reader=stream.body.getReader();assert.match(new TextDecoder().decode((await reader.read()).value),/revision.*1/);streamControl.abort();await reader.cancel().catch(()=>{});
   const unchanged=await(await fetch(url+'?revision=1',{headers:headers('owner')})).json();assert.deepEqual(unchanged,{unchanged:true,revision:1});assert.equal((await fetch(url+'?revision=1',{headers:headers('other')})).status,404);
   let r=await fetch(url,{method:'POST',headers:headers('admin'),body:JSON.stringify({op:'sheet',action:'fields',revision:1,fields:{hp_curr:6}})});assert.equal(r.status,200);let body=await r.json();assert.equal(body.admin,true);assert.equal(body.character.revision,2);
   r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'fields',revision:1,fields:{hp_curr:4}})});assert.equal(r.status,409);
@@ -40,4 +41,11 @@ test('sheet HTTP sync enforces owner/admin access, revision conflicts and small 
   r=await fetch(url,{method:'POST',headers:{...headers('owner'),Origin:'https://evil.test'},body:JSON.stringify({op:'sheet',action:'rest',revision:2})});assert.equal(r.status,403);
   r=await fetch(url,{method:'POST',headers:headers('owner'),body:JSON.stringify({op:'sheet',action:'entry',revision:2,collection:'items',index:0,mode:'update',fields:{amount:3}})});assert.equal(r.status,200);body=await r.json();assert.equal(body.character.data.items[0].sourceItemId,'original');assert.deepEqual(body.character.data.group_tags,['Keep']);
  }finally{await new Promise(r=>server.close(r));db.close();}
+});
+
+test('damage consumes temp HP first; heal caps at max and rejects negative amounts',()=>{
+ const damage=mergeSheetData(data,{action:'damage',amount:5});assert.equal(damage.hp_temp,0);assert.equal(damage.hp_curr,7);
+ const absorbed=mergeSheetData(data,{action:'damage',amount:2});assert.equal(absorbed.hp_temp,1);assert.equal(absorbed.hp_curr,9);
+ assert.equal(mergeSheetData(data,{action:'heal',amount:100}).hp_curr,22);assert.throws(()=>mergeSheetData(data,{action:'damage',amount:-1}));
+ const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.ok(html.indexOf('>Actions<')<html.indexOf('>Defense<'));assert.ok(html.indexOf('Weapons')<html.indexOf('>Defense<'));assert.match(html,/data-health="damage"/);assert.match(html,/data-formula="AC"/);assert.match(html,/Recovery/);
 });

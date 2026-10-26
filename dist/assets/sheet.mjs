@@ -26,7 +26,7 @@ export function rollDice(expression,random=limit=>{const range=4294967296,ceilin
 }
 export function mountSheet(){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
- const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false;
+ const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null;
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  document.body.classList.toggle('sheet-compact',compact);
  if(!id){root.innerHTML='<h1>Character sheet</h1><p>Choose a character to open its sheet.</p><a class="button" href="characters.html">Characters</a>';return ()=>control.abort();}
@@ -35,14 +35,14 @@ export function mountSheet(){
  const dialog=()=>root.querySelector('[data-sheet-dialog]');
  const setBusy=value=>{busy=value;root.querySelector('[data-sheet]')?.classList.toggle('cs-saving',value);root.querySelectorAll('button,input,select,textarea').forEach(node=>node.disabled=value);};
  async function request(body,revision){
-  const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:'sheet',revision:character.revision})}:{})});
+  const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
- function draw(){if(closed)return;root.innerHTML=renderSheetFrame(character,section,{admin,compact});document.title=character.name+' · Comos';dirty=false;}
+ function draw(){if(closed)return;root.innerHTML=renderSheetFrame(character,section,{admin,compact});root.querySelector('[data-discord-rolls]').checked=discordEnabled;document.title=character.name+' · Comos';dirty=false;}
  async function save(change){
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
   try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;dialog()?.close();draw();status('Saved · Synced'+(admin?' · Admin':''));return true;}
-  catch(err){if(closed)return false;if(err.status===409)conflict=true;status(err.message);const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=err.message;return false;}
+  catch(err){if(closed)return false;if(err.status===409){conflict=true;root.querySelector('[data-sheet-refresh]').hidden=false;}status(err.message);const message=root.querySelector('[data-dialog-status]');if(message)message.textContent=err.message;return false;}
   finally{if(!closed)setBusy(false);}
  }
  async function refresh(force=false){
@@ -56,9 +56,29 @@ export function mountSheet(){
  function schedule(){clearTimeout(timer);if(closed)return;timer=setTimeout(async()=>{await refresh();schedule();},5000);}
  function openDialog(title,keys,values,change,{help=''}={}){
   if(busy||conflict){status(conflict?'Refresh to load the latest sheet before editing.':'Saving…');return;}
-  dialogState={keys,change};root.querySelector('#cs-dialog-title').textContent=title;
+  root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;dialogState={keys,change};root.querySelector('#cs-dialog-title').textContent=title;
   root.querySelector('[data-dialog-fields]').innerHTML=(help?'<p class="cs-caption">'+e(help)+'</p>':'')+'<div class="cs-form-grid">'+keys.map(k=>field(k,values[k])).join('')+'</div>';
-  root.querySelector('[data-dialog-status]').textContent='';dialog().showModal();
+  root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
+ }
+ function showFormula(label){
+  const d=character.data,s=sheetStats(d),n=k=>number(d[k]),mod=a=>s.mods[a];
+  const size=[8,4,2,1,0,-1,-2,-4,-8][sizes.indexOf(d.size_category||d.size||'Medium')]||0;
+  const formulas={
+   'Initiative':`DEX ${mod('dex')} + adjustment ${n('init_temp')} = ${s.initiative}`,
+   'BAB':`Base ${n('bab')} + adjustment ${n('bab_temp')} = ${s.bab}`,
+   'Speed':`Saved movement speed: ${s.speed}`,
+   'AC':`10 + DEX ${mod('dex')} + size ${size} + armor ${n('ac_armor')} + natural ${n('ac_natural')} + deflection ${n('ac_deflect')} + dodge ${n('ac_dodge')} + adjustment ${n('ac_temp')} = ${s.ac}`,
+   'Touch':`10 + DEX ${mod('dex')} + size ${size} + deflection ${n('ac_deflect')} + dodge ${n('ac_dodge')} + adjustment ${n('touch_temp')} = ${s.touch}`,
+   'Flat-footed':`10 + size ${size} + armor ${n('ac_armor')} + natural ${n('ac_natural')} + deflection ${n('ac_deflect')} + adjustment ${n('flat_temp')} = ${s.flat}`,
+   'CMD':`10 + STR ${mod('str')} + DEX ${mod('dex')} − size ${size} + adjustment ${n('cmd_temp')} = ${s.cmd}`,
+   'CMB':`BAB ${s.bab} + STR ${mod('str')} + DEX ${mod('dex')} − size ${size} + adjustment ${n('cmb_temp')} = ${s.cmb}`,
+   'HP':`Current ${s.hp}; base maximum ${n('hp_max')} + maximum adjustment ${n('hp_max_temp')} = ${s.hpMax}; temporary HP ${s.hpTemp}`,
+   'MP':`Current ${s.mp}; class ${n('mp_class')} + bonus ${n('mp_bonus')} + maximum adjustment ${n('mp_max_temp')} = ${s.mpMax}`,
+   'Armor class':`Calculated AC: ${s.ac}`
+  };
+  for(const [name,key,stat] of [['Fortitude','fort','con'],['Reflex','ref','dex'],['Will','will','wis']])formulas[name]=`${stat.toUpperCase()} ${mod(stat)} + base ${n(key+'_base')} + enhancement ${n(key+'_enhance')} + adjustment ${n(key+'_temp')} = ${s[key]}`;
+  for(const [name,key,fallback,total] of [['Melee','ar_melee','str',s.melee],['Ranged','ar_ranged','dex',s.ranged],['Touch attack','ar_touch','str',s.touchAttack],['Ranged touch','ar_ranged_touch','dex',s.rangedTouch]]){const stat=['str','dex'].includes(d[key+'_ability'])?d[key+'_ability']:fallback;formulas[name]=`BAB ${s.bab} + ${stat.toUpperCase()} ${mod(stat)} + size ${size} + adjustment ${n(key+'_temp')} = ${total}`;}
+  root.querySelector('#cs-dialog-title').textContent=label+' calculation';root.querySelector('[data-dialog-fields]').innerHTML='<p class="cs-prose">'+e(formulas[label]||'Saved sheet value')+'</p><p class="cs-caption">Uses the saved sheet components. Class progression and conditional effects remain manual.</p>';root.querySelector('[data-dialog-status]').textContent='';root.querySelector('[data-sheet-form] button[type=submit]').hidden=true;dialog().showModal();
  }
  function editEntry(key,index){
   const row=character.data[key]?.[index]||{};
@@ -67,13 +87,17 @@ export function mountSheet(){
   openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'});
   if(index!==null)root.querySelector('[data-dialog-fields]').insertAdjacentHTML('beforeend','<button class="cs-delete" type="button" data-remove-entry="'+key+':'+index+'">Delete entry</button>');
  }
- function roll(label,expression){try{const result=rollDice(expression),node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent=label+': '+result.total+' ('+result.rolls.join(', ')+(result.bonus?' '+(result.bonus>=0?'+':'−')+' '+Math.abs(result.bonus):'')+')';document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...result}}));}catch(err){status(err.message);}}
+ async function roll(label,expression){
+  if(busy)return;setBusy(true);const node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
+  try{const result=await request({op:'roll',expression,label,requestId:crypto.randomUUID(),discord:discordEnabled});if(closed)return;const r=result.roll;node.textContent=label+': '+r.total+' ('+r.rolls.join(', ')+(r.bonus?' '+(r.bonus>=0?'+':'−')+' '+Math.abs(r.bonus):'')+')'+(result.discord==='sent'?' · Sent to Discord':result.discord==='failed'?' · Discord delivery failed; roll kept here':result.discord==='pending'?' · Discord delivery pending':' · Local only');document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
+  catch(err){if(!closed)node.textContent=err.message;}finally{if(!closed)setBusy(false);}
+ }
  root.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||busy)return;
   if(button.matches('[data-sheet-tab]')){
    if((dirty||dialog()?.open)&&!confirm('Discard unsaved edits?'))return;section=button.dataset.sheetTab;draw();const url=new URL(location.href);url.searchParams.set('section',section);history.replaceState(null,'',url);return;
   }
-  if(button.matches('[data-dialog-close]')){dialog()?.close();dirty=false;return;}
+  if(button.matches('[data-dialog-close]')){dialog()?.close();dirty=false;if(!conflict)void refresh();return;}
   if(button.matches('[data-sheet-refresh]')){void refresh(true);return;}
   if(button.matches('[data-edit-stats]')){
    const group=button.dataset.editStats,values={...character.data},s=sheetStats(values);if(group==='resources'){values.mp_curr=s.mp;values.mp_class=values.mp_class??s.mpMax;values.mp_bonus=values.mp_bonus??0;}if(group==='currency')values.currency_gil=values.currency_gil??values.gil??0;
@@ -87,6 +111,8 @@ export function mountSheet(){
   if(button.matches('[data-use]')){const index=Number(button.dataset.use),row=character.data.activeAbilities[index];if(number(row.u_curr)>0)void save({action:'entry',collection:'activeAbilities',index,mode:'update',fields:{u_curr:number(row.u_curr)-1}});else status('No uses remaining.');return;}
   if(button.matches('[data-damage-roll]')){roll(button.dataset.damageLabel+' damage',button.dataset.damageRoll);return;}
   if(button.matches('[data-roll]')){roll(button.dataset.roll,'1d20'+(Number(button.dataset.bonus)>=0?'+':'')+number(button.dataset.bonus));return;}
+  if(button.matches('[data-health]')){openDialog(button.dataset.health==='damage'?'Take damage':'Heal',['amount'],{amount:1},{action:button.dataset.health},{help:button.dataset.health==='damage'?'Temporary HP absorbs damage first.':'Healing stops at your effective HP maximum.'});return;}
+  if(button.matches('[data-formula]')){showFormula(button.dataset.formula);return;}
   if(button.matches('[data-rest]')){if(confirm('Recover HP equal to total level, refill MP, and restore active abilities marked for rest?'))void save({action:'rest'});return;}
   if(button.matches('[data-spend-mp]')){openDialog('Spend MP',['amount'],{amount:1},{action:'spendMp'},{help:'Enter the MP cost for this cast.'});return;}
  },{signal:control.signal});
@@ -94,7 +120,7 @@ export function mountSheet(){
   if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
   const fields={};for(const key of dialogState.keys){const node=event.target.elements[key];fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
-  if(dialogState.change.action==='spendMp'){void save({action:'spendMp',amount:fields.amount});return;}
+  if(['spendMp','damage','heal'].includes(dialogState.change.action)){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
  root.addEventListener('input',event=>{
@@ -102,6 +128,7 @@ export function mountSheet(){
   if(event.target.closest('form')||event.target.matches('[data-resource-input]')){dirty=true;status('Unsaved changes');}
  },{signal:control.signal});
  root.addEventListener('change',event=>{
+  if(event.target.matches('[data-discord-rolls]'))discordEnabled=event.target.checked;
   if(event.target.matches('[data-resource-input]')){const value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value))void save({action:'fields',fields:{[event.target.dataset.resourceInput]:value}});}
   if(event.target.matches('[data-equipment]'))void save({action:'entry',collection:'items',index:Number(event.target.dataset.equipment),mode:'update',fields:{equipped:event.target.checked}});
  },{signal:control.signal});
@@ -110,6 +137,6 @@ export function mountSheet(){
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void refresh();},{signal:control.signal});
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML='<p role="status">Loading character…</p>';
- void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();schedule();}).catch(err=>{if(!closed)root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.message)+'</p><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';});
- return ()=>{closed=true;clearTimeout(timer);control.abort();document.body.classList.remove('sheet-compact');};
+ void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();schedule();if(typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed)root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.message)+'</p><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';});
+ return ()=>{closed=true;clearTimeout(timer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }

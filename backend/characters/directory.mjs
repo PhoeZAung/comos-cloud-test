@@ -1,10 +1,11 @@
+import {publishRoll} from './rolls.mjs';
 import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
 import {mergeWizardData} from './editor-fields.mjs';
 import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 export function createDirectoryRoutes({db,sessions,adminUids,origin}){
- const admins=new Set(adminUids);
+ const admins=new Set(adminUids),streams=new Map();
  const tags=()=>db.prepare('SELECT * FROM character_tags ORDER BY name,id').all();
  return async(req,res,path,send)=>{
   const recordPath='/api/v1/character-records/',isRecord=path.startsWith(recordPath);
@@ -30,10 +31,17 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    }
    const id=path.slice(recordPath.length),c=db.prepare('SELECT * FROM characters WHERE id=?').get(id);
    if(!c||(!session.admin&&c.owner_id!==session.user.id)){send(404,{error:'not_found'});return true;}
+   if(req.method==='GET'&&url.searchParams.get('stream')==='1'){
+    const count=streams.get(session.user.id)||0;if(count>=4){send(429,{error:'too_many_streams'});return true;}streams.set(session.user.id,count+1);
+    res.writeHead(200,{'Content-Type':'text/event-stream','Cache-Control':'no-store','Connection':'keep-alive','X-Accel-Buffering':'no'});let previous=-1,ended=false;
+    const close=()=>{if(ended)return;ended=true;clearInterval(interval);clearTimeout(expiry);streams.set(session.user.id,Math.max(0,(streams.get(session.user.id)||1)-1));if(!streams.get(session.user.id))streams.delete(session.user.id);res.end();};
+    const tick=()=>{try{const row=db.prepare('SELECT revision,owner_id,archived FROM characters WHERE id=?').get(id);if(!row||row.archived||(!session.admin&&row.owner_id!==session.user.id)){close();return;}if(row.revision!==previous){previous=row.revision;res.write('data: '+JSON.stringify({revision:previous})+'\n\n');}else res.write(': keepalive\n\n');}catch{close();}};
+    const interval=setInterval(tick,1000),expiry=setTimeout(close,25000);res.on('close',close);tick();return true;
+   }
    if(req.method==='GET'&&url.searchParams.get('revision')===String(c.revision)){send(200,{unchanged:true,revision:c.revision});return true;}
    let data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');
    if(req.method==='POST'){
-    const change=await adminJson(req,230000);if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
+    const change=await adminJson(req,230000);if(change.op==='roll'){send(200,await publishRoll({db,userId:session.user.id,character:c,change,origin}));return true;}if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
     db.exec('BEGIN IMMEDIATE');try{
      if(db.prepare('SELECT revision FROM characters WHERE id=?').get(id).revision!==change.revision)throw Object.assign(Error('Character changed. Reload before saving.'),{httpStatus:409});
      if(change.op==='tags'){

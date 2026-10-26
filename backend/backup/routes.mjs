@@ -4,7 +4,7 @@ import {createAuthThrottle} from '../auth/throttle.mjs';
 // Private, read-only export. Never includes Firebase password hashes, credentials,
 // access tokens, session cookies, or physical image/video bytes.
 const tables=[
-  'users','external_identities','user_preferences','characters',
+  'sheet_rolls','users','external_identities','user_preferences','characters',
   'worlds','parties','world_memberships','party_memberships',
   'items','feed_posts','feed_replies','media','legacy_record_map',
   'admin_bootstrap','group_state','schema_migrations','character_details','character_tags','character_tag_links','home_media','home_post_media',
