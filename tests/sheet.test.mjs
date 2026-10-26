@@ -47,5 +47,13 @@ test('damage consumes temp HP first; heal caps at max and rejects negative amoun
  const damage=mergeSheetData(data,{action:'damage',amount:5});assert.equal(damage.hp_temp,0);assert.equal(damage.hp_curr,7);
  const absorbed=mergeSheetData(data,{action:'damage',amount:2});assert.equal(absorbed.hp_temp,1);assert.equal(absorbed.hp_curr,9);
  assert.equal(mergeSheetData(data,{action:'heal',amount:100}).hp_curr,22);assert.throws(()=>mergeSheetData(data,{action:'damage',amount:-1}));
- const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.ok(html.indexOf('>Actions<')<html.indexOf('>Defense<'));assert.ok(html.indexOf('Weapons')<html.indexOf('>Defense<'));assert.match(html,/data-health="damage"/);assert.match(html,/data-formula="AC"/);assert.match(html,/Recovery/);
+ const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.ok(html.indexOf('>Actions<')<html.indexOf('>Defense<'));assert.ok(html.indexOf('Weapons')<html.indexOf('>Defense<'));assert.doesNotMatch(html,/data-health=/);assert.match(html,/data-formula="AC"/);assert.match(html,/Recovery/);
+});
+
+test('sword groups combat, abilities and spells; ability categories render only selected records',()=>{
+ const c={id:'sample',name:'Mage',data:{hp_curr:5,hp_max:10,hp_temp:0,activeAbilities:[{name:'Active choice'}],passiveAbilities:[{name:'Passive choice'}],racialAbilities:[{name:'Racial choice'}],feats:[{name:'Feat choice'}]}};
+ const html=renderSheetFrame(c,'abilities',{ability:'passiveAbilities'});
+ assert.match(html,/aria-label="Combat, abilities and spells"/);assert.match(html,/aria-label="Combat sections"/);assert.match(html,/aria-label="Ability categories"/);
+ assert.match(html,/data-ability-tab="passiveAbilities" aria-pressed="true"/);assert.match(html,/Passive choice/);assert.doesNotMatch(html,/Active choice|Racial choice|Feat choice/);
+ const combat=renderSection(c,'combat');assert.match(combat,/data-resource-input="hp_temp" value="0"/);assert.match(combat,/aria-label="Temporary HP"/);assert.doesNotMatch(combat,/data-health=/);
 });

@@ -1,5 +1,5 @@
 import {abilities,sizes,number,modifier,sheetStats} from '../features/sheet/model.mjs';
-import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles} from '../features/sheet/view.mjs';
+import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','languages','senses'],
  resources:['hp_curr','hp_temp','hp_max','hp_max_temp','mp_curr','mp_temp','mp_class','mp_bonus','mp_max_temp'],
@@ -26,8 +26,9 @@ export function rollDice(expression,random=limit=>{const range=4294967296,ceilin
 }
 export function mountSheet(){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
- const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null;
+ const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
+ let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
  document.body.classList.toggle('sheet-compact',compact);
  if(!id){root.innerHTML='<h1>Character sheet</h1><p>Choose a character to open its sheet.</p><a class="button" href="characters.html">Characters</a>';return ()=>control.abort();}
  const endpoint='/api/v1/character-records/'+encodeURIComponent(id);
@@ -38,7 +39,7 @@ export function mountSheet(){
   const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
- function draw(){if(closed)return;root.innerHTML=renderSheetFrame(character,section,{admin,compact});root.querySelector('[data-discord-rolls]').checked=discordEnabled;document.title=character.name+' · Comos';dirty=false;}
+ function draw(){if(closed)return;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability});root.querySelector('[data-discord-rolls]').checked=discordEnabled;document.title=character.name+' · Comos';dirty=false;}
  async function save(change){
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
   try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;dialog()?.close();draw();status('Saved · Synced'+(admin?' · Admin':''));return true;}
@@ -94,6 +95,7 @@ export function mountSheet(){
  }
  root.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||busy)return;
+  if(button.matches('[data-ability-tab]')){if(dirty&&!confirm('Discard unsaved edits?'))return;ability=button.dataset.abilityTab;draw();const url=new URL(location.href);url.searchParams.set('ability',ability);history.replaceState(null,'',url);return;}
   if(button.matches('[data-sheet-tab]')){
    if((dirty||dialog()?.open)&&!confirm('Discard unsaved edits?'))return;section=button.dataset.sheetTab;draw();const url=new URL(location.href);url.searchParams.set('section',section);history.replaceState(null,'',url);return;
   }
@@ -111,7 +113,6 @@ export function mountSheet(){
   if(button.matches('[data-use]')){const index=Number(button.dataset.use),row=character.data.activeAbilities[index];if(number(row.u_curr)>0)void save({action:'entry',collection:'activeAbilities',index,mode:'update',fields:{u_curr:number(row.u_curr)-1}});else status('No uses remaining.');return;}
   if(button.matches('[data-damage-roll]')){roll(button.dataset.damageLabel+' damage',button.dataset.damageRoll);return;}
   if(button.matches('[data-roll]')){roll(button.dataset.roll,'1d20'+(Number(button.dataset.bonus)>=0?'+':'')+number(button.dataset.bonus));return;}
-  if(button.matches('[data-health]')){openDialog(button.dataset.health==='damage'?'Take damage':'Heal',['amount'],{amount:1},{action:button.dataset.health},{help:button.dataset.health==='damage'?'Temporary HP absorbs damage first.':'Healing stops at your effective HP maximum.'});return;}
   if(button.matches('[data-formula]')){showFormula(button.dataset.formula);return;}
   if(button.matches('[data-rest]')){if(confirm('Recover HP equal to total level, refill MP, and restore active abilities marked for rest?'))void save({action:'rest'});return;}
   if(button.matches('[data-spend-mp]')){openDialog('Spend MP',['amount'],{amount:1},{action:'spendMp'},{help:'Enter the MP cost for this cast.'});return;}
@@ -120,16 +121,17 @@ export function mountSheet(){
   if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
   const fields={};for(const key of dialogState.keys){const node=event.target.elements[key];fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
-  if(['spendMp','damage','heal'].includes(dialogState.change.action)){void save({action:dialogState.change.action,amount:fields.amount});return;}
+  if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
  root.addEventListener('input',event=>{
-  if(event.target.matches('[data-sheet-search]')){const d=character.data,q=event.target.value;root.querySelector('[data-sheet-list]').innerHTML=section==='skills'?renderSkillRows(d,q):section==='items'?collectionBlock('items',d,q):section==='spells'?collectionBlock('spells',d,q):['activeAbilities','passiveAbilities','racialAbilities','feats'].map(k=>collectionBlock(k,d,q)).join('');return;}
+  if(event.target.matches('[data-sheet-search]')){const d=character.data,q=event.target.value;root.querySelector('[data-sheet-list]').innerHTML=section==='skills'?renderSkillRows(d,q):section==='items'?collectionBlock('items',d,q):section==='spells'?collectionBlock('spells',d,q):collectionBlock(ability,d,q);return;}
   if(event.target.closest('form')||event.target.matches('[data-resource-input]')){dirty=true;status('Unsaved changes');}
+  if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const key=event.target.dataset.resourceInput,value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(key!=='hp_temp'||value>=0)){pendingResourceFields[key]=value;resourceTimer=setTimeout(()=>{if(Object.keys(pendingResourceFields).length)void save({action:'fields',fields:{...pendingResourceFields}});},650);}}
  },{signal:control.signal});
  root.addEventListener('change',event=>{
   if(event.target.matches('[data-discord-rolls]'))discordEnabled=event.target.checked;
-  if(event.target.matches('[data-resource-input]')){const value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value))void save({action:'fields',fields:{[event.target.dataset.resourceInput]:value}});}
+  if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(event.target.dataset.resourceInput!=='hp_temp'||value>=0)){pendingResourceFields[event.target.dataset.resourceInput]=value;void save({action:'fields',fields:{...pendingResourceFields}});}}
   if(event.target.matches('[data-equipment]'))void save({action:'entry',collection:'items',index:Number(event.target.dataset.equipment),mode:'update',fields:{equipped:event.target.checked}});
  },{signal:control.signal});
  root.addEventListener('toggle',event=>{const detail=event.target;if(!detail.matches?.('[data-entry-details]')||!detail.open)return;const [key,i]=detail.dataset.entryDetails.split(':');const row=character?.data[key]?.[Number(i)];if(row)detail.querySelector('[data-entry-detail-body]').innerHTML=entryDetail(row);},{capture:true,signal:control.signal});
@@ -138,5 +140,5 @@ export function mountSheet(){
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML='<p role="status">Loading character…</p>';
  void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();schedule();if(typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed)root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.message)+'</p><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';});
- return ()=>{closed=true;clearTimeout(timer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
+ return ()=>{closed=true;clearTimeout(timer);clearTimeout(resourceTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }
