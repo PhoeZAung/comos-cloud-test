@@ -52,3 +52,13 @@ Dice now execute on the authenticated server, with bounded expressions, per-user
 The main navigation now contains Character, a native SVG sword, Skills, Inventory and Notes. Under the sword are Combat, Abilities and Spells. Abilities has Active, Passive, Racial and Feats categories; only the selected collection renders and is searched. Existing section URLs continue working, with the selected ability category optionally stored in `ability=`. Proficiencies is retained under Feats.
 
 Removed the redundant Damage/Heal buttons. HP keeps its existing plus/minus and direct input, with an always-visible editable Temp HP field beneath it, including when zero. Resource typing autosaves after a short pause or on change, batching pending fields so quick edits do not lose each other. Automatic selected-character sync, admin permissions and Discord rolls are retained. 119 tests pass; synthetic phone QA verified Temp HP saving and nested navigation.
+
+## Icon navigation, Favorites and combined combat block
+
+The main row is now six accessible native SVG icons: Favorites star, Character, sword, skill dice, inventory backpack and Notes notepad. Tooltips and accessible names remain. At a glance is removed from Character. Discord is an accessible icon toggle; Recovery sits directly to its right as an icon menu.
+
+Combat places Base immediately after the HP/MP resources, followed by a single Offense/Defense block with two buttons. Defense emphasizes AC in a shield-shaped control that opens the existing calculation explanation; Touch, Flat-footed and CMD remain below. Offense retains attack checks and weapon actions. Saving throws and resistances follow the combined block. The selected combat pane can be linked using `combatView=offense` or `combatView=defense`.
+
+Weapons and active/passive/racial abilities and feats have a star toggle. Its boolean favorite flag is saved on the original character entry through the authenticated, revision-checked API, preserving all source metadata. Favorites renders references to the actual entries and retains their edit, use and roll controls; it does not duplicate or separately save entries. Favorites belong to the character and sync to the owner's/admin's other views. Editing or deleting the original entry is reflected automatically.
+
+120 tests pass, including new icon/navigation ordering, Base placement, favorites flag validation, original metadata preservation, favorite selection/removal and original action indices. Synthetic mobile browser QA confirmed weapon favoriting, original actions within Favorites, the Recovery icon menu, and no document overflow at 390px. The existing real Discord receipt and Owlbear room verification limitations remain unchanged.

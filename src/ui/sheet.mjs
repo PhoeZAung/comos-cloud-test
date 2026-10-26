@@ -29,6 +29,7 @@ export function mountSheet(){
  const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
+ let combatView=new URL(location.href).searchParams.get('combatView')==='offense'?'offense':'defense';
  document.body.classList.toggle('sheet-compact',compact);
  if(!id){root.innerHTML='<h1>Character sheet</h1><p>Choose a character to open its sheet.</p><a class="button" href="characters.html">Characters</a>';return ()=>control.abort();}
  const endpoint='/api/v1/character-records/'+encodeURIComponent(id);
@@ -39,7 +40,7 @@ export function mountSheet(){
   const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
- function draw(){if(closed)return;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability});root.querySelector('[data-discord-rolls]').checked=discordEnabled;document.title=character.name+' · Comos';dirty=false;}
+ function draw(){if(closed)return;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView});root.querySelector('[data-discord-rolls]').checked=discordEnabled;document.title=character.name+' · Comos';dirty=false;}
  async function save(change){
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
   try{const result=await request(change);if(closed)return false;character=result.character;dirty=false;dialog()?.close();draw();status('Saved · Synced'+(admin?' · Admin':''));return true;}
@@ -95,6 +96,8 @@ export function mountSheet(){
  }
  root.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||busy)return;
+  if(button.matches('[data-combat-view]')){if(dirty&&!confirm('Discard unsaved edits?'))return;combatView=button.dataset.combatView;draw();const url=new URL(location.href);url.searchParams.set('combatView',combatView);history.replaceState(null,'',url);return;}
+  if(button.matches('[data-favorite]')){const [collection,i]=button.dataset.favorite.split(':');void save({action:'entry',collection,index:Number(i),mode:'update',fields:{favorite:character.data[collection][Number(i)].favorite!==true}});return;}
   if(button.matches('[data-ability-tab]')){if(dirty&&!confirm('Discard unsaved edits?'))return;ability=button.dataset.abilityTab;draw();const url=new URL(location.href);url.searchParams.set('ability',ability);history.replaceState(null,'',url);return;}
   if(button.matches('[data-sheet-tab]')){
    if((dirty||dialog()?.open)&&!confirm('Discard unsaved edits?'))return;section=button.dataset.sheetTab;draw();const url=new URL(location.href);url.searchParams.set('section',section);history.replaceState(null,'',url);return;

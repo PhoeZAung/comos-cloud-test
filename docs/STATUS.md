@@ -54,3 +54,5 @@ User-directed work replaces the old read-only sheet with responsive Character/Co
 Combat follow-up: action-first layout, Damage/Heal with temp HP handling, formula dialogs, Recovery menu, live selected-character revision events, conflict-only Load latest control, ↗ compact icon, and authenticated server-generated rolls connected to the legacy Discord relay. 118 tests pass. Actual Discord channel receipt requires the owner's first live roll; synthetic delivery tests do not claim it.
 
 Sheet navigation follow-up: sword parent with Combat/Abilities/Spells; four ability categories; redundant Damage/Heal controls removed; Temp HP directly editable below HP. Resource typing autosaves after a short pause. 119 tests and local phone navigation/resource checks pass.
+
+Sheet refinement: accessible icon-only main navigation with Favorites first; Character glance block removed; Discord and Recovery icon toolbar; Base below resources; combined Offense/Defense pane with AC shield; saves/resistances below. Favorite flags persist on original weapon/ability records and retain their actions. 120 tests and synthetic mobile checks pass.

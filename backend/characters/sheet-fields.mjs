@@ -34,7 +34,7 @@ export function mergeSheetData(original,change){
    for(const [key,value] of Object.entries(change.fields)){
     if(entryText.includes(key)){safe[key]=text(value,key==='name'?120:12000);if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
     else if(entryNumber.includes(key)){safe[key]=numeric(value);if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
-    else if(['equipped','cs','restoreOnLongRest'].includes(key)&&typeof value==='boolean')safe[key]=value;
+    else if(['equipped','cs','restoreOnLongRest','favorite'].includes(key)&&typeof value==='boolean')safe[key]=value;
     else if(['stat','ability_mod'].includes(key)&&abilities.includes(value))safe[key]=value;
     else bad('Invalid entry field.');
    }
