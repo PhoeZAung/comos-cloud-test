@@ -1,3 +1,4 @@
+import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
 import {weaponAttackParts,attackTypes} from '../../src/features/sheet/model.mjs';
 import {entryCalculations,context,damageExpression,diceTerms} from '../../src/features/sheet/calculations.mjs';
@@ -56,6 +57,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  const row=entry?character.data?.[weapon?'weapons':spell?'spells':change.collection]?.[change.index]:null;if(entry&&!row)throw Error('Entry not found.');
  const label=entry?String(row.name||'Weapon').slice(0,120):change.label;
  const last=db.prepare('SELECT created_at FROM sheet_rolls WHERE user_id=? ORDER BY created_at DESC LIMIT 1').get(userId);if(last&&Date.now()-last.created_at<1500)throw Error('Wait a moment before rolling again.');
+ if(ability&&mode!=='send'&&isLimitBreak(row)){const gate=limitBreakState(character.data);if(!gate.allowed)throw Error(gate.reason);}
  let updated=null;
  const descriptionOnly=entry&&(mode==='send'||mode==='use'&&!String(row.damage||row.dmg||'').trim());
  const roll=descriptionOnly?{kind:change.kind,description:String(row.desc||''),descriptionOnly:true,expression:'description',rolls:[],bonus:0,total:0,...(weapon?{weaponName:label}:spell?{spellName:label}:{abilityName:label})}:weapon?makeWeaponRoll(row,character.data):spell?makeSpellRoll(row,character.data):ability?makeAbilityRoll(row,character.data,change.collection):serverRoll(expression),delivery=change.discord?'pending':'off';
@@ -65,8 +67,8 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   roll.mpAmount=level;roll.mpSpent=level;roll.used=true;
   if(level>0)updated=mergeSheetData(character.data,{action:'spendMp',amount:level});
  }
- const spendAbility=ability&&(mode==='use'||mode==='legacy'&&change.spendUse);
- if(spendAbility&&(String(row.uses_formula||'').trim()||Number(row.u_max)>0)){updated=mergeSheetData(character.data,{action:'useAbility',collection:change.collection,index:change.index});roll.used=true;roll.remainingUses=updated[change.collection][change.index].u_curr;}
+ const spendAbility=ability&&(isLimitBreak(row)&&mode!=='send'||mode==='use'||mode==='legacy'&&change.spendUse);
+ if(spendAbility&&(isLimitBreak(row)||String(row.uses_formula||'').trim()||Number(row.u_max)>0)){updated=mergeSheetData(character.data,{action:'useAbility',collection:change.collection,index:change.index});roll.used=true;roll.remainingUses=updated[change.collection][change.index].u_curr;}
  if(updated)roll.characterRevision=character.revision+1;
  db.exec('BEGIN IMMEDIATE');try{
   if(entry&&db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision!==change.revision)throw Object.assign(Error('This character changed. Load the latest sheet.'),{httpStatus:409});

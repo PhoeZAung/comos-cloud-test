@@ -1,3 +1,5 @@
+import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
+import {isLimitBreak,syncLimitBreaks,spendLimitBreak} from '../../src/features/sheet/limit-breaks.mjs';
 import {restRecovery} from '../../src/features/sheet/recovery.mjs';
 import {skillBudget} from '../../src/features/sheet/skill-budget.mjs';
 import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
@@ -23,7 +25,7 @@ export function mergeSheetData(original,change){
  if(change.action==='fields'){
   if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>90)bad('Invalid sheet fields.');
   for(const [key,value] of Object.entries(change.fields)){
-   if(data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
+   if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
    if(numericFields.includes(key)){data[key]=numeric(value);if(key==='hp_temp')data[key]=Math.max(0,data[key]);if(abilities.includes(key)&&(data[key]<0||data[key]>999))bad('Ability score must be 0–999.');}
    else if(booleanFields.includes(key)&&typeof value==='boolean')data[key]=value;
@@ -34,6 +36,8 @@ export function mergeSheetData(original,change){
   if(Object.hasOwn(change.fields,'size_category'))data.size=data.size_category;
   if(Object.hasOwn(change.fields,'currency_gil'))data.gil=data.currency_gil;
   if(Object.hasOwn(change.fields,'mp_curr')&&!Object.hasOwn(change.fields,'mp')){if(data.mp_curr<0)bad('MP cannot be negative.');data.mp_temp=Math.min(Math.max(0,number(data.mp_temp)),data.mp_curr);data.mp=data.mp_curr-data.mp_temp;}
+ }else if(change.action==='addRuleAbility'){
+  if(typeof change.ruleId!=='string'||change.ruleId.length>250)bad('Choose an ability.');addRuleAbility(data,change.ruleId);
  }else if(change.action==='entry'){
   if(!collections.includes(change.collection)||!['add','update','remove'].includes(change.mode))bad('Invalid sheet entry.');
   const rows=change.collection==='skills'?sheetSkills(data):Array.isArray(data[change.collection])?data[change.collection]:[];
@@ -42,9 +46,10 @@ export function mergeSheetData(original,change){
   if(change.mode==='remove')rows.splice(change.index,1);
   else{
    if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>30)bad('Invalid entry fields.');
+   if(change.mode==='update'&&isLimitBreak(rows[change.index])&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Limit Break usage is shared and calculated.');
    const safe={};
    for(const [key,value] of Object.entries(change.fields)){
-   if(data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
+   if(key==='mp_max_spell_level'||data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
     if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
     else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=text(value,key==='name'?120:12000);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
@@ -96,15 +101,16 @@ export function mergeSheetData(original,change){
   if(!Number.isInteger(change.index)||!data.spells?.[change.index])bad('Entry not found.');
   return data;
  }else if(change.action==='useAbility'){
-  const collection=change.collection||'activeAbilities';if(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection))bad('Invalid ability.');const row=data[collection]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');const calc=entryCalculations(row,data,collection);
-  if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');row.u_curr=calc.currentUses-1;
+  const collection=change.collection||'activeAbilities';if(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection))bad('Invalid ability.');const row=data[collection]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');if(isLimitBreak(row)){spendLimitBreak(data);}else{const calc=entryCalculations(row,data,collection);
+  if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');row.u_curr=calc.currentUses-1;}
  }else if(change.action==='spendMp'){
   const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
  }else if(change.action==='rest'){
   const current=sheetStats(data),level=totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1;
-  const recovery=restRecovery(data);data.hp_curr=Math.min(current.hpMax,current.hp+recovery.hp);data.mp=Math.min(current.mpMax,Math.max(0,current.mp-Math.max(0,number(data.mp_temp)))+recovery.mp);data.mp_temp=0;
+  if(data.limitBreakPool||['activeAbilities','passiveAbilities','racialAbilities','feats'].some(k=>data[k]?.some(isLimitBreak)))data.limitBreakPool={spent:0};const recovery=restRecovery(data);data.hp_curr=Math.min(current.hpMax,current.hp+recovery.hp);data.mp=Math.min(current.mpMax,Math.max(0,current.mp-Math.max(0,number(data.mp_temp)))+recovery.mp);data.mp_temp=0;
   for(const row of ['activeAbilities','passiveAbilities','racialAbilities','feats'].flatMap(k=>data[k]||[]))if(row.restoreOnLongRest!==false){const max=entryCalculations(row,data,'activeAbilities').maxUses;if(max>0)row.u_curr=max;}
  }else bad('Invalid sheet action.');
+ syncLimitBreaks(data);
  updateManagedStats(data,original);
  if(data.rulesBuild)for(const key of ['activeAbilities','racialAbilities'])for(const row of data[key]||[]){if(!row.rulesOwned||!row.uses_formula)continue;const old=original[key]?.find(r=>r.sourceRuleId===row.sourceRuleId);if(!old||!abilities.some(k=>Number(data[k])!==Number(original[k])))continue;const before=entryCalculations(old,original,key),after=entryCalculations(row,data,key),spent=Math.max(0,before.maxUses-before.currentUses);row.u_max=after.maxUses;row.u_curr=Math.max(0,after.maxUses-spent);}
  const s=sheetStats(data);Object.assign(data,{hp_effective_max:s.hpMax,mp_curr:s.mp,mp_total_max:s.mpMax,mp_effective_max:s.mpMax,ac_total:s.ac,touch_ac_total:s.touch,flat_ac_total:s.flat,cmd_total:s.cmd,ar_total:s.melee,ar_ranged_total:s.ranged,ar_touch_total:s.touchAttack,ar_ranged_touch_total:s.rangedTouch,cmb:s.cmb,fort_bonus:s.fort,ref_bonus:s.ref,will_bonus:s.will});

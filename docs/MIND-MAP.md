@@ -89,3 +89,9 @@ Step 4 admin implementations now cover Groups, Character controls and Item contr
 ## Final sheet data workflow (27 October 2026)
 
 Use extraction contract v3. Race phase: 3–5 races in displayed site order, starting with Dwarf, Elvaan, Galka to replace legacy summaries. Class phase follows races: one class family at a time; each archetype gets its own file. Track extracted, validated, runtime supported and live separately. Full authorized descriptions, table completeness, usage/dice/caster-level formulas, archetype replacements and every upgrade event are required. Templates and chat output alone do not prove source accuracy or safe migration. See EXTRACTION_PROGRESS.json for the current batch; no new data batch was imported in this layout pass.
+
+
+### Sheet/wizard follow-up — 27 October 2026
+- Completed: first-tier spell-group expansion, shared Limit Break pool/HP gate, moon Rest/simple level-up actions, skill dice icons, ability restore library, official source/formula links, read-only maximum spell level, edit-only rank redistribution, and empty-choice skipping.
+- Multiclass: append/preserve boundary implemented for the current Black Mage adapter and established legacy classes; see SHEET-RULES-2026-10-27.md. Import/verify other class adapters before enabling new selectable class families or mixed-class respec.
+- Extraction requirements are in COMOS_EXTRACTION_V3.md, including its current sheet integration addendum. Continue races in site order, then one class family at a time. Archetype replacement mappings and full source descriptions remain required before activation.

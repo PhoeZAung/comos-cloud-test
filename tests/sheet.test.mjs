@@ -58,7 +58,7 @@ test('damage consumes temp HP first; heal caps at max and rejects negative amoun
  const damage=mergeSheetData(data,{action:'damage',amount:5});assert.equal(damage.hp_temp,0);assert.equal(damage.hp_curr,7);
  const absorbed=mergeSheetData(data,{action:'damage',amount:2});assert.equal(absorbed.hp_temp,1);assert.equal(absorbed.hp_curr,9);
  assert.equal(mergeSheetData(data,{action:'heal',amount:100}).hp_curr,22);assert.throws(()=>mergeSheetData(data,{action:'damage',amount:-1}));
- const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.doesNotMatch(html,/>Base<|>BAB<|>Speed</);assert.doesNotMatch(html,/data-health=/);assert.match(html,/data-formula="AC"/);assert.match(renderSheetFrame({id:'sample',name:'Mage',data},'combat'),/aria-label="Recovery"/);
+ const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.doesNotMatch(html,/>Base<|>BAB<|>Speed</);assert.doesNotMatch(html,/data-health=/);assert.match(html,/data-formula="AC"/);assert.match(renderSheetFrame({id:'sample',name:'Mage',data},'combat'),/aria-label="Rest"/);
 });
 
 test('heart groups combat, abilities and spells; ability categories render only selected records',()=>{
@@ -72,7 +72,7 @@ test('heart groups combat, abilities and spells; ability categories render only 
 test('icon navigation, combat layout and persistent favorites preserve original entry metadata',()=>{
  const original={...data,weapons:[{name:'Staff',damage:'1d6',sourceItemId:'retained'}],activeAbilities:[{name:'Focus',u_curr:2,u_max:3}]};
  const next=mergeSheetData(original,{action:'entry',collection:'weapons',index:0,mode:'update',fields:{favorite:true}});assert.equal(next.weapons[0].favorite,true);assert.equal(next.weapons[0].sourceItemId,'retained');assert.equal(original.weapons[0].favorite,undefined);
- const c={id:'sample',name:'Mage',data:next};const html=renderSheetFrame(c,'combat');assert.match(html,/data-sheet-tab="favorites"/);assert.ok(html.indexOf('data-sheet-tab="favorites"')<html.indexOf('data-sheet-tab="overview"'));for(const label of ['Character','Skills','Inventory','Notes','Recovery','Send rolls to Discord'])assert.match(html,new RegExp('aria-label="'+label+'"'));
+ const c={id:'sample',name:'Mage',data:next};const html=renderSheetFrame(c,'combat');assert.match(html,/data-sheet-tab="favorites"/);assert.ok(html.indexOf('data-sheet-tab="favorites"')<html.indexOf('data-sheet-tab="overview"'));for(const label of ['Character','Skills','Inventory','Notes','Rest','Send rolls to Discord'])assert.match(html,new RegExp('aria-label="'+label+'"'));
  assert.doesNotMatch(renderSection(c,'overview'),/At a glance/);const combat=renderSection(c,'combat');assert.doesNotMatch(combat,/>Base<|>BAB<|>Speed</);assert.ok(combat.indexOf('Offense and defense')<combat.indexOf('Saving throws'));
  const offense=renderSection(c,'combat',{combatView:'offense'});assert.match(offense,/data-favorite="weapons:0"/);assert.match(offense,/aria-pressed="true"/);const favorites=renderSection(c,'favorites');assert.match(favorites,/Staff/);assert.doesNotMatch(favorites,/Focus/);assert.match(favorites,/data-entry-details="weapons:0"/);
  const removed=mergeSheetData(next,{action:'entry',collection:'weapons',index:0,mode:'update',fields:{favorite:false}});assert.doesNotMatch(renderSection({id:'sample',name:'Mage',data:removed},'favorites'),/Staff/);assert.throws(()=>mergeSheetData(original,{action:'entry',collection:'weapons',index:0,mode:'update',fields:{favorite:'true'}}));

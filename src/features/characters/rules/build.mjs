@@ -1,3 +1,6 @@
+import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
+export {buildLevel,carryCharacter} from './multiclass.mjs';
+import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
 import {registry} from './catalog.mjs';
 import {spells} from './spells.mjs';
 import {blackMageSummary} from '../rules-summary.mjs';
@@ -9,7 +12,7 @@ export const stats=['str','dex','con','int','wis','cha'];
 export const steps=['Identity','Base scores','Race','Class','Choices','Spells','Review'];
 const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
-export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,raceId:'',heritageId:'',disabledTraits:[],alternateIds:[],level:1,archetypeId:'',choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
+export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,raceId:'',heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
 export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id));}
 export function raceTraits(b){
@@ -25,13 +28,13 @@ export function raceTraits(b){
  }
  return {traits:r.features.filter(f=>active.has(f.id)),replaced:[...consumed],errors};
 }
-export function effectiveScores(b){const result={...b.baseScores};for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=b.level&&stats.includes(key))result[key]++;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}return result;}
+export function effectiveScores(b){const result={...b.baseScores};for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=buildLevel(b)&&stats.includes(key))result[key]++;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}return result;}
 export function calculated(value,b,effective=effectiveScores(b)){
  if(!value)return null;if(value.kind==='constant')return value.value;
  if(value.kind==='level_table'){const level=value.levelBasis==='ability_score'?effective.int:b.level;return value.rows.filter(r=>r.from<=level).at(-1)?.value??value.belowFirst;}
  if(value.kind!=='formula')return null;
  let expression=value.expression;
- const vars={CLASS_LEVEL:b.level,CHARACTER_LEVEL:b.level,CASTER_LEVEL:b.level,SPELL_LEVEL:Math.min(9,Math.ceil(b.level/2)),FAVORED_SELECTIONS:0,CHOICE_RANK:1};
+ const vars={CLASS_LEVEL:b.level,CHARACTER_LEVEL:buildLevel(b),CASTER_LEVEL:b.level,SPELL_LEVEL:Math.min(9,Math.ceil(b.level/2)),FAVORED_SELECTIONS:0,CHOICE_RANK:1};
  for(const key of stats){vars[key.toUpperCase()+'_MOD']=mod(effective[key]);vars[key.toUpperCase()+'_SCORE']=effective[key];}
  expression=expression.replace(/\b[A-Z_]+\b/g,key=>{if(!Object.hasOwn(vars,key))bad('Unknown formula variable.');return '('+vars[key]+')';});
  const tokens=expression.match(/\d+(?:\.\d+)?|floor|ceil|min|max|[()+*/,\-]/g)||[];
@@ -48,7 +51,7 @@ export function calculated(value,b,effective=effectiveScores(b)){
 }
 export function choiceEvents(b){return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
 export function eligibleOptions(b,event){const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
-export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0?6:4));}
+export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?6:4));}
 export function spellCounts(b){const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
  const errors=[];const add=(step,message)=>errors.push({step,message});
@@ -56,10 +59,10 @@ export function buildIssues(b,{complete=true}={}){
  for(const k of stats)if(!Number.isInteger(b.baseScores[k])||b.baseScores[k]<1||b.baseScores[k]>45)add(1,'Base scores must be whole numbers from 1 to 45.');
  if(b.abilityMethod==='point-buy'&&(stats.some(k=>b.baseScores[k]<7||b.baseScores[k]>18)||pointSpend(b.baseScores)>b.pointBudget))add(1,'Point-buy scores must be 7–18 and within the selected budget.');
  if(['array','rolled'].includes(b.abilityMethod)){const pool=b.abilityMethod==='array'?standardArray:b.scorePool;if(pool.length!==6||new Set(b.scoreAssignments).size!==6||b.scoreAssignments.some(i=>!Number.isInteger(i)||i<0||i>5)||stats.some((key,i)=>b.baseScores[key]!==pool[b.scoreAssignments[i]]))add(1,'Assign each generated score exactly once.');}
- if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>b.level))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
+ if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>buildLevel(b)))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
  const race=raceFor(b);if(!race)add(2,'Choose Dwarf, Elvaan or Galka.');
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
- if(!Number.isInteger(b.level)||b.level<1||b.level>20)add(3,'Choose a Black Mage level from 1 to 20.');
+ if(!Number.isInteger(b.level)||b.level<1||b.level>20||buildLevel(b)>20)add(3,'Choose a Black Mage level from 1 to 20.');
  if(b.archetypeId)add(3,'This archetype is not ready for automatic application. Choose base Black Mage for this release.');
  const effective=effectiveScores(b);if(effective.int>45)add(1,'Effective Intelligence above 45 needs a verified bonus-MP table extension.');
  if(complete){
@@ -78,6 +81,7 @@ export function buildIssues(b,{complete=true}={}){
 }
 export function sanitizeBuild(raw){
  const b=newBuild(),keys=Object.keys(b);if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!keys.includes(k))||raw.version!==registry.version)bad('Unsupported character build.');
+ if(raw.carry!==undefined&&raw.carry!==null){if(typeof raw.carry!=='object'||Array.isArray(raw.carry)||JSON.stringify(raw.carry).length>25000)bad('Invalid previous class data.');b.carry=structuredClone(raw.carry);}
  for(const k of ['name','alignment','bio','portrait','raceId','heritageId','archetypeId']){if(typeof raw[k]!=='string'||raw[k].length>(k==='portrait'?160000:k==='bio'?2000:k==='name'?80:250))bad('Invalid '+k+'.');b[k]=raw[k];}
  if(!raw.baseScores||Object.keys(raw.baseScores).some(k=>!stats.includes(k)))bad('Invalid base scores.');for(const k of stats){if(!Number.isInteger(raw.baseScores[k])||raw.baseScores[k]<1||raw.baseScores[k]>45)bad('Invalid base scores.');b.baseScores[k]=raw.baseScores[k];}
  for(const k of ['disabledTraits','alternateIds','spellIds']){if(!Array.isArray(raw[k])||raw[k].length>400||raw[k].some(v=>typeof v!=='string'||v.length>250))bad('Invalid '+k+'.');b[k]=uniq(raw[k]);}
@@ -89,7 +93,7 @@ export function sanitizeBuild(raw){
  if(raw.scorePool!==undefined){if(!Array.isArray(raw.scorePool)||raw.scorePool.length>6||raw.scorePool.some(n=>!Number.isInteger(n)||n<3||n>18))bad('Invalid score pool.');b.scorePool=[...raw.scorePool];}
  if(raw.scoreAssignments!==undefined){if(!Array.isArray(raw.scoreAssignments)||raw.scoreAssignments.length!==6)bad('Invalid score assignments.');b.scoreAssignments=[...raw.scoreAssignments];}
  if(raw.initialIntMod!==undefined&&raw.initialIntMod!==null){if(!Number.isInteger(raw.initialIntMod)||raw.initialIntMod< -5||raw.initialIntMod>20)bad('Invalid initial INT.');b.initialIntMod=raw.initialIntMod;}
- if(raw.abilityIncreases!==undefined){if(!raw.abilityIncreases||typeof raw.abilityIncreases!=='object'||Array.isArray(raw.abilityIncreases)||Object.keys(raw.abilityIncreases).length>5)bad('Invalid level ability increases.');for(const [level,key] of Object.entries(raw.abilityIncreases)){if(!['4','8','12','16','20'].includes(level)||Number(level)>raw.level||!stats.includes(key))bad('Invalid level ability increase.');b.abilityIncreases[level]=key;}}
+ if(raw.abilityIncreases!==undefined){if(!raw.abilityIncreases||typeof raw.abilityIncreases!=='object'||Array.isArray(raw.abilityIncreases)||Object.keys(raw.abilityIncreases).length>5)bad('Invalid level ability increases.');for(const [level,key] of Object.entries(raw.abilityIncreases)){if(!['4','8','12','16','20'].includes(level)||Number(level)>buildLevel({...b,level:raw.level})||!stats.includes(key))bad('Invalid level ability increase.');b.abilityIncreases[level]=key;}}
  if(!raw.choices||typeof raw.choices!=='object'||Array.isArray(raw.choices)||Object.keys(raw.choices).length>100)bad('Invalid choices.');
  const validIds=new Set(choiceEvents({...b,level:20}).map(e=>e.id));b.choices={};for(const [k,v] of Object.entries(raw.choices)){if(!validIds.has(k)||!Array.isArray(v)||v.length>10||v.some(id=>typeof id!=='string'||id.length>250))bad('Invalid choice.');b.choices[k]=v;}
  if(typeof raw.reviewed!=='boolean'||!Number.isInteger(raw.level))bad('Invalid build.');b.reviewed=raw.reviewed;b.level=raw.level;
@@ -99,68 +103,74 @@ export function sanitizeBuild(raw){
 }
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 export function previewBuild(b){
- const scores=effectiveScores(b),summary=blackMageSummary(b.level,scores.int),race=raceFor(b),racial=raceTraits(b);
+ const scores=effectiveScores(b),ownSummary=blackMageSummary(b.level,scores.int),summary={...ownSummary,bab:ownSummary.bab+Number(b.carry?.bab||0),fort:ownSummary.fort+Number(b.carry?.fort||0),ref:ownSummary.ref+Number(b.carry?.ref||0),will:ownSummary.will+Number(b.carry?.will||0),baseMp:ownSummary.baseMp+Number(b.carry?.mpClass||0),bonusMp:ownSummary.bonusMp+Number(b.carry?.mpBonus||0),mp:ownSummary.mp+Number(b.carry?.mpClass||0)+Number(b.carry?.mpBonus||0)},race=raceFor(b),racial=raceTraits(b);
  const featureIds=new Set(registry.class.data.events.filter(e=>e.type==='grant_feature'&&e.atClassLevel<=b.level).flatMap(e=>e.featureIds));
  for(const event of choiceEvents(b))for(const id of b.choices[event.id]||[]){const opt=eligibleOptions(b,event).find(o=>o.id===id);for(const f of opt?.featureIds||[])featureIds.add(f);}
  const features=registry.class.features.filter(f=>featureIds.has(f.id));
  const favored=b.favored.slice(0,b.level),hp=hpHistory(b).reduce((s,n)=>s+Math.max(1,(Number(n)||0)+mod(scores.con)),0)+favored.filter(v=>v==='hp').length;
- return {scores,summary,race,racial,features,hp,skillBudget:summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
+ const carriedHp=Number(b.carry?.hpMax||0)+carriedLevels(b)*(mod(scores.con)-mod(b.carry?.con||scores.con));
+ return {scores,summary,race,racial,features,hp:hp+carriedHp,skillBudget:Number(b.carry?.skillBudget||0)+carriedLevels(b)*(mod(scores.int)-mod(b.carry?.int??scores.int))+summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
-export function compileBuild(raw,previous={}){
- const previousManaged=previous.rulesBuild;
+export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false}={}){
+ const previousManaged=append?null:previous.rulesBuild;
+ const expectedCarry=append?carryCharacter(previous):previousManaged?.input?.carry;
+ if(!sameCarry(raw?.carry,expectedCarry))bad('Previous class data cannot be replaced.');
+ if(!append&&!previousManaged&&Object.keys(previous).length&&Array.isArray(previous.classes)&&previous.classes.some(c=>c.name!=='Black Mage'))bad('Add Black Mage through Level up to preserve existing classes.');
  const normalized={...raw,hpRolls:Array.isArray(raw?.hpRolls)?hpHistory(raw):raw?.hpRolls};
  const candidate=previousManaged?.input?.initialIntMod!==undefined?{...normalized,initialIntMod:previousManaged.input.initialIntMod}:normalized;
  const b=sanitizeBuild(candidate),p=previewBuild(b),next=structuredClone(previous);
- if(previousManaged&&b.skillRanks?.some((n,i)=>n<Number(previousManaged.rankFloor?.[i]??previousManaged.input.skillRanks?.[i]??0)))bad('Confirmed skill ranks cannot be reduced.');
+ if(!allowRankReduction&&previousManaged&&b.skillRanks?.some((n,i)=>n<Number(previousManaged.rankFloor?.[i]??previousManaged.input.skillRanks?.[i]??0)))bad('Confirmed skill ranks cannot be reduced.');
  if(!previousManaged)b.initialIntMod=mod(p.scores.int);
  const ownedKeys=['hp_max','bab','fort_base','ref_base','will_base','mp_class','mp_bonus','mp_max_spell_level','speed','size_category','languages','senses','proficiencies'];
  // Explicit first adoption retains a rollback snapshot; unknown/manual entries are preserved.
- const rollback=previousManaged?.rollback||structuredClone(previous);
+ const rollback=previous.rulesBuild?.rollback||structuredClone(previous);
  Object.assign(next,p.scores,{charName:b.name.trim(),alignment:b.alignment,bio:b.bio,portrait:b.portrait,source:'FFD20',race:p.race.name,class:'Black Mage',level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,classes:[{name:'Black Mage',level:b.level,archetype:''}],archetype:'',hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:'int'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition),lang=[],senses=[],profs=[];
  next.speed=0;next.size_category='Medium';
  for(const e of effects){if(e.target==='identity.speed.land')next.speed=calculated(e.value,b);if(e.target==='identity.size_category')next.size_category=String(e.textValue||'Medium').replace(/^./,c=>c.toUpperCase());if(e.target.startsWith('identity.languages.'))lang.push(e.textValue||e.target.split('.').at(-1));if(e.target.startsWith('identity.senses.'))senses.push(e.textValue||e.target.split('.').at(-1));if(e.target.startsWith('proficiencies.weapon.'))profs.push(e.textValue||e.target.split('.').at(-1).replaceAll('-',' '));}
- next.languages=uniq(lang).join(', ');next.senses=uniq(senses).join('; ');next.proficiencies=uniq([...profs,'Dagger','Sling','Power rod','Power staff','Animated dolls','Quarterstaff','Buckler','Light shields']).join(', ');next.size=next.size_category;
+ next.languages=uniq(lang).join(', ');next.senses=uniq(senses).join('; ');next.proficiencies=uniq([...(b.carry?.proficiencies||'').split(/,\s*/).filter(Boolean),...profs,'Dagger','Sling','Power rod','Power staff','Animated dolls','Quarterstaff','Buckler','Light shields']).join(', ');next.size=next.size_category;
  const initial=!Object.keys(previous).length;
  if(initial){next.hp_curr=p.hp;next.mp=p.summary.mp;next.mp_curr=p.summary.mp;next.mp_temp=0;next.items=[{name:'Starting outfit',type:'Gear',amount:1,desc:'Starting outfit worth up to 10 gil, granted in addition to starting wealth.',value:10,sourceRuleId:'ffd20:class:black-mage:starting-outfit'}];next.weapons=[];next.currency_gil=70;next.gil=70;b.initialIntMod=mod(p.scores.int);}
  else if(next.mp===undefined&&next.mp_curr!==undefined){next.mp=next.mp_curr;next.mp_temp=0;}
  next.favoredClassBonuses=Object.fromEntries(b.favored.slice(0,b.level).map((v,i)=>[String(i+1),v]));
  const originalRows=previous.skills||fixedSkills.map(r=>({...r,lvl:0,temp:0,cs:false,subName:''}));
- next.skills=originalRows.map((row,index)=>{const r={...row};if(b.skillRanks&&index<fixedSkills.length)r.lvl=b.skillRanks[index];const id=skillId(r);r.cs=registry.class.data.classSkills.some(s=>s.skillId===id)||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=registry.class.data.classSkills.some(s=>s.skillId===id);
+ next.skills=originalRows.map((row,index)=>{const r={...row};if(b.skillRanks&&index<fixedSkills.length)r.lvl=b.skillRanks[index];const id=skillId(r);r.cs=b.carry?.classSkills?.[index]===true||registry.class.data.classSkills.some(s=>s.skillId===id)||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=registry.class.data.classSkills.some(s=>s.skillId===id);
   // Remove only the last source contribution, preserving manually entered misc bonuses.
   r.temp=Number(row.temp||0)-Number(row.rulesBonus||0);let bonus=0;
-  for(const e of effects)if(e.target===`skills.${id}.bonus`)bonus+=Number(calculated(e.value,b)||0);else if(e.target===`skills.${id}.class_skill`)r.cs=true;
+  if(b.carry)bonus=Number(b.carry.ruleBonuses?.[index]||0);
+  for(const e of b.carry?[]:effects)if(e.target===`skills.${id}.bonus`)bonus+=Number(calculated(e.value,b)||0);else if(e.target===`skills.${id}.class_skill`)r.cs=true;
   if(b.level>=7&&id.startsWith('skill:knowledge-'))bonus+=Math.max(1,Math.floor(b.level/2));r.rulesBonus=bonus;r.temp+=bonus;return r;});
  const rows={activeAbilities:[],passiveAbilities:[],racialAbilities:[],feats:[],spells:[]};
  function grant(f,key){const old=previous[key]?.find(r=>r.sourceRuleId===f.id);if(previousManaged?.ownedIds?.includes(f.id)&&!old)return;
-  const action=f.actions?.[0],cost=action?.costs?.[0],pool=registry.class.resources.find(r=>r.id===cost?.resourceId||r.id===f.id.replace(':feature:',':resource:'));const maximum=pool?Math.max(0,calculated(pool.maximum,b)||0):0;
-  const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:f.description,rulesName:f.name,rulesDescription:f.description,sourceRuleId:f.id,sourceClass:'Black Mage',rulesOwned:true};
+  const action=f.actions?.[0],cost=action?.costs?.[0],pool=[...registry.class.resources,...p.race.resources].find(r=>r.id===cost?.resourceId||r.id===f.id.replace(':feature:',':resource:'));const maximum=pool?Math.max(0,calculated(pool.maximum,b)||0):0;
+  const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:f.description,rulesName:f.name,rulesDescription:f.description,sourceRuleId:f.id,sourceClass:'Black Mage',rulesOwned:true,...(f.featureKind==='limit_break'?{limitBreak:true}:{})};
   if(pool){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;
    if(pool.maximum.kind==='formula'&&!/\b(?:min|max|floor|ceil)\b/.test(pool.maximum.expression)){row.uses_formula=pool.maximum.expression.replace(/\b(STR|DEX|CON|INT|WIS|CHA)_MOD\b/g,'{$1}').replaceAll('CLASS_LEVEL',String(b.level));row.uses_min=pool.maximum.minimum??0;}
   }
   rows[key].push(row);
  }
- for(const f of p.features){const target=f.activation==='active'||f.activation==='mixed'?'activeAbilities':'passiveAbilities';grant(f,target);}
+ for(const f of p.features){const target=f.featureKind==='limit_break'||f.activation==='active'||f.activation==='mixed'?'activeAbilities':'passiveAbilities';grant(f,target);}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
- for(let level=1;level<=b.level;level+=2){const id='comos:feat-slot:'+level,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+level,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
+ for(let level=1;level<=buildLevel(b);level+=2){const id='comos:feat-slot:'+level,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+level,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  const dcBonus=choiceEvents(b).flatMap(event=>b.choices[event.id]||[]).filter(id=>id==='ffd20:class:black-mage:option:black-magery:spell-mastery').length;
  for(const id of b.spellIds){const spell=spells.find(s=>s.id===id),old=previous.spells?.find(s=>s.sourceRuleId===id);rows.spells.push({...old,sourceRuleId:id,rulesOwned:true,sourceClass:'Black Mage',name:spell.name,desc:spell.description,lvl:spell.level,mp_cost:spell.level,casting_ability:'int',school:spell.school,range:spell.range,duration:spell.duration,saving_throw:spell.save,target:spell.target,rulesDcBonus:spell.level>0?dcBonus:0,dc_misc:Number(old?.dc_misc||0)-Number(old?.rulesDcBonus||0)+(spell.level>0?dcBonus:0)});}
- for(const key of Object.keys(rows))next[key]=[...(previous[key]||[]).filter(r=>!r.rulesOwned),...rows[key]];
+ for(const key of Object.keys(rows)){const owned=new Set(previousManaged?.ownedIds||[]);next[key]=[...(previous[key]||[]).filter(r=>!r.rulesOwned||!owned.has(r.sourceRuleId)&&!rows[key].some(n=>n.sourceRuleId===r.sourceRuleId)),...rows[key]];}
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
  next.favored_class_options=p.race.data.favoredRewards.filter(r=>r.classId===registry.class.id).map(r=>r.description).join('\n')+'\nApply favored-class rewards manually; they are not automatically awarded.';
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
- if(previousManaged)for(const key of ownedKeys){const oldBase=previousManaged.lastValues?.[key];if(typeof oldBase==='number'&&typeof previous[key]==='number')next[key]+=previous[key]-oldBase;else if(oldBase!==undefined&&previous[key]!==oldBase)next[key]=previous[key];}
- next.castingProfiles=[{className:'Black Mage',mode:'full',ability:'int',casterLevel:b.level,highestSpellLevel:p.summary.spellLevel}];
+ if(previousManaged)for(const key of ownedKeys){if(key==='mp_max_spell_level')continue;const oldBase=previousManaged.lastValues?.[key];if(typeof oldBase==='number'&&typeof previous[key]==='number')next[key]+=previous[key]-oldBase;else if(oldBase!==undefined&&previous[key]!==oldBase)next[key]=previous[key];}
+ next.castingProfiles=[...(b.carry?.castingProfiles||[]),{className:'Black Mage',mode:'full',ability:'int',casterLevel:b.level,highestSpellLevel:p.summary.spellLevel}];
+ if(b.carry){next.classes=[...structuredClone(b.carry.classes),{name:'Black Mage',level:b.level,archetype:''}];next.languages=b.carry.languages;next.senses=b.carry.senses;next.speed=b.carry.speed;next.size=next.size_category=b.carry.size;next.class=next.classes[0].name;next.class_level=next.classes[0].level;next.level=next.character_level=next.total_level=buildLevel(b);}
  next.rulesBuild={rankFloor:b.skillRanks?[...b.skillRanks]:previousManaged?.rankFloor,version:registry.version,input:b,ownedIds:Object.values(rows).flat().map(r=>r.sourceRuleId),lastValues,rollback};
- return next;
+ syncLimitBreaks(next);return next;
 }
 export function levelUpBuild(raw,previous){
- const old=previous.rulesBuild?.input;if(!old)bad('Open Edit to establish this character’s reviewed class build before leveling up.');
- if(old.level>=20||raw.level!==old.level+1)bad('Level up adds exactly one level, up to level 20.');
+ const old=previous.rulesBuild?.input;if(!sameCarry(raw?.carry,old?.carry))bad('Previous class data cannot be replaced.');if(!old)bad('Open Edit to establish this character’s reviewed class build before leveling up.');
+ if(buildLevel(old)>=20||raw.level!==old.level+1)bad('Level up adds exactly one level, up to level 20.');
  const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
  for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId'])if(!same(raw[key],old[key]))bad('Level up cannot change '+key+'. Use Edit instead.');
- const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose one ability to increase by +1.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
+ const boosts={...(old.abilityIncreases||{})};if(buildLevel(raw)%4===0){if(!stats.includes(raw.abilityIncreases?.[buildLevel(raw)]))bad('Choose one ability to increase by +1.');boosts[buildLevel(raw)]=raw.abilityIncreases[buildLevel(raw)];}
  if(!same(raw.abilityIncreases||{},boosts))bad('Only the current milestone grants a new +1 ability increase.');
  if(!same(raw.hpRolls,[...hpHistory(old),4]))bad('Black Mage gains 4 base HP at this level.');
  if(raw.skillRanks&&raw.skillRanks.some((n,i)=>n<Number(previous.skills?.[i]?.lvl||0)))bad('Level up cannot remove existing skill ranks.');
@@ -178,3 +188,13 @@ export function classFeatureChanges(build,baseline){
  return after.map(feature=>({feature,kind:!oldIds.has(feature.id)?'new':baseline&&signature(feature,build)!==signature(feature,baseline)?'upgrade':null})).filter(row=>row.kind);
 }
 export const hasSpellcasting=definition=>Boolean(definition?.data?.spellcasting&&definition.data.spellcasting.learningMode!=='none');
+
+export function appendClassBuild(raw,previous){
+ if(raw.level!==1)bad('A new class begins at level 1.');
+ const carry=carryCharacter(previous);if(!sameCarry(raw.carry,carry))bad('Previous class data cannot be replaced.');if(JSON.stringify(raw.hpRolls)!=='[4]')bad('A new class adds 4 base HP after character level 1.');const milestones=raw.abilityIncreases||{},total=buildLevel(raw);if(total%4===0?Object.keys(milestones).length!==1||!stats.includes(milestones[total]):Object.keys(milestones).length!==0)bad('Choose one ability increase only at a character-level milestone.');if(raw.initialIntMod!==null&&raw.initialIntMod!==mod(effectiveScores(raw).int))bad('Starting spell entitlement uses the new class starting modifier.');if(buildLevel({...raw,carry})>20)bad('Total level cannot exceed 20.');
+ if(!Array.isArray(raw.skillRanks)||raw.skillRanks.some((n,i)=>n<carry.ranks[i]))bad('Adding a class cannot reduce existing skill ranks.');
+ const scores=effectiveScores(raw);for(const k of stats){const before=Number(previous[k]),growth=buildLevel(raw)%4===0&&raw.abilityIncreases?.[buildLevel(raw)]===k?1:0;if(scores[k]!==before+growth)bad('Adding a class preserves existing ability scores.');}
+ for(const [key,old] of [['name',previous.charName],['alignment',previous.alignment||''],['bio',previous.bio||''],['portrait',previous.portrait||'']])if(raw[key]!==old)bad('Adding a class preserves '+key+'.');
+ if(raceFor(raw)?.name!==previous.race)bad('Adding a class preserves race.');
+ const next=compileBuild(raw,previous,{append:true}),s=sheetStats(next);next.hp_curr=s.hpMax;next.mp=next.mp_curr=s.mpMax;next.mp_temp=0;return next;
+}
