@@ -1,11 +1,11 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "Unapproved race extraction definitions. These files are intentionally excluded from rules/manifest.json and production wizard.",
+  "description": "Staged, unapproved FFd20 race extraction definitions. Listed in the live wizard for hands-on testing; NOT independently reviewed or import-ready.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
   "importReady": false,
-  "enabledInWizard": false,
+  "enabledInWizard": true,
   "races": [
     {
       "file": "rules/staging/races/hume.race.json",
@@ -97,6 +97,7 @@
     "No independent rules approval",
     "Incomplete conditional effect/runtime adapter support",
     "Unresolved class-favored dependencies",
-    "Beastkin incomplete and omitted"
+    "Beastkin incomplete and omitted",
+    "Live testing is not independent rules approval; unresolved selections and conditional mechanics remain manual."
   ]
 }

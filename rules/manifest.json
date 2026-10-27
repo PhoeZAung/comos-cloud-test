@@ -3,10 +3,27 @@
   "races": [
     "races/dwarf.race.json",
     "races/elvaan.race.json",
-    "races/galka.race.json"
+    "races/galka.race.json",
+    "staging/races/hume.race.json",
+    "staging/races/moogle.race.json",
+    "staging/races/half-breed.race.json",
+    "staging/races/mithra.race.json",
+    "staging/races/tarutaru.race.json",
+    "staging/races/aegyl.race.json",
+    "staging/races/al-bhed.race.json",
+    "staging/races/au-ra.race.json",
+    "staging/races/bangaa.race.json",
+    "staging/races/burmecian.race.json",
+    "staging/races/dracobaltian.race.json",
+    "staging/races/garif.race.json",
+    "staging/races/garlean.race.json",
+    "staging/races/genome.race.json",
+    "staging/races/gria.race.json",
+    "staging/races/guado.race.json",
+    "staging/races/hypello.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"
   ],
-  "policy": "Canonical definitions stay needs_review. The runtime projection preserves existing fixed effects and manual rule cards; it is not an independently approved import. Each future class file contains its base class and all archetype definitions as separate records in one family file."
+  "policy": "Canonical definitions stay needs_review. The runtime projection preserves existing fixed effects and manual rule cards; it is not an independently approved import. Each future class file contains its base class and all archetype definitions as separate records in one family file. Staged races listed here are available for live testing, not approved as complete rules. Unsupported effects remain manual and unresolved alternate replacements are disabled."
 }

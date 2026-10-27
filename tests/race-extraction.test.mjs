@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {generateRaceCatalog,projectRaceDefinition} from '../scripts/generate-races.mjs';
-import {registry,newBuild,choiceEvents,eligibleOptions,calculated,spells,compileBuild,effectiveScores,raceTraits} from '../src/features/characters/rules/build.mjs';
+import {registry,raceFor,newBuild,choiceEvents,eligibleOptions,calculated,spells,compileBuild,effectiveScores,raceTraits} from '../src/features/characters/rules/build.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
 import {renderSection} from '../src/features/sheet/view.mjs';
 const root=new URL('../',import.meta.url);
@@ -52,4 +52,31 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
  assert.deepEqual(effectiveScores(b),{str:10,dex:10,con:12,int:18,wis:8,cha:12});
  b.heritageId=registry.races[0].data.heritages[0].id;assert(raceTraits(b).errors.length);
  b.heritageId='';b.alternateIds=['ffd20:race:dwarf:feature:saltbeard'];assert.throws(()=>compileBuild(b),/precise replacement/);
+});
+
+test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
+ const manifest=await read('rules/manifest.json');
+ const staging=await read('rules/staging/races/manifest.json');
+ assert.equal(manifest.races.length,20);
+ assert.equal(staging.enabledInWizard,true);
+ assert.equal(staging.importReady,false);
+ assert.equal(registry.races.length,20);
+ const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
+ assert.equal(live.length,3);
+ assert.equal(experimental.length,17);
+ for(const race of experimental){
+  assert.equal(race.reviewStatus,'needs_review');
+  assert(race.data.standardTraitIds.length>0);
+  assert(race.sources[0].url.startsWith('https://'));
+  const b=newBuild();b.raceId=race.id;
+  assert.equal(raceFor(b)?.id,race.id);
+  assert.deepEqual(raceTraits(b).errors,[]);
+  for(const f of race.features)for(const e of f.effects){
+   if(e.automation==='automatic'){
+    assert.equal(e.condition,null,'conditional bonus may not auto-apply');
+    assert(/^(ability_scores|skills|identity|proficiencies\\.weapon)\\./.test(e.target),'automatic effect path not supported');
+   }
+  }
+ }
+ assert.equal(registry.races.some(r=>r.name==='Beastkin'),false);
 });
