@@ -4,3 +4,7 @@ export function pointSpend(scores){return Object.values(scores).reduce((sum,n)=>
 export function rollScores(die=()=>{const n=new Uint32Array(1);do{crypto.getRandomValues(n);}while(n[0]>=4294967292);return n[0]%6+1;}){
  return Array.from({length:6},()=>{const dice=Array.from({length:4},die);if(dice.some(n=>!Number.isInteger(n)||n<1||n>6))throw Error('Invalid die.');return {dice,total:dice.reduce((a,b)=>a+b,0)-Math.min(...dice)};});
 }
+export function moveScoreToken(assignments,token,target){
+ if(!Number.isInteger(token)||token<0||token>5||!Number.isInteger(target)||target<0||target>5)throw Error('Invalid score assignment.');
+ return assignments.map((value,i)=>i===target?token:value===token?null:value);
+}

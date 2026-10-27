@@ -47,7 +47,8 @@ export function calculated(value,b,effective=effectiveScores(b)){
 }
 export function choiceEvents(b){return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
 export function eligibleOptions(b,event){const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
-export function spellCounts(b){const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(0,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
+export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0?6:4));}
+export function spellCounts(b){const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
  const errors=[];const add=(step,message)=>errors.push({step,message});
  if(!b.name.trim())add(0,'Enter a character name.');
@@ -61,14 +62,14 @@ export function buildIssues(b,{complete=true}={}){
  if(b.archetypeId)add(3,'This archetype is not ready for automatic application. Choose base Black Mage for this release.');
  const effective=effectiveScores(b);if(effective.int>45)add(1,'Effective Intelligence above 45 needs a verified bonus-MP table extension.');
  if(complete){
-  if(b.hpRolls.length<b.level||b.hpRolls.slice(0,b.level).some(n=>!Number.isInteger(n)||n<1||n>6))add(4,'Enter the base d6 HP result for every class level.');
+  if(hpHistory(b).some(n=>!Number.isInteger(n)||n<1||n>6))add(4,'Invalid recorded class HP. Review this character’s HP history.');
   if(b.favored.slice(0,b.level).some(v=>!['','hp','skill','racial'].includes(v)))add(4,'Invalid favored class reward.');
   const seen=new Map();for(const event of choiceEvents(b)){const options=eligibleOptions(b,event),chosen=b.choices[event.id]||[],count=calculated(event.count,b);if(chosen.length!==count||chosen.some(id=>!options.some(o=>o.id===id)))add(4,`Level ${event.atClassLevel}: choose ${count} for ${registry.class.choicePools.find(p=>event.poolIds.includes(p.id))?.name}.`);for(const id of chosen){const o=options.find(o=>o.id===id);seen.set(id,(seen.get(id)||0)+1);if(o&&seen.get(id)>(o.repeatLimit||1))add(4,'Repeat limit exceeded for '+o.name+'.');}}
   const s=blackMageSummary(Math.min(20,Math.max(1,b.level)),Math.min(45,effective.int)),chosen=b.spellIds.map(id=>spells.find(s=>s.id===id));
   if(chosen.some(x=>!x)||new Set(b.spellIds).size!==b.spellIds.length)add(5,'Invalid or duplicate learned spell.');
-  if(chosen.some(x=>x&&x.level>Math.min(s.spellLevel,effective.int-10)))add(5,'A learned spell exceeds the level or Intelligence requirement.');
+  if(chosen.some(x=>x&&x.level>s.spellLevel))add(5,'A learned spell exceeds the level or Intelligence requirement.');
   const counts=spellCounts(b);if(chosen.filter(x=>x?.level===0).length!==counts.cantrips||chosen.filter(x=>x?.level>0).length!==counts.leveled)add(5,`Choose ${counts.cantrips} cantrips and ${counts.leveled} other spells.`);
-  const limits=[];for(let level=1;level<=b.level;level++){const count=level===1?Math.max(0,3+(b.initialIntMod??mod(effective.int))):2;for(let i=0;i<count+([7,12,17].includes(level)?1:0);i++)limits.push(Math.min(9,Math.ceil(level/2)));}
+  const limits=[];for(let level=1;level<=b.level;level++){const count=level===1?Math.max(3,3+(b.initialIntMod??mod(effective.int))):2;for(let i=0;i<count+([7,12,17].includes(level)?1:0);i++)limits.push(Math.min(9,Math.ceil(level/2)));}
   const levels=chosen.filter(x=>x?.level>0).map(x=>x.level).sort((a,b)=>a-b);if(levels.some((level,i)=>limits[i]!==undefined&&level>limits[i]))add(5,'Some spells were not available at the level their learning opportunity was gained. Choose more lower-level spells.');
   if(!b.reviewed)add(6,'Confirm you have reviewed the character preview.');
  }
@@ -101,12 +102,13 @@ export function previewBuild(b){
  const featureIds=new Set(registry.class.data.events.filter(e=>e.type==='grant_feature'&&e.atClassLevel<=b.level).flatMap(e=>e.featureIds));
  for(const event of choiceEvents(b))for(const id of b.choices[event.id]||[]){const opt=eligibleOptions(b,event).find(o=>o.id===id);for(const f of opt?.featureIds||[])featureIds.add(f);}
  const features=registry.class.features.filter(f=>featureIds.has(f.id));
- const favored=b.favored.slice(0,b.level),hp=b.hpRolls.slice(0,b.level).reduce((s,n)=>s+Math.max(1,(Number(n)||0)+mod(scores.con)),0)+favored.filter(v=>v==='hp').length;
+ const favored=b.favored.slice(0,b.level),hp=hpHistory(b).reduce((s,n)=>s+Math.max(1,(Number(n)||0)+mod(scores.con)),0)+favored.filter(v=>v==='hp').length;
  return {scores,summary,race,racial,features,hp,skillBudget:summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
 export function compileBuild(raw,previous={}){
  const previousManaged=previous.rulesBuild;
- const candidate=previousManaged?.input?.initialIntMod!==undefined?{...raw,initialIntMod:previousManaged.input.initialIntMod}:raw;
+ const normalized={...raw,hpRolls:Array.isArray(raw?.hpRolls)?hpHistory(raw):raw?.hpRolls};
+ const candidate=previousManaged?.input?.initialIntMod!==undefined?{...normalized,initialIntMod:previousManaged.input.initialIntMod}:normalized;
  const b=sanitizeBuild(candidate),p=previewBuild(b),next=structuredClone(previous);
  if(!previousManaged)b.initialIntMod=mod(p.scores.int);
  const ownedKeys=['hp_max','bab','fort_base','ref_base','will_base','mp_class','mp_bonus','mp_max_spell_level','speed','size_category','languages','senses','proficiencies'];
@@ -157,11 +159,12 @@ export function levelUpBuild(raw,previous){
  for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId'])if(!same(raw[key],old[key]))bad('Level up cannot change '+key+'. Use Edit instead.');
  const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose one ability to increase by +1.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
  if(!same(raw.abilityIncreases||{},boosts))bad('Only the current milestone grants a new +1 ability increase.');
- if(!same(raw.hpRolls,[...old.hpRolls,4]))bad('Black Mage gains 4 base HP at this level.');
+ if(!same(raw.hpRolls,[...hpHistory(old),4]))bad('Black Mage gains 4 base HP at this level.');
  if(raw.skillRanks&&raw.skillRanks.some((n,i)=>n<Number(previous.skills?.[i]?.lvl||0)))bad('Level up cannot remove existing skill ranks.');
  if(old.spellIds.some(id=>!raw.spellIds.includes(id)))bad('Level up cannot remove learned spells.');
  for(const [id,values] of Object.entries(old.choices))if(!same(raw.choices[id],values))bad('Level up cannot replace earlier class choices.');
  if(!same(raw.favored,old.favored))bad('Favored rewards are applied manually.');
  const expectedInitial=old.initialIntMod??mod(effectiveScores(old).int);if(raw.initialIntMod!==expectedInitial)bad('Starting spell entitlement is fixed at creation.');
+ if(old.hpRolls.length<old.level){previous=structuredClone(previous);previous.rulesBuild.lastValues.hp_max=previewBuild({...old,hpRolls:hpHistory(old)}).hp;}
  return compileBuild(raw,previous);
 }
