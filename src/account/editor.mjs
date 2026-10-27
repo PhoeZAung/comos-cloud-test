@@ -8,13 +8,14 @@ export function mountAccount({user=null,fixture=false,onUser=()=>{}}={}) {
  let disposed=false,previewURL,latestPreferences={...preferences},settingsDirty=false,settingsRunning=false;
  const name=root.querySelector('[data-account-name]'),profileStatus=root.querySelector('[data-profile-status]'),prefStatus=root.querySelector('[data-preferences-status]'),retry=root.querySelector('[data-settings-retry]');
  const photo=root.querySelector('[data-avatar-preview]'),placeholder=root.querySelector('[data-avatar-placeholder]'),remove=root.querySelector('[data-avatar-remove]'),fileInput=root.querySelector('[data-avatar-file]');
+ const dice=root.querySelector('[data-dice-popup]');
  const splash=root.querySelector('[data-splash-toggle]'),colors=root.querySelector('[data-effect-colors]'),pauseStars=root.querySelector('[data-pause-stars]');
  const say=(element,text)=>{if(!disposed)element.textContent=text;};
  const describe=error=>error.code==='conflict'?'Changed in another session. Your edits are not saved. Refresh and try again.':error.code==='signed-out'?'Your session expired. Sign in again to save.':error.code==='rate-limit'?'Too many changes. Wait a minute, then retry.':error.message||'Could not save. Check your connection and retry.';
  const client=fixture?null:createAccountClient({user,onUser:next=>{user=next;onUser(next,{applyTheme:disposed});}});
  function syncChoices(){
   for(const button of root.querySelectorAll('[data-theme-choice]'))button.setAttribute('aria-pressed',String(button.dataset.themeChoice===latestPreferences.theme));
-  splash.checked=latestPreferences.splashCursor;colors.checked=latestPreferences.effectColors;pauseStars.checked=latestPreferences.pauseStars;
+  dice.checked=latestPreferences.dicePopup;splash.checked=latestPreferences.splashCursor;colors.checked=latestPreferences.effectColors;pauseStars.checked=latestPreferences.pauseStars;
  }
  function syncPhoto(){
   if(previewURL){URL.revokeObjectURL(previewURL);previewURL=null;}
@@ -34,6 +35,7 @@ export function mountAccount({user=null,fixture=false,onUser=()=>{}}={}) {
  }
  const choose=patch=>{latestPreferences={...latestPreferences,...patch};applyPreferences(latestPreferences);syncChoices();if(fixture){user.preferences={...latestPreferences};fixtureAccount=user;}settingsDirty=true;void savePreferences();};
  for(const button of root.querySelectorAll('[data-theme-choice]'))button.addEventListener('click',()=>choose({theme:button.dataset.themeChoice}),{signal});
+ dice.addEventListener('change',()=>choose({dicePopup:dice.checked}),{signal});
  splash.addEventListener('change',()=>choose({splashCursor:splash.checked}),{signal});pauseStars.addEventListener('change',()=>choose({pauseStars:pauseStars.checked}),{signal});colors.addEventListener('change',()=>choose({effectColors:colors.checked}),{signal});retry.addEventListener('click',()=>void savePreferences(),{signal});
  name.addEventListener('blur',async()=>{
   const value=name.value.trim();if(value===user?.displayName)return;

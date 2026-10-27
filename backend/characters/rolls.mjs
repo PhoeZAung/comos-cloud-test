@@ -9,9 +9,9 @@ export function serverRoll(expression){
  return {expression,rolls,bonus,total,breakdown};
 }
 export function criticalProfile(row){
- const range=String(row.crit_range||'20').trim().replace(/[–—]/g,'-'),match=/^(\d{1,2})(?:\s*-\s*20)?$/.exec(range),minimum=Number(match?.[1]);
+ const range=String(row.crit_range===undefined||row.crit_range===null||row.crit_range===''?'20':row.crit_range).trim().replace(/[–—]/g,'-'),match=/^(\d{1,2})(?:\s*-\s*20)?$/.exec(range),minimum=Number(match?.[1]);
  const mult=/^(?:[x×]\s*)?(\d{1,2})$/i.exec(String(row.crit_mult||'x2').trim()),multiplier=Number(mult?.[1]);
- if(!match||minimum<2||minimum>20||!mult||multiplier<2||multiplier>10)throw Error('Set a critical range from 2-20 to 20 and a multiplier from x2 to x10.');
+ if(!match||minimum<1||minimum>20||!mult||multiplier<2||multiplier>5)throw Error('Set a critical range from 1-20 to 20 and a multiplier from x2 to x5.');
  return {minimum,multiplier};
 }
 export function criticalResult(row,attack,damage,expression,roll=serverRoll){

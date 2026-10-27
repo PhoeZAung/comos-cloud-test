@@ -85,3 +85,7 @@ The task-allocation table and batching rules above are project-specific engineer
 
 ## 0.7.0 handoff update
 Step 4 admin implementations now cover Groups, Character controls and Item controls. Continue using regular ChatGPT for source-grounded item descriptions, category suggestions and import mapping drafts; keep the real import adapter, permissions, revision checks and deployment integration here. Do not upload private account exports as catalog fixtures. Next implementation slice is 5.1 scoped Home feed; first test the owner Admin entry and group assignments on the phone. The character wizard navigation is sequential (current name, Back/Next); actual wizard inputs and rule adapters are still Step 8.
+
+## Final sheet data workflow (27 October 2026)
+
+Use extraction contract v3. Race phase: 3–5 races in displayed site order, starting with Dwarf, Elvaan, Galka to replace legacy summaries. Class phase follows races: one class family at a time; each archetype gets its own file. Track extracted, validated, runtime supported and live separately. Full authorized descriptions, table completeness, usage/dice/caster-level formulas, archetype replacements and every upgrade event are required. Templates and chat output alone do not prove source accuracy or safe migration. See EXTRACTION_PROGRESS.json for the current batch; no new data batch was imported in this layout pass.

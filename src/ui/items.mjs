@@ -1,3 +1,4 @@
+import {purchaseFeedback,clearFeedback} from './feedback.mjs';
 import {recordId} from './record-id.mjs';
 import {renderCategoryTiles,ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS} from '../features/sheet/item-categories.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -56,12 +57,12 @@ export function mountItems({fixture=false}={}){
   else if(form.hasAttribute('data-buy-form')){
    if(!buyer||item.priceGil===null)throw Error('Choose a character and set a fixed price first.');
    pendingPurchase??={op:'buy',requestId:recordId(),characterId:buyer.id,itemId:item.id,quantity:Number(d.get('quantity')),revision:buyer.revision,itemRevision:item.revision};
-   const {receipt}=await request('',pendingPurchase);pendingPurchase=null;buyer={...buyer,gil:receipt.remainingGil,revision:receipt.revision};dialog().close();root.querySelector('[data-buyer-gil]').textContent=gil(buyer.gil);status('Bought '+receipt.quantity+' '+receipt.itemName+' · −'+gil(receipt.totalGil)+' · '+gil(receipt.remainingGil)+' remaining');await freshBuyer();
+   const before=Number(buyer.gil),{receipt}=await request('',pendingPurchase);pendingPurchase=null;buyer={...buyer,gil:receipt.remainingGil,revision:receipt.revision};dialog().close();root.querySelector('[data-buyer-gil]').textContent=gil(buyer.gil);purchaseFeedback(receipt,before,root.querySelector('[data-buyer-gil]'));status('Purchased.');
   }else if(form.hasAttribute('data-item-form')){
    const change={op:'save',id:editingId||draftId,revision:editingId?item.revision:0,...Object.fromEntries(d)};change.priceGil=change.priceGil===''?null:Number(change.priceGil);
    item=(await request('',change)).item;pendingPurchase=null;const meta=await request('/categories');counts=Object.fromEntries(meta.categories.map(x=>[x.category,x.count]));root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();showItem();status('Item saved.');
   }
  });},{signal:controller.signal});
  draw();void withBusy(async()=>{if(buyerId){buyer={id:buyerId};await freshBuyer();}const meta=await request('/categories');counts=Object.fromEntries(meta.categories.map(x=>[x.category,x.count]));root.querySelector('[data-category-tiles]').innerHTML=renderCategoryTiles(counts,selected,{attribute:'data-catalog-category',label:'Catalog categories',groups:true});await loadList();await freshBuyer();});
- return ()=>{closed=true;controller.abort();};
+ return ()=>{clearFeedback();closed=true;controller.abort();};
 }

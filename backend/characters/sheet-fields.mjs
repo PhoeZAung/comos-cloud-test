@@ -1,3 +1,4 @@
+import {restRecovery} from '../../src/features/sheet/recovery.mjs';
 import {skillBudget} from '../../src/features/sheet/skill-budget.mjs';
 import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
 import {updateManagedStats} from '../../src/features/characters/managed-stats.mjs';
@@ -46,7 +47,7 @@ export function mergeSheetData(original,change){
    if(data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
     if(key==='sourceCategory'&&change.collection==='items'&&ITEM_TAG_OPTIONS.includes(value))safe.sourceCategory=value;
-    else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=text(value,key==='name'?120:12000);if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
+    else if(entryText.includes(key)){if(key==='casting_ability'&&!abilities.includes(value))bad('Choose a casting ability.');safe[key]=text(value,key==='name'?120:12000);if(key==='crit_range'&&safe[key]&&!/^(?:20|(?:[1-9]|1[0-9])-20)$/.test(safe[key]))bad('Choose a critical range.');if(key==='crit_mult'&&safe[key]&&!/^x[2-5]$/.test(safe[key]))bad('Choose a critical multiplier.');if(key==='name'&&!safe[key].trim())bad('Enter a name.');}
     else if(entryNumber.includes(key)){if(['mp_cost','caster_level'].includes(key)&&value===''){safe[key]='';continue;}safe[key]=numeric(value);if(['u_curr','u_max'].includes(key)&&(!Number.isInteger(safe[key])||safe[key]<0))bad('Uses must be nonnegative whole numbers.');if(key==='mp_cost'&&(!Number.isInteger(safe[key])||safe[key]<0||safe[key]>999))bad('MP amount must be 0–999, or empty.');if(key==='caster_level'&&(!Number.isInteger(safe[key])||safe[key]<1||safe[key]>99))bad('Caster level must be 1–99, or empty.');if(key==='lvl'&&(!Number.isInteger(safe[key])||safe[key]>(change.collection==='skills'?(totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1):9)))bad('Invalid ranks or spell level.');if(['amount','u_max','lvl'].includes(key)&&safe[key]<0)bad('Value cannot be negative.');}
     else if(key==='two_handed'&&['items','weapons'].includes(change.collection)&&typeof value==='boolean')safe[key]=value;
     else if(['equipped','cs','restoreOnLongRest','favorite'].includes(key)&&typeof value==='boolean')safe[key]=value;
@@ -69,7 +70,7 @@ export function mergeSheetData(original,change){
    }
   }
   data[change.collection]=rows;
-  if(change.collection==='skills'&&Object.hasOwn(change.fields||{},'lvl')){const budget=skillBudget(data);if(budget.known&&budget.unused<0)bad('No skill points remaining.');if(data.rulesBuild)data.rulesBuild.input.skillRanks=data.skills.map(r=>Number(r.lvl||0));}
+  if(change.collection==='skills'&&Object.hasOwn(change.fields||{},'lvl')){if(data.rulesBuild&&data.skills[change.index].lvl<Number(original.rulesBuild.rankFloor?.[change.index]??original.rulesBuild.input.skillRanks?.[change.index]??0))bad('Confirmed skill ranks cannot be reduced.');const budget=skillBudget(data);if(budget.known&&budget.unused<0)bad('No skill points remaining.');if(data.rulesBuild)data.rulesBuild.input.skillRanks=data.skills.map(r=>Number(r.lvl||0));}
   if(change.mode==='update'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)&&Object.hasOwn(change.fields||{},'uses_formula')){const before=entryCalculations(original[change.collection][change.index],original,change.collection),after=entryCalculations(rows[change.index],data,change.collection);rows[change.index].u_curr=Math.max(0,after.maxUses-Math.max(0,before.maxUses-before.currentUses));}
   if(change.mode==='update'&&change.collection==='activeAbilities'&&Object.hasOwn(change.fields||{},'u_curr')){const value=rows[change.index].u_curr,max=entryCalculations(rows[change.index],data,'activeAbilities').maxUses;if(!Number.isInteger(value)||value<0||value>max)bad('Remaining uses must be a whole number between 0 and maximum uses.');}
   if(change.mode==='update'&&['items','weapons'].includes(change.collection)&&change.fields?.two_handed===true){const selected=rows[change.index];if(selected.equipped!==false&&['hands','hand2'].includes(selected.equip_slot)){for(const {item} of equipmentRows(data))if(item!==selected&&['hands','hand2'].some(slot=>occupiesSlot(item,slot))){item.equip_slot='';item.equipped=false;}selected.equip_slot='hands';}}
@@ -101,7 +102,7 @@ export function mergeSheetData(original,change){
   const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
  }else if(change.action==='rest'){
   const current=sheetStats(data),level=totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1;
-  data.hp_curr=Math.min(current.hpMax,current.hp+Math.max(1,level));data.mp=current.mpMax;data.mp_temp=0;
+  const recovery=restRecovery(data);data.hp_curr=Math.min(current.hpMax,current.hp+recovery.hp);data.mp=Math.min(current.mpMax,Math.max(0,current.mp-Math.max(0,number(data.mp_temp)))+recovery.mp);data.mp_temp=0;
   for(const row of ['activeAbilities','passiveAbilities','racialAbilities','feats'].flatMap(k=>data[k]||[]))if(row.restoreOnLongRest!==false){const max=entryCalculations(row,data,'activeAbilities').maxUses;if(max>0)row.u_curr=max;}
  }else bad('Invalid sheet action.');
  updateManagedStats(data,original);

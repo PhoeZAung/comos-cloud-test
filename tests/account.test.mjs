@@ -17,8 +17,8 @@ test('account edits, preferences and processed avatars survive restart; replacem
  try {
   db=await openDatabase(database);const files=await createFileStore(path.join(dir,'media'));
   const repo=createUserRepository(db);let user=repo.create();const service=createAccountService({db,files});
-  assert.deepEqual(user.preferences,{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:false});
-  user=service.update(user.id,{revision:user.revision,displayName:'  Explorer  ',preferences:{theme:'ocean',splashCursor:true,effectColors:false,pauseStars:true}});
+  assert.deepEqual(user.preferences,{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:false,dicePopup:true});
+  user=service.update(user.id,{revision:user.revision,displayName:'  Explorer  ',preferences:{theme:'ocean',splashCursor:true,effectColors:false,pauseStars:true,dicePopup:true}});
   assert.equal(user.displayName,'Explorer');assert.equal(user.profileState,'complete');
   assert.throws(()=>service.update(user.id,{revision:1,displayName:'Stale'}),{code:'REVISION_CONFLICT'});
   for(const patch of [{ownerId:'other'},{preferences:{theme:'arbitrary',splashCursor:false,effectColors:true}},{displayName:'\u0000bad'},{preferences:{theme:'cosmic',splashCursor:'yes',effectColors:true}}])assert.throws(()=>service.update(user.id,{revision:user.revision,...patch}),{code:'INVALID_ACCOUNT'});
@@ -77,7 +77,7 @@ test('Pause stars is a saved account switch, not a global footer button',async()
  const markup=accountEditor({fixture:true});
  assert.match(markup,/data-pause-stars/);
  assert.ok(markup.indexOf('data-splash-toggle')<markup.indexOf('data-pause-stars'));
- assert.deepEqual(normalizedPreferences({pauseStars:true}),{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:true});
+ assert.deepEqual(normalizedPreferences({pauseStars:true,dicePopup:true}),{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:true,dicePopup:true});
  const pageHtml=renderPage(page);
  assert.doesNotMatch(pageHtml,/data-motion|Pause stars<\/button>/);
 });

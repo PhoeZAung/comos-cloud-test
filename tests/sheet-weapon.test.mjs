@@ -19,7 +19,7 @@ test('critical threats confirm the attack and multiply the rolled damage total',
  const cmb=weaponRoll({...data.weapons[0],attack_type:'cmb'},data,seeded([20,1]));assert.equal(cmb.critical.threat,false);
 });
 test('critical parsing and damage failures never invent or execute rules',()=>{
- assert.deepEqual(criticalProfile({crit_range:'18–20',crit_mult:'×4'}),{minimum:18,multiplier:4});for(const row of [{crit_range:1},{crit_range:21},{crit_range:'foo'},{crit_mult:'x99'}])assert.throws(()=>criticalProfile(row));
+ assert.deepEqual(criticalProfile({crit_range:'18–20',crit_mult:'×4'}),{minimum:18,multiplier:4});for(const row of [{crit_range:0},{crit_range:21},{crit_range:'foo'},{crit_mult:'x99'}])assert.throws(()=>criticalProfile(row));
  const prose=weaponRoll({...data.weapons[0],damage:'see description'},data,seeded([20,3]));assert.equal(prose.damage,null);assert.equal(prose.critical.damage,undefined);assert.ok(prose.critical.damageError);
  const compound=weaponRoll({...data.weapons[0],damage:'1d8+1d6',extra_damage:''},data,seeded([20,4,12]));assert.equal(compound.critical.damage.total,12);
  assert.ok(serverRoll('1d20+12').total>=13);

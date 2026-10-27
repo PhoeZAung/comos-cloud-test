@@ -37,3 +37,13 @@ Star visibility, current-build edit, level-up and compact-window controls sit at
 - Install download icon is beside the profile control when the browser emits beforeinstallprompt; unsupported platforms retain Account instructions (including iOS Share → Add to Home Screen). Installed standalone mode hides it. Account sign-out follows Profile; Continue to Home is omitted there.
 
 Validation: automated tests cover resource spending, replay, rollback, long description chunking, exhausted zero-formula usage, and server-side directory filtering. Local browser QA uses isolated synthetic responses, never production account data or Discord messages. Physical Android/iOS installation and live Discord delivery require device/account checks.
+
+## Final layout pass — 27 October 2026
+
+Rest now means 8 hours of rest plus 30 minutes meditation: HP gains total character level and MP gains caster level plus casting modifier for each verified casting profile, capped at maximum. Caster level and highest spell level are independent. Black Mage and the documented White Mage recovery example are covered; unknown class/archetype profiles explicitly report no automatic MP recovery until validated. A partial caster must provide its verified caster-level progression. This does not alter the separate full resource refill on confirmed level-up.
+
+Creation starts with Standard array, and spell-level selection groups remain open after choosing. Confirmed ranks become permanent minimums for later advancement and edits. Advancement adds a class-trait review after class choices, marking new grants and resource/effect upgrades; non-spellcasting class definitions omit the spell screen. Only the existing base Black Mage adapter is currently enabled.
+
+All sheet utilities are together at the top. Dice result popups are optional in Account and persist server-side. Attack and dice totals have separate dice; no attack means one die. Description sends show only a delivery notice; no-dice uses show Use. Catalog purchases animate the receipt's balance and show the deduction. Critical range and multiplier controls are dropdowns; All is the first category. The MP spell card shares live resource controls and shows the casting modifier.
+
+Extraction v3 (COMOS_EXTRACTION_V3.md / COMOS_EXTRACTION_V3_SCHEMA.json / EXTRACTION_PROGRESS.json) defines full-text verification, per-class casting progression, usage/attack/damage mappings, upgrade events, source coverage and continuation checks. Races are re-extracted in batches of 3–5 in source navigation order, then one class family per batch. Existing summarized data is explicitly marked incomplete; this layout pass does not invent missing original paragraphs or enable unsupported classes/archetypes.

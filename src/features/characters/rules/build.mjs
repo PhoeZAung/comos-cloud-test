@@ -111,6 +111,7 @@ export function compileBuild(raw,previous={}){
  const normalized={...raw,hpRolls:Array.isArray(raw?.hpRolls)?hpHistory(raw):raw?.hpRolls};
  const candidate=previousManaged?.input?.initialIntMod!==undefined?{...normalized,initialIntMod:previousManaged.input.initialIntMod}:normalized;
  const b=sanitizeBuild(candidate),p=previewBuild(b),next=structuredClone(previous);
+ if(previousManaged&&b.skillRanks?.some((n,i)=>n<Number(previousManaged.rankFloor?.[i]??previousManaged.input.skillRanks?.[i]??0)))bad('Confirmed skill ranks cannot be reduced.');
  if(!previousManaged)b.initialIntMod=mod(p.scores.int);
  const ownedKeys=['hp_max','bab','fort_base','ref_base','will_base','mp_class','mp_bonus','mp_max_spell_level','speed','size_category','languages','senses','proficiencies'];
  // Explicit first adoption retains a rollback snapshot; unknown/manual entries are preserved.
@@ -150,7 +151,8 @@ export function compileBuild(raw,previous={}){
  next.favored_class_options=p.race.data.favoredRewards.filter(r=>r.classId===registry.class.id).map(r=>r.description).join('\n')+'\nApply favored-class rewards manually; they are not automatically awarded.';
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
  if(previousManaged)for(const key of ownedKeys){const oldBase=previousManaged.lastValues?.[key];if(typeof oldBase==='number'&&typeof previous[key]==='number')next[key]+=previous[key]-oldBase;else if(oldBase!==undefined&&previous[key]!==oldBase)next[key]=previous[key];}
- next.rulesBuild={version:registry.version,input:b,ownedIds:Object.values(rows).flat().map(r=>r.sourceRuleId),lastValues,rollback};
+ next.castingProfiles=[{className:'Black Mage',mode:'full',ability:'int',casterLevel:b.level,highestSpellLevel:p.summary.spellLevel}];
+ next.rulesBuild={rankFloor:b.skillRanks?[...b.skillRanks]:previousManaged?.rankFloor,version:registry.version,input:b,ownedIds:Object.values(rows).flat().map(r=>r.sourceRuleId),lastValues,rollback};
  return next;
 }
 export function levelUpBuild(raw,previous){
@@ -169,3 +171,10 @@ export function levelUpBuild(raw,previous){
  if(old.hpRolls.length<old.level){previous=structuredClone(previous);previous.rulesBuild.lastValues.hp_max=previewBuild({...old,hpRolls:hpHistory(old)}).hp;}
  const next=compileBuild(raw,previous),current=sheetStats(next);next.hp_curr=current.hpMax;next.mp=current.mpMax;next.mp_curr=current.mpMax;next.mp_temp=0;return next;
 }
+
+export function classFeatureChanges(build,baseline){
+ const after=previewBuild(build).features,before=baseline?previewBuild(baseline).features:[],oldIds=new Set(before.map(f=>f.id));
+ const signature=(f,b)=>JSON.stringify({selectionCount:Object.values(b.choices||{}).flat().filter(id=>registry.class.choicePools.some(pool=>pool.options.some(o=>o.id===id&&o.featureIds.includes(f.id)))).length,resources:registry.class.resources.filter(r=>r.id===f.id.replace(':feature:',':resource:')||f.actions?.some(a=>a.costs?.some(c=>c.resourceId===r.id))).map(r=>calculated(r.maximum,b)),effects:(f.effects||[]).map(e=>calculated(e.value,b)),notes:(f.scalingNotes||[]).filter(n=>n.fromClassLevel<=b.level)});
+ return after.map(feature=>({feature,kind:!oldIds.has(feature.id)?'new':baseline&&signature(feature,build)!==signature(feature,baseline)?'upgrade':null})).filter(row=>row.kind);
+}
+export const hasSpellcasting=definition=>Boolean(definition?.data?.spellcasting&&definition.data.spellcasting.learningMode!=='none');

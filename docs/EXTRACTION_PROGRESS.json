@@ -1,0 +1,82 @@
+{
+  "contractRevision": "2026-10-27.3",
+  "orderSource": "https://finalfantasyd20.com/races/",
+  "indexCheckedOn": "2026-10-27",
+  "phase": "races",
+  "batchSize": 3,
+  "nextBatch": [
+    "Dwarf",
+    "Elvaan",
+    "Galka"
+  ],
+  "coreOrder": [
+    "Dwarf",
+    "Elvaan",
+    "Galka",
+    "Half-Breed",
+    "Hume",
+    "Mithra",
+    "Moogle",
+    "Tarutaru"
+  ],
+  "races": [
+    {
+      "name": "Dwarf",
+      "extraction": "legacy_summary_needs_reextract",
+      "liveAdapter": true,
+      "fullTextVerified": false
+    },
+    {
+      "name": "Elvaan",
+      "extraction": "legacy_summary_needs_reextract",
+      "liveAdapter": true,
+      "fullTextVerified": false
+    },
+    {
+      "name": "Galka",
+      "extraction": "legacy_summary_needs_reextract",
+      "liveAdapter": true,
+      "fullTextVerified": false
+    },
+    {
+      "name": "Half-Breed",
+      "extraction": "not_started",
+      "liveAdapter": false,
+      "fullTextVerified": false
+    },
+    {
+      "name": "Hume",
+      "extraction": "not_started",
+      "liveAdapter": false,
+      "fullTextVerified": false
+    },
+    {
+      "name": "Mithra",
+      "extraction": "not_started",
+      "liveAdapter": false,
+      "fullTextVerified": false
+    },
+    {
+      "name": "Moogle",
+      "extraction": "not_started",
+      "liveAdapter": false,
+      "fullTextVerified": false
+    },
+    {
+      "name": "Tarutaru",
+      "extraction": "not_started",
+      "liveAdapter": false,
+      "fullTextVerified": false
+    }
+  ],
+  "laterGroups": "Capture the remaining category names and URLs from the live site index before starting them.",
+  "classPolicy": "one family at a time in displayed site category/order, after races",
+  "classes": [
+    {
+      "name": "Black Mage",
+      "liveAdapter": "base_only",
+      "extraction": "legacy_summary_needs_reextract",
+      "archetypes": "disabled_unverified"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import { randomUUID } from 'node:crypto';
 function record(row) {
   if (!row) return null;
   return { id: row.id, displayName: row.display_name, theme: row.theme, profileState: row.profile_state,
-    avatarMediaId: row.avatar_media_id || null, preferences: {theme:row.theme_choice || 'cosmic',splashCursor:Boolean(row.splash_cursor),effectColors:row.effect_colors !== 0,pauseStars:Boolean(row.pause_stars)},
+    avatarMediaId: row.avatar_media_id || null, preferences: {theme:row.theme_choice || 'cosmic',splashCursor:Boolean(row.splash_cursor),effectColors:row.effect_colors !== 0,pauseStars:Boolean(row.pause_stars),dicePopup:row.dice_popups!==0},
     schemaVersion: row.schema_version, revision: row.revision, createdAt: row.created_at, updatedAt: row.updated_at };
 }
 function name(value) {
@@ -12,7 +12,7 @@ function name(value) {
   return value.trim();
 }
 export function createUserRepository(db) {
-  const get = id => record(db.prepare('SELECT users.*,p.theme_choice,p.splash_cursor,p.effect_colors,p.pause_stars FROM users LEFT JOIN user_preferences p ON p.user_id=users.id WHERE users.id = ?').get(id));
+  const get = id => record(db.prepare('SELECT users.*,p.theme_choice,p.splash_cursor,p.effect_colors,p.pause_stars,p.dice_popups FROM users LEFT JOIN user_preferences p ON p.user_id=users.id WHERE users.id = ?').get(id));
   return Object.freeze({
     get,
     create({ displayName = '' } = {}) {

@@ -1,3 +1,6 @@
+import {notify,showDice,clearFeedback} from './feedback.mjs';
+import {preferences} from './preferences.mjs';
+import {restRecovery} from '../features/sheet/recovery.mjs';
 import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol} from '../features/sheet/item-categories.mjs';
 import {spellLevel} from '../features/sheet/calculations.mjs';
@@ -18,6 +21,7 @@ const boolKeys=new Set(['cs','equipped','two_handed','restoreOnLongRest']);
 function field(key,value,{weapon=false}={}){
  if(key==='sourceCategory')return '<label class="cs-field cs-field-wide cs-tag-editor"><span>Item Tag / Shop Category</span><div><span data-category-icon aria-hidden="true">'+itemCategorySymbol(value)+'</span><select name="sourceCategory" aria-label="Item Tag / Shop Category">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).map(([group,tags])=>'<optgroup label="'+(group==='Other'?'Older Items':group)+'">'+tags.map(tag=>'<option value="'+tag+'"'+(value===tag?' selected':'')+'>'+tag+'</option>').join('')+'</optgroup>').join('')+'</select></div></label>';
 
+ if(key==='crit_range'||key==='crit_mult'){const choices=key==='crit_range'?Array.from({length:20},(_,i)=>i===0?'20':(20-i)+'-20'):['x2','x3','x4','x5'];const normalized=String(value||'').replace(/[–—]/g,'-').replace('×','x');return '<label class="cs-field"><span>'+readable(key)+'</span><select name="'+key+'"><option value=""'+(!normalized?' selected':'')+'>Select</option>'+choices.map(v=>'<option value="'+v+'"'+(normalized===v?' selected':'')+'>'+v+'</option>').join('')+'</select></label>';}
  const label=readable(key),opts=key==='attack_type'?(weapon?Object.keys(attackTypes):['none',...Object.keys(attackTypes)]):key==='ability_mod'&&weapon?['auto',...abilities]:key==='size_category'?sizes:key==='stat'||key==='ability_mod'||key==='spell_dc_base'||key==='casting_ability'?abilities:key.endsWith('_ability')?['str','dex']:null;
  if(opts)return `<label class="cs-field"><span>${label}</span><select name="${key}">${opts.map(opt=>'<option value="'+opt+'"'+(opt===String(value||opts[0])?' selected':'')+'>'+(key==='attack_type'?(attackTypes[opt]||'None'):opt==='auto'?'Use attack type':abilities.includes(opt)?opt.toUpperCase():opt)+'</option>').join('')}</select></label>`;
  if(boolKeys.has(key))return `<label class="cs-checkbox"><input type="checkbox" name="${key}" ${value?'checked':''}><span>${label}</span></label>`;
@@ -122,7 +126,7 @@ export function mountSheet(){
  }
  async function roll(label,expression,weaponIndex,spellIndex,abilityEntry,mode='use'){
   clearTimeout(remainingTimer);if(remainingInvalid)return;if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy)return;setBusy(true);let node=root.querySelector('[data-roll-result]');node.hidden=false;node.textContent='Rolling…';
-  try{const result=await request({op:'roll',...(abilityEntry?{kind:'ability',...abilityEntry}:spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:recordId(),...((weaponIndex!==undefined||spellIndex!==undefined||abilityEntry)?{mode}:{}),discord:mode==='send'||discordEnabled});if(closed)return;const r=result.roll;if(r.characterRevision!==undefined){try{const fresh=await request();character=fresh.character;draw();node=root.querySelector('[data-roll-result]');node.hidden=false;}catch{status('Use saved · Sync pending');}}node.textContent=formatRoll(label,r)+(result.discord==='sent'?' · Sent to Discord':result.discord==='failed'?' · Discord delivery failed; roll kept here':result.discord==='pending'?' · Discord delivery pending':' · Local only');document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
+  try{const result=await request({op:'roll',...(abilityEntry?{kind:'ability',...abilityEntry}:spellIndex!==undefined?{kind:'spell',index:spellIndex}:weaponIndex===undefined?{expression,label}:{kind:'weapon',index:weaponIndex}),requestId:recordId(),...((weaponIndex!==undefined||spellIndex!==undefined||abilityEntry)?{mode}:{}),discord:mode==='send'||discordEnabled});if(closed)return;const r=result.roll;if(r.characterRevision!==undefined){try{const fresh=await request();character=fresh.character;draw();node=root.querySelector('[data-roll-result]');node.hidden=false;}catch{status('Use saved · Sync pending');}}const failed=result.discord==='failed';if(mode==='send'){node.hidden=true;notify(failed?'Discord delivery failed':result.discord==='sent'?'Sent to Discord':'Discord delivery pending');}else if(r.descriptionOnly){node.hidden=true;notify(failed?'Use · Discord delivery failed':'Use');}else{node.textContent=formatRoll(label,r)+(failed?' · Discord delivery failed':'');node.hidden=preferences.dicePopup!==false;if(preferences.dicePopup!==false)showDice(r);else status(failed?'Rolled · Discord delivery failed':'Rolled');}document.dispatchEvent(new CustomEvent('comos:sheet-roll',{detail:{characterId:id,label,...r}}));}
   catch(err){if(!closed)node.textContent=err.message;}finally{if(!closed)setBusy(false);}
  }
  function selectSpellLevel(level,focus=false){spellFilter=level;draw();const url=new URL(location.href);url.searchParams.set('spellLevel',level);history.replaceState(null,'',url);if(focus){const tab=root.querySelector('[data-spell-level="'+level+'"]');tab.focus({preventScroll:true});tab.scrollIntoView({block:'nearest',inline:'nearest'});}}
@@ -183,7 +187,7 @@ export function mountSheet(){
   if(button.matches('[data-damage-roll]')){roll(button.dataset.damageLabel+' damage',button.dataset.damageRoll);return;}
   if(button.matches('[data-roll]')){roll(button.dataset.roll,'1d20'+(Number(button.dataset.bonus)>=0?'+':'')+number(button.dataset.bonus));return;}
   if(button.matches('[data-formula]')){showFormula(button.dataset.formula);return;}
-  if(button.matches('[data-rest]')){if(confirm('Recover HP equal to total level, refill MP, and restore active abilities marked for rest?'))void save({action:'rest'});return;}
+  if(button.matches('[data-rest]')){const recovery=restRecovery(character.data);if(confirm('8 hours rest + 30 minutes meditation: recover up to '+recovery.hp+' HP and '+recovery.mp+' MP. Restore abilities marked for rest?'+(recovery.unresolved.length?' Unverified casting profiles recover no MP: '+recovery.unresolved.join(', ')+'.':'')))void save({action:'rest'});return;}
   if(button.matches('[data-spend-mp]')){openDialog('Spend MP',['amount'],{amount:1},{action:'spendMp'},{help:'Enter the MP cost for this cast.'});return;}
  },{signal:control.signal});
  root.addEventListener('submit',event=>{
@@ -225,5 +229,5 @@ export function mountSheet(){
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML='<p role="status">Loading character…</p>';
  void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();schedule();if(typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed)root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.message)+'</p><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';});
- return ()=>{closed=true;clearTimeout(toastTimer);clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
+ return ()=>{clearFeedback();closed=true;clearTimeout(toastTimer);clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }
