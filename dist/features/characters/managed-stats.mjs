@@ -1,0 +1,13 @@
+import {blackMageSummary} from './rules-summary.mjs';
+const abilities=['str','dex','con','int','wis','cha'];
+export function updateManagedStats(data,previous){
+ const managed=data.rulesBuild;if(!managed||!abilities.some(k=>Number(data[k])!==Number(previous[k])))return;
+ const level=managed.input.level,summary=blackMageSummary(level,Number(data.int)),old=blackMageSummary(level,Number(previous.int));
+ data.mp_bonus=Number(data.mp_bonus||0)+summary.bonusMp-old.bonusMp;
+ const mod=n=>Math.floor((Number(n)-10)/2),rolls=managed.input.hpRolls.slice(0,level);
+ const hp=con=>rolls.reduce((n,r)=>n+Math.max(1,r+mod(con)),0);
+ const delta=hp(data.con)-hp(previous.con);data.hp_max=Number(data.hp_max||0)+delta;
+ managed.lastValues.mp_bonus+=summary.bonusMp-old.bonusMp;managed.lastValues.hp_max+=delta;
+ for(const key of abilities)managed.input.baseScores[key]+=Number(data[key])-Number(previous[key]);
+ // Current HP/MP are deliberately untouched; increasing a maximum is not healing.
+}

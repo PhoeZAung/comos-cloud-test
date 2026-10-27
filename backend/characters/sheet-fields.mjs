@@ -1,4 +1,5 @@
 import {ITEM_TAG_OPTIONS} from '../../src/features/sheet/item-categories.mjs';
+import {updateManagedStats} from '../../src/features/characters/managed-stats.mjs';
 import {sheetSkills} from '../../src/features/sheet/skills.mjs';
 import {entryCalculations} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
@@ -96,6 +97,8 @@ export function mergeSheetData(original,change){
   data.hp_curr=Math.min(current.hpMax,current.hp+Math.max(1,level));data.mp=current.mpMax;data.mp_temp=0;
   for(const row of data.activeAbilities||[])if(row.restoreOnLongRest!==false){const max=entryCalculations(row,data,'activeAbilities').maxUses;if(max>0)row.u_curr=max;}
  }else bad('Invalid sheet action.');
+ updateManagedStats(data,original);
+ if(data.rulesBuild)for(const key of ['activeAbilities','racialAbilities'])for(const row of data[key]||[]){if(!row.rulesOwned||!row.uses_formula)continue;const old=original[key]?.find(r=>r.sourceRuleId===row.sourceRuleId);if(!old||!abilities.some(k=>Number(data[k])!==Number(original[k])))continue;const before=entryCalculations(old,original,key),after=entryCalculations(row,data,key),spent=Math.max(0,before.maxUses-before.currentUses);row.u_max=after.maxUses;row.u_curr=Math.max(0,after.maxUses-spent);}
  const s=sheetStats(data);Object.assign(data,{hp_effective_max:s.hpMax,mp_curr:s.mp,mp_total_max:s.mpMax,mp_effective_max:s.mpMax,ac_total:s.ac,touch_ac_total:s.touch,flat_ac_total:s.flat,cmd_total:s.cmd,ar_total:s.melee,ar_ranged_total:s.ranged,ar_touch_total:s.touchAttack,ar_ranged_touch_total:s.rangedTouch,cmb:s.cmb,fort_bonus:s.fort,ref_bonus:s.ref,will_bonus:s.will});
  if(Buffer.byteLength(JSON.stringify(data))>500000)bad('Character data is too large.');
  return data;

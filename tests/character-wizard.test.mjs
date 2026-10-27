@@ -15,8 +15,8 @@ test('fixed source, alignment choices and bounded portrait',()=>{
 });
 
 test('FFD20 race standard trait presets start on; alternate switches persist',()=>{
- assert.ok(defaultTraits('Hume').length>=9);
- assert.ok(defaultTraits('Hume').every(trait=>trait.enabled));
+ assert.ok(defaultTraits('Dwarf').length>=9);
+ assert.ok(defaultTraits('Dwarf').every(trait=>trait.enabled));
  const fields=validateWizardFields('race',{race:'Hume',standardRacialTraits:[{name:'Skilled',enabled:false}],alternateRacialTraits:[{name:'Awareness',enabled:false}]});
  assert.equal(fields.alternateRacialTraits[0].enabled,false);
  assert.equal(fields.standardRacialTraits[0].enabled,false);
@@ -53,7 +53,7 @@ test('identity, race, multiclass and sheet produce requested minimal control lay
  const identity=renderIdentity({}, {name:'Vivi',portrait:'',alignment:'Lawful Good'});
  assert.match(identity,/>FFD20</);assert.match(identity,/Character picture/);
  assert.match(identity,/option value="Lawful Good" selected/);
- const race=renderRace({}, {id:'x',race:'Hume',standard:defaultTraits('Hume'),alternate:[{name:'Awareness',enabled:false}]});
+ const race=renderRace({}, {id:'x',race:'Hume',standard:defaultTraits('Dwarf'),alternate:[{name:'Awareness',enabled:false}]});
  assert.match(race,/Standard racial traits/);assert.match(race,/Alternate racial traits/);
  assert.match(race,/data-trait-kind="alternate" data-trait-index="0" ><span>Awareness/);
  assert.match(race,/data-trait-kind="standard" data-trait-index="0" checked/);
@@ -88,7 +88,7 @@ test('Bio is below Alignment in Identity and safely escaped',()=>{
 
 test('wizard headings show progress beside Identity, Race and Class',()=>{
  const id=renderIdentity({}, {name:'Vivi',portrait:'',alignment:'',bio:''});
- const race=renderRace({}, {race:'Hume',standard:defaultTraits('Hume'),alternate:[]});
+ const race=renderRace({}, {race:'Hume',standard:defaultTraits('Dwarf'),alternate:[]});
  const cls=renderClass({}, {classes:[{name:'Black Mage',level:1,archetype:''}]});
  assert.match(id,/<h1>Identity <span class="cw-step-count">\(1\/3\)<\/span><\/h1>/);
  assert.match(race,/<h1>Race <span class="cw-step-count">\(2\/3\)<\/span><\/h1>/);

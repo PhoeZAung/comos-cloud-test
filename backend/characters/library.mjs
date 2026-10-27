@@ -1,4 +1,5 @@
-import {randomUUID} from 'node:crypto';
+import {randomUUID,createHash} from 'node:crypto';
+import {compileBuild} from '../../src/features/characters/rules/build.mjs';
 import {validateWizardFields} from './editor-fields.mjs';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 import {createAuthThrottle} from '../auth/throttle.mjs';
@@ -55,6 +56,20 @@ export function createCharacterLibraryService(db){
     return {id:row.id,name:row.name,level:data.level||data.character_level||null,race:data.race||'',className:data.class||data.className||'',portraitUrl:portraitFrom(data),tags:attached.length?attached:extra,bio:typeof data.bio==='string'?data.bio.slice(0,280):'',createdAt:row.createdAt,updatedAt:row.updatedAt};
   };
   return Object.freeze({
+    createBuild(ownerId,raw,{admin=false}={}){
+      if(!ownerId||!uuid.test(raw?.requestId||''))throw fail('INVALID_CHARACTER','Invalid build request.');
+      const data=compileBuild(raw.build),digest=createHash('sha256').update(JSON.stringify(raw.build)).digest('hex');
+      const hex=createHash('sha256').update(ownerId+'|'+raw.requestId).digest('hex');
+      const id=hex.slice(0,8)+'-'+hex.slice(8,12)+'-4'+hex.slice(13,16)+'-a'+hex.slice(17,20)+'-'+hex.slice(20,32),now=new Date().toISOString();
+      db.exec('BEGIN IMMEDIATE');try{
+        const existing=db.prepare('SELECT id,name,revision,owner_id FROM characters WHERE id=?').get(id);
+        if(existing){const old=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');if(existing.owner_id!==ownerId||old.rulesBuild?.commitDigest!==digest)throw fail('INVALID_CHARACTER','This request was already used for a different build. Reload your character list.');db.exec('COMMIT');return {id,name:existing.name,revision:existing.revision,data:old};}
+        data.rulesBuild.commitDigest=digest;if(Buffer.byteLength(JSON.stringify(data))>380000)throw fail('INVALID_CHARACTER','Character build is too large.');
+        db.prepare('INSERT INTO characters(id,owner_id,name,sources_json,created_at,updated_at) VALUES(?,?,?,?,?,?)').run(id,ownerId,data.charName,JSON.stringify([{id:'ffd20',version:'comos-live-rules-1'}]),now,now);
+        db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?)').run(id,JSON.stringify(data));
+        if(admin)loreAccess.ensureAdminTag(ownerId);db.exec('COMMIT');return {id,name:data.charName,revision:1,data};
+      }catch(error){db.exec('ROLLBACK');throw error;}
+    },
     loreTags(ownerId,{admin=false}={}){
       if(!ownerId)throw fail('INVALID_IMPORT','Sign in first.');
       if(admin)loreAccess.ensureAdminTag(ownerId);
@@ -117,7 +132,7 @@ export function createCharacterLibraryRoutes({db,sessions,origin,adminUids=[],th
       }else if(list){
         if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
         const body=await adminJson(req,210000);
-        send(201,{character:service.create(userId,body,{admin:session.admin})});
+        send(201,{character:body.build?service.createBuild(userId,body,{admin:session.admin}):service.create(userId,body,{admin:session.admin})});
       }else{
         if(session.user.profileState!=='complete'){send(403,{error:'profile_required'});return true;}
         const body=await adminJson(req,270000);

@@ -12,13 +12,7 @@ export const CLASS_NAMES=[
  'Geomancer','Gunner','Illusionist','Medic','Necromancer','Paladin','Psychic','Summoner','Time Mage',
  'Black Belt','Dancer','Druid','Fencer','Gunbreaker','Ninja','Samurai','Scholar','Sword Saint'
 ];
-export const RACE_NAMES=[
- 'Dwarf','Elvaan','Galka','Half-Breed','Hume','Mithra','Moogle','Tarutaru',
- 'Aegyl','Al Bhed','Au Ra','Bangaa','Burmecian','Dracobaltian','Garif','Garlean','Genome','Gria','Guado','Hypello','Immortal','Lambkin','Mandragora','Moomba','Mutant',
- 'Nu Mou','Palico','PuPu','Qu','Roegadyn','Ronso','Seeq','Seto Lion','Shindroid','Tonkin','Varg','Viera',
- "Amalj'aa",'Antica','Forgiven','Gnath','Goblin','Ixal','Kindred','Kobold','Kojin','Lamia','Loporrit','Matanga','Namazu','Orc','Qiqirn','Quadav','Sahagin','Sylph','Trollkin','Vanu Vanu','Velkk','Yagudo',
- 'Half-Gigas','Lizardman','Syricta'
-];
+export const RACE_NAMES=['Dwarf','Elvaan','Galka'];
 // Class-specific, verified archetype suggestions. Other archetypes are entered by name.
 export const ARCHETYPES={
  'Black Mage':['Arcane Bomber','Arcane Trickster','Arcanist','Cryomancer','Dark Mage','Elementalist','Magitech Mage','Magus','Onyx Magister','Pyromancer','Script Master','Signifer','Sorcerer','Thaumaturge','Timekeeper','Void Mage','War Warlock','Wild Mage','Wind Sorcerer','Muscle Mage'],
@@ -44,11 +38,7 @@ export const ARCHETYPES={
 };
 // Exact trait names from the FFD20 race pages for these verified examples.
 // Never fabricate an unverified race's complete trait list; those can be entered manually.
-export const RACE_TRAITS={
- Hume:{standard:['Ability Score Racial Traits','Size','Type','Base Speed','Languages','Bonus Feat','Curiosity','Integrated','Skilled','Sociable'],alternate:['Adoptive Parentage','Alchemically Enhanced','Awareness','Background Character','Comprehensive Education','Deep Magic','Distanced','Dual Talent','Emissary','Eye for Talent','Focused Study','Frontier Survivor','Heart of the Fields','Heart of the Mountains','Heart of the Sea','Heart of the Slums']},
- Dwarf:{standard:['Ability Score Racial Traits','Size','Type','Base Speed','Languages','Bond to the Land','Defensive Training','Hardy','Stability','Greed','Stonecunning','Master Tinker','Hatred','Weapon Familiarity','Darkvision'],alternate:['Barrow Scholar','Barrow Warden','Craftsman','Deep Warrior']},
- Elvaan:{standard:['Ability Score Racial Traits','Size','Type','Base Speed','Languages','Fearless','Keen Senses','Martial Background','Noble Upbringing','Gatecrasher','Hatred','Weapon Familiarity','Low-light Vision'],alternate:['Arcane Focus','Darkvision']}
-};
+export const RACE_TRAITS={"Dwarf": {"standard": ["Ability Score Racial Traits", "Size", "Type", "Base Speed", "Languages", "Bond to the Land", "Defensive Training", "Hardy", "Stability", "Greed", "Stonecunning", "Master Tinker", "Hatred", "Weapon Familiarity", "Darkvision"], "alternate": ["Barrow Scholar", "Barrow Warden", "Craftsman", "Deep Warrior", "Giant Hunter", "Healthy", "Iifa Professor", "Lasting Grudge", "Lorekeeper", "Magic Resistant", "Minesight", "Mountaineer", "Mountain Familarity", "Relentless", "Rock Stepper", "Saltbeard", "Sky Sentinel", "Stoic Negotiator", "Stonesinger", "Surface Survivalist", "Tavern Hopper", "Tightfisted", "Unstoppable", "Viscous Blood", "Wyrmscourged", "Xenophobic"]}, "Elvaan": {"standard": ["Ability Score Racial Traits", "Size", "Type", "Base Speed", "Languages", "Fearless", "Keen Senses", "Martial Background", "Noble Upbringing", "Gatecrasher", "Hatred", "Weapon Familiarity", "Low-Light Vision"], "alternate": ["Arcane Focus", "Darkvision", "Desert Runner", "Elemental Resistance", "Fleet-Footed", "Illusion Resistance", "Long-Limbed", "Resistant", "Slender", "Spirit of the Waters", "Urbanite"]}, "Galka": {"standard": ["Ability Score Racial Traits", "Size", "Type", "Base Speed", "Languages", "Hardy", "Stability", "Imposing Figure", "Mining Servitude", "Metalworker", "Ferocity", "Hatred", "Relentless", "Weapon Familiarity", "Low-Light Vision"], "alternate": ["Architectural Ingenuity", "Beastmaster", "Cavewight", "Chain Fighter", "City-Raised", "Darkvision", "Scavenger", "Stoic", "Tenacious", "Wary"]}};
 export function defaultTraits(race){const item=RACE_TRAITS[race];return item?item.standard.map(name=>({name,enabled:true})):[];}
 export function characterClasses(data={}){
  const from=Array.isArray(data.classes)?data.classes:[];

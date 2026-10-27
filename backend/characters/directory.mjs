@@ -4,6 +4,7 @@ import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
 import {mergeWizardData} from './editor-fields.mjs';
+import {compileBuild} from '../../src/features/characters/rules/build.mjs';
 import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 export function createDirectoryRoutes({db,sessions,adminUids,origin}){
  const admins=new Set(adminUids),streams=new Map();
@@ -52,6 +53,11 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
      }else if(change.op==='sheet'){
       data=mergeSheetData(data,change);
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
+     }else if(change.op==='wizard-build'){
+      data=compileBuild(change.build,data);
+      if(Buffer.byteLength(JSON.stringify(data))>600000)throw Error('Character plus rollback is too large.');
+      db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
+      db.prepare('UPDATE characters SET name=? WHERE id=?').run(data.charName,id);
      }else if(change.op==='wizard'){
       if(!['identity','race','class'].includes(change.step))throw Error('Invalid wizard step.');
       data=mergeWizardData(data,change.step,change.fields);
