@@ -19,18 +19,18 @@ const inventory={str:12,dex:14,items:[
  {name:'Historical armor',amount:1,equipped:true,sourceItemId:'legacy'}
 ]};
 const equip=(data,slot,index)=>mergeSheetData(data,{action:'equip',slot,index});
-test('Equipment keeps all sixteen distinct slots and renders an accessible theme-aligned silhouette',()=>{
+test('Equipment keeps all seventeen distinct slots and renders an accessible theme-aligned silhouette',()=>{
  assert.deepEqual(equipmentSlots.map(slot=>slot.label),[
-  'Head','Headband','Eyes','Shoulders','Necklace','Chest','Body','Belt','Wrists','Hand 1','Hand 2','Ranged','Legs','Ring 1','Ring 2','Feet'
+  'Head','Headband','Eyes','Shoulders','Necklace','Chest','Arms','Body','Belt','Wrists','Hand 1','Hand 2','Ranged','Legs','Ring 1','Ring 2','Feet'
  ]);
- assert.equal(new Set(equipmentSlotIds).size,16);
+ assert.equal(new Set(equipmentSlotIds).size,17);
  const html=renderEquipment(inventory);
- assert.equal((html.match(/data-equip-slot="/g)||[]).length,16);
+ assert.equal((html.match(/data-equip-slot="/g)||[]).length,17);
  assert.match(html,/Character equipment silhouette/);
  assert.match(html,/data-equip-slot="ring1"/);
  assert.match(html,/data-equip-slot="ring2"/);
  assert.match(html,/previously equipped item has no slot/);
- assert.ok(html.includes('0 / 16 slots'));
+ assert.ok(html.includes('0 / 17 slots'));
  const raw={...inventory,items:[{name:'<img src=x onerror=alert(1)>',amount:1,equipped:true,equip_slot:'head'}]};
  const escaped=renderEquipment(raw);
  assert.doesNotMatch(escaped,/<img src=x|<script>/);

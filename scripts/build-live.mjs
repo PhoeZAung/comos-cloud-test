@@ -23,7 +23,7 @@ try {
   const {default:source}=await import(new URL('src/pages/'+file,root));
   const page={...source};
   if(['signin','signup'].includes(page.id))page.content=authContent(page.id,{live:true});
-  if(page.id==='account')page.content='<section class="page-heading"><h1>Account</h1></section><section class="auth-card"><div data-entry><a class="button primary" href="signin.html">Sign in</a></div>'+profileContent({live:true})+sessionContent()+'<p class="auth-status" data-page-status role="status" tabindex="-1"></p><button class="button" data-retry hidden>Retry connection</button></section>'+accountEditor();
+  if(page.id==='account')page.content='<section class="page-heading"><h1>Account</h1></section><section class="auth-card"><div data-entry><a class="button primary" href="signin.html">Sign in</a></div>'+profileContent({live:true})+'<p class="auth-status" data-page-status role="status" tabindex="-1"></p><button class="button" data-retry hidden>Retry connection</button></section>'+accountEditor().replace('</section><section class="account-section"><h2>Theme</h2>',sessionContent({account:true})+'</section><section class="account-section"><h2>Theme</h2>');
   page.content=page.content.replaceAll('data-admin-entry','data-admin-entry hidden');
 
   await writeFile(output+'/assets/routes/'+page.id+'.mjs', 'export default '+JSON.stringify(routeView(page))+';\n');

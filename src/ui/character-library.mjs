@@ -23,7 +23,7 @@ export function mountCharacterLibrary({fixture=false}={}){
       element.toggleAttribute('inert',position==='is-offstage');
       if(position==='is-offstage')element.setAttribute('aria-hidden','true');else element.removeAttribute('aria-hidden');
       const button=element.querySelector('[data-select-character]');
-      if(button){if(position==='is-current')button.setAttribute('aria-current','true');else button.removeAttribute('aria-current');}
+      if(button){button.setAttribute('aria-label',(position==='is-current'?'Selected character: ':'Select character: ')+(characters[index].name||'Unnamed character'));if(position==='is-current')button.setAttribute('aria-current','true');else button.removeAttribute('aria-current');}
     }
     const position=root.querySelector('[data-active-position]');if(position)position.textContent=(selected+1)+' / '+count;
   }
@@ -55,7 +55,7 @@ export function mountCharacterLibrary({fixture=false}={}){
     if(rotation){turn(Number(rotation.dataset.rotateCharacter));return;}
     const row=event.target.closest('[data-character-open]');if(row&&!event.target.closest('a')){location.assign('sheet.html?characterId='+encodeURIComponent(row.dataset.characterOpen));return;}
     const card=event.target.closest('[data-select-character]');
-    if(card){if(Date.now()<suppressCardClickUntil)return;const wanted=Number(card.dataset.selectCharacter);if(Number.isInteger(wanted)&&wanted>=0&&wanted<characters.length){if(!fixture)location.assign('sheet.html?characterId='+encodeURIComponent(characters[wanted].id));else turn(wanted-selected);}return;}
+    if(card){if(Date.now()<suppressCardClickUntil)return;const wanted=Number(card.dataset.selectCharacter);if(Number.isInteger(wanted)&&wanted>=0&&wanted<characters.length){if(!fixture&&wanted===selected)location.assign('sheet.html?characterId='+encodeURIComponent(characters[wanted].id));else turn(wanted-selected);}return;}
     if(event.target.closest('[data-load-characters]')){void load({more:true});return;}
   },{signal:control.signal});
   root.addEventListener('keydown',event=>{

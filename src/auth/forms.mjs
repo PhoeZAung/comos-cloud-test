@@ -14,6 +14,6 @@ export function profileContent({ live = false } = {}) {
   const content = `<form data-auth-form="profile" novalidate><label for="display-name">Display name</label><input id="display-name" name="displayName" type="text" autocomplete="${live ? 'nickname' : 'off'}" maxlength="80" required aria-describedby="display-name-error"><p class="field-error" id="display-name-error"></p><button class="button primary" type="submit" disabled>${live ? 'Finish setup' : 'Check profile form'}</button><p class="auth-status" role="status" aria-live="polite" tabindex="-1"></p></form>`;
   return live ? `<section class="profile-panel" data-profile hidden><h2>Finish your profile</h2><p>Choose the name other players will see.</p>${content}</section>` : `<details class="profile-panel"><summary>Preview profile setup</summary><p>Form preview · Nothing is saved.</p>${content}</details>`;
 }
-export function sessionContent() {
-  return `<section class="session-panel" data-session hidden><p data-session-name></p><a class="button primary" href="home.html" data-continue hidden>Continue to Home</a><button class="button" type="button" data-signout disabled>Sign out on all devices</button><p class="auth-status" data-session-status role="status" tabindex="-1"></p></section>`;
+export function sessionContent({account=false}={}) {
+  return `<section class="session-panel" data-session hidden><p data-session-name></p>${account?'':'<a class="button primary" href="home.html" data-continue hidden>Continue to Home</a>'}<button class="button" type="button" data-signout disabled>Sign out on all devices</button><p class="auth-status" data-session-status role="status" tabindex="-1"></p></section>`;
 }

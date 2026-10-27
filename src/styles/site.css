@@ -105,3 +105,7 @@ body{background:var(--bg)}header{background:var(--shell-bg)}.empty,.auth-card,.a
 [data-character-admin] .directory-character .icon-button svg{width:21px;height:21px}
 [data-character-admin] .directory-character .character-tag-labels span{color:#f4f0ff;border-color:#707789}
 @media(max-width:600px){[data-character-admin] .directory-tools form{flex-wrap:nowrap}[data-character-admin] .directory-tools input{flex-basis:auto}[data-character-admin] .directory-character{flex-direction:row;align-items:center;flex-wrap:wrap}[data-character-admin] .directory-character>div:first-child{min-width:130px}}
+
+header .install-control{margin-right:0;margin-left:auto}header .install-control+.account{margin-left:0}.item-buyer-context{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);border-radius:9px}.character-controls{flex-wrap:wrap}
+
+[data-public-account]:not([hidden]){display:flex;align-items:center;gap:12px}

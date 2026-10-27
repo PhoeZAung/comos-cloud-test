@@ -6,7 +6,7 @@ Original scores remain editable without racial adjustments baked into the box. A
 
 Skill allocations use effective INT, minimum one rank per level, the class budget, the character-level rank cap, one trained class-skill +3 and automatic unconditional racial bonuses. All points must be allocated before committing a wizard build. Level up preserves prior ranks and uses the next budget; existing unallocated legacy ranks can be distributed at that time. The server validates the final allocation. Feat slots are reserved at odd character levels, starting at 1; a curated feat catalog is still pending.
 
-The sheet up-arrow opens a confirmation dialog. Level up starts with the last supported class, includes +1 ability score only at multiples of four, then animated before/after HP and MP totals and a separate Skills screen. Current resources are not refilled. The MP table matches the official FFd20 MP System. Maximum first d6 and later 4 base HP remain the selected project policy.
+The sheet up-arrow opens a confirmation dialog. Level up starts with the last supported class, includes +1 ability score only at multiples of four, then animated before/after HP and MP totals and a separate Skills screen. Confirmed level-up refills current HP and MP to their effective maxima. The MP table matches the official FFd20 MP System. Maximum first d6 and later 4 base HP remain the selected project policy.
 
 ## Boundaries still requiring source data
 
@@ -24,4 +24,16 @@ The skill editor clamps both remaining budget and character-level rank caps; she
 
 Growth includes all base BAB/save values, even unchanged. Milestone score selection shows all six prior scores. Odd-level feat slots remain. Confirmed level-up now refills current HP and MP to effective maxima; ordinary edits still do not refill resources.
 
-A shared toolbar sits beneath all navigation tabs, with star-control visibility, current-build edit, level-up, Discord and vampire recovery controls. Inventory entries, fixed skills, resources and major cards can be favorited. Favorites persist through the owner/admin revision-checked sheet API. Character cards open the sheet directly; roster edit/open-sheet action buttons are removed.
+Star visibility, current-build edit, level-up and compact-window controls sit at the top right. Discord, themed bed recovery and resource settings remain beneath navigation. Inventory entries, fixed skills, resources and major cards can be favorited. Favorites persist through the owner/admin revision-checked sheet API. Side carousel cards center on first click; clicking the center card opens its sheet. List rows open directly; separate roster edit/open-sheet buttons are removed.
+
+## Sheet interaction update — 27 October 2026
+
+- Discord entry action sends complete stored description/details without spending resources. Dice/Use actions spend spell MP (default spell level; explicit spell cost override retained) or one configured ability usage. No formula means Use sends description; a dice formula sends only attack/dice results. The global Discord toggle governs roll/use delivery; explicit description sends always target Discord.
+- Atomic, revision-checked receipts protect resource spending and idempotent retries. Insufficient MP, exhausted usage or invalid dice do not spend resources. Delivery failure retains the spent action/receipt and reports failure; it does not refund or silently resend. Long descriptions split into Discord-sized messages. Original source wording must already exist in stored data.
+- Attack type supplies attack totals. Critical threats show Crit!, a separate confirmation attack and the original rolled damage total multiplied by the saved multiplier. This multiplication convention is the requested Comos behavior; no target AC is guessed or automatic hit confirmation claimed. Legacy extra_damage fields remain stored but new receipts use the single Dice Roll formula.
+- Temp HP begins as Add temp HP; adding starts at 1, exposes minus/input/plus, and returning to zero collapses the controls. Negative temporary HP is clamped to zero.
+- Equipment adds an Arms slot, preserving existing IDs and individually addressable accessory slots. Shared silhouette geometry supplies boxes, connectors and equipped-region overlays.
+- Admin search updates on typing/deletion with stale-response suppression. Character-name matches expand the owner and filter its rows. A shopping link carries characterId; shop no longer offers a buyer chooser. Catalog and inventory categories use compact horizontal scrolling buttons.
+- Install download icon is beside the profile control when the browser emits beforeinstallprompt; unsupported platforms retain Account instructions (including iOS Share → Add to Home Screen). Installed standalone mode hides it. Account sign-out follows Profile; Continue to Home is omitted there.
+
+Validation: automated tests cover resource spending, replay, rollback, long description chunking, exhausted zero-formula usage, and server-side directory filtering. Local browser QA uses isolated synthetic responses, never production account data or Discord messages. Physical Android/iOS installation and live Discord delivery require device/account checks.

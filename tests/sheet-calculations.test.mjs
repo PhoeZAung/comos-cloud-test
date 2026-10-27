@@ -27,5 +27,5 @@ test('fixed skills materialize for new sheets, preserve imported records and can
 });
 test('four-quadrant category selector and expanded calculation controls avoid list clutter',()=>{
  const c={id:'sample',name:'Mage',data:d},frame=renderSheetFrame(c,'abilities');assert.match(frame,/cs-ability-wheel/);assert.equal((frame.match(/data-ability-category=/g)||[]).length,4);assert.doesNotMatch(frame,/<select data-ability-category/);const skills=renderSection(c,'skills');assert.doesNotMatch(skills,/data-add-entry="skills"/);assert.match(skills,/Spellcraft/);
- const details=entryDetail(d.spells[0],d,'spells');assert.match(details,/Save DC/);assert.match(details,/>16</);assert.match(details,/Cast · 2 MP/);assert.match(details,/6d6 \+ 4/);assert.match(details,/concentration/);
+ const details=entryDetail(d.spells[0],d,'spells');assert.match(details,/Save DC/);assert.match(details,/>16</);assert.match(details,/MP cost<\/dt><dd>2/);assert.doesNotMatch(details,/data-cast-entry/);assert.match(details,/6d6 \+ 4/);assert.match(details,/concentration/);
 });

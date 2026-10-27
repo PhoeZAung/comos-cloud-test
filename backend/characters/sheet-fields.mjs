@@ -24,7 +24,7 @@ export function mergeSheetData(original,change){
   for(const [key,value] of Object.entries(change.fields)){
    if(data.rulesBuild&&['hp_max','mp_class','mp_bonus','bab'].includes(key))bad('This base value is calculated by class progression.');
    if(key==='favorite_boxes'){if(!Array.isArray(value)||value.length>12||value.some(v=>!['ability-scores','identity','proficiencies','bio','skills','inventory','equipment','notes','saving-throws','resistances','offense','defense'].includes(v)))bad('Invalid favorite box.');data.favorite_boxes=[...new Set(value)];continue;}
-   if(numericFields.includes(key)){data[key]=numeric(value);if(abilities.includes(key)&&(data[key]<0||data[key]>999))bad('Ability score must be 0–999.');}
+   if(numericFields.includes(key)){data[key]=numeric(value);if(key==='hp_temp')data[key]=Math.max(0,data[key]);if(abilities.includes(key)&&(data[key]<0||data[key]>999))bad('Ability score must be 0–999.');}
    else if(booleanFields.includes(key)&&typeof value==='boolean')data[key]=value;
    else if(textFields.includes(key))data[key]=text(value);
    else if(Object.hasOwn(enumFields,key)&&enumFields[key].includes(value))data[key]=value;
@@ -70,6 +70,7 @@ export function mergeSheetData(original,change){
   }
   data[change.collection]=rows;
   if(change.collection==='skills'&&Object.hasOwn(change.fields||{},'lvl')){const budget=skillBudget(data);if(budget.known&&budget.unused<0)bad('No skill points remaining.');if(data.rulesBuild)data.rulesBuild.input.skillRanks=data.skills.map(r=>Number(r.lvl||0));}
+  if(change.mode==='update'&&['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(change.collection)&&Object.hasOwn(change.fields||{},'uses_formula')){const before=entryCalculations(original[change.collection][change.index],original,change.collection),after=entryCalculations(rows[change.index],data,change.collection);rows[change.index].u_curr=Math.max(0,after.maxUses-Math.max(0,before.maxUses-before.currentUses));}
   if(change.mode==='update'&&change.collection==='activeAbilities'&&Object.hasOwn(change.fields||{},'u_curr')){const value=rows[change.index].u_curr,max=entryCalculations(rows[change.index],data,'activeAbilities').maxUses;if(!Number.isInteger(value)||value<0||value>max)bad('Remaining uses must be a whole number between 0 and maximum uses.');}
   if(change.mode==='update'&&['items','weapons'].includes(change.collection)&&change.fields?.two_handed===true){const selected=rows[change.index];if(selected.equipped!==false&&['hands','hand2'].includes(selected.equip_slot)){for(const {item} of equipmentRows(data))if(item!==selected&&['hands','hand2'].some(slot=>occupiesSlot(item,slot))){item.equip_slot='';item.equipped=false;}selected.equip_slot='hands';}}
 
@@ -94,14 +95,14 @@ export function mergeSheetData(original,change){
   if(!Number.isInteger(change.index)||!data.spells?.[change.index])bad('Entry not found.');
   return data;
  }else if(change.action==='useAbility'){
-  const row=data.activeAbilities?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');const calc=entryCalculations(row,data,'activeAbilities');
-  if(calc.maxUses<=0)bad('Set maximum uses before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');row.u_curr=calc.currentUses-1;
+  const collection=change.collection||'activeAbilities';if(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection))bad('Invalid ability.');const row=data[collection]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');const calc=entryCalculations(row,data,collection);
+  if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');row.u_curr=calc.currentUses-1;
  }else if(change.action==='spendMp'){
   const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
  }else if(change.action==='rest'){
   const current=sheetStats(data),level=totalClassLevel(characterClasses(data))||number(data.character_level||data.level)||1;
   data.hp_curr=Math.min(current.hpMax,current.hp+Math.max(1,level));data.mp=current.mpMax;data.mp_temp=0;
-  for(const row of data.activeAbilities||[])if(row.restoreOnLongRest!==false){const max=entryCalculations(row,data,'activeAbilities').maxUses;if(max>0)row.u_curr=max;}
+  for(const row of ['activeAbilities','passiveAbilities','racialAbilities','feats'].flatMap(k=>data[k]||[]))if(row.restoreOnLongRest!==false){const max=entryCalculations(row,data,'activeAbilities').maxUses;if(max>0)row.u_curr=max;}
  }else bad('Invalid sheet action.');
  updateManagedStats(data,original);
  if(data.rulesBuild)for(const key of ['activeAbilities','racialAbilities'])for(const row of data[key]||[]){if(!row.rulesOwned||!row.uses_formula)continue;const old=original[key]?.find(r=>r.sourceRuleId===row.sourceRuleId);if(!old||!abilities.some(k=>Number(data[k])!==Number(original[k])))continue;const before=entryCalculations(old,original,key),after=entryCalculations(row,data,key),spent=Math.max(0,before.maxUses-before.currentUses);row.u_max=after.maxUses;row.u_curr=Math.max(0,after.maxUses-spent);}

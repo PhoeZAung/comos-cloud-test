@@ -1,7 +1,7 @@
 /**
  * Display-only spell MP amount. A spell's level is its default MP amount;
  * a non-negative manual mp_cost/mpCost override can be set per spell.
- * Casting/rolling never alters a character's MP.
+ * Description sends never spend MP. Dice/Use actions spend MP by spell level on the server.
  */
 export function spellMpAmount(spell = {}, levelNumber = 0) {
   const item = spell && typeof spell === 'object' ? spell : {};
