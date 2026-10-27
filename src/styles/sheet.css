@@ -29,3 +29,5 @@
 @media(max-width:380px){.cs-equipment{padding:8px}.cs-gear-slot{min-height:44px;padding:4px}.cs-gear-slot-name{font-size:10px}.cs-gear-slot-item{font-size:9px}}
 
 .cs-body-base{stroke-width:1.5;fill:color-mix(in srgb,var(--text) 19%,var(--bg))}.cs-body-base .cs-body-detail{fill:none;stroke:color-mix(in srgb,var(--text) 35%,var(--line));stroke-width:1.5}.cs-accessory-panel[open]>summary{color:var(--accent)}
+
+.cs-build-actions{display:flex;align-items:center;gap:8px;flex:none}

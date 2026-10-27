@@ -58,6 +58,10 @@ export function createCharacterLibraryService(db){
   return Object.freeze({
     createBuild(ownerId,raw,{admin=false}={}){
       if(!ownerId||!uuid.test(raw?.requestId||''))throw fail('INVALID_CHARACTER','Invalid build request.');
+      if(raw.build?.level!==1)throw fail('INVALID_CHARACTER','New characters start at level 1. Use Level up on the sheet afterward.');
+      if(JSON.stringify(raw.build.hpRolls)!=='[6]')throw fail('INVALID_CHARACTER','Black Mage starts with its maximum d6 Hit Die: 6 base HP.');
+      if(!Array.isArray(raw.build.favored)||raw.build.favored.length)throw fail('INVALID_CHARACTER','Apply favored rewards manually after creation.');
+      if(raw.build.initialIntMod!==undefined&&raw.build.initialIntMod!==null)throw fail('INVALID_CHARACTER','Starting spell entitlement is determined when the character is created.');
       const data=compileBuild(raw.build),digest=createHash('sha256').update(JSON.stringify(raw.build)).digest('hex');
       const hex=createHash('sha256').update(ownerId+'|'+raw.requestId).digest('hex');
       const id=hex.slice(0,8)+'-'+hex.slice(8,12)+'-4'+hex.slice(13,16)+'-a'+hex.slice(17,20)+'-'+hex.slice(20,32),now=new Date().toISOString();

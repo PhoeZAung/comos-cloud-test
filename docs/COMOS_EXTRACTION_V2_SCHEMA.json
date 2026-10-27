@@ -1,0 +1,3020 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:comos:rules:v1",
+  "title": "Comos Rules Extraction v1 \u2014 staging contract, not a live importer",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "comos.rules.v1"
+    },
+    "kind": {
+      "enum": [
+        "class",
+        "archetype",
+        "race",
+        "spell",
+        "spell_list",
+        "catalog",
+        "system"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "minItems": 1
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dependency"
+      }
+    },
+    "review": {
+      "$ref": "#/$defs/review"
+    },
+    "excludedSections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "section": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sourceId",
+          "section",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/feature"
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resource"
+      }
+    },
+    "choicePools": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/choicePool"
+      }
+    },
+    "levelBindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/levelBinding"
+      }
+    },
+    "data": {},
+    "contractRevision": {
+      "const": "2026-10-26.2"
+    },
+    "extractionAudit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedEntityCount",
+        "emittedEntityCount",
+        "unresolvedUrls",
+        "truncationSuspected",
+        "notes"
+      ],
+      "properties": {
+        "expectedEntityCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "emittedEntityCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unresolvedUrls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "truncationSuspected": {
+          "type": "boolean"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "kind",
+    "id",
+    "name",
+    "revision",
+    "sources",
+    "dependencies",
+    "review",
+    "excludedSections",
+    "features",
+    "resources",
+    "choicePools",
+    "levelBindings",
+    "data"
+  ],
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "properties": {
+        "kind": {
+          "const": "class"
+        },
+        "data": {
+          "$ref": "#/$defs/class"
+        }
+      }
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "archetype"
+        },
+        "data": {
+          "$ref": "#/$defs/archetype"
+        }
+      }
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "race"
+        },
+        "data": {
+          "$ref": "#/$defs/race"
+        }
+      }
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "spell"
+        },
+        "data": {
+          "$ref": "#/$defs/spell"
+        }
+      }
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "spell_list"
+        },
+        "data": {
+          "$ref": "#/$defs/spell_list"
+        }
+      }
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "catalog"
+        },
+        "data": {
+          "$ref": "#/$defs/catalog"
+        }
+      }
+    },
+    {
+      "properties": {
+        "kind": {
+          "const": "system"
+        },
+        "data": {
+          "$ref": "#/$defs/system"
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sourceRef": {
+      "type": "object",
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "section": {
+          "type": "string"
+        },
+        "locator": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "sourceId",
+        "section",
+        "locator"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "title": {
+          "type": "string"
+        },
+        "retrievedOn": {
+          "type": "string",
+          "format": "date"
+        },
+        "sourceKind": {
+          "enum": [
+            "official_web",
+            "official_pdf",
+            "user_supplied",
+            "legacy_snapshot"
+          ]
+        },
+        "contentSha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "url",
+        "title",
+        "retrievedOn",
+        "sourceKind",
+        "contentSha256"
+      ],
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "enum": [
+            "draft",
+            "needs_review",
+            "reviewed"
+          ]
+        },
+        "coverage": {
+          "enum": [
+            "empty",
+            "partial",
+            "complete"
+          ]
+        },
+        "reviewedBy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewedOn": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "blocking": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "path",
+              "reason",
+              "blocking"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sectionInventory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "sourceId": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*$"
+              },
+              "section": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "extracted",
+                  "excluded",
+                  "missing",
+                  "needs_review"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "sourceId",
+              "section",
+              "status",
+              "reason"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "state",
+        "coverage",
+        "reviewedBy",
+        "reviewedOn",
+        "issues",
+        "sectionInventory"
+      ],
+      "additionalProperties": false
+    },
+    "dependency": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "revision": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "sourceUrl": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https://"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "required",
+        "reason",
+        "sourceUrl"
+      ],
+      "additionalProperties": false
+    },
+    "computed": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "constant"
+            },
+            "value": {
+              "type": "number"
+            },
+            "sourceRefs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/sourceRef"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "value",
+            "sourceRefs"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "formula"
+            },
+            "expression": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 240
+            },
+            "classId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "rounding": {
+              "enum": [
+                "floor",
+                "ceil",
+                "none"
+              ]
+            },
+            "minimum": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "maximum": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sourceRefs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/sourceRef"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "expression",
+            "classId",
+            "rounding",
+            "minimum",
+            "maximum",
+            "sourceRefs"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "level_table"
+            },
+            "levelBasis": {
+              "enum": [
+                "class_level",
+                "character_level",
+                "caster_level",
+                "favored_selections"
+              ]
+            },
+            "classId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "value": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "from",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            },
+            "betweenRows": {
+              "const": "step"
+            },
+            "belowFirst": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sourceRefs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/sourceRef"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "kind",
+            "levelBasis",
+            "classId",
+            "rows",
+            "betweenRows",
+            "belowFirst",
+            "sourceRefs"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "all",
+                "any"
+              ]
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/condition"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "type",
+            "conditions"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "not"
+            },
+            "condition": {
+              "$ref": "#/$defs/condition"
+            }
+          },
+          "required": [
+            "type",
+            "condition"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "threshold"
+            },
+            "fact": {
+              "enum": [
+                "class_level",
+                "character_level",
+                "ability_score",
+                "skill_ranks",
+                "max_spell_level",
+                "choice_rank"
+              ]
+            },
+            "ref": {
+              "type": "string"
+            },
+            "minimum": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "type",
+            "fact",
+            "ref",
+            "minimum"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "has"
+            },
+            "ref": {
+              "type": "string",
+              "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+            }
+          },
+          "required": [
+            "type",
+            "ref"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "manual"
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "type",
+            "description"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "effect": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "kind": {
+          "enum": [
+            "ability_score",
+            "identity",
+            "skill_bonus",
+            "class_skill",
+            "proficiency",
+            "defense_bonus",
+            "attack_bonus",
+            "damage_bonus",
+            "resource_bonus",
+            "casting_advance",
+            "grant_feature",
+            "grant_spell",
+            "custom"
+          ]
+        },
+        "target": {
+          "type": "string"
+        },
+        "operation": {
+          "enum": [
+            "add",
+            "set",
+            "grant",
+            "remove"
+          ]
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "textValue": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bonusType": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "condition": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/condition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "automation": {
+          "enum": [
+            "automatic",
+            "conditional",
+            "manual"
+          ]
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "target",
+        "operation",
+        "value",
+        "textValue",
+        "bonusType",
+        "condition",
+        "automation",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "damageTerm": {
+      "type": "object",
+      "properties": {
+        "diceCount": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dieSides": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 1000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "flatBonus": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "damageType": {
+          "type": "string"
+        },
+        "affectedResource": {
+          "enum": [
+            "hp",
+            "mp",
+            "other"
+          ]
+        },
+        "criticalTreatment": {
+          "enum": [
+            "base",
+            "extra_once",
+            "never",
+            "manual"
+          ]
+        }
+      },
+      "required": [
+        "diceCount",
+        "dieSides",
+        "flatBonus",
+        "damageType",
+        "affectedResource",
+        "criticalTreatment"
+      ],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "actionType": {
+          "enum": [
+            "standard",
+            "move",
+            "swift",
+            "immediate",
+            "free",
+            "full_round",
+            "reaction",
+            "passive",
+            "special",
+            "unknown"
+          ]
+        },
+        "trigger": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attackType": {
+          "enum": [
+            "none",
+            "melee",
+            "ranged",
+            "touch",
+            "ranged_touch",
+            "cmb",
+            "manual"
+          ]
+        },
+        "abilityMod": {
+          "enum": [
+            "auto",
+            "str",
+            "dex",
+            "con",
+            "int",
+            "wis",
+            "cha"
+          ]
+        },
+        "attackMisc": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "damage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/damageTerm"
+          }
+        },
+        "save": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "enum": [
+                    "fortitude",
+                    "reflex",
+                    "will",
+                    "other"
+                  ]
+                },
+                "dc": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/computed"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "outcome": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type",
+                "dc",
+                "outcome"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "costs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "resourceId": {
+                "type": "string",
+                "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+              },
+              "amount": {
+                "$ref": "#/$defs/computed"
+              }
+            },
+            "required": [
+              "resourceId",
+              "amount"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "rangeText": {
+          "type": "string"
+        },
+        "durationText": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        },
+        "rangeValue": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rangeUnit": {
+          "anyOf": [
+            {
+              "enum": [
+                "feet",
+                "miles",
+                "other"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationValue": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationUnit": {
+          "anyOf": [
+            {
+              "enum": [
+                "rounds",
+                "minutes",
+                "hours",
+                "days",
+                "other"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "targetText": {
+          "type": "string"
+        },
+        "targetCount": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "criticalProfile": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "threatMinimum": {
+                  "type": "integer",
+                  "minimum": 2,
+                  "maximum": 20
+                },
+                "multiplier": {
+                  "type": "integer",
+                  "minimum": 2,
+                  "maximum": 10
+                },
+                "confirmation": {
+                  "enum": [
+                    "attack_again",
+                    "none",
+                    "manual"
+                  ]
+                },
+                "notes": {
+                  "type": "string"
+                },
+                "sourceRefs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/sourceRef"
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "threatMinimum",
+                "multiplier",
+                "confirmation",
+                "notes",
+                "sourceRefs"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "actionType",
+        "trigger",
+        "attackType",
+        "abilityMod",
+        "attackMisc",
+        "damage",
+        "save",
+        "costs",
+        "rangeText",
+        "durationText",
+        "notes",
+        "sourceRefs",
+        "rangeValue",
+        "rangeUnit",
+        "durationValue",
+        "durationUnit",
+        "targetText",
+        "targetCount",
+        "criticalProfile"
+      ],
+      "additionalProperties": false
+    },
+    "feature": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "featureKind": {
+          "enum": [
+            "racial_trait",
+            "class_feature",
+            "talent",
+            "heritage_feature",
+            "spell_like",
+            "granted_feat",
+            "choice_container",
+            "other"
+          ]
+        },
+        "activation": {
+          "enum": [
+            "active",
+            "passive",
+            "mixed",
+            "none",
+            "unresolved"
+          ]
+        },
+        "rulesType": {
+          "enum": [
+            "ex",
+            "su",
+            "sp",
+            "mixed",
+            "none",
+            "unknown"
+          ]
+        },
+        "sheetTargets": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "identity",
+              "racialAbilities",
+              "activeAbilities",
+              "passiveAbilities",
+              "feats",
+              "spells",
+              "rulesOnly"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "automation": {
+          "enum": [
+            "structured",
+            "partial",
+            "manual"
+          ]
+        },
+        "requirements": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/condition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "componentIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "effects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/action"
+          }
+        },
+        "choicePoolIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "scalingNotes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fromClassLevel": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "description": {
+                "type": "string"
+              },
+              "sourceRefs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/sourceRef"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "fromClassLevel",
+              "description",
+              "sourceRefs"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        },
+        "choiceCount": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "selectionTiming": {
+          "enum": [
+            "on_gain",
+            "daily",
+            "on_use",
+            "other",
+            "none"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "featureKind",
+        "activation",
+        "rulesType",
+        "sheetTargets",
+        "automation",
+        "requirements",
+        "componentIds",
+        "effects",
+        "actions",
+        "choicePoolIds",
+        "scalingNotes",
+        "sourceRefs",
+        "choiceCount",
+        "selectionTiming"
+      ],
+      "additionalProperties": false
+    },
+    "resource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "classId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "enum": [
+            "uses",
+            "rounds",
+            "points",
+            "mp",
+            "hp",
+            "charges",
+            "other"
+          ]
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "period": {
+          "enum": [
+            "day",
+            "encounter",
+            "round",
+            "continuous",
+            "other",
+            "unknown"
+          ]
+        },
+        "recovery": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "enum": [
+                "rest",
+                "meditation",
+                "time",
+                "manual",
+                "other",
+                "unknown"
+              ]
+            },
+            "conditionText": {
+              "type": "string"
+            },
+            "automaticRecoveryAllowed": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "method",
+            "conditionText",
+            "automaticRecoveryAllowed"
+          ],
+          "additionalProperties": false
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "classId",
+        "unit",
+        "maximum",
+        "period",
+        "recovery",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "choiceOption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "featureIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "spellIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requirements": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/condition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "repeatLimit": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "exclusionGroup": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "featureIds",
+        "spellIds",
+        "value",
+        "requirements",
+        "repeatLimit",
+        "exclusionGroup",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "choicePool": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "choiceType": {
+          "enum": [
+            "feature",
+            "spell",
+            "ability_score",
+            "skill",
+            "language",
+            "heritage",
+            "class_branch",
+            "class_to_advance",
+            "favored_reward",
+            "feat",
+            "other"
+          ]
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/choiceOption"
+          }
+        },
+        "catalogRefs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "filter": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/condition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duplicatePolicy": {
+          "enum": [
+            "forbid",
+            "allow_ranked",
+            "allow_distinct_parameter"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "choiceType",
+        "options",
+        "catalogRefs",
+        "filter",
+        "duplicatePolicy",
+        "notes",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "event": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+            },
+            "atClassLevel": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "type": {
+              "const": "grant_feature"
+            },
+            "featureIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "requirements": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/condition"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sourceRefs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/sourceRef"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "id",
+            "atClassLevel",
+            "type",
+            "featureIds",
+            "requirements",
+            "sourceRefs"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+            },
+            "atClassLevel": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "type": {
+              "const": "choose"
+            },
+            "poolIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "count": {
+              "$ref": "#/$defs/computed"
+            },
+            "requirements": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/condition"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "selectionTiming": {
+              "enum": [
+                "on_gain",
+                "daily",
+                "on_use",
+                "other"
+              ]
+            },
+            "sourceRefs": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/sourceRef"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "id",
+            "atClassLevel",
+            "type",
+            "poolIds",
+            "count",
+            "requirements",
+            "selectionTiming",
+            "sourceRefs"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "replacement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "operation": {
+          "enum": [
+            "replace",
+            "modify",
+            "add"
+          ]
+        },
+        "targetFeatureIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "targetEventIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "scope": {
+          "enum": [
+            "whole_feature",
+            "listed_events",
+            "part_of_feature",
+            "none"
+          ]
+        },
+        "removesComponents": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "addsFeatureIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "addsEventIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "condition": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/condition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "resolution": {
+          "enum": [
+            "resolved",
+            "manual"
+          ]
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "operation",
+        "targetFeatureIds",
+        "targetEventIds",
+        "scope",
+        "removesComponents",
+        "addsFeatureIds",
+        "addsEventIds",
+        "condition",
+        "description",
+        "resolution",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "favoredReward": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "raceId": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "classId": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "increment": {
+          "type": "object",
+          "properties": {
+            "numerator": {
+              "type": "integer"
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": [
+            "numerator",
+            "denominator"
+          ],
+          "additionalProperties": false
+        },
+        "roundingPolicy": {
+          "enum": [
+            "accumulate_then_floor",
+            "exact",
+            "manual"
+          ]
+        },
+        "effect": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/effect"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "choicePoolIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "raceId",
+        "classId",
+        "name",
+        "description",
+        "increment",
+        "roundingPolicy",
+        "effect",
+        "choicePoolIds",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "progressionRow": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "bab": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "iterativeAttackBonuses": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "fortitude": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reflex": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "will": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "baseMp": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "maxSpellLevel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "level",
+        "bab",
+        "iterativeAttackBonuses",
+        "fortitude",
+        "reflex",
+        "will",
+        "baseMp",
+        "maxSpellLevel",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "casting": {
+      "type": "object",
+      "properties": {
+        "castingAbility": {
+          "anyOf": [
+            {
+              "enum": [
+                "str",
+                "dex",
+                "con",
+                "int",
+                "wis",
+                "cha"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "spellListIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "learningMode": {
+          "enum": [
+            "selected_known",
+            "all_list",
+            "other",
+            "none",
+            "unknown"
+          ]
+        },
+        "casterLevel": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "minimumAbilityScore": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "bonusMpSystemId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "notes": {
+          "type": "string"
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "castingAbility",
+        "spellListIds",
+        "learningMode",
+        "casterLevel",
+        "minimumAbilityScore",
+        "bonusMpSystemId",
+        "notes",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "class": {
+      "type": "object",
+      "properties": {
+        "classType": {
+          "enum": [
+            "core",
+            "base",
+            "alternate",
+            "hybrid",
+            "prestige",
+            "npc",
+            "miscellaneous",
+            "unknown"
+          ]
+        },
+        "parentClassIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "maxLevel": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "entryRequirements": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/condition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hitDie": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "skillRanksPerLevel": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "classSkills": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "skillId": {
+                "type": "string"
+              },
+              "specialization": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "allSpecializations": {
+                "type": "boolean"
+              },
+              "sourceRefs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/sourceRef"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "skillId",
+              "specialization",
+              "allSpecializations",
+              "sourceRefs"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "progression": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/progressionRow"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          }
+        },
+        "spellcasting": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/casting"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "archetypeIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "favoredRewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/favoredReward"
+          }
+        },
+        "multiclassNotes": {
+          "type": "string"
+        },
+        "startingWealth": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "dice",
+                "multiplier",
+                "average",
+                "currency",
+                "outfit",
+                "sourceRefs"
+              ],
+              "properties": {
+                "dice": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 100
+                },
+                "multiplier": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "average": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string",
+                  "maxLength": 50
+                },
+                "outfit": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "additionalProperties": false,
+                  "required": [
+                    "maximumValue",
+                    "inAdditionToWealth",
+                    "description"
+                  ],
+                  "properties": {
+                    "maximumValue": {
+                      "type": [
+                        "number",
+                        "null"
+                      ],
+                      "minimum": 0
+                    },
+                    "inAdditionToWealth": {
+                      "type": "boolean"
+                    },
+                    "description": {
+                      "type": "string",
+                      "maxLength": 12000
+                    }
+                  }
+                },
+                "sourceRefs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/sourceRef"
+                  }
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "classType",
+        "parentClassIds",
+        "maxLevel",
+        "entryRequirements",
+        "hitDie",
+        "skillRanksPerLevel",
+        "classSkills",
+        "progression",
+        "events",
+        "spellcasting",
+        "archetypeIds",
+        "favoredRewards",
+        "multiclassNotes"
+      ],
+      "additionalProperties": false
+    },
+    "archetype": {
+      "type": "object",
+      "properties": {
+        "parentClassId": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "parentRevision": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requirements": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/condition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "replacements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/replacement"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/event"
+          }
+        },
+        "progressionOverrides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/progressionRow"
+          }
+        },
+        "castingOverride": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/casting"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "classSkillChanges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        },
+        "compatibilityNotes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "parentClassId",
+        "parentRevision",
+        "requirements",
+        "replacements",
+        "events",
+        "progressionOverrides",
+        "castingOverride",
+        "classSkillChanges",
+        "compatibilityNotes"
+      ],
+      "additionalProperties": false
+    },
+    "heritage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "requirements": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/condition"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "abilityAdjustmentMode": {
+          "enum": [
+            "replace_racial_vector",
+            "unchanged",
+            "manual"
+          ]
+        },
+        "replacements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/replacement"
+          }
+        },
+        "featureIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "choicePoolIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "requirements",
+        "abilityAdjustmentMode",
+        "replacements",
+        "featureIds",
+        "choicePoolIds",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    },
+    "race": {
+      "type": "object",
+      "properties": {
+        "raceType": {
+          "enum": [
+            "core",
+            "base",
+            "beastman",
+            "monstrous",
+            "other",
+            "unknown"
+          ]
+        },
+        "standardTraitIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "alternateTraitIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "alternateReplacements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/replacement"
+          }
+        },
+        "heritages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/heritage"
+          }
+        },
+        "heritagePolicy": {
+          "type": "object",
+          "properties": {
+            "defaultHeritageId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "maximumSelected": {
+              "const": 1
+            },
+            "retainUnreplacedStandards": {
+              "const": true
+            }
+          },
+          "required": [
+            "defaultHeritageId",
+            "maximumSelected",
+            "retainUnreplacedStandards"
+          ],
+          "additionalProperties": false
+        },
+        "standardTraitPolicy": {
+          "type": "object",
+          "properties": {
+            "enabledByDefault": {
+              "const": true
+            },
+            "userCanDisable": {
+              "const": true
+            }
+          },
+          "required": [
+            "enabledByDefault",
+            "userCanDisable"
+          ],
+          "additionalProperties": false
+        },
+        "alternateTraitPolicy": {
+          "type": "object",
+          "properties": {
+            "enabledByDefault": {
+              "const": false
+            },
+            "requiresExplicitSelection": {
+              "const": true
+            }
+          },
+          "required": [
+            "enabledByDefault",
+            "requiresExplicitSelection"
+          ],
+          "additionalProperties": false
+        },
+        "favoredRewards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/favoredReward"
+          }
+        }
+      },
+      "required": [
+        "raceType",
+        "standardTraitIds",
+        "alternateTraitIds",
+        "alternateReplacements",
+        "heritages",
+        "heritagePolicy",
+        "standardTraitPolicy",
+        "alternateTraitPolicy",
+        "favoredRewards"
+      ],
+      "additionalProperties": false
+    },
+    "spell": {
+      "type": "object",
+      "properties": {
+        "school": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subschool": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "descriptors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "listMemberships": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "classId": {
+                "type": "string",
+                "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+              },
+              "spellListId": {
+                "type": "string",
+                "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+              },
+              "level": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9
+              },
+              "sourceRefs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/sourceRef"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "classId",
+              "spellListId",
+              "level",
+              "sourceRefs"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "castingTime": {
+          "type": "string"
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "range": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "area": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "savingThrow": {
+          "type": "string"
+        },
+        "spellResistance": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "mpCost": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/computed"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scalingNotes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fromCasterLevel": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 100
+              },
+              "description": {
+                "type": "string"
+              },
+              "sourceRefs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/sourceRef"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "fromCasterLevel",
+              "description",
+              "sourceRefs"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "school",
+        "subschool",
+        "descriptors",
+        "listMemberships",
+        "castingTime",
+        "components",
+        "range",
+        "target",
+        "area",
+        "duration",
+        "savingThrow",
+        "spellResistance",
+        "description",
+        "mpCost",
+        "scalingNotes"
+      ],
+      "additionalProperties": false
+    },
+    "spell_list": {
+      "type": "object",
+      "properties": {
+        "classId": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "spellId": {
+                "type": "string",
+                "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+              },
+              "name": {
+                "type": "string"
+              },
+              "level": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9
+              },
+              "sourceUrl": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://"
+              },
+              "sourceRefs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/sourceRef"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "spellId",
+              "name",
+              "level",
+              "sourceUrl",
+              "sourceRefs"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "classId",
+        "entries"
+      ],
+      "additionalProperties": false
+    },
+    "catalog": {
+      "type": "object",
+      "properties": {
+        "ownerIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "catalogType": {
+          "enum": [
+            "talents",
+            "exploits",
+            "stances",
+            "other"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ownerIds",
+        "catalogType",
+        "notes"
+      ],
+      "additionalProperties": false
+    },
+    "system": {
+      "type": "object",
+      "properties": {
+        "ruleType": {
+          "const": "bonus_mp_table"
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "abilityScoreMin": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "abilityScoreMax": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "byHighestSpellLevel": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "minItems": 9,
+                "maxItems": 9
+              },
+              "sourceRefs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/sourceRef"
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "abilityScoreMin",
+              "abilityScoreMax",
+              "byHighestSpellLevel",
+              "sourceRefs"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "lookupPolicy": {
+          "const": "highest_spell_level_only"
+        },
+        "outsideTable": {
+          "const": "manual_review"
+        },
+        "multiclassRule": {
+          "type": "string"
+        },
+        "recoveryRule": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ruleType",
+        "rows",
+        "lookupPolicy",
+        "outsideTable",
+        "multiclassRule",
+        "recoveryRule"
+      ],
+      "additionalProperties": false
+    },
+    "levelBinding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "contextClassId": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "effectiveClassId": {
+          "type": "string",
+          "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+        },
+        "levelType": {
+          "enum": [
+            "class_level",
+            "caster_level"
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/computed"
+        },
+        "scopeFeatureIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "scopePoolIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ffd20:[a-z0-9-]+(?::[a-z0-9-]+)+$"
+          },
+          "uniqueItems": true
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "contextClassId",
+        "effectiveClassId",
+        "levelType",
+        "value",
+        "scopeFeatureIds",
+        "scopePoolIds",
+        "sourceRefs"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

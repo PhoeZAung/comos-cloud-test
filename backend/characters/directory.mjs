@@ -4,7 +4,7 @@ import {randomUUID} from 'node:crypto';
 import {adminSession,adminJson} from '../auth/admin-requests.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
 import {mergeWizardData} from './editor-fields.mjs';
-import {compileBuild} from '../../src/features/characters/rules/build.mjs';
+import {compileBuild,levelUpBuild} from '../../src/features/characters/rules/build.mjs';
 import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 export function createDirectoryRoutes({db,sessions,adminUids,origin}){
  const admins=new Set(adminUids),streams=new Map();
@@ -53,18 +53,21 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
      }else if(change.op==='sheet'){
       data=mergeSheetData(data,change);
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
-     }else if(change.op==='wizard-build'){
-      data=compileBuild(change.build,data);
+     }else if(['wizard-build','wizard-level-up'].includes(change.op)){
+      if(change.op==='wizard-build'&&data.rulesBuild&&change.build?.level!==data.rulesBuild.input.level)throw Error('Use Level up to gain a level.');
+      data=change.op==='wizard-level-up'?levelUpBuild(change.build,data):compileBuild(change.build,data);
       if(Buffer.byteLength(JSON.stringify(data))>600000)throw Error('Character plus rollback is too large.');
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
       db.prepare('UPDATE characters SET name=? WHERE id=?').run(data.charName,id);
      }else if(change.op==='wizard'){
+      if(data.rulesBuild)throw Error('Use the current character builder or Level up for this character.');
       if(!['identity','race','class'].includes(change.step))throw Error('Invalid wizard step.');
       data=mergeWizardData(data,change.step,change.fields);
       if(Buffer.byteLength(JSON.stringify(data))>380000)throw Error('Character data is too large.');
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
       if(change.step==='identity')db.prepare('UPDATE characters SET name=? WHERE id=?').run(data.charName,id);
      }else if(change.op==='edit'){
+      if(data.rulesBuild)throw Error('Use the current character builder to edit this character.');
       if(!change.fields||Object.keys(change.fields).some(k=>!['charName','race','class','level'].includes(k)))throw Error('Invalid character fields.');
       for(const [key,value] of Object.entries(change.fields)){if(typeof value!=='string'||value.length>120||/[\u0000-\u001f]/.test(value))throw Error('Invalid field.');if(key==='charName'&&(!value.trim()||value.length>80))throw Error('Enter a character name.');if(key==='level'&&!/^(?:[1-9]|[1-9][0-9])$/.test(value))throw Error('Level must be 1–99.');data[key]=value.trim();}
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));if(change.fields.charName)db.prepare('UPDATE characters SET name=? WHERE id=?').run(change.fields.charName.trim(),id);

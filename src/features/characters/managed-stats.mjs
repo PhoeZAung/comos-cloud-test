@@ -9,5 +9,6 @@ export function updateManagedStats(data,previous){
  const delta=hp(data.con)-hp(previous.con);data.hp_max=Number(data.hp_max||0)+delta;
  managed.lastValues.mp_bonus+=summary.bonusMp-old.bonusMp;managed.lastValues.hp_max+=delta;
  for(const key of abilities)managed.input.baseScores[key]+=Number(data[key])-Number(previous[key]);
+ managed.input.abilityMethod='manual';
  // Current HP/MP are deliberately untouched; increasing a maximum is not healing.
 }
