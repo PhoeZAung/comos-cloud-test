@@ -62,6 +62,7 @@ export function createCharacterLibraryService(db){
       if(JSON.stringify(raw.build.hpRolls)!=='[6]')throw fail('INVALID_CHARACTER','Black Mage starts with its maximum d6 Hit Die: 6 base HP.');
       if(!Array.isArray(raw.build.favored)||raw.build.favored.length)throw fail('INVALID_CHARACTER','Apply favored rewards manually after creation.');
       if(raw.build.initialIntMod!==undefined&&raw.build.initialIntMod!==null)throw fail('INVALID_CHARACTER','Starting spell entitlement is determined when the character is created.');
+      if(!Array.isArray(raw.build.skillRanks))throw fail('INVALID_CHARACTER','Allocate all skill points before saving.');
       const data=compileBuild(raw.build),digest=createHash('sha256').update(JSON.stringify(raw.build)).digest('hex');
       const hex=createHash('sha256').update(ownerId+'|'+raw.requestId).digest('hex');
       const id=hex.slice(0,8)+'-'+hex.slice(8,12)+'-4'+hex.slice(13,16)+'-a'+hex.slice(17,20)+'-'+hex.slice(20,32),now=new Date().toISOString();

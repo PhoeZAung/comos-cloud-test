@@ -8,7 +8,7 @@ export const stats=['str','dex','con','int','wis','cha'];
 export const steps=['Identity','Base scores','Race','Class','Choices','Spells','Review'];
 const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
-export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,raceId:'',heritageId:'',disabledTraits:[],alternateIds:[],level:1,archetypeId:'',choices:{},spellIds:[],spellSelections:null,hpRolls:[6],favored:[],reviewed:false};}
+export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,raceId:'',heritageId:'',disabledTraits:[],alternateIds:[],level:1,archetypeId:'',choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
 export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id));}
 export function raceTraits(b){
@@ -54,6 +54,7 @@ export function buildIssues(b,{complete=true}={}){
  for(const k of stats)if(!Number.isInteger(b.baseScores[k])||b.baseScores[k]<1||b.baseScores[k]>45)add(1,'Base scores must be whole numbers from 1 to 45.');
  if(b.abilityMethod==='point-buy'&&(stats.some(k=>b.baseScores[k]<7||b.baseScores[k]>18)||pointSpend(b.baseScores)>b.pointBudget))add(1,'Point-buy scores must be 7–18 and within the selected budget.');
  if(['array','rolled'].includes(b.abilityMethod)){const pool=b.abilityMethod==='array'?standardArray:b.scorePool;if(pool.length!==6||new Set(b.scoreAssignments).size!==6||b.scoreAssignments.some(i=>!Number.isInteger(i)||i<0||i>5)||stats.some((key,i)=>b.baseScores[key]!==pool[b.scoreAssignments[i]]))add(1,'Assign each generated score exactly once.');}
+ if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>b.level))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
  const race=raceFor(b);if(!race)add(2,'Choose Dwarf, Elvaan or Galka.');
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
  if(!Number.isInteger(b.level)||b.level<1||b.level>20)add(3,'Choose a Black Mage level from 1 to 20.');
@@ -79,6 +80,7 @@ export function sanitizeBuild(raw){
  if(!raw.baseScores||Object.keys(raw.baseScores).some(k=>!stats.includes(k)))bad('Invalid base scores.');for(const k of stats){if(!Number.isInteger(raw.baseScores[k])||raw.baseScores[k]<1||raw.baseScores[k]>45)bad('Invalid base scores.');b.baseScores[k]=raw.baseScores[k];}
  for(const k of ['disabledTraits','alternateIds','spellIds']){if(!Array.isArray(raw[k])||raw[k].length>400||raw[k].some(v=>typeof v!=='string'||v.length>250))bad('Invalid '+k+'.');b[k]=uniq(raw[k]);}
  if(raw.spellSelections!==undefined&&raw.spellSelections!==null){const groups=raw.spellSelections;if(!groups||typeof groups!=='object'||Array.isArray(groups)||Object.keys(groups).some(k=>!['cantrips','leveled'].includes(k)))bad('Invalid spell slots.');for(const k of ['cantrips','leveled'])if(!Array.isArray(groups[k])||groups[k].length>200||groups[k].some(v=>v!==null&&(typeof v!=='string'||v.length>250)))bad('Invalid spell slots.');if(JSON.stringify([...groups.cantrips,...groups.leveled].filter(Boolean))!==JSON.stringify(b.spellIds))bad('Spell slots do not match learned spells.');b.spellSelections=structuredClone(groups);}
+ if(raw.skillRanks!==undefined&&raw.skillRanks!==null){if(!Array.isArray(raw.skillRanks)||raw.skillRanks.length!==fixedSkills.length||raw.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>20))bad('Invalid skill ranks.');b.skillRanks=[...raw.skillRanks];}
  for(const k of ['hpRolls','favored']){if(!Array.isArray(raw[k])||raw[k].length>20)bad('Invalid level selections.');b[k]=raw[k].slice();}
  if(raw.abilityMethod!==undefined){if(!['manual','point-buy','array','rolled'].includes(raw.abilityMethod))bad('Unknown score method.');b.abilityMethod=raw.abilityMethod;}
  if(raw.pointBudget!==undefined){if(![10,15,20,25].includes(raw.pointBudget))bad('Invalid point budget.');b.pointBudget=raw.pointBudget;}
@@ -120,7 +122,7 @@ export function compileBuild(raw,previous={}){
  else if(next.mp===undefined&&next.mp_curr!==undefined){next.mp=next.mp_curr;next.mp_temp=0;}
  next.favoredClassBonuses=Object.fromEntries(b.favored.slice(0,b.level).map((v,i)=>[String(i+1),v]));
  const originalRows=previous.skills||fixedSkills.map(r=>({...r,lvl:0,temp:0,cs:false,subName:''}));
- next.skills=originalRows.map(row=>{const r={...row},id=skillId(r);r.cs=registry.class.data.classSkills.some(s=>s.skillId===id)||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=registry.class.data.classSkills.some(s=>s.skillId===id);
+ next.skills=originalRows.map((row,index)=>{const r={...row};if(b.skillRanks&&index<fixedSkills.length)r.lvl=b.skillRanks[index];const id=skillId(r);r.cs=registry.class.data.classSkills.some(s=>s.skillId===id)||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=registry.class.data.classSkills.some(s=>s.skillId===id);
   // Remove only the last source contribution, preserving manually entered misc bonuses.
   r.temp=Number(row.temp||0)-Number(row.rulesBonus||0);let bonus=0;
   for(const e of effects)if(e.target===`skills.${id}.bonus`)bonus+=Number(calculated(e.value,b)||0);else if(e.target===`skills.${id}.class_skill`)r.cs=true;
@@ -136,6 +138,7 @@ export function compileBuild(raw,previous={}){
  }
  for(const f of p.features){const target=f.activation==='active'||f.activation==='mixed'?'activeAbilities':'passiveAbilities';grant(f,target);}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
+ for(let level=1;level<=b.level;level+=2){const id='comos:feat-slot:'+level,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+level,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  const dcBonus=choiceEvents(b).flatMap(event=>b.choices[event.id]||[]).filter(id=>id==='ffd20:class:black-mage:option:black-magery:spell-mastery').length;
  for(const id of b.spellIds){const spell=spells.find(s=>s.id===id),old=previous.spells?.find(s=>s.sourceRuleId===id);rows.spells.push({...old,sourceRuleId:id,rulesOwned:true,sourceClass:'Black Mage',name:spell.name,desc:spell.description,lvl:spell.level,mp_cost:spell.level,casting_ability:'int',school:spell.school,range:spell.range,duration:spell.duration,saving_throw:spell.save,target:spell.target,rulesDcBonus:spell.level>0?dcBonus:0,dc_misc:Number(old?.dc_misc||0)-Number(old?.rulesDcBonus||0)+(spell.level>0?dcBonus:0)});}
  for(const key of Object.keys(rows))next[key]=[...(previous[key]||[]).filter(r=>!r.rulesOwned),...rows[key]];
@@ -155,6 +158,7 @@ export function levelUpBuild(raw,previous){
  const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose one ability to increase by +1.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
  if(!same(raw.abilityIncreases||{},boosts))bad('Only the current milestone grants a new +1 ability increase.');
  if(!same(raw.hpRolls,[...old.hpRolls,4]))bad('Black Mage gains 4 base HP at this level.');
+ if(raw.skillRanks&&raw.skillRanks.some((n,i)=>n<Number(previous.skills?.[i]?.lvl||0)))bad('Level up cannot remove existing skill ranks.');
  if(old.spellIds.some(id=>!raw.spellIds.includes(id)))bad('Level up cannot remove learned spells.');
  for(const [id,values] of Object.entries(old.choices))if(!same(raw.choices[id],values))bad('Level up cannot replace earlier class choices.');
  if(!same(raw.favored,old.favored))bad('Favored rewards are applied manually.');

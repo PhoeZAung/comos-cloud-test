@@ -54,6 +54,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
       data=mergeSheetData(data,change);
       db.prepare('INSERT INTO character_details(character_id,data_json) VALUES(?,?) ON CONFLICT(character_id) DO UPDATE SET data_json=excluded.data_json').run(id,JSON.stringify(data));
      }else if(['wizard-build','wizard-level-up'].includes(change.op)){
+      if(!Array.isArray(change.build?.skillRanks))throw Error('Allocate all skill points before saving.');
       if(change.op==='wizard-build'&&data.rulesBuild&&change.build?.level!==data.rulesBuild.input.level)throw Error('Use Level up to gain a level.');
       data=change.op==='wizard-level-up'?levelUpBuild(change.build,data):compileBuild(change.build,data);
       if(Buffer.byteLength(JSON.stringify(data))>600000)throw Error('Character plus rollback is too large.');

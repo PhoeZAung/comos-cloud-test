@@ -9,8 +9,9 @@ import {createCharacterLibraryService,createCharacterLibraryRoutes} from '../bac
 import {createDirectoryRoutes} from '../backend/characters/directory.mjs';
 import {createApiServer} from '../backend/http/app.mjs';
 import {openDatabase} from '../backend/db/database.mjs';import {createUserRepository} from '../backend/repositories/users.mjs';
+import {fixedSkills} from '../src/features/sheet/skills.mjs';
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
-export function validBuild(level=2){const b=newBuild();b.name='Rules test';b.raceId='ffd20:race:dwarf';b.baseScores.int=18;b.level=level;b.hpRolls=Array.from({length:level},(_,i)=>i?4:6);b.reviewed=true;
+export function validBuild(level=2){const b=newBuild();b.name='Rules test';b.raceId='ffd20:race:dwarf';b.baseScores.int=18;b.level=level;b.hpRolls=Array.from({length:level},(_,i)=>i?4:6);b.reviewed=true;b.skillRanks=fixedSkills.map((_,i)=>i<8?level:0);
  const used=new Map();for(const event of choiceEvents(b)){const options=eligibleOptions(b,event),count=calculated(event.count,b);b.choices[event.id]=[];for(let i=0;i<count;i++){const opt=options.find(o=>(used.get(o.id)||0)<(o.repeatLimit||1));if(!opt)throw Error('Fixture choices exhausted.');b.choices[event.id].push(opt.id);used.set(opt.id,(used.get(opt.id)||0)+1);}}
  b.spellIds=[...spells.filter(s=>s.level===0).slice(0,4+Math.floor((level-1)/3)),...spells.filter(s=>s.level===1).slice(0,7+2*(level-1)+(level>=7?1:0)+(level>=12?1:0)+(level>=17?1:0))].map(s=>s.id);return b;}
 test('MP uses the official highest-level column, not modifier multiplication or a sum',()=>{
@@ -78,10 +79,13 @@ test('level-up adds one level, fixed 4 HP, retains wealth and old choices, and r
  assert.throws(()=>levelUpBuild({...next,level:3},d),/exactly one/);assert.throws(()=>levelUpBuild({...next,baseScores:{...next.baseScores,str:12}},d),/cannot change/);assert.throws(()=>levelUpBuild({...next,hpRolls:[6,6]},d),/4 base HP/);
 });
 test('level 4 ability increase is exactly +1, with retrospective CON HP and fixed initial spell count',()=>{
- const start=validBuild(3);start.baseScores.int=19;const d=compileBuild(start),next=validBuild(4);next.baseScores={...start.baseScores};next.initialIntMod=4;next.abilityIncreases={'4':'int'};assert.equal(effectiveScores(next).int,20);assert.equal(spellCounts(next).leveled,13);assert.equal(levelUpBuild(next,d).int,20);
+ const start=validBuild(3);start.baseScores.int=19;const d=compileBuild(start),next=validBuild(4);next.baseScores={...start.baseScores};next.initialIntMod=4;next.abilityIncreases={'4':'int'};next.skillRanks[8]=4;assert.equal(effectiveScores(next).int,20);assert.equal(spellCounts(next).leveled,13);assert.equal(levelUpBuild(next,d).int,20);
  assert.throws(()=>levelUpBuild({...next,abilityIncreases:{}},d),/Choose one ability/);assert.throws(()=>levelUpBuild({...next,abilityIncreases:{'4':'int','8':'str'}},d),/Only the current/);
- const con={...next,abilityIncreases:{'4':'con'}};assert.equal(levelUpBuild(con,d).hp_max,22); // 6+4+4+4 plus CON +1 per four levels
+ const con={...next,skillRanks:next.skillRanks.map((v,i)=>i===8?0:v),abilityIncreases:{'4':'con'}};assert.equal(levelUpBuild(con,d).hp_max,22); // 6+4+4+4 plus CON +1 per four levels
 });
 test('ability generation is late; spell slots are present even before INT is assigned; selections use popups',()=>{
- const b=validBuild(1);b.baseScores.int=10;const html=renderBuild(b,5);assert.match(html,/data-rw-open-spell="cantrips"/);assert.match(html,/data-rw-open-spell="leveled"/);assert.doesNotMatch(html,/data-rw-choice="/);assert.match(renderBuild(b,4),/data-rw-open-choice/);assert.match(renderBuild(b,1,{mode:'create'}),/Ability score method/);
+ const b=validBuild(1);b.baseScores.int=10;const html=renderBuild(b,5);assert.match(html,/data-rw-open-spell="cantrips"/);assert.match(html,/data-rw-open-spell="leveled"/);assert.doesNotMatch(html,/data-rw-choice="/);assert.match(renderBuild(b,4),/data-rw-open-choice/);assert.match(renderBuild(b,1,{mode:'create'}),/data-rw-method/);
 });
+
+test('wizard skill allocations spend exactly the effective INT budget, respect rank caps and persist',()=>{const b=validBuild(1);assert.deepEqual(buildIssues(b),[]);let d=compileBuild(b);assert.equal(d.skills.reduce((n,r)=>n+Number(r.lvl||0),0),8);b.skillRanks[0]=0;assert(buildIssues(b).some(i=>i.step===7));b.skillRanks[0]=2;assert(buildIssues(b).some(i=>i.message.includes('up to')));});
+test('score UI separates race adjustments, hides stale roll tokens in manual mode and only shows bonus spells',()=>{const b=validBuild(1);b.scorePool=[14,14,16,16,10,8];let html=renderBuild(b,1,{mode:'create'});assert.match(html,/\+2 race/);assert.doesNotMatch(html,/data-rw-token|Cantrip|×4|First-level choices/);assert.match(html,/data-rw-open-spell="leveled"/);b.abilityMethod='array';html=renderBuild(b,1,{mode:'create'});assert.match(html,/draggable="true"/);assert.match(html,/data-rw-drop/);assert.doesNotMatch(html,/Score 1:/);});
