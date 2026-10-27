@@ -1,6 +1,7 @@
 import {registry} from './catalog.mjs';
 import {spells} from './spells.mjs';
 import {blackMageSummary} from '../rules-summary.mjs';
+import {sheetStats} from '../../sheet/model.mjs';
 import {fixedSkills} from '../../sheet/skills.mjs';
 import {pointSpend,standardArray} from '../ability-generation.mjs';
 export {registry,spells};
@@ -166,5 +167,5 @@ export function levelUpBuild(raw,previous){
  if(!same(raw.favored,old.favored))bad('Favored rewards are applied manually.');
  const expectedInitial=old.initialIntMod??mod(effectiveScores(old).int);if(raw.initialIntMod!==expectedInitial)bad('Starting spell entitlement is fixed at creation.');
  if(old.hpRolls.length<old.level){previous=structuredClone(previous);previous.rulesBuild.lastValues.hp_max=previewBuild({...old,hpRolls:hpHistory(old)}).hp;}
- return compileBuild(raw,previous);
+ const next=compileBuild(raw,previous),current=sheetStats(next);next.hp_curr=current.hpMax;next.mp=current.mpMax;next.mp_curr=current.mpMax;next.mp_temp=0;return next;
 }

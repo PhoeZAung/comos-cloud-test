@@ -25,8 +25,6 @@ function card(character,index,selected,total){
       '<div class="cc-tags">'+(tags.length?tags.map(t=>'<span>'+esc(t)+'</span>').join(''):'<span class="cc-untagged">No tags yet</span>')+'</div>'+
       (bioExcerpt(character.bio)?'<p class="cc-bio">'+esc(bioExcerpt(character.bio))+'</p>':'')+
       '</div></button>'+
-      (!id.startsWith('fixture:')?'<div class="cc-panel-actions"><a class="button primary" href="sheet.html?characterId='+encodeURIComponent(id)+'">Open sheet</a><a class="button" href="create-identity.html?characterId='+encodeURIComponent(id)+'">Edit</a></div>':
-       '<div class="cc-panel-actions"><span class="cc-preview-note">Preview character</span></div>')+
       '</article>';
 }
 
@@ -43,17 +41,13 @@ function listRow(character) {
   const meta=[Number.isFinite(level)&&level>0?'Level '+level:null,character.race,character.className].filter(Boolean).map(esc).join(' · ');
   const tags=Array.isArray(character.tags)?character.tags.filter(t=>typeof t==='string').slice(0,5):[];
   const portrait=validCharacterImage(character.portraitUrl)?'<img class="cc-character-image" src="'+esc(character.portraitUrl)+'" alt="">':silhouette;
-  return '<article class="cc-list-row">'+
+  return '<article class="cc-list-row" '+(!fixture?'data-character-open="'+esc(id)+'"':'')+'>'+
     '<div class="cc-list-portrait" aria-hidden="true">'+portrait+'</div>'+
     '<div class="cc-list-info">'+
       (fixture?'<strong class="cc-list-name">'+name+'</strong>':'<a class="cc-list-name" href="sheet.html?characterId='+target+'">'+name+'</a>')+
       (meta?'<p class="cc-list-meta">'+meta+'</p>':'')+
       (tags.length?'<div class="cc-list-tags">'+tags.map(t=>'<span>'+esc(t)+'</span>').join('')+'</div>':'')+
     '</div>'+
-    (fixture?'':'<div class="cc-list-actions">'+
-      '<a class="cc-list-action" href="sheet.html?characterId='+target+'" aria-label="Open sheet for '+name+'" title="Open character sheet">'+externalIcon+'</a>'+
-      '<a class="cc-list-action" href="create-identity.html?characterId='+target+'" aria-label="Edit '+name+'" title="Edit character">'+editIcon+'</a>'+
-    '</div>')+
   '</article>';
 }
 export function renderCharacterRoster({characters=[],selected=0,view='carousel',loading=false,error='',message='',nextCursor=null,preview=false}={}){

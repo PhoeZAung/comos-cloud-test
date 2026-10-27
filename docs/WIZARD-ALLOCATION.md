@@ -15,3 +15,13 @@ Only base Black Mage currently has a validated runtime adapter. The twenty disco
 Requested casting mapping for future adapters: INT — Black Mage, Blue Mage, Time Mage; WIS — Astrologian, Druid, Geomancer, Ninja, White Mage; CHA — Bard, Dark Knight, Holy Knight, Illusionist, Red Mage, Necromancer, Summoner. Learning counts must come from each class, not a universal 3 + modifier assumption.
 
 Navigation sits above each step. Alignment uses the nine standard choices. Race descriptions are folded into compact rows. Class skills are bold immediately; rank arrows and typed input clamp to total character level. Missing historical HP results use max-first/fixed-later defaults, preserving recorded results and current HP. New drafts use a fresh version namespace to avoid stale HP arrays and step order.
+
+## Selection and sheet controls
+
+Standard/alternate race groups begin open and can collapse. Learned spells are grouped by spell level. Pickers hide choices already used in other slots while retaining the current selection when swapping. Full stored description strings are rendered without shortening; older imported summaries still require complete replacement source text.
+
+The skill editor clamps both remaining budget and character-level rank caps; sheet API rank edits reject overspending. The focused Skills panel no longer displays unused-point or formula commentary. Class MP, bonus MP, base HP maximum and BAB are not editable through the managed-sheet API or resource editor. Temporary adjustments remain separate.
+
+Growth includes all base BAB/save values, even unchanged. Milestone score selection shows all six prior scores. Odd-level feat slots remain. Confirmed level-up now refills current HP and MP to effective maxima; ordinary edits still do not refill resources.
+
+A shared toolbar sits beneath all navigation tabs, with star-control visibility, current-build edit, level-up, Discord and vampire recovery controls. Inventory entries, fixed skills, resources and major cards can be favorited. Favorites persist through the owner/admin revision-checked sheet API. Character cards open the sheet directly; roster edit/open-sheet action buttons are removed.

@@ -53,8 +53,9 @@ export function mountCharacterLibrary({fixture=false}={}){
     if(toggle){view=toggle.dataset.characterView==='list'?'list':'carousel';draw();root.querySelector('[data-character-view]')?.focus();return;}
     const rotation=event.target.closest('[data-rotate-character]');
     if(rotation){turn(Number(rotation.dataset.rotateCharacter));return;}
+    const row=event.target.closest('[data-character-open]');if(row&&!event.target.closest('a')){location.assign('sheet.html?characterId='+encodeURIComponent(row.dataset.characterOpen));return;}
     const card=event.target.closest('[data-select-character]');
-    if(card){if(Date.now()<suppressCardClickUntil)return;const wanted=Number(card.dataset.selectCharacter);if(Number.isInteger(wanted)&&wanted>=0&&wanted<characters.length)turn(wanted-selected);return;}
+    if(card){if(Date.now()<suppressCardClickUntil)return;const wanted=Number(card.dataset.selectCharacter);if(Number.isInteger(wanted)&&wanted>=0&&wanted<characters.length){if(!fixture)location.assign('sheet.html?characterId='+encodeURIComponent(characters[wanted].id));else turn(wanted-selected);}return;}
     if(event.target.closest('[data-load-characters]')){void load({more:true});return;}
   },{signal:control.signal});
   root.addEventListener('keydown',event=>{
