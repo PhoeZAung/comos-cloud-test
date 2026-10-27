@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "races": [
+    "races/dwarf.race.json",
+    "races/elvaan.race.json",
+    "races/galka.race.json"
+  ],
+  "enabledClassIds": [
+    "ffd20:class:black-mage"
+  ],
+  "policy": "Canonical definitions stay needs_review. The runtime projection preserves existing fixed effects and manual rule cards; it is not an independently approved import. Each future class file contains its base class and all archetype definitions as separate records in one family file."
+}

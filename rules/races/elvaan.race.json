@@ -1,0 +1,4689 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:elvaan",
+  "name": "Elvaan",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/core-races/elvaan/",
+      "title": "Elvaan - Final Fantasy d20",
+      "retrievedOn": "2026-10-26",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/choicePools",
+        "reason": "Bonus language pool is present as a discovery option; engine-dependent eligible selection count must be determined before auto-prompting.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Heritage stat vector and inherited alternate Hatred replacement are modeled; verify alternate ability action triggers/creature-type language with GM before enabling live auto-rules.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "All class-specific reward texts and fractional increments are retained, but class-specific targeting and selection-dependent automation require class reconciliation and independent review.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Conditional combat bonuses, grant-versus-feat operations, special racial recovery and some alternate trait effects remain manual until reviewed by a rules engine.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate feat/archetype catalog intentionally omitted."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate feat/archetype catalog intentionally omitted."
+      },
+      {
+        "sourceId": "main",
+        "section": "Table: Variant Elvaan Heritages",
+        "status": "extracted",
+        "reason": "All four variants and both ability-vector/hatred changes present."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Racial Feats and Racial Archetypes catalogs are out of race-data scope; traits directly granting feats remain included."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Racial Feats and Racial Archetypes catalogs are out of race-data scope; traits directly granting feats remain included."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:elvaan:feature:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 Strength, +2 Wisdom, -2 Dexterity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:ability-score-racial-traits-ability-score-ability-scores-str",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "Standard Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:ability-score-racial-traits-ability-score-ability-scores-wis",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "Standard Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:ability-score-racial-traits-ability-score-ability-scores-dex",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "Standard Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Ability Score Racial Traits"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:size",
+      "name": "Size",
+      "description": "Medium creature; no inherent size bonuses or penalties.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:size-identity-identity-size-category",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Size"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:type",
+      "name": "Type",
+      "description": "Humanoid with elvaan subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:type-identity-identity-creature-type",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:type-identity-identity-creature-subtypes",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "elvaan",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Type"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:base-speed",
+      "name": "Base Speed",
+      "description": "30 ft. land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:base-speed-identity-identity-movement-land-feet",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "Standard Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Base Speed"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:languages",
+      "name": "Languages",
+      "description": "Begins speaking Common and Elvaan; may learn Celestial, Draconic, Galkan, Goblin, Lalafellan, Mithran, Orc with sufficient Intelligence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:languages-identity-identity-languages",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:languages-identity-identity-languages-2",
+          "kind": "identity",
+          "target": "identity.languages.elvaan",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Elvaan",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Languages"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:fearless",
+      "name": "Fearless",
+      "description": "+2 racial saving throws versus fear effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:fearless-defense-bonus-saves-fear",
+          "kind": "defense_bonus",
+          "target": "defense.saves.fear",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "Defense Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Fear effect."
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "Defense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "Fearless"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial bonus to Perception checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:keen-senses-skill-bonus-skills-perception",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "Feat and Skill Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "Keen Senses"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:martial-background",
+      "name": "Martial Background",
+      "description": "Gain Weapon Focus feat for free at level 1, selecting one weapon already proficient with.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:martial-background-grant-feature-feats-weapon-focus",
+          "kind": "grant_feature",
+          "target": "features.feats.weapon_focus",
+          "operation": "grant",
+          "value": null,
+          "textValue": "One Weapon Focus feat for one proficient weapon at first level.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:elvaan:pool:martial-background-weapon"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "Martial Background"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feat and Skill Racial Traits",
+            "locator": "Choose one option"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:noble-upbringing",
+      "name": "Noble Upbringing",
+      "description": "+2 Knowledge (nobility) and Knowledge (history); both become class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:noble-upbringing-skill-bonus-skills-knowledge-history",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-history.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "Feat and Skill Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:noble-upbringing-class-skill-skills-knowledge-history",
+          "kind": "class_skill",
+          "target": "skills.skill:knowledge-history.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Treat as class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:noble-upbringing-skill-bonus-skills-knowledge-nobility",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-nobility.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "Feat and Skill Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:noble-upbringing-class-skill-skills-knowledge-nobility",
+          "kind": "class_skill",
+          "target": "skills.skill:knowledge-nobility.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Treat as class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "Noble Upbringing"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:gatecrasher",
+      "name": "Gatecrasher",
+      "description": "+2 racial Strength checks to break objects; +2 racial CMB checks to sunder.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:gatecrasher-skill-bonus-checks-strength-break-objects",
+          "kind": "custom",
+          "target": "checks.strength.break_objects",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Offense Racial Traits",
+                "locator": "Offense Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Strength check to break object."
+          },
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:gatecrasher-attack-bonus-cmb-sunder",
+          "kind": "attack_bonus",
+          "target": "attack.cmb.sunder",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Offense Racial Traits",
+                "locator": "Offense Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Sunder maneuver."
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "Gatecrasher"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:hatred",
+      "name": "Hatred",
+      "description": "+1 attack against humanoids of orc or goblin subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:hatred-attack-bonus-attacks-racial-hatred",
+          "kind": "attack_bonus",
+          "target": "attack.racial_hatred",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Offense Racial Traits",
+                "locator": "Offense Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Against humanoid orc or goblin subtype"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "Hatred"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with longbows/composite longbows, longswords, rapiers and shortbows/composite shortbows.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:weapon-familiarity-proficiency-weapons-longbow",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.longbow",
+          "operation": "grant",
+          "value": null,
+          "textValue": "longbow",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:weapon-familiarity-proficiency-weapons-composite-longbow",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.composite-longbow",
+          "operation": "grant",
+          "value": null,
+          "textValue": "composite longbow",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:weapon-familiarity-proficiency-weapons-longsword",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.longsword",
+          "operation": "grant",
+          "value": null,
+          "textValue": "longsword",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:weapon-familiarity-proficiency-weapons-rapier",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.rapier",
+          "operation": "grant",
+          "value": null,
+          "textValue": "rapier",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:weapon-familiarity-proficiency-weapons-shortbow",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.shortbow",
+          "operation": "grant",
+          "value": null,
+          "textValue": "shortbow",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:weapon-familiarity-proficiency-weapons-composite-shortbow",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.composite-shortbow",
+          "operation": "grant",
+          "value": null,
+          "textValue": "composite shortbow",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "Weapon Familiarity"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as humes in poor light, retaining color/detail.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:low-light-vision-identity-identity-senses-low-light-vision",
+          "kind": "identity",
+          "target": "identity.senses.low_light_vision",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Twice normal viewing distance in dim conditions.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "Senses Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "Low-Light Vision"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:arcane-focus",
+      "name": "Arcane Focus",
+      "description": "+2 racial bonus on concentration checks made to cast defensively.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Arcane Focus"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:darkvision",
+      "name": "Darkvision",
+      "description": "Gain darkvision 60 ft.; dazzled in bright light/daylight spell; loses low-light vision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:darkvision-identity-identity-senses-darkvision-feet",
+          "kind": "identity",
+          "target": "identity.senses.darkvision",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 60,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "Alternate Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Alternate Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Darkvision"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:desert-runner",
+      "name": "Desert Runner",
+      "description": "+4 racial to Constitution checks and Fortitude saves to avoid exhaustion, fatigue or detrimental effects from running, forced march, hunger, thirst, heat or cold.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Desert Runner"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:elemental-resistance",
+      "name": "Elemental Resistance",
+      "description": "Select one of earth, fire, ice, lightning, water or wind for elemental resistance 5; irrevocable creation-time choice.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:elvaan:pool:elemental-resistance-element"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Elemental Resistance"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Choose one option"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:fleet-footed",
+      "name": "Fleet-Footed",
+      "description": "Gain Run bonus feat and +2 racial initiative.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Fleet-Footed"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:illusion-resistance",
+      "name": "Illusion Resistance",
+      "description": "+2 racial saving throws versus illusion spells/effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Illusion Resistance"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:long-limbed",
+      "name": "Long-Limbed",
+      "description": "Land base speed becomes 35 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:long-limbed-identity-identity-movement-land-feet",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 35,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "Alternate Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Alternate Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Long-Limbed"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:resistant",
+      "name": "Resistant",
+      "description": "+2 racial bonus on saves versus mind-affecting effects and poison.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Resistant"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:slender",
+      "name": "Slender",
+      "description": "+2 racial Escape Artist, +2 CMB checks to escape grapple, and +2 CMD against grapples.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Slender"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:spirit-of-the-waters",
+      "name": "Spirit of the Waters",
+      "description": "+4 racial Swim; can always take 10 while swimming; Aquan is an optional bonus language; proficient with longspear, trident and net.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:elvaan:pool:spirit-of-the-waters-language"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Spirit of the Waters"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Choose one option"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:urbanite",
+      "name": "Urbanite",
+      "description": "+2 racial Diplomacy when gathering information; +2 Sense Motive when getting a social hunch.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:urbanite-skill-bonus-skills-diplomacy",
+          "kind": "skill_bonus",
+          "target": "skills.skill:diplomacy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "Alternate Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Gathering information"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Alternate Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:urbanite-skill-bonus-skills-sense-motive",
+          "kind": "skill_bonus",
+          "target": "skills.skill:sense-motive.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "Alternate Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Getting a hunch about a social situation"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Alternate Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Urbanite"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:duskwight-ability-score-racial-traits",
+      "name": "Duskwight Ability Score Racial Traits",
+      "description": "Alternate ability-score vector, replacing the standard racial vector: +2 STR, +2 INT, -2 CHA.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:duskwight-ability-score-racial-traits-ability-score-ability-scores-str",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:duskwight-ability-score-racial-traits-ability-score-ability-scores-int",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:duskwight-ability-score-racial-traits-ability-score-ability-scores-cha",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "Duskwight Ability Score Racial Traits"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:duskwight-alternate-ability",
+      "name": "Duskwight Alternate Ability",
+      "description": "+2 racial Intimidate, Perception and Stealth when benefiting from concealment/full concealment because of darkness or dim light.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "Duskwight Alternate Ability"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:ishgardian-ability-score-racial-traits",
+      "name": "Ishgardian Ability Score Racial Traits",
+      "description": "Alternate ability-score vector, replacing the standard racial vector: +2 STR, +2 CHA, -2 WIS.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:ishgardian-ability-score-racial-traits-ability-score-ability-scores-str",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:ishgardian-ability-score-racial-traits-ability-score-ability-scores-cha",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:ishgardian-ability-score-racial-traits-ability-score-ability-scores-wis",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "Ishgardian Ability Score Racial Traits"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:ishgardian-alternate-ability",
+      "name": "Ishgardian Alternate Ability",
+      "description": "+1 attack versus humanoids with the elvaan subtype and dragons.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "Ishgardian Alternate Ability"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:san-d-orian-ability-score-racial-traits",
+      "name": "San d'Orian Ability Score Racial Traits",
+      "description": "Alternate ability-score vector, replacing the standard racial vector: +2 STR, +2 WIS, -2 INT.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:san-d-orian-ability-score-racial-traits-ability-score-ability-scores-str",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:san-d-orian-ability-score-racial-traits-ability-score-ability-scores-wis",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:san-d-orian-ability-score-racial-traits-ability-score-ability-scores-int",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "San d'Orian Ability Score Racial Traits"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:san-d-orian-alternate-ability",
+      "name": "San d'Orian Alternate Ability",
+      "description": "Once per day, below 0 HP but not killed, can act as disabled for 1 round; unconscious and dying after next turn unless healed above 0 HP.",
+      "featureKind": "heritage_feature",
+      "activation": "active",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [
+        {
+          "id": "ffd20:race:elvaan:action:san-d-orian-ferocity",
+          "name": "San d'Orian ferocity",
+          "actionType": "special",
+          "trigger": "Drop below zero HP but not killed",
+          "attackType": "none",
+          "abilityMod": "auto",
+          "attackMisc": null,
+          "damage": [],
+          "save": null,
+          "costs": [
+            {
+              "resourceId": "ffd20:race:elvaan:resource:san-d-orian-ferocity",
+              "amount": {
+                "kind": "constant",
+                "value": 1,
+                "sourceRefs": [
+                  {
+                    "sourceId": "main",
+                    "section": "Table: Variant Elvaan Heritages",
+                    "locator": "San d'Orian"
+                  }
+                ]
+              }
+            }
+          ],
+          "rangeText": "",
+          "durationText": "1 round",
+          "notes": "Once per day, below 0 HP but not killed, can act as disabled for 1 round; unconscious and dying after next turn unless healed above 0 HP.",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "San d'Orian ferocity"
+            }
+          ],
+          "rangeValue": null,
+          "rangeUnit": null,
+          "durationValue": null,
+          "durationUnit": null,
+          "targetText": "",
+          "targetCount": null,
+          "criticalProfile": null
+        }
+      ],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "San d'Orian Alternate Ability"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:wildwood-ability-score-racial-traits",
+      "name": "Wildwood Ability Score Racial Traits",
+      "description": "Alternate ability-score vector, replacing the standard racial vector: +2 DEX, +2 INT, -2 STR.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:elvaan:effect:wildwood-ability-score-racial-traits-ability-score-ability-scores-dex",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:wildwood-ability-score-racial-traits-ability-score-ability-scores-int",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:effect:wildwood-ability-score-racial-traits-ability-score-ability-scores-str",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Table: Variant Elvaan Heritages"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Elvaan Heritages",
+              "locator": "Table: Variant Elvaan Heritages"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "Wildwood Ability Score Racial Traits"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:elvaan:feature:wildwood-alternate-ability",
+      "name": "Wildwood Alternate Ability",
+      "description": "+1 racial Knowledge (nature) and Survival checks.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "Wildwood Alternate Ability"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    }
+  ],
+  "resources": [
+    {
+      "id": "ffd20:race:elvaan:resource:san-d-orian-ferocity",
+      "name": "San d'Orian ferocity",
+      "classId": null,
+      "unit": "uses",
+      "maximum": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Variant Elvaan Heritages",
+            "locator": "San d'Orian ferocity"
+          }
+        ]
+      },
+      "period": "day",
+      "recovery": {
+        "method": "unknown",
+        "conditionText": "Source specifies a per-day limit but does not define when/how Comos should refresh it.",
+        "automaticRecoveryAllowed": false
+      },
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Elvaan Heritages",
+          "locator": "San d'Orian ferocity"
+        }
+      ]
+    }
+  ],
+  "choicePools": [
+    {
+      "id": "ffd20:race:elvaan:pool:high-intelligence-bonus-languages",
+      "name": "High Intelligence bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:elvaan:option:high-intelligence-bonus-languages-celestial",
+          "name": "Celestial",
+          "description": "Celestial",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Celestial",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:high-intelligence-bonus-languages-draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:high-intelligence-bonus-languages-galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:high-intelligence-bonus-languages-goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:high-intelligence-bonus-languages-lalafellan",
+          "name": "Lalafellan",
+          "description": "Lalafellan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Lalafellan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:high-intelligence-bonus-languages-mithran",
+          "name": "Mithran",
+          "description": "Mithran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Mithran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:high-intelligence-bonus-languages-orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible if the system grants bonus languages from high Intelligence; selection count is determined by the system, not invented by the race.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "High Intelligence bonus languages"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:elvaan:pool:martial-background-weapon",
+      "name": "Martial Background weapon",
+      "choiceType": "feat",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Bonus Weapon Focus feat must be applied to exactly one weapon the character is proficient with.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "Martial Background weapon"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:elvaan:pool:elemental-resistance-element",
+      "name": "Elemental Resistance element",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:elvaan:option:elemental-resistance-element-earth",
+          "name": "earth",
+          "description": "earth",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "earth",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Elemental Resistance element"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:elemental-resistance-element-fire",
+          "name": "fire",
+          "description": "fire",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "fire",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Elemental Resistance element"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:elemental-resistance-element-ice",
+          "name": "ice",
+          "description": "ice",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ice",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Elemental Resistance element"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:elemental-resistance-element-lightning",
+          "name": "lightning",
+          "description": "lightning",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lightning",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Elemental Resistance element"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:elemental-resistance-element-water",
+          "name": "water",
+          "description": "water",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "water",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Elemental Resistance element"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:elemental-resistance-element-wind",
+          "name": "wind",
+          "description": "wind",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wind",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Elemental Resistance element"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Select one at character creation; grants resistance 5 to selected element.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Elemental Resistance element"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:elvaan:pool:spirit-of-the-waters-language",
+      "name": "Spirit of the Waters language",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:elvaan:option:spirit-of-the-waters-language-aquan-bonus-language",
+          "name": "Aquan bonus language",
+          "description": "Aquan bonus language",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Aquan bonus language",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Spirit of the Waters language"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:spirit-of-the-waters-language-decline-optional-aquan",
+          "name": "Decline optional Aquan",
+          "description": "Decline optional Aquan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Decline optional Aquan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Spirit of the Waters language"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "The source says Aquan may be selected.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Spirit of the Waters language"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:elvaan:pool:favored-cleric-target",
+      "name": "Favored Cleric target",
+      "choiceType": "other",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Select only one eligible target per reward selection; unresolved external catalog required for unenumerated class options.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Favored Class Options",
+          "locator": "Favored Cleric target"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:elvaan:pool:favored-necromancer-target",
+      "name": "Favored Necromancer target",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:elvaan:option:favored-necromancer-target-1-hit-point-to-bone-commander",
+          "name": "+1 hit point to bone commander",
+          "description": "+1 hit point to bone commander",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "+1 hit point to bone commander",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Necromancer target"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:option:favored-necromancer-target-1-skill-rank-to-bone-commander",
+          "name": "+1 skill rank to bone commander",
+          "description": "+1 skill rank to bone commander",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "+1 skill rank to bone commander",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Necromancer target"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Select only one eligible target per reward selection; unresolved external catalog required for unenumerated class options.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Favored Class Options",
+          "locator": "Favored Necromancer target"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "core",
+    "standardTraitIds": [
+      "ffd20:race:elvaan:feature:ability-score-racial-traits",
+      "ffd20:race:elvaan:feature:size",
+      "ffd20:race:elvaan:feature:type",
+      "ffd20:race:elvaan:feature:base-speed",
+      "ffd20:race:elvaan:feature:languages",
+      "ffd20:race:elvaan:feature:fearless",
+      "ffd20:race:elvaan:feature:keen-senses",
+      "ffd20:race:elvaan:feature:martial-background",
+      "ffd20:race:elvaan:feature:noble-upbringing",
+      "ffd20:race:elvaan:feature:gatecrasher",
+      "ffd20:race:elvaan:feature:hatred",
+      "ffd20:race:elvaan:feature:weapon-familiarity",
+      "ffd20:race:elvaan:feature:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:elvaan:feature:arcane-focus",
+      "ffd20:race:elvaan:feature:darkvision",
+      "ffd20:race:elvaan:feature:desert-runner",
+      "ffd20:race:elvaan:feature:elemental-resistance",
+      "ffd20:race:elvaan:feature:fleet-footed",
+      "ffd20:race:elvaan:feature:illusion-resistance",
+      "ffd20:race:elvaan:feature:long-limbed",
+      "ffd20:race:elvaan:feature:resistant",
+      "ffd20:race:elvaan:feature:slender",
+      "ffd20:race:elvaan:feature:spirit-of-the-waters",
+      "ffd20:race:elvaan:feature:urbanite"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:elvaan:replacement:arcane-focus",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:arcane-focus"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Arcane Focus replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Arcane Focus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:darkvision",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:darkvision"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Darkvision replaces Low-Light Vision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Darkvision"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:desert-runner",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:noble-upbringing"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:desert-runner"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Desert Runner replaces Noble Upbringing.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Desert Runner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:elemental-resistance",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:martial-background"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:elemental-resistance"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Elemental Resistance replaces Martial Background.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Elemental Resistance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:fleet-footed",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:noble-upbringing",
+          "ffd20:race:elvaan:feature:martial-background"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:fleet-footed"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Fleet-Footed replaces Noble Upbringing, Martial Background.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Fleet-Footed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:illusion-resistance",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:fearless"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:illusion-resistance"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Illusion Resistance replaces Fearless.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Illusion Resistance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:long-limbed",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:long-limbed"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Long-Limbed replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Long-Limbed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:resistant",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:gatecrasher"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:resistant"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Resistant replaces Gatecrasher.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Resistant"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:slender",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:slender"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Slender replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Slender"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:spirit-of-the-waters",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:noble-upbringing",
+          "ffd20:race:elvaan:feature:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:spirit-of-the-waters"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Spirit of the Waters replaces Noble Upbringing, Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Spirit of the Waters"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:replacement:urbanite",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:elvaan:feature:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:elvaan:feature:urbanite"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Urbanite replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Urbanite"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:elvaan:heritage:duskwight",
+        "name": "Duskwight",
+        "description": "Duskwight: Alternate ability-score vector, replacing the standard racial vector: +2 STR, +2 INT, -2 CHA. Alternate inherited feature: +2 racial Intimidate, Perception and Stealth when benefiting from concealment/full concealment because of darkness or dim light.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:elvaan:replacement:duskwight-racial-stats",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:elvaan:feature:ability-score-racial-traits"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:elvaan:feature:duskwight-ability-score-racial-traits"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Duskwight racial stats replaces Ability Score Racial Traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Duskwight racial stats"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:race:elvaan:replacement:duskwight-alternate-ability",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:elvaan:feature:hatred"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:elvaan:feature:duskwight-alternate-ability"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Duskwight alternate ability replaces Hatred.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Duskwight alternate ability"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:elvaan:feature:duskwight-ability-score-racial-traits",
+          "ffd20:race:elvaan:feature:duskwight-alternate-ability"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Variant Elvaan Heritages",
+            "locator": "Duskwight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:heritage:ishgardian",
+        "name": "Ishgardian",
+        "description": "Ishgardian: Alternate ability-score vector, replacing the standard racial vector: +2 STR, +2 CHA, -2 WIS. Alternate inherited feature: +1 attack versus humanoids with the elvaan subtype and dragons.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:elvaan:replacement:ishgardian-racial-stats",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:elvaan:feature:ability-score-racial-traits"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:elvaan:feature:ishgardian-ability-score-racial-traits"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Ishgardian racial stats replaces Ability Score Racial Traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Ishgardian racial stats"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:race:elvaan:replacement:ishgardian-alternate-ability",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:elvaan:feature:hatred"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:elvaan:feature:ishgardian-alternate-ability"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Ishgardian alternate ability replaces Hatred.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Ishgardian alternate ability"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:elvaan:feature:ishgardian-ability-score-racial-traits",
+          "ffd20:race:elvaan:feature:ishgardian-alternate-ability"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Variant Elvaan Heritages",
+            "locator": "Ishgardian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:heritage:san-d-orian",
+        "name": "San d'Orian",
+        "description": "San d'Orian: Alternate ability-score vector, replacing the standard racial vector: +2 STR, +2 WIS, -2 INT. Alternate inherited feature: Once per day, below 0 HP but not killed, can act as disabled for 1 round; unconscious and dying after next turn unless healed above 0 HP.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:elvaan:replacement:san-d-orian-racial-stats",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:elvaan:feature:ability-score-racial-traits"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:elvaan:feature:san-d-orian-ability-score-racial-traits"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "San d'Orian racial stats replaces Ability Score Racial Traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "San d'Orian racial stats"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:race:elvaan:replacement:san-d-orian-alternate-ability",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:elvaan:feature:hatred"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:elvaan:feature:san-d-orian-alternate-ability"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "San d'Orian alternate ability replaces Hatred.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "San d'Orian alternate ability"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:elvaan:feature:san-d-orian-ability-score-racial-traits",
+          "ffd20:race:elvaan:feature:san-d-orian-alternate-ability"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Variant Elvaan Heritages",
+            "locator": "San d'Orian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:heritage:wildwood",
+        "name": "Wildwood",
+        "description": "Wildwood: Alternate ability-score vector, replacing the standard racial vector: +2 DEX, +2 INT, -2 STR. Alternate inherited feature: +1 racial Knowledge (nature) and Survival checks.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:elvaan:replacement:wildwood-racial-stats",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:elvaan:feature:ability-score-racial-traits"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:elvaan:feature:wildwood-ability-score-racial-traits"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Wildwood racial stats replaces Ability Score Racial Traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Wildwood racial stats"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:race:elvaan:replacement:wildwood-alternate-ability",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:elvaan:feature:hatred"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:elvaan:feature:wildwood-alternate-ability"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Wildwood alternate ability replaces Hatred.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Table: Variant Elvaan Heritages",
+                "locator": "Wildwood alternate ability"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:elvaan:feature:wildwood-ability-score-racial-traits",
+          "ffd20:race:elvaan:feature:wildwood-alternate-ability"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Variant Elvaan Heritages",
+            "locator": "Wildwood"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:elvaan:favored:archer",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:archer",
+        "name": "Elvaan Archer favored class reward",
+        "description": "+1/3 to Aim attack bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:archer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.archer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 to Aim attack bonus.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:astrologian",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:astrologian",
+        "name": "Elvaan Astrologian favored class reward",
+        "description": "+1/3 use per day of draw.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:astrologian:effect:benefit",
+          "kind": "custom",
+          "target": "favored.astrologian",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 use per day of draw.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Astrologian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:bard",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:bard",
+        "name": "Elvaan Bard favored class reward",
+        "description": "+1 CMD resisting disarm or sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:bard:effect:benefit",
+          "kind": "custom",
+          "target": "favored.bard",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 CMD resisting disarm or sunder.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Bard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:beastmaster",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Elvaan Beastmaster favored class reward",
+        "description": "+1 foot of Beastmaster base speed; effective every five picks; stacks with movement increases.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:beastmaster:effect:benefit",
+          "kind": "custom",
+          "target": "favored.beastmaster",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 foot of Beastmaster base speed; effective every five picks; stacks with movement increases.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:berserker",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:berserker",
+        "name": "Elvaan Berserker favored class reward",
+        "description": "+1 foot of Berserker base speed; effective every five picks; stacks with movement increases.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:berserker:effect:benefit",
+          "kind": "custom",
+          "target": "favored.berserker",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 foot of Berserker base speed; effective every five picks; stacks with movement increases.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:black-belt",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:black-belt",
+        "name": "Elvaan Black Belt favored class reward",
+        "description": "+1 foot of Black Belt base speed; effective every five picks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:black-belt:effect:benefit",
+          "kind": "custom",
+          "target": "favored.black-belt",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 foot of Black Belt base speed; effective every five picks.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:black-mage",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:black-mage",
+        "name": "Elvaan Black Mage favored class reward",
+        "description": "+1/2 earth spell damage by Black Mage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:black-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.black-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 earth spell damage by Black Mage.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:blue-mage",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Elvaan Blue Mage favored class reward",
+        "description": "+1/6 Knowledge (all) skill checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:blue-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.blue-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 Knowledge (all) skill checks.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:chemist",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:chemist",
+        "name": "Elvaan Chemist favored class reward",
+        "description": "+1 foot splash-weapon or bomb range increment; effective per five picks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:chemist:effect:benefit",
+          "kind": "custom",
+          "target": "favored.chemist",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 foot splash-weapon or bomb range increment; effective per five picks.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:chocobo-knight",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Elvaan Chocobo Knight favored class reward",
+        "description": "+1 HP to mount; transfers to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:chocobo-knight:effect:benefit",
+          "kind": "custom",
+          "target": "favored.chocobo-knight",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 HP to mount; transfers to replacement.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Chocobo Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:cleric",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:cleric",
+        "name": "Elvaan Cleric favored class reward",
+        "description": "+1 spell known from Cleric list, one level below highest castable spell level or lower.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:cleric:effect:benefit",
+          "kind": "custom",
+          "target": "favored.cleric",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 spell known from Cleric list, one level below highest castable spell level or lower.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [
+          "ffd20:race:elvaan:pool:favored-cleric-target"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:dancer",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:dancer",
+        "name": "Elvaan Dancer favored class reward",
+        "description": "+1/6 AC-bonus class feature bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:dancer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.dancer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 AC-bonus class feature bonus.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Dancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:dark-knight",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Elvaan Dark Knight favored class reward",
+        "description": "+1/4 harm touch per day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:dark-knight:effect:benefit",
+          "kind": "custom",
+          "target": "favored.dark-knight",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 harm touch per day.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Dark Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:dragoon",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:dragoon",
+        "name": "Elvaan Dragoon favored class reward",
+        "description": "+1/2 Acrobatics for jumping.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:dragoon:effect:benefit",
+          "kind": "custom",
+          "target": "favored.dragoon",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 Acrobatics for jumping.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:druid",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:druid",
+        "name": "Elvaan Druid favored class reward",
+        "description": "+1/3 wild shape natural armor.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:druid:effect:benefit",
+          "kind": "custom",
+          "target": "favored.druid",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 wild shape natural armor.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Druid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:engineer",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:engineer",
+        "name": "Elvaan Engineer favored class reward",
+        "description": "+1/2 Craft checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:engineer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.engineer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 Craft checks.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:fencer",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:fencer",
+        "name": "Elvaan Fencer favored class reward",
+        "description": "+1/3 critical confirmation rolls (max +5), no stacking with Critical Focus or similar.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:fencer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.fencer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 critical confirmation rolls (max +5), no stacking with Critical Focus or similar.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:freelancer",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:freelancer",
+        "name": "Elvaan Freelancer favored class reward",
+        "description": "+1 JP; no effect until ten picks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:freelancer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.freelancer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 JP; no effect until ten picks.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Freelancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:gambler",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:gambler",
+        "name": "Elvaan Gambler favored class reward",
+        "description": "+1/4 to luck pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:gambler:effect:benefit",
+          "kind": "custom",
+          "target": "favored.gambler",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 to luck pool.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:geomancer",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:geomancer",
+        "name": "Elvaan Geomancer favored class reward",
+        "description": "+1/2 Knowledge (nature).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:geomancer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.geomancer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 Knowledge (nature).",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:gunbreaker",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Elvaan Gunbreaker favored class reward",
+        "description": "+1/4 additional uses of aurora.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:gunbreaker:effect:benefit",
+          "kind": "custom",
+          "target": "favored.gunbreaker",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 additional uses of aurora.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:gunner",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:gunner",
+        "name": "Elvaan Gunner favored class reward",
+        "description": "+1/3 firearms critical confirmation (max +5), no Critical Focus stacking.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:gunner:effect:benefit",
+          "kind": "custom",
+          "target": "favored.gunner",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 firearms critical confirmation (max +5), no Critical Focus stacking.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:illusionist",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:illusionist",
+        "name": "Elvaan Illusionist favored class reward",
+        "description": "+1/2 Bluff.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:illusionist:effect:benefit",
+          "kind": "custom",
+          "target": "favored.illusionist",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 Bluff.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Illusionist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:knight",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:knight",
+        "name": "Elvaan Knight favored class reward",
+        "description": "+1/6 shield AC bonus while using any shield.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:knight:effect:benefit",
+          "kind": "custom",
+          "target": "favored.knight",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 shield AC bonus while using any shield.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:medic",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:medic",
+        "name": "Elvaan Medic favored class reward",
+        "description": "+1 foot movement during triage; only effective per five speed increases in combat.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:medic:effect:benefit",
+          "kind": "custom",
+          "target": "favored.medic",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 foot movement during triage; only effective per five speed increases in combat.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Medic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:monk",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:monk",
+        "name": "Elvaan Monk favored class reward",
+        "description": "+1/6 of new monk talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:monk:effect:benefit",
+          "kind": "custom",
+          "target": "favored.monk",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 of new monk talent.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:necromancer",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:necromancer",
+        "name": "Elvaan Necromancer favored class reward",
+        "description": "+1 HP OR +1 skill rank to bone commander; transfers to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:necromancer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.necromancer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 HP OR +1 skill rank to bone commander; transfers to replacement.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [
+          "ffd20:race:elvaan:pool:favored-necromancer-target"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Necromancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:ninja",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:ninja",
+        "name": "Elvaan Ninja favored class reward",
+        "description": "+1/3 Acrobatics, Climb, Stealth in forest.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:ninja:effect:benefit",
+          "kind": "custom",
+          "target": "favored.ninja",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 Acrobatics, Climb, Stealth in forest.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:paladin",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:paladin",
+        "name": "Elvaan Paladin favored class reward",
+        "description": "+1/2 HP lay on hands (heal/harm).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:paladin:effect:benefit",
+          "kind": "custom",
+          "target": "favored.paladin",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 HP lay on hands (heal/harm).",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:psychic",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:psychic",
+        "name": "Elvaan Psychic favored class reward",
+        "description": "+1/4 point to phrenic pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:psychic:effect:benefit",
+          "kind": "custom",
+          "target": "favored.psychic",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 point to phrenic pool.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Psychic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:red-mage",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:red-mage",
+        "name": "Elvaan Red Mage favored class reward",
+        "description": "+1/6 new ruby arcana.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:red-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.red-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 new ruby arcana.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:samurai",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:samurai",
+        "name": "Elvaan Samurai favored class reward",
+        "description": "+1/6 to Bushido DC.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:samurai:effect:benefit",
+          "kind": "custom",
+          "target": "favored.samurai",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 to Bushido DC.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:scholar",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:scholar",
+        "name": "Elvaan Scholar favored class reward",
+        "description": "+1 arcane reservoir point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:scholar:effect:benefit",
+          "kind": "custom",
+          "target": "favored.scholar",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 arcane reservoir point.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:summoner",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:summoner",
+        "name": "Elvaan Summoner favored class reward",
+        "description": "-1 round summoning time for avatar, minimum one round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:summoner:effect:benefit",
+          "kind": "custom",
+          "target": "favored.summoner",
+          "operation": "add",
+          "value": null,
+          "textValue": "-1 round summoning time for avatar, minimum one round.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:sword-saint",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Elvaan Sword Saint favored class reward",
+        "description": "+1/6 new swordskill.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:sword-saint:effect:benefit",
+          "kind": "custom",
+          "target": "favored.sword-saint",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 new swordskill.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Sword Saint"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:thief",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:thief",
+        "name": "Elvaan Thief favored class reward",
+        "description": "+1/3 sneak attack critical confirmation (max +5), no Critical Focus stacking.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:thief:effect:benefit",
+          "kind": "custom",
+          "target": "favored.thief",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 sneak attack critical confirmation (max +5), no Critical Focus stacking.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:time-mage",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:time-mage",
+        "name": "Elvaan Time Mage favored class reward",
+        "description": "+1/2 mote per day (one each two picks).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:time-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.time-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 mote per day (one each two picks).",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:warrior",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:warrior",
+        "name": "Elvaan Warrior favored class reward",
+        "description": "+1 CMD resisting disarm or sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:warrior:effect:benefit",
+          "kind": "custom",
+          "target": "favored.warrior",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 CMD resisting disarm or sunder.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:elvaan:favored:white-mage",
+        "raceId": "ffd20:race:elvaan",
+        "classId": "ffd20:class:white-mage",
+        "name": "Elvaan White Mage favored class reward",
+        "description": "+1/2 HP lay on hands (heal/harm).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:elvaan:favored:white-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.white-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 HP lay on hands (heal/harm).",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "White Mage"
+          }
+        ]
+      }
+    ]
+  },
+  "contractRevision": "2026-10-27.3"
+}

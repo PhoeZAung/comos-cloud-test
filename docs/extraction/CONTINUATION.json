@@ -1,0 +1,34 @@
+{
+  "phase": "races",
+  "lastCompletedPage": "https://finalfantasyd20.com/races/core-races/dwarf/",
+  "lastCompletedSection": "Favored Class Options > White Mage (final entry)",
+  "completedMechanicalPass": [
+    "Dwarf"
+  ],
+  "next": [
+    {
+      "name": "Elvaan",
+      "url": "https://finalfantasyd20.com/races/core-races/elvaan/",
+      "section": "Standard Racial Traits",
+      "state": "not_rechecked"
+    }
+  ],
+  "remainingCoreOrder": [
+    "Elvaan",
+    "Galka",
+    "Half-Breed",
+    "Hume",
+    "Mithra",
+    "Moogle",
+    "Tarutaru"
+  ],
+  "manualForDwarf": [
+    "Bonus language entitlement/selection",
+    "Terrain/climate and ally choices",
+    "Saltbeard component modification",
+    "Conditional effects and bonus feat application",
+    "Class-page favored reward reconciliation",
+    "Independent rules/full-text approval"
+  ],
+  "classFilePolicy": "One JSON per class family, with its base class and archetype definitions together."
+}

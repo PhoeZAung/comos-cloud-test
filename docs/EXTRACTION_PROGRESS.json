@@ -3,11 +3,9 @@
   "orderSource": "https://finalfantasyd20.com/races/",
   "indexCheckedOn": "2026-10-27",
   "phase": "races",
-  "batchSize": 3,
+  "batchSize": 1,
   "nextBatch": [
-    "Dwarf",
-    "Elvaan",
-    "Galka"
+    "Elvaan"
   ],
   "coreOrder": [
     "Dwarf",
@@ -22,21 +20,31 @@
   "races": [
     {
       "name": "Dwarf",
-      "extraction": "legacy_summary_needs_reextract",
+      "extraction": "mechanics_checked_full_text_and_manual_rules_pending",
       "liveAdapter": true,
-      "fullTextVerified": false
+      "fullTextVerified": false,
+      "file": "rules/races/dwarf.race.json",
+      "sourceCheckedOn": "2026-10-27",
+      "sourceEntityCounts": {
+        "standardTraits": 15,
+        "alternateTraits": 26,
+        "heritages": 4,
+        "favoredClassOptions": 39
+      }
     },
     {
       "name": "Elvaan",
       "extraction": "legacy_summary_needs_reextract",
       "liveAdapter": true,
-      "fullTextVerified": false
+      "fullTextVerified": false,
+      "file": "rules/races/elvaan.race.json"
     },
     {
       "name": "Galka",
       "extraction": "legacy_summary_needs_reextract",
       "liveAdapter": true,
-      "fullTextVerified": false
+      "fullTextVerified": false,
+      "file": "rules/races/galka.race.json"
     },
     {
       "name": "Half-Breed",
@@ -70,7 +78,7 @@
     }
   ],
   "laterGroups": "Capture the remaining category names and URLs from the live site index before starting them.",
-  "classPolicy": "one family at a time in displayed site category/order, after races",
+  "classPolicy": "After races: one JSON file per class family, containing its base class plus all archetype records; do not enable partial archetypes.",
   "classes": [
     {
       "name": "Black Mage",
@@ -78,5 +86,14 @@
       "extraction": "legacy_summary_needs_reextract",
       "archetypes": "disabled_unverified"
     }
-  ]
+  ],
+  "lastBatch": {
+    "checkedOn": "2026-10-27",
+    "races": [
+      "Dwarf"
+    ],
+    "mechanicalSourceEntities": 84,
+    "status": "mechanics_checked_text_and_manual_rules_pending",
+    "coverageFile": "docs/extraction/dwarf-coverage.md"
+  }
 }

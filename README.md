@@ -2,6 +2,8 @@
 
 The active site at https://feisty-freedom-production-304e.up.railway.app deploys from **PhoeZAung/comos-cloud-test**, branch **main**. **PhoeZAung/Mount-Aetheria** is the separate legacy reference repository; changes merged there do not appear on Comos automatically. See [docs/SHEET-PORT.md](docs/SHEET-PORT.md) for the transferred sheet features.
 
+Race definitions now live individually in [rules/races](rules/races), and the normal site build generates their runtime adapter. The first current-source mechanical pass is Dwarf; Elvaan is next. See [extraction progress](docs/EXTRACTION_PROGRESS.json) and [Dwarf coverage and remaining manual rules](docs/extraction/dwarf-coverage.md). Existing paraphrases remain flagged for independent/full-text review.
+
 # Comos 0.4.0 — Account and preferences
 
 Steps 3.1/3.2 add automatic profile saving, photos, four two-colour theme circles and an optional splash cursor (off by default). See [docs/ACCOUNT.md](docs/ACCOUNT.md) for behavior, phone tests and integration details.

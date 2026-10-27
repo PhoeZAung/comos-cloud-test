@@ -1,0 +1,3647 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:galka",
+  "name": "Galka",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/core-races/galka/",
+      "title": "Galka - Final Fantasy d20",
+      "retrievedOn": "2026-10-26",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/choicePools",
+        "reason": "Bonus language pool is present as a discovery option; engine-dependent eligible selection count must be determined before auto-prompting.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "All class-specific reward texts and fractional increments are retained, but class-specific targeting and selection-dependent automation require class reconciliation and independent review.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Conditional combat bonuses, grant-versus-feat operations, special racial recovery and some alternate trait effects remain manual until reviewed by a rules engine.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source mechanics recorded, with manual handling where conditional automation is not safely specified."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate feat/archetype catalog intentionally omitted."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate feat/archetype catalog intentionally omitted."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Galka Heritages",
+        "status": "excluded",
+        "reason": "No variant heritage table on current Galka page."
+      },
+      {
+        "sourceId": "main",
+        "section": "Galka background / reincarnation",
+        "status": "extracted",
+        "reason": "Mechanically relevant resurrection restriction recorded outside the standard-trait list; manual."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Racial Feats and Racial Archetypes catalogs are out of race-data scope; traits directly granting feats remain included."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Racial Feats and Racial Archetypes catalogs are out of race-data scope; traits directly granting feats remain included."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:galka:feature:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 Strength, +2 Wisdom, -2 Charisma.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:ability-score-racial-traits-ability-score-ability-scores-str",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "Standard Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:ability-score-racial-traits-ability-score-ability-scores-wis",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "Standard Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:ability-score-racial-traits-ability-score-ability-scores-cha",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "Standard Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Ability Score Racial Traits"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:size",
+      "name": "Size",
+      "description": "Medium creature; no inherent size bonuses or penalties.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:size-identity-identity-size-category",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Size"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:type",
+      "name": "Type",
+      "description": "Humanoid with galka subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:type-identity-identity-creature-type",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:type-identity-identity-creature-subtypes",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "galka",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Type"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:base-speed",
+      "name": "Base Speed",
+      "description": "20 ft. land speed; not slowed by armor or encumbrance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:base-speed-identity-identity-movement-land-feet",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "Standard Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:base-speed-identity-identity-movement-armor-encumbrance-override",
+          "kind": "custom",
+          "target": "identity.speed.armor_encumbrance_exemption",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Do not reduce land speed for armor or encumbrance.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Base Speed"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:languages",
+      "name": "Languages",
+      "description": "Starts Common and Galkan, can select Dwarven, Elvaan, Giant, Goblin, Lalafellan or Orc with sufficient Intelligence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:languages-identity-identity-languages",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:languages-identity-identity-languages-2",
+          "kind": "identity",
+          "target": "identity.languages.galkan",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Galkan",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "Standard Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "Languages"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:hardy",
+      "name": "Hardy",
+      "description": "+2 racial saves versus poison, spells, spell-like abilities.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:hardy-defense-bonus-saves-poison-spells-spell-like",
+          "kind": "defense_bonus",
+          "target": "defense.saves.poison_spells_spell_like",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "Defense Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Saving throw is versus poison, spell, or spell-like ability."
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "Defense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "Hardy"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:stability",
+      "name": "Stability",
+      "description": "+4 racial CMD resisting bull rush and trip while standing on ground.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:stability-defense-bonus-cmd-bull-rush-trip",
+          "kind": "defense_bonus",
+          "target": "defense.cmd.bull_rush_trip",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "Defense Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Bull rush or trip while standing on ground."
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "Defense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "Stability"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:imposing-figure",
+      "name": "Imposing Figure",
+      "description": "+2 racial Intimidate.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:imposing-figure-skill-bonus-skills-intimidate",
+          "kind": "skill_bonus",
+          "target": "skills.skill:intimidate.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "Feat and Skill Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "Imposing Figure"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:mining-servitude",
+      "name": "Mining Servitude",
+      "description": "+2 racial Profession (miner).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:mining-servitude-skill-bonus-skills-profession-miner",
+          "kind": "skill_bonus",
+          "target": "skills.skill:profession.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "Feat and Skill Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "Mining Servitude"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:metalworker",
+      "name": "Metalworker",
+      "description": "+2 racial Appraise and Craft checks related to metal.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:metalworker-skill-bonus-skills-appraise-metal",
+          "kind": "skill_bonus",
+          "target": "skills.skill:appraise.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "Feat and Skill Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Metal-related check."
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:metalworker-skill-bonus-skills-craft-metal",
+          "kind": "skill_bonus",
+          "target": "skills.skill:craft.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "Feat and Skill Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Metal-related check."
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "Feat and Skill Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "Metalworker"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:ferocity",
+      "name": "Ferocity",
+      "description": "Once per day when reduced below zero HP but not killed, function as disabled for one round. At end of next turn fall unconscious and begin dying unless brought above zero HP.",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [
+        {
+          "id": "ffd20:race:galka:action:ferocity",
+          "name": "Ferocity",
+          "actionType": "special",
+          "trigger": "Below 0 hit points but not dead",
+          "attackType": "none",
+          "abilityMod": "auto",
+          "attackMisc": null,
+          "damage": [],
+          "save": null,
+          "costs": [
+            {
+              "resourceId": "ffd20:race:galka:resource:ferocity",
+              "amount": {
+                "kind": "constant",
+                "value": 1,
+                "sourceRefs": [
+                  {
+                    "sourceId": "main",
+                    "section": "Offense Racial Traits",
+                    "locator": "Ferocity"
+                  }
+                ]
+              }
+            }
+          ],
+          "rangeText": "",
+          "durationText": "1 round",
+          "notes": "May act as disabled for one round; unconscious and dying at end of next turn if still below zero.",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Ferocity"
+            }
+          ],
+          "rangeValue": null,
+          "rangeUnit": null,
+          "durationValue": null,
+          "durationUnit": null,
+          "targetText": "",
+          "targetCount": null,
+          "criticalProfile": null
+        }
+      ],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "Ferocity"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:hatred",
+      "name": "Hatred",
+      "description": "+1 racial attack against Antica or Hume.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:hatred-attack-bonus-attacks-racial-hatred",
+          "kind": "attack_bonus",
+          "target": "attack.racial_hatred",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Offense Racial Traits",
+                "locator": "Offense Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Against Antica or Hume"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "Hatred"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:relentless",
+      "name": "Relentless",
+      "description": "+2 CMB bull rush/overrun while both creatures are standing on ground.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:relentless-attack-bonus-cmb-bull-rush-overrun",
+          "kind": "attack_bonus",
+          "target": "attack.cmb.bull_rush_overrun",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Offense Racial Traits",
+                "locator": "Offense Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": {
+            "type": "manual",
+            "description": "Both Galka and opponent stand on ground."
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "Relentless"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with war pick and Galkan racial weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:weapon-familiarity-proficiency-weapons-war-pick",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.war-pick",
+          "operation": "grant",
+          "value": null,
+          "textValue": "war pick",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:weapon-familiarity-proficiency-weapons-galkan-racial-weapon",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.galkan-racial-weapon",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Galkan racial weapon",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "Offense Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "Weapon Familiarity"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as a hume in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:low-light-vision-identity-identity-senses-low-light-vision",
+          "kind": "identity",
+          "target": "identity.senses.low_light_vision",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Twice normal viewing distance in dim conditions.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "Senses Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "Low-Light Vision"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:architectural-ingenuity",
+      "name": "Architectural Ingenuity",
+      "description": "+2 racial Knowledge (engineering), Craft and Perception checks relating to structures, including structural traps.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Architectural Ingenuity"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:beastmaster",
+      "name": "Beastmaster",
+      "description": "Whips and nets treated as martial weapons; +2 racial Handle Animal checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Beastmaster"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:cavewight",
+      "name": "Cavewight",
+      "description": "+1 racial Knowledge (dungeoneering) and Survival while underground.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Cavewight"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:chain-fighter",
+      "name": "Chain Fighter",
+      "description": "Proficient with flails and heavy flails; dire flails and spiked chains count as martial weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Chain Fighter"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:city-raised",
+      "name": "City-Raised",
+      "description": "Proficient whips and longswords, +2 racial Knowledge (local).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "City-Raised"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:darkvision",
+      "name": "Darkvision",
+      "description": "Gain darkvision 60 ft. instead of low-light vision, and lose Metalworker.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:darkvision-identity-identity-senses-darkvision-feet",
+          "kind": "identity",
+          "target": "identity.senses.darkvision",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 60,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "Alternate Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Alternate Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Darkvision"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:scavenger",
+      "name": "Scavenger",
+      "description": "+2 racial Appraise; +2 Perception finding hidden objects (traps/secret doors), judging spoiled food, or identifying potions by taste.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Scavenger"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:stoic",
+      "name": "Stoic",
+      "description": "Normally forgo morale bonuses; +2 racial saves versus fear/emotion and +2 DC to intimidate. Can opt to gain morale bonus and lose this trait for 24 hours.",
+      "featureKind": "racial_trait",
+      "activation": "mixed",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [
+        {
+          "id": "ffd20:race:galka:action:temporarily-waive-stoic",
+          "name": "Temporarily waive Stoic",
+          "actionType": "special",
+          "trigger": "Choose to accept a morale bonus",
+          "attackType": "none",
+          "abilityMod": "auto",
+          "attackMisc": null,
+          "damage": [],
+          "save": null,
+          "costs": [],
+          "rangeText": "",
+          "durationText": "24 hours",
+          "notes": "Disables benefits of Stoic for the next 24 hours.",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Temporarily waive Stoic"
+            }
+          ],
+          "rangeValue": null,
+          "rangeUnit": null,
+          "durationValue": null,
+          "durationUnit": null,
+          "targetText": "",
+          "targetCount": null,
+          "criticalProfile": null
+        }
+      ],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Stoic"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:tenacious",
+      "name": "Tenacious",
+      "description": "Once per day after failing a Fortitude save, Will save, or Constitution check, reroll and keep second result.",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [
+        {
+          "id": "ffd20:race:galka:action:tenacious-reroll",
+          "name": "Tenacious reroll",
+          "actionType": "special",
+          "trigger": "Failed Fortitude save, Will save or Constitution check",
+          "attackType": "none",
+          "abilityMod": "auto",
+          "attackMisc": null,
+          "damage": [],
+          "save": null,
+          "costs": [
+            {
+              "resourceId": "ffd20:race:galka:resource:tenacious",
+              "amount": {
+                "kind": "constant",
+                "value": 1,
+                "sourceRefs": [
+                  {
+                    "sourceId": "main",
+                    "section": "Alternate Racial Traits",
+                    "locator": "Tenacious"
+                  }
+                ]
+              }
+            }
+          ],
+          "rangeText": "",
+          "durationText": "",
+          "notes": "Reroll once, use second result even if worse.",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Tenacious reroll"
+            }
+          ],
+          "rangeValue": null,
+          "rangeUnit": null,
+          "durationValue": null,
+          "durationUnit": null,
+          "targetText": "",
+          "targetCount": null,
+          "criticalProfile": null
+        }
+      ],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Tenacious"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:wary",
+      "name": "Wary",
+      "description": "+1 racial Sense Motive and Bluff.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:wary-skill-bonus-skills-sense-motive",
+          "kind": "skill_bonus",
+          "target": "skills.skill:sense-motive.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "Alternate Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Alternate Racial Traits"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:wary-skill-bonus-skills-bluff",
+          "kind": "skill_bonus",
+          "target": "skills.skill:bluff.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "Alternate Racial Traits"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "Alternate Racial Traits"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Wary"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    },
+    {
+      "id": "ffd20:race:galka:feature:reincarnation",
+      "name": "Reincarnation",
+      "description": "Galka are reincarnated after death, typically after one month to one year. New bodies have hazy past-life memories but no prior traits/abilities; once reincarnation occurs, the original body cannot be raised from the dead.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "rulesOnly"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Galka background / reincarnation",
+          "locator": "Reincarnation"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none",
+      "descriptionStatus": "summary_legacy"
+    }
+  ],
+  "resources": [
+    {
+      "id": "ffd20:race:galka:resource:ferocity",
+      "name": "Ferocity",
+      "classId": null,
+      "unit": "uses",
+      "maximum": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Offense Racial Traits",
+            "locator": "Ferocity"
+          }
+        ]
+      },
+      "period": "day",
+      "recovery": {
+        "method": "unknown",
+        "conditionText": "Source specifies a per-day limit but does not define when/how Comos should refresh it.",
+        "automaticRecoveryAllowed": false
+      },
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "Ferocity"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:galka:resource:tenacious",
+      "name": "Tenacious",
+      "classId": null,
+      "unit": "uses",
+      "maximum": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Tenacious"
+          }
+        ]
+      },
+      "period": "day",
+      "recovery": {
+        "method": "unknown",
+        "conditionText": "Source specifies a per-day limit but does not define when/how Comos should refresh it.",
+        "automaticRecoveryAllowed": false
+      },
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "Tenacious"
+        }
+      ]
+    }
+  ],
+  "choicePools": [
+    {
+      "id": "ffd20:race:galka:pool:high-intelligence-bonus-languages",
+      "name": "High Intelligence bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:galka:option:high-intelligence-bonus-languages-dwarven",
+          "name": "Dwarven",
+          "description": "Dwarven",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Dwarven",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:option:high-intelligence-bonus-languages-elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:option:high-intelligence-bonus-languages-giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:option:high-intelligence-bonus-languages-goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:option:high-intelligence-bonus-languages-lalafellan",
+          "name": "Lalafellan",
+          "description": "Lalafellan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Lalafellan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:option:high-intelligence-bonus-languages-orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "High Intelligence bonus languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible if the system grants bonus languages from high Intelligence; selection count is determined by the system, not invented by the race.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "High Intelligence bonus languages"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:galka:pool:favored-astrologian-target",
+      "name": "Favored Astrologian target",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:galka:option:favored-astrologian-target-choose-a-knowledge-skill-from-current-fixed-skill-registry",
+          "name": "Choose a Knowledge skill (from current fixed skill registry)",
+          "description": "Choose a Knowledge skill (from current fixed skill registry)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "Choose a Knowledge skill (from current fixed skill registry)",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Astrologian target"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Select only one eligible target per reward selection; unresolved external catalog required for unenumerated class options.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Favored Class Options",
+          "locator": "Favored Astrologian target"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:galka:pool:favored-paladin-target",
+      "name": "Favored Paladin target",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:galka:option:favored-paladin-target-1-4-shield-oath-deflection-ac",
+          "name": "+1/4 Shield Oath deflection AC",
+          "description": "+1/4 Shield Oath deflection AC",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "+1/4 Shield Oath deflection AC",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Paladin target"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:option:favored-paladin-target-1-4-sword-oath-attack-rolls",
+          "name": "+1/4 Sword Oath attack rolls",
+          "description": "+1/4 Sword Oath attack rolls",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "+1/4 Sword Oath attack rolls",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Paladin target"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Select only one eligible target per reward selection; unresolved external catalog required for unenumerated class options.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Favored Class Options",
+          "locator": "Favored Paladin target"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "core",
+    "standardTraitIds": [
+      "ffd20:race:galka:feature:ability-score-racial-traits",
+      "ffd20:race:galka:feature:size",
+      "ffd20:race:galka:feature:type",
+      "ffd20:race:galka:feature:base-speed",
+      "ffd20:race:galka:feature:languages",
+      "ffd20:race:galka:feature:hardy",
+      "ffd20:race:galka:feature:stability",
+      "ffd20:race:galka:feature:imposing-figure",
+      "ffd20:race:galka:feature:mining-servitude",
+      "ffd20:race:galka:feature:metalworker",
+      "ffd20:race:galka:feature:ferocity",
+      "ffd20:race:galka:feature:hatred",
+      "ffd20:race:galka:feature:relentless",
+      "ffd20:race:galka:feature:weapon-familiarity",
+      "ffd20:race:galka:feature:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:galka:feature:architectural-ingenuity",
+      "ffd20:race:galka:feature:beastmaster",
+      "ffd20:race:galka:feature:cavewight",
+      "ffd20:race:galka:feature:chain-fighter",
+      "ffd20:race:galka:feature:city-raised",
+      "ffd20:race:galka:feature:darkvision",
+      "ffd20:race:galka:feature:scavenger",
+      "ffd20:race:galka:feature:stoic",
+      "ffd20:race:galka:feature:tenacious",
+      "ffd20:race:galka:feature:wary"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:galka:replacement:architectural-ingenuity",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:metalworker"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:architectural-ingenuity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Architectural Ingenuity replaces Metalworker.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Architectural Ingenuity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:beastmaster",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:ferocity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:beastmaster"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Beastmaster replaces Ferocity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:cavewight",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:imposing-figure"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:cavewight"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Cavewight replaces Imposing Figure.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Cavewight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:chain-fighter",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:chain-fighter"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Chain Fighter replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Chain Fighter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:city-raised",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:city-raised"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "City-Raised replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "City-Raised"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:darkvision",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:low-light-vision",
+          "ffd20:race:galka:feature:metalworker"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:darkvision"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Darkvision replaces Low-Light Vision, Metalworker.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Darkvision"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:scavenger",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:imposing-figure"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:scavenger"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scavenger replaces Imposing Figure.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Scavenger"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:stoic",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:imposing-figure",
+          "ffd20:race:galka:feature:ferocity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:stoic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Stoic replaces Imposing Figure, Ferocity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Stoic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:tenacious",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:ferocity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:tenacious"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Tenacious replaces Ferocity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Tenacious"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:replacement:wary",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:galka:feature:metalworker"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:galka:feature:wary"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wary replaces Metalworker.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "Wary"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:galka:favored:archer",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:archer",
+        "name": "Galka Archer favored class reward",
+        "description": "+1/4 bow/crossbow damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:archer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.archer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 bow/crossbow damage.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:astrologian",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:astrologian",
+        "name": "Galka Astrologian favored class reward",
+        "description": "+1/2 to a chosen Knowledge skill.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:astrologian:effect:benefit",
+          "kind": "custom",
+          "target": "favored.astrologian",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 to a chosen Knowledge skill.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [
+          "ffd20:race:galka:pool:favored-astrologian-target"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Astrologian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:bard",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:bard",
+        "name": "Galka Bard favored class reward",
+        "description": "+1 bardic performance round per day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:bard:effect:benefit",
+          "kind": "custom",
+          "target": "favored.bard",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 bardic performance round per day.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Bard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:beastmaster",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Galka Beastmaster favored class reward",
+        "description": "+1 CMD to companion while adjacent; transfers to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:beastmaster:effect:benefit",
+          "kind": "custom",
+          "target": "favored.beastmaster",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 CMD to companion while adjacent; transfers to replacement.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:berserker",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:berserker",
+        "name": "Galka Berserker favored class reward",
+        "description": "+1 rage round per day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:berserker:effect:benefit",
+          "kind": "custom",
+          "target": "favored.berserker",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 rage round per day.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:black-belt",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:black-belt",
+        "name": "Galka Black Belt favored class reward",
+        "description": "+1/4 effective level for unarmed-strike damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:black-belt:effect:benefit",
+          "kind": "custom",
+          "target": "favored.black-belt",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 effective level for unarmed-strike damage.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:black-mage",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:black-mage",
+        "name": "Galka Black Mage favored class reward",
+        "description": "Choose item creation feat known; +200 gil crafting progress per 8 hours (+50 adventuring) when using it, no cost reduction.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:black-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.black-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "Choose item creation feat known; +200 gil crafting progress per 8 hours (+50 adventuring) when using it, no cost reduction.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:blue-mage",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Galka Blue Mage favored class reward",
+        "description": "+1/4 natural attack damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:blue-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.blue-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 natural attack damage.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:chemist",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:chemist",
+        "name": "Galka Chemist favored class reward",
+        "description": "+1/2 bomb damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:chemist:effect:benefit",
+          "kind": "custom",
+          "target": "favored.chemist",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 bomb damage.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:chocobo-knight",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Galka Chocobo Knight favored class reward",
+        "description": "+1/2 mount Strength (gain +1 Strength every two picks), transfers to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:chocobo-knight:effect:benefit",
+          "kind": "custom",
+          "target": "favored.chocobo-knight",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 mount Strength (gain +1 Strength every two picks), transfers to replacement.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Chocobo Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:cleric",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:cleric",
+        "name": "Galka Cleric favored class reward",
+        "description": "+1/2 Intimidate and Knowledge checks to identify creatures.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:cleric:effect:benefit",
+          "kind": "custom",
+          "target": "favored.cleric",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 Intimidate and Knowledge checks to identify creatures.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:dancer",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:dancer",
+        "name": "Galka Dancer favored class reward",
+        "description": "+1 battle dance round per day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:dancer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.dancer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 battle dance round per day.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Dancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:dark-knight",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Galka Dark Knight favored class reward",
+        "description": "+1/6 Darkside attack and damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:dark-knight:effect:benefit",
+          "kind": "custom",
+          "target": "favored.dark-knight",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 Darkside attack and damage.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Dark Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:dragoon",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:dragoon",
+        "name": "Galka Dragoon favored class reward",
+        "description": "+1/3 attack with spears/lances/polearms.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:dragoon:effect:benefit",
+          "kind": "custom",
+          "target": "favored.dragoon",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 attack with spears/lances/polearms.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:druid",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:druid",
+        "name": "Galka Druid favored class reward",
+        "description": "+1/3 wild shape natural armor.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:druid:effect:benefit",
+          "kind": "custom",
+          "target": "favored.druid",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 wild shape natural armor.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Druid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:engineer",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:engineer",
+        "name": "Galka Engineer favored class reward",
+        "description": "+1/4 automaton AC armor bonus, transfers on replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:engineer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.engineer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 automaton AC armor bonus, transfers on replacement.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:fencer",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:fencer",
+        "name": "Galka Fencer favored class reward",
+        "description": "+1/3 critical confirmation with precise strike deed (max +5), nonstacking with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:fencer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.fencer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 critical confirmation with precise strike deed (max +5), nonstacking with Critical Focus.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:freelancer",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:freelancer",
+        "name": "Galka Freelancer favored class reward",
+        "description": "+1 JP; no effect until ten picks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:freelancer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.freelancer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 JP; no effect until ten picks.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Freelancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:gambler",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:gambler",
+        "name": "Galka Gambler favored class reward",
+        "description": "+1/2 Profession (Gambling).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:gambler:effect:benefit",
+          "kind": "custom",
+          "target": "favored.gambler",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 Profession (Gambling).",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:geomancer",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:geomancer",
+        "name": "Galka Geomancer favored class reward",
+        "description": "+1/5 elemental resistance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 5
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:geomancer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.geomancer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/5 elemental resistance.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:gunbreaker",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Galka Gunbreaker favored class reward",
+        "description": "+1/6 new gun arm technique.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:gunbreaker:effect:benefit",
+          "kind": "custom",
+          "target": "favored.gunbreaker",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 new gun arm technique.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:gunner",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:gunner",
+        "name": "Galka Gunner favored class reward",
+        "description": "+1/3 use of Gun Fix per day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:gunner:effect:benefit",
+          "kind": "custom",
+          "target": "favored.gunner",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 use of Gun Fix per day.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:illusionist",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:illusionist",
+        "name": "Galka Illusionist favored class reward",
+        "description": "+1/4 to penalty of haze.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:illusionist:effect:benefit",
+          "kind": "custom",
+          "target": "favored.illusionist",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 to penalty of haze.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Illusionist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:knight",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:knight",
+        "name": "Galka Knight favored class reward",
+        "description": "+1 defensive stance round/day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:knight:effect:benefit",
+          "kind": "custom",
+          "target": "favored.knight",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 defensive stance round/day.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:medic",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:medic",
+        "name": "Galka Medic favored class reward",
+        "description": "+1/3 temporary HP from battlefield inspiration.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:medic:effect:benefit",
+          "kind": "custom",
+          "target": "favored.medic",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 temporary HP from battlefield inspiration.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Medic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:monk",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:monk",
+        "name": "Galka Monk favored class reward",
+        "description": "+1 CMD versus grapple or trip.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:monk:effect:benefit",
+          "kind": "custom",
+          "target": "favored.monk",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 CMD versus grapple or trip.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:necromancer",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:necromancer",
+        "name": "Galka Necromancer favored class reward",
+        "description": "+1/6 DR 1/-.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:necromancer:effect:benefit",
+          "kind": "custom",
+          "target": "favored.necromancer",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 DR 1/-.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Necromancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:ninja",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:ninja",
+        "name": "Galka Ninja favored class reward",
+        "description": "+1/3 sneak-attack critical confirmation (max +5), nonstacking with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:ninja:effect:benefit",
+          "kind": "custom",
+          "target": "favored.ninja",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 sneak-attack critical confirmation (max +5), nonstacking with Critical Focus.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:paladin",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:paladin",
+        "name": "Galka Paladin favored class reward",
+        "description": "+1/4 deflection AC during Shield Oath OR +1/4 attack during Sword Oath; choose.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:paladin:effect:benefit",
+          "kind": "custom",
+          "target": "favored.paladin",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 deflection AC during Shield Oath OR +1/4 attack during Sword Oath; choose.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [
+          "ffd20:race:galka:pool:favored-paladin-target"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:psychic",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:psychic",
+        "name": "Galka Psychic favored class reward",
+        "description": "+1/4 phrenic pool point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:psychic:effect:benefit",
+          "kind": "custom",
+          "target": "favored.psychic",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 phrenic pool point.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Psychic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:red-mage",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:red-mage",
+        "name": "Galka Red Mage favored class reward",
+        "description": "+1/3 critical confirmation using spell combat (max +5); nonstacking with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:red-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.red-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 critical confirmation using spell combat (max +5); nonstacking with Critical Focus.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:samurai",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:samurai",
+        "name": "Galka Samurai favored class reward",
+        "description": "+1/3 samurai critical confirmation.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:samurai:effect:benefit",
+          "kind": "custom",
+          "target": "favored.samurai",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/3 samurai critical confirmation.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:scholar",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:scholar",
+        "name": "Galka Scholar favored class reward",
+        "description": "+1 concentration versus damage taken while casting.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:scholar:effect:benefit",
+          "kind": "custom",
+          "target": "favored.scholar",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 concentration versus damage taken while casting.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:summoner",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:summoner",
+        "name": "Galka Summoner favored class reward",
+        "description": "+1/4 avatar natural armor AC, transfers to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:summoner:effect:benefit",
+          "kind": "custom",
+          "target": "favored.summoner",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/4 avatar natural armor AC, transfers to replacement.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:sword-saint",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Galka Sword Saint favored class reward",
+        "description": "+2 to stabilize while dying.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:sword-saint:effect:benefit",
+          "kind": "custom",
+          "target": "favored.sword-saint",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 to stabilize while dying.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Sword Saint"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:thief",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:thief",
+        "name": "Galka Thief favored class reward",
+        "description": "+1 CMD versus grapple or reposition.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:thief:effect:benefit",
+          "kind": "custom",
+          "target": "favored.thief",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 CMD versus grapple or reposition.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:time-mage",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:time-mage",
+        "name": "Galka Time Mage favored class reward",
+        "description": "+1/6 extra d3 when spending mote to boost attack (+1d3 per six picks).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:time-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.time-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/6 extra d3 when spending mote to boost attack (+1d3 per six picks).",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:warrior",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:warrior",
+        "name": "Galka Warrior favored class reward",
+        "description": "+1 CMD versus bull rush or overrun.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": {
+          "id": "ffd20:race:galka:favored:warrior:effect:benefit",
+          "kind": "custom",
+          "target": "favored.warrior",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 CMD versus bull rush or overrun.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "Warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:galka:favored:white-mage",
+        "raceId": "ffd20:race:galka",
+        "classId": "ffd20:class:white-mage",
+        "name": "Galka White Mage favored class reward",
+        "description": "+1/2 craft magic items checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": {
+          "id": "ffd20:race:galka:favored:white-mage:effect:benefit",
+          "kind": "custom",
+          "target": "favored.white-mage",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1/2 craft magic items checks.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Favored Class Options",
+              "locator": "Favored Class Options"
+            }
+          ]
+        },
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "White Mage"
+          }
+        ]
+      }
+    ]
+  },
+  "contractRevision": "2026-10-27.3"
+}

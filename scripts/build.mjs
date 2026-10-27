@@ -1,6 +1,9 @@
+import {generateRaceCatalog} from './generate-races.mjs';
 import {cp} from 'node:fs/promises';
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { renderPage, routeView } from '../src/layouts/site.mjs';
+
+await generateRaceCatalog();
 
 const root = new URL('../', import.meta.url);
 const args = process.argv.slice(2);
