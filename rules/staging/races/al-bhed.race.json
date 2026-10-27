@@ -1,0 +1,2187 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:al-bhed",
+  "name": "Al Bhed",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/al-bhed/",
+      "title": "Al Bhed — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/features",
+        "reason": "Mechanical Genius one-time skill rank and one-of craft/specialized skill bonus, bonus Technologist feat catalog, Repair toolkit and construct repair duration require wizard-level test and source-linked feat definitions.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Xenophobic replaces full Languages behavior, including Common and high-INT bonuses; Magic Resistant needs character-level spell resistance recalculation and manually lowered state.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Eight favored rewards require live class identities/caps and per-pick fractional accounting.",
+        "blocking": true
+      },
+      {
+        "path": "/review",
+        "reason": "Independent source accuracy, safe effect ownership/conflict behavior, and production runtime integration have not been reviewed. Keep staging only; do not enable in manifest.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate catalog excluded; trait-granted bonuses or feats preserved within race."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate catalog excluded; trait-granted bonuses or feats preserved within race."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate feat catalog intentionally excluded; directly granted feats retained as racial rules."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetype catalog intentionally excluded."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:al-bhed:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 Dexterity, +2 Intelligence and −2 Charisma.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:ability-score-adjustment:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:ability-score-adjustment:effect:ability-score-ability-scores-int-1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:ability-score-adjustment:effect:ability-score-ability-scores-cha-2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6024"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:size",
+      "name": "Size",
+      "description": "Medium size.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:type",
+      "name": "Type",
+      "description": "Humanoid with Al Bhed subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (al bhed)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Land speed 30 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "30 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:languages",
+      "name": "Languages",
+      "description": "Start Common and Albhedian. With high INT, choose bonus languages from Goblin, Loporrit, Moogle, PuPon and Yagudo.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Albhedian",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:desert-nomad",
+      "name": "Desert Nomad",
+      "description": "+4 racial on CON checks and Fort saves to avoid fatigue, exhaustion or harmful effects of running, forced marches, starvation, thirst, and hot or cold environments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:desert-nomad:effect:defense-bonus-saving-throws-fortitude-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.fortitude",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only circumstances listed: fatigue, exhaustion, running, forced marches, hunger, thirst, extreme temperature"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:desert-nomad:effect:custom-ability-checks-constitution-1",
+          "kind": "custom",
+          "target": "ability_checks.constitution",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only same adverse travel/environment effects"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:trap-knowledge",
+      "name": "Trap Knowledge",
+      "description": "+2 racial to saves against mechanical traps.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:trap-knowledge:effect:defense-bonus-saving-throws-all-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only mechanical traps"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:fixer-upper",
+      "name": "Fixer-Upper",
+      "description": "Repair is a class skill. No missing-toolkit penalty to Repair. Fixing construct damage with Repair takes 30 minutes.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:fixer-upper:effect:class-skill-skills-repair-class-skill-0",
+          "kind": "class_skill",
+          "target": "skills.repair.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6034"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:mechanical-genius",
+      "name": "Mechanical Genius",
+      "description": "At character level 1, get one extra skill rank and select one specialty to gain +2 racial skill modifier among Knowledge (engineering), Profession (engineering), Craft (any), Disable Device, Use Magical Device. Eligible skills are class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:mechanical-genius:effect:custom-skill-ranks-first-character-level-0",
+          "kind": "custom",
+          "target": "skill_ranks.first_character_level",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:al-bhed:pool:mechanical-genius-specialty"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feat and Skill Racial Traits",
+            "locator": "6035"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:skill-training",
+      "name": "Skill Training",
+      "description": "Drive and Pilot are class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:skill-training:effect:class-skill-skills-drive-class-skill-0",
+          "kind": "class_skill",
+          "target": "skills.drive.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:skill-training:effect:class-skill-skills-pilot-class-skill-1",
+          "kind": "class_skill",
+          "target": "skills.pilot.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:technologist",
+      "name": "Technologist",
+      "description": "Gain Technologist bonus feat.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:technologist:effect:grant-feature-feats-technologist-0",
+          "kind": "grant_feature",
+          "target": "feats.technologist",
+          "operation": "add",
+          "value": null,
+          "textValue": "Grant Technologist bonus feat directly from racial feature; reference feat definition not yet imported.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with Simple Firearms.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:weapon-familiarity:effect:proficiency-weapons-simple-firearms-0",
+          "kind": "proficiency",
+          "target": "weapons.simple_firearms",
+          "operation": "add",
+          "value": null,
+          "textValue": "All simple firearms",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:knowledge-engineering",
+      "name": "Knowledge (engineering) choice bonus",
+      "description": "Selecting Knowledge (engineering) applies only this choice’s benefit. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:knowledge-engineering:effect:skill-bonus-skills-knowledge-engineering-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-engineering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:knowledge-engineering:effect:class-skill-skills-knowledge-engineering-class-skill-1",
+          "kind": "class_skill",
+          "target": "skills.knowledge-engineering.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:profession-engineering",
+      "name": "Profession (engineering) choice bonus",
+      "description": "Selecting Profession (engineering) applies only this choice’s benefit. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:profession-engineering:effect:skill-bonus-skills-profession-engineering-0",
+          "kind": "skill_bonus",
+          "target": "skills.profession-engineering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:profession-engineering:effect:class-skill-skills-profession-engineering-class-skill-1",
+          "kind": "class_skill",
+          "target": "skills.profession-engineering.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:disable-device",
+      "name": "Disable Device choice bonus",
+      "description": "Selecting Disable Device applies only this choice’s benefit. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:disable-device:effect:skill-bonus-skills-disable-device-0",
+          "kind": "skill_bonus",
+          "target": "skills.disable-device",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:disable-device:effect:class-skill-skills-disable-device-class-skill-1",
+          "kind": "class_skill",
+          "target": "skills.disable-device.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:use-magical-device",
+      "name": "Use Magical Device choice bonus",
+      "description": "Selecting Use Magical Device applies only this choice’s benefit. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:use-magical-device:effect:skill-bonus-skills-use-magical-device-0",
+          "kind": "skill_bonus",
+          "target": "skills.use-magical-device",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:use-magical-device:effect:class-skill-skills-use-magical-device-class-skill-1",
+          "kind": "class_skill",
+          "target": "skills.use-magical-device.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:academician",
+      "name": "Academician",
+      "description": "Select one Knowledge specialty for +2 bonus; replaces Technologist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:al-bhed:pool:academician-knowledge-specialty"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6042"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:child-of-the-sea",
+      "name": "Child of the Sea",
+      "description": "+4 racial Swim and Profession (sailor) and Wisdom checks to pilot vessels; cannot become lost at sea. Replaces Desert Nomad.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:child-of-the-sea:effect:skill-bonus-skills-swim-0",
+          "kind": "skill_bonus",
+          "target": "skills.swim",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6043"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:child-of-the-sea:effect:skill-bonus-skills-profession-sailor-1",
+          "kind": "skill_bonus",
+          "target": "skills.profession-sailor",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6043"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:explorer",
+      "name": "Explorer",
+      "description": "+2 racial Acrobatics, Climb, Swim; each is a class skill. Replaces Mechanical Genius and Desert Nomad.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:explorer:effect:skill-bonus-skills-acrobatics-0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:explorer:effect:skill-bonus-skills-climb-1",
+          "kind": "skill_bonus",
+          "target": "skills.climb",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:explorer:effect:skill-bonus-skills-swim-2",
+          "kind": "skill_bonus",
+          "target": "skills.swim",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:magic-resistant",
+      "name": "Magic Resistant",
+      "description": "Spell resistance 11 + total character level; can lower for one round with standard action; −2 to concentration checks for spells. Replaces Fixer-Upper and Weapon Familiarity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:magic-resistant:effect:custom-concentration-0",
+          "kind": "custom",
+          "target": "concentration",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6045"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only spell-related concentration checks"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:mechanical-dismantler",
+      "name": "Mechanical Dismantler",
+      "description": "+4 racial to Steal maneuvers versus Machina subtype. Replaces Skill Training.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:mechanical-dismantler:effect:custom-combat-maneuvers-steal-0",
+          "kind": "custom",
+          "target": "combat_maneuvers.steal",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6046"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only against Machina creatures"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:xenophobic",
+      "name": "Xenophobic",
+      "description": "Speak only Al Bhed, with no high-INT bonus languages. Linguistics grants one language per TWO ranks. +1 on saves vs mind-affecting effects EXCEPT fear. Replaces Languages, retaining no Common.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:xenophobic:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Albhedian only; zero INT bonus languages; one new language per two Linguistics ranks",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6047"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:al-bhed:trait:wary",
+      "name": "Wary",
+      "description": "+1 racial Sense Motive and Bluff. Replaces Desert Nomad.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:al-bhed:trait:wary:effect:skill-bonus-skills-sense-motive-0",
+          "kind": "skill_bonus",
+          "target": "skills.sense-motive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6048"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6048"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:wary:effect:skill-bonus-skills-bluff-1",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6048"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6048"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty",
+      "name": "Mechanical Genius specialty",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:option:knowledge-engineering",
+          "name": "Knowledge (engineering)",
+          "description": "+2 racial Knowledge (engineering); always class skill",
+          "featureIds": [
+            "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:knowledge-engineering"
+          ],
+          "spellIds": [],
+          "value": "knowledge-engineering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:option:profession-engineering",
+          "name": "Profession (engineering)",
+          "description": "+2 racial Profession (engineering); always class skill",
+          "featureIds": [
+            "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:profession-engineering"
+          ],
+          "spellIds": [],
+          "value": "profession-engineering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:option:craft-any",
+          "name": "Craft (any)",
+          "description": "Choose one Craft specialty: +2 racial; applicable Craft class skill",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "craft-any",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:option:disable-device",
+          "name": "Disable Device",
+          "description": "+2 racial Disable Device; always class skill",
+          "featureIds": [
+            "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:disable-device"
+          ],
+          "spellIds": [],
+          "value": "disable-device",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:mechanical-genius-specialty:option:use-magical-device",
+          "name": "Use Magical Device",
+          "description": "+2 racial Use Magical Device; always class skill",
+          "featureIds": [
+            "ffd20:race:al-bhed:pool:mechanical-genius-specialty:grant:use-magical-device"
+          ],
+          "spellIds": [],
+          "value": "use-magical-device",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Craft(any) specialization must use an existing Craft row; selection and class-skill membership are not yet automatically verified.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6035"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:al-bhed:pool:academician-knowledge-specialty",
+      "name": "Academician Knowledge specialty",
+      "choiceType": "skill",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Select one existing Knowledge specialty; open catalog and bonus effect unresolved.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6042"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:al-bhed:trait:ability-score-adjustment",
+      "ffd20:race:al-bhed:trait:size",
+      "ffd20:race:al-bhed:trait:type",
+      "ffd20:race:al-bhed:trait:base-speed",
+      "ffd20:race:al-bhed:trait:languages",
+      "ffd20:race:al-bhed:trait:desert-nomad",
+      "ffd20:race:al-bhed:trait:trap-knowledge",
+      "ffd20:race:al-bhed:trait:fixer-upper",
+      "ffd20:race:al-bhed:trait:mechanical-genius",
+      "ffd20:race:al-bhed:trait:skill-training",
+      "ffd20:race:al-bhed:trait:technologist",
+      "ffd20:race:al-bhed:trait:weapon-familiarity"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:al-bhed:trait:academician",
+      "ffd20:race:al-bhed:trait:child-of-the-sea",
+      "ffd20:race:al-bhed:trait:explorer",
+      "ffd20:race:al-bhed:trait:magic-resistant",
+      "ffd20:race:al-bhed:trait:mechanical-dismantler",
+      "ffd20:race:al-bhed:trait:xenophobic",
+      "ffd20:race:al-bhed:trait:wary"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:al-bhed:trait:academician:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:al-bhed:trait:technologist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:al-bhed:trait:academician"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Academician replaces Technologist.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6042"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:trait:child-of-the-sea:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:al-bhed:trait:desert-nomad"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:al-bhed:trait:child-of-the-sea"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Child of the Sea replaces Desert Nomad.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6043"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:trait:explorer:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:al-bhed:trait:mechanical-genius",
+          "ffd20:race:al-bhed:trait:desert-nomad"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:al-bhed:trait:explorer"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Explorer replaces Mechanical Genius, Desert Nomad.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6044"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:trait:magic-resistant:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:al-bhed:trait:fixer-upper",
+          "ffd20:race:al-bhed:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:al-bhed:trait:magic-resistant"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Magic Resistant replaces Fixer-Upper, Weapon Familiarity.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6045"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:trait:mechanical-dismantler:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:al-bhed:trait:skill-training"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:al-bhed:trait:mechanical-dismantler"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mechanical Dismantler replaces Skill Training.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6046"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:trait:xenophobic:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:al-bhed:trait:languages"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:al-bhed:trait:xenophobic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Xenophobic replaces Languages.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6047"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:trait:wary:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:al-bhed:trait:desert-nomad"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:al-bhed:trait:wary"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wary replaces Desert Nomad.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6048"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:al-bhed:favored:chemist",
+        "raceId": "ffd20:race:al-bhed",
+        "classId": "ffd20:class:chemist",
+        "name": "Al Bhed Chemist favored reward",
+        "description": "+1/4 damage for thrown weapons.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6068 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:favored:engineer",
+        "raceId": "ffd20:race:al-bhed",
+        "classId": "ffd20:class:engineer",
+        "name": "Al Bhed Engineer favored reward",
+        "description": "Choose +1 HP or +1 saving throw to automaton; transfers to replacement automaton.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6069 Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:favored:gambler",
+        "raceId": "ffd20:race:al-bhed",
+        "classId": "ffd20:class:gambler",
+        "name": "Al Bhed Gambler favored reward",
+        "description": "+1/5 damage to Gil Toss.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 5
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6070 Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:favored:gunbreaker",
+        "raceId": "ffd20:race:al-bhed",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Al Bhed Gunbreaker favored reward",
+        "description": "Accumulate +1/6 of an additional Gunbreaker talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6071 Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:favored:gunner",
+        "raceId": "ffd20:race:al-bhed",
+        "classId": "ffd20:class:gunner",
+        "name": "Al Bhed Gunner favored reward",
+        "description": "Accumulate +1/3 of another daily Gun Fix use.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6072 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:favored:medic",
+        "raceId": "ffd20:race:al-bhed",
+        "classId": "ffd20:class:medic",
+        "name": "Al Bhed Medic favored reward",
+        "description": "Accumulate +1/6 of an additional medical practice.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073 Medic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:favored:ninja",
+        "raceId": "ffd20:race:al-bhed",
+        "classId": "ffd20:class:ninja",
+        "name": "Al Bhed Ninja favored reward",
+        "description": "+1/3 on critical confirmation while sneak attacking (cap +5), nonstacking with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074 Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:al-bhed:favored:thief",
+        "raceId": "ffd20:race:al-bhed",
+        "classId": "ffd20:class:thief",
+        "name": "Al Bhed Thief favored reward",
+        "description": "Accumulate +1/6 of another Thief talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075 Thief"
+          }
+        ]
+      }
+    ]
+  }
+}

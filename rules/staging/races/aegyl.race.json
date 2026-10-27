@@ -1,0 +1,1348 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:aegyl",
+  "name": "Aegyl",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/aegyl/",
+      "title": "Aegyl — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Wing-Clipped modifies only flight portion of Base Speed and removes Emotionless. Requires component-specific effect disable/replace; 30-ft land speed and unrelated identity fields must survive.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Conditional flight-wing clearance, duration/target tracking for Oppressive, natural-1 reroll timing, and weather prediction remain manual.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Nine class-targeted rewards need exact class catalogs, rounding and cap validation; recorded as manual choices.",
+        "blocking": true
+      },
+      {
+        "path": "/review",
+        "reason": "Independent source accuracy, safe effect ownership/conflict behavior, and production runtime integration have not been reviewed. Keep staging only; do not enable in manifest.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate catalog excluded; trait-granted bonuses or feats preserved within race."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate catalog excluded; trait-granted bonuses or feats preserved within race."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate feat catalog intentionally excluded; directly granted feats retained as racial rules."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetype catalog intentionally excluded."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:aegyl:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "Aegyl receive +2 Dexterity, +2 Wisdom, and −2 Charisma.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:ability-score-adjustment:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:trait:ability-score-adjustment:effect:ability-score-ability-scores-wis-1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:trait:ability-score-adjustment:effect:ability-score-ability-scores-cha-2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:size",
+      "name": "Size",
+      "description": "Medium size, without size-based modifiers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:type",
+      "name": "Type",
+      "description": "Humanoid with aegyl subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (aegyl)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Land speed 30 ft, and fly speed 40 ft (poor maneuverability). Aegyl require sufficient space to fully extend approximately 12-foot wings; no flight where the wings cannot extend.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "30 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:trait:base-speed:effect:identity-speed-fly-1",
+          "kind": "identity",
+          "target": "speed.fly",
+          "operation": "set",
+          "value": null,
+          "textValue": "40 feet (poor maneuverability); only where wings fit",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:languages",
+      "name": "Languages",
+      "description": "Start with Common and Aegyllan. High-INT bonus language options: Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Aegyllan",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:elemental-resistance",
+      "name": "Elemental Resistance",
+      "description": "Wind resistance 5 and lightning resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:elemental-resistance:effect:defense-bonus-resistance-wind-0",
+          "kind": "defense_bonus",
+          "target": "resistance.wind",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:trait:elemental-resistance:effect:defense-bonus-resistance-lightning-1",
+          "kind": "defense_bonus",
+          "target": "resistance.lightning",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:eternal-hope",
+      "name": "Eternal Hope",
+      "description": "+2 racial on saves against fear and despair. Once daily, after a natural 1 on a d20, may reroll but must use the second result.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:eternal-hope:effect:defense-bonus-saving-throws-all-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6034"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only versus fear or despair"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:illusion-resistance",
+      "name": "Illusion Resistance",
+      "description": "+2 racial on saving throws against illusion spells and effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:illusion-resistance:effect:defense-bonus-saving-throws-all-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only versus illusion spells/effects"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:keen-senses:effect:skill-bonus-skills-perception-0",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice the human/hume distance under starlight, moonlight, torchlight and similar dim light while retaining color and detail.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:low-light-vision:effect:identity-senses-low-light-vision-0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "Twice normal vision distance in dim illumination",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:emotionless",
+      "name": "Emotionless",
+      "description": "−2 Diplomacy checks with people of other races, not with aegyl.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:emotionless:effect:skill-bonus-skills-diplomacy-0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Weakness Racial Traits",
+                "locator": "6045"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only when dealing with non-aegyl"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:oppressive",
+      "name": "Oppressive",
+      "description": "Swift action: Sense Motive check against the higher of DC 10 + target HD + target CHA modifier or DC 10 + target Bluff modifier; success grants +4 racial Intimidate versus this target and +1 to the DC of fear effects used against this target. No source duration specified.",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:oppressive:effect:skill-bonus-skills-intimidate-0",
+          "kind": "skill_bonus",
+          "target": "skills.intimidate",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6049"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only vs creature against which the opposing Sense Motive check succeeded"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6049"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:weather-savvy",
+      "name": "Weather Savvy",
+      "description": "Full-round action predicts weather for next 24 hours accurately, except cannot account for magical or supernatural changes.",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:aegyl:trait:wing-clipped",
+      "name": "Wing-Clipped",
+      "description": "Flight decreases to 20 feet (poor); upward movement requires DC 30 Fly check. +2 racial Bluff, Climb, Diplomacy; removes Emotionless. Land speed remains 30 ft.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:aegyl:trait:wing-clipped:effect:skill-bonus-skills-bluff-0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6052"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:trait:wing-clipped:effect:skill-bonus-skills-climb-1",
+          "kind": "skill_bonus",
+          "target": "skills.climb",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6052"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:trait:wing-clipped:effect:skill-bonus-skills-diplomacy-2",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6052"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [
+    {
+      "id": "ffd20:race:aegyl:resource:eternal-hope-reroll",
+      "name": "Eternal Hope natural-1 reroll",
+      "classId": null,
+      "unit": "uses",
+      "maximum": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defense Racial Traits",
+            "locator": "6034"
+          }
+        ]
+      },
+      "period": "day",
+      "recovery": {
+        "method": "unknown",
+        "conditionText": "One opportunity per day; exact reset timing not specified by race source.",
+        "automaticRecoveryAllowed": false
+      },
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6034"
+        }
+      ]
+    }
+  ],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:aegyl:trait:ability-score-adjustment",
+      "ffd20:race:aegyl:trait:size",
+      "ffd20:race:aegyl:trait:type",
+      "ffd20:race:aegyl:trait:base-speed",
+      "ffd20:race:aegyl:trait:languages",
+      "ffd20:race:aegyl:trait:elemental-resistance",
+      "ffd20:race:aegyl:trait:eternal-hope",
+      "ffd20:race:aegyl:trait:illusion-resistance",
+      "ffd20:race:aegyl:trait:keen-senses",
+      "ffd20:race:aegyl:trait:low-light-vision",
+      "ffd20:race:aegyl:trait:emotionless"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:aegyl:trait:oppressive",
+      "ffd20:race:aegyl:trait:weather-savvy",
+      "ffd20:race:aegyl:trait:wing-clipped"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:aegyl:trait:oppressive:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:aegyl:trait:keen-senses",
+          "ffd20:race:aegyl:trait:emotionless"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:aegyl:trait:oppressive"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Oppressive replaces Keen Senses, Emotionless.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6049"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:trait:weather-savvy:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:aegyl:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:aegyl:trait:weather-savvy"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Weather Savvy replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:trait:wing-clipped:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:aegyl:trait:emotionless"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:aegyl:trait:wing-clipped"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wing-Clipped replaces Emotionless.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:trait:wing-clipped:flight-modifier",
+        "operation": "modify",
+        "targetFeatureIds": [
+          "ffd20:race:aegyl:trait:base-speed"
+        ],
+        "targetEventIds": [],
+        "scope": "part_of_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Change only fly speed to 20 ft poor and require DC 30 Fly check for ascent; retain 30 ft land speed.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:aegyl:favored:beastmaster",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Aegyl Beastmaster favored reward",
+        "description": "Animal companion gains +1 CMD while adjacent to the beastmaster; replacement companion retains accumulated bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6071 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:favored:berserker",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:berserker",
+        "name": "Aegyl Berserker favored reward",
+        "description": "Increase available rage rounds each day by one.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6072 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:favored:dragoon",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:dragoon",
+        "name": "Aegyl Dragoon favored reward",
+        "description": "+1/2 bonus to Acrobatics checks specifically for jumping.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:favored:geomancer",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:geomancer",
+        "name": "Aegyl Geomancer favored reward",
+        "description": "+1/2 damage for wind-element spells or spell-like abilities.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074 Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:favored:monk",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:monk",
+        "name": "Aegyl Monk favored reward",
+        "description": "+1/4 point in monk ki pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:favored:samurai",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:samurai",
+        "name": "Aegyl Samurai favored reward",
+        "description": "+1/3 to critical-hit confirmation rolls.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6076 Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:favored:thief",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:thief",
+        "name": "Aegyl Thief favored reward",
+        "description": "+1/3 critical confirmation while sneak attacking (maximum +5); does not stack with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6077 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:favored:warrior",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:warrior",
+        "name": "Aegyl Warrior favored reward",
+        "description": "+1 CMD when resisting disarm or sunder maneuvers.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6078 Warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:aegyl:favored:white-mage",
+        "raceId": "ffd20:race:aegyl",
+        "classId": "ffd20:class:white-mage",
+        "name": "Aegyl White Mage favored reward",
+        "description": "+1/2 to Knowledge (planes) checks concerning the Plane of Air and air-subtype creatures.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6079 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

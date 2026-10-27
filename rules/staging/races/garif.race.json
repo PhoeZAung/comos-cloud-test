@@ -1,0 +1,1588 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:garif",
+  "name": "Garif",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/garif/",
+      "title": "Garif - Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Class-targeted favored rewards remain manual until referenced class feature IDs and fractional accumulations are reconciled.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Terrain, mask-state saves, per-level skill rank grants, Diehard feat ownership and weapon catalog need runtime verification.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "Exact high-INT languages and permanent terrain selection must be reconciled with Comos creation UI.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "External feats catalog excluded; direct racial grants retained."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetypes catalog excluded from race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:garif:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 CON; +2 WIS; -2 INT.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:ability-score-adjustment:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5931"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5931"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:trait:ability-score-adjustment:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5931"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5931"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:trait:ability-score-adjustment:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5931"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5931"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5931"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:size",
+      "name": "Size",
+      "description": "Medium size; no size-based adjustments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:size:effect:0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5932"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5932"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:type",
+      "name": "Type",
+      "description": "Humanoid with garif subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:type:effect:0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (garif)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5933"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5933"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5934"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5934"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5934"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common, Garif. High-Intelligence options: Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Garif",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:garif:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5935"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": 0,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "5935"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:garif:trait:bond-to-the-land",
+      "name": "Bond to the Land",
+      "description": "At character creation choose desert or plains, permanently. While in that chosen terrain gain +2 dodge AC; never applies outside chosen terrain.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:bond-to-the-land:effect:0",
+          "kind": "defense_bonus",
+          "target": "armor_class",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5938"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": {
+            "type": "manual",
+            "description": "Character is in the selected desert or plains terrain"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5938"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:garif:pool:bond-terrain"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5938"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defense Racial Traits",
+            "locator": "5938"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:garif:trait:masked",
+      "name": "Masked",
+      "description": "When wearing their customary mask, gain +1 bonus to all saves; mask status must be checked rather than always granting it.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:masked:effect:0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5939"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": {
+            "type": "manual",
+            "description": "Mask currently worn"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5939"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5939"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:animal-herder",
+      "name": "Animal Herder",
+      "description": "+2 racial Handle Animal checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:animal-herder:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.handle_animal",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "5942"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5942"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5942"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:keen-senses:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "5943"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5943"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5943"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:pastoralist",
+      "name": "Pastoralist",
+      "description": "At every character level gain one extra skill rank, spent in an existing Craft specialty, Knowledge (nature), a pastoral Profession specialty, or Survival; selected skill becomes a class skill. Selection timing and ability to vary chosen skill by level require GM confirmation.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:pastoralist:effect:0",
+          "kind": "custom",
+          "target": "skill_ranks.extra_each_level",
+          "operation": "add",
+          "value": null,
+          "textValue": "One extra skill rank per level to an allowed skill: Craft (any), Knowledge (nature), Profession (pastoral), Survival; selected skill class skill.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5944"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:garif:pool:pastoralist-skill"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5944"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feat and Skill Racial Traits",
+            "locator": "5944"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:garif:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient in longspear, shortspear, javelin, and boar spear.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:weapon-familiarity:effect:0",
+          "kind": "custom",
+          "target": "proficiencies.weapons",
+          "operation": "add",
+          "value": null,
+          "textValue": "longspear; shortspear; javelin; boar spear",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "5947"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "5947"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:low-light-vision",
+      "name": "Low-light Vision",
+      "description": "In moonlight, starlight, torchlight, and comparable dim light see twice the normal hume distance, retaining color and detail.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:low-light-vision:effect:0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "twice normal dim-light vision",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "5951"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "5951"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:historian",
+      "name": "Historian",
+      "description": "Each level receive one additional Knowledge (history) skill rank; Knowledge (history) is a class skill. Replaces Pastoralist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:historian:effect:0",
+          "kind": "custom",
+          "target": "skill_ranks.extra_each_level",
+          "operation": "add",
+          "value": null,
+          "textValue": "1 Knowledge (history) rank each level and class-skill membership",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5955"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5955"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:garif:trait:soldier",
+      "name": "Soldier",
+      "description": "Each level get one extra rank in either Knowledge (dungeoneering) or Profession (soldier), with the selected skill as a class skill. Replaces Pastoralist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:garif:pool:soldier-skill"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5956"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5956"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:garif:trait:unmasked",
+      "name": "Unmasked",
+      "description": "Gain Diehard as bonus feat, replacing Masked. Losing customary mask is thematic; mechanics are the listed feat grant. ",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:garif:trait:unmasked:effect:0",
+          "kind": "custom",
+          "target": "feats.granted",
+          "operation": "add",
+          "value": null,
+          "textValue": "Diehard (bonus feat)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5957"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5957"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:garif:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:garif:pool:bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:bonus-languages:option:dwarven",
+          "name": "Dwarven",
+          "description": "Dwarven",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dwarven",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible high-Intelligence choices. Count and repeated selections require standard language-rule audit.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5935"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:garif:pool:bond-terrain",
+      "name": "Bond to the Land terrain",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:garif:pool:bond-terrain:option:desert",
+          "name": "Desert",
+          "description": "Desert",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "desert",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5938"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:bond-terrain:option:plains",
+          "name": "Plains",
+          "description": "Plains",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "plains",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5938"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Permanent one-time creation choice; dynamic terrain AC is conditional and manual.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5938"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:garif:pool:pastoralist-skill",
+      "name": "Pastoralist skill",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:garif:pool:pastoralist-skill:option:craft-any",
+          "name": "Craft (any)",
+          "description": "Craft (any)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "craft-any",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5944"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:pastoralist-skill:option:knowledge-nature",
+          "name": "Knowledge (nature)",
+          "description": "Knowledge (nature)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "knowledge-nature",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5944"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:pastoralist-skill:option:profession-pastoral",
+          "name": "Profession (pastoral)",
+          "description": "Profession (pastoral)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "profession-pastoral",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5944"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:pastoralist-skill:option:survival",
+          "name": "Survival",
+          "description": "Survival",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "survival",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5944"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Craft/Profession specializations map only to existing sheet rows; source does not define choice timing or retraining.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5944"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:garif:pool:soldier-skill",
+      "name": "Soldier rank skill",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:garif:pool:soldier-skill:option:knowledge-dungeoneering",
+          "name": "Knowledge (dungeoneering)",
+          "description": "Knowledge (dungeoneering)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "knowledge-dungeoneering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5956"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:garif:pool:soldier-skill:option:profession-soldier",
+          "name": "Profession (soldier)",
+          "description": "Profession (soldier)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "profession-soldier",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5956"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Pick one source-listed destination; repeat per-level rank allocation requires GM confirmation.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5956"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:garif:trait:ability-score-adjustment",
+      "ffd20:race:garif:trait:size",
+      "ffd20:race:garif:trait:type",
+      "ffd20:race:garif:trait:base-speed",
+      "ffd20:race:garif:trait:languages",
+      "ffd20:race:garif:trait:bond-to-the-land",
+      "ffd20:race:garif:trait:masked",
+      "ffd20:race:garif:trait:animal-herder",
+      "ffd20:race:garif:trait:keen-senses",
+      "ffd20:race:garif:trait:pastoralist",
+      "ffd20:race:garif:trait:weapon-familiarity",
+      "ffd20:race:garif:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:garif:trait:historian",
+      "ffd20:race:garif:trait:soldier",
+      "ffd20:race:garif:trait:unmasked"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:garif:trait:historian:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:garif:trait:pastoralist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:garif:trait:historian"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Historian: replaces Pastoralist.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5955"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:trait:soldier:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:garif:trait:pastoralist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:garif:trait:soldier"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Soldier: replaces Pastoralist.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5956"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:trait:unmasked:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:garif:trait:masked"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:garif:trait:unmasked"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Unmasked: replaces Masked.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5957"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:garif:favored:archer",
+        "raceId": "ffd20:race:garif",
+        "classId": "ffd20:class:archer",
+        "name": "Garif Archer favored reward",
+        "description": "Each reward adds +1/3 to Aim bonus on attack rolls.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5961 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:favored:beastmaster",
+        "raceId": "ffd20:race:garif",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Garif Beastmaster favored reward",
+        "description": "Each reward adds +1 CMD to adjacent animal companion; bonus follows replacement companion.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5962 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:favored:berserker",
+        "raceId": "ffd20:race:garif",
+        "classId": "ffd20:class:berserker",
+        "name": "Garif Berserker favored reward",
+        "description": "Each reward adds 1 daily rage round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5963 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:favored:dragoon",
+        "raceId": "ffd20:race:garif",
+        "classId": "ffd20:class:dragoon",
+        "name": "Garif Dragoon favored reward",
+        "description": "Each reward adds +1/2 on Acrobatics checks specifically made to jump.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5964 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:favored:paladin",
+        "raceId": "ffd20:race:garif",
+        "classId": "ffd20:class:paladin",
+        "name": "Garif Paladin favored reward",
+        "description": "Choose +1/4 deflection AC during Shield Oath OR +1/4 attack rolls during Sword Oath; preserve selected branch.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5965 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:favored:monk",
+        "raceId": "ffd20:race:garif",
+        "classId": "ffd20:class:monk",
+        "name": "Garif Monk favored reward",
+        "description": "Each reward adds 1/4 point to ki pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5966 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:favored:thief",
+        "raceId": "ffd20:race:garif",
+        "classId": "ffd20:class:thief",
+        "name": "Garif Thief favored reward",
+        "description": "Each reward adds +1/3 to confirmation rolls while sneak attacking, maximum +5, nonstacking with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5967 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:garif:favored:warrior",
+        "raceId": "ffd20:race:garif",
+        "classId": "ffd20:class:warrior",
+        "name": "Garif Warrior favored reward",
+        "description": "Each reward adds +1 CMD against disarm or sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5968 Warrior"
+          }
+        ]
+      }
+    ]
+  }
+}

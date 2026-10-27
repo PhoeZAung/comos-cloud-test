@@ -1,0 +1,1613 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:genome",
+  "name": "Genome",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/genome/",
+      "title": "Genome - Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Class-targeted favored rewards remain manual until referenced class feature IDs and fractional accumulations are reconciled.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Ignorant Upbringing replaces TWO default traits AND entire racial ability vector. Mystic Vessel changes bonus-MP lookup only. Selected save/weapon feats must not be auto-granted en masse.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Ideal Vessel class-level DC scope, Dexterous Tail swift action, per-target NPC attitudes, and Technologist bonus feat grant need live wizard verification.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "Open-ended high-INT language and Weapon Focus target lists depend on verified external catalogs.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "External feats catalog excluded; direct racial grants retained."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetypes catalog excluded from race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:genome:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 DEX; +2 INT; -2 CHA.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:ability-score-adjustment:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5930"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5930"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:ability-score-adjustment:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5930"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5930"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:ability-score-adjustment:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5930"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5930"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5930"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:size",
+      "name": "Size",
+      "description": "Medium size; no size-based adjustments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:size:effect:0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5931"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5931"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:type",
+      "name": "Type",
+      "description": "Humanoid with genome subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:type:effect:0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (genome)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5932"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5932"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5933"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5933"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5933"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common. Additional languages selected freely with high Intelligence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5934"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:genome:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5934"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": 0,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "5934"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:genome:trait:reborn-spirit",
+      "name": "Reborn Spirit",
+      "description": "+2 racial saving throws against death spells and death-related effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:reborn-spirit:effect:0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5937"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Death spells or effects"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5937"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5937"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:sneaky",
+      "name": "Sneaky",
+      "description": "+4 racial Stealth checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:sneaky:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "5940"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5940"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5940"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:technological-instinct",
+      "name": "Technological Instinct",
+      "description": "Technologist as a bonus feat; Knowledge (Technology) is always a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:technological-instinct:effect:0",
+          "kind": "custom",
+          "target": "feats.granted",
+          "operation": "add",
+          "value": null,
+          "textValue": "Technologist",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5941"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:technological-instinct:effect:1",
+          "kind": "custom",
+          "target": "skills.class_skill_membership",
+          "operation": "add",
+          "value": null,
+          "textValue": "Knowledge (Technology)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5941"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5941"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:dexterous-tail",
+      "name": "Dexterous Tail",
+      "description": "A flexible tail can carry objects but cannot hold or attack with weapons; retrieving a small stowed object carried on the genome requires a swift action.",
+      "featureKind": "racial_trait",
+      "activation": "mixed",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:dexterous-tail:effect:0",
+          "kind": "custom",
+          "target": "movement.tail",
+          "operation": "add",
+          "value": null,
+          "textValue": "Tail may carry items; swift-action retrieval of small stowed carried object; never an extra weapon hand",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "5944"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "5944"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:ideal-vessel",
+      "name": "Ideal Vessel",
+      "description": "For DCs of the genome’s class abilities, treat its CLASS LEVEL as one greater. Does not change HP, class table, spell levels, or other effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:ideal-vessel:effect:0",
+          "kind": "custom",
+          "target": "class_ability_dc.effective_level",
+          "operation": "add",
+          "value": null,
+          "textValue": "Effective class level +1, scoped to DC calculations for genome class abilities only",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "5945"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "5945"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:isolated",
+      "name": "Isolated",
+      "description": "−2 penalty to Diplomacy checks; other humanoids begin with an attitude one step less favorable toward the genome.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:isolated:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Weakness Racial Traits",
+                "locator": "5948"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "5948"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:isolated:effect:1",
+          "kind": "custom",
+          "target": "initial_npc_attitude",
+          "operation": "add",
+          "value": null,
+          "textValue": "Humanoids one initial attitude step worse",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "5948"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "5948"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:ignorant-upbringing",
+      "name": "Ignorant Upbringing",
+      "description": "Weapon Focus bonus feat for one proficient weapon even without prerequisites; −2 Sense Motive; racial abilities become +2 DEX,+2 CHA,−2 WIS instead of original. Replaces Technological Instinct and Isolated AND changes full racial ability vector.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:ignorant-upbringing:effect:0",
+          "kind": "custom",
+          "target": "feats.granted",
+          "operation": "add",
+          "value": null,
+          "textValue": "Weapon Focus with ONE proficient weapon; normal prerequisites waived",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5952"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:ignorant-upbringing:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.sense_motive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5952"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5952"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:genome:pool:ignorant-focus-weapon"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5952"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5952"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:genome:trait:ignorant-upbringing-ability-scores",
+      "name": "Ignorant Upbringing Ability Scores",
+      "description": "+2 DEX, +2 CHA, −2 WIS; use INSTEAD of regular DEX/INT/CHA vector.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:ignorant-upbringing-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5953"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5953"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:ignorant-upbringing-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5953"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5953"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:ignorant-upbringing-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5953"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5953"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5953"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:mystic-vessel",
+      "name": "Mystic Vessel",
+      "description": "For bonus MP lookup alone, caster modifier counts +1 higher; additionally +2 racial Spellcraft and Knowledge (arcana). Replaces Ideal Vessel and Dexterous Tail.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:mystic-vessel:effect:0",
+          "kind": "custom",
+          "target": "bonus_mp.caster_modifier",
+          "operation": "add",
+          "value": null,
+          "textValue": "Caster modifier +1 for BONUS MP TABLE LOOKUP only; do not raise actual casting ability or class MP",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5954"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:mystic-vessel:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.spellcraft",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5954"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5954"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:trait:mystic-vessel:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge_arcana",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5954"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5954"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5954"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:genome:trait:resilient-soul",
+      "name": "Resilient Soul",
+      "description": "Select exactly one of Fortitude, Reflex or Will and gain permanent +1 racial on that saving throw. Replaces Reborn Spirit.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:genome:pool:resilient-soul-save"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5955"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5955"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:genome:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with dueling dagger and Genome racial weapons. Replaces Reborn Spirit.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:genome:trait:weapon-familiarity:effect:0",
+          "kind": "custom",
+          "target": "proficiencies.weapons",
+          "operation": "add",
+          "value": null,
+          "textValue": "Dueling dagger; Genome racial weapons (catalog must enumerate)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5956"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5956"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:genome:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible high-Intelligence choices. Open-ended source language list: requires approved full language catalog.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5934"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:genome:pool:ignorant-focus-weapon",
+      "name": "Ignorant Upbringing Weapon Focus",
+      "choiceType": "other",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Existing proficient weapon chosen once, requires live weapon catalog. Do not grant Weapon Focus for every weapon.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5952"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:genome:pool:resilient-soul-save",
+      "name": "Resilient Soul save",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:genome:pool:resilient-soul-save:option:fortitude",
+          "name": "Fortitude",
+          "description": "Fortitude",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "fortitude",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5955"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:pool:resilient-soul-save:option:reflex",
+          "name": "Reflex",
+          "description": "Reflex",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "reflex",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5955"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:genome:pool:resilient-soul-save:option:will",
+          "name": "Will",
+          "description": "Will",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "will",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5955"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly ONE save gains +1 racial; UI needs per-selected effect rather than global all saves.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5955"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:genome:trait:ability-score-adjustment",
+      "ffd20:race:genome:trait:size",
+      "ffd20:race:genome:trait:type",
+      "ffd20:race:genome:trait:base-speed",
+      "ffd20:race:genome:trait:languages",
+      "ffd20:race:genome:trait:reborn-spirit",
+      "ffd20:race:genome:trait:sneaky",
+      "ffd20:race:genome:trait:technological-instinct",
+      "ffd20:race:genome:trait:dexterous-tail",
+      "ffd20:race:genome:trait:ideal-vessel",
+      "ffd20:race:genome:trait:isolated"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:genome:trait:ignorant-upbringing",
+      "ffd20:race:genome:trait:mystic-vessel",
+      "ffd20:race:genome:trait:resilient-soul",
+      "ffd20:race:genome:trait:weapon-familiarity"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:genome:trait:ignorant-upbringing:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:genome:trait:technological-instinct",
+          "ffd20:race:genome:trait:isolated",
+          "ffd20:race:genome:trait:ability-score-adjustment"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:genome:trait:ignorant-upbringing",
+          "ffd20:race:genome:trait:ignorant-upbringing-ability-scores"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Ignorant Upbringing: replaces Technological Instinct, Isolated, Ability Score Adjustment.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5952"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:trait:mystic-vessel:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:genome:trait:ideal-vessel",
+          "ffd20:race:genome:trait:dexterous-tail"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:genome:trait:mystic-vessel"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mystic Vessel: replaces Ideal Vessel, Dexterous Tail.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5954"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:trait:resilient-soul:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:genome:trait:reborn-spirit"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:genome:trait:resilient-soul"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Resilient Soul: replaces Reborn Spirit.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5955"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:trait:weapon-familiarity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:genome:trait:reborn-spirit"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:genome:trait:weapon-familiarity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Weapon Familiarity: replaces Reborn Spirit.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5956"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:genome:favored:archer",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:archer",
+        "name": "Genome Archer favored reward",
+        "description": "Each reward adds 1 foot to bow or crossbow range increment; effect occurs only in complete multiples of five selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5966 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:favored:black-mage",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:black-mage",
+        "name": "Genome Black Mage favored reward",
+        "description": "Gain one additional known spell from Black Mage class list at least one spell level below current highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5967 Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:favored:blue-mage",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Genome Blue Mage favored reward",
+        "description": "+1/6 to all Knowledge checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5968 Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:favored:chemist",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:chemist",
+        "name": "Genome Chemist favored reward",
+        "description": "+1/6 toward new discovery.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5969 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:favored:dancer",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:dancer",
+        "name": "Genome Dancer favored reward",
+        "description": "+1 daily battle dance round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5970 Dancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:favored:engineer",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:engineer",
+        "name": "Genome Engineer favored reward",
+        "description": "Choose automaton +1 HP OR +1 to one saving throw; bonus applies to replacement automaton.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5971 Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:favored:thief",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:thief",
+        "name": "Genome Thief favored reward",
+        "description": "+1/2 Stealth checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5972 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:favored:time-mage",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:time-mage",
+        "name": "Genome Time Mage favored reward",
+        "description": "+1/6 toward additional temporal talent, one per six selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5973 Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:genome:favored:white-mage",
+        "raceId": "ffd20:race:genome",
+        "classId": "ffd20:class:white-mage",
+        "name": "Genome White Mage favored reward",
+        "description": "Gain one extra known White Mage spell at least one spell level below current maximum accessible.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5974 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

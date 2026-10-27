@@ -1,0 +1,2901 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:mithra",
+  "name": "Mithra",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/core-races/mithra/",
+      "title": "Mithra — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/features",
+        "reason": "Run feat must be granted by linked feat catalog; Cat’s Luck requires decision-before-roll and daily use tracking; claw attacks, Acrobatics foliage exceptions, scent and fall reductions need manual application.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Both printed heritages change the base ability vector AND Natural Hunter skill trio; they must not stack with either replaced source. Variant Perform (Dance) specialization needs matching existing sheet field.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Class-page duplicates, caps, maneuver-specific bonuses and fractional accumulation must remain manual until class IDs and features verified.",
+        "blocking": true
+      },
+      {
+        "path": "/review",
+        "reason": "Rule effects are mechanically paraphrased staging interpretations, not independently approved. No changes to live wizard or production manifest are authorized by structural validation.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "All printed standard mechanics from current official page transcribed to staging."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Every printed alternate trait represented, with manual target conflicts flagged."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "All printed rows; no variant heritage table is present for Half-Breed."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "All 39 printed entries retained as manual class-targeted rewards."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate feat catalog not a racial grant."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate archetype catalog excluded; bloodline eligibility not auto-applied."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate racial feat catalog excluded."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes & Bloodlines",
+      "reason": "Class archetypes excluded."
+    },
+    {
+      "sourceId": "main",
+      "section": "Mithra Thief Talents",
+      "reason": "These are thief class talent options, not racial traits; extract with Thief class."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:mithra:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 Dexterity, +2 Charisma and -2 Wisdom.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:ability-score-adjustment:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:trait:ability-score-adjustment:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:trait:ability-score-adjustment:effect:ability-score-ability-scores-wis-2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:type",
+      "name": "Type",
+      "description": "Humanoid with mithra subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (mithra)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:size",
+      "name": "Size",
+      "description": "Medium size, no inherent size adjustments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Land movement 30 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "30 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common and Mithran. With sufficient Intelligence, may learn Elvaan, Lupin, Goblin, Lalafellan, Orc or Vieran.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Mithran",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:cat-s-luck",
+      "name": "Cat’s Luck",
+      "description": "Once daily, before attempting a Reflex saving throw, elect to roll twice and keep the superior result.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:lesser-defensive-training",
+      "name": "Lesser Defensive Training",
+      "description": "+4 dodge AC against yagudo opponents.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:lesser-defensive-training:effect:defense-bonus-armor-class-0",
+          "kind": "defense_bonus",
+          "target": "armor_class",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": {
+            "type": "manual",
+            "description": "Only against yagudo"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:nimble-faller",
+      "name": "Nimble Faller",
+      "description": "After a damaging fall, always land upright; treat distance as 10 feet shorter for fall damage. +1 CMD against trip maneuvers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:nimble-faller:effect:defense-bonus-cmd-trip-0",
+          "kind": "defense_bonus",
+          "target": "cmd.trip",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only defending trip maneuver"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:fleet-footed",
+      "name": "Fleet-Footed",
+      "description": "Gain Run as bonus feat and +2 racial initiative.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:fleet-footed:effect:custom-initiative-0",
+          "kind": "custom",
+          "target": "initiative",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:natural-hunter",
+      "name": "Natural Hunter",
+      "description": "+2 racial bonus to Perception, Stealth and Survival.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:natural-hunter:effect:skill-bonus-skills-perception-0",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6037"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:trait:natural-hunter:effect:skill-bonus-skills-stealth-1",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6037"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:trait:natural-hunter:effect:skill-bonus-skills-survival-2",
+          "kind": "skill_bonus",
+          "target": "skills.survival",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6037"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:sprinter",
+      "name": "Sprinter",
+      "description": "+10 feet racial speed boost only while charging, running or withdrawing.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Movement Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "Can see twice the normal hume distance under dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:low-light-vision:effect:identity-senses-low-light-vision-0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "2x distance in dim illumination",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:cat-like-vision",
+      "name": "Cat-Like Vision",
+      "description": "Gain 60-foot darkvision; give up Cat’s Luck and low-light vision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:cat-like-vision:effect:identity-senses-darkvision-0",
+          "kind": "identity",
+          "target": "senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6049"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:cat-s-claws",
+      "name": "Cat’s Claws",
+      "description": "Gain two primary claw natural attacks, each dealing 1d4; removes Natural Hunter.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:clever-cat",
+      "name": "Clever Cat",
+      "description": "+2 racial Bluff, Diplomacy and Sense Motive; removes Natural Hunter.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:clever-cat:effect:skill-bonus-skills-bluff-0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:trait:clever-cat:effect:skill-bonus-skills-diplomacy-1",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:trait:clever-cat:effect:skill-bonus-skills-sense-motive-2",
+          "kind": "skill_bonus",
+          "target": "skills.sense-motive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:climber",
+      "name": "Climber",
+      "description": "Gain 20-foot climb speed and associated +8 racial Climb bonus; replaces Sprinter.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:climber:effect:identity-speed-climb-0",
+          "kind": "identity",
+          "target": "speed.climb",
+          "operation": "set",
+          "value": null,
+          "textValue": "20 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:trait:climber:effect:skill-bonus-skills-climb-1",
+          "kind": "skill_bonus",
+          "target": "skills.climb",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 8,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6052"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:curiosity",
+      "name": "Curiosity",
+      "description": "+4 racial Diplomacy to obtain information; history/local Knowledge always class skills, or +2 racial if already class skills. Replaces Natural Hunter.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:curiosity:effect:skill-bonus-skills-diplomacy-0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6053"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Gather information only"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:dexterous-tail",
+      "name": "Dexterous Tail",
+      "description": "Tail can transport items, not wield weapons; retrieves small stored possessions as a swift action. Replaces Sprinter.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:jungle-stalker",
+      "name": "Jungle Stalker",
+      "description": "+2 racial Acrobatics and ignore the first square of foliage difficult terrain each round. Replaces Cat’s Luck and Sprinter.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:jungle-stalker:effect:skill-bonus-skills-acrobatics-0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6055"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6055"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:miqo-te-heritage",
+      "name": "Miqo’te Heritage",
+      "description": "Gain +4 dodge AC versus Ixal rather than Yagudo, by replacing Lesser Defensive Training.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:trait:miqo-te-heritage:effect:defense-bonus-armor-class-0",
+          "kind": "defense_bonus",
+          "target": "armor_class",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6056"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": {
+            "type": "manual",
+            "description": "Only against Ixal"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6056"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6056"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:trait:scent",
+      "name": "Scent",
+      "description": "Gain scent sensory ability, replacing low-light vision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:abilities",
+      "name": "Keepers of the Moon heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'wis': 2, 'str': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6065"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:abilities:effect:ability-score-ability-scores-wis-1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6065"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:abilities:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6065"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:alternate",
+      "name": "Keepers of the Moon heritage alternate ability",
+      "description": "Substitute +2 racial bonus to Acrobatics, Stealth, Survival for the three Natural Hunter bonuses. All unaffected Mithra traits stay.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:alternate:effect:skill-bonus-skills-acrobatics-0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6065"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:alternate:effect:skill-bonus-skills-stealth-1",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6065"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:alternate:effect:skill-bonus-skills-survival-2",
+          "kind": "skill_bonus",
+          "target": "skills.survival",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6065"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:abilities",
+      "name": "Seekers of the Sun heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'cha': 2, 'int': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6066"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6066"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:abilities:effect:ability-score-ability-scores-int-2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6066"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:alternate",
+      "name": "Seekers of the Sun heritage alternate ability",
+      "description": "Substitute +2 racial bonus to Acrobatics, Perform (Dance), Survival for the three Natural Hunter bonuses. All unaffected Mithra traits stay.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:alternate:effect:skill-bonus-skills-acrobatics-0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6066"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:alternate:effect:skill-bonus-skills-perform-dance-1",
+          "kind": "skill_bonus",
+          "target": "skills.perform-dance",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6066"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:alternate:effect:skill-bonus-skills-survival-2",
+          "kind": "skill_bonus",
+          "target": "skills.survival",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6066"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "core",
+    "standardTraitIds": [
+      "ffd20:race:mithra:trait:ability-score-adjustment",
+      "ffd20:race:mithra:trait:type",
+      "ffd20:race:mithra:trait:size",
+      "ffd20:race:mithra:trait:base-speed",
+      "ffd20:race:mithra:trait:languages",
+      "ffd20:race:mithra:trait:cat-s-luck",
+      "ffd20:race:mithra:trait:lesser-defensive-training",
+      "ffd20:race:mithra:trait:nimble-faller",
+      "ffd20:race:mithra:trait:fleet-footed",
+      "ffd20:race:mithra:trait:natural-hunter",
+      "ffd20:race:mithra:trait:sprinter",
+      "ffd20:race:mithra:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:mithra:trait:cat-like-vision",
+      "ffd20:race:mithra:trait:cat-s-claws",
+      "ffd20:race:mithra:trait:clever-cat",
+      "ffd20:race:mithra:trait:climber",
+      "ffd20:race:mithra:trait:curiosity",
+      "ffd20:race:mithra:trait:dexterous-tail",
+      "ffd20:race:mithra:trait:jungle-stalker",
+      "ffd20:race:mithra:trait:miqo-te-heritage",
+      "ffd20:race:mithra:trait:scent"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:mithra:trait:cat-like-vision:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:cat-s-luck",
+          "ffd20:race:mithra:trait:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:cat-like-vision"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Cat-Like Vision replaces Cat’s Luck, Low-Light Vision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6049"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:trait:cat-s-claws:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:natural-hunter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:cat-s-claws"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Cat’s Claws replaces Natural Hunter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6050"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:trait:clever-cat:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:natural-hunter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:clever-cat"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Clever Cat replaces Natural Hunter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:trait:climber:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:climber"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Climber replaces Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:trait:curiosity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:natural-hunter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:curiosity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Curiosity replaces Natural Hunter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:trait:dexterous-tail:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:dexterous-tail"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dexterous Tail replaces Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:trait:jungle-stalker:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:cat-s-luck",
+          "ffd20:race:mithra:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:jungle-stalker"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Jungle Stalker replaces Cat’s Luck, Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:trait:miqo-te-heritage:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:lesser-defensive-training"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:miqo-te-heritage"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Miqo’te Heritage replaces Lesser Defensive Training.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6056"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:trait:scent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mithra:trait:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mithra:trait:scent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scent replaces Low-Light Vision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:mithra:heritage:keepers-of-the-moon",
+        "name": "Keepers of the Moon",
+        "description": "Keepers of the Moon heritage. Substitute +2 racial bonus to Acrobatics, Stealth, Survival for the three Natural Hunter bonuses. All unaffected Mithra traits stay.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:mithra:heritage:keepers-of-the-moon:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:mithra:trait:ability-score-adjustment",
+              "ffd20:race:mithra:trait:natural-hunter"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:abilities",
+              "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Natural Hunter with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6065"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:abilities",
+          "ffd20:race:mithra:heritage:keepers-of-the-moon:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:heritage:seekers-of-the-sun",
+        "name": "Seekers of the Sun",
+        "description": "Seekers of the Sun heritage. Substitute +2 racial bonus to Acrobatics, Perform (Dance), Survival for the three Natural Hunter bonuses. All unaffected Mithra traits stay.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:mithra:heritage:seekers-of-the-sun:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:mithra:trait:ability-score-adjustment",
+              "ffd20:race:mithra:trait:natural-hunter"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:abilities",
+              "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Natural Hunter with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6066"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:abilities",
+          "ffd20:race:mithra:heritage:seekers-of-the-sun:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6066"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:mithra:favored:archer",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:archer",
+        "name": "Mithra Archer favored reward",
+        "description": "+1/2 bow/crossbow critical confirmation, max +4, does not stack with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6094 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:astrologian",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:astrologian",
+        "name": "Mithra Astrologian favored reward",
+        "description": "+1/4 Reflex saves against area effects.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6095 Astrologian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:bard",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:bard",
+        "name": "Mithra Bard favored reward",
+        "description": "+1/2 Bluff when lying and Diplomacy when gathering information.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096 Bard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:beastmaster",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Mithra Beastmaster favored reward",
+        "description": "+2.5 feet charge/run distance through rough terrain, only realized every two picks.",
+        "increment": {
+          "numerator": 5,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:berserker",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:berserker",
+        "name": "Mithra Berserker favored reward",
+        "description": "+2.5 feet charge/run distance through rough terrain, realized every two selections.",
+        "increment": {
+          "numerator": 5,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:black-belt",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:black-belt",
+        "name": "Mithra Black Belt favored reward",
+        "description": "+1 CMD defending against trip/overrun.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099 Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:black-mage",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:black-mage",
+        "name": "Mithra Black Mage favored reward",
+        "description": "+1 concentration when taking damage during black mage spellcasting.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100 Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:blue-mage",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Mithra Blue Mage favored reward",
+        "description": "Increase checks in every existing Knowledge specialty by one-sixth.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6101 Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:chemist",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:chemist",
+        "name": "Mithra Chemist favored reward",
+        "description": "Gain one-sixth toward an additional discovery.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6102 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:chocobo-knight",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Mithra Chocobo Knight favored reward",
+        "description": "Mount charge/withdraw movement speed +5 feet, total capped at +15 feet.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6103 Chocobo Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:cleric",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:cleric",
+        "name": "Mithra Cleric favored reward",
+        "description": "Channel damage +1 versus creatures denied Dexterity AC bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6104 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:dancer",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:dancer",
+        "name": "Mithra Dancer favored reward",
+        "description": "+1/2 Escape Artist and Acrobatics crossing narrow spaces.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6105 Dancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:dark-knight",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Mithra Dark Knight favored reward",
+        "description": "+1/2 HP applied to harm touch healing/damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6106 Dark Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:dragoon",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:dragoon",
+        "name": "Mithra Dragoon favored reward",
+        "description": "Gain one-sixth toward extra 1d6 deadly lancer damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6107 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:druid",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:druid",
+        "name": "Mithra Druid favored reward",
+        "description": "+1 companion HP; replacement companion gets accumulated bonuses.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6108 Druid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:engineer",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:engineer",
+        "name": "Mithra Engineer favored reward",
+        "description": "Gain one-sixth toward an additional repair-healing d6.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6109 Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:fencer",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:fencer",
+        "name": "Mithra Fencer favored reward",
+        "description": "Add one-sixth to duelist stance AC bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6110 Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:freelancer",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:freelancer",
+        "name": "Mithra Freelancer favored reward",
+        "description": "Add +1 JP per pick, becomes usable at ten picks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6111 Freelancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:gambler",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:gambler",
+        "name": "Mithra Gambler favored reward",
+        "description": "Add +1/6 gambler initiative check bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6112 Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:geomancer",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:geomancer",
+        "name": "Mithra Geomancer favored reward",
+        "description": "Add +1/2 to favored-terrain-based initiative bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6113 Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:gunbreaker",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Mithra Gunbreaker favored reward",
+        "description": "Aurora ability gains one-quarter additional use.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6114 Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:gunner",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:gunner",
+        "name": "Mithra Gunner favored reward",
+        "description": "Add one-sixth to Nimble dodge AC class bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6115 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:illusionist",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:illusionist",
+        "name": "Mithra Illusionist favored reward",
+        "description": "Gain +1/2 on Disguise.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6116 Illusionist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:knight",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:knight",
+        "name": "Mithra Knight favored reward",
+        "description": "Add one-quarter to AC dodge bonus when in defensive stance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6117 Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:medic",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:medic",
+        "name": "Mithra Medic favored reward",
+        "description": "Add one-sixth toward 1d6 additional surgical precision damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6118 Medic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:monk",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:monk",
+        "name": "Mithra Monk favored reward",
+        "description": "Flying kick damage +one-half.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6119 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:necromancer",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:necromancer",
+        "name": "Mithra Necromancer favored reward",
+        "description": "Gain one-sixth toward an additional harm touch use.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6120 Necromancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:ninja",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:ninja",
+        "name": "Mithra Ninja favored reward",
+        "description": "+1/4 attacks when attacking or charging down from higher ground.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6121 Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:paladin",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:paladin",
+        "name": "Mithra Paladin favored reward",
+        "description": "Lay on hands heal amount +1 only when healing self.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6122 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:psychic",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:psychic",
+        "name": "Mithra Psychic favored reward",
+        "description": "Gain one-sixth toward a new psychic talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6123 Psychic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:red-mage",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:red-mage",
+        "name": "Mithra Red Mage favored reward",
+        "description": "+1/6 melee attack when spell combat uses natural weapons/unarmed strikes.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6124 Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:samurai",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:samurai",
+        "name": "Mithra Samurai favored reward",
+        "description": "Add one-sixth to initiative.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6125 Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:scholar",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:scholar",
+        "name": "Mithra Scholar favored reward",
+        "description": "Dimensional slide distance +2.5 feet per pick, effective every 2; up to 1.5 times usual maximum.",
+        "increment": {
+          "numerator": 5,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6126 Scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:summoner",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:summoner",
+        "name": "Mithra Summoner favored reward",
+        "description": "Increase avatar healing per HP sacrificed through life link by one-quarter.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6127 Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:sword-saint",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Mithra Sword Saint favored reward",
+        "description": "+1 CMD defending disarm/overrun.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6128 Sword Saint"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:thief",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:thief",
+        "name": "Mithra Thief favored reward",
+        "description": "+1/2 Stealth and Perception in dim lighting/darkness.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6129 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:time-mage",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:time-mage",
+        "name": "Mithra Time Mage favored reward",
+        "description": "Gain one-quarter additional d3 when mote boosts Acrobatics or Climb.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6130 Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:warrior",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:warrior",
+        "name": "Mithra Warrior favored reward",
+        "description": "+1/2 circumstance critical confirmations with close/light blade weapons, max +4, not stacking Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6131 Warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mithra:favored:white-mage",
+        "raceId": "ffd20:race:mithra",
+        "classId": "ffd20:class:white-mage",
+        "name": "Mithra White Mage favored reward",
+        "description": "Lay on hands heals +1 only when targeting self.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6132 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

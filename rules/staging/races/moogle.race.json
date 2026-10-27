@@ -1,0 +1,5997 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:moogle",
+  "name": "Moogle",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/core-races/moogle/",
+      "title": "Moogle — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Grounded modifies only Base Speed flight/encumbrance components. Component targeting and flight cooldown must be implemented; treating this as full replacement would erase land speed. Unresolved telepathy/sending/spell catalogs remain manual.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "All five heritages encoded but the Goug Knowledge or-choice, replacement of baseline Keen Senses, and every vector need independent rule/UI review before auto application.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "All current race-page rewards retained for manual use; canonical class-page cross-check and dependency resolution still required.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Moogle limited flight, extra CON-check rounds and cooldown, hydrophobia and situational bonuses must stay conditional/manual; do not auto-grant unconditional flight or global attack/skill modifiers.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "Moogle Magic depends on external canonical spell definitions; selected Craft/Profession/Knowledge specialties and high-INT bonus-language counts require sheet/catalog review.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate racial catalog excluded by extraction contract."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate racial catalog excluded by extraction contract."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Excluded separate feat catalog; racial traits granting feats are included."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Excluded separate archetype catalog; listed names do not authorize applying archetypes."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:moogle:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 DEX, +2 CHA and −2 STR racial adjustments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:ability-score-adjustment:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:trait:ability-score-adjustment:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:trait:ability-score-adjustment:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:type",
+      "name": "Type",
+      "description": "Humanoid with the moogle subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (moogle)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:size",
+      "name": "Size",
+      "description": "Small; size modifiers to AC, attack, CMB, CMD and Stealth belong to global size rules, not double-counted racial bonuses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Land speed 20 feet; limited wing-assisted flight at the same speed (clumsy) only in light/no armor and with light load. Fly CON-bonus rounds without checks; each extra round requires CON check DC 10 + 2 per extra round. Rest twice number of flown rounds before flying again. +4 Acrobatics when flight-capable.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity",
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "20 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:languages",
+      "name": "Languages",
+      "description": "Start Common and Moogle; bonus-language candidates Aklo, Auran, Banganese, Draconic, Goblin, Numish, Seeq, Sylvan.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Moogle",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:defensive-training",
+      "name": "Defensive Training",
+      "description": "+4 dodge AC against giant-subtype monsters.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:defensive-training:effect:defense-bonus-combat-ac-0",
+          "kind": "defense_bonus",
+          "target": "combat.ac",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": {
+            "type": "manual",
+            "description": "Attacker is giant subtype"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:eternal-hope",
+      "name": "Eternal Hope",
+      "description": "+2 racial saves vs fear and despair. Once per day after rolling a natural 1 on d20, reroll and use new result.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:eternal-hope:effect:defense-bonus-saves-all-0",
+          "kind": "defense_bonus",
+          "target": "saves.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+                "locator": "6039"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Fear or despair effect"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+              "locator": "6039"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:emissary",
+      "name": "Emissary",
+      "description": "Once daily, roll twice on one Bluff or Diplomacy check and keep higher result.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:good-merchant",
+      "name": "Good Merchant",
+      "description": "+2 racial Appraise; +2 racial Diplomacy checks involving business transactions.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:good-merchant:effect:skill-bonus-skills-appraise-0",
+          "kind": "skill_bonus",
+          "target": "skills.appraise",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+                "locator": "6042"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+              "locator": "6042"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:handy",
+      "name": "Handy",
+      "description": "Choose one Craft or Profession skill specialization for +2 racial checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:moogle:pool:moogle-handy-craft-or-profession"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6043"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:keen-senses:effect:skill-bonus-skills-perception-0",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:scavenger",
+      "name": "Scavenger",
+      "description": "+2 racial Appraise and Perception only when detecting concealed items (including traps or secret doors), testing food spoilage, or identifying a potion by taste.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:construct-familiarity",
+      "name": "Construct Familiarity",
+      "description": "+1 racial attacks versus constructs; +4 dodge AC versus constructs.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:construct-familiarity:effect:attack-bonus-combat-attack-0",
+          "kind": "attack_bonus",
+          "target": "combat.attack",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+                "locator": "6048"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Target creature is a construct"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+              "locator": "6048"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:trait:construct-familiarity:effect:defense-bonus-combat-ac-1",
+          "kind": "defense_bonus",
+          "target": "combat.ac",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+                "locator": "6048"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": {
+            "type": "manual",
+            "description": "Attacker creature is a construct"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+              "locator": "6048"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "In dim light see twice as far as a hume.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:low-light-vision:effect:identity-senses-low-light-vision-0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "2x normal dim-light range",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+              "locator": "6052"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:hydrophobia",
+      "name": "Hydrophobia",
+      "description": "When drenched by water or another liquid, −2 attack rolls and concentration checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:hydrophobia:effect:attack-bonus-combat-attack-0",
+          "kind": "attack_bonus",
+          "target": "combat.attack",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+                "locator": "6056"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "penalty",
+          "condition": {
+            "type": "manual",
+            "description": "Character is drenched by water or other liquid"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+              "locator": "6056"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense / Feat-Skill / Offense / Senses / Weakness",
+          "locator": "6056"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:academician",
+      "name": "Academician",
+      "description": "Choose one Knowledge specialty for +2 racial checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:moogle:pool:academician-knowledge-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:attentive",
+      "name": "Attentive",
+      "description": "+2 racial Sense Motive; +4 instead when detecting enchantment or possession.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Gain darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:darkvision:effect:identity-senses-darkvision-0",
+          "kind": "identity",
+          "target": "senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:engineer",
+      "name": "Engineer",
+      "description": "+2 racial Craft (alchemy) and Knowledge (engineering).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:engineer:effect:skill-bonus-skills-craft-alchemy-0",
+          "kind": "skill_bonus",
+          "target": "skills.craft-alchemy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:trait:engineer:effect:skill-bonus-skills-knowledge-engineering-1",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-engineering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:explorer",
+      "name": "Explorer",
+      "description": "+2 racial Climb and one chosen Knowledge specialization.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:moogle:pool:explorer-knowledge-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:gift-of-tongues",
+      "name": "Gift of Tongues",
+      "description": "+1 Bluff and Diplomacy; obtain one additional language every time you increase Linguistics rank.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:grounded",
+      "name": "Grounded",
+      "description": "Lose limited flight. Retain 20-foot land speed without reduction from encumbrance or medium/heavy armor and similar effects; +1 racial saves against speed reduction. This modifies Base Speed only.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:knack-with-poison",
+      "name": "Knack with Poison",
+      "description": "+2 racial Fortitude vs poison, increased to +4 if accidentally self-poisoned when handling or applying it; +2 Craft (alchemy) to make poisons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:kupo-recovery",
+      "name": "Kupo-Recovery",
+      "description": "When dying, an adjacent creature can spend a standard action providing kupo-nut taste to stabilize the moogle immediately.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:limited-telepathy",
+      "name": "Limited Telepathy",
+      "description": "Mentally communicate with any known moogle within 1 mile; otherwise follow telepathy rules.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6069"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:low-blow",
+      "name": "Low Blow",
+      "description": "+1 bonus to confirm critical hits against larger creatures.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6070"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:master-tinker",
+      "name": "Master Tinker",
+      "description": "+1 Disable Device and Knowledge (engineering); proficient with non-exotic weapons personally crafted.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6071"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:mognet",
+      "name": "Mognet",
+      "description": "Once weekly send a message to another moogle with the effect of Sending.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6072"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:moogle-magic",
+      "name": "Moogle Magic",
+      "description": "With CHA 11+, each of dancing lights, detect magic, grab and ignite is usable 1/day as a spell-like ability. Caster level = character level; save DC = 10 + spell level + CHA modifier.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": {
+        "type": "threshold",
+        "fact": "ability_score",
+        "ref": "cha",
+        "minimum": 11
+      },
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6073"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:outrider",
+      "name": "Outrider",
+      "description": "+2 Handle Animal and Ride.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:outrider:effect:skill-bonus-skills-handle-animal-0",
+          "kind": "skill_bonus",
+          "target": "skills.handle-animal",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6075"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:trait:outrider:effect:skill-bonus-skills-ride-1",
+          "kind": "skill_bonus",
+          "target": "skills.ride",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6075"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:shiftless",
+      "name": "Shiftless",
+      "description": "+2 racial Bluff and Sleight of Hand; Sleight of Hand becomes class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:trait:shiftless:effect:skill-bonus-skills-bluff-0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:trait:shiftless:effect:skill-bonus-skills-sleight-of-hand-1",
+          "kind": "skill_bonus",
+          "target": "skills.sleight-of-hand",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:unfettered",
+      "name": "Unfettered",
+      "description": "+4 racial Escape Artist, +2 racial saves against entangled, CMD against grapple and maneuvers to escape grapple.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:wanderlust",
+      "name": "Wanderlust",
+      "description": "+2 Knowledge (geography) and Survival; caster level treated as +1 for magic/abilities that improve movement.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:trait:wright",
+      "name": "Wright",
+      "description": "+2 racial Drive and Craft/Repair checks made to build or fix vehicles.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6079"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:chalice-keepers:feature:abilities",
+      "name": "Chalice Keepers heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'con': 2, 'cha': 2, 'wis': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:chalice-keepers:feature:abilities:effect:ability-score-ability-scores-con-0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6087"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:chalice-keepers:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6087"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:chalice-keepers:feature:abilities:effect:ability-score-ability-scores-wis-2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6087"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6087"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:chalice-keepers:feature:alternate",
+      "name": "Chalice Keepers heritage alternate ability",
+      "description": "Gain +2 racial on Knowledge (nature) checks instead of the baseline +2 Perception trait.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:chalice-keepers:feature:alternate:effect:skill-bonus-skills-knowledge-nature-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-nature",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6087"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6087"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:eorzean:feature:abilities",
+      "name": "Eorzean heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'cha': 2, 'wis': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:eorzean:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6088"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6088"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:eorzean:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6088"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6088"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:eorzean:feature:abilities:effect:ability-score-ability-scores-wis-2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6088"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6088"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6088"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:eorzean:feature:alternate",
+      "name": "Eorzean heritage alternate ability",
+      "description": "Gain +2 racial on Fly checks instead of the baseline +2 Perception trait.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:eorzean:feature:alternate:effect:skill-bonus-skills-fly-0",
+          "kind": "skill_bonus",
+          "target": "skills.fly",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6088"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6088"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6088"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:goug-tinker:feature:abilities",
+      "name": "Goug Tinker heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'int': 2, 'wis': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:goug-tinker:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6089"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6089"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:goug-tinker:feature:abilities:effect:ability-score-ability-scores-int-1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6089"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6089"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:goug-tinker:feature:abilities:effect:ability-score-ability-scores-wis-2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6089"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6089"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6089"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:goug-tinker:feature:alternate",
+      "name": "Goug Tinker heritage alternate ability",
+      "description": "Gain +2 racial on Knowledge (technology) or Knowledge (engineering) checks instead of the baseline +2 Perception trait.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:moogle:pool:goug-tinker-skill-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6089"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6089"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:mogs:feature:abilities",
+      "name": "Mogs heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'con': 2, 'cha': 2, 'dex': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:mogs:feature:abilities:effect:ability-score-ability-scores-con-0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6090"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6090"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:mogs:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6090"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6090"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:mogs:feature:abilities:effect:ability-score-ability-scores-dex-2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6090"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6090"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6090"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:mogs:feature:alternate",
+      "name": "Mogs heritage alternate ability",
+      "description": "Gain +2 racial on Perform (dance) checks instead of the baseline +2 Perception trait.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:mogs:feature:alternate:effect:skill-bonus-skills-perform-dance-0",
+          "kind": "skill_bonus",
+          "target": "skills.perform-dance",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6090"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6090"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6090"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:split-world:feature:abilities",
+      "name": "Split-World heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'wis': 2, 'str': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:split-world:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6091"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6091"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:split-world:feature:abilities:effect:ability-score-ability-scores-wis-1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6091"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6091"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:heritage:split-world:feature:abilities:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6091"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6091"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6091"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:heritage:split-world:feature:alternate",
+      "name": "Split-World heritage alternate ability",
+      "description": "Gain +2 racial on Survival checks instead of the baseline +2 Perception trait.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:heritage:split-world:feature:alternate:effect:skill-bonus-skills-survival-0",
+          "kind": "skill_bonus",
+          "target": "skills.survival",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6091"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6091"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6091"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-arcana",
+      "name": "Knowledge (arcana) selected bonus",
+      "description": "On choosing Knowledge (arcana) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-arcana:effect:skill-bonus-skills-knowledge-arcana-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-arcana",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-dungeoneering",
+      "name": "Knowledge (dungeoneering) selected bonus",
+      "description": "On choosing Knowledge (dungeoneering) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-dungeoneering:effect:skill-bonus-skills-knowledge-dungeoneering-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-dungeoneering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-engineering",
+      "name": "Knowledge (engineering) selected bonus",
+      "description": "On choosing Knowledge (engineering) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-engineering:effect:skill-bonus-skills-knowledge-engineering-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-engineering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-geography",
+      "name": "Knowledge (geography) selected bonus",
+      "description": "On choosing Knowledge (geography) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-geography:effect:skill-bonus-skills-knowledge-geography-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-geography",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-history",
+      "name": "Knowledge (history) selected bonus",
+      "description": "On choosing Knowledge (history) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-history:effect:skill-bonus-skills-knowledge-history-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-history",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-local",
+      "name": "Knowledge (local) selected bonus",
+      "description": "On choosing Knowledge (local) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-local:effect:skill-bonus-skills-knowledge-local-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-local",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-nature",
+      "name": "Knowledge (nature) selected bonus",
+      "description": "On choosing Knowledge (nature) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-nature:effect:skill-bonus-skills-knowledge-nature-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-nature",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-nobility",
+      "name": "Knowledge (nobility) selected bonus",
+      "description": "On choosing Knowledge (nobility) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-nobility:effect:skill-bonus-skills-knowledge-nobility-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-nobility",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-planes",
+      "name": "Knowledge (planes) selected bonus",
+      "description": "On choosing Knowledge (planes) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-planes:effect:skill-bonus-skills-knowledge-planes-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-planes",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-religion",
+      "name": "Knowledge (religion) selected bonus",
+      "description": "On choosing Knowledge (religion) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-religion:effect:skill-bonus-skills-knowledge-religion-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-religion",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-technology",
+      "name": "Knowledge (technology) selected bonus",
+      "description": "On choosing Knowledge (technology) from Academician Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-technology:effect:skill-bonus-skills-knowledge-technology-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-technology",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-arcana",
+      "name": "Knowledge (arcana) selected bonus",
+      "description": "On choosing Knowledge (arcana) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-arcana:effect:skill-bonus-skills-knowledge-arcana-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-arcana",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-dungeoneering",
+      "name": "Knowledge (dungeoneering) selected bonus",
+      "description": "On choosing Knowledge (dungeoneering) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-dungeoneering:effect:skill-bonus-skills-knowledge-dungeoneering-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-dungeoneering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-engineering",
+      "name": "Knowledge (engineering) selected bonus",
+      "description": "On choosing Knowledge (engineering) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-engineering:effect:skill-bonus-skills-knowledge-engineering-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-engineering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-geography",
+      "name": "Knowledge (geography) selected bonus",
+      "description": "On choosing Knowledge (geography) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-geography:effect:skill-bonus-skills-knowledge-geography-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-geography",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-history",
+      "name": "Knowledge (history) selected bonus",
+      "description": "On choosing Knowledge (history) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-history:effect:skill-bonus-skills-knowledge-history-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-history",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-local",
+      "name": "Knowledge (local) selected bonus",
+      "description": "On choosing Knowledge (local) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-local:effect:skill-bonus-skills-knowledge-local-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-local",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-nature",
+      "name": "Knowledge (nature) selected bonus",
+      "description": "On choosing Knowledge (nature) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-nature:effect:skill-bonus-skills-knowledge-nature-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-nature",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-nobility",
+      "name": "Knowledge (nobility) selected bonus",
+      "description": "On choosing Knowledge (nobility) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-nobility:effect:skill-bonus-skills-knowledge-nobility-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-nobility",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-planes",
+      "name": "Knowledge (planes) selected bonus",
+      "description": "On choosing Knowledge (planes) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-planes:effect:skill-bonus-skills-knowledge-planes-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-planes",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-religion",
+      "name": "Knowledge (religion) selected bonus",
+      "description": "On choosing Knowledge (religion) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-religion:effect:skill-bonus-skills-knowledge-religion-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-religion",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-technology",
+      "name": "Knowledge (technology) selected bonus",
+      "description": "On choosing Knowledge (technology) from Explorer Knowledge choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-technology:effect:skill-bonus-skills-knowledge-technology-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-technology",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:goug-tinker-skill-choice:grant:knowledge-technology",
+      "name": "Knowledge (technology) selected bonus",
+      "description": "On choosing Knowledge (technology) from Goug Tinker skill choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:goug-tinker-skill-choice:grant:knowledge-technology:effect:skill-bonus-skills-knowledge-technology-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-technology",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6089"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6089"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6089"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moogle:pool:goug-tinker-skill-choice:grant:knowledge-engineering",
+      "name": "Knowledge (engineering) selected bonus",
+      "description": "On choosing Knowledge (engineering) from Goug Tinker skill choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moogle:pool:goug-tinker-skill-choice:grant:knowledge-engineering:effect:skill-bonus-skills-knowledge-engineering-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-engineering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6089"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6089"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6089"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:moogle:pool:moogle-handy-craft-or-profession",
+      "name": "Moogle Handy Craft or Profession",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:moogle:pool:moogle-handy-craft-or-profession:option:craft",
+          "name": "Craft",
+          "description": "Select one existing Craft specialization",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "craft",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:moogle-handy-craft-or-profession:option:profession",
+          "name": "Profession",
+          "description": "Select one existing Profession specialization",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "profession",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "The selection must resolve to one existing specialized skill row, not a new row.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6043"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:moogle:pool:academician-knowledge-choice",
+      "name": "Academician Knowledge choice",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-arcana",
+          "name": "Knowledge (arcana)",
+          "description": "Knowledge (arcana)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-arcana"
+          ],
+          "spellIds": [],
+          "value": "knowledge-arcana",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-dungeoneering",
+          "name": "Knowledge (dungeoneering)",
+          "description": "Knowledge (dungeoneering)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-dungeoneering"
+          ],
+          "spellIds": [],
+          "value": "knowledge-dungeoneering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-engineering",
+          "name": "Knowledge (engineering)",
+          "description": "Knowledge (engineering)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-engineering"
+          ],
+          "spellIds": [],
+          "value": "knowledge-engineering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-geography",
+          "name": "Knowledge (geography)",
+          "description": "Knowledge (geography)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-geography"
+          ],
+          "spellIds": [],
+          "value": "knowledge-geography",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-history",
+          "name": "Knowledge (history)",
+          "description": "Knowledge (history)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-history"
+          ],
+          "spellIds": [],
+          "value": "knowledge-history",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-local",
+          "name": "Knowledge (local)",
+          "description": "Knowledge (local)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-local"
+          ],
+          "spellIds": [],
+          "value": "knowledge-local",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-nature",
+          "name": "Knowledge (nature)",
+          "description": "Knowledge (nature)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-nature"
+          ],
+          "spellIds": [],
+          "value": "knowledge-nature",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-nobility",
+          "name": "Knowledge (nobility)",
+          "description": "Knowledge (nobility)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-nobility"
+          ],
+          "spellIds": [],
+          "value": "knowledge-nobility",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-planes",
+          "name": "Knowledge (planes)",
+          "description": "Knowledge (planes)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-planes"
+          ],
+          "spellIds": [],
+          "value": "knowledge-planes",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-religion",
+          "name": "Knowledge (religion)",
+          "description": "Knowledge (religion)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-religion"
+          ],
+          "spellIds": [],
+          "value": "knowledge-religion",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:academician-knowledge-choice:option:knowledge-technology",
+          "name": "Knowledge (technology)",
+          "description": "Knowledge (technology)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:academician-knowledge-choice:grant:knowledge-technology"
+          ],
+          "spellIds": [],
+          "value": "knowledge-technology",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Eligible Knowledge specialties should match current sheet list; selection grants +2, not all.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:moogle:pool:explorer-knowledge-choice",
+      "name": "Explorer Knowledge choice",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-arcana",
+          "name": "Knowledge (arcana)",
+          "description": "Knowledge (arcana)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-arcana"
+          ],
+          "spellIds": [],
+          "value": "knowledge-arcana",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-dungeoneering",
+          "name": "Knowledge (dungeoneering)",
+          "description": "Knowledge (dungeoneering)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-dungeoneering"
+          ],
+          "spellIds": [],
+          "value": "knowledge-dungeoneering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-engineering",
+          "name": "Knowledge (engineering)",
+          "description": "Knowledge (engineering)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-engineering"
+          ],
+          "spellIds": [],
+          "value": "knowledge-engineering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-geography",
+          "name": "Knowledge (geography)",
+          "description": "Knowledge (geography)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-geography"
+          ],
+          "spellIds": [],
+          "value": "knowledge-geography",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-history",
+          "name": "Knowledge (history)",
+          "description": "Knowledge (history)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-history"
+          ],
+          "spellIds": [],
+          "value": "knowledge-history",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-local",
+          "name": "Knowledge (local)",
+          "description": "Knowledge (local)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-local"
+          ],
+          "spellIds": [],
+          "value": "knowledge-local",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-nature",
+          "name": "Knowledge (nature)",
+          "description": "Knowledge (nature)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-nature"
+          ],
+          "spellIds": [],
+          "value": "knowledge-nature",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-nobility",
+          "name": "Knowledge (nobility)",
+          "description": "Knowledge (nobility)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-nobility"
+          ],
+          "spellIds": [],
+          "value": "knowledge-nobility",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-planes",
+          "name": "Knowledge (planes)",
+          "description": "Knowledge (planes)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-planes"
+          ],
+          "spellIds": [],
+          "value": "knowledge-planes",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-religion",
+          "name": "Knowledge (religion)",
+          "description": "Knowledge (religion)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-religion"
+          ],
+          "spellIds": [],
+          "value": "knowledge-religion",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:explorer-knowledge-choice:option:knowledge-technology",
+          "name": "Knowledge (technology)",
+          "description": "Knowledge (technology)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:explorer-knowledge-choice:grant:knowledge-technology"
+          ],
+          "spellIds": [],
+          "value": "knowledge-technology",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Eligible Knowledge specialties should match current sheet list; selection grants +2, not all.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:moogle:pool:goug-tinker-skill-choice",
+      "name": "Goug Tinker skill choice",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:moogle:pool:goug-tinker-skill-choice:option:knowledge-technology",
+          "name": "Knowledge (technology)",
+          "description": "+2 racial on Knowledge (technology)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:goug-tinker-skill-choice:grant:knowledge-technology"
+          ],
+          "spellIds": [],
+          "value": "knowledge-technology",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6089"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:goug-tinker-skill-choice:option:knowledge-engineering",
+          "name": "Knowledge (engineering)",
+          "description": "+2 racial on Knowledge (engineering)",
+          "featureIds": [
+            "ffd20:race:moogle:pool:goug-tinker-skill-choice:grant:knowledge-engineering"
+          ],
+          "spellIds": [],
+          "value": "knowledge-engineering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6089"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6089"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "core",
+    "standardTraitIds": [
+      "ffd20:race:moogle:trait:ability-score-adjustment",
+      "ffd20:race:moogle:trait:type",
+      "ffd20:race:moogle:trait:size",
+      "ffd20:race:moogle:trait:base-speed",
+      "ffd20:race:moogle:trait:languages",
+      "ffd20:race:moogle:trait:defensive-training",
+      "ffd20:race:moogle:trait:eternal-hope",
+      "ffd20:race:moogle:trait:emissary",
+      "ffd20:race:moogle:trait:good-merchant",
+      "ffd20:race:moogle:trait:handy",
+      "ffd20:race:moogle:trait:keen-senses",
+      "ffd20:race:moogle:trait:scavenger",
+      "ffd20:race:moogle:trait:construct-familiarity",
+      "ffd20:race:moogle:trait:low-light-vision",
+      "ffd20:race:moogle:trait:hydrophobia"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:moogle:trait:academician",
+      "ffd20:race:moogle:trait:attentive",
+      "ffd20:race:moogle:trait:darkvision",
+      "ffd20:race:moogle:trait:engineer",
+      "ffd20:race:moogle:trait:explorer",
+      "ffd20:race:moogle:trait:gift-of-tongues",
+      "ffd20:race:moogle:trait:grounded",
+      "ffd20:race:moogle:trait:knack-with-poison",
+      "ffd20:race:moogle:trait:kupo-recovery",
+      "ffd20:race:moogle:trait:limited-telepathy",
+      "ffd20:race:moogle:trait:low-blow",
+      "ffd20:race:moogle:trait:master-tinker",
+      "ffd20:race:moogle:trait:mognet",
+      "ffd20:race:moogle:trait:moogle-magic",
+      "ffd20:race:moogle:trait:outrider",
+      "ffd20:race:moogle:trait:shiftless",
+      "ffd20:race:moogle:trait:unfettered",
+      "ffd20:race:moogle:trait:wanderlust",
+      "ffd20:race:moogle:trait:wright"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:moogle:trait:academician:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:good-merchant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:academician"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Academician replaces Good Merchant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:attentive:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:handy"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:attentive"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Attentive replaces Handy.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:darkvision:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:low-light-vision",
+          "ffd20:race:moogle:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:darkvision"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Darkvision replaces Low-Light Vision, Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:engineer:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:good-merchant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:engineer"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Engineer replaces Good Merchant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:explorer:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:construct-familiarity",
+          "ffd20:race:moogle:trait:good-merchant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:explorer"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Explorer replaces Construct Familiarity, Good Merchant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:gift-of-tongues:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:defensive-training",
+          "ffd20:race:moogle:trait:handy"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:gift-of-tongues"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Gift of Tongues replaces Defensive Training, Handy.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:grounded:replacement",
+        "operation": "modify",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:base-speed"
+        ],
+        "targetEventIds": [],
+        "scope": "part_of_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:grounded"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Grounded modifys Base Speed.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:knack-with-poison:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:construct-familiarity",
+          "ffd20:race:moogle:trait:good-merchant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:knack-with-poison"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Knack with Poison replaces Construct Familiarity, Good Merchant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:kupo-recovery:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:handy"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:kupo-recovery"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Kupo-Recovery replaces Handy.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:limited-telepathy:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:eternal-hope",
+          "ffd20:race:moogle:trait:construct-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:limited-telepathy"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Limited Telepathy replaces Eternal Hope, Construct Familiarity.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6069"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:low-blow:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:handy"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:low-blow"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Low Blow replaces Handy.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6070"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:master-tinker:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:defensive-training",
+          "ffd20:race:moogle:trait:good-merchant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:master-tinker"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Master Tinker replaces Defensive Training, Good Merchant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6071"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:mognet:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:mognet"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mognet replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:moogle-magic:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:good-merchant",
+          "ffd20:race:moogle:trait:handy"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:moogle-magic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Moogle Magic replaces Good Merchant, Handy.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:outrider:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:good-merchant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:outrider"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Outrider replaces Good Merchant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:shiftless:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:handy"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:shiftless"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Shiftless replaces Handy.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:unfettered:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:handy",
+          "ffd20:race:moogle:trait:good-merchant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:unfettered"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Unfettered replaces Handy, Good Merchant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:wanderlust:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:handy",
+          "ffd20:race:moogle:trait:good-merchant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:wanderlust"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wanderlust replaces Handy, Good Merchant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:trait:wright:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moogle:trait:handy",
+          "ffd20:race:moogle:trait:scavenger"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moogle:trait:wright"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wright replaces Handy, Scavenger.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6079"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:moogle:heritage:chalice-keepers",
+        "name": "Chalice Keepers",
+        "description": "Chalice Keepers heritage. Gain +2 racial on Knowledge (nature) checks instead of the baseline +2 Perception trait.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:moogle:heritage:chalice-keepers:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:moogle:trait:ability-score-adjustment",
+              "ffd20:race:moogle:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:moogle:heritage:chalice-keepers:feature:abilities",
+              "ffd20:race:moogle:heritage:chalice-keepers:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Keen Senses with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:moogle:heritage:chalice-keepers:feature:abilities",
+          "ffd20:race:moogle:heritage:chalice-keepers:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6087"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:heritage:eorzean",
+        "name": "Eorzean",
+        "description": "Eorzean heritage. Gain +2 racial on Fly checks instead of the baseline +2 Perception trait.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:moogle:heritage:eorzean:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:moogle:trait:ability-score-adjustment",
+              "ffd20:race:moogle:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:moogle:heritage:eorzean:feature:abilities",
+              "ffd20:race:moogle:heritage:eorzean:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Keen Senses with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6088"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:moogle:heritage:eorzean:feature:abilities",
+          "ffd20:race:moogle:heritage:eorzean:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6088"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:heritage:goug-tinker",
+        "name": "Goug Tinker",
+        "description": "Goug Tinker heritage. Gain +2 racial on Knowledge (technology) or Knowledge (engineering) checks instead of the baseline +2 Perception trait.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:moogle:heritage:goug-tinker:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:moogle:trait:ability-score-adjustment",
+              "ffd20:race:moogle:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:moogle:heritage:goug-tinker:feature:abilities",
+              "ffd20:race:moogle:heritage:goug-tinker:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Keen Senses with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6089"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:moogle:heritage:goug-tinker:feature:abilities",
+          "ffd20:race:moogle:heritage:goug-tinker:feature:alternate"
+        ],
+        "choicePoolIds": [
+          "ffd20:race:moogle:pool:goug-tinker-skill-choice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6089"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:heritage:mogs",
+        "name": "Mogs",
+        "description": "Mogs heritage. Gain +2 racial on Perform (dance) checks instead of the baseline +2 Perception trait.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:moogle:heritage:mogs:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:moogle:trait:ability-score-adjustment",
+              "ffd20:race:moogle:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:moogle:heritage:mogs:feature:abilities",
+              "ffd20:race:moogle:heritage:mogs:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Keen Senses with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6090"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:moogle:heritage:mogs:feature:abilities",
+          "ffd20:race:moogle:heritage:mogs:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6090"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:heritage:split-world",
+        "name": "Split-World",
+        "description": "Split-World heritage. Gain +2 racial on Survival checks instead of the baseline +2 Perception trait.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:moogle:heritage:split-world:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:moogle:trait:ability-score-adjustment",
+              "ffd20:race:moogle:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:moogle:heritage:split-world:feature:abilities",
+              "ffd20:race:moogle:heritage:split-world:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Keen Senses with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6091"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:moogle:heritage:split-world:feature:abilities",
+          "ffd20:race:moogle:heritage:split-world:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6091"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:moogle:favored:archer",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:archer",
+        "name": "Moogle Archer favored reward",
+        "description": "Bow/crossbow range increment +1 foot per selection, usable only in increments of five.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6117 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:astrologian",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:astrologian",
+        "name": "Moogle Astrologian favored reward",
+        "description": "Choose a known item creation feat; when crafting with it, progress per eight-hour period rises by 200 gil (50 while adventuring); no change to material costs.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6118 Astrologian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:bard",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:bard",
+        "name": "Moogle Bard favored reward",
+        "description": "Increase inspire courage performance bonus by 1/6.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6119 Bard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:beastmaster",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Moogle Beastmaster favored reward",
+        "description": "Choose +1 companion HP or +1 companion skill rank, transfers to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6120 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:berserker",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:berserker",
+        "name": "Moogle Berserker favored reward",
+        "description": "Increase Diplomacy and Intimidate attitude-change checks by 1/2.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6121 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:black-belt",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:black-belt",
+        "name": "Moogle Black Belt favored reward",
+        "description": "Increase CMD by 1 versus grapple and overrun.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6122 Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:black-mage",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:black-mage",
+        "name": "Moogle Black Mage favored reward",
+        "description": "Choose known item creation feat; +200 gil progress per eight-hour work period (50 adventuring), cost unchanged.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6123 Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:blue-mage",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Moogle Blue Mage favored reward",
+        "description": "Increase blue mage natural attack damage by 1/4.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6124 Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:chemist",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:chemist",
+        "name": "Moogle Chemist favored reward",
+        "description": "Thrown splash weapon/bomb range increment +1 foot per selection; effective every five selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6125 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:chocobo-knight",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Moogle Chocobo Knight favored reward",
+        "description": "Choose +1 mount HP or skill rank; transferred if replaced.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6126 Chocobo Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:cleric",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:cleric",
+        "name": "Moogle Cleric favored reward",
+        "description": "Channel energy damage +1 against creatures denied Dex bonus to AC.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6127 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:dancer",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:dancer",
+        "name": "Moogle Dancer favored reward",
+        "description": "Acquire 1/6 a mystic dance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6128 Dancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:dark-knight",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Moogle Dark Knight favored reward",
+        "description": "Increase harm touch healing or damage by 1/2 HP.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6129 Dark Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:dragoon",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:dragoon",
+        "name": "Moogle Dragoon favored reward",
+        "description": "Add 1/6 to armor check penalty reduction and maximum DEX adjustment in armor.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6130 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:druid",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:druid",
+        "name": "Moogle Druid favored reward",
+        "description": "Companion saving throws +1/4 luck bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6131 Druid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:engineer",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:engineer",
+        "name": "Moogle Engineer favored reward",
+        "description": "Increase uses of Repair by 1/4.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6132 Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:fencer",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:fencer",
+        "name": "Moogle Fencer favored reward",
+        "description": "Increase AC bonus of duelist stance by 1/6.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6133 Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:freelancer",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:freelancer",
+        "name": "Moogle Freelancer favored reward",
+        "description": "Gain 1 JP; no effect until ten choices.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6134 Freelancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:gambler",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:gambler",
+        "name": "Moogle Gambler favored reward",
+        "description": "Acquire 1/6 a gambler gambit.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6135 Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:geomancer",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:geomancer",
+        "name": "Moogle Geomancer favored reward",
+        "description": "Increase daily Geomancy uses by 1/4.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6136 Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:gunbreaker",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Moogle Gunbreaker favored reward",
+        "description": "Increase shield AC bonus from keen edge by 1/6.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6137 Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:gunner",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:gunner",
+        "name": "Moogle Gunner favored reward",
+        "description": "Gain 1/3 extra Gun Fix use per day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6138 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:illusionist",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:illusionist",
+        "name": "Moogle Illusionist favored reward",
+        "description": "Increase Cloaked Casting DC by 1/4.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6139 Illusionist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:knight",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:knight",
+        "name": "Moogle Knight favored reward",
+        "description": "Acquire 1/6 new knight talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6140 Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:medic",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:medic",
+        "name": "Moogle Medic favored reward",
+        "description": "Increase evasive dodge AC bonus by 1/6.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6141 Medic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:monk",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:monk",
+        "name": "Moogle Monk favored reward",
+        "description": "Increase ki pool by 1/4.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6142 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:necromancer",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:necromancer",
+        "name": "Moogle Necromancer favored reward",
+        "description": "Bone commander gains +1 HP.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6143 Necromancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:ninja",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:ninja",
+        "name": "Moogle Ninja favored reward",
+        "description": "Gain +1/4 CMD against trip and +1/4 STR-based damage vs prone targets.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6144 Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:paladin",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:paladin",
+        "name": "Moogle Paladin favored reward",
+        "description": "Increase lay on hands healing/damage by 1/2 HP.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6145 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:psychic",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:psychic",
+        "name": "Moogle Psychic favored reward",
+        "description": "Acquire 1/6 additional phrenic amplification.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6146 Psychic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:red-mage",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:red-mage",
+        "name": "Moogle Red Mage favored reward",
+        "description": "Increase spellstrike critical confirmation by +1/2 circumstance up to +4; does not stack with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6147 Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:samurai",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:samurai",
+        "name": "Moogle Samurai favored reward",
+        "description": "Increase Knowledge (nobility) by +1/2.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6148 Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:scholar",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:scholar",
+        "name": "Moogle Scholar favored reward",
+        "description": "Acquire 1/6 additional scholar exploit.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6149 Scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:summoner",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:summoner",
+        "name": "Moogle Summoner favored reward",
+        "description": "Avatar gains +1 HP.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6150 Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:sword-saint",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Moogle Sword Saint favored reward",
+        "description": "Gain +1 CMD against trip and grapple.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6151 Sword Saint"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:thief",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:thief",
+        "name": "Moogle Thief favored reward",
+        "description": "Gain +1/2 Disable Device and Use Magic Device regarding magical writings (glyphs, symbols, scrolls).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6152 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:time-mage",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:time-mage",
+        "name": "Moogle Time Mage favored reward",
+        "description": "Increase mote-boosted check extra dice by 1/6 of d3.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6153 Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:warrior",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:warrior",
+        "name": "Moogle Warrior favored reward",
+        "description": "Gain +1 CMD against dirty trick and steal.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6154 Warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moogle:favored:white-mage",
+        "raceId": "ffd20:race:moogle",
+        "classId": "ffd20:class:white-mage",
+        "name": "Moogle White Mage favored reward",
+        "description": "Increase shadow resistance by +1 per choice up to 10.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6155 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

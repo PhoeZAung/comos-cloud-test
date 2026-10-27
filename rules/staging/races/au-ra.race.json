@@ -1,0 +1,3324 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:au-ra",
+  "name": "Au Ra",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/au-ra/",
+      "title": "Au Ra — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/heritages",
+        "reason": "Official narrative says \"2 different potential heritages\" but the immediately following table lists 3: Azim, Raen, Khagan. All 3 table rows extracted. Their skill substitutes must be replaced by Imposing Figure-targeting alternates, not left applied or stacked.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Supremacy Champion is Xaela-only; Pacification and Avoidance is Raen-only. Resolve ancestry gating and selection-prerequisite evaluation before any auto-availability. Bull-Headed/Claws/Bite natural attacks need attack and size rules.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Ferocity once-per-day disabled-combat turn, natural armor type, conditional speed, bonus Weapon Focus/Dodge feats and life-below-zero handling need runtime logic. Resource refills not assumed.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "All 17 race-page rewards need class-specific integration; Paladin \"or\" reward requires exactly one choice per pick, not both.",
+        "blocking": true
+      },
+      {
+        "path": "/review",
+        "reason": "Independent source accuracy, safe effect ownership/conflict behavior, and production runtime integration have not been reviewed. Keep staging only; do not enable in manifest.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Au Ra Heritages",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Gameplay contents read in full from official page; modeled as staging paraphrase, not independently approved for automation."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate catalog excluded; trait-granted bonuses or feats preserved within race."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate catalog excluded; trait-granted bonuses or feats preserved within race."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate feat catalog intentionally excluded; directly granted feats retained as racial rules."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetype catalog intentionally excluded."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:au-ra:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "Default Xaela +2 Strength, +2 Wisdom, −2 Charisma; variants REPLACE this vector.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:ability-score-adjustment:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6027"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:trait:ability-score-adjustment:effect:ability-score-ability-scores-wis-1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6027"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:trait:ability-score-adjustment:effect:ability-score-ability-scores-cha-2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6027"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:size",
+      "name": "Size",
+      "description": "Medium.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:type",
+      "name": "Type",
+      "description": "Humanoid, Au Ra subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (au ra)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "30 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:languages",
+      "name": "Languages",
+      "description": "Common and Draconic initially; high-INT options Elvaan, Galkan, Goblin, Kojin, Matanga and Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Draconic",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:elemental-resistance",
+      "name": "Elemental Resistance",
+      "description": "Ice 5, lightning 5, and fire 5 resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:elemental-resistance:effect:defense-bonus-resistance-ice-0",
+          "kind": "defense_bonus",
+          "target": "resistance.ice",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6034"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:trait:elemental-resistance:effect:defense-bonus-resistance-lightning-1",
+          "kind": "defense_bonus",
+          "target": "resistance.lightning",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6034"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:trait:elemental-resistance:effect:defense-bonus-resistance-fire-2",
+          "kind": "defense_bonus",
+          "target": "resistance.fire",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6034"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:scales",
+      "name": "Scales",
+      "description": "+1 natural armor bonus to AC.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:scales:effect:defense-bonus-armor-class-0",
+          "kind": "defense_bonus",
+          "target": "armor_class",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "natural_armor",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:fearless",
+      "name": "Fearless",
+      "description": "+2 racial on saving throws against fear.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:fearless:effect:defense-bonus-saving-throws-all-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only fear effects"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:imposing-figure",
+      "name": "Imposing Figure",
+      "description": "Xaela +2 racial Intimidate by default. A selected listed heritage can use a different skill instead; the base bonus is not stacked.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:imposing-figure:effect:skill-bonus-skills-intimidate-0",
+          "kind": "skill_bonus",
+          "target": "skills.intimidate",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6039"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:survivalist",
+      "name": "Survivalist",
+      "description": "+2 racial Survival checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:survivalist:effect:skill-bonus-skills-survival-0",
+          "kind": "skill_bonus",
+          "target": "skills.survival",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:ferocity",
+      "name": "Ferocity",
+      "description": "Once a day, on being below zero HP yet not killed, continue for one round as disabled. End of next turn, if not above 0 HP, become unconscious and begin dying.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision out to 60 ft.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:darkvision:effect:identity-senses-darkvision-0",
+          "kind": "identity",
+          "target": "senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6047"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:battle-hardened",
+      "name": "Battle-Hardened",
+      "description": "+1 CMD. Replaces Imposing Figure (or heritage-equivalent skill) and Survivalist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:battle-hardened:effect:defense-bonus-combat-maneuvers-cmd-0",
+          "kind": "defense_bonus",
+          "target": "combat_maneuvers.cmd",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:bull-headed",
+      "name": "Bull-Headed",
+      "description": "Primary gore 1d6, secondary when manufactured weapons wielded; +10 feet land speed only during charge, run, withdraw actions. Replaces Scales.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities",
+        "activeAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:bull-headed:effect:custom-speed-land-0",
+          "kind": "custom",
+          "target": "speed.land",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 10,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6052"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only during charge, run, or withdraw actions"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:claws",
+      "name": "Claws",
+      "description": "Pair of primary 1d4 claw natural weapons. Replaces Survivalist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities",
+        "activeAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception. Replaces Survivalist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:keen-senses:effect:skill-bonus-skills-perception-0",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6055"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6055"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:more-daemon-than-hume",
+      "name": "More Daemon than Hume",
+      "description": "1d4 bite attack, primary normally or secondary if wielding manufactured weapons. Replaces Ferocity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities",
+        "activeAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6056"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:prehensile-tail",
+      "name": "Prehensile Tail",
+      "description": "Tail can carry but not wield weapons; retrieve small stowed personal item as swift action. Replaces Ferocity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:questioned-heritage",
+      "name": "Questioned Heritage",
+      "description": "Knowledge (arcana) and Knowledge (planes) become class skills. Replaces Fearless.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:questioned-heritage:effect:class-skill-skills-knowledge-arcana-class-skill-0",
+          "kind": "class_skill",
+          "target": "skills.knowledge-arcana.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:trait:questioned-heritage:effect:class-skill-skills-knowledge-planes-class-skill-1",
+          "kind": "class_skill",
+          "target": "skills.knowledge-planes.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:supremacy-champion",
+      "name": "Supremacy Champion",
+      "description": "Xaela only: gain Weapon Focus bonus feat; Raen cannot choose. Replaces Ferocity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:supremacy-champion:effect:grant-feature-feats-weapon-focus-0",
+          "kind": "grant_feature",
+          "target": "feats.weapon-focus",
+          "operation": "add",
+          "value": null,
+          "textValue": "Xaela-only bonus feat; select qualifying weapon and require feat catalog.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6059"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:unknown-origins",
+      "name": "Unknown Origins",
+      "description": "+2 racial Bluff. Replaces Survivalist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:unknown-origins:effect:skill-bonus-skills-bluff-0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with one chosen eastern weapon: kama, katana, kusarigama, nodachi, nunchaku, sai, shuriken, siangham or wakizashi. Replaces Ferocity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:kama",
+      "name": "Kama proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:kama:effect:proficiency-weapons-kama-0",
+          "kind": "proficiency",
+          "target": "weapons.kama",
+          "operation": "add",
+          "value": null,
+          "textValue": "Kama",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:katana",
+      "name": "Katana proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:katana:effect:proficiency-weapons-katana-0",
+          "kind": "proficiency",
+          "target": "weapons.katana",
+          "operation": "add",
+          "value": null,
+          "textValue": "Katana",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:kusarigama",
+      "name": "Kusarigama proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:kusarigama:effect:proficiency-weapons-kusarigama-0",
+          "kind": "proficiency",
+          "target": "weapons.kusarigama",
+          "operation": "add",
+          "value": null,
+          "textValue": "Kusarigama",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:nodachi",
+      "name": "Nodachi proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:nodachi:effect:proficiency-weapons-nodachi-0",
+          "kind": "proficiency",
+          "target": "weapons.nodachi",
+          "operation": "add",
+          "value": null,
+          "textValue": "Nodachi",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:nunchaku",
+      "name": "Nunchaku proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:nunchaku:effect:proficiency-weapons-nunchaku-0",
+          "kind": "proficiency",
+          "target": "weapons.nunchaku",
+          "operation": "add",
+          "value": null,
+          "textValue": "Nunchaku",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:sai",
+      "name": "Sai proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:sai:effect:proficiency-weapons-sai-0",
+          "kind": "proficiency",
+          "target": "weapons.sai",
+          "operation": "add",
+          "value": null,
+          "textValue": "Sai",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:shuriken",
+      "name": "Shuriken proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:shuriken:effect:proficiency-weapons-shuriken-0",
+          "kind": "proficiency",
+          "target": "weapons.shuriken",
+          "operation": "add",
+          "value": null,
+          "textValue": "Shuriken",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:siangham",
+      "name": "Siangham proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:siangham:effect:proficiency-weapons-siangham-0",
+          "kind": "proficiency",
+          "target": "weapons.siangham",
+          "operation": "add",
+          "value": null,
+          "textValue": "Siangham",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:wakizashi",
+      "name": "Wakizashi proficiency",
+      "description": "Selected Au Ra eastern weapon proficiency; only this choice is granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:wakizashi:effect:proficiency-weapons-wakizashi-0",
+          "kind": "proficiency",
+          "target": "weapons.wakizashi",
+          "operation": "add",
+          "value": null,
+          "textValue": "Wakizashi",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:trait:pacification-and-avoidance",
+      "name": "Pacification and Avoidance",
+      "description": "Raen only: bonus Dodge feat; Xaela cannot select. Replaces Ferocity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:trait:pacification-and-avoidance:effect:grant-feature-feats-dodge-0",
+          "kind": "grant_feature",
+          "target": "feats.dodge",
+          "operation": "add",
+          "value": null,
+          "textValue": "Raen-only bonus feat; require feat catalog.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:heritage:azim:feature:abilities",
+      "name": "Azim racial ability adjustments",
+      "description": "Azim modifies ability scores by {'str': 2, 'cha': 2, 'dex': -2}, in place of default Xaela adjustments, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:heritage:azim:feature:abilities:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6071: Azim"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6071: Azim"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:heritage:azim:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6071: Azim"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6071: Azim"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:heritage:azim:feature:abilities:effect:ability-score-ability-scores-dex-2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6071: Azim"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6071: Azim"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Au Ra Heritages",
+          "locator": "Table row 6071: Azim"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:heritage:azim:feature:skill",
+      "name": "Azim alternate skill modifier",
+      "description": "Use +2 racial Sense Motive in place of the default +2 Intimidate from Imposing Figure; do not stack both. An alternate racial trait that replaces Imposing Figure should replace this heritage skill modifier instead.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:heritage:azim:feature:skill:effect:skill-bonus-skills-sense-motive-0",
+          "kind": "skill_bonus",
+          "target": "skills.sense-motive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6071: Azim"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6071: Azim"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Au Ra Heritages",
+          "locator": "Table row 6071: Azim"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:heritage:raen:feature:abilities",
+      "name": "Raen racial ability adjustments",
+      "description": "Raen modifies ability scores by {'dex': 2, 'cha': 2, 'con': -2}, in place of default Xaela adjustments, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:heritage:raen:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6072: Raen"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6072: Raen"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:heritage:raen:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6072: Raen"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6072: Raen"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:heritage:raen:feature:abilities:effect:ability-score-ability-scores-con-2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6072: Raen"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6072: Raen"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Au Ra Heritages",
+          "locator": "Table row 6072: Raen"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:heritage:raen:feature:skill",
+      "name": "Raen alternate skill modifier",
+      "description": "Use +2 racial Diplomacy in place of the default +2 Intimidate from Imposing Figure; do not stack both. An alternate racial trait that replaces Imposing Figure should replace this heritage skill modifier instead.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:heritage:raen:feature:skill:effect:skill-bonus-skills-diplomacy-0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6072: Raen"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6072: Raen"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Au Ra Heritages",
+          "locator": "Table row 6072: Raen"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:heritage:khagan:feature:abilities",
+      "name": "Khagan racial ability adjustments",
+      "description": "Khagan modifies ability scores by {'str': 2, 'cha': 2, 'wis': -2}, in place of default Xaela adjustments, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:heritage:khagan:feature:abilities:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6073: Khagan"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6073: Khagan"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:heritage:khagan:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6073: Khagan"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6073: Khagan"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:heritage:khagan:feature:abilities:effect:ability-score-ability-scores-wis-2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6073: Khagan"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6073: Khagan"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Au Ra Heritages",
+          "locator": "Table row 6073: Khagan"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:au-ra:heritage:khagan:feature:skill",
+      "name": "Khagan alternate skill modifier",
+      "description": "Use +2 racial Intimidate in place of the default +2 Intimidate from Imposing Figure; do not stack both. An alternate racial trait that replaces Imposing Figure should replace this heritage skill modifier instead.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:au-ra:heritage:khagan:feature:skill:effect:skill-bonus-skills-intimidate-0",
+          "kind": "skill_bonus",
+          "target": "skills.intimidate",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6073: Khagan"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Au Ra Heritages",
+              "locator": "Table row 6073: Khagan"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Au Ra Heritages",
+          "locator": "Table row 6073: Khagan"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [
+    {
+      "id": "ffd20:race:au-ra:resource:ferocity",
+      "name": "Ferocity",
+      "classId": null,
+      "unit": "uses",
+      "maximum": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Offense Racial Traits",
+            "locator": "6043"
+          }
+        ]
+      },
+      "period": "day",
+      "recovery": {
+        "method": "unknown",
+        "conditionText": "Usable once per day; reset schedule not established by source page.",
+        "automaticRecoveryAllowed": false
+      },
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6043"
+        }
+      ]
+    }
+  ],
+  "choicePools": [
+    {
+      "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency",
+      "name": "Au Ra eastern weapon proficiency",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:kama",
+          "name": "Kama",
+          "description": "Kama",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:kama"
+          ],
+          "spellIds": [],
+          "value": "kama",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:katana",
+          "name": "Katana",
+          "description": "Katana",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:katana"
+          ],
+          "spellIds": [],
+          "value": "katana",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:kusarigama",
+          "name": "Kusarigama",
+          "description": "Kusarigama",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:kusarigama"
+          ],
+          "spellIds": [],
+          "value": "kusarigama",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:nodachi",
+          "name": "Nodachi",
+          "description": "Nodachi",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:nodachi"
+          ],
+          "spellIds": [],
+          "value": "nodachi",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:nunchaku",
+          "name": "Nunchaku",
+          "description": "Nunchaku",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:nunchaku"
+          ],
+          "spellIds": [],
+          "value": "nunchaku",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:sai",
+          "name": "Sai",
+          "description": "Sai",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:sai"
+          ],
+          "spellIds": [],
+          "value": "sai",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:shuriken",
+          "name": "Shuriken",
+          "description": "Shuriken",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:shuriken"
+          ],
+          "spellIds": [],
+          "value": "shuriken",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:siangham",
+          "name": "Siangham",
+          "description": "Siangham",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:siangham"
+          ],
+          "spellIds": [],
+          "value": "siangham",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:option:wakizashi",
+          "name": "Wakizashi",
+          "description": "Wakizashi",
+          "featureIds": [
+            "ffd20:race:au-ra:pool:au-ra-eastern-weapon-proficiency:grant:wakizashi"
+          ],
+          "spellIds": [],
+          "value": "wakizashi",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "One weapon proficiency only. Apply to actual weapon record through manual review.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:au-ra:trait:ability-score-adjustment",
+      "ffd20:race:au-ra:trait:size",
+      "ffd20:race:au-ra:trait:type",
+      "ffd20:race:au-ra:trait:base-speed",
+      "ffd20:race:au-ra:trait:languages",
+      "ffd20:race:au-ra:trait:elemental-resistance",
+      "ffd20:race:au-ra:trait:scales",
+      "ffd20:race:au-ra:trait:fearless",
+      "ffd20:race:au-ra:trait:imposing-figure",
+      "ffd20:race:au-ra:trait:survivalist",
+      "ffd20:race:au-ra:trait:ferocity",
+      "ffd20:race:au-ra:trait:darkvision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:au-ra:trait:battle-hardened",
+      "ffd20:race:au-ra:trait:bull-headed",
+      "ffd20:race:au-ra:trait:claws",
+      "ffd20:race:au-ra:trait:keen-senses",
+      "ffd20:race:au-ra:trait:more-daemon-than-hume",
+      "ffd20:race:au-ra:trait:prehensile-tail",
+      "ffd20:race:au-ra:trait:questioned-heritage",
+      "ffd20:race:au-ra:trait:supremacy-champion",
+      "ffd20:race:au-ra:trait:unknown-origins",
+      "ffd20:race:au-ra:trait:weapon-familiarity",
+      "ffd20:race:au-ra:trait:pacification-and-avoidance"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:au-ra:trait:battle-hardened:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:imposing-figure",
+          "ffd20:race:au-ra:trait:survivalist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:battle-hardened"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Battle-Hardened replaces Imposing Figure, Survivalist.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:bull-headed:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:scales"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:bull-headed"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Bull-Headed replaces Scales.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:claws:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:survivalist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:claws"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Claws replaces Survivalist.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:keen-senses:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:survivalist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:keen-senses"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Keen Senses replaces Survivalist.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:more-daemon-than-hume:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:ferocity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:more-daemon-than-hume"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "More Daemon than Hume replaces Ferocity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6056"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:prehensile-tail:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:ferocity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:prehensile-tail"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Prehensile Tail replaces Ferocity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:questioned-heritage:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:fearless"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:questioned-heritage"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Questioned Heritage replaces Fearless.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:supremacy-champion:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:ferocity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:supremacy-champion"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Supremacy Champion replaces Ferocity.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:unknown-origins:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:survivalist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:unknown-origins"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Unknown Origins replaces Survivalist.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:weapon-familiarity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:ferocity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:weapon-familiarity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Weapon Familiarity replaces Ferocity.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:trait:pacification-and-avoidance:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:au-ra:trait:ferocity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:au-ra:trait:pacification-and-avoidance"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Pacification and Avoidance replaces Ferocity.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6063"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:au-ra:heritage:azim",
+        "name": "Azim",
+        "description": "Azim: {'str': 2, 'cha': 2, 'dex': -2}; +2 racial Sense Motive instead of +2 Intimidate.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:au-ra:heritage:azim:replacement:vector-and-skill",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:au-ra:trait:ability-score-adjustment",
+              "ffd20:race:au-ra:trait:imposing-figure"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:au-ra:heritage:azim:feature:abilities",
+              "ffd20:race:au-ra:heritage:azim:feature:skill"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Heritage replaces both the base ability vector and the Imposing Figure skill bonus; remaining standard features stay on. Imposing Figure-consuming alternates must target the heritage substitution where applicable.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6071: Azim"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:au-ra:heritage:azim:feature:abilities",
+          "ffd20:race:au-ra:heritage:azim:feature:skill"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Au Ra Heritages",
+            "locator": "Table row 6071: Azim"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:heritage:raen",
+        "name": "Raen",
+        "description": "Raen: {'dex': 2, 'cha': 2, 'con': -2}; +2 racial Diplomacy instead of +2 Intimidate.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:au-ra:heritage:raen:replacement:vector-and-skill",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:au-ra:trait:ability-score-adjustment",
+              "ffd20:race:au-ra:trait:imposing-figure"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:au-ra:heritage:raen:feature:abilities",
+              "ffd20:race:au-ra:heritage:raen:feature:skill"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Heritage replaces both the base ability vector and the Imposing Figure skill bonus; remaining standard features stay on. Imposing Figure-consuming alternates must target the heritage substitution where applicable.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6072: Raen"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:au-ra:heritage:raen:feature:abilities",
+          "ffd20:race:au-ra:heritage:raen:feature:skill"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Au Ra Heritages",
+            "locator": "Table row 6072: Raen"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:heritage:khagan",
+        "name": "Khagan",
+        "description": "Khagan: {'str': 2, 'cha': 2, 'wis': -2}; +2 racial Intimidate instead of +2 Intimidate.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:au-ra:heritage:khagan:replacement:vector-and-skill",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:au-ra:trait:ability-score-adjustment",
+              "ffd20:race:au-ra:trait:imposing-figure"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:au-ra:heritage:khagan:feature:abilities",
+              "ffd20:race:au-ra:heritage:khagan:feature:skill"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Heritage replaces both the base ability vector and the Imposing Figure skill bonus; remaining standard features stay on. Imposing Figure-consuming alternates must target the heritage substitution where applicable.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Au Ra Heritages",
+                "locator": "Table row 6073: Khagan"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:au-ra:heritage:khagan:feature:abilities",
+          "ffd20:race:au-ra:heritage:khagan:feature:skill"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Au Ra Heritages",
+            "locator": "Table row 6073: Khagan"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:au-ra:favored:archer",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:archer",
+        "name": "Au Ra Archer favored reward",
+        "description": "+1/3 to Aim attack-roll bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6094 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:berserker",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:berserker",
+        "name": "Au Ra Berserker favored reward",
+        "description": "Increase rage rounds per day by one.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6095 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:black-belt",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:black-belt",
+        "name": "Au Ra Black Belt favored reward",
+        "description": "+1 CMD resisting trip or overrun.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096 Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:cleric",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:cleric",
+        "name": "Au Ra Cleric favored reward",
+        "description": "+1/3 channel-energy healing or damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:dark-knight",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Au Ra Dark Knight favored reward",
+        "description": "+1/6 attack and damage bonuses for Darkside.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098 Dark Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:dragoon",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:dragoon",
+        "name": "Au Ra Dragoon favored reward",
+        "description": "+1/3 attack rolls with spears, lances and polearms.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:fencer",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:fencer",
+        "name": "Au Ra Fencer favored reward",
+        "description": "+1/6 AC during duelist stance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100 Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:gunbreaker",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Au Ra Gunbreaker favored reward",
+        "description": "Accumulate +1/6 of another gun arm technique.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6101 Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:knight",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:knight",
+        "name": "Au Ra Knight favored reward",
+        "description": "Accumulate +1/6 of new knight talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6102 Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:monk",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:monk",
+        "name": "Au Ra Monk favored reward",
+        "description": "+1/4 damage with unarmed strikes.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6103 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:ninja",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:ninja",
+        "name": "Au Ra Ninja favored reward",
+        "description": "+1/4 attack rolls against foes from higher terrain, including charging from above.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6104 Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:paladin",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:paladin",
+        "name": "Au Ra Paladin favored reward",
+        "description": "Choose +1/4 deflection AC in Shield Oath OR +1/4 attack bonus in Sword Oath.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6105 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:red-mage",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:red-mage",
+        "name": "Au Ra Red Mage favored reward",
+        "description": "+1/4 arcane pool maximum.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6106 Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:samurai",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:samurai",
+        "name": "Au Ra Samurai favored reward",
+        "description": "+1/6 Bushido difficulty class.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6107 Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:thief",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:thief",
+        "name": "Au Ra Thief favored reward",
+        "description": "+1/2 Stealth and Perception checks in dim light or darkness.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6108 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:warrior",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:warrior",
+        "name": "Au Ra Warrior favored reward",
+        "description": "+1 CMD against bull rush or overrun.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6109 Warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:au-ra:favored:white-mage",
+        "raceId": "ffd20:race:au-ra",
+        "classId": "ffd20:class:white-mage",
+        "name": "Au Ra White Mage favored reward",
+        "description": "Learn one additional spell on white mage list below current highest accessible spell level.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6110 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

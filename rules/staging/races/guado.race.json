@@ -1,0 +1,1661 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:guado",
+  "name": "Guado",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/guado/",
+      "title": "Guado - Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Class-targeted favored rewards remain manual until referenced class feature IDs and fractional accumulations are reconciled.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Fast Movement replaces Moderate Fleetness, whose base-speed +5 is baked into printed speed of 35. Needs component-level speed reconciliation, not 35+10.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Detect Undead requires canonical spell; negative-level HP suppression, retraining and conditional summoning duration must remain manual.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "External feats catalog excluded; direct racial grants retained."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetypes catalog excluded from race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:guado:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 INT; +2 WIS; -2 CON.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:ability-score-adjustment:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:trait:ability-score-adjustment:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:trait:ability-score-adjustment:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6024"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:size",
+      "name": "Size",
+      "description": "Medium size; no size-based adjustments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:size:effect:0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:type",
+      "name": "Type",
+      "description": "Humanoid with guado subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:type:effect:0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (guado)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:base-speed",
+      "name": "Base Speed",
+      "description": "35-foot land speed. Includes +5-foot racial moderate-fleetness bonus (do not apply twice).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 35,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6027"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common, Guado. High-Intelligence options: Al Bhed, Draconic, Elvaan, Lalafell, Numish, Ronsaur, Vieran.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Guado",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:guado:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": 0,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6028"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:guado:trait:deathless-spirit",
+      "name": "Deathless Spirit",
+      "description": "Shadow Resistance 5. Does not lose HP upon gaining a negative level. +2 racial saving throws against death effects, energy drain, necromancy spells/SLAs, and dark spells/SLAs.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:deathless-spirit:effect:0",
+          "kind": "custom",
+          "target": "resistances.shadow",
+          "operation": "add",
+          "value": null,
+          "textValue": "Shadow Resistance 5",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6030-6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:trait:deathless-spirit:effect:1",
+          "kind": "custom",
+          "target": "negative_levels.hp_loss",
+          "operation": "add",
+          "value": null,
+          "textValue": "No HP loss from gaining negative level",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6030-6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:trait:deathless-spirit:effect:2",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6030-6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Death, energy drain, necromancy or dark spell/effect"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6030-6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6030-6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:skill-bonuses",
+      "name": "Skill Bonuses",
+      "description": "+2 racial bonus to Bluff and Sense Motive checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:skill-bonuses:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:trait:skill-bonuses:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.sense_motive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:skill-training",
+      "name": "Skill Training",
+      "description": "Knowledge (planes) and Knowledge (religion) count as class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:skill-training:effect:0",
+          "kind": "custom",
+          "target": "class_skills",
+          "operation": "add",
+          "value": null,
+          "textValue": "Knowledge (planes); Knowledge (religion)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:detect-undead",
+      "name": "Detect Undead",
+      "description": "Detect undead as a constant spell-like ability; caster level equals character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:detect-undead:effect:0",
+          "kind": "custom",
+          "target": "spelllike.detect_undead",
+          "operation": "add",
+          "value": null,
+          "textValue": "constant; caster level=character level; spell mechanics depend on canonical spell",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:elemental-summoner",
+      "name": "Elemental Summoner",
+      "description": "At creation choose earth, fire, ice, lightning, water, or wind; summon spells creating a creature with chosen elemental subtype last 2 additional rounds. Choice can only change by retraining.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:elemental-summoner:effect:0",
+          "kind": "custom",
+          "target": "summoning.duration",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 rounds to summon-spell duration only when summoned creature has chosen subtype",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:guado:pool:summoner-element"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magical Racial Traits",
+            "locator": "6037"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:guado:trait:moderate-fleetness",
+      "name": "Moderate Fleetness",
+      "description": "+5 feet to land speed ALREADY included in 35-foot Base Speed; +5 feet to any swim speed that this guado has.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:moderate-fleetness:effect:0",
+          "kind": "custom",
+          "target": "movement.swim",
+          "operation": "add",
+          "value": null,
+          "textValue": "+5 feet swim speed IF creature has swim speed",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Movement Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Movement Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:carrion-sense",
+      "name": "Carrion Sense",
+      "description": "Scent-like tracking only for corpses and creatures currently at <=25% maximum HP; replaces Skill Training.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:carrion-sense:effect:0",
+          "kind": "custom",
+          "target": "senses.carrion",
+          "operation": "add",
+          "value": null,
+          "textValue": "Scent only corpses or creatures at <=25% HP",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:deep-magic",
+      "name": "Deep Magic",
+      "description": "+2 racial caster-level checks to overcome spell resistance, and +2 racial checks to dispel magic; replaces Deathless Spirit.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:deep-magic:effect:0",
+          "kind": "custom",
+          "target": "caster_checks",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 racial SR penetration caster-level checks and dispel checks",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6045-6046"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6045-6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:fast-movement",
+      "name": "Fast Movement",
+      "description": "Increase base land speed by 10 feet. Replaces Moderate Fleetness and Skill Bonuses. Note the printed 35-foot base already includes Moderate Fleetness; remove its +5-foot land component before applying this alternate.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:fast-movement:effect:0",
+          "kind": "custom",
+          "target": "movement.land",
+          "operation": "add",
+          "value": null,
+          "textValue": "Base before Moderate Fleetness 30 feet + Fast Movement 10 = 40 feet; requires partial override of standard Base Speed already including Moderate Fleetness",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6047"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:guado:trait:unsent-summoner",
+      "name": "Unsent Summoner",
+      "description": "Treat caster level as +2 higher when summoning or creating undead; does not confer access to higher-level spells. Replaces Elemental Summoner.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:guado:trait:unsent-summoner:effect:0",
+          "kind": "custom",
+          "target": "caster_level",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 effective caster level on undead summons or creation spells; not spell eligibility",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6048"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:guado:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:guado:pool:bonus-languages:option:al-bhed",
+          "name": "Al Bhed",
+          "description": "Al Bhed",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "al-bhed",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:bonus-languages:option:lalafell",
+          "name": "Lalafell",
+          "description": "Lalafell",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lalafell",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:bonus-languages:option:numish",
+          "name": "Numish",
+          "description": "Numish",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "numish",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:bonus-languages:option:ronsaur",
+          "name": "Ronsaur",
+          "description": "Ronsaur",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ronsaur",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:bonus-languages:option:vieran",
+          "name": "Vieran",
+          "description": "Vieran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "vieran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible high-Intelligence choices. Count and repeated selections require standard language-rule audit.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:guado:pool:summoner-element",
+      "name": "Elemental subtype choice",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:guado:pool:summoner-element:option:earth",
+          "name": "Earth",
+          "description": "Earth",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "earth",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:summoner-element:option:fire",
+          "name": "Fire",
+          "description": "Fire",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "fire",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:summoner-element:option:ice",
+          "name": "Ice",
+          "description": "Ice",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ice",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:summoner-element:option:lightning",
+          "name": "Lightning",
+          "description": "Lightning",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lightning",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:summoner-element:option:water",
+          "name": "Water",
+          "description": "Water",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "water",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:guado:pool:summoner-element:option:wind",
+          "name": "Wind",
+          "description": "Wind",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wind",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Choose exactly one at creation; retraining required to change.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6037"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:guado:trait:ability-score-adjustment",
+      "ffd20:race:guado:trait:size",
+      "ffd20:race:guado:trait:type",
+      "ffd20:race:guado:trait:base-speed",
+      "ffd20:race:guado:trait:languages",
+      "ffd20:race:guado:trait:deathless-spirit",
+      "ffd20:race:guado:trait:skill-bonuses",
+      "ffd20:race:guado:trait:skill-training",
+      "ffd20:race:guado:trait:detect-undead",
+      "ffd20:race:guado:trait:elemental-summoner",
+      "ffd20:race:guado:trait:moderate-fleetness"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:guado:trait:carrion-sense",
+      "ffd20:race:guado:trait:deep-magic",
+      "ffd20:race:guado:trait:fast-movement",
+      "ffd20:race:guado:trait:unsent-summoner"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:guado:trait:carrion-sense:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:guado:trait:skill-training"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:guado:trait:carrion-sense"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Carrion Sense: replaces Skill Training.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6044"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:trait:deep-magic:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:guado:trait:deathless-spirit"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:guado:trait:deep-magic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Deep Magic: replaces Deathless Spirit.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6045-6046"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:trait:fast-movement:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:guado:trait:moderate-fleetness",
+          "ffd20:race:guado:trait:skill-bonuses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:guado:trait:fast-movement"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Fast Movement: replaces Moderate Fleetness, Skill Bonuses.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6047"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:trait:unsent-summoner:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:guado:trait:elemental-summoner"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:guado:trait:unsent-summoner"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Unsent Summoner: replaces Elemental Summoner.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6048"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:guado:favored:astrologian",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:astrologian",
+        "name": "Guado Astrologian favored reward",
+        "description": "+1/6 to earn one additional astrology secret.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6058 Astrologian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:beastmaster",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Guado Beastmaster favored reward",
+        "description": "+1 companion HP OR skill rank; carries to replacement animal companion.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6059 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:black-mage",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:black-mage",
+        "name": "Guado Black Mage favored reward",
+        "description": "+1/6 to earn one additional mage talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6060 Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:cleric",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:cleric",
+        "name": "Guado Cleric favored reward",
+        "description": "+1 damage or HP restored on undead using channel energy.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6061 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:dark-knight",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Guado Dark Knight favored reward",
+        "description": "+1 HP restored to undead with harm touch.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6062 Dark Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:illusionist",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:illusionist",
+        "name": "Guado Illusionist favored reward",
+        "description": "+1/6 to gain veil power.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6063 Illusionist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:necromancer",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:necromancer",
+        "name": "Guado Necromancer favored reward",
+        "description": "+1 HP restored to undead by harm touch.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6064 Necromancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:paladin",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:paladin",
+        "name": "Guado Paladin favored reward",
+        "description": "+1 damage on undead using lay on hands.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6065 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:scholar",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:scholar",
+        "name": "Guado Scholar favored reward",
+        "description": "+1/6 to gain scholar exploit.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6066 Scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:summoner",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:summoner",
+        "name": "Guado Summoner favored reward",
+        "description": "-1 damage transferred to summoner by life link, up to total maximum reduction of 6.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6067 Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:time-mage",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:time-mage",
+        "name": "Guado Time Mage favored reward",
+        "description": "+1/6 to gain a temporal talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6068 Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:guado:favored:white-mage",
+        "raceId": "ffd20:race:guado",
+        "classId": "ffd20:class:white-mage",
+        "name": "Guado White Mage favored reward",
+        "description": "+1 damage to undead by lay on hands.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6069 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "comos.race-staging-index.v1",
+  "description": "Unapproved race extraction definitions. These files are intentionally excluded from rules/manifest.json and production wizard.",
+  "createdOn": "2026-10-27",
+  "source": "FFd20 official race pages; mechanical staging records with manual review flags",
+  "state": "needs_review",
+  "importReady": false,
+  "enabledInWizard": false,
+  "races": [
+    {
+      "file": "rules/staging/races/hume.race.json",
+      "raceId": "ffd20:race:hume",
+      "sha256": "e388c1b36fb9481883d92ad2134f723f8216072c360bfc0cae0e9d66564b26bb"
+    },
+    {
+      "file": "rules/staging/races/moogle.race.json",
+      "raceId": "ffd20:race:moogle",
+      "sha256": "bf9022af233abacb28e654b9e90e6ebdd5f7bcafed3a8307d05a69e8bada19a5"
+    },
+    {
+      "file": "rules/staging/races/half-breed.race.json",
+      "raceId": "ffd20:race:half-breed",
+      "sha256": "c2399cdcd60bd4568a8e5d7a61dc20e4fb57930a7d53484011023bbdb536ee49"
+    },
+    {
+      "file": "rules/staging/races/mithra.race.json",
+      "raceId": "ffd20:race:mithra",
+      "sha256": "cc61f1ebbab93ee2fbe3e1c544ec92bf774a843ad8d0a75bbb762467485ff952"
+    },
+    {
+      "file": "rules/staging/races/tarutaru.race.json",
+      "raceId": "ffd20:race:tarutaru",
+      "sha256": "d4b7ccdef238102a302c930ebced424b8fe89a3d9c1d7baa6ede5497f66663fc"
+    },
+    {
+      "file": "rules/staging/races/aegyl.race.json",
+      "raceId": "ffd20:race:aegyl",
+      "sha256": "8bf559ddfc403f91a5a3748e31a2cb92f482bc259953c9da31bbd8de4c52cd62"
+    },
+    {
+      "file": "rules/staging/races/al-bhed.race.json",
+      "raceId": "ffd20:race:al-bhed",
+      "sha256": "80fb83a9a7a5d2852906be9319bc9592dc2e5ee7505bca5d3b447132968813de"
+    },
+    {
+      "file": "rules/staging/races/au-ra.race.json",
+      "raceId": "ffd20:race:au-ra",
+      "sha256": "02e92674b08ac502a529ca01195d931398ebea77dbc1e9156657d44074a224ab"
+    },
+    {
+      "file": "rules/staging/races/bangaa.race.json",
+      "raceId": "ffd20:race:bangaa",
+      "sha256": "405ba38134117a831f751a07fa3c4693d6828d3fe187b4e1e2a3c80e97f3c6e0"
+    },
+    {
+      "file": "rules/staging/races/burmecian.race.json",
+      "raceId": "ffd20:race:burmecian",
+      "sha256": "3716cb1a5b15574c03332bdcd29620c6353eb61bf8678e7c91de2e0c941586e6"
+    },
+    {
+      "file": "rules/staging/races/dracobaltian.race.json",
+      "raceId": "ffd20:race:dracobaltian",
+      "sha256": "ccea73007d0f7f06db1673f47b16bd0370dc5dade0dfcb40deca7ba8c1893a65"
+    },
+    {
+      "file": "rules/staging/races/garif.race.json",
+      "raceId": "ffd20:race:garif",
+      "sha256": "dc6f3e4ffd8263feca797ff60a6a03dfe1e6d5a08e8e3591e1aa5956cc6453b3"
+    },
+    {
+      "file": "rules/staging/races/garlean.race.json",
+      "raceId": "ffd20:race:garlean",
+      "sha256": "4a9d86115bfeafd7264628a88ee4daf15802289a92fa6ede023f9f14048c8728"
+    },
+    {
+      "file": "rules/staging/races/genome.race.json",
+      "raceId": "ffd20:race:genome",
+      "sha256": "4ad0a389919e6670cd5dad6568abee3b08e00d9071ea69ce98d872c483f3f50e"
+    },
+    {
+      "file": "rules/staging/races/gria.race.json",
+      "raceId": "ffd20:race:gria",
+      "sha256": "785439ea8f2f848c749e9a8d53f135265961e14ad34f51c2b8c81afa8bddac92"
+    },
+    {
+      "file": "rules/staging/races/guado.race.json",
+      "raceId": "ffd20:race:guado",
+      "sha256": "741c3ee64bfc0a5260853ed9937883e79dea7ab209035fc6d22019403ad48fff"
+    },
+    {
+      "file": "rules/staging/races/hypello.race.json",
+      "raceId": "ffd20:race:hypello",
+      "sha256": "fcf0abb03a9e50ac999f8216e21cc9f753d2e165a5e8bf06c51e49c632e45d95"
+    }
+  ],
+  "blockers": [
+    "No independent rules approval",
+    "Incomplete conditional effect/runtime adapter support",
+    "Unresolved class-favored dependencies",
+    "Beastkin incomplete and omitted"
+  ]
+}

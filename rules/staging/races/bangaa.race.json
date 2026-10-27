@@ -1,0 +1,2674 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:bangaa",
+  "name": "Bangaa",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/bangaa/",
+      "title": "Bangaa — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/heritages",
+        "reason": "All four heritage vectors replace baseline DEX/WIS/INT vector AND Keen Senses skill; heritage vs alternate replacement resolution must be tested to avoid stacking.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "Questioning Knowledge specialization and Weapon Familiarity weapon catalog are open-ended choices. Both selectors are intentionally unresolved; no auto-grants.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Desert Delver Endurance prerequisite-only and 20-degree adjustment; Bite primary/secondary and Blinded conditional scent require combat/sense runtime review.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "11 race-specific favored rewards require canonical class feature ID/revision and fractional cap reconciliation; remain manual.",
+        "blocking": true
+      },
+      {
+        "path": "/review",
+        "reason": "Staging-only source paraphrases and effects are not independent rules approval; source text is not bundled or licensed. Live wizard and sheet behavior has not been tested.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools/bonus-languages",
+        "reason": "Source race page names high-INT options but does not spell out count/reselection mechanics; formula max(0, INT_MOD) is a provisional standard-system interpretation only, not approved for auto-application.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Bangaa Heritages",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate feat/archetype catalogs excluded by extraction contract; trait-granted feats retained."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate feat/archetype catalogs excluded by extraction contract; trait-granted feats retained."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate feat catalog intentionally excluded; directly granted feats retained as racial rules."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetype catalog intentionally excluded."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:bangaa:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 Dexterity, +2 Wisdom, −2 Intelligence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:ability-score-adjustment:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5931"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5931"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:trait:ability-score-adjustment:effect:ability-score-ability-scores-wis-1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5931"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5931"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:trait:ability-score-adjustment:effect:ability-score-ability-scores-int-2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5931"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5931"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5931"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:size",
+      "name": "Size",
+      "description": "Medium; no size bonus or penalty.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5932"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5932"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:type",
+      "name": "Type",
+      "description": "Humanoid with the reptilian subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (reptilian)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5933"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5933"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Land speed 30 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "30 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5934"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5934"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common and Banganese. High-Intelligence bonus language choices: Draconic, Giant, Ignan, Numish, Seeq, Terran.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Banganese",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:bangaa:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5935"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": null,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "5935"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:desert-delver",
+      "name": "Desert Delver",
+      "description": "+4 racial to Constitution checks and Fortitude saves to avoid fatigue, exhaustion, and adverse effects from running, forced marches, starvation, thirst, hot/cold environments. Treat temperature as 20 degrees cooler or warmer for extreme heat or cold. Counts as Endurance for feat prerequisites, but otherwise stacks with Endurance feat.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:desert-delver:effect:defense-bonus-saving-throws-fortitude-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.fortitude",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5938"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Fatigue, exhaustion or ill effects from running, forced marches, starvation, thirst, and hot/cold environments"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5938"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:trait:desert-delver:effect:custom-checks-constitution-1",
+          "kind": "custom",
+          "target": "checks.constitution",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5938"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Same fatigue/exhaustion and environmental situations"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5938"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:trait:desert-delver:effect:custom-temperature-adjustment-2",
+          "kind": "custom",
+          "target": "temperature_adjustment",
+          "operation": "add",
+          "value": null,
+          "textValue": "Treat temperature as 20°F warmer or cooler for extreme heat/cold effects; Endurance counts only toward feat prerequisites, other Endurance benefit stacks.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5938"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5938"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:elemental-resistance",
+      "name": "Elemental Resistance",
+      "description": "Resist 5 fire and resist 5 ice (not every element).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:elemental-resistance:effect:defense-bonus-resistance-fire-0",
+          "kind": "defense_bonus",
+          "target": "resistance.fire",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5939"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5939"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:trait:elemental-resistance:effect:defense-bonus-resistance-ice-1",
+          "kind": "defense_bonus",
+          "target": "resistance.ice",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5939"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5939"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5939"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:stability",
+      "name": "Stability",
+      "description": "+4 racial CMD only to resist bull rush or trip while standing on ground.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:stability:effect:defense-bonus-combat-maneuvers-cmd-0",
+          "kind": "defense_bonus",
+          "target": "combat_maneuvers.cmd",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5940"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only while standing on ground, versus bull rush and trip"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5940"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5940"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:thick-skinned",
+      "name": "Thick-skinned",
+      "description": "+1 natural armor bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:thick-skinned:effect:defense-bonus-armor-class-natural-armor-0",
+          "kind": "defense_bonus",
+          "target": "armor_class.natural_armor",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5941"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "natural_armor",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5941"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5941"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:keen-senses:effect:skill-bonus-skills-perception-0",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "5944"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5944"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5944"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:well-balanced",
+      "name": "Well-Balanced",
+      "description": "+2 racial Acrobatics.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:well-balanced:effect:skill-bonus-skills-acrobatics-0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "5945"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5945"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5945"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:bite",
+      "name": "Bite",
+      "description": "Natural bite dealing 1d3 damage. Primary when not using manufactured weapons, secondary when wielding manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:bite:effect:custom-natural-attack-0",
+          "kind": "custom",
+          "target": "natural_attack",
+          "operation": "add",
+          "value": null,
+          "textValue": "1d3 bite; primary except secondary if wielding manufactured weapons.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "5948"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "5948"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:deft-pugilist",
+      "name": "Deft Pugilist",
+      "description": "Always considered armed when making unarmed attacks; these do not provoke an attack of opportunity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:deft-pugilist:effect:custom-unarmed-armed-status-0",
+          "kind": "custom",
+          "target": "unarmed_armed_status",
+          "operation": "add",
+          "value": null,
+          "textValue": "Unarmed strikes count as armed and do not provoke attack of opportunity.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "5949"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "5949"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "Can see twice as far as a hume in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:low-light-vision:effect:identity-senses-low-light-vision-0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "Twice normal hume distance in dim light",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "5952"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "5952"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:blinded",
+      "name": "Blinded",
+      "description": "Blind, but gain scent. While able to use scent, no usual blindness penalties; if scent is unusable, the blindness limitation remains. Replaces Low-Light Vision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:blinded:effect:custom-blind-with-scent-0",
+          "kind": "custom",
+          "target": "blind_with_scent",
+          "operation": "add",
+          "value": null,
+          "textValue": "Apply blinded status and scent together; scent substitutes for blindness penalties only while usable. Blindness/scent interactions must be adjudicated.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5956"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:trait:blinded:effect:identity-senses-scent-1",
+          "kind": "identity",
+          "target": "senses.scent",
+          "operation": "set",
+          "value": null,
+          "textValue": "Scent; also blind",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5956"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5956"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:claws",
+      "name": "Claws",
+      "description": "Gain TWO secondary natural claws, each 1d3 damage, instead of natural armor Thick-skinned.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:claws:effect:custom-secondary-natural-claws-0",
+          "kind": "custom",
+          "target": "secondary_natural_claws",
+          "operation": "add",
+          "value": null,
+          "textValue": "Two separate secondary claw attacks; 1d3 damage each.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5957"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5957"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:prehensile-tail",
+      "name": "Prehensile Tail",
+      "description": "Tail can carry objects but cannot wield a weapon. Retrieve a small stowed item carried on the body as a swift action. Replaces Stability.",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:prehensile-tail:effect:custom-tail-retrieval-0",
+          "kind": "custom",
+          "target": "tail_retrieval",
+          "operation": "add",
+          "value": null,
+          "textValue": "Retrieve small personal stowed item as swift action; cannot attack or wield weapon with tail.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5958"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5958"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:questioning",
+      "name": "Questioning",
+      "description": "All existing Knowledge skills become class skills; select ONE Knowledge specialty for a +2 racial bonus. Replaces Well-Balanced.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:trait:questioning:effect:custom-knowledge-class-skills-0",
+          "kind": "custom",
+          "target": "knowledge_class_skills",
+          "operation": "add",
+          "value": null,
+          "textValue": "All existing Knowledge specializations count as class skills; create no new rows.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5959"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:bangaa:pool:questioning-knowledge-specialty"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5959"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5959"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:bangaa:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Gain proficiency with ONE chosen weapon, selected from the weapon catalog. Replaces Deft Pugilist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:bangaa:pool:bangaa-weapon-proficiency"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5960"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5960"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:bangaa:heritage:bista:feature:abilities",
+      "name": "Bista heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'con': 2, 'cha': 2, 'str': -2}. Apply instead of the standard racial ability adjustment, never in addition. +2 racial Intimidate in place of baseline +2 Perception.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:heritage:bista:feature:abilities:effect:ability-score-ability-scores-con-0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5968"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5968"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:heritage:bista:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5968"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5968"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:heritage:bista:feature:abilities:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5968"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5968"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5968"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:heritage:bista:feature:alternate",
+      "name": "Bista heritage alternate ability",
+      "description": "Copper-colored, laid-back lineage.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:heritage:bista:feature:alternate:effect:skill-bonus-skills-intimidate-0",
+          "kind": "skill_bonus",
+          "target": "skills.intimidate",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5968"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5968"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5968"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:heritage:faas:feature:abilities",
+      "name": "Faas heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'str': 2, 'wis': 2, 'int': -2}. Apply instead of the standard racial ability adjustment, never in addition. +2 racial Swim in place of baseline +2 Perception.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:heritage:faas:feature:abilities:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5969"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5969"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:heritage:faas:feature:abilities:effect:ability-score-ability-scores-wis-1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5969"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5969"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:heritage:faas:feature:abilities:effect:ability-score-ability-scores-int-2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5969"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5969"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5969"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:heritage:faas:feature:alternate",
+      "name": "Faas heritage alternate ability",
+      "description": "Bronze-skinned athletic soldiers.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:heritage:faas:feature:alternate:effect:skill-bonus-skills-swim-0",
+          "kind": "skill_bonus",
+          "target": "skills.swim",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5969"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5969"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5969"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:heritage:ruga:feature:abilities",
+      "name": "Ruga heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'cha': 2, 'str': -2}. Apply instead of the standard racial ability adjustment, never in addition. +2 racial Diplomacy in place of baseline +2 Perception.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:heritage:ruga:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5970"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5970"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:heritage:ruga:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5970"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5970"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:heritage:ruga:feature:abilities:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5970"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5970"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5970"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:heritage:ruga:feature:alternate",
+      "name": "Ruga heritage alternate ability",
+      "description": "Gentle and often instructors or monks.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:heritage:ruga:feature:alternate:effect:skill-bonus-skills-diplomacy-0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5970"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5970"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5970"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:heritage:sanga:feature:abilities",
+      "name": "Sanga heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'con': 2, 'wis': 2, 'dex': -2}. Apply instead of the standard racial ability adjustment, never in addition. +2 racial Sense Motive in place of baseline +2 Perception.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:heritage:sanga:feature:abilities:effect:ability-score-ability-scores-con-0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5971"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5971"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:heritage:sanga:feature:abilities:effect:ability-score-ability-scores-wis-1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5971"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5971"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:heritage:sanga:feature:abilities:effect:ability-score-ability-scores-dex-2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5971"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5971"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5971"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:bangaa:heritage:sanga:feature:alternate",
+      "name": "Sanga heritage alternate ability",
+      "description": "Ash-colored lineage with stronger interactions with humes.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:bangaa:heritage:sanga:feature:alternate:effect:skill-bonus-skills-sense-motive-0",
+          "kind": "skill_bonus",
+          "target": "skills.sense-motive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5971"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5971"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5971"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:bangaa:pool:questioning-knowledge-specialty",
+      "name": "Questioning Knowledge specialty",
+      "choiceType": "skill",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Pick exactly one existing Knowledge specialty; catalog must match wizard skill rows; +2 racial only on selected row.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5959"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:bangaa:pool:bangaa-weapon-proficiency",
+      "name": "Bangaa weapon proficiency",
+      "choiceType": "other",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "One valid weapon from existing complete weapon catalog; do not grant every proficiency.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5960"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:bangaa:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:bangaa:pool:bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:bonus-languages:option:ignan",
+          "name": "Ignan",
+          "description": "Ignan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ignan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:bonus-languages:option:numish",
+          "name": "Numish",
+          "description": "Numish",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "numish",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:bonus-languages:option:seeq",
+          "name": "Seeq",
+          "description": "Seeq",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "seeq",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:bonus-languages:option:terran",
+          "name": "Terran",
+          "description": "Terran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "terran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Source gives this finite list. High INT eligibility/count follows the core language system and must be verified; do not auto-award every option or recompute initial picks.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5935"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:bangaa:trait:ability-score-adjustment",
+      "ffd20:race:bangaa:trait:size",
+      "ffd20:race:bangaa:trait:type",
+      "ffd20:race:bangaa:trait:base-speed",
+      "ffd20:race:bangaa:trait:languages",
+      "ffd20:race:bangaa:trait:desert-delver",
+      "ffd20:race:bangaa:trait:elemental-resistance",
+      "ffd20:race:bangaa:trait:stability",
+      "ffd20:race:bangaa:trait:thick-skinned",
+      "ffd20:race:bangaa:trait:keen-senses",
+      "ffd20:race:bangaa:trait:well-balanced",
+      "ffd20:race:bangaa:trait:bite",
+      "ffd20:race:bangaa:trait:deft-pugilist",
+      "ffd20:race:bangaa:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:bangaa:trait:blinded",
+      "ffd20:race:bangaa:trait:claws",
+      "ffd20:race:bangaa:trait:prehensile-tail",
+      "ffd20:race:bangaa:trait:questioning",
+      "ffd20:race:bangaa:trait:weapon-familiarity"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:bangaa:trait:blinded:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:bangaa:trait:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:bangaa:trait:blinded"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Blinded replaces Low-Light Vision.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5956"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:trait:claws:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:bangaa:trait:thick-skinned"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:bangaa:trait:claws"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Claws replaces Thick-skinned.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5957"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:trait:prehensile-tail:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:bangaa:trait:stability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:bangaa:trait:prehensile-tail"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Prehensile Tail replaces Stability.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5958"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:trait:questioning:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:bangaa:trait:well-balanced"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:bangaa:trait:questioning"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Questioning replaces Well-Balanced.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5959"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:trait:weapon-familiarity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:bangaa:trait:deft-pugilist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:bangaa:trait:weapon-familiarity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Weapon Familiarity replaces Deft Pugilist.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5960"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:bangaa:heritage:bista",
+        "name": "Bista",
+        "description": "Bista heritage. Copper-colored, laid-back lineage. +2 racial Intimidate in place of baseline +2 Perception.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:bangaa:heritage:bista:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:bangaa:trait:ability-score-adjustment",
+              "ffd20:race:bangaa:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:bangaa:heritage:bista:feature:abilities",
+              "ffd20:race:bangaa:heritage:bista:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Bista replaces default ability adjustment vector AND Keen Senses +2 Perception with +2 racial Intimidate; do not stack; unaffected traits retained.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5968"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:bangaa:heritage:bista:feature:abilities",
+          "ffd20:race:bangaa:heritage:bista:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "5968"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:heritage:faas",
+        "name": "Faas",
+        "description": "Faas heritage. Bronze-skinned athletic soldiers. +2 racial Swim in place of baseline +2 Perception.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:bangaa:heritage:faas:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:bangaa:trait:ability-score-adjustment",
+              "ffd20:race:bangaa:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:bangaa:heritage:faas:feature:abilities",
+              "ffd20:race:bangaa:heritage:faas:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Faas replaces default ability adjustment vector AND Keen Senses +2 Perception with +2 racial Swim; do not stack; unaffected traits retained.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5969"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:bangaa:heritage:faas:feature:abilities",
+          "ffd20:race:bangaa:heritage:faas:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "5969"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:heritage:ruga",
+        "name": "Ruga",
+        "description": "Ruga heritage. Gentle and often instructors or monks. +2 racial Diplomacy in place of baseline +2 Perception.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:bangaa:heritage:ruga:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:bangaa:trait:ability-score-adjustment",
+              "ffd20:race:bangaa:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:bangaa:heritage:ruga:feature:abilities",
+              "ffd20:race:bangaa:heritage:ruga:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Ruga replaces default ability adjustment vector AND Keen Senses +2 Perception with +2 racial Diplomacy; do not stack; unaffected traits retained.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5970"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:bangaa:heritage:ruga:feature:abilities",
+          "ffd20:race:bangaa:heritage:ruga:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "5970"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:heritage:sanga",
+        "name": "Sanga",
+        "description": "Sanga heritage. Ash-colored lineage with stronger interactions with humes. +2 racial Sense Motive in place of baseline +2 Perception.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:bangaa:heritage:sanga:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:bangaa:trait:ability-score-adjustment",
+              "ffd20:race:bangaa:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:bangaa:heritage:sanga:feature:abilities",
+              "ffd20:race:bangaa:heritage:sanga:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Sanga replaces default ability adjustment vector AND Keen Senses +2 Perception with +2 racial Sense Motive; do not stack; unaffected traits retained.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5971"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:bangaa:heritage:sanga:feature:abilities",
+          "ffd20:race:bangaa:heritage:sanga:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "5971"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:bangaa:favored:beastmaster",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Bangaa Beastmaster favored reward",
+        "description": "+1/2 to confirmation of unarmed or natural weapon critical hits, capped at +4; does not stack with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5989 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:berserker",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:berserker",
+        "name": "Bangaa Berserker favored reward",
+        "description": "+1/2 to confirmation of unarmed or natural weapon critical hits, capped at +4; does not stack with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5990 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:black-belt",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:black-belt",
+        "name": "Bangaa Black Belt favored reward",
+        "description": "Accumulate +1/6 of one new master technique.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5991 Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:cleric",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:cleric",
+        "name": "Bangaa Cleric favored reward",
+        "description": "+1/2 Intimidate checks and Knowledge checks to identify creatures.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5992 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:dragoon",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:dragoon",
+        "name": "Bangaa Dragoon favored reward",
+        "description": "+1 elemental damage from Dragon’s Breath ability.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5993 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:gambler",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:gambler",
+        "name": "Bangaa Gambler favored reward",
+        "description": "+1/4 gambler luck pool points.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5994 Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:gunner",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:gunner",
+        "name": "Bangaa Gunner favored reward",
+        "description": "+1/6 dodge AC from nimble class ability.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5995 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:knight",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:knight",
+        "name": "Bangaa Knight favored reward",
+        "description": "+1 available defensive stance round each day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5996 Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:monk",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:monk",
+        "name": "Bangaa Monk favored reward",
+        "description": "+1/2 flying kick damage rolls.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5997 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:thief",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:thief",
+        "name": "Bangaa Thief favored reward",
+        "description": "+1 sneak attack damage in surprise round or before target has acted.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5998 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:bangaa:favored:warrior",
+        "raceId": "ffd20:race:bangaa",
+        "classId": "ffd20:class:warrior",
+        "name": "Bangaa Warrior favored reward",
+        "description": "+1/2 weapon damage against flanked opponents or those denied DEX bonus to AC.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5999 Warrior"
+          }
+        ]
+      }
+    ]
+  }
+}

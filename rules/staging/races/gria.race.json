@@ -1,0 +1,2931 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:gria",
+  "name": "Gria",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/gria/",
+      "title": "Gria - Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Class-targeted favored rewards remain manual until referenced class feature IDs and fractional accumulations are reconciled.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Four heritage rows verified; flight is embedded in source Base Speed, split as a separate trait for exact removal; parent movement/heritage interactions require integration testing.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Constitution bonus when nonpositive does not define a minimum no-check flight duration; glide behavior is not specified; feat selection and per-day Orc Ferocity require engine support.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "Weapon Focus requires live proficient-weapon catalog; language entitlement from standard rule requires separate confirmation.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "External feats catalog excluded; direct racial grants retained."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetypes catalog excluded from race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:gria:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 STR; +2 CHA; -2 WIS.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:ability-score-adjustment:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:ability-score-adjustment:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:ability-score-adjustment:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:size",
+      "name": "Size",
+      "description": "Medium size; no size-based adjustments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:size:effect:0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:type",
+      "name": "Type",
+      "description": "Humanoid with gria subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:type:effect:0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (gria)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed. Limited natural flight is a separate movement component below, not unrestricted always-on flight.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common, Draconic. High-Intelligence options: Banganese, Giant, Goblin, Ignan, Seeq, Terran.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Draconic",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:gria:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": 0,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6030"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:gria:trait:weakened-flight",
+      "name": "Weakened Flight",
+      "description": "While wearing light or no armor and bearing no more than a light load, natural flight at land speed (30 feet) with clumsy maneuverability. Fly for CON bonus rounds at a time without checks. Each further round requires a Constitution check at DC 10 + 2 for each extra round. After a flight, must rest for twice the number of rounds flown before flying again. The source does not explicitly state a minimum number of no-check rounds for negative or zero Constitution bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity",
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:weakened-flight:effect:0",
+          "kind": "custom",
+          "target": "movement.flight",
+          "operation": "add",
+          "value": null,
+          "textValue": "speed=land speed; maneuverability=clumsy; only light/no armor and <=light load; CON bonus rounds then escalating CON DC; rest 2x rounds flown",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029-6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029-6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:fearless",
+      "name": "Fearless",
+      "description": "+2 racial saving throws against fear spells and effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:fearless:effect:0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Fear spell or effect"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:stubborn",
+      "name": "Stubborn",
+      "description": "+2 racial Will saves against illusion spells and spell-like abilities. If the save fails and duration exceeds one round, receive a second save one round later at the original DC to end effect early. Only one similar reroll ability may be used in a single round; can try another next round if first fails.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:stubborn:effect:0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.will",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6034-6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Illusion school spell or spell-like ability"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6034-6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:stubborn:effect:1",
+          "kind": "custom",
+          "target": "saves.second_chance",
+          "operation": "add",
+          "value": null,
+          "textValue": "Second save 1 round after failed illusion save; same DC, duration >1 round; no combining same-round reroll abilities",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6034-6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6034-6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:athleticism",
+      "name": "Athleticism",
+      "description": "+2 racial bonus on Acrobatics skill checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:athleticism:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:diplomatic",
+      "name": "Diplomatic",
+      "description": "+2 racial bonus on Diplomacy skill checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:diplomatic:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6039"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:survivalist",
+      "name": "Survivalist",
+      "description": "+2 racial bonus on Survival skill checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:survivalist:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.survival",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:martial-background",
+      "name": "Martial Background",
+      "description": "Gain Weapon Focus at level 1 for any one weapon in which this character is proficient; player selects the weapon, feat prerequisites and catalog identity must be checked.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:martial-background:effect:0",
+          "kind": "custom",
+          "target": "feats.granted",
+          "operation": "add",
+          "value": null,
+          "textValue": "Weapon Focus (one selected proficient weapon) at first character level",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6041"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:gria:pool:weapon-focus-weapon"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feat and Skill Racial Traits",
+            "locator": "6041"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:gria:trait:destructive",
+      "name": "Destructive",
+      "description": "+2 racial bonus on sunder combat maneuver checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:destructive:effect:0",
+          "kind": "custom",
+          "target": "combat.sunder",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 racial CMB on sunder checks",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with knight sword and longbow (including composite longbow).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:weapon-familiarity:effect:0",
+          "kind": "custom",
+          "target": "proficiencies.weapons",
+          "operation": "add",
+          "value": null,
+          "textValue": "knight sword; longbow; composite longbow",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as a hume in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:low-light-vision:effect:0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "double range in dim light",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6049"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:bestial",
+      "name": "Bestial",
+      "description": "+2 racial Perception bonus; replaces Diplomatic.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:bestial:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6053"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:desert-runner",
+      "name": "Desert Runner",
+      "description": "+4 racial bonus on Constitution checks and Fortitude saves to avoid fatigue, exhaustion, or harmful effects from running, forced marches, starvation, thirst, and hot or cold environments. Replaces Weapon Familiarity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:desert-runner:effect:0",
+          "kind": "custom",
+          "target": "defenses.endurance",
+          "operation": "add",
+          "value": null,
+          "textValue": "+4 racial CON checks/Fortitude saves versus named hazards",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6054"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:dual-minded",
+      "name": "Dual Minded",
+      "description": "+2 bonus to all Will saves; replaces Fearless and Weapon Familiarity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:dual-minded:effect:0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.will",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6055"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6055"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:erdane-guardian",
+      "name": "Erdane Guardian",
+      "description": "+2 to Knowledge (nature) and Knowledge (geography) checks, with both treated as class skills. Replaces Athleticism and Survivalist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:erdane-guardian:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge_nature",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6056"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6056"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:erdane-guardian:effect:1",
+          "kind": "custom",
+          "target": "class_skills.knowledge_nature",
+          "operation": "add",
+          "value": null,
+          "textValue": "racial class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6056"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:erdane-guardian:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge_geography",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6056"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6056"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:erdane-guardian:effect:3",
+          "kind": "custom",
+          "target": "class_skills.knowledge_geography",
+          "operation": "add",
+          "value": null,
+          "textValue": "racial class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6056"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6056"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:orc-ferocity",
+      "name": "Orc Ferocity",
+      "description": "Once daily, when reduced below 0 HP but not killed, remain able to act for 1 round as though disabled. At end of next turn fall unconscious and begin dying unless healed above 0 HP. Replaces Weapon Familiarity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:orc-ferocity:effect:0",
+          "kind": "custom",
+          "target": "survival.orc_ferocity",
+          "operation": "add",
+          "value": null,
+          "textValue": "Once/day at HP below 0 but alive: act 1 round as disabled; fall dying at end next turn unless HP above 0",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6057"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:fleet-footed",
+      "name": "Fleet-Footed",
+      "description": "Run as a bonus feat, and +2 racial initiative checks. Replaces Survivalist and Martial Background.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:fleet-footed:effect:0",
+          "kind": "custom",
+          "target": "feats.granted",
+          "operation": "add",
+          "value": null,
+          "textValue": "Run bonus feat",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:fleet-footed:effect:1",
+          "kind": "custom",
+          "target": "initiative",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 racial initiative",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:skymaster",
+      "name": "Skymaster",
+      "description": "+2 to Fly and Pilot skill checks. Replaces Athleticism and Survivalist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:skymaster:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.fly",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6059"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6059"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:skymaster:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.pilot",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6059"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6059"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:heritage-cave-wyrm-ability-scores",
+      "name": "Heritage Cave Wyrm Ability Scores",
+      "description": "+2 CON; +2 WIS; -2 CHA.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:heritage-cave-wyrm-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6067 table row Cave Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6067 table row Cave Wyrm"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-cave-wyrm-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6067 table row Cave Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6067 table row Cave Wyrm"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-cave-wyrm-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6067 table row Cave Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6067 table row Cave Wyrm"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6067 table row Cave Wyrm"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:heritage-cave-wyrm-alternate-movement",
+      "name": "Heritage Cave Wyrm Alternate Movement",
+      "description": "Cannot fly; climb speed equal to half land speed; can glide. Glide distance/speed specifics are not stated in the source row and require rules clarification.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:heritage-cave-wyrm-alternate-movement:effect:0",
+          "kind": "custom",
+          "target": "movement.climb",
+          "operation": "add",
+          "value": null,
+          "textValue": "climb speed = half land speed",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6067 table row Cave Wyrm"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-cave-wyrm-alternate-movement:effect:1",
+          "kind": "custom",
+          "target": "movement.glide",
+          "operation": "add",
+          "value": null,
+          "textValue": "gliding ability, unspecified detailed limits",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6067 table row Cave Wyrm"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6067 table row Cave Wyrm"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:heritage-draconic-ability-scores",
+      "name": "Heritage Draconic Ability Scores",
+      "description": "+2 STR; +2 WIS; -2 DEX.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:heritage-draconic-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6068 table row Draconic"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6068 table row Draconic"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-draconic-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6068 table row Draconic"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6068 table row Draconic"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-draconic-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6068 table row Draconic"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6068 table row Draconic"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6068 table row Draconic"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:heritage-draconic-alternate-movement",
+      "name": "Heritage Draconic Alternate Movement",
+      "description": "Standard limited-flight restrictions remain, but flight maneuverability improves from clumsy to poor.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:heritage-draconic-alternate-movement:effect:0",
+          "kind": "custom",
+          "target": "movement.flight",
+          "operation": "add",
+          "value": null,
+          "textValue": "Inherited limited flight; poor maneuverability, all original duration/armor/recovery rules",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6068 table row Draconic"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6068 table row Draconic"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:heritage-ocean-wyrm-ability-scores",
+      "name": "Heritage Ocean Wyrm Ability Scores",
+      "description": "+2 DEX; +2 CHA; -2 WIS.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:heritage-ocean-wyrm-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6069 table row Ocean Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6069 table row Ocean Wyrm"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-ocean-wyrm-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6069 table row Ocean Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6069 table row Ocean Wyrm"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-ocean-wyrm-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6069 table row Ocean Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6069 table row Ocean Wyrm"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6069 table row Ocean Wyrm"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:heritage-ocean-wyrm-alternate-movement",
+      "name": "Heritage Ocean Wyrm Alternate Movement",
+      "description": "Cannot fly; gains swim speed equal to land speed, and Amphibious (breathes air and water).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:heritage-ocean-wyrm-alternate-movement:effect:0",
+          "kind": "custom",
+          "target": "movement.swim",
+          "operation": "add",
+          "value": null,
+          "textValue": "swim speed=land speed; amphibious air+water breathing",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6069 table row Ocean Wyrm"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6069 table row Ocean Wyrm"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:heritage-sand-wyrm-ability-scores",
+      "name": "Heritage Sand Wyrm Ability Scores",
+      "description": "+2 DEX; +2 WIS; -2 STR.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:heritage-sand-wyrm-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070 table row Sand Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6070 table row Sand Wyrm"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-sand-wyrm-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070 table row Sand Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6070 table row Sand Wyrm"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:trait:heritage-sand-wyrm-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070 table row Sand Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6070 table row Sand Wyrm"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6070 table row Sand Wyrm"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gria:trait:heritage-sand-wyrm-alternate-movement",
+      "name": "Heritage Sand Wyrm Alternate Movement",
+      "description": "Cannot fly; land speed becomes 35 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gria:trait:heritage-sand-wyrm-alternate-movement:effect:0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 35,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070 table row Sand Wyrm"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6070 table row Sand Wyrm"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6070 table row Sand Wyrm"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:gria:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:gria:pool:bonus-languages:option:banganese",
+          "name": "Banganese",
+          "description": "Banganese",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "banganese",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:pool:bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:pool:bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:pool:bonus-languages:option:ignan",
+          "name": "Ignan",
+          "description": "Ignan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ignan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:pool:bonus-languages:option:seeq",
+          "name": "Seeq",
+          "description": "Seeq",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "seeq",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gria:pool:bonus-languages:option:terran",
+          "name": "Terran",
+          "description": "Terran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "terran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible high-Intelligence choices. Count and repeated selections require standard language-rule audit.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:gria:pool:weapon-focus-weapon",
+      "name": "Weapon Focus weapon",
+      "choiceType": "other",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Choose any SINGLE currently proficient weapon. Candidate list must be populated by weapon-proficiency catalog (not automatically all weapons).",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6041"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:gria:trait:ability-score-adjustment",
+      "ffd20:race:gria:trait:size",
+      "ffd20:race:gria:trait:type",
+      "ffd20:race:gria:trait:base-speed",
+      "ffd20:race:gria:trait:languages",
+      "ffd20:race:gria:trait:weakened-flight",
+      "ffd20:race:gria:trait:fearless",
+      "ffd20:race:gria:trait:stubborn",
+      "ffd20:race:gria:trait:athleticism",
+      "ffd20:race:gria:trait:diplomatic",
+      "ffd20:race:gria:trait:survivalist",
+      "ffd20:race:gria:trait:martial-background",
+      "ffd20:race:gria:trait:destructive",
+      "ffd20:race:gria:trait:weapon-familiarity",
+      "ffd20:race:gria:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:gria:trait:bestial",
+      "ffd20:race:gria:trait:desert-runner",
+      "ffd20:race:gria:trait:dual-minded",
+      "ffd20:race:gria:trait:erdane-guardian",
+      "ffd20:race:gria:trait:orc-ferocity",
+      "ffd20:race:gria:trait:fleet-footed",
+      "ffd20:race:gria:trait:skymaster"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:gria:trait:bestial:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gria:trait:diplomatic"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gria:trait:bestial"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Bestial: replaces Diplomatic.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:trait:desert-runner:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gria:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gria:trait:desert-runner"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Desert Runner: replaces Weapon Familiarity.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:trait:dual-minded:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gria:trait:fearless",
+          "ffd20:race:gria:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gria:trait:dual-minded"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dual Minded: replaces Fearless, Weapon Familiarity.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:trait:erdane-guardian:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gria:trait:athleticism",
+          "ffd20:race:gria:trait:survivalist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gria:trait:erdane-guardian"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Erdane Guardian: replaces Athleticism, Survivalist.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6056"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:trait:orc-ferocity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gria:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gria:trait:orc-ferocity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Orc Ferocity: replaces Weapon Familiarity.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:trait:fleet-footed:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gria:trait:survivalist",
+          "ffd20:race:gria:trait:martial-background"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gria:trait:fleet-footed"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Fleet-Footed: replaces Survivalist, Martial Background.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:trait:skymaster:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gria:trait:athleticism",
+          "ffd20:race:gria:trait:survivalist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gria:trait:skymaster"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Skymaster: replaces Athleticism, Survivalist.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:gria:heritage:cave-wyrm",
+        "name": "Cave Wyrm",
+        "description": "Cannot fly; climb speed equal to half land speed; can glide. Glide distance/speed specifics are not stated in the source row and require rules clarification.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:gria:heritage:cave-wyrm:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:gria:trait:ability-score-adjustment",
+              "ffd20:race:gria:trait:weakened-flight"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:gria:trait:heritage-cave-wyrm-ability-scores",
+              "ffd20:race:gria:trait:heritage-cave-wyrm-alternate-movement"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Cannot fly; climb speed equal to half land speed; can glide. Glide distance/speed specifics are not stated in the source row and require rules clarification. Source table supersedes the normal racial score vector; other standard traits are retained.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6067 table row Cave Wyrm"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:gria:trait:heritage-cave-wyrm-ability-scores",
+          "ffd20:race:gria:trait:heritage-cave-wyrm-alternate-movement"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6067 table row Cave Wyrm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:heritage:draconic",
+        "name": "Draconic",
+        "description": "Standard limited-flight restrictions remain, but flight maneuverability improves from clumsy to poor.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:gria:heritage:draconic:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:gria:trait:ability-score-adjustment",
+              "ffd20:race:gria:trait:weakened-flight"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:gria:trait:heritage-draconic-ability-scores",
+              "ffd20:race:gria:trait:heritage-draconic-alternate-movement"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Standard limited-flight restrictions remain, but flight maneuverability improves from clumsy to poor. Source table supersedes the normal racial score vector; other standard traits are retained.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6068 table row Draconic"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:gria:trait:heritage-draconic-ability-scores",
+          "ffd20:race:gria:trait:heritage-draconic-alternate-movement"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6068 table row Draconic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:heritage:ocean-wyrm",
+        "name": "Ocean Wyrm",
+        "description": "Cannot fly; gains swim speed equal to land speed, and Amphibious (breathes air and water).",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:gria:heritage:ocean-wyrm:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:gria:trait:ability-score-adjustment",
+              "ffd20:race:gria:trait:weakened-flight"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:gria:trait:heritage-ocean-wyrm-ability-scores",
+              "ffd20:race:gria:trait:heritage-ocean-wyrm-alternate-movement"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Cannot fly; gains swim speed equal to land speed, and Amphibious (breathes air and water). Source table supersedes the normal racial score vector; other standard traits are retained.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6069 table row Ocean Wyrm"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:gria:trait:heritage-ocean-wyrm-ability-scores",
+          "ffd20:race:gria:trait:heritage-ocean-wyrm-alternate-movement"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6069 table row Ocean Wyrm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:heritage:sand-wyrm",
+        "name": "Sand Wyrm",
+        "description": "Cannot fly; land speed becomes 35 feet.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:gria:heritage:sand-wyrm:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:gria:trait:ability-score-adjustment",
+              "ffd20:race:gria:trait:weakened-flight",
+              "ffd20:race:gria:trait:base-speed"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:gria:trait:heritage-sand-wyrm-ability-scores",
+              "ffd20:race:gria:trait:heritage-sand-wyrm-alternate-movement"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Cannot fly; land speed becomes 35 feet. Source table supersedes the normal racial score vector; other standard traits are retained.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070 table row Sand Wyrm"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:gria:trait:heritage-sand-wyrm-ability-scores",
+          "ffd20:race:gria:trait:heritage-sand-wyrm-alternate-movement"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6070 table row Sand Wyrm"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:gria:favored:bard",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:bard",
+        "name": "Gria Bard favored reward",
+        "description": "+1 CMD to resist disarm or sunder attempts.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6089 Bard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:beastmaster",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Gria Beastmaster favored reward",
+        "description": "+1 animal companion HP OR +1 companion skill rank; future replacement companion inherits reward.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6090 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:berserker",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:berserker",
+        "name": "Gria Berserker favored reward",
+        "description": "+1 daily rage round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6091 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:black-belt",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:black-belt",
+        "name": "Gria Black Belt favored reward",
+        "description": "+1/6 towards another master technique.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6092 Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:gambler",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:gambler",
+        "name": "Gria Gambler favored reward",
+        "description": "+1/6 towards another gambler gambit.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6093 Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:geomancer",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:geomancer",
+        "name": "Gria Geomancer favored reward",
+        "description": "+1/4 to daily uses of Geomancy.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6094 Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:knight",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:knight",
+        "name": "Gria Knight favored reward",
+        "description": "+1 round per day of defensive stance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6095 Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:monk",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:monk",
+        "name": "Gria Monk favored reward",
+        "description": "+1/3 CMD.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:paladin",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:paladin",
+        "name": "Gria Paladin favored reward",
+        "description": "+1/2 to HP healed or harmed by lay on hands.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:samurai",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:samurai",
+        "name": "Gria Samurai favored reward",
+        "description": "+1/6 to Bushido save DC.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098 Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:thief",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:thief",
+        "name": "Gria Thief favored reward",
+        "description": "+1 daily casting of 1st-level spell from major magic talent; only if associated talent already possessed.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gria:favored:warrior",
+        "raceId": "ffd20:race:gria",
+        "classId": "ffd20:class:warrior",
+        "name": "Gria Warrior favored reward",
+        "description": "+1 CMD to resist disarm or sunder attempts.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100 Warrior"
+          }
+        ]
+      }
+    ]
+  }
+}

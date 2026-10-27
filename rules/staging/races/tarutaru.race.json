@@ -1,0 +1,4347 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:tarutaru",
+  "name": "Tarutaru",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/core-races/tarutaru/",
+      "title": "Tarutaru — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Official Explorer description replaces \"spell focus\" but standard traits contain \"Magick Focus\" and no Spell Focus trait. The target remains deliberately unresolved, no automatic selection. Polyglot additionally modifies baseline Languages requiring component-level integration.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Detect Magic SLA class-vs-character level binding, Magical Linguist spells, once-per-day Natural-1 reroll, illusion followup saving throw, rest healing and conditional buffs need rule-engine review.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Four heritages have one-of skill choice replacing Talented; choice bonuses must not all apply or stack with old Talented selection. Lalafell age ranges are metadata awaiting Identity support.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Per-class fractional increments, some minimum class-level gates, dynamic spell catalog and capped pools require manual selection/approval.",
+        "blocking": true
+      },
+      {
+        "path": "/review",
+        "reason": "Rule effects are mechanically paraphrased staging interpretations, not independently approved. No changes to live wizard or production manifest are authorized by structural validation.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "All printed standard mechanics from current official page transcribed to staging."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Every printed alternate trait represented, with manual target conflicts flagged."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "All printed rows; no variant heritage table is present for Half-Breed."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "All 39 printed entries retained as manual class-targeted rewards."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate feat catalog not a racial grant."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate archetype catalog excluded; bloodline eligibility not auto-applied."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate racial feat catalog not part of racial traits."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate class archetypes excluded."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:tarutaru:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 Dexterity, +2 Intelligence and -2 Strength.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:ability-score-adjustment:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:trait:ability-score-adjustment:effect:ability-score-ability-scores-int-1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:trait:ability-score-adjustment:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:type",
+      "name": "Type",
+      "description": "Humanoid with tarutaru subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (tarutaru)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:size",
+      "name": "Size",
+      "description": "Small; usual modifiers include +1 size AC, +1 size attack, -1 CMB/CMD and +4 Stealth.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Land speed 20 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "20 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:languages",
+      "name": "Languages",
+      "description": "Starts with Common and Lalafellan. High Intelligence permits Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin or Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Lalafellan",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:defensive-training",
+      "name": "Defensive Training",
+      "description": "+4 dodge bonus AC against creatures of giant subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:defensive-training:effect:defense-bonus-armor-class-0",
+          "kind": "defense_bonus",
+          "target": "armor_class",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": {
+            "type": "manual",
+            "description": "Only giant subtype enemies"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:magic-resistant",
+      "name": "Magic Resistant",
+      "description": "+1 racial on saves versus spells and spell-like effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:magic-resistant:effect:defense-bonus-saving-throws-all-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only spells or spell-like effects"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:stubborn",
+      "name": "Stubborn",
+      "description": "+2 racial Will against illusion spells/SLAs; if first save fails and effect persists longer than one round, another save one round later at original DC. May not stack same-round reroll abilities.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:magic-expert",
+      "name": "Magic Expert",
+      "description": "+2 racial on Knowledge (arcana) and Spellcraft.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:magic-expert:effect:skill-bonus-skills-knowledge-arcana-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-arcana",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:trait:magic-expert:effect:skill-bonus-skills-spellcraft-1",
+          "kind": "skill_bonus",
+          "target": "skills.spellcraft",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:talented",
+      "name": "Talented",
+      "description": "Select one Craft or Profession specialization to gain +2 racial on that skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:tarutaru:pool:tarutaru-craft-profession-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6039"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:magic-aptitude",
+      "name": "Magic Aptitude",
+      "description": "+2 racial caster-level checks to pierce spell resistance and +2 racial dispel checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:magick-focus",
+      "name": "Magick Focus",
+      "description": "+2 racial on defensive casting concentration checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:magick-focus:effect:skill-bonus-concentration-0",
+          "kind": "skill_bonus",
+          "target": "concentration",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Magical Racial Traits",
+                "locator": "6043"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only casting defensively"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:spell-like-ability",
+      "name": "Spell-Like Ability",
+      "description": "May cast detect magic as SLA at will; class level sets caster level (source wording; multiclass ambiguity unresolved).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:low-light-vision",
+      "name": "Low-light Vision",
+      "description": "Double normal hume visual range under poor illumination; colors and detail remain distinguishable.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:low-light-vision:effect:identity-senses-low-light-vision-0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "2x distance dim illumination",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6047"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:academician",
+      "name": "Academician",
+      "description": "Choose a single Knowledge specialty for +2 bonus; replaces Talented.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:tarutaru:pool:academician-knowledge-specialty"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:architectural-ingenuity",
+      "name": "Architectural Ingenuity",
+      "description": "+2 Knowledge (engineering), plus Craft and Perception specifically connected to structures or structural traps. Replaces Talented.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:architectural-ingenuity:effect:skill-bonus-skills-knowledge-engineering-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-engineering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6052"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:dirty-trickster",
+      "name": "Dirty Trickster",
+      "description": "+2 racial dirty trick maneuvers; ignore Intelligence prerequisites of Combat Expertise, Improved Dirty Trick and feats gated by Improved Dirty Trick. Replaces Defensive Training and Talented.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:eternal-hope",
+      "name": "Eternal Hope",
+      "description": "+2 racial saves versus fear/despair; once daily after a natural 1 on a d20, reroll and use second roll. Replaces Defensive Training.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:explorer",
+      "name": "Explorer",
+      "description": "+2 racial Climb and a selectable Knowledge specialty. Source says replaces Talented AND \"spell focus\", a trait absent from standard racial list (perhaps Magick Focus); must not guess.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:explorer:effect:skill-bonus-skills-climb-0",
+          "kind": "skill_bonus",
+          "target": "skills.climb",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6055"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6055"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:tarutaru:pool:explorer-knowledge-specialty"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:inquisitive",
+      "name": "Inquisitive",
+      "description": "+2 racial Disable Device and Escape Artist; replaces Magic Expert.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:inquisitive:effect:skill-bonus-skills-disable-device-0",
+          "kind": "skill_bonus",
+          "target": "skills.disable-device",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6056"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6056"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:trait:inquisitive:effect:skill-bonus-skills-escape-artist-1",
+          "kind": "skill_bonus",
+          "target": "skills.escape-artist",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6056"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6056"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6056"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:intrepid-settler",
+      "name": "Intrepid Settler",
+      "description": "+2 racial saves against fear and Acrobatics, Climb, Swim checks; replaces Magic Expert and Talented.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:intrepid-settler:effect:skill-bonus-skills-acrobatics-0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6057"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6057"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:trait:intrepid-settler:effect:skill-bonus-skills-climb-1",
+          "kind": "skill_bonus",
+          "target": "skills.climb",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6057"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6057"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:trait:intrepid-settler:effect:skill-bonus-skills-swim-2",
+          "kind": "skill_bonus",
+          "target": "skills.swim",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6057"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6057"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:magical-linguist",
+      "name": "Magical Linguist",
+      "description": "+1 save DC of language-dependent and glyph/symbol/magical writing spells; +2 saves against same; if CHA 11+, comprehend languages, message, read magic SLAs each once daily, caster level = character level. Replaces Spell-Like Ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:polyglot",
+      "name": "Polyglot",
+      "description": "+2 Linguistics, always class skill; also one extra starting language unrestricted, maintaining regular bonus languages. Replaces Magic Expert AND modifies Languages.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:polyglot:effect:skill-bonus-skills-linguistics-0",
+          "kind": "skill_bonus",
+          "target": "skills.linguistics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6060"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:practicality",
+      "name": "Practicality",
+      "description": "+2 Craft or Profession selected specialty, Sense Motive, and saves versus illusions. Replaces Magic Expert and Magic Aptitude.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:practicality:effect:skill-bonus-skills-sense-motive-0",
+          "kind": "skill_bonus",
+          "target": "skills.sense-motive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:student-of-the-city",
+      "name": "Student of the City",
+      "description": "+2 racial Knowledge (local); may use Knowledge (local) instead of Diplomacy to gather info. Replaces Talented.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:student-of-the-city:effect:skill-bonus-skills-knowledge-local-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-local",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:vivacious",
+      "name": "Vivacious",
+      "description": "Healing from rest +50% (min 1), and healing spells grant extra floor(caster level / 2) HP (min 0); does not affect fast healing. Replaces Magic Resistant.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:warden-of-nature",
+      "name": "Warden of Nature",
+      "description": "+2 dodge AC and +1 attack rolls specifically against aberrations, oozes and vermin. Replaces Defensive Training.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:warden-of-nature:effect:defense-bonus-armor-class-0",
+          "kind": "defense_bonus",
+          "target": "armor_class",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": {
+            "type": "manual",
+            "description": "Only aberrations/oozes/vermin"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6065"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:trait:wright",
+      "name": "Wright",
+      "description": "+2 racial Drive and vehicle-related Craft/Repair. Replaces Talented and Magic Expert.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:trait:wright:effect:skill-bonus-skills-drive-0",
+          "kind": "skill_bonus",
+          "target": "skills.drive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6066"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:abilities",
+      "name": "Dunesfolk Lalafell heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'int': 2, 'con': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:abilities:effect:ability-score-ability-scores-int-1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:abilities:effect:ability-score-ability-scores-con-2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:alternate",
+      "name": "Dunesfolk Lalafell heritage alternate ability",
+      "description": "Choose ONE skill for +2 racial: Appraise OR Bluff. This replaces the Talented skill choice, not all other racial traits.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Tarutaru Heritages",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6075"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice:grant:appraise",
+      "name": "Appraise choice bonus",
+      "description": "Selecting this option applies +2 racial bonus to Appraise once. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice:grant:appraise:effect:skill-bonus-skills-appraise-0",
+          "kind": "skill_bonus",
+          "target": "skills.appraise",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice:grant:bluff",
+      "name": "Bluff choice bonus",
+      "description": "Selecting this option applies +2 racial bonus to Bluff once. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice:grant:bluff:effect:skill-bonus-skills-bluff-0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:heritage:gnome:feature:abilities",
+      "name": "Gnome heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'cha': 2, 'wis': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:heritage:gnome:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:heritage:gnome:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:heritage:gnome:feature:abilities:effect:ability-score-ability-scores-wis-2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:heritage:gnome:feature:alternate",
+      "name": "Gnome heritage alternate ability",
+      "description": "Choose ONE skill for +2 racial: Stealth OR Spellcraft. This replaces the Talented skill choice, not all other racial traits.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:tarutaru:pool:gnome-skill-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Tarutaru Heritages",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6076"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:gnome-skill-choice:grant:stealth",
+      "name": "Stealth choice bonus",
+      "description": "Selecting this option applies +2 racial bonus to Stealth once. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:pool:gnome-skill-choice:grant:stealth:effect:skill-bonus-skills-stealth-0",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:gnome-skill-choice:grant:spellcraft",
+      "name": "Spellcraft choice bonus",
+      "description": "Selecting this option applies +2 racial bonus to Spellcraft once. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:pool:gnome-skill-choice:grant:spellcraft:effect:skill-bonus-skills-spellcraft-0",
+          "kind": "skill_bonus",
+          "target": "skills.spellcraft",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:heritage:nymian:feature:abilities",
+      "name": "Nymian heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'wis': 2, 'str': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:heritage:nymian:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:heritage:nymian:feature:abilities:effect:ability-score-ability-scores-wis-1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:heritage:nymian:feature:abilities:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:heritage:nymian:feature:alternate",
+      "name": "Nymian heritage alternate ability",
+      "description": "Choose ONE skill for +2 racial: Knowledge (arcana) OR Knowledge (planes). This replaces the Talented skill choice, not all other racial traits.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:tarutaru:pool:nymian-skill-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Tarutaru Heritages",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6077"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:nymian-skill-choice:grant:knowledge-arcana",
+      "name": "Knowledge (arcana) choice bonus",
+      "description": "Selecting this option applies +2 racial bonus to Knowledge (arcana) once. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:pool:nymian-skill-choice:grant:knowledge-arcana:effect:skill-bonus-skills-knowledge-arcana-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-arcana",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:nymian-skill-choice:grant:knowledge-planes",
+      "name": "Knowledge (planes) choice bonus",
+      "description": "Selecting this option applies +2 racial bonus to Knowledge (planes) once. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:pool:nymian-skill-choice:grant:knowledge-planes:effect:skill-bonus-skills-knowledge-planes-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-planes",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:heritage:pelupelu:feature:abilities",
+      "name": "Pelupelu heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'dex': 2, 'cha': 2, 'str': -2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:heritage:pelupelu:feature:abilities:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6078"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:heritage:pelupelu:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6078"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:heritage:pelupelu:feature:abilities:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6078"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:heritage:pelupelu:feature:alternate",
+      "name": "Pelupelu heritage alternate ability",
+      "description": "Choose ONE skill for +2 racial: Diplomacy OR Bluff. This replaces the Talented skill choice, not all other racial traits.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:tarutaru:pool:pelupelu-skill-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Tarutaru Heritages",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6078"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:pelupelu-skill-choice:grant:diplomacy",
+      "name": "Diplomacy choice bonus",
+      "description": "Selecting this option applies +2 racial bonus to Diplomacy once. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:pool:pelupelu-skill-choice:grant:diplomacy:effect:skill-bonus-skills-diplomacy-0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6078"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:pelupelu-skill-choice:grant:bluff",
+      "name": "Bluff choice bonus",
+      "description": "Selecting this option applies +2 racial bonus to Bluff once. Other options are not granted.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tarutaru:pool:pelupelu-skill-choice:grant:bluff:effect:skill-bonus-skills-bluff-0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6078"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:tarutaru:pool:tarutaru-craft-profession-choice",
+      "name": "Tarutaru Craft/Profession choice",
+      "choiceType": "skill",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6039"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:academician-knowledge-specialty",
+      "name": "Academician Knowledge specialty",
+      "choiceType": "skill",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6051"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:explorer-knowledge-specialty",
+      "name": "Explorer Knowledge specialty",
+      "choiceType": "skill",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6055"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice",
+      "name": "Dunesfolk Lalafell skill choice",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice:option:appraise",
+          "name": "Appraise",
+          "description": "Appraise",
+          "featureIds": [
+            "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice:grant:appraise"
+          ],
+          "spellIds": [],
+          "value": "appraise",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice:option:bluff",
+          "name": "Bluff",
+          "description": "Bluff",
+          "featureIds": [
+            "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice:grant:bluff"
+          ],
+          "spellIds": [],
+          "value": "bluff",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6075"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:gnome-skill-choice",
+      "name": "Gnome skill choice",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:tarutaru:pool:gnome-skill-choice:option:stealth",
+          "name": "Stealth",
+          "description": "Stealth",
+          "featureIds": [
+            "ffd20:race:tarutaru:pool:gnome-skill-choice:grant:stealth"
+          ],
+          "spellIds": [],
+          "value": "stealth",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:gnome-skill-choice:option:spellcraft",
+          "name": "Spellcraft",
+          "description": "Spellcraft",
+          "featureIds": [
+            "ffd20:race:tarutaru:pool:gnome-skill-choice:grant:spellcraft"
+          ],
+          "spellIds": [],
+          "value": "spellcraft",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6076"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:nymian-skill-choice",
+      "name": "Nymian skill choice",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:tarutaru:pool:nymian-skill-choice:option:knowledge-arcana",
+          "name": "Knowledge (arcana)",
+          "description": "Knowledge (arcana)",
+          "featureIds": [
+            "ffd20:race:tarutaru:pool:nymian-skill-choice:grant:knowledge-arcana"
+          ],
+          "spellIds": [],
+          "value": "knowledge-arcana",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:nymian-skill-choice:option:knowledge-planes",
+          "name": "Knowledge (planes)",
+          "description": "Knowledge (planes)",
+          "featureIds": [
+            "ffd20:race:tarutaru:pool:nymian-skill-choice:grant:knowledge-planes"
+          ],
+          "spellIds": [],
+          "value": "knowledge-planes",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6077"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:pelupelu-skill-choice",
+      "name": "Pelupelu skill choice",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:tarutaru:pool:pelupelu-skill-choice:option:diplomacy",
+          "name": "Diplomacy",
+          "description": "Diplomacy",
+          "featureIds": [
+            "ffd20:race:tarutaru:pool:pelupelu-skill-choice:grant:diplomacy"
+          ],
+          "spellIds": [],
+          "value": "diplomacy",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:pelupelu-skill-choice:option:bluff",
+          "name": "Bluff",
+          "description": "Bluff",
+          "featureIds": [
+            "ffd20:race:tarutaru:pool:pelupelu-skill-choice:grant:bluff"
+          ],
+          "spellIds": [],
+          "value": "bluff",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6078"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "core",
+    "standardTraitIds": [
+      "ffd20:race:tarutaru:trait:ability-score-adjustment",
+      "ffd20:race:tarutaru:trait:type",
+      "ffd20:race:tarutaru:trait:size",
+      "ffd20:race:tarutaru:trait:base-speed",
+      "ffd20:race:tarutaru:trait:languages",
+      "ffd20:race:tarutaru:trait:defensive-training",
+      "ffd20:race:tarutaru:trait:magic-resistant",
+      "ffd20:race:tarutaru:trait:stubborn",
+      "ffd20:race:tarutaru:trait:magic-expert",
+      "ffd20:race:tarutaru:trait:talented",
+      "ffd20:race:tarutaru:trait:magic-aptitude",
+      "ffd20:race:tarutaru:trait:magick-focus",
+      "ffd20:race:tarutaru:trait:spell-like-ability",
+      "ffd20:race:tarutaru:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:tarutaru:trait:academician",
+      "ffd20:race:tarutaru:trait:architectural-ingenuity",
+      "ffd20:race:tarutaru:trait:dirty-trickster",
+      "ffd20:race:tarutaru:trait:eternal-hope",
+      "ffd20:race:tarutaru:trait:explorer",
+      "ffd20:race:tarutaru:trait:inquisitive",
+      "ffd20:race:tarutaru:trait:intrepid-settler",
+      "ffd20:race:tarutaru:trait:magical-linguist",
+      "ffd20:race:tarutaru:trait:polyglot",
+      "ffd20:race:tarutaru:trait:practicality",
+      "ffd20:race:tarutaru:trait:student-of-the-city",
+      "ffd20:race:tarutaru:trait:vivacious",
+      "ffd20:race:tarutaru:trait:warden-of-nature",
+      "ffd20:race:tarutaru:trait:wright"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:tarutaru:trait:academician:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:talented"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:academician"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Academician replaces Talented.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:architectural-ingenuity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:talented"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:architectural-ingenuity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Architectural Ingenuity replaces Talented.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:dirty-trickster:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:defensive-training",
+          "ffd20:race:tarutaru:trait:talented"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:dirty-trickster"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dirty Trickster replaces Defensive Training, Talented.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:eternal-hope:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:defensive-training"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:eternal-hope"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Eternal Hope replaces Defensive Training.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:explorer:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:talented",
+          "ffd20:race:tarutaru:trait:spell-focus"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:explorer"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Explorer replaces Talented, Spell Focus.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:inquisitive:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:magic-expert"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:inquisitive"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Inquisitive replaces Magic Expert.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6056"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:intrepid-settler:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:magic-expert",
+          "ffd20:race:tarutaru:trait:talented"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:intrepid-settler"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Intrepid Settler replaces Magic Expert, Talented.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:magical-linguist:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:spell-like-ability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:magical-linguist"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Magical Linguist replaces Spell-Like Ability.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:polyglot:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:magic-expert"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:polyglot"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Polyglot replaces Magic Expert.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:polyglot:language-modifier",
+        "operation": "modify",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:languages"
+        ],
+        "targetEventIds": [],
+        "scope": "part_of_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Alter starting language list, retain normal bonus-language permissions.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:practicality:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:magic-expert",
+          "ffd20:race:tarutaru:trait:magic-aptitude"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:practicality"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Practicality replaces Magic Expert, Magic Aptitude.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:student-of-the-city:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:talented"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:student-of-the-city"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Student of the City replaces Talented.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:vivacious:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:magic-resistant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:vivacious"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Vivacious replaces Magic Resistant.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:warden-of-nature:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:defensive-training"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:warden-of-nature"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Warden of Nature replaces Defensive Training.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:trait:wright:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tarutaru:trait:talented",
+          "ffd20:race:tarutaru:trait:magic-expert"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tarutaru:trait:wright"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wright replaces Talented, Magic Expert.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6066"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:tarutaru:heritage:dunesfolk-lalafell",
+        "name": "Dunesfolk Lalafell",
+        "description": "Dunesfolk Lalafell heritage. Choose ONE skill for +2 racial: Appraise OR Bluff. This replaces the Talented skill choice, not all other racial traits.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:tarutaru:trait:ability-score-adjustment",
+              "ffd20:race:tarutaru:trait:talented"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:abilities",
+              "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Talented with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:abilities",
+          "ffd20:race:tarutaru:heritage:dunesfolk-lalafell:feature:alternate"
+        ],
+        "choicePoolIds": [
+          "ffd20:race:tarutaru:pool:dunesfolk-lalafell-skill-choice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:heritage:gnome",
+        "name": "Gnome",
+        "description": "Gnome heritage. Choose ONE skill for +2 racial: Stealth OR Spellcraft. This replaces the Talented skill choice, not all other racial traits.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:tarutaru:heritage:gnome:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:tarutaru:trait:ability-score-adjustment",
+              "ffd20:race:tarutaru:trait:talented"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:tarutaru:heritage:gnome:feature:abilities",
+              "ffd20:race:tarutaru:heritage:gnome:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Talented with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:tarutaru:heritage:gnome:feature:abilities",
+          "ffd20:race:tarutaru:heritage:gnome:feature:alternate"
+        ],
+        "choicePoolIds": [
+          "ffd20:race:tarutaru:pool:gnome-skill-choice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:heritage:nymian",
+        "name": "Nymian",
+        "description": "Nymian heritage. Choose ONE skill for +2 racial: Knowledge (arcana) OR Knowledge (planes). This replaces the Talented skill choice, not all other racial traits.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:tarutaru:heritage:nymian:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:tarutaru:trait:ability-score-adjustment",
+              "ffd20:race:tarutaru:trait:talented"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:tarutaru:heritage:nymian:feature:abilities",
+              "ffd20:race:tarutaru:heritage:nymian:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Talented with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:tarutaru:heritage:nymian:feature:abilities",
+          "ffd20:race:tarutaru:heritage:nymian:feature:alternate"
+        ],
+        "choicePoolIds": [
+          "ffd20:race:tarutaru:pool:nymian-skill-choice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:heritage:pelupelu",
+        "name": "Pelupelu",
+        "description": "Pelupelu heritage. Choose ONE skill for +2 racial: Diplomacy OR Bluff. This replaces the Talented skill choice, not all other racial traits.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:tarutaru:heritage:pelupelu:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:tarutaru:trait:ability-score-adjustment",
+              "ffd20:race:tarutaru:trait:talented"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:tarutaru:heritage:pelupelu:feature:abilities",
+              "ffd20:race:tarutaru:heritage:pelupelu:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Talented with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6078"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:tarutaru:heritage:pelupelu:feature:abilities",
+          "ffd20:race:tarutaru:heritage:pelupelu:feature:alternate"
+        ],
+        "choicePoolIds": [
+          "ffd20:race:tarutaru:pool:pelupelu-skill-choice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6078"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:tarutaru:favored:archer",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:archer",
+        "name": "Tarutaru Archer favored reward",
+        "description": "+1/4 bow and crossbow damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:astrologian",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:astrologian",
+        "name": "Tarutaru Astrologian favored reward",
+        "description": "Concentration checks when casting astrologian spells +1.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100 Astrologian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:bard",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:bard",
+        "name": "Tarutaru Bard favored reward",
+        "description": "Add one daily bardic-performance round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6101 Bard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:beastmaster",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Tarutaru Beastmaster favored reward",
+        "description": "Choose companion HP +1 or skill rank +1; kept by successor companion.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6102 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:berserker",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:berserker",
+        "name": "Tarutaru Berserker favored reward",
+        "description": "Reduce AC penalty while raging by one-fifth, no more than 2 points total.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 5
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6103 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:black-belt",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:black-belt",
+        "name": "Tarutaru Black Belt favored reward",
+        "description": "Increase martial flexibility daily uses by one-quarter.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6104 Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:black-mage",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:black-mage",
+        "name": "Tarutaru Black Mage favored reward",
+        "description": "+1/2 checks to craft magical items.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6105 Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:blue-mage",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Tarutaru Blue Mage favored reward",
+        "description": "Increase every fixed Knowledge specialization check by one-sixth.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6106 Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:chemist",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:chemist",
+        "name": "Tarutaru Chemist favored reward",
+        "description": "Add a foot to thrown splash/bomb range, effective every 5 selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6107 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:chocobo-knight",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Tarutaru Chocobo Knight favored reward",
+        "description": "Mount HP +1, including replacement mounts.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6108 Chocobo Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:cleric",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:cleric",
+        "name": "Tarutaru Cleric favored reward",
+        "description": "Increase channel healing for animal, fey and plant creature types by one-half.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6109 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:dancer",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:dancer",
+        "name": "Tarutaru Dancer favored reward",
+        "description": "If dancer level at least 4, add +1 to Perform bonus purchased by spending ki.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6110 Dancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:dark-knight",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Tarutaru Dark Knight favored reward",
+        "description": "Gain one-quarter of an additional harm-touch use.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6111 Dark Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:dragoon",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:dragoon",
+        "name": "Tarutaru Dragoon favored reward",
+        "description": "+1/2 Acrobatics checks when jumping.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6112 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:druid",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:druid",
+        "name": "Tarutaru Druid favored reward",
+        "description": "Animal companion gains one HP, retained on replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6113 Druid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:engineer",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:engineer",
+        "name": "Tarutaru Engineer favored reward",
+        "description": "Gain +1/2 bonus to Craft checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6114 Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:fencer",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:fencer",
+        "name": "Tarutaru Fencer favored reward",
+        "description": "+1 CMD defending against dirty trick and steal.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6115 Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:freelancer",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:freelancer",
+        "name": "Tarutaru Freelancer favored reward",
+        "description": "JP +1 per selection; rewards become usable every ten picks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6116 Freelancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:gambler",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:gambler",
+        "name": "Tarutaru Gambler favored reward",
+        "description": "Add one-quarter to luck pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6117 Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:geomancer",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:geomancer",
+        "name": "Tarutaru Geomancer favored reward",
+        "description": "Gain one-sixth toward another 1d6 geomancy damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6118 Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:gunner",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:gunner",
+        "name": "Tarutaru Gunner favored reward",
+        "description": "+1/6 Nimble dodge AC bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6119 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:gunbreaker",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Tarutaru Gunbreaker favored reward",
+        "description": "Gain one-sixth toward a new gunbreaker talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6120 Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:illusionist",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:illusionist",
+        "name": "Tarutaru Illusionist favored reward",
+        "description": "Increase DC of illusion spells by one-sixth.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6121 Illusionist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:knight",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:knight",
+        "name": "Tarutaru Knight favored reward",
+        "description": "While bearing any shield, gain one-sixth shield bonus to AC.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6122 Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:medic",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:medic",
+        "name": "Tarutaru Medic favored reward",
+        "description": "While using triage increase speed by one foot, effective in combat every five picks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6123 Medic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:monk",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:monk",
+        "name": "Tarutaru Monk favored reward",
+        "description": "+1 CMD against grapple/trip.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6124 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:necromancer",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:necromancer",
+        "name": "Tarutaru Necromancer favored reward",
+        "description": "Bone commander HP +1.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6125 Necromancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:ninja",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:ninja",
+        "name": "Tarutaru Ninja favored reward",
+        "description": "At ninja level 5+, +1 to Acrobatics bonus from spending ki.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6126 Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:paladin",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:paladin",
+        "name": "Tarutaru Paladin favored reward",
+        "description": "Add one-half HP to lay on hands healing/harm.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6127 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:psychic",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:psychic",
+        "name": "Tarutaru Psychic favored reward",
+        "description": "Phrenic pool +one-quarter point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6128 Psychic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:red-mage",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:red-mage",
+        "name": "Tarutaru Red Mage favored reward",
+        "description": "Choose an extra fixed arcane pool weapon property from allying, conductive, defending, ghost touch, menacing, merciful, mighty cleaving, vicious; irreversible choice.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6129 Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:samurai",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:samurai",
+        "name": "Tarutaru Samurai favored reward",
+        "description": "Knowledge (history) +1/2.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6130 Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:scholar",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:scholar",
+        "name": "Tarutaru Scholar favored reward",
+        "description": "Add one-sixth to daily arcane reservoir points.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6131 Scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:summoner",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:summoner",
+        "name": "Tarutaru Summoner favored reward",
+        "description": "Avatar summoning time reduced by one round to minimum one round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6132 Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:sword-saint",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Tarutaru Sword Saint favored reward",
+        "description": "+1 CMD against dirty trick and steal.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6133 Sword Saint"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:thief",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:thief",
+        "name": "Tarutaru Thief favored reward",
+        "description": "Add +1/2 Disable Device/Use Magic Device involving magical script, glyphs or scrolls.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6134 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:time-mage",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:time-mage",
+        "name": "Tarutaru Time Mage favored reward",
+        "description": "Gain one-sixth additional d3 for a check boosted with a mote.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6135 Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:warrior",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:warrior",
+        "name": "Tarutaru Warrior favored reward",
+        "description": "+1 CMD against disarm/sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6136 Warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tarutaru:favored:white-mage",
+        "raceId": "ffd20:race:tarutaru",
+        "classId": "ffd20:class:white-mage",
+        "name": "Tarutaru White Mage favored reward",
+        "description": "Add half HP to lay on hands healing/harm.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6137 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

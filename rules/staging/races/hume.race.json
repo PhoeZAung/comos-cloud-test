@@ -1,0 +1,5675 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:hume",
+  "name": "Hume",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/core-races/hume/",
+      "title": "Hume — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/heritages/mako-infused-super-soldier",
+        "reason": "Mako replenishment and escalation timing, and whether alternate racial ability choices interact with Mako heritage, require GM review; no recovery timing guessed.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "All 32 alternate traits have source-mapped target IDs, but replacement effects, mixed-heritage nesting, and external feature/feat choices have not been tested in the live wizard.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "All current race-page favored class rewards recorded; external class descriptions and unresolved class IDs need later reconciliation. Rewards are descriptions/manual, not auto-applied.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Heritages must be reconciled with alternate traits already consuming baseline ability adjustment or Skilled; heritage-specific bonus choices must not stack or double-count. Mako supply timing unknown.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "All unrestricted feat/language choices, training/cultural options, and companion skill/ability choices require explicit availability rules before automation.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official page gameplay section read and relevant mechanical objects recorded in staging; independent review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate racial catalog excluded by extraction contract."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate racial catalog excluded by extraction contract."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Excluded separate feat catalog; racial traits granting feats are included."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Excluded separate archetype catalog; listed names do not authorize applying archetypes."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:hume:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "At character creation select one of six abilities for a +2 racial increase.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:hume:pool:hume-2-racial-ability"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6023"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:hume:trait:size",
+      "name": "Size",
+      "description": "Medium size; do not separately double count size-derived modifiers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6024"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:type",
+      "name": "Type",
+      "description": "Humanoid with hume subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (hume)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Land speed 30 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "30 feet land",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:languages",
+      "name": "Languages",
+      "description": "Start with Common; additional languages from high Intelligence may be any language allowed by the Linguistics rules.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:bonus-feat",
+      "name": "Bonus Feat",
+      "description": "Select one additional qualifying feat at character level 1.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "feats"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:curiosity",
+      "name": "Curiosity",
+      "description": "Gain +4 Diplomacy to gather information. Knowledge (history) and Knowledge (local) are class skills; for any of these already provided as a class skill, gain +2 racial to that skill instead.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:curiosity:effect:skill-bonus-skills-diplomacy-0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only when using Diplomacy to gather information"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:curiosity:effect:class-skill-skills-knowledge-history-1",
+          "kind": "class_skill",
+          "target": "skills.knowledge-history",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Class skill unless already class skill; then +2 racial to checks instead.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:curiosity:effect:class-skill-skills-knowledge-local-2",
+          "kind": "class_skill",
+          "target": "skills.knowledge-local",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Class skill unless already class skill; then +2 racial to checks instead.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:integrated",
+      "name": "Integrated",
+      "description": "Gain +1 racial on Bluff, Disguise and Knowledge (local).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:integrated:effect:skill-bonus-skills-bluff-0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:integrated:effect:skill-bonus-skills-disguise-1",
+          "kind": "skill_bonus",
+          "target": "skills.disguise",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:integrated:effect:skill-bonus-skills-knowledge-local-2",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-local",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:skilled",
+      "name": "Skilled",
+      "description": "Gain one additional skill rank at 1st character level and one additional rank at each later character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:skilled:effect:custom-skill-ranks-extra-per-character-level-0",
+          "kind": "custom",
+          "target": "skill_ranks.extra_per_character_level",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:sociable",
+      "name": "Sociable",
+      "description": "After failing a Diplomacy attempt to improve attitude by 5 or more, may attempt again before the normal 24-hour wait.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:adoptive-parentage",
+      "name": "Adoptive Parentage",
+      "description": "Choose non-hume humanoid ancestry; inherit its starting languages and weapon familiarity. If absent, choose a suitable Skill Focus or Weapon Focus feat instead.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:alchemically-enhanced",
+      "name": "Alchemically Enhanced",
+      "description": "Choose STR, DEX or CON for +3 racial; take −2 Fortitude against poison.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:alchemically-enhanced:effect:defense-bonus-saves-fortitude-0",
+          "kind": "defense_bonus",
+          "target": "saves.fortitude",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only against poison"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:hume:pool:alchemically-enhanced-ability-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6038"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:hume:trait:awareness",
+      "name": "Awareness",
+      "description": "+1 racial to every saving throw and concentration check.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:awareness:effect:defense-bonus-saves-fortitude-0",
+          "kind": "defense_bonus",
+          "target": "saves.fortitude",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6039"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:awareness:effect:defense-bonus-saves-reflex-1",
+          "kind": "defense_bonus",
+          "target": "saves.reflex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6039"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:awareness:effect:defense-bonus-saves-will-2",
+          "kind": "defense_bonus",
+          "target": "saves.will",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6039"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:background-character",
+      "name": "Background Character",
+      "description": "+1 racial to Disguise, Knowledge (dungeoneering), and Stealth checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:background-character:effect:skill-bonus-skills-disguise-0",
+          "kind": "skill_bonus",
+          "target": "skills.disguise",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:background-character:effect:skill-bonus-skills-knowledge-dungeoneering-1",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-dungeoneering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:background-character:effect:skill-bonus-skills-stealth-2",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:comprehensive-education",
+      "name": "Comprehensive Education",
+      "description": "Every Knowledge specialization becomes class skill and gains +1 racial bonus on checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:deep-magic",
+      "name": "Deep Magic",
+      "description": "+2 racial on caster-level checks to overcome spell resistance and on dispel checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:distanced",
+      "name": "Distanced",
+      "description": "+4 racial on Acrobatics checks to pass through threatened squares.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:dual-talent",
+      "name": "Dual Talent",
+      "description": "Choose two distinct ability scores, receiving +2 racial to each.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:hume:pool:dual-talent-choose-two-abilities"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6044"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:hume:trait:emissary",
+      "name": "Emissary",
+      "description": "Once daily, roll twice on one Bluff or Diplomacy check and keep higher result.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:eye-for-talent",
+      "name": "Eye for Talent",
+      "description": "+2 racial Sense Motive. When gaining an animal companion, automaton, avatar, bonded mount, bone commander, cohort, familiar or comparable companion, it gains +2 to a chosen ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:focused-study",
+      "name": "Focused Study",
+      "description": "Receive Skill Focus bonus feat at character levels 1, 8, and 16, choosing its skill each time.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:frontier-survivor",
+      "name": "Frontier Survivor",
+      "description": "Gain Technologist as a bonus feat and +2 racial Survival in ruined cities.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heart-of-the-fields",
+      "name": "Heart of the Fields",
+      "description": "Choose a Craft or Profession specialization for racial bonus equal to half total character level; once per day ignore one incoming fatigue or exhaustion effect.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heart-of-the-mountains",
+      "name": "Heart of the Mountains",
+      "description": "+2 racial Climb, and Acrobatics on narrow/uneven surfaces; acclimated to high altitude.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heart-of-the-sea",
+      "name": "Heart of the Sea",
+      "description": "+2 racial Profession (sailor) and Swim; both are class skills; breath holding lasts twice normal; casters receive +4 concentration to cast underwater.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heart-of-the-slums",
+      "name": "Heart of the Slums",
+      "description": "+2 racial Sleight of Hand and Stealth; +4 racial Survival in urban or underground locations; when saving vs disease roll twice and use better result.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heart-of-the-snows",
+      "name": "Heart of the Snows",
+      "description": "Treat cold climate severity one step lower; +2 racial Fortitude against cold climate effects, slipping/falling checks or saves, and CMD vs trip; also Acrobatics/Climb on slick footing.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heart-of-the-streets",
+      "name": "Heart of the Streets",
+      "description": "While adjacent to at least two allies, +1 racial Reflex and +1 dodge AC; crowds do not impose difficult terrain.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heart-of-the-sun",
+      "name": "Heart of the Sun",
+      "description": "Treat hot climate severity one step lower; +2 racial Fortitude vs hot weather and swarm/vermin poison or distraction.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heart-of-the-wilderness",
+      "name": "Heart of the Wilderness",
+      "description": "Survival racial bonus equals half total character level; +5 racial Constitution checks to stabilize; when computing fatal negative HP threshold treat CON score as higher by half character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6056"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:heroic",
+      "name": "Heroic",
+      "description": "If optional hero points apply, gain two hero points each character level instead of one, or three with Blood of Heroes.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:industrious",
+      "name": "Industrious",
+      "description": "+2 racial concentration and +2 racial to one chosen Craft or Profession specialization.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:innovative",
+      "name": "Innovative",
+      "description": "+2 racial Knowledge (arcana) and Spellcraft for original spell research, novel magic-item crafting and unique magic recognition; +2 Charisma-based persuasion promoting new ideas.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:institutional-memory",
+      "name": "Institutional Memory",
+      "description": "+4 racial Knowledge about the organizations, guilds, religions to which the hume belongs; checks can be untrained.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:military-tradition",
+      "name": "Military Tradition",
+      "description": "Proficient with up to two culturally appropriate martial or exotic weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:mixed-heritage",
+      "name": "Mixed Heritage",
+      "description": "Choose a second distinct Heart of the ... alternate racial trait in addition to the normal selected one.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:one-of-the-multitude",
+      "name": "One of the Multitude",
+      "description": "Within 10 feet of two or more other humanoids gain +1 racial Bluff, Diplomacy, Disguise, Sleight of Hand, Stealth; +1 racial attack of opportunity rolls while flanking.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:piety",
+      "name": "Piety",
+      "description": "+2 racial Knowledge (religion), always class skill. Once daily, speak invocation before one attack, save, ability check or skill check to add +2 racial to that roll.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:practiced-hunter",
+      "name": "Practiced Hunter",
+      "description": "+2 racial Stealth and Survival; both become class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:trait:practiced-hunter:effect:skill-bonus-skills-stealth-0",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6065"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:trait:practiced-hunter:effect:skill-bonus-skills-survival-1",
+          "kind": "skill_bonus",
+          "target": "skills.survival",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6065"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:silver-tongued",
+      "name": "Silver Tongued",
+      "description": "+2 racial Diplomacy and Bluff. Diplomacy attitude improvement can shift up to three stages instead of two.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:social-ties",
+      "name": "Social Ties",
+      "description": "+2 racial Diplomacy, +2 racial skill checks recruiting organization teams or members, +1 racial Leadership score if the feat is possessed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:trait:wayfarer",
+      "name": "Wayfarer",
+      "description": "+2 racial Survival to avoid getting lost, Knowledge (geography) and Knowledge (local). Each Linguistics rank provides two languages instead of one.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:cetra:feature:abilities",
+      "name": "Cetra heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'wis': 2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:heritage:cetra:feature:abilities:effect:ability-score-ability-scores-wis-0",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:cetra:feature:alternate",
+      "name": "Cetra heritage alternate ability",
+      "description": "Knowledge (arcana) and Knowledge (planes) both gain +2 racial and become class skills; gain one extra language choice.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:heritage:cetra:feature:alternate:effect:skill-bonus-skills-knowledge-arcana-0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-arcana",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:heritage:cetra:feature:alternate:effect:class-skill-skills-knowledge-arcana-1",
+          "kind": "class_skill",
+          "target": "skills.knowledge-arcana",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:heritage:cetra:feature:alternate:effect:skill-bonus-skills-knowledge-planes-2",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge-planes",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:heritage:cetra:feature:alternate:effect:class-skill-skills-knowledge-planes-3",
+          "kind": "class_skill",
+          "target": "skills.knowledge-planes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:highlander:feature:abilities",
+      "name": "Highlander heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'str': 2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:heritage:highlander:feature:abilities:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:highlander:feature:alternate",
+      "name": "Highlander heritage alternate ability",
+      "description": "Gain +1 on combat maneuver checks and on CMD.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:heritage:highlander:feature:alternate:effect:custom-combat-maneuver-checks-0",
+          "kind": "custom",
+          "target": "combat_maneuver_checks",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:heritage:highlander:feature:alternate:effect:defense-bonus-combat-cmd-1",
+          "kind": "defense_bonus",
+          "target": "combat.cmd",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6077"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:lufenian:feature:abilities",
+      "name": "Lufenian heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'int': 2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:heritage:lufenian:feature:abilities:effect:ability-score-ability-scores-int-0",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6078"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:lufenian:feature:alternate",
+      "name": "Lufenian heritage alternate ability",
+      "description": "Choose Craft or Profession for +2 racial checks; at every character level gain one additional skill rank in Craft or Profession.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:hume:pool:lufenian-skill-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6078"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:lunarian:feature:abilities",
+      "name": "Lunarian heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'cha': 2}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:heritage:lunarian:feature:abilities:effect:ability-score-ability-scores-cha-0",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6079"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6079"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6079"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:lunarian:feature:alternate",
+      "name": "Lunarian heritage alternate ability",
+      "description": "Gain +2 to concentration checks when casting defensively.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6079"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:mako-infused-super-soldier:feature:abilities",
+      "name": "Mako-Infused Super Soldier heritage ability adjustments",
+      "description": "Heritage ability adjustments: {}. Apply instead of the standard racial ability adjustment, never in addition.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "partial",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6080"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6080"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:hume:heritage:mako-infused-super-soldier:feature:alternate",
+      "name": "Mako-Infused Super Soldier heritage alternate ability",
+      "description": "Gain +1 racial to all Strength- and Dexterity-based skill checks. Mako must be replenished weekly; failure produces fatigue then exhaustion and may cause death as adjudicated by the GM. Exact timeline after missing supply is unspecified.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6080"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:strength",
+      "name": "Strength selected bonus",
+      "description": "On choosing Strength from Hume +2 racial ability, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:strength:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6023"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:dexterity",
+      "name": "Dexterity selected bonus",
+      "description": "On choosing Dexterity from Hume +2 racial ability, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:dexterity:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6023"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:constitution",
+      "name": "Constitution selected bonus",
+      "description": "On choosing Constitution from Hume +2 racial ability, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:constitution:effect:ability-score-ability-scores-con-0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6023"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:intelligence",
+      "name": "Intelligence selected bonus",
+      "description": "On choosing Intelligence from Hume +2 racial ability, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:intelligence:effect:ability-score-ability-scores-int-0",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6023"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:wisdom",
+      "name": "Wisdom selected bonus",
+      "description": "On choosing Wisdom from Hume +2 racial ability, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:wisdom:effect:ability-score-ability-scores-wis-0",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6023"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:charisma",
+      "name": "Charisma selected bonus",
+      "description": "On choosing Charisma from Hume +2 racial ability, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:grant:charisma:effect:ability-score-ability-scores-cha-0",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6023"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:strength",
+      "name": "Strength selected bonus",
+      "description": "On choosing Strength from Alchemically Enhanced ability choice, grant the stated +3 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:strength:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 3,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:dexterity",
+      "name": "Dexterity selected bonus",
+      "description": "On choosing Dexterity from Alchemically Enhanced ability choice, grant the stated +3 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:dexterity:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 3,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:constitution",
+      "name": "Constitution selected bonus",
+      "description": "On choosing Constitution from Alchemically Enhanced ability choice, grant the stated +3 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:constitution:effect:ability-score-ability-scores-con-0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 3,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:strength",
+      "name": "Strength selected bonus",
+      "description": "On choosing Strength from Dual Talent choose two abilities, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:strength:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:dexterity",
+      "name": "Dexterity selected bonus",
+      "description": "On choosing Dexterity from Dual Talent choose two abilities, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:dexterity:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:constitution",
+      "name": "Constitution selected bonus",
+      "description": "On choosing Constitution from Dual Talent choose two abilities, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:constitution:effect:ability-score-ability-scores-con-0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:intelligence",
+      "name": "Intelligence selected bonus",
+      "description": "On choosing Intelligence from Dual Talent choose two abilities, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:intelligence:effect:ability-score-ability-scores-int-0",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:wisdom",
+      "name": "Wisdom selected bonus",
+      "description": "On choosing Wisdom from Dual Talent choose two abilities, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:wisdom:effect:ability-score-ability-scores-wis-0",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:charisma",
+      "name": "Charisma selected bonus",
+      "description": "On choosing Charisma from Dual Talent choose two abilities, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:charisma:effect:ability-score-ability-scores-cha-0",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice:grant:strength",
+      "name": "Strength selected bonus",
+      "description": "On choosing Strength from Mako-Infused Super Soldier heritage ability choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice:grant:strength:effect:ability-score-ability-scores-str-0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6080"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6080"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6080"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice:grant:dexterity",
+      "name": "Dexterity selected bonus",
+      "description": "On choosing Dexterity from Mako-Infused Super Soldier heritage ability choice, grant the stated +2 racial modifier once; never grant other options simultaneously.",
+      "featureKind": "choice_container",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice:grant:dexterity:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6080"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6080"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6080"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:hume:pool:hume-2-racial-ability",
+      "name": "Hume +2 racial ability",
+      "choiceType": "ability_score",
+      "options": [
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:option:strength",
+          "name": "Strength",
+          "description": "+2 to Strength",
+          "featureIds": [
+            "ffd20:race:hume:pool:hume-2-racial-ability:grant:strength"
+          ],
+          "spellIds": [],
+          "value": "strength",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:option:dexterity",
+          "name": "Dexterity",
+          "description": "+2 to Dexterity",
+          "featureIds": [
+            "ffd20:race:hume:pool:hume-2-racial-ability:grant:dexterity"
+          ],
+          "spellIds": [],
+          "value": "dexterity",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:option:constitution",
+          "name": "Constitution",
+          "description": "+2 to Constitution",
+          "featureIds": [
+            "ffd20:race:hume:pool:hume-2-racial-ability:grant:constitution"
+          ],
+          "spellIds": [],
+          "value": "constitution",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:option:intelligence",
+          "name": "Intelligence",
+          "description": "+2 to Intelligence",
+          "featureIds": [
+            "ffd20:race:hume:pool:hume-2-racial-ability:grant:intelligence"
+          ],
+          "spellIds": [],
+          "value": "intelligence",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:option:wisdom",
+          "name": "Wisdom",
+          "description": "+2 to Wisdom",
+          "featureIds": [
+            "ffd20:race:hume:pool:hume-2-racial-ability:grant:wisdom"
+          ],
+          "spellIds": [],
+          "value": "wisdom",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:hume-2-racial-ability:option:charisma",
+          "name": "Charisma",
+          "description": "+2 to Charisma",
+          "featureIds": [
+            "ffd20:race:hume:pool:hume-2-racial-ability:grant:charisma"
+          ],
+          "spellIds": [],
+          "value": "charisma",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice",
+      "name": "Alchemically Enhanced ability choice",
+      "choiceType": "ability_score",
+      "options": [
+        {
+          "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:option:strength",
+          "name": "Strength",
+          "description": "Strength",
+          "featureIds": [
+            "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:strength"
+          ],
+          "spellIds": [],
+          "value": "strength",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:option:dexterity",
+          "name": "Dexterity",
+          "description": "Dexterity",
+          "featureIds": [
+            "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:dexterity"
+          ],
+          "spellIds": [],
+          "value": "dexterity",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:option:constitution",
+          "name": "Constitution",
+          "description": "Constitution",
+          "featureIds": [
+            "ffd20:race:hume:pool:alchemically-enhanced-ability-choice:grant:constitution"
+          ],
+          "spellIds": [],
+          "value": "constitution",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6038"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities",
+      "name": "Dual Talent choose two abilities",
+      "choiceType": "ability_score",
+      "options": [
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:option:strength",
+          "name": "Strength",
+          "description": "Strength",
+          "featureIds": [
+            "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:strength"
+          ],
+          "spellIds": [],
+          "value": "strength",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:option:dexterity",
+          "name": "Dexterity",
+          "description": "Dexterity",
+          "featureIds": [
+            "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:dexterity"
+          ],
+          "spellIds": [],
+          "value": "dexterity",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:option:constitution",
+          "name": "Constitution",
+          "description": "Constitution",
+          "featureIds": [
+            "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:constitution"
+          ],
+          "spellIds": [],
+          "value": "constitution",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:option:intelligence",
+          "name": "Intelligence",
+          "description": "Intelligence",
+          "featureIds": [
+            "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:intelligence"
+          ],
+          "spellIds": [],
+          "value": "intelligence",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:option:wisdom",
+          "name": "Wisdom",
+          "description": "Wisdom",
+          "featureIds": [
+            "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:wisdom"
+          ],
+          "spellIds": [],
+          "value": "wisdom",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:dual-talent-choose-two-abilities:option:charisma",
+          "name": "Charisma",
+          "description": "Charisma",
+          "featureIds": [
+            "ffd20:race:hume:pool:dual-talent-choose-two-abilities:grant:charisma"
+          ],
+          "spellIds": [],
+          "value": "charisma",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Choose exactly two distinct ability scores for +2 each.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:hume:pool:lufenian-skill-choice",
+      "name": "Lufenian skill choice",
+      "choiceType": "skill",
+      "options": [
+        {
+          "id": "ffd20:race:hume:pool:lufenian-skill-choice:option:craft",
+          "name": "Craft",
+          "description": "Craft",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "craft",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:lufenian-skill-choice:option:profession",
+          "name": "Profession",
+          "description": "Profession",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "profession",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6078"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6078"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice",
+      "name": "Mako-Infused Super Soldier heritage ability choice",
+      "choiceType": "ability_score",
+      "options": [
+        {
+          "id": "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice:option:strength",
+          "name": "Strength",
+          "description": "+2 racial Strength",
+          "featureIds": [
+            "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice:grant:strength"
+          ],
+          "spellIds": [],
+          "value": "strength",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6080"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice:option:dexterity",
+          "name": "Dexterity",
+          "description": "+2 racial Dexterity",
+          "featureIds": [
+            "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice:grant:dexterity"
+          ],
+          "spellIds": [],
+          "value": "dexterity",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6080"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6080"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "core",
+    "standardTraitIds": [
+      "ffd20:race:hume:trait:ability-score-adjustment",
+      "ffd20:race:hume:trait:size",
+      "ffd20:race:hume:trait:type",
+      "ffd20:race:hume:trait:base-speed",
+      "ffd20:race:hume:trait:languages",
+      "ffd20:race:hume:trait:bonus-feat",
+      "ffd20:race:hume:trait:curiosity",
+      "ffd20:race:hume:trait:integrated",
+      "ffd20:race:hume:trait:skilled",
+      "ffd20:race:hume:trait:sociable"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:hume:trait:adoptive-parentage",
+      "ffd20:race:hume:trait:alchemically-enhanced",
+      "ffd20:race:hume:trait:awareness",
+      "ffd20:race:hume:trait:background-character",
+      "ffd20:race:hume:trait:comprehensive-education",
+      "ffd20:race:hume:trait:deep-magic",
+      "ffd20:race:hume:trait:distanced",
+      "ffd20:race:hume:trait:dual-talent",
+      "ffd20:race:hume:trait:emissary",
+      "ffd20:race:hume:trait:eye-for-talent",
+      "ffd20:race:hume:trait:focused-study",
+      "ffd20:race:hume:trait:frontier-survivor",
+      "ffd20:race:hume:trait:heart-of-the-fields",
+      "ffd20:race:hume:trait:heart-of-the-mountains",
+      "ffd20:race:hume:trait:heart-of-the-sea",
+      "ffd20:race:hume:trait:heart-of-the-slums",
+      "ffd20:race:hume:trait:heart-of-the-snows",
+      "ffd20:race:hume:trait:heart-of-the-streets",
+      "ffd20:race:hume:trait:heart-of-the-sun",
+      "ffd20:race:hume:trait:heart-of-the-wilderness",
+      "ffd20:race:hume:trait:heroic",
+      "ffd20:race:hume:trait:industrious",
+      "ffd20:race:hume:trait:innovative",
+      "ffd20:race:hume:trait:institutional-memory",
+      "ffd20:race:hume:trait:military-tradition",
+      "ffd20:race:hume:trait:mixed-heritage",
+      "ffd20:race:hume:trait:one-of-the-multitude",
+      "ffd20:race:hume:trait:piety",
+      "ffd20:race:hume:trait:practiced-hunter",
+      "ffd20:race:hume:trait:silver-tongued",
+      "ffd20:race:hume:trait:social-ties",
+      "ffd20:race:hume:trait:wayfarer"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:hume:trait:adoptive-parentage:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:adoptive-parentage"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Adoptive Parentage replaces Bonus Feat.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6037"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:alchemically-enhanced:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:ability-score-adjustment",
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:alchemically-enhanced"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Alchemically Enhanced replaces Ability Score Adjustment, Bonus Feat.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6038"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:awareness:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:awareness"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Awareness replaces Bonus Feat.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6039"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:background-character:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:integrated"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:background-character"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Background Character replaces Integrated.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6040"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:comprehensive-education:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:comprehensive-education"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Comprehensive Education replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6041"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:deep-magic:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:deep-magic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Deep Magic replaces Bonus Feat.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6042"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:distanced:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:curiosity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:distanced"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Distanced replaces Curiosity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6043"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:dual-talent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:ability-score-adjustment",
+          "ffd20:race:hume:trait:bonus-feat",
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:dual-talent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dual Talent replaces Ability Score Adjustment, Bonus Feat, Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6044"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:emissary:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:sociable"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:emissary"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Emissary replaces Sociable.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6045"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:eye-for-talent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:eye-for-talent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Eye for Talent replaces Bonus Feat.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6046"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:focused-study:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:focused-study"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Focused Study replaces Bonus Feat.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6047"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:frontier-survivor:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:frontier-survivor"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Frontier Survivor replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6048"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heart-of-the-fields:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heart-of-the-fields"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heart of the Fields replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6049"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heart-of-the-mountains:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heart-of-the-mountains"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heart of the Mountains replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6050"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heart-of-the-sea:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heart-of-the-sea"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heart of the Sea replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heart-of-the-slums:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heart-of-the-slums"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heart of the Slums replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heart-of-the-snows:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heart-of-the-snows"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heart of the Snows replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heart-of-the-streets:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heart-of-the-streets"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heart of the Streets replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heart-of-the-sun:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heart-of-the-sun"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heart of the Sun replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heart-of-the-wilderness:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heart-of-the-wilderness"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heart of the Wilderness replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6056"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:heroic:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:heroic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heroic replaces Bonus Feat.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:industrious:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:industrious"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Industrious replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:innovative:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:innovative"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Innovative replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:institutional-memory:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:institutional-memory"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Institutional Memory replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:military-tradition:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:military-tradition"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Military Tradition replaces Bonus Feat.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:mixed-heritage:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:mixed-heritage"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mixed Heritage replaces Bonus Feat.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:one-of-the-multitude:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:one-of-the-multitude"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "One of the Multitude replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:piety:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:bonus-feat"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:piety"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Piety replaces Bonus Feat.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:practiced-hunter:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:practiced-hunter"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Practiced Hunter replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:silver-tongued:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:silver-tongued"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Silver Tongued replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:social-ties:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:social-ties"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Social Ties replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:trait:wayfarer:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:hume:trait:skilled"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:hume:trait:wayfarer"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wayfarer replaces Skilled.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6068"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:hume:heritage:cetra",
+        "name": "Cetra",
+        "description": "Cetra heritage. Knowledge (arcana) and Knowledge (planes) both gain +2 racial and become class skills; gain one extra language choice.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:hume:heritage:cetra:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:hume:trait:ability-score-adjustment",
+              "ffd20:race:hume:trait:skilled"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:hume:heritage:cetra:feature:abilities",
+              "ffd20:race:hume:heritage:cetra:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Skilled with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:hume:heritage:cetra:feature:abilities",
+          "ffd20:race:hume:heritage:cetra:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:heritage:highlander",
+        "name": "Highlander",
+        "description": "Highlander heritage. Gain +1 on combat maneuver checks and on CMD.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:hume:heritage:highlander:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:hume:trait:ability-score-adjustment",
+              "ffd20:race:hume:trait:skilled"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:hume:heritage:highlander:feature:abilities",
+              "ffd20:race:hume:heritage:highlander:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Skilled with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6077"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:hume:heritage:highlander:feature:abilities",
+          "ffd20:race:hume:heritage:highlander:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:heritage:lufenian",
+        "name": "Lufenian",
+        "description": "Lufenian heritage. Choose Craft or Profession for +2 racial checks; at every character level gain one additional skill rank in Craft or Profession.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:hume:heritage:lufenian:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:hume:trait:ability-score-adjustment",
+              "ffd20:race:hume:trait:skilled"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:hume:heritage:lufenian:feature:abilities",
+              "ffd20:race:hume:heritage:lufenian:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Skilled with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6078"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:hume:heritage:lufenian:feature:abilities",
+          "ffd20:race:hume:heritage:lufenian:feature:alternate"
+        ],
+        "choicePoolIds": [
+          "ffd20:race:hume:pool:lufenian-skill-choice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:heritage:lunarian",
+        "name": "Lunarian",
+        "description": "Lunarian heritage. Gain +2 to concentration checks when casting defensively.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:hume:heritage:lunarian:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:hume:trait:ability-score-adjustment",
+              "ffd20:race:hume:trait:skilled"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:hume:heritage:lunarian:feature:abilities",
+              "ffd20:race:hume:heritage:lunarian:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Skilled with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6079"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:hume:heritage:lunarian:feature:abilities",
+          "ffd20:race:hume:heritage:lunarian:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6079"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:heritage:mako-infused-super-soldier",
+        "name": "Mako-Infused Super Soldier",
+        "description": "Mako-Infused Super Soldier heritage. Gain +1 racial to all Strength- and Dexterity-based skill checks. Mako must be replenished weekly; failure produces fatigue then exhaustion and may cause death as adjudicated by the GM. Exact timeline after missing supply is unspecified.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:hume:heritage:mako-infused-super-soldier:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:hume:trait:ability-score-adjustment",
+              "ffd20:race:hume:trait:skilled"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:hume:heritage:mako-infused-super-soldier:feature:abilities",
+              "ffd20:race:hume:heritage:mako-infused-super-soldier:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replace baseline racial ability adjustments and Skilled with heritage vector and heritage-specific trait. Preserve unaffected racial traits.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6080"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:hume:heritage:mako-infused-super-soldier:feature:abilities",
+          "ffd20:race:hume:heritage:mako-infused-super-soldier:feature:alternate"
+        ],
+        "choicePoolIds": [
+          "ffd20:race:hume:pool:mako-infused-super-soldier-heritage-ability-choice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6080"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:hume:favored:archer",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:archer",
+        "name": "Hume Archer favored reward",
+        "description": "Increase bow/crossbow damage by +1/4.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6110 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:astrologian",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:astrologian",
+        "name": "Hume Astrologian favored reward",
+        "description": "Learn one astrologian spell at least one spell level below current highest available.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6111 Astrologian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:bard",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:bard",
+        "name": "Hume Bard favored reward",
+        "description": "Learn one bard song at least one song level below highest performable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6112 Bard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:beastmaster",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Hume Beastmaster favored reward",
+        "description": "Choose +1 HP or +1 skill rank for companion; transfers to replacement companion.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6113 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:berserker",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:berserker",
+        "name": "Hume Berserker favored reward",
+        "description": "Increase class base speed by 1 foot per choice; in combat only effective for each five selections; stacks with class movement increases.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6114 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:black-belt",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:black-belt",
+        "name": "Hume Black Belt favored reward",
+        "description": "Gain +1 CMD against two chosen maneuvers.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6115 Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:black-mage",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:black-mage",
+        "name": "Hume Black Mage favored reward",
+        "description": "Learn one black mage spell at least one level below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6116 Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:blue-mage",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Hume Blue Mage favored reward",
+        "description": "Learn one blue mage spell at least one level below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6117 Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:chemist",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:chemist",
+        "name": "Hume Chemist favored reward",
+        "description": "Add 1/4 damage with thrown weapons.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6118 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:chocobo-knight",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Hume Chocobo Knight favored reward",
+        "description": "Choose +1 mount HP or skill rank, transferable on replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6119 Chocobo Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:cleric",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:cleric",
+        "name": "Hume Cleric favored reward",
+        "description": "Gain +1 caster-level checks to penetrate outsider spell resistance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6120 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:dancer",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:dancer",
+        "name": "Hume Dancer favored reward",
+        "description": "Add 1/4 point to ki pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6121 Dancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:dark-knight",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Hume Dark Knight favored reward",
+        "description": "Increase holy resistance by 1, maximum +10.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6122 Dark Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:dragoon",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:dragoon",
+        "name": "Hume Dragoon favored reward",
+        "description": "Increase spear, lance and polearm damage by 1/3.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6123 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:druid",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:druid",
+        "name": "Hume Druid favored reward",
+        "description": "Gain +1/2 Diplomacy/Intimidate to change creature attitude.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6124 Druid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:engineer",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:engineer",
+        "name": "Hume Engineer favored reward",
+        "description": "Choose +1 automaton HP or +1 one saving throw; carries to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6125 Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:fencer",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:fencer",
+        "name": "Hume Fencer favored reward",
+        "description": "Acquire 1/6 of a lunge technique.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6126 Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:freelancer",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:freelancer",
+        "name": "Hume Freelancer favored reward",
+        "description": "Gain 1 JP; only effective per ten selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6127 Freelancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:gambler",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:gambler",
+        "name": "Hume Gambler favored reward",
+        "description": "Acquire 1/6 additional gambler gambit.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6128 Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:geomancer",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:geomancer",
+        "name": "Hume Geomancer favored reward",
+        "description": "Learn a spell at least one level below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6129 Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:gunbreaker",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Hume Gunbreaker favored reward",
+        "description": "Acquire 1/6 additional gunbreaker talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6130 Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:gunner",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:gunner",
+        "name": "Hume Gunner favored reward",
+        "description": "Increase daily Gun Fix uses by 1/3.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6131 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:illusionist",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:illusionist",
+        "name": "Hume Illusionist favored reward",
+        "description": "Increase veil pool by 1/4 point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6132 Illusionist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:knight",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:knight",
+        "name": "Hume Knight favored reward",
+        "description": "Acquire 1/6 additional knight talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6133 Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:medic",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:medic",
+        "name": "Hume Medic favored reward",
+        "description": "Acquire 1/6 additional medical practice.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6134 Medic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:monk",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:monk",
+        "name": "Hume Monk favored reward",
+        "description": "Increase ki pool by 1/4 point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6135 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:necromancer",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:necromancer",
+        "name": "Hume Necromancer favored reward",
+        "description": "Learn a spell at least one level below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6136 Necromancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:ninja",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:ninja",
+        "name": "Hume Ninja favored reward",
+        "description": "Increase ki pool by 1/4 point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6137 Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:paladin",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:paladin",
+        "name": "Hume Paladin favored reward",
+        "description": "Increase shadow elemental resistance by +1 (maximum +10).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6138 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:psychic",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:psychic",
+        "name": "Hume Psychic favored reward",
+        "description": "Acquire 1/6 additional psychic talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6139 Psychic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:red-mage",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:red-mage",
+        "name": "Hume Red Mage favored reward",
+        "description": "Increase arcane pool by 1/4.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6140 Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:samurai",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:samurai",
+        "name": "Hume Samurai favored reward",
+        "description": "Acquire 1/6 additional known Bushido.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6141 Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:scholar",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:scholar",
+        "name": "Hume Scholar favored reward",
+        "description": "Learn one spell from black/white mage lists at least one spell level below maximum castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6142 Scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:summoner",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:summoner",
+        "name": "Hume Summoner favored reward",
+        "description": "Choose +1 avatar HP or +1 avatar skill rank.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6143 Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:sword-saint",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Hume Sword Saint favored reward",
+        "description": "+1 CMD versus two chosen maneuvers.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6144 Sword Saint"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:thief",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:thief",
+        "name": "Hume Thief favored reward",
+        "description": "Acquire 1/6 additional thief talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6145 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:time-mage",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:time-mage",
+        "name": "Hume Time Mage favored reward",
+        "description": "Acquire 1/6 additional temporal talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6146 Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:warrior",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:warrior",
+        "name": "Hume Warrior favored reward",
+        "description": "+1 CMD versus two chosen maneuvers.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6147 Warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:hume:favored:white-mage",
+        "raceId": "ffd20:race:hume",
+        "classId": "ffd20:class:white-mage",
+        "name": "Hume White Mage favored reward",
+        "description": "Learn one white mage spell at least one spell level below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6148 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

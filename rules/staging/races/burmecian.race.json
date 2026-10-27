@@ -1,0 +1,2617 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:burmecian",
+  "name": "Burmecian",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/burmecian/",
+      "title": "Burmecian — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/heritages",
+        "reason": "Cleyran heritage substitutes stats and Perform (Dance) for Keen Senses; Keen Senses-consuming alternates must substitute correctly, especially Market Dweller/Skulk. Cleyran Ancestry alternate is DISTINCT from Cleyran heritage.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Quick Reactions directly grants Improved Initiative; conditional HP-melee/AC, multi-round Cleyran Ancestry trigger, scent, primary/secondary claws and Unnatural animal type require runtime review.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "15 favored options need class reconciliation, including double Bard +1/6 reward, Ninja 5-ft speed rounding increments and summon/companion targets.",
+        "blocking": true
+      },
+      {
+        "path": "/review",
+        "reason": "Staging-only source paraphrases and effects are not independent rules approval; source text is not bundled or licensed. Live wizard and sheet behavior has not been tested.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools/bonus-languages",
+        "reason": "Source race page names high-INT options but does not spell out count/reselection mechanics; formula max(0, INT_MOD) is a provisional standard-system interpretation only, not approved for auto-application.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Burmecian Heritages",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source gameplay section read and transcribed into an unreviewed staging paraphrase. Source subsection line locators recorded on mechanical records."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate feat/archetype catalogs excluded by extraction contract; trait-granted feats retained."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate feat/archetype catalogs excluded by extraction contract; trait-granted feats retained."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate feat catalog intentionally excluded; directly granted feats retained as racial rules."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetype catalog intentionally excluded."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:burmecian:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 Dexterity, +2 Intelligence, −2 Charisma.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:ability-score-adjustment:effect:ability-score-ability-scores-dex-0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5923"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5923"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:ability-score-adjustment:effect:ability-score-ability-scores-int-1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5923"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5923"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:ability-score-adjustment:effect:ability-score-ability-scores-cha-2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "5923"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5923"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5923"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:size",
+      "name": "Size",
+      "description": "Medium.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:size:effect:identity-size-category-0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5924"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5924"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:type",
+      "name": "Type",
+      "description": "Humanoid with burmecian subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:type:effect:identity-creature-type-0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (burmecian)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5925"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5925"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:base-speed:effect:identity-speed-land-0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": null,
+          "textValue": "30 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5926"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5926"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:languages",
+      "name": "Languages",
+      "description": "Starts with Common and Burmecian; high-INT options: Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:languages:effect:identity-languages-starting-0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Burmecian",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5927"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:burmecian:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5927"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": null,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "5927"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:battle-hardened",
+      "name": "Battle-Hardened",
+      "description": "+1 bonus to CMD.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:battle-hardened:effect:defense-bonus-combat-maneuvers-cmd-0",
+          "kind": "defense_bonus",
+          "target": "combat_maneuvers.cmd",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5930"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "untyped",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5930"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5930"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:fearless",
+      "name": "Fearless",
+      "description": "+2 racial saving throws versus fear spells and effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:fearless:effect:defense-bonus-saving-throws-all-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "5931"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Fear spells and effects only"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "5931"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "5931"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:keen-senses:effect:skill-bonus-skills-perception-0",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "5934"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5934"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5934"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:natural-jumper",
+      "name": "Natural Jumper",
+      "description": "+4 racial Acrobatics, only to jump.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:natural-jumper:effect:skill-bonus-skills-acrobatics-0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "5935"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only checks for jumping"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5935"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5935"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:quick-reactions",
+      "name": "Quick Reactions",
+      "description": "Gain Improved Initiative as a racial bonus feat.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:quick-reactions:effect:grant-feature-ffd20-feat-improved-initiative-0",
+          "kind": "grant_feature",
+          "target": "ffd20:feat:improved-initiative",
+          "operation": "add",
+          "value": null,
+          "textValue": "Grant Improved Initiative directly; normal feat prerequisites are not imposed on a granted racial bonus feat. Link to canonical feat when available.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "5936"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "5936"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:darkvision:effect:identity-senses-darkvision-0",
+          "kind": "identity",
+          "target": "senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "5940"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "5940"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:claws",
+      "name": "Claws",
+      "description": "Pair of 1d4 damage claw natural attacks; primary when unarmed/unarmed weapons, secondary when using manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:claws:effect:custom-natural-claw-attacks-0",
+          "kind": "custom",
+          "target": "natural_claw_attacks",
+          "operation": "add",
+          "value": null,
+          "textValue": "Two claw attacks, 1d4 each; primary normally, secondary when wielding manufactured weapons.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "5943"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "5943"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:cleyran-ancestry",
+      "name": "Cleyran Ancestry",
+      "description": "After a successful Diplomacy attempt to win a person over, that person receives −2 on attempts to resist any Charisma-based skills of the burmecian for the next 24 hours. Replaces Fearless.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:cleyran-ancestry:effect:custom-diplomacy-success-trigger-0",
+          "kind": "custom",
+          "target": "diplomacy_success_trigger",
+          "operation": "add",
+          "value": null,
+          "textValue": "After successful Diplomacy to win target over, target −2 to resist character CHA-based checks for 24 h; target-specific duration.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5947"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5947"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:cornered-fury",
+      "name": "Cornered Fury",
+      "description": "At half HP or below, with no conscious ally within 30 ft, +2 racial melee attack rolls and +2 racial AC. Replaces Battle-Hardened and Quick Reactions.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:cornered-fury:effect:attack-bonus-attacks-melee-0",
+          "kind": "attack_bonus",
+          "target": "attacks.melee",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5948"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "HP at or below 50% AND no conscious ally within 30 feet"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5948"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:cornered-fury:effect:defense-bonus-armor-class-1",
+          "kind": "defense_bonus",
+          "target": "armor_class",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5948"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "HP at or below 50% AND no conscious ally within 30 feet"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5948"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5948"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:jumper",
+      "name": "Jumper",
+      "description": "Always considered to have a running start for Acrobatics jumping checks. Replaces Keen Senses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:jumper:effect:custom-running-start-0",
+          "kind": "custom",
+          "target": "running_start",
+          "operation": "add",
+          "value": null,
+          "textValue": "Jump checks always count as having a running start.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5949"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5949"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:market-dweller",
+      "name": "Market Dweller",
+      "description": "+2 racial Bluff and Sleight of Hand. Replaces Keen Senses and Natural Jumper.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:market-dweller:effect:skill-bonus-skills-bluff-0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5950"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5950"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:market-dweller:effect:skill-bonus-skills-sleight-of-hand-1",
+          "kind": "skill_bonus",
+          "target": "skills.sleight-of-hand",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5950"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5950"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5950"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:mountain-born",
+      "name": "Mountain-Born",
+      "description": "+2 racial Acrobatics for narrow ledges, +2 racial saves versus altitude fatigue/sickness. Replaces Fearless.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:mountain-born:effect:skill-bonus-skills-acrobatics-0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5951"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only narrow ledges"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5951"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:mountain-born:effect:defense-bonus-saving-throws-all-1",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5951"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only altitude fatigue or sickness"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5951"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5951"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:mountaineer-training",
+      "name": "Mountaineer Training",
+      "description": "Immune altitude sickness; retain DEX bonus to AC when climbing or crossing narrow/slippery surfaces via Acrobatics. Climb and Acrobatics class skills. Replaces Keen Senses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:mountaineer-training:effect:custom-height-safety-0",
+          "kind": "custom",
+          "target": "height_safety",
+          "operation": "add",
+          "value": null,
+          "textValue": "Immune altitude sickness and preserve DEX-to-AC while climbing/crossing narrow/slippery surfaces.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5952"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:mountaineer-training:effect:class-skill-skills-climb-1",
+          "kind": "class_skill",
+          "target": "skills.climb",
+          "operation": "add",
+          "value": null,
+          "textValue": "Existing Climb row becomes a class skill.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5952"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:mountaineer-training:effect:class-skill-skills-acrobatics-2",
+          "kind": "class_skill",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": null,
+          "textValue": "Existing Acrobatics row becomes a class skill.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5952"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5952"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:plagueborn",
+      "name": "Plagueborn",
+      "description": "+2 racial saving throws vs disease, ingested poisons, nausea and sickness. Replaces Fearless.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:plagueborn:effect:defense-bonus-saving-throws-all-0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5953"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Disease, ingested poisons, nauseated or sickened status"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5953"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5953"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:rodent-empathy",
+      "name": "Rodent Empathy",
+      "description": "+4 racial Handle Animal checks to influence rodents. Replaces Natural Jumper.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:rodent-empathy:effect:skill-bonus-skills-handle-animal-0",
+          "kind": "skill_bonus",
+          "target": "skills.handle-animal",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5954"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only to influence rodents"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5954"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5954"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:scent",
+      "name": "Scent",
+      "description": "Gain scent special ability; −2 Perception checks based primarily on sight or hearing. Replaces Keen Senses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:scent:effect:identity-senses-scent-0",
+          "kind": "identity",
+          "target": "senses.scent",
+          "operation": "set",
+          "value": null,
+          "textValue": "Scent special ability",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5955"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:scent:effect:skill-bonus-skills-perception-1",
+          "kind": "skill_bonus",
+          "target": "skills.perception",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5955"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Checks based primarily on seeing or hearing"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5955"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5955"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:skulk",
+      "name": "Skulk",
+      "description": "+2 racial Stealth; when hiding from a creature distracted using Bluff, Stealth penalty is −5 instead of normal −10. Replaces Claws, Keen Senses and Natural Jumper.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:skulk:effect:skill-bonus-skills-stealth-0",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5956"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5956"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:skulk:effect:custom-distracted-hiding-1",
+          "kind": "custom",
+          "target": "distracted_hiding",
+          "operation": "add",
+          "value": null,
+          "textValue": "When hiding from creatures you distracted with Bluff, penalty is −5 rather than −10.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5956"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5956"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:trait:unnatural",
+      "name": "Unnatural",
+      "description": "−4 to ALL Charisma-based skill checks to influence Animal-type creatures; +2 dodge AC vs animals; animal starting attitude one category worse. Replaces Battle-Hardened.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:trait:unnatural:effect:skill-bonus-skills-charisma-based-0",
+          "kind": "skill_bonus",
+          "target": "skills.charisma-based",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5957"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Only to influence animals"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5957"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:unnatural:effect:defense-bonus-armor-class-1",
+          "kind": "defense_bonus",
+          "target": "armor_class",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "5957"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": {
+            "type": "manual",
+            "description": "Only against animals"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5957"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:trait:unnatural:effect:custom-animal-attitude-2",
+          "kind": "custom",
+          "target": "animal_attitude",
+          "operation": "add",
+          "value": null,
+          "textValue": "Animal starting attitude toward burmecian one step worse than normal.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "5957"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "5957"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:heritage:cleyran:feature:abilities",
+      "name": "Cleyran heritage ability adjustments",
+      "description": "Heritage ability adjustments: {'con': 2, 'cha': 2, 'str': -2}. Apply instead of the standard racial ability adjustment, never in addition. Perform (Dance) +2 racial replaces Keen Senses +2 Perception.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "none",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:heritage:cleyran:feature:abilities:effect:ability-score-ability-scores-con-0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5966"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5966"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:heritage:cleyran:feature:abilities:effect:ability-score-ability-scores-cha-1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5966"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5966"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:heritage:cleyran:feature:abilities:effect:ability-score-ability-scores-str-2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5966"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5966"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5966"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:burmecian:heritage:cleyran:feature:alternate",
+      "name": "Cleyran heritage alternate ability",
+      "description": "Cleyran swaps Perception racial skill bonus to Perform (Dance); still retains all other standard features unless separately replaced.",
+      "featureKind": "heritage_feature",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "structured",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:burmecian:heritage:cleyran:feature:alternate:effect:skill-bonus-skills-perform-dance-0",
+          "kind": "skill_bonus",
+          "target": "skills.perform-dance",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5966"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "5966"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "5966"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:burmecian:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:burmecian:pool:bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5927"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:bonus-languages:option:dwarven",
+          "name": "Dwarven",
+          "description": "Dwarven",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dwarven",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5927"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5927"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5927"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5927"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5927"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "5927"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Source gives this finite list. High INT eligibility/count follows the core language system and must be verified; do not auto-award every option or recompute initial picks.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "5927"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:burmecian:trait:ability-score-adjustment",
+      "ffd20:race:burmecian:trait:size",
+      "ffd20:race:burmecian:trait:type",
+      "ffd20:race:burmecian:trait:base-speed",
+      "ffd20:race:burmecian:trait:languages",
+      "ffd20:race:burmecian:trait:battle-hardened",
+      "ffd20:race:burmecian:trait:fearless",
+      "ffd20:race:burmecian:trait:keen-senses",
+      "ffd20:race:burmecian:trait:natural-jumper",
+      "ffd20:race:burmecian:trait:quick-reactions",
+      "ffd20:race:burmecian:trait:darkvision",
+      "ffd20:race:burmecian:trait:claws"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:burmecian:trait:cleyran-ancestry",
+      "ffd20:race:burmecian:trait:cornered-fury",
+      "ffd20:race:burmecian:trait:jumper",
+      "ffd20:race:burmecian:trait:market-dweller",
+      "ffd20:race:burmecian:trait:mountain-born",
+      "ffd20:race:burmecian:trait:mountaineer-training",
+      "ffd20:race:burmecian:trait:plagueborn",
+      "ffd20:race:burmecian:trait:rodent-empathy",
+      "ffd20:race:burmecian:trait:scent",
+      "ffd20:race:burmecian:trait:skulk",
+      "ffd20:race:burmecian:trait:unnatural"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:burmecian:trait:cleyran-ancestry:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:fearless"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:cleyran-ancestry"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Cleyran Ancestry replaces Fearless.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5947"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:cornered-fury:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:battle-hardened",
+          "ffd20:race:burmecian:trait:quick-reactions"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:cornered-fury"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Cornered Fury replaces Battle-Hardened, Quick Reactions.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5948"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:jumper:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:jumper"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Jumper replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5949"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:market-dweller:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:keen-senses",
+          "ffd20:race:burmecian:trait:natural-jumper"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:market-dweller"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Market Dweller replaces Keen Senses, Natural Jumper.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5950"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:mountain-born:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:fearless"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:mountain-born"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mountain-Born replaces Fearless.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5951"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:mountaineer-training:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:mountaineer-training"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mountaineer Training replaces Keen Senses.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5952"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:plagueborn:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:fearless"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:plagueborn"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Plagueborn replaces Fearless.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5953"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:rodent-empathy:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:natural-jumper"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:rodent-empathy"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Rodent Empathy replaces Natural Jumper.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5954"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:scent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:scent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scent replaces Keen Senses.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5955"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:skulk:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:claws",
+          "ffd20:race:burmecian:trait:keen-senses",
+          "ffd20:race:burmecian:trait:natural-jumper"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:skulk"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Skulk replaces Claws, Keen Senses, Natural Jumper.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5956"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:trait:unnatural:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:burmecian:trait:battle-hardened"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:burmecian:trait:unnatural"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Unnatural replaces Battle-Hardened.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "5957"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:burmecian:heritage:cleyran",
+        "name": "Cleyran",
+        "description": "Cleyran heritage. Cleyran swaps Perception racial skill bonus to Perform (Dance); still retains all other standard features unless separately replaced. Perform (Dance) +2 racial replaces Keen Senses +2 Perception.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:burmecian:heritage:cleyran:replacement:racial-vector",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:burmecian:trait:ability-score-adjustment",
+              "ffd20:race:burmecian:trait:keen-senses"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:burmecian:heritage:cleyran:feature:abilities",
+              "ffd20:race:burmecian:heritage:cleyran:feature:alternate"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Cleyran heritage replaces default DEX/INT/CHA vector and Keen Senses Perception with CON/CHA/STR and Perform (Dance). Other standard traits remain; resolve Keen Senses alternates correctly.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "5966"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:burmecian:heritage:cleyran:feature:abilities",
+          "ffd20:race:burmecian:heritage:cleyran:feature:alternate"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "5966"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:burmecian:favored:bard",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:bard",
+        "name": "Burmecian Bard favored reward",
+        "description": "Add +1/6 to inspire competence performance bonus AND +1/6 to ally count reached by inspire greatness.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5982 Bard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:beastmaster",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Burmecian Beastmaster favored reward",
+        "description": "Companion +1 CMD when adjacent; replacement companions inherit accumulated bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5983 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:berserker",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:berserker",
+        "name": "Burmecian Berserker favored reward",
+        "description": "+1 rage round daily.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5984 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:chemist",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:chemist",
+        "name": "Burmecian Chemist favored reward",
+        "description": "Accumulate +1/6 new discovery.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5985 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:cleric",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:cleric",
+        "name": "Burmecian Cleric favored reward",
+        "description": "+1 concentration when casting cleric spells within 5 feet of an ally.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5986 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:dancer",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:dancer",
+        "name": "Burmecian Dancer favored reward",
+        "description": "+1/2 Escape Artist and Acrobatics for crossing narrow surfaces.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5987 Dancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:dragoon",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:dragoon",
+        "name": "Burmecian Dragoon favored reward",
+        "description": "+1/2 Acrobatics for jumping.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5988 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:fencer",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:fencer",
+        "name": "Burmecian Fencer favored reward",
+        "description": "+1/4 AC bonus provided by cover or improved cover.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5989 Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:gunner",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:gunner",
+        "name": "Burmecian Gunner favored reward",
+        "description": "+1/6 dodge AC from nimble class feature.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5990 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:monk",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:monk",
+        "name": "Burmecian Monk favored reward",
+        "description": "+1/2 flying kick damage rolls.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5991 Monk"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:ninja",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:ninja",
+        "name": "Burmecian Ninja favored reward",
+        "description": "+1 base speed per selection; combat speed changes only for every five accumulated selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5992 Ninja"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:red-mage",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:red-mage",
+        "name": "Burmecian Red Mage favored reward",
+        "description": "+1/4 arcane pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5993 Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:summoner",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:summoner",
+        "name": "Burmecian Summoner favored reward",
+        "description": "Summoner avatar +1 saving throw versus poison.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5994 Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:thief",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:thief",
+        "name": "Burmecian Thief favored reward",
+        "description": "+1/2 Escape Artist.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5995 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:burmecian:favored:warrior",
+        "raceId": "ffd20:race:burmecian",
+        "classId": "ffd20:class:warrior",
+        "name": "Burmecian Warrior favored reward",
+        "description": "+1 CMD resisting bull rush or grapple.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "5996 Warrior"
+          }
+        ]
+      }
+    ]
+  }
+}
