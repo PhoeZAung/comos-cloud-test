@@ -57,8 +57,8 @@ test('Separate bonus feats and all ten talent opportunities survive each level',
  assert(archerTalentOptions(2).find(x=>x.name==='Greater Intercept').meetsLevel===false);
  assert(archerTalentOptions(18).find(x=>x.name==='Greater Intercept').requiresVerification);
 });
-test('live wizard renders Archer level and changes as a read-only explorer; Black Mage save path remains explicit',()=>{
- const b=newBuild();b.raceId='ffd20:race:dwarf';b.name='Archer viewer';
+test('live wizard renders Archer level and changes for the selectable Archer class',()=>{
+ const b=newBuild();b.raceId='ffd20:race:dwarf';b.classId='ffd20:class:archer';b.name='Archer viewer';
  const html=renderBuild(b,3,{archerPreviewLevel:17});
  assert.match(html,/Archer — Class Levels & Upgrades/);
  assert.match(html,/data-rw-archer-level/);
