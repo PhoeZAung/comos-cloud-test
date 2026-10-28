@@ -1,6 +1,7 @@
 import {readFile,writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {validateClassManifest,validateClassDefinition,classAtLevel} from '../src/features/characters/rules/class-contract.mjs';
+import {validateArchetypeManifest,validateArchetypeDefinition} from '../src/features/characters/rules/archetype-contract.mjs';
 
 const root=new URL('../',import.meta.url);
 const target=new URL('src/features/characters/rules/class-catalog.mjs',root);
@@ -21,7 +22,18 @@ export async function buildClassCatalog(){
    features:c.data.features,upgrades:c.data.upgrades,events:c.data.events,
    archetypes:c.data.archetypeIndex||[],optionCount:opts?.options.length||0});
  }
- return {schemaVersion:'comos.class-catalog.v1',classes};
+ const archetypeManifest=validateArchetypeManifest(JSON.parse(await readFile(fileURL('rules/classes/archetypes/manifest.json'),'utf8')));
+ const archetypeRecords=[];
+ for(const entry of archetypeManifest.archetypes){
+  const parentEntry=manifest.classes.find(c=>entry.id.startsWith('ffd20:archetype:'+c.id.split(':').at(-1)+':'));
+  if(!parentEntry)throw Error('Missing archetype parent class '+entry.id);
+  const parent=JSON.parse(await readFile(fileURL(parentEntry.file),'utf8'));
+  const archetype=JSON.parse(await readFile(fileURL(entry.file),'utf8'));
+  if(archetype.id!==entry.id)throw Error('Archetype manifest ID mismatch');
+  const summary=validateArchetypeDefinition(archetype,parent);
+  archetypeRecords.push({...summary,status:'staged',source:archetype.sources[0].url,review:archetype.review.state});
+ }
+ return {schemaVersion:'comos.class-catalog.v1',classes,archetypeRecords};
 }
 export async function generateClassCatalog({check=false}={}){
  const catalog=await buildClassCatalog();

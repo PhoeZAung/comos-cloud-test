@@ -41,3 +41,24 @@ Black Mage's existing builder is legacy. Archer has a live class adapter. Bard i
 - `npm run rules:class:check` — validate registered classes and verify generated catalog is current.
 - `npm run build:cloud` — production-like cloud build.
 - `npm test` — all existing tests and class contract tests.
+
+## Archetypes can be processed separately
+
+Run `npm run rules:archetype:new -- bard abhorsen` to create an *unregistered* child scaffold. After extracting official archetype source details, fill its replacement records and add it to `rules/classes/archetypes/manifest.json` as `status:"staged",adapter:null`. The same class importer validates its parent and source references, then includes it in the generated catalog. It **does not** activate the archetype. Every replacement must identify the original feature IDs, whether the replacement is entire or only specified components, and any new feature IDs. If the source is ambiguous, set `resolution:"needs_review"` and keep it disabled.
+
+Example replacement (replace exact IDs with official extracted feature IDs):
+
+```json
+{
+ "id":"ffd20:archetype:bard:abhorsen:replacement:inspire-courage",
+ "atClassLevel":1,
+ "operation":"replace",
+ "targetFeatureIds":["ffd20:class:bard:feature:inspire-courage"],
+ "replacementFeatureIds":["ffd20:archetype:bard:abhorsen:feature:example-new-power"],
+ "scope":"whole_feature",
+ "resolution":"needs_review",
+ "sourceRefs":[{"sourceId":"main","section":"Archetype Class Features","locator":"verify-source"}]
+}
+```
+
+This is an **illustrative mapping only**, not a claim about the Abhorsen archetype.
