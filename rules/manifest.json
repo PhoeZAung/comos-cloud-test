@@ -26,7 +26,10 @@
     "staging/races/mandragora.race.json",
     "staging/races/moomba.race.json",
     "staging/races/mutant.race.json",
-    "staging/races/nu-mou.race.json"
+    "staging/races/nu-mou.race.json",
+    "staging/races/palico.race.json",
+    "staging/races/pupu.race.json",
+    "staging/races/qu.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

@@ -1,0 +1,1280 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:qu",
+  "name": "Qu",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/qu/",
+      "title": "Qu — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Scavenger and Unnatural both replace Weapon Familiarity; cannot select together.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Paladin favored benefit is per-selection either-or; not both.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Chemist fractional increments only become mechanically effective each 5 choices.",
+        "blocking": true
+      },
+      {
+        "path": "/features/scent",
+        "reason": "Scent and poison/Sap resistances and animal attitude rules require correct conditional sheet display.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Seven favored options reference classes; manual tracking until class integration.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Standalone external catalog excluded."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Standalone external catalog excluded."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone external feats/archetypes not part of race JSON; racial feat grants are included as traits."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone external feats/archetypes not part of race JSON; racial feat grants are included as traits."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:qu:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 CON, +2 INT, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6019"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6019"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:qu:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6019"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6019"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:qu:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6019"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6019"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6019"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:size",
+      "name": "Size",
+      "description": "Medium creature; apply global size modifiers once (not twice).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6020"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6020"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:type",
+      "name": "Type",
+      "description": "Humanoid creature with qu subtype",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6021"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:qu:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "qu",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6021"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6021"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Base land speed 30 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6022"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6022"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6022"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:languages",
+      "name": "Languages",
+      "description": "Begin speaking Common and Queran. High-Intelligence optional languages: Galkan, Giant, Goblin, Lalafellan, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:qu:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.queran",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Queran",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:strong-stomach",
+      "name": "Strong Stomach",
+      "description": "+4 racial saving throws versus poison and Sap status effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:strong-stomach:effect:0",
+          "kind": "defense_bonus",
+          "target": "defense.saves.poison_sap",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:expert-chefs",
+      "name": "Expert Chefs",
+      "description": "+2 racial Profession (Chef) skill checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:expert-chefs:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:profession-chef.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:great-lungs",
+      "name": "Great Lungs",
+      "description": "Gain Endurance bonus feat at first level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:great-lungs:effect:0",
+          "kind": "grant_feature",
+          "target": "feats.endurance",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Endurance",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:local-quisine",
+      "name": "Local Quisine",
+      "description": "+2 racial Knowledge (Nature) and Knowledge (Local), both become class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:local-quisine:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-nature.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:qu:trait:local-quisine:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-nature.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:qu:trait:local-quisine:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-local.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:qu:trait:local-quisine:effect:3",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-local.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with chef weapon group and Qu Battle Fork.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:weapon-familiarity:effect:0",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.chef",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Chef weapons",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:qu:trait:weapon-familiarity:effect:1",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.qu_battle_fork",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Qu Battle Fork",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:scent",
+      "name": "Scent",
+      "description": "Scent ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:scent:effect:0",
+          "kind": "identity",
+          "target": "identity.senses.scent",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Scent",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:eat-anything",
+      "name": "Eat Anything",
+      "description": "+4 Survival for foraging; +4 racial saves against nausea and sickness.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:eat-anything:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:survival.forage",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6042"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:scavenger",
+      "name": "Scavenger",
+      "description": "+2 racial Appraise and conditional Perception to locate hidden objects/traps or identify spoiled food/potions by taste.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:scavenger:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:appraise.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6043"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:qu:trait:unnatural",
+      "name": "Unnatural",
+      "description": "-4 CHA-based checks to affect animals; +2 dodge AC versus animals; starting animal attitude one step worse.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:qu:trait:unnatural:effect:0",
+          "kind": "defense_bonus",
+          "target": "defense.ac.animals",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "dodge",
+          "condition": null,
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:qu:trait:ability-score-racial-traits",
+      "ffd20:race:qu:trait:size",
+      "ffd20:race:qu:trait:type",
+      "ffd20:race:qu:trait:base-speed",
+      "ffd20:race:qu:trait:languages",
+      "ffd20:race:qu:trait:strong-stomach",
+      "ffd20:race:qu:trait:expert-chefs",
+      "ffd20:race:qu:trait:great-lungs",
+      "ffd20:race:qu:trait:local-quisine",
+      "ffd20:race:qu:trait:weapon-familiarity",
+      "ffd20:race:qu:trait:scent"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:qu:trait:eat-anything",
+      "ffd20:race:qu:trait:scavenger",
+      "ffd20:race:qu:trait:unnatural"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:qu:trait:eat-anything:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:qu:trait:expert-chefs"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:qu:trait:eat-anything"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Eat Anything replaces Expert Chefs.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6042"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:qu:trait:scavenger:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:qu:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:qu:trait:scavenger"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scavenger replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6043"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:qu:trait:unnatural:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:qu:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:qu:trait:unnatural"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Unnatural replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6044"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:qu:favored:black-mage",
+        "raceId": "ffd20:race:qu",
+        "classId": "ffd20:class:black-mage",
+        "name": "Qu Black Mage favored reward",
+        "description": "+1 Concentration check on damage during Black Mage casting.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:qu:favored:blue-mage",
+        "raceId": "ffd20:race:qu",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Qu Blue Mage favored reward",
+        "description": "+1/6 Knowledge (all) skill checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:qu:favored:chemist",
+        "raceId": "ffd20:race:qu",
+        "classId": "ffd20:class:chemist",
+        "name": "Qu Chemist favored reward",
+        "description": "+1 foot to splash-weapon range increment per selection, mechanically effective each 5 selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:qu:favored:paladin",
+        "raceId": "ffd20:race:qu",
+        "classId": "ffd20:class:paladin",
+        "name": "Qu Paladin favored reward",
+        "description": "Choose +1/4 deflection AC during Shield Oath OR +1/4 attack during Sword Oath.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:qu:favored:red-mage",
+        "raceId": "ffd20:race:qu",
+        "classId": "ffd20:class:red-mage",
+        "name": "Qu Red Mage favored reward",
+        "description": "+1/4 to Convert uses; level 5 prerequisite.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:qu:favored:summoner",
+        "raceId": "ffd20:race:qu",
+        "classId": "ffd20:class:summoner",
+        "name": "Qu Summoner favored reward",
+        "description": "+1 HP to avatar.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:qu:favored:white-mage",
+        "raceId": "ffd20:race:qu",
+        "classId": "ffd20:class:white-mage",
+        "name": "Qu White Mage favored reward",
+        "description": "+1/4 uses per day of Lay on Hands.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6069"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # FFd20 race files: available for live wizard testing
 
-23 extracted races from batches 01–08 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
+26 extracted races from batches 01–09 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
 
 The race dropdown shows staged races with “(testing)” and the wizard displays a review warning. The existing runtime projection applies only its supported unconditional effects. Unsupported effects remain manual; alternates with unresolved replacement mapping stay disabled. Heritage and race-dependent choices, cross-race Half-Breed inheritance, and favored-class bonuses still need review. Test character totals against official source pages before play; a saved character is not evidence of rule correctness.
 
@@ -13,3 +13,7 @@ These are visible for testing but still need manual review. **Immortal Magic Ine
 ## Batch 08 — Moomba, Mutant, Nu Mou
 
 Moomba's spoken-language and vocal-component restrictions require manual checks. Mutant's 100-entry mutation table and 100-entry optional physical-feature table are kept as separate manual selection pools; its ability advancement overrides standard fourth-level bonuses and cannot be saved through the current Black Mage automation. Nu Mou's two selected Knowledge skill bonuses and three chosen 0-level spell-like abilities remain manual. All three are visible for testing, but none is independently reviewed. See `docs/extraction/race-batch-08-coverage.md`.
+
+## Batch 09 — Palico, PuPu, Qu
+
+Palico has 11 alternate traits and two heritage rows (Cait Sith and Felyne), even though the source introduction says one; those heritage mappings remain manual. PuPu has three alternates and Hiso heritage; its summary and detailed body differ on aberration subtype, and Knowledge (Technology OR Engineering) is one selection. Qu has three alternates, including two conflicting replacements of Weapon Familiarity; its favored-class Paladin reward is either-or. These remain `needs_review` and appear as **testing** choices. See `docs/extraction/race-batch-09-coverage.md`.

@@ -1,0 +1,2470 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:palico",
+  "name": "Palico",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/palico/",
+      "title": "Palico — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/heritages",
+        "reason": "Introduction says one variant but Cait Sith and Felyne both appear in source table; modifiers replace standard vector, never stack.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Heritage alternative ability language is ambiguous about replacing Nimble, and class-specific skill effects need review; heritage effects manual.",
+        "blocking": true
+      },
+      {
+        "path": "/features/languages",
+        "reason": "Select Mithran OR Ronsaur (one starting language); not both. Bonus languages depend on Intelligence/Linguistics.",
+        "blocking": true
+      },
+      {
+        "path": "/features/nimble",
+        "reason": "Substituting DEX for Climb and Swim needs skill calculation integration.",
+        "blocking": true
+      },
+      {
+        "path": "/features/sprinter",
+        "reason": "Movement bonus is action conditional; natural attacks and fall mitigation need manual cards.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "9 class-specific fractional benefits require exact per-level tracking, not auto selection.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Movement Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Standalone external catalog excluded."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Standalone external catalog excluded."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone external feats/archetypes not part of race JSON; racial feat grants are included as traits."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone external feats/archetypes not part of race JSON; racial feat grants are included as traits."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:palico:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+4 DEX, -2 STR, -2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:size",
+      "name": "Size",
+      "description": "Small creature; apply global size modifiers once (not twice).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:type",
+      "name": "Type",
+      "description": "Humanoid creature with feline subtype",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "feline",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Base land speed 30 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:languages",
+      "name": "Languages",
+      "description": "Begin speaking Common and choose either Mithran or Ronsaur; one second starting language is a player choice. High-Intelligence optional languages: Abyssal, Celestial, Elvaan, Galkan, Goblin, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:palico:pool:starting-second-language"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6029"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:palico:trait:heavy-lifter",
+      "name": "Heavy Lifter",
+      "description": "For carrying capacity only, treat Strength as 4 higher.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:nimble-faller",
+      "name": "Nimble Faller",
+      "description": "Land on feet even from a lethal fall; effective falling distance 10 feet shorter; +1 CMD versus trip.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:nimble-faller:effect:0",
+          "kind": "defense_bonus",
+          "target": "defense.cmd.trip",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:feline-conversationalist",
+      "name": "Feline Conversationalist",
+      "description": "Understand and communicate with feline animals at will.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:nimble",
+      "name": "Nimble",
+      "description": "Use Dexterity modifier instead of Strength modifier for Climb and Swim checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:sprinter",
+      "name": "Sprinter",
+      "description": "While charging, running or withdrawing, movement speed gains +10-foot racial bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:sprinter:effect:0",
+          "kind": "custom",
+          "target": "identity.speed.action_based",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 10,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Movement Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Movement Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Movement Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:bite",
+      "name": "Bite",
+      "description": "Primary natural bite attack dealing 1d3 damage.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:claws",
+      "name": "Claws",
+      "description": "Two primary natural claw attacks dealing 1d3 damage each.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:cat-senses",
+      "name": "Cat Senses",
+      "description": "Gain low-light vision and scent.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:cat-senses:effect:0",
+          "kind": "identity",
+          "target": "identity.senses.low_light_vision",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Low-light vision",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6048"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:cat-senses:effect:1",
+          "kind": "identity",
+          "target": "identity.senses.scent",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Scent",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6048"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:non-threatening",
+      "name": "Non-threatening",
+      "description": "-4 penalty on Intimidation checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:non-threatening:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:intimidate.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Weakness Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:easily-distracted",
+      "name": "Easily Distracted",
+      "description": "-2 penalty on Concentration checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:na-ve",
+      "name": "Naïve",
+      "description": "-2 penalty on Sense Motive checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:na-ve:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:sense-motive.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Weakness Racial Traits",
+                "locator": "6053"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:big-ears",
+      "name": "Big Ears",
+      "description": "+2 Perception on hearing checks; can hear high-frequency sounds inaudible to most people.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:big-ears:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.hearing",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6057"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6057"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:clever-cat",
+      "name": "Clever Cat",
+      "description": "+2 racial bonus on Bluff, Diplomacy and Sense Motive checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:clever-cat:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:bluff.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:clever-cat:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:diplomacy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:clever-cat:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.skill:sense-motive.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:climber",
+      "name": "Climber",
+      "description": "Climb speed 20 feet; inherent +8 racial Climb check benefit.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:climber:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.climb",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6059"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6059"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:color-thief",
+      "name": "Color Thief",
+      "description": "+2 racial Stealth while wearing light or no armor.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:curiosity",
+      "name": "Curiosity",
+      "description": "+4 Diplomacy to gather information; Knowledge (history/local) becomes class skill, or +2 racial if already class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:dexterous-tail",
+      "name": "Dexterous Tail",
+      "description": "Tail carries objects (not weapons); retrieve small carried item as swift action.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:hunter-companion",
+      "name": "Hunter Companion",
+      "description": "Gain darkvision 60 feet instead of cat senses (including scent and low-light).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:hunter-companion:effect:0",
+          "kind": "identity",
+          "target": "identity.senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:jungle-stalker",
+      "name": "Jungle Stalker",
+      "description": "+2 racial Acrobatics; ignore first foliage-based difficult-terrain square per round.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:mysterious-red-dot",
+      "name": "Mysterious Red Dot",
+      "description": "Once per day, swift action grants +2 dodge AC for one round.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:natural-hunter",
+      "name": "Natural Hunter",
+      "description": "+2 racial Perception, Stealth and Survival checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:natural-hunter:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6066"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:natural-hunter:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:stealth.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6066"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:natural-hunter:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.skill:survival.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6066"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6066"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:palico-bravery",
+      "name": "Palico Bravery",
+      "description": "+1 racial attack with non-reach melee when enemy is larger and no allies adjacent.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:cait-sith-heritage-ability-scores",
+      "name": "Cait Sith heritage ability scores",
+      "description": "+2 DEX, +2 INT, -2 STR, -2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:cait-sith-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:cait-sith-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:cait-sith-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:cait-sith-heritage-ability-scores:effect:3",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6075"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:cait-sith-heritage-ability",
+      "name": "Cait Sith heritage ability",
+      "description": "+2 racial Knowledge (nature) and Handle Animal; retain Sense Motive penalty. Source may change Nimble; this is not confirmed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:felyne-heritage-ability-scores",
+      "name": "Felyne heritage ability scores",
+      "description": "+2 DEX, +2 CHA, -2 STR, -2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:palico:trait:felyne-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:felyne-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:felyne-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:trait:felyne-heritage-ability-scores:effect:3",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:palico:trait:felyne-heritage-ability",
+      "name": "Felyne heritage ability",
+      "description": "+2 racial Diplomacy; does not suffer Naïve Sense Motive penalty.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:palico:pool:starting-second-language",
+      "name": "Starting second language",
+      "choiceType": "language",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Must be selected manually in wizard; never auto-select all options.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:palico:pool:starting-second-language:option:mithran",
+          "name": "Mithran",
+          "description": "Mithran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "mithran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:palico:pool:starting-second-language:option:ronsaur",
+          "name": "Ronsaur",
+          "description": "Ronsaur",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ronsaur",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:palico:trait:ability-score-racial-traits",
+      "ffd20:race:palico:trait:size",
+      "ffd20:race:palico:trait:type",
+      "ffd20:race:palico:trait:base-speed",
+      "ffd20:race:palico:trait:languages",
+      "ffd20:race:palico:trait:heavy-lifter",
+      "ffd20:race:palico:trait:nimble-faller",
+      "ffd20:race:palico:trait:feline-conversationalist",
+      "ffd20:race:palico:trait:nimble",
+      "ffd20:race:palico:trait:sprinter",
+      "ffd20:race:palico:trait:bite",
+      "ffd20:race:palico:trait:claws",
+      "ffd20:race:palico:trait:cat-senses",
+      "ffd20:race:palico:trait:non-threatening",
+      "ffd20:race:palico:trait:easily-distracted",
+      "ffd20:race:palico:trait:na-ve"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:palico:trait:big-ears",
+      "ffd20:race:palico:trait:clever-cat",
+      "ffd20:race:palico:trait:climber",
+      "ffd20:race:palico:trait:color-thief",
+      "ffd20:race:palico:trait:curiosity",
+      "ffd20:race:palico:trait:dexterous-tail",
+      "ffd20:race:palico:trait:hunter-companion",
+      "ffd20:race:palico:trait:jungle-stalker",
+      "ffd20:race:palico:trait:mysterious-red-dot",
+      "ffd20:race:palico:trait:natural-hunter",
+      "ffd20:race:palico:trait:palico-bravery"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:palico:trait:big-ears:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:nimble"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:big-ears"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Big Ears replaces Nimble.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:clever-cat:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:nimble",
+          "ffd20:race:palico:trait:nimble-faller",
+          "ffd20:race:palico:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:clever-cat"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Clever Cat replaces Nimble, Nimble Faller, Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:climber:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:climber"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Climber replaces Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:color-thief:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:nimble"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:color-thief"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Color Thief replaces Nimble.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:curiosity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:nimble",
+          "ffd20:race:palico:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:curiosity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Curiosity replaces Nimble, Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:dexterous-tail:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:dexterous-tail"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dexterous Tail replaces Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:hunter-companion:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:cat-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:hunter-companion"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Hunter Companion replaces Cat Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:jungle-stalker:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:jungle-stalker"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Jungle Stalker replaces Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:mysterious-red-dot:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:nimble"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:mysterious-red-dot"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mysterious Red Dot replaces Nimble.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:natural-hunter:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:nimble",
+          "ffd20:race:palico:trait:nimble-faller",
+          "ffd20:race:palico:trait:sprinter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:natural-hunter"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Natural Hunter replaces Nimble, Nimble Faller, Sprinter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:trait:palico-bravery:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:palico:trait:nimble"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:palico:trait:palico-bravery"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Palico Bravery replaces Nimble.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6067"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:palico:heritage:cait-sith",
+        "name": "Cait Sith",
+        "description": "Fey-lineage Palico, alternate physical/mental vector; skill specialties differ.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:palico:heritage:cait-sith:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:palico:trait:ability-score-racial-traits"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:palico:trait:cait-sith-heritage-ability-scores",
+              "ffd20:race:palico:trait:cait-sith-heritage-ability"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replaces the standard ability vector and listed trait(s); extra effects are manual until reviewed.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6075"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:palico:trait:cait-sith-heritage-ability-scores",
+          "ffd20:race:palico:trait:cait-sith-heritage-ability"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:heritage:felyne",
+        "name": "Felyne",
+        "description": "Sociable Palico with alternate ability vector and removal of Sense Motive penalty.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:palico:heritage:felyne:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:palico:trait:ability-score-racial-traits",
+              "ffd20:race:palico:trait:na-ve"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:palico:trait:felyne-heritage-ability-scores",
+              "ffd20:race:palico:trait:felyne-heritage-ability"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replaces the standard ability vector and listed trait(s); extra effects are manual until reviewed.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6076"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:palico:trait:felyne-heritage-ability-scores",
+          "ffd20:race:palico:trait:felyne-heritage-ability"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6076"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:palico:favored:archer",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:archer",
+        "name": "Palico Archer favored reward",
+        "description": "+1/2 on critical-confirmation rolls with bows or crossbows (max +4); does not stack with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6094"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:favored:bard",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:bard",
+        "name": "Palico Bard favored reward",
+        "description": "+1/2 Bluff for lying and +1/2 Diplomacy for information gathering.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6095"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:favored:berserker",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:berserker",
+        "name": "Palico Berserker favored reward",
+        "description": "+2.5 feet when charging/running through rough terrain; full 5 feet only each 2 selections.",
+        "increment": {
+          "numerator": 5,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:favored:fencer",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:fencer",
+        "name": "Palico Fencer favored reward",
+        "description": "+1/6 to AC bonus from duelist stance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:favored:gunner",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:gunner",
+        "name": "Palico Gunner favored reward",
+        "description": "+1/6 to AC dodge bonus from nimble class feature.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:favored:monk",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:monk",
+        "name": "Palico Monk favored reward",
+        "description": "+1/6 toward an extra monk talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:favored:ninja",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:ninja",
+        "name": "Palico Ninja favored reward",
+        "description": "+1/4 attack when attacking on or charging from higher ground.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:favored:thief",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:thief",
+        "name": "Palico Thief favored reward",
+        "description": "+1/2 Stealth and Perception in dim light or darkness.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6101"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:palico:favored:warrior",
+        "raceId": "ffd20:race:palico",
+        "classId": "ffd20:class:warrior",
+        "name": "Palico Warrior favored reward",
+        "description": "+1/2 circumstance bonus to confirm criticals with close/light blade weapons, max +4, nonstacking with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6102"
+          }
+        ]
+      }
+    ]
+  }
+}

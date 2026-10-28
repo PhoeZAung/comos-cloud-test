@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "23 staged FFd20 races available for live wizard testing. All remain needs_review and not independently import-ready.",
+  "description": "26 staged FFd20 race definitions available in the wizard for live testing; each remains needs_review and not independently import-ready.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -121,6 +121,21 @@
       "file": "rules/staging/races/nu-mou.race.json",
       "raceId": "ffd20:race:nu-mou",
       "sha256": "b2503a7bcddfe3cae70e983c5866cfbdd8baa03d605a2278258f06bb429fe6a3"
+    },
+    {
+      "file": "rules/staging/races/palico.race.json",
+      "raceId": "ffd20:race:palico",
+      "sha256": "fc8528250b8572d11eef90c049eb962218c87909c71adeddff5568e84fa0cd7c"
+    },
+    {
+      "file": "rules/staging/races/pupu.race.json",
+      "raceId": "ffd20:race:pupu",
+      "sha256": "38148f67659ee454a3d30b3eee7eaa6e3ae4625c588a943dbda5e00248f9539c"
+    },
+    {
+      "file": "rules/staging/races/qu.race.json",
+      "raceId": "ffd20:race:qu",
+      "sha256": "f0c88ae5723ab5584ca2e1fc642bde21b518d141f04fc6e0bfc37393f1a46c88"
     }
   ],
   "blockers": [
@@ -130,6 +145,8 @@
     "Beastkin incomplete and omitted",
     "Live testing is not independent rules approval; unresolved selections and conditional mechanics remain manual.",
     "Immortal MP conflict with Black Mage: cannot have MP pool under race Magic Ineptitude. Do not complete automated build until this is reconciled.",
-    "Mutant's alternate progression and d100 mutation results are manual; automated final save blocked until its ability-score logic is supported."
+    "Mutant's alternate progression and d100 mutation results are manual; automated final save blocked until its ability-score logic is supported.",
+    "Palico has two heritages despite one in source intro; replacements remain manual pending clarity.",
+    "PuPu source table/body differ on creature subtype, and chosen Knowledge skill cannot auto-select both options."
   ]
 }

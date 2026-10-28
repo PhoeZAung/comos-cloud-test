@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,26);
+ assert.equal(manifest.races.length,29);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,26);
+ assert.equal(registry.races.length,29);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,23);
+ assert.equal(experimental.length,26);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -112,4 +112,27 @@ test('batch 08 race options are staged and mutant cannot silently override level
  assert.equal(nuMou.data.alternateTraitIds.length,8);
  assert.equal(nuMou.data.heritages.length,0);
  assert.equal(nuMou.choicePools.find(p=>/Sagacious/.test(p.name)).options.length,0);
+});
+
+test('batch 09 Palico, PuPu and Qu are visible as unreviewed testing races with explicit replacement targets',async()=>{
+ const palico=registry.races.find(r=>r.id==='ffd20:race:palico');
+ const pupu=registry.races.find(r=>r.id==='ffd20:race:pupu');
+ const qu=registry.races.find(r=>r.id==='ffd20:race:qu');
+ assert.equal(palico.testing,true);
+ assert.equal(palico.data.standardTraitIds.length,16);
+ assert.equal(palico.data.alternateTraitIds.length,11);
+ assert.deepEqual(palico.data.heritages.map(h=>h.name),['Cait Sith','Felyne']);
+ const climb=palico.data.alternateReplacements.find(op=>op.id.includes(':climber:'));
+ assert.deepEqual(climb.targetFeatureIds,[palico.id+':trait:sprinter']);
+ const b=newBuild();b.raceId=palico.id;
+ assert.deepEqual(raceTraits(b).errors,[]);
+ b.heritageId=palico.data.heritages[0].id;
+ assert(raceTraits(b).errors.length>0,'unresolved Palico heritage must be blocked from save');
+ assert.equal(pupu.data.standardTraitIds.length,9);
+ assert.equal(pupu.data.alternateTraitIds.length,3);
+ assert.equal(pupu.data.heritages.length,1);
+ assert.equal(pupu.choicePools.find(p=>/Technological Savant specialty/.test(p.name)).options.length,2);
+ assert.equal(qu.data.standardTraitIds.length,11);
+ assert.equal(qu.data.alternateTraitIds.length,3);
+ assert.equal(qu.data.favoredRewards.some(r=>r.classId.endsWith(':paladin')),true);
 });

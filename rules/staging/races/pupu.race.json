@@ -1,0 +1,1387 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:pupu",
+  "name": "PuPu",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/pupu/",
+      "title": "PuPu — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/features/type",
+        "reason": "Source summary table calls type Aberration (alien), body says aberrations (humanoids). Keep aberration, defer exact subtype until confirmed.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Hiso replaces entire ability vector and Technological Savant skills, not additive; requires cross-check for inherited feat.",
+        "blocking": true
+      },
+      {
+        "path": "/features/technological-savant",
+        "reason": "Either Knowledge technology OR engineering must be selected; only Repair can be automatic.",
+        "blocking": true
+      },
+      {
+        "path": "/features/limited-telepathy",
+        "reason": "Range and shared-language restriction enforced manually.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Black Mage +1/6 talent requires explicit tracked choices and no auto-grants.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source content accounted for; mechanics still under review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Standalone external catalog excluded."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Standalone external catalog excluded."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone external feats/archetypes not part of race JSON; racial feat grants are included as traits."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone external feats/archetypes not part of race JSON; racial feat grants are included as traits."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:pupu:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 INT",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6019"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6019"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:pupu:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6019"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6019"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6019"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:size",
+      "name": "Size",
+      "description": "Small creature; apply global size modifiers once (not twice).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6021"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6021"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:type",
+      "name": "Type",
+      "description": "Aberration creature",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "aberration",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6020"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6020"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Base land speed 20 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6022"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6022"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6022"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:languages",
+      "name": "Languages",
+      "description": "Begin speaking Common and PuPon. High-Intelligence optional languages: Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin, Sylvan.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:pupu:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.pupon",
+          "operation": "grant",
+          "value": null,
+          "textValue": "PuPon",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:alien-mindset",
+      "name": "Alien Mindset",
+      "description": "+2 racial saves versus mind-affecting effects (including listed spell categories), antagonize, confusion and berserk.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:alien-mindset:effect:0",
+          "kind": "defense_bonus",
+          "target": "defense.saves.mind_affecting",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:technological-savant",
+      "name": "Technological Savant",
+      "description": "+2 racial Knowledge (Technology OR Engineering) and Repair checks; choose Knowledge specialty (not both).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:technological-savant:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:repair.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:pupu:pool:technological-savant-specialty"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feat and Skill Racial Traits",
+            "locator": "6030"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:technologist",
+      "name": "Technologist",
+      "description": "Gain Technologist feat at first level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:technologist:effect:0",
+          "kind": "grant_feature",
+          "target": "feats.technologist",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Technologist at level one",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:darkvision:effect:0",
+          "kind": "identity",
+          "target": "identity.senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:ace-pilot",
+      "name": "Ace Pilot",
+      "description": "Gain Airship Operation bonus feat; +2 racial Pilot and Navigation.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:ace-pilot:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:pilot.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:pupu:trait:ace-pilot:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:navigation.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:limited-telepathy",
+      "name": "Limited Telepathy",
+      "description": "Within 30 feet mentally communicate with any creature sharing a language.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:planetary-adaptation",
+      "name": "Planetary Adaptation",
+      "description": "Gain fire, ice and wind resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:planetary-adaptation:effect:0",
+          "kind": "custom",
+          "target": "defense.resistance.fire",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:pupu:trait:planetary-adaptation:effect:1",
+          "kind": "custom",
+          "target": "defense.resistance.ice",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:pupu:trait:planetary-adaptation:effect:2",
+          "kind": "custom",
+          "target": "defense.resistance.wind",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:hiso-heritage-ability-scores",
+      "name": "Hiso heritage ability scores",
+      "description": "+2 DEX, +2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:hiso-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6048"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6048"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:pupu:trait:hiso-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6048"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6048"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:pupu:trait:hiso-heritage-ability",
+      "name": "Hiso heritage ability",
+      "description": "+2 racial Knowledge (nature) and Survival; replaces original Knowledge (Technology or Engineering) and Repair bonuses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:pupu:trait:hiso-heritage-ability:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-nature.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6048"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6048"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:pupu:trait:hiso-heritage-ability:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:survival.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6048"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6048"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:pupu:pool:technological-savant-specialty",
+      "name": "Technological Savant specialty",
+      "choiceType": "skill",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Must be selected manually in wizard; never auto-select all options.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:pupu:pool:technological-savant-specialty:option:knowledge-technology",
+          "name": "Knowledge (Technology)",
+          "description": "Knowledge (Technology)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "knowledge-technology",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:pupu:pool:technological-savant-specialty:option:knowledge-engineering",
+          "name": "Knowledge (Engineering)",
+          "description": "Knowledge (Engineering)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "knowledge-engineering",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:pupu:trait:ability-score-racial-traits",
+      "ffd20:race:pupu:trait:size",
+      "ffd20:race:pupu:trait:type",
+      "ffd20:race:pupu:trait:base-speed",
+      "ffd20:race:pupu:trait:languages",
+      "ffd20:race:pupu:trait:alien-mindset",
+      "ffd20:race:pupu:trait:technological-savant",
+      "ffd20:race:pupu:trait:technologist",
+      "ffd20:race:pupu:trait:darkvision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:pupu:trait:ace-pilot",
+      "ffd20:race:pupu:trait:limited-telepathy",
+      "ffd20:race:pupu:trait:planetary-adaptation"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:pupu:trait:ace-pilot:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:pupu:trait:technological-savant",
+          "ffd20:race:pupu:trait:technologist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:pupu:trait:ace-pilot"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Ace Pilot replaces Technological Savant, Technologist.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6038"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:pupu:trait:limited-telepathy:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:pupu:trait:technologist"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:pupu:trait:limited-telepathy"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Limited Telepathy replaces Technologist.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6039"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:pupu:trait:planetary-adaptation:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:pupu:trait:alien-mindset"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:pupu:trait:planetary-adaptation"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Planetary Adaptation replaces Alien Mindset.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6040"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:pupu:heritage:hiso",
+        "name": "Hiso",
+        "description": "Arsenic-based white-bodied PuPu with alternate stats and skill specialties.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:pupu:heritage:hiso:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:pupu:trait:ability-score-racial-traits",
+              "ffd20:race:pupu:trait:technological-savant"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:pupu:trait:hiso-heritage-ability-scores",
+              "ffd20:race:pupu:trait:hiso-heritage-ability"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Replaces the standard ability vector and listed trait(s); extra effects are manual until reviewed.",
+            "resolution": "resolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6048"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:pupu:trait:hiso-heritage-ability-scores",
+          "ffd20:race:pupu:trait:hiso-heritage-ability"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6048"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:pupu:favored:black-mage",
+        "raceId": "ffd20:race:pupu",
+        "classId": "ffd20:class:black-mage",
+        "name": "PuPu Black Mage favored reward",
+        "description": "+1/6 of a mage talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:pupu:favored:engineer",
+        "raceId": "ffd20:race:pupu",
+        "classId": "ffd20:class:engineer",
+        "name": "PuPu Engineer favored reward",
+        "description": "+1/2 to Craft skill checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:pupu:favored:gunbreaker",
+        "raceId": "ffd20:race:pupu",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "PuPu Gunbreaker favored reward",
+        "description": "+1/6 of new gunbreaker talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:pupu:favored:gunner",
+        "raceId": "ffd20:race:pupu",
+        "classId": "ffd20:class:gunner",
+        "name": "PuPu Gunner favored reward",
+        "description": "+1/3 extra Gun Fix use per day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6069"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:pupu:favored:medic",
+        "raceId": "ffd20:race:pupu",
+        "classId": "ffd20:class:medic",
+        "name": "PuPu Medic favored reward",
+        "description": "+1/6 of a new medical practice.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6070"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:pupu:favored:thief",
+        "raceId": "ffd20:race:pupu",
+        "classId": "ffd20:class:thief",
+        "name": "PuPu Thief favored reward",
+        "description": "+1/6 of a thief talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6071"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:pupu:favored:time-mage",
+        "raceId": "ffd20:race:pupu",
+        "classId": "ffd20:class:time-mage",
+        "name": "PuPu Time Mage favored reward",
+        "description": "+1/6 of a temporal talent; one full talent every six selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6072"
+          }
+        ]
+      }
+    ]
+  }
+}
