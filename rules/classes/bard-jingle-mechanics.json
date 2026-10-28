@@ -1,0 +1,344 @@
+{
+  "schemaVersion": "comos.song-mechanics.v1",
+  "kind": "song_mechanics_batch",
+  "id": "ffd20:class:bard:mechanics:jingles:01",
+  "parentClassId": "ffd20:class:bard",
+  "catalogId": "ffd20:class:bard:songs",
+  "revision": 1,
+  "sourceCheckedOn": "2026-10-28",
+  "review": {
+    "state": "needs_review",
+    "coverage": "11_jingles_individual_pages_extracted",
+    "blocking": true,
+    "issues": [
+      "Rule descriptions are paraphrased; these entries are source-checked staging data, not executable effects.",
+      "Song of Serenity on the current official page only suppresses fatigue during maintenance, unlike wording in older PDFs.",
+      "Targeting, saving throws, ongoing effects and concentration are manual until Bard's runtime adapter is verified."
+    ]
+  },
+  "generalRules": {
+    "mpCost": 0,
+    "performSkillCheckRequired": false,
+    "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/"
+  },
+  "entries": [
+    {
+      "songId": "ffd20:song:bard:boom",
+      "name": "Boom",
+      "school": "elemental (lightning/jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "30 ft.",
+      "targeting": "one creature",
+      "duration": "instantaneous; concentration penalty lasts 1d3 rounds",
+      "maintained": false,
+      "savingThrow": "Fortitude partial",
+      "spellResistance": "no",
+      "mechanicsSummary": "Deal 1 non-elemental damage; failed Fortitude save also causes -2 Concentration for 1d3 rounds.",
+      "scaling": [],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/b/boom/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Boom"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:detune",
+      "name": "Detune",
+      "school": "enfeebling (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "30 ft.",
+      "targeting": "one instrument",
+      "duration": "instantaneous; detuning persists until fixed",
+      "maintained": false,
+      "savingThrow": "none",
+      "spellResistance": "yes",
+      "mechanicsSummary": "Instrument gives -4 to Perform checks until retuned for 1d4 rounds.",
+      "scaling": [],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/d/detune/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Detune"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:ghostharp",
+      "name": "Ghostharp",
+      "school": "summoning (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "30 ft.",
+      "targeting": "one object",
+      "duration": "1 minute/level (dismissible)",
+      "maintained": false,
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "mechanicsSummary": "Object records and replays music performed within 50 feet during the past day. Cannot replay speech or magical effects.",
+      "scaling": [
+        {
+          "parameter": "durationMinutes",
+          "expression": "casterLevel"
+        }
+      ],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/g/ghostharp/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Ghostharp"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:ghost-sound",
+      "name": "Ghost Sound",
+      "school": "illusion (jingle/figment)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "close (25 ft. + 5 ft./2 levels)",
+      "targeting": "illusory sounds",
+      "duration": "1 round/level (dismissible)",
+      "maintained": false,
+      "savingThrow": "Will disbelief",
+      "spellResistance": "no",
+      "mechanicsSummary": "Sound of up to four humanoid voices per caster level, maximum 40; the chosen basic nature of the sound cannot change.",
+      "scaling": [
+        {
+          "parameter": "rangeFeet",
+          "expression": "25 + 5 * floor(casterLevel / 2)"
+        },
+        {
+          "parameter": "durationRounds",
+          "expression": "casterLevel"
+        },
+        {
+          "parameter": "maxVoiceEquivalent",
+          "expression": "min(40, 4 * casterLevel)"
+        }
+      ],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/g/ghost-sound/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Ghost Sound"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:giggle",
+      "name": "Giggle",
+      "school": "enfeebling (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "30 ft.",
+      "targeting": "one creature",
+      "duration": "1 round",
+      "maintained": false,
+      "savingThrow": "Will negates",
+      "spellResistance": "yes",
+      "mechanicsSummary": "Target cannot speak or use verbal spells or Bard abilities; can move and attack.",
+      "scaling": [],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/g/giggle/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Giggle"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:lullaby",
+      "name": "Lullaby",
+      "school": "enfeebling (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "30 ft.",
+      "targeting": "living creatures in 10-ft.-radius burst",
+      "duration": "up to 1 + CHA modifier rounds (maintained)",
+      "maintained": true,
+      "savingThrow": "Will negates",
+      "spellResistance": "yes",
+      "mechanicsSummary": "Failures take -5 Perception and -2 Will against sleep only while maintained.",
+      "scaling": [
+        {
+          "parameter": "maximumMaintainedRounds",
+          "expression": "1 + charismaModifier"
+        }
+      ],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/l/lullaby/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Lullaby"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:rebound-sound",
+      "name": "Rebound Sound",
+      "school": "non-elemental (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "long (400 ft. + 40 ft./level)",
+      "targeting": "straight line",
+      "duration": "instantaneous",
+      "maintained": false,
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "mechanicsSummary": "Echo reveals precise distance to a surface, including depth of water if sound penetrates it.",
+      "scaling": [
+        {
+          "parameter": "rangeFeet",
+          "expression": "400 + 40 * casterLevel"
+        }
+      ],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/r/rebound-sound/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Rebound Sound"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:songbird",
+      "name": "Songbird",
+      "school": "enhancing (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "personal",
+      "targeting": "self",
+      "duration": "1 minute/level",
+      "maintained": false,
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "mechanicsSummary": "Competence +1 to Charisma-based checks involving a person who witnessed the performance.",
+      "scaling": [
+        {
+          "parameter": "durationMinutes",
+          "expression": "casterLevel"
+        }
+      ],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/s/songbird/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Songbird"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:song-of-serenity",
+      "name": "Song of Serenity",
+      "school": "healing (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "30 ft.",
+      "targeting": "one creature per round",
+      "duration": "up to 1 + CHA modifier rounds (maintained)",
+      "maintained": true,
+      "savingThrow": "Fortitude negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "mechanicsSummary": "A targeted creature ignores fatigue effects only while the song is maintained; fatigue is not cured.",
+      "scaling": [
+        {
+          "parameter": "maximumMaintainedRounds",
+          "expression": "1 + charismaModifier"
+        }
+      ],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/s/song-of-serenity/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Song of Serenity"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:stage-light",
+      "name": "Stage Light",
+      "school": "light (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "personal",
+      "targeting": "one following floating orb",
+      "duration": "1 minute (dismissible)",
+      "maintained": false,
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "mechanicsSummary": "The orb follows the Bard and provides normal light in a 30-ft. radius, unaffected by water.",
+      "scaling": [],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/s/stage-light/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Stage Light"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:summon-instrument",
+      "name": "Summon Instrument",
+      "school": "summoning (jingle)",
+      "castingTime": "1 standard action",
+      "mpCost": 0,
+      "range": "0 ft.",
+      "targeting": "one handheld instrument",
+      "duration": "1 hour/level (dismissible)",
+      "maintained": false,
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "mechanicsSummary": "Summon one standard portable instrument playable only by Bard; disappears at end of duration.",
+      "scaling": [
+        {
+          "parameter": "durationHours",
+          "expression": "casterLevel"
+        }
+      ],
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/s/summon-instrument/",
+      "sourceRefs": [
+        {
+          "sourceId": "official-spell",
+          "section": "CASTING / EFFECT / DESCRIPTION",
+          "locator": "Summon Instrument"
+        }
+      ]
+    }
+  ]
+}
