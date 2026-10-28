@@ -1,0 +1,1384 @@
+{
+  "schemaVersion": "comos.songs.v1",
+  "kind": "song_catalog",
+  "id": "ffd20:class:bard:songs",
+  "parentClassId": "ffd20:class:bard",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "bard-songs",
+      "url": "https://finalfantasyd20.com/magic/spells-by-class/bard/",
+      "title": "Official FFd20 Bard Songs",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web"
+    },
+    {
+      "id": "bard",
+      "url": "https://finalfantasyd20.com/classes/core-classes/bard/",
+      "title": "Official FFd20 Bard class rules",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_levels_0_to_2",
+    "complete": false,
+    "issues": [
+      {
+        "blocking": true,
+        "path": "/songs",
+        "reason": "Only levels 0–2 are indexed; song levels 3–6 remain to be extracted from the current website before this can be a complete catalog."
+      },
+      {
+        "blocking": true,
+        "path": "/songs/*/summary",
+        "reason": "These entries contain short source-index paraphrases. Individual song detail pages, saves, durations, costs, mechanics and edge cases require independent review."
+      },
+      {
+        "blocking": true,
+        "path": "/rules/maintained",
+        "reason": "Maintained songs require per-round management, targeting, ongoing saves/resistance and the Medley class feature; not yet implemented in the save or combat engine."
+      },
+      {
+        "blocking": true,
+        "path": "/rules/learning",
+        "reason": "Song learning must validate Bard level, Charisma, existing songs, MP and orchestration rolls; player selections remain disabled until the Bard adapter is built."
+      }
+    ]
+  },
+  "rules": {
+    "jingleLevel": 0,
+    "jinglesKnownAtStart": 2,
+    "extraJingleLevels": [
+      5,
+      9,
+      13,
+      17
+    ],
+    "startingSongChoices": "3 + CHA_MOD",
+    "songsGainedEachLevelAfterFirst": 2,
+    "minCharisma": "10 + song level",
+    "saveDC": "10 + song level + CHA_MOD",
+    "maintainedBaseLimit": 1,
+    "maintainedSongLimitModifiedBy": "ffd20:class:bard:feature:medley",
+    "activeEffectAutomation": "manual",
+    "tieredSongs": "Different song-level versions are distinct learned entries; not class ability upgrade events."
+  },
+  "extractedLevels": [
+    0,
+    1,
+    2
+  ],
+  "songs": [
+    {
+      "id": "ffd20:song:bard:boom",
+      "name": "Boom",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "A small thunderclap that damages a target and may disrupt concentration.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 1: Boom"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:detune",
+      "name": "Detune",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "Disrupts an instrument's tuning.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 2: Detune"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:ghostharp",
+      "name": "Ghostharp",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "Records and replays nearby music.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 3: Ghostharp"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:ghost-sound",
+      "name": "Ghost Sound",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "Produces illusory noises.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 4: Ghost Sound"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:giggle",
+      "name": "Giggle",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "Causes a creature to laugh involuntarily.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 5: Giggle"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:lullaby",
+      "name": "Lullaby",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "maintained",
+      "summary": "Weakens awareness and resistance to sleep.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 6: Lullaby"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:rebound-sound",
+      "name": "Rebound Sound",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "Uses sound to assess an object's depth.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 7: Rebound Sound"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:songbird",
+      "name": "Songbird",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "Improves Charisma-related checks through performance.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 8: Songbird"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:song-of-serenity",
+      "name": "Song of Serenity",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "maintained",
+      "summary": "Suppresses fatigue effects on the target.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 9: Song of Serenity"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:stage-light",
+      "name": "Stage Light",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "Creates a light centered on the performer.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 10: Stage Light"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:summon-instrument",
+      "name": "Summon Instrument",
+      "level": 0,
+      "kind": "jingle",
+      "usageMode": "normal",
+      "summary": "Conjures a musical instrument.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 0-Level Bard Songs",
+          "locator": "row 11: Summon Instrument"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:adoration",
+      "name": "Adoration",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Improves social interaction and performance contests.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 1: Adoration"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:alter-musical-instrument",
+      "name": "Alter Musical Instrument",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Changes the apparent sound of an instrument.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 2: Alter Musical Instrument"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:amplify",
+      "name": "Amplify",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Makes sounds easier to hear.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 3: Amplify"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:armys-paeon",
+      "name": "Army’s Paeon",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Grants nearby allies fast healing.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 4: Army’s Paeon"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:clarion-call",
+      "name": "Clarion Call",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Projects sounds or a voice over long distances.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 5: Clarion Call"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:distort-speech",
+      "name": "Distort Speech",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Interferes with intelligible speech and spellcasting.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 6: Distort Speech"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:elemental-carol",
+      "name": "Elemental Carol",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves allies' defense against a chosen element.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 7: Elemental Carol"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:elemental-threnody",
+      "name": "Elemental Threnody",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Weakens foes' resistance and saves against an element.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 8: Elemental Threnody"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:fear-filled-tune",
+      "name": "Fear Filled Tune",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Provokes fear with a lesser effect on a successful save.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 9: Fear Filled Tune"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:feather-bar",
+      "name": "Feather Bar",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Reduces the weight of a target.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 10: Feather Bar"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:focusing-chant",
+      "name": "Focusing Chant",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Provides minor bonuses to attacks and checks.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 11: Focusing Chant"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:foe-requiem",
+      "name": "Foe Requiem",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Repeatedly harms one enemy with non-elemental damage.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 12: Foe Requiem"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:fortuitous-beat",
+      "name": "Fortuitous Beat",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Fortitude saves.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 13: Fortuitous Beat"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:hideous-laughter",
+      "name": "Hideous Laughter",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Disables a subject through laughter.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 14: Hideous Laughter"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:insidious-rhythm",
+      "name": "Insidious Rhythm",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Impairs concentration and Intelligence-based skills.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 15: Insidious Rhythm"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:inspirational-boost",
+      "name": "Inspirational Boost",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Temporarily improves Inspire Courage.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 16: Inspirational Boost"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:joyful-noise",
+      "name": "Joyful Noise",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Counters silence around the bard.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 17: Joyful Noise"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:knights-minne",
+      "name": "Knight’s Minne",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Gives nearby allies a deflection AC bonus.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 18: Knight’s Minne"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:lions-song",
+      "name": "Lion’s Song",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Protects against fear and suppresses existing fear effects.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 19: Lion’s Song"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:performers-wine",
+      "name": "Performer's Wine",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Transforms a liquid into wine with a mental effect.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 20: Performer's Wine"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:play-instrument",
+      "name": "Play Instrument",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Enables skillful performance with an instrument.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 21: Play Instrument"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:quick-etude",
+      "name": "Quick Etude",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves allies' armor class against ranged attacks.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 22: Quick Etude"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:reflexive-strum",
+      "name": "Reflexive Strum",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Reflex saves.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 23: Reflexive Strum"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:resonance-armor",
+      "name": "Resonance Armor",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Provides an armor bonus to the singer.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 24: Resonance Armor"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:saving-finale",
+      "name": "Saving Finale",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Ends an ongoing maintained song to permit a save reroll.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 25: Saving Finale"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:sheepfoe-mambo",
+      "name": "Sheepfoe Mambo",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' saving throws.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 26: Sheepfoe Mambo"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:solid-note",
+      "name": "Solid Note",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Forms a tangible note of music.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 27: Solid Note"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:suit-of-the-dancer",
+      "name": "Suit of the Dancer",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Stores and recalls clothing in extradimensional space.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 28: Suit of the Dancer"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:toilsome-chant",
+      "name": "Toilsome Chant",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Extends Inspire Competence to lengthy skill tasks.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 29: Toilsome Chant"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:willful-clash",
+      "name": "Willful Clash",
+      "level": 1,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Will saves.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 1st-Level Bard Songs",
+          "locator": "row 30: Willful Clash"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:allegro",
+      "name": "Allegro",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Grants haste while a bardic performance is maintained.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 1: Allegro"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:ballad-of-the-hero",
+      "name": "Ballad of the Hero",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Grants a temporary hero point.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 2: Ballad of the Hero"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:battle-hymn",
+      "name": "Battle Hymn",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Allows allies to reroll a Will save.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 3: Battle Hymn"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:blurring-melody",
+      "name": "Blurring Melody",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Inflicts the Dimmed status on nearby foes.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 4: Blurring Melody"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:cacophonous-call",
+      "name": "Cacophonous Call",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Nauseates a creature.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 5: Cacophonous Call"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:cadence-defense",
+      "name": "Cadence Defense",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Provides concealment.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 6: Cadence Defense"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:calm-emotions",
+      "name": "Calm Emotions",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Suppresses agitation and intense emotions.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 7: Calm Emotions"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:dexterous-etude",
+      "name": "Dexterous Etude",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Dexterity.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 8: Dexterous Etude"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:dissonant-chant",
+      "name": "Dissonant Chant",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Makes concentration more difficult in its area.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 9: Dissonant Chant"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:distracting-cacophony",
+      "name": "Distracting Cacophony",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Disrupts enemy spellcasting with noise.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 10: Distracting Cacophony"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:distressing-tone",
+      "name": "Distressing Tone",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Inflicts the Sickened status on nearby foes.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 11: Distressing Tone"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:doubtful-backing-track",
+      "name": "Doubtful Backing Track",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Undermines a subject's social persuasiveness.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 12: Doubtful Backing Track"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:enchanting-etude",
+      "name": "Enchanting Etude",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Charisma.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 13: Enchanting Etude"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:find-audience",
+      "name": "Find Audience",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Indicates the nearest settlement.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 14: Find Audience"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:foe-lullaby",
+      "name": "Foe Lullaby",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Inflicts sleep on nearby enemies.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 15: Foe Lullaby"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:fowl-aubade",
+      "name": "Fowl Aubade",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves resistance to sleep and charm.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 16: Fowl Aubade"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:ghostbane-dirge",
+      "name": "Ghostbane Dirge",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Helps normal weapons affect incorporeal foes.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 17: Ghostbane Dirge"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:goblin-gavotte",
+      "name": "Goblin Gavotte",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves defense against paralysis and petrification.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 18: Goblin Gavotte"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:harmonic-chorus",
+      "name": "Harmonic Chorus",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves another caster's effectiveness.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 19: Harmonic Chorus"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:heartbeat-resonance",
+      "name": "Heartbeat Resonance",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Assists detection of dishonesty.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 20: Heartbeat Resonance"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:herb-pastoral",
+      "name": "Herb Pastoral",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves allies' defenses against poison and disease.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 21: Herb Pastoral"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:hunters-prelude",
+      "name": "Hunter’s Prelude",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves ranged weapon attacks.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 22: Hunter’s Prelude"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:learned-etude",
+      "name": "Learned Etude",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Intelligence.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 23: Learned Etude"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:lively-step",
+      "name": "Lively Step",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Improves movement speed for the bard and allies.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 24: Lively Step"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:painful-finale",
+      "name": "Painful Finale",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Ends a maintained song to damage one target.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 25: Painful Finale"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:piercing-shriek",
+      "name": "Piercing Shriek",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Inflicts a painful staggering sound.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 26: Piercing Shriek"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:revealing-aria",
+      "name": "Revealing Aria",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Reveals nearby invisible or ethereal creatures.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 27: Revealing Aria"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:scops-operetta",
+      "name": "Scop’s Operetta",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves defenses against silence and blindness.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 28: Scop’s Operetta"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:silent-verse",
+      "name": "Silent Verse",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Silences nearby enemies.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 29: Silent Verse"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:sinewy-etude",
+      "name": "Sinewy Etude",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Strength.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 30: Sinewy Etude"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:song-of-winter",
+      "name": "Song of Winter",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Causes frozen status in an area.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 31: Song of Winter"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:spirited-etude",
+      "name": "Spirited Etude",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Wisdom.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 32: Spirited Etude"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:sword-madrigal",
+      "name": "Sword Madrigal",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves melee weapon attack rolls.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 33: Sword Madrigal"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:valor-minuet",
+      "name": "Valor Minuet",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves damage dealt by nearby allies.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 34: Valor Minuet"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:vivacious-etude",
+      "name": "Vivacious Etude",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "maintained",
+      "summary": "Improves nearby allies' Constitution.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 35: Vivacious Etude"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:song:bard:weapon-conductor",
+      "name": "Weapon Conductor",
+      "level": 2,
+      "kind": "song",
+      "usageMode": "normal",
+      "summary": "Gives a weapon the ability to return.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceRefs": [
+        {
+          "sourceId": "bard-songs",
+          "section": "Table: 2nd-Level Bard Songs",
+          "locator": "row 36: Weapon Conductor"
+        }
+      ]
+    }
+  ]
+}
