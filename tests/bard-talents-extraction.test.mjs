@@ -21,7 +21,10 @@ test('advanced Bard talents replace an even-level slot rather than being availab
  const b=await get('rules/classes/bard.class.json'),o=await get('rules/classes/bard-talents.json');
  const early=eligibleClassTalents(b,o,10),later=eligibleClassTalents(b,o,12);
  assert.equal(early.some(x=>x.tier==='advanced'),false);
- assert.equal(later.filter(x=>x.tier==='advanced').length,12);
+ assert.equal(later.filter(x=>x.tier==='advanced').length,9,'three advanced talents still need earlier talent prerequisites');
+ const pick=names=>names.map(name=>o.options.find(x=>x.name===name).id);
+ const withPrereqs=eligibleClassTalents(b,o,12,pick(['Attract Minion','Improved Inspiration','Improved Musical Power']));
+ assert.equal(withPrereqs.filter(x=>x.tier==='advanced').length,12,'all advanced talents appear once prerequisites are learned');
  assert.deepEqual(b.data.events.filter(x=>x.type==='choose'&&x.poolId===b.id+':pool:song-talents').map(x=>x.atClassLevel),[2,4,6,8,10,12,14,16,18,20]);
 });
 test('Bardic Inspiration improves ONE option at 5, 10 and 15 without stacking earlier die sizes',async()=>{
