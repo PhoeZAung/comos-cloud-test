@@ -1,0 +1,1049 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class_option_catalog",
+  "id": "ffd20:catalog:bard-song-talents",
+  "name": "Bard Song Talents and Advanced Song Talents",
+  "parentClassId": "ffd20:class:bard",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "talents",
+      "url": "https://finalfantasyd20.com/classes/core-classes/bard/song-talents/",
+      "title": "Song Talents — official Final Fantasy d20",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-28"
+    }
+  ],
+  "notes": [
+    "Ten total slots at even Bard levels 2–20; advanced talents are alternatives for slots at level 12+, not additional slots.",
+    "An asterisk means at most ONE such talent modifies any single song, though a Bard may learn different asterisk talents.",
+    "Attract Minion, Bard Training and Coordinate explicitly allow repeated selection; Coordinate is capped at +5.",
+    "External feats, minion stats, spell/song effects and conditional combat bonuses remain manual until separate catalogs or sheet rules exist.",
+    "Bard remains staged and cannot be selected for character saving until a verified Bard adapter and songs/jingles catalog exist."
+  ],
+  "options": [
+    {
+      "id": "ffd20:class:bard:talent:attract-minion",
+      "name": "Attract Minion",
+      "description": "Gain a minion at three-quarter Bard level; additional selections grant more minions.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 10,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6008"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:bard-training",
+      "name": "Bard Training",
+      "description": "Choose an eligible item creation or metasong feat; each repeat requires a different feat.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 10,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6010"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:bardic-inspiration",
+      "name": "Bardic Inspiration",
+      "description": "Swiftly grant one ally a scaling inspiration die; usage limited by Charisma.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6011"
+        }
+      ],
+      "upgrades": [
+        {
+          "id": "ffd20:class:bard:talent:bardic-inspiration:upgrade:5",
+          "atClassLevel": 5,
+          "changes": {
+            "inspirationDieSides": 8
+          },
+          "description": "Bardic Inspiration die becomes d8 at Bard level 5.",
+          "sourceRefs": [
+            {
+              "sourceId": "talents",
+              "section": "Table: Song Talents",
+              "locator": "6013"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:bard:talent:bardic-inspiration:upgrade:10",
+          "atClassLevel": 10,
+          "changes": {
+            "inspirationDieSides": 10
+          },
+          "description": "Bardic Inspiration die becomes d10 at Bard level 10.",
+          "sourceRefs": [
+            {
+              "sourceId": "talents",
+              "section": "Table: Song Talents",
+              "locator": "6013"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:bard:talent:bardic-inspiration:upgrade:15",
+          "atClassLevel": 15,
+          "changes": {
+            "inspirationDieSides": 12
+          },
+          "description": "Bardic Inspiration die becomes d12 at Bard level 15.",
+          "sourceRefs": [
+            {
+              "sourceId": "talents",
+              "section": "Table: Song Talents",
+              "locator": "6013"
+            }
+          ]
+        }
+      ],
+      "initialState": {
+        "inspirationDieSides": 6
+      }
+    },
+    {
+      "id": "ffd20:class:bard:talent:beloved",
+      "name": "Beloved",
+      "description": "Three once-per-encounter ally protection or reaction maneuvers.",
+      "minimumLevel": 4,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6014"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:bodyguard-i",
+      "name": "Bodyguard I",
+      "description": "Redirect an adjacent incoming attack to a minion.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:attract-minion"
+      ],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6018"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:bodyguard-ii",
+      "name": "Bodyguard II",
+      "description": "Redirected minion gains half Bard level to AC for that attack.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:attract-minion",
+        "ffd20:class:bard:talent:bodyguard-i"
+      ],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6019"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:bodyguard-iii",
+      "name": "Bodyguard III",
+      "description": "Redirected minion may immediately counterattack its attacker.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:attract-minion",
+        "ffd20:class:bard:talent:bodyguard-i",
+        "ffd20:class:bard:talent:bodyguard-ii"
+      ],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6020"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:born-leader",
+      "name": "Born Leader",
+      "description": "Once per encounter grant line-of-sight allies +1 insight on attacks.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6021"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:commander-field-presence",
+      "name": "Commander Field Presence",
+      "description": "Once-per-encounter attacks can grant AC, attack/damage, or movement to allies.",
+      "minimumLevel": 4,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6022"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:concentrate",
+      "name": "Concentrate",
+      "description": "Once daily reroll concentration with +4; must use second result.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6026"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:contingency-plan",
+      "name": "Contingency Plan",
+      "description": "Once per encounter move as an immediate response to a failed roll.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6027"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:coordinate",
+      "name": "Coordinate",
+      "description": "Standard action improve allies' Aid Another bonus by +1 per selection, maximum +5.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 5,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6028"
+        }
+      ],
+      "initialState": {
+        "aidAnotherBonusPerSelection": 1
+      },
+      "maxSelections": 5
+    },
+    {
+      "id": "ffd20:class:bard:talent:creative-destruction",
+      "name": "Creative Destruction",
+      "description": "Damage-dealing song grants temporary HP based on song damage dice.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": true,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6029"
+        }
+      ],
+      "applicationRule": "Asterisk song modifier: choose at most one modifier for a song BEFORE performance; learning multiple is allowed."
+    },
+    {
+      "id": "ffd20:class:bard:talent:dazzling-song",
+      "name": "Dazzling Song",
+      "description": "A song modifier dazzles targets that fail the save; limited uses.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": true,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6030"
+        }
+      ],
+      "applicationRule": "Asterisk song modifier: choose at most one modifier for a song BEFORE performance; learning multiple is allowed."
+    },
+    {
+      "id": "ffd20:class:bard:talent:defensive-feedback",
+      "name": "Defensive Feedback",
+      "description": "A song modifier reflects part of damage prevented by resistance.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": true,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6031"
+        }
+      ],
+      "applicationRule": "Asterisk song modifier: choose at most one modifier for a song BEFORE performance; learning multiple is allowed."
+    },
+    {
+      "id": "ffd20:class:bard:talent:distant-command",
+      "name": "Distant Command",
+      "description": "Born Leader benefits persist despite broken line of sight.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:born-leader"
+      ],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6032"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:empowered-song",
+      "name": "Empowered Song",
+      "description": "Apply Empower Song free once per day.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6033"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:extended-song",
+      "name": "Extended Song",
+      "description": "Apply Extended Song free to two songs daily.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6034"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:harmonic-song",
+      "name": "Harmonic Song",
+      "description": "Cast a song while maintaining performance without spending a round.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:bardic-performance"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6035"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:ignite-fervor",
+      "name": "Ignite Fervor",
+      "description": "After hitting, grant one ally conditional damage on their next attack.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6036"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:improved-inspiration",
+      "name": "Improved Inspiration",
+      "description": "Inspiration class feature temporary HP increases by Charisma modifier.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:inspiration"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6037"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:improved-musical-power",
+      "name": "Improved Musical Power",
+      "description": "Gain an extra Musical Power attack in a full attack at -5.",
+      "minimumLevel": 6,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:musical-power"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6038"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:inspire-haste",
+      "name": "Inspire Haste",
+      "description": "A nearby ally can make a normally standard-action skill check as a move action.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6039"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:quick-inspiration",
+      "name": "Quick Inspiration",
+      "description": "Use the Inspiration class feature as a swift action.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:inspiration"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6040"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:rally",
+      "name": "Rally",
+      "description": "Once per encounter grant injured allies situational morale saves and damage.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6041"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:reactionary-attack",
+      "name": "Reactionary Attack",
+      "description": "Once per encounter let an ally counterattack as a reaction.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6042"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:song-guard",
+      "name": "Song Guard",
+      "description": "Full-round song yields temporary deflection AC equal to song level.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": true,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6043"
+        }
+      ],
+      "applicationRule": "Asterisk song modifier: choose at most one modifier for a song BEFORE performance; learning multiple is allowed."
+    },
+    {
+      "id": "ffd20:class:bard:talent:song-performance",
+      "name": "Song Performance",
+      "description": "Reduce Medley's Perform DC penalty by 2 per extra song.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:medley"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6044"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:troubadour",
+      "name": "Troubadour",
+      "description": "A song modifier doubles next song duration, three uses daily.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": true,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6045"
+        }
+      ],
+      "applicationRule": "Asterisk song modifier: choose at most one modifier for a song BEFORE performance; learning multiple is allowed."
+    },
+    {
+      "id": "ffd20:class:bard:talent:trust",
+      "name": "Trust",
+      "description": "Give an ally an additional move or standard action next turn.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:born-leader",
+        "ffd20:class:bard:talent:coordinate"
+      ],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6046"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:unwavering-ally",
+      "name": "Unwavering Ally",
+      "description": "Swiftly protect one ally from flat-footed and lost DEX AC.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6047"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:wealth-of-allies",
+      "name": "Wealth of Allies",
+      "description": "Replace a lost minion after 24 hours.",
+      "minimumLevel": 2,
+      "tier": "normal",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:attract-minion"
+      ],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Song Talents",
+          "locator": "6048"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:advanced-inspiration",
+      "name": "Advanced Inspiration",
+      "description": "Add Bard level to Inspiration class feature temporary HP.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:improved-inspiration"
+      ],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:inspiration"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6055"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:advanced-musical-power",
+      "name": "Advanced Musical Power",
+      "description": "Add a third Musical Power attack at -10 during a full attack.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:improved-musical-power"
+      ],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:musical-power"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6056"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:attract-superior-minion",
+      "name": "Attract Superior Minion",
+      "description": "Gain a stronger minion whose NPC level equals Bard level.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [
+        "ffd20:class:bard:talent:attract-minion"
+      ],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6057"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:encore",
+      "name": "Encore",
+      "description": "Sustain the previous performance without spending an additional performance round.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6058"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:energetic-recharge",
+      "name": "Energetic Recharge",
+      "description": "Once daily convert some incoming elemental damage into MP.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6059"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:improved-competence",
+      "name": "Improved Competence",
+      "description": "Add half Charisma modifier to Inspire Competence while active.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:inspire-competence"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6061"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:improved-courage",
+      "name": "Improved Courage",
+      "description": "Add +2 to active Inspire Courage bonuses.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [
+        "ffd20:class:bard:feature:inspire-courage"
+      ],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6062"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:maximized-song",
+      "name": "Maximized Song",
+      "description": "Apply free Maximize Song to one song each day.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6063"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:quickened-song",
+      "name": "Quickened Song",
+      "description": "Apply free Quicken Song to one song each day.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6064"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:song-focus",
+      "name": "Song Focus",
+      "description": "Song modifier concentrates area effect on one target and improves save DC.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6065"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:twinperform",
+      "name": "Twinperform",
+      "description": "Song modifier combines two qualifying songs into one standard action daily.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6066"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:bard:talent:uncanny-defense",
+      "name": "Uncanny Defense",
+      "description": "Once daily add half Bard level to AC and saves for one round.",
+      "minimumLevel": 12,
+      "tier": "advanced",
+      "repeatLimit": 1,
+      "asterisk": false,
+      "requiresTalentIds": [],
+      "requiresClassFeatureIds": [],
+      "additionalPrerequisite": "",
+      "activation": "varies",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "talents",
+          "section": "Table: Advanced Song Talents",
+          "locator": "6067"
+        }
+      ]
+    }
+  ]
+}

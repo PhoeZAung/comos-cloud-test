@@ -34,7 +34,7 @@
       {
         "path": "/data/events",
         "blocking": true,
-        "reason": "Song Talents and Advanced Song Talents options/prerequisites need separate extraction; advanced options substitute for regular slots, not extra slots."
+        "reason": "The 32 standard and 12 advanced Song Talents are extracted with tier, repeat, class feature prerequisites and the Bardic Inspiration die upgrade. Wizard selection/validation and the Bard save adapter still require implementation; advanced talents consume existing even-level slots."
       },
       {
         "path": "/data/features",
@@ -2939,7 +2939,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:4",
@@ -2948,7 +2948,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:6",
@@ -2957,7 +2957,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:8",
@@ -2966,7 +2966,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:10",
@@ -2975,7 +2975,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:12",
@@ -2984,7 +2984,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:14",
@@ -2993,7 +2993,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:16",
@@ -3002,7 +3002,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:18",
@@ -3011,7 +3011,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:song-talents:20",
@@ -3020,7 +3020,7 @@
         "poolId": "ffd20:class:bard:pool:song-talents",
         "count": 1,
         "description": "Select one song talent, with advanced options available instead at level 12+.",
-        "implementation": "pending_catalog"
+        "implementation": "catalog_extracted_adapter_pending"
       },
       {
         "id": "ffd20:class:bard:event:choice:versatile-performance:2",

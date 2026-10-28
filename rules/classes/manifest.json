@@ -14,7 +14,8 @@
       "file": "rules/classes/bard.class.json",
       "status": "staged",
       "adapter": null,
-      "coverage": "partial"
+      "coverage": "partial",
+      "optionFile": "rules/classes/bard-talents.json"
     }
   ]
 }

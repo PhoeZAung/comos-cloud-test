@@ -20,7 +20,8 @@ export async function buildClassCatalog(){
    description:'See official source for class features, progression and limitations.',
    source:c.sources[0].url,summary:report,levels:c.data.levels,
    features:c.data.features,upgrades:c.data.upgrades,events:c.data.events,
-   archetypes:c.data.archetypeIndex||[],optionCount:opts?.options.length||0});
+   archetypes:c.data.archetypeIndex||[],optionCount:opts?.options.length||0,
+   options:opts?.options||[]});
  }
  const archetypeManifest=validateArchetypeManifest(JSON.parse(await readFile(fileURL('rules/classes/archetypes/manifest.json'),'utf8')));
  const archetypeRecords=[];

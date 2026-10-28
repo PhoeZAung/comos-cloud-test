@@ -62,3 +62,7 @@ Example replacement (replace exact IDs with official extracted feature IDs):
 ```
 
 This is an **illustrative mapping only**, not a claim about the Abhorsen archetype.
+
+## Bard Song Talents extraction
+
+Bard has an independent `rules/classes/bard-talents.json` with **32 normal and 12 advanced talents**, class feature and talent prerequisites, explicit repeat limits, asterisk song-modifier exclusivity, and a stable three-event Bardic Inspiration die upgrade (d8 at 5, d10 at 10, d12 at 15). The generic importer now validates all those properties and provides `eligibleClassTalents` / `classTalentAtLevel` to apply level-specific changes without duplicate feat cards. Song Talents at levels 12–20 choose from both normal and advanced options, using the SAME one slot per even level; Bard stays staged until songs and adapter are implemented. See `docs/extraction/bard-song-talents-batch-02.md`.

@@ -77,7 +77,24 @@ export function validateClassDefinition(c,{optionCatalog=null,requireComplete=tr
   if(optionCatalog.parentClassId!==c.id||!Array.isArray(optionCatalog.options))fail(c.id,'choice catalog mismatch');
   unique(optionCatalog.options.map(x=>x.id),c.id+'/options');
   const optionIds=new Set(optionCatalog.options.map(x=>x.id));
-  for(const o of optionCatalog.options)for(const need of o.requiresTalentIds||[])if(!optionIds.has(need))fail(c.id+'/options/'+o.id,'missing talent prerequisite');
+  for(const o of optionCatalog.options){
+   const p=c.id+'/options/'+o.id;
+   if(typeof o.id!=='string'||!o.id.startsWith(c.id+':talent:'))fail(p,'option ID must be under its parent class');
+   if(!integer(o.minimumLevel,1,20)||!integer(o.repeatLimit,1,20)||!o.name?.trim()||!o.description?.trim())fail(p,'invalid name, level or repeat count');
+   if(!Array.isArray(o.sourceRefs)||!o.sourceRefs.length||o.sourceRefs.some(s=>/CHECK|TODO|REPLACE/i.test(s.locator||'')))fail(p,'option source reference required');
+   if(o.tier!==undefined&&!['normal','advanced'].includes(o.tier))fail(p,'invalid talent tier');
+   if(o.tier==='advanced'&&o.minimumLevel<12)fail(p,'advanced Bard talents cannot appear before level 12');
+   for(const need of o.requiresTalentIds||[])if(!optionIds.has(need)||need===o.id)fail(p,'missing or self-referencing talent prerequisite');
+   for(const need of o.requiresClassFeatureIds||[])if(!features.has(need))fail(p,'unknown class feature prerequisite');
+   const seenLevels=new Set();
+   for(const u of o.upgrades||[]){
+    if(!integer(u.atClassLevel,1,20)||u.atClassLevel<=o.minimumLevel)fail(p,'talent upgrade must follow minimum acquisition level');
+    if(seenLevels.has(u.atClassLevel))fail(p,'duplicate talent upgrade at same class level');
+    seenLevels.add(u.atClassLevel);
+    if(!object(u.changes)||!Object.keys(u.changes).length||Object.values(u.changes).some(v=>!safeValue(v)))fail(p,'talent upgrades must SET scalar state fields');
+    if(!Array.isArray(u.sourceRefs)||!u.sourceRefs.length)fail(p,'talent upgrade must cite its source');
+   }
+  }
  }
  return {id:c.id,name:c.name,levels:d.levels.length,features:d.features.length,upgrades:d.upgrades.length,choices:d.events.filter(e=>e.type==='choose').length};
 }
@@ -88,4 +105,25 @@ export function classAtLevel(c,level){
    const history=upgrades.filter(u=>u.featureId===f.id).sort((a,b)=>a.atClassLevel-b.atClassLevel);
    return {...f,state:history.reduce((state,u)=>({...state,...u.changes}),{...(f.initialState||{})}),history};
  }),changes:c.data.events.filter(e=>e.atClassLevel===level)};
+}
+
+// Returns one stable talent identity with replacement-value state at the given CLASS level.
+// Upgrades never create a second copy of the selected talent.
+export function classTalentAtLevel(option,level){
+ if(!integer(level,1,20))fail(option?.id||'talent','invalid class level');
+ const history=(option?.upgrades||[]).filter(u=>u.atClassLevel<=level).sort((a,b)=>a.atClassLevel-b.atClassLevel);
+ const state=history.reduce((acc,u)=>({...acc,...u.changes}),{...(option?.initialState||{})});
+ return {...option,state,history,available:level>=option.minimumLevel};
+}
+// Shared prerequisite/slot logic for all future imported class talent catalogs.
+// Caller must pass choices already made BEFORE the current selection event.
+export function eligibleClassTalents(c,optionCatalog,level,selected=[]){
+ if(!integer(level,1,20))fail(c?.id||'class','invalid class level');
+ const ids=selected.map(x=>typeof x==='string'?x:x.id),owned=new Set(ids),count=id=>ids.filter(x=>x===id).length;
+ const granted=new Set((c.data.features||[]).filter(f=>f.atLevel<=level).map(f=>f.id));
+ return (optionCatalog.options||[]).filter(o=>level>=o.minimumLevel
+    &&count(o.id)<o.repeatLimit
+    &&(o.requiresTalentIds||[]).every(t=>owned.has(t))
+    &&(o.requiresClassFeatureIds||[]).every(f=>granted.has(f)))
+  .map(o=>classTalentAtLevel(o,level));
 }
