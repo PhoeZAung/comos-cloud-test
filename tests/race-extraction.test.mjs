@@ -164,3 +164,10 @@ test('batch 12 Varg and Viera preserve variants, choices and score vectors',()=>
  for(const race of [v,a]){b=newBuild();b.raceId=race.id;b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}
  b=newBuild();b.raceId=a.id;b.alternateIds=[a.id+':trait:fleet-footed',a.id+':trait:spirit-of-the-waters'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
 });
+
+test('Viera required elemental and Mist Sight choices block save until choice UI exists',()=>{
+ const id='ffd20:race:viera',b=newBuild();b.raceId=id;
+ assert(buildIssues(b).some(issue=>/Viera Elemental Summoner/.test(issue.message)));
+ b.alternateIds=[id+':trait:misty-mind'];assert(!buildIssues(b).some(issue=>/Viera Elemental Summoner/.test(issue.message)));
+ b.alternateIds=[id+':trait:misty-mind',id+':trait:mist-sight'];assert(buildIssues(b).some(issue=>/Viera Mist Sight/.test(issue.message)));
+});

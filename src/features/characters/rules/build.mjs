@@ -67,6 +67,11 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id==='ffd20:race:immortal')add(3,'Immortal Magic Ineptitude forbids obtaining an MP pool; Black Mage is not currently supported for this race. You can explore its rules, but cannot save this incompatible automated build.');
  if(race?.id==='ffd20:race:shindroid'&&!b.alternateIds.includes('ffd20:race:shindroid:trait:magitek-unit'))add(3,'Shindroid Magic Ineptitude forbids obtaining an MP pool without Magitek Unit; this Black Mage build cannot be saved unless Magitek Unit is selected.');
  if(race?.id==='ffd20:race:tonkin')add(3,'Tonkin cannot normally cast vocal-component spells, and Silent Spell/Telepathic Spellcaster compatibility is not yet verified in this Black Mage wizard. Character saving is blocked until supported.');
+ if(race?.id==='ffd20:race:viera'){
+  const active=new Set(raceTraits(b).traits.map(f=>f.id));
+  if(active.has('ffd20:race:viera:trait:elemental-summoner'))add(2,'Viera Elemental Summoner requires choosing one elemental subtype. Race-specific selection is not yet supported by this wizard; save is blocked until the subtype can be recorded.');
+  if(active.has('ffd20:race:viera:trait:mist-sight'))add(2,'Viera Mist Sight requires one selected spell-like ability (not all three). Race-specific selection is not yet supported; save is blocked until the spell choice can be recorded.');
+ }
  if(!Number.isInteger(b.level)||b.level<1||b.level>20||buildLevel(b)>20)add(3,'Choose a Black Mage level from 1 to 20.');
  if(b.archetypeId)add(3,'This archetype is not ready for automatic application. Choose base Black Mage for this release.');
  const effective=effectiveScores(b);if(effective.int>45)add(1,'Effective Intelligence above 45 needs a verified bonus-MP table extension.');
