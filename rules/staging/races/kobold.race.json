@@ -1,0 +1,1169 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:kobold",
+  "name": "Kobold",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/kobold/",
+      "title": "Kobold — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Land and burrow speeds are distinct (30 and 20 feet) and must not overwrite one another.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Mountain-Born calls replaced trait 'master tinkerer', apparently Master Tinker; requires terminology verification.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Reckless Work, Cave Dweller, Hatred and Unnatural are conditional, not permanent generic skill/combat bonuses.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Emissary 1/day roll-twice mechanic needs a proper resource/action to automate.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Warrior favored option grants choice of weapon proficiency and can be taken at most two times.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Social Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Standalone external content not extracted into race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Standalone external content not extracted into race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate rules entity not covered by this race definition."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate rules entity not covered by this race definition."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:kobold:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 INT, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kobold:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kobold:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kobold:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:size",
+      "name": "Size",
+      "description": "medium; global size modifiers apply once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kobold:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:type",
+      "name": "Type",
+      "description": "humanoid (kobold).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kobold:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kobold:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "kobold",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed and 20-foot burrow speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kobold:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kobold:trait:base-speed:effect:1",
+          "kind": "identity",
+          "target": "identity.speed.burrow",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:languages",
+      "name": "Languages",
+      "description": "Speaks Common and Terran. Other beastman languages via Linguistics.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kobold:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kobold:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.terran",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Terran",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:bond-to-the-land",
+      "name": "Bond to the Land",
+      "description": "+2 dodge AC while in caves and rocky terrain.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:reckless-work",
+      "name": "Reckless Work",
+      "description": "+4 Constitution checks and Fortitude saves to avoid exhaustion/fatigue and ill effects of running, forced march, hunger, thirst and hot/cold environments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:thick-hide",
+      "name": "Thick Hide",
+      "description": "+1 natural armor bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:cave-dweller",
+      "name": "Cave Dweller",
+      "description": "+1 Knowledge (dungeoneering) and Survival only underground.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:master-tinker",
+      "name": "Master Tinker",
+      "description": "+1 Disable Device; proficient with personally crafted nonexotic weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kobold:trait:master-tinker:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:disable-device.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6037"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:hatred",
+      "name": "Hatred",
+      "description": "+2 attack rolls only against Roegadyn and Galka.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as hume in dim lighting.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:emissary",
+      "name": "Emissary",
+      "description": "Once/day roll twice on Bluff or Diplomacy and take better result.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Social Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:mountain-born",
+      "name": "Mountain-Born",
+      "description": "+2 Acrobatics on narrow ledges and saves against altitude sickness/fatigue. Source says 'master tinkerer'.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:scavenger",
+      "name": "Scavenger",
+      "description": "+2 Appraise and Perception only to find hidden objects, determine spoiled food or identify potions by taste.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:scent",
+      "name": "Scent",
+      "description": "Gain scent in place of low-light vision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:tempered",
+      "name": "Tempered",
+      "description": "Earth elemental resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kobold:trait:unnatural",
+      "name": "Unnatural",
+      "description": "-4 CHA-based checks to affect animals and monsters, +4 dodge AC against them, and their attitude starts one step worse.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:kobold:trait:ability-score-racial-traits",
+      "ffd20:race:kobold:trait:size",
+      "ffd20:race:kobold:trait:type",
+      "ffd20:race:kobold:trait:base-speed",
+      "ffd20:race:kobold:trait:languages",
+      "ffd20:race:kobold:trait:bond-to-the-land",
+      "ffd20:race:kobold:trait:reckless-work",
+      "ffd20:race:kobold:trait:thick-hide",
+      "ffd20:race:kobold:trait:cave-dweller",
+      "ffd20:race:kobold:trait:master-tinker",
+      "ffd20:race:kobold:trait:hatred",
+      "ffd20:race:kobold:trait:low-light-vision",
+      "ffd20:race:kobold:trait:emissary"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:kobold:trait:mountain-born",
+      "ffd20:race:kobold:trait:scavenger",
+      "ffd20:race:kobold:trait:scent",
+      "ffd20:race:kobold:trait:tempered",
+      "ffd20:race:kobold:trait:unnatural"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:kobold:trait:mountain-born:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kobold:trait:master-tinker"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kobold:trait:mountain-born"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mountain-Born replaces/modifies Master Tinker.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:trait:scavenger:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kobold:trait:cave-dweller"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kobold:trait:scavenger"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scavenger replaces/modifies Cave Dweller.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:trait:scent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kobold:trait:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kobold:trait:scent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scent replaces/modifies Low-Light Vision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:trait:tempered:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kobold:trait:thick-hide"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kobold:trait:tempered"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Tempered replaces/modifies Thick Hide.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:trait:unnatural:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kobold:trait:bond-to-the-land"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kobold:trait:unnatural"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Unnatural replaces/modifies Bond to the Land.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:kobold:favored:chemist",
+        "raceId": "ffd20:race:kobold",
+        "classId": "ffd20:class:chemist",
+        "name": "Kobold Chemist favored reward",
+        "description": "+1/2 bomb damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:favored:engineer",
+        "raceId": "ffd20:race:kobold",
+        "classId": "ffd20:class:engineer",
+        "name": "Kobold Engineer favored reward",
+        "description": "+1/2 Knowledge (engineering and technology).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:favored:geomancer",
+        "raceId": "ffd20:race:kobold",
+        "classId": "ffd20:class:geomancer",
+        "name": "Kobold Geomancer favored reward",
+        "description": "+1/4 Geomancy uses.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:favored:gunner",
+        "raceId": "ffd20:race:kobold",
+        "classId": "ffd20:class:gunner",
+        "name": "Kobold Gunner favored reward",
+        "description": "+1/3 firearm critical confirmations (max +5), not with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:favored:thief",
+        "raceId": "ffd20:race:kobold",
+        "classId": "ffd20:class:thief",
+        "name": "Kobold Thief favored reward",
+        "description": "+1/2 Stealth and Perception checks in dim light or darkness.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kobold:favored:warrior",
+        "raceId": "ffd20:race:kobold",
+        "classId": "ffd20:class:warrior",
+        "name": "Kobold Warrior favored reward",
+        "description": "Choose a Martial or Eastern Weapon proficiency, at most twice.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6069"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -37,3 +37,7 @@ First three Beastman Tribes now appear in the wizard as **testing** races; all a
 ## Beastman Batch 13 continuation — Gnath
 
 Gnath has 12 standard traits, 9 alternate racial traits, 8 favored class rewards, and no listed heritage. Distinct 20-ft land and burrowing speeds; Day Raider removes both darkvision and light sensitivity; Carrion Sense is restricted. All are testing-only, manual condition mechanics and `needs_review`. See `docs/extraction/race-batch-13-gnath-coverage.md`.
+
+## Beastman Batch 14 — Goblin, Ixal, Kindred, Kobold
+
+Added 4 race testing definitions, with Goblin Moblin and Red Cap heritages and six alternates, Ixal five alternates plus two required race choice pools, Kindred five alternates plus required language and Maw/Claw choice pools, Kobold five alternates and 20 ft burrow speed. Mandatory Ixal and Kindred choices are guarded in the Black Mage build validator. Unclear conditional mechanical effects remain manual; Moblin/Red Cap replacement unresolved. See `docs/extraction/race-batch-14-beastman-coverage.md`.

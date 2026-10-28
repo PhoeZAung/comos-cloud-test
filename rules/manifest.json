@@ -41,7 +41,11 @@
     "staging/races/amaljaa.race.json",
     "staging/races/antica.race.json",
     "staging/races/forgiven.race.json",
-    "staging/races/gnath.race.json"
+    "staging/races/gnath.race.json",
+    "staging/races/goblin.race.json",
+    "staging/races/ixal.race.json",
+    "staging/races/kindred.race.json",
+    "staging/races/kobold.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

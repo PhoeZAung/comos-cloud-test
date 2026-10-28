@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "38 staged FFd20 races, including four Beastman Tribes, for live wizard testing, all still needs_review and not import-ready.",
+  "description": "42 staged FFd20 races from batches 01–14, including eight Beastman Tribes, enabled for wizard testing; all needs_review.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -196,6 +196,26 @@
       "file": "rules/staging/races/gnath.race.json",
       "raceId": "ffd20:race:gnath",
       "sha256": "6965db38d5c65d9f716d5817257cce26d8b5ab0189431531fb213bb2bfd1ac71"
+    },
+    {
+      "file": "rules/staging/races/goblin.race.json",
+      "raceId": "ffd20:race:goblin",
+      "sha256": "7be447af172dbbed0ace389c68e4075054472e8e1fdadb243a9a4cfdae9a4756"
+    },
+    {
+      "file": "rules/staging/races/ixal.race.json",
+      "raceId": "ffd20:race:ixal",
+      "sha256": "15533a1027cfea685e98dce521556d804d44e8ae8e66f29b6b76956bfa1aedbd"
+    },
+    {
+      "file": "rules/staging/races/kindred.race.json",
+      "raceId": "ffd20:race:kindred",
+      "sha256": "0d0198d5cf46f1d2e049e7c44f236a0c269081ed5b6d2544d81115a010185bfe"
+    },
+    {
+      "file": "rules/staging/races/kobold.race.json",
+      "raceId": "ffd20:race:kobold",
+      "sha256": "0afe444a57a007ac9abed0be3396b30138ed6fe54ba8972234cd1e53900ac232"
     }
   ],
   "blockers": [
@@ -222,6 +242,10 @@
     "Amalj'aa heritage alternate skills may not replace Stalker's class-skill grants; keep heritage selection manual.",
     "Antica understand but do not speak their languages, and cannot cast spells without Silent Spell or Telepathic Spellcaster; Black Mage creation blocked until feat support.",
     "Forgiven uses ambiguous skilled/Skill Bonus aliases and Scion of Mortality partial language/type replacement. Natural attack choice requires exactly one selection.",
-    "Gnath Carrion Sense is limited to dying creatures/corpses, not general scent. Day Raider removes Darkvision and Light Sensitivity together."
+    "Gnath Carrion Sense is limited to dying creatures/corpses, not general scent. Day Raider removes Darkvision and Light Sensitivity together.",
+    "Ixal mandatory Bond to the Ice terrain and Elemental Summoner subtype have no character-builder choice binding; block builds until choices can be recorded.",
+    "Kindred starting Abyssal/Infernal choice and alternate Maw or Claw choice have no bound wizard selection UI; block such builds.",
+    "Goblin Hobgoblinoid size and score replacements need size engine verification; Pyromaniac CHA-dependent spell-like abilities and conditional Craft bonuses stay manual.",
+    "Goblin Moblin and Red Cap heritage Silver Tongued replacements unresolved; do not auto-apply."
   ]
 }

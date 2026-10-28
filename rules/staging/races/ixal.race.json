@@ -1,0 +1,1471 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:ixal",
+  "name": "Ixal",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/ixal/",
+      "title": "Ixal — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Bond to the Ice requires one forested/icy starting terrain selection not yet bound to race choice UI.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Elemental Summoner requires exactly one of six elemental subtypes and needs race choice UI; neither selection should be invented.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Three alternates share Bond to the Ice replacement and conflict; Wind affinity and Craftsman are conditional.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Fast adds +5 feet speed but applying this addend through current runtime is unverified.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "If permanent terrain choice is unresolved, block automatic character saving even with an otherwise valid class.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defensive Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Standalone external content not extracted into race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Standalone external content not extracted into race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate rules entity not covered by this race definition."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate rules entity not covered by this race definition."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:ixal:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 INT, -2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:ixal:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:size",
+      "name": "Size",
+      "description": "medium; global size modifiers apply once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:ixal:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:type",
+      "name": "Type",
+      "description": "humanoid (ixal).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:ixal:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "ixal",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:ixal:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:languages",
+      "name": "Languages",
+      "description": "Speaks Common and Yagudo. Further beastman languages learned through Linguistics.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:ixal:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.yagudo",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Yagudo",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:bond-to-the-ice",
+      "name": "Bond to the Ice",
+      "description": "Choose forest or icy terrain permanently at creation; +2 dodge AC in chosen terrain.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:ixal:pool:bond-to-the-ice-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defensive Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defensive Racial Traits",
+            "locator": "6037"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:elemental-resistance",
+      "name": "Elemental Resistance",
+      "description": "Wind resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defensive Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:craftsman",
+      "name": "Craftsman",
+      "description": "+2 Craft/Profession to create items of metal, cloth, leather, wood or stone.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:craftsman-knowledge",
+      "name": "Craftsman Knowledge",
+      "description": "Knowledge (technology) and Knowledge (engineering) class skills; proficient with self-crafted nonexotic weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:ixal:trait:craftsman-knowledge:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-technology.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:trait:craftsman-knowledge:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-engineering.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:sky-enthusiasts",
+      "name": "Sky Enthusiasts",
+      "description": "Pilot always a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:ixal:trait:sky-enthusiasts:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:pilot.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:elemental-affinity",
+      "name": "Elemental Affinity",
+      "description": "+1 effective level only for already-available wind-descriptor spells; no early access.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:elemental-summoner",
+      "name": "Elemental Summoner",
+      "description": "Choose one earth/fire/ice/lightning/water/wind subtype at creation. Summoned creatures of chosen subtype last 2 additional rounds; retraining required to change.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:ixal:pool:elemental-summoner-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magical Racial Traits",
+            "locator": "6046"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:weather-savvy",
+      "name": "Weather Savvy",
+      "description": "Full-round action predicts next 24 hours of natural weather; supernatural changes not predicted.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:claws",
+      "name": "Claws",
+      "description": "Two primary claw natural attacks dealing 1d4 each (hands or feet).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as a hume in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:garudas-current",
+      "name": "Garuda’s Current",
+      "description": "Once/day swift action +2 deflection AC versus nonmagical ranged attacks for 1 minute.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:fast",
+      "name": "Fast",
+      "description": "+5 base land speed, 30 to 35 ft. Leave speed modification manual pending movement adapter review.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:tempered",
+      "name": "Tempered",
+      "description": "Water and ice resistance 5 each.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:warborn-hatred",
+      "name": "Warborn Hatred",
+      "description": "+1 attack rolls against Elvaan and Goblins.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:ixal:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with maces and glaives.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:ixal:pool:bond-to-the-ice-selection",
+      "name": "Bond to the Ice selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly one required option, not connected to current wizard choice events. Do not select a default.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defensive Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:ixal:pool:bond-to-the-ice-selection:option:forested",
+          "name": "Forested",
+          "description": "Forested",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "forested",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defensive Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:pool:bond-to-the-ice-selection:option:icy",
+          "name": "Icy",
+          "description": "Icy",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "icy",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defensive Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:ixal:pool:elemental-summoner-selection",
+      "name": "Elemental Summoner selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly one required option, not connected to current wizard choice events. Do not select a default.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:ixal:pool:elemental-summoner-selection:option:earth",
+          "name": "Earth",
+          "description": "Earth",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "earth",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:pool:elemental-summoner-selection:option:fire",
+          "name": "Fire",
+          "description": "Fire",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "fire",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:pool:elemental-summoner-selection:option:ice",
+          "name": "Ice",
+          "description": "Ice",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ice",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:pool:elemental-summoner-selection:option:lightning",
+          "name": "Lightning",
+          "description": "Lightning",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lightning",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:pool:elemental-summoner-selection:option:water",
+          "name": "Water",
+          "description": "Water",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "water",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:ixal:pool:elemental-summoner-selection:option:wind",
+          "name": "Wind",
+          "description": "Wind",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wind",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:ixal:trait:ability-score-racial-traits",
+      "ffd20:race:ixal:trait:size",
+      "ffd20:race:ixal:trait:type",
+      "ffd20:race:ixal:trait:base-speed",
+      "ffd20:race:ixal:trait:languages",
+      "ffd20:race:ixal:trait:bond-to-the-ice",
+      "ffd20:race:ixal:trait:elemental-resistance",
+      "ffd20:race:ixal:trait:craftsman",
+      "ffd20:race:ixal:trait:craftsman-knowledge",
+      "ffd20:race:ixal:trait:sky-enthusiasts",
+      "ffd20:race:ixal:trait:elemental-affinity",
+      "ffd20:race:ixal:trait:elemental-summoner",
+      "ffd20:race:ixal:trait:weather-savvy",
+      "ffd20:race:ixal:trait:claws",
+      "ffd20:race:ixal:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:ixal:trait:garudas-current",
+      "ffd20:race:ixal:trait:fast",
+      "ffd20:race:ixal:trait:tempered",
+      "ffd20:race:ixal:trait:warborn-hatred",
+      "ffd20:race:ixal:trait:weapon-familiarity"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:ixal:trait:garudas-current:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:ixal:trait:bond-to-the-ice"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:ixal:trait:garudas-current"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Garuda’s Current replaces/modifies Bond to the Ice.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:trait:fast:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:ixal:trait:bond-to-the-ice"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:ixal:trait:fast"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Fast replaces/modifies Bond to the Ice.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:trait:tempered:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:ixal:trait:craftsman"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:ixal:trait:tempered"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Tempered replaces/modifies Craftsman.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:trait:warborn-hatred:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:ixal:trait:bond-to-the-ice"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:ixal:trait:warborn-hatred"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Warborn Hatred replaces/modifies Bond to the Ice.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:trait:weapon-familiarity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:ixal:trait:weather-savvy"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:ixal:trait:weapon-familiarity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Weapon Familiarity replaces/modifies Weather Savvy.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:ixal:favored:archer",
+        "raceId": "ffd20:race:ixal",
+        "classId": "ffd20:class:archer",
+        "name": "Ixal Archer favored reward",
+        "description": "+1 foot bow/crossbow range increment, effective after five selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6071"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:favored:beastmaster",
+        "raceId": "ffd20:race:ixal",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Ixal Beastmaster favored reward",
+        "description": "Choose +1 animal companion HP or skill rank; persists for successor companion.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:favored:berserker",
+        "raceId": "ffd20:race:ixal",
+        "classId": "ffd20:class:berserker",
+        "name": "Ixal Berserker favored reward",
+        "description": "+1 base movement, combat effect every five selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:favored:dragoon",
+        "raceId": "ffd20:race:ixal",
+        "classId": "ffd20:class:dragoon",
+        "name": "Ixal Dragoon favored reward",
+        "description": "+1/2 Acrobatics jumping checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:favored:engineer",
+        "raceId": "ffd20:race:ixal",
+        "classId": "ffd20:class:engineer",
+        "name": "Ixal Engineer favored reward",
+        "description": "+1/2 Craft checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:favored:red-mage",
+        "raceId": "ffd20:race:ixal",
+        "classId": "ffd20:class:red-mage",
+        "name": "Ixal Red Mage favored reward",
+        "description": "+1/2 spellstrike critical confirmation (maximum +4), nonstacking Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:favored:summoner",
+        "raceId": "ffd20:race:ixal",
+        "classId": "ffd20:class:summoner",
+        "name": "Ixal Summoner favored reward",
+        "description": "+1/4 avatar natural armor AC, including successors.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:ixal:favored:warrior",
+        "raceId": "ffd20:race:ixal",
+        "classId": "ffd20:class:warrior",
+        "name": "Ixal Warrior favored reward",
+        "description": "+1 CMD against disarm and sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6078"
+          }
+        ]
+      }
+    ]
+  }
+}

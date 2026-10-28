@@ -1,0 +1,1292 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:kindred",
+  "name": "Kindred",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/kindred/",
+      "title": "Kindred — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Starting language is Common plus exactly one of Abyssal/Infernal. Race-specific required choice UI is missing, so do not auto-grant both.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Maw or Claw requires precisely one of two natural weapon packages; the wizard cannot resolve this choice automatically.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Fiendish Magery increases effective INT for mage spells/features only; never auto-increase ability score INT globally.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Vestigial Wings does not grant independent flight, and conditional Fly bonus requires a different flight source.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Deeper darkness 1/day and resistances await full action and resource support.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Other Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Standalone external content not extracted into race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Standalone external content not extracted into race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate rules entity not covered by this race definition."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate rules entity not covered by this race definition."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:kindred:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 STR, +2 INT, -4 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kindred:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kindred:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kindred:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6024"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6024"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:size",
+      "name": "Size",
+      "description": "medium; global size modifiers apply once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kindred:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:type",
+      "name": "Type",
+      "description": "outsider (native).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kindred:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "outsider",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kindred:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "native",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kindred:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6027"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:languages",
+      "name": "Languages",
+      "description": "Speaks Common. At creation choose exactly one Abyssal or Infernal; with high INT can add Abyssal, Draconic, Dwarven, Elvaan, Infernal, Lalafellen or Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kindred:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:kindred:pool:languages-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6028"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:fiendish-resistance",
+      "name": "Fiendish Resistance",
+      "description": "Shadow, lightning and fire resistance 5 each.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:tough-shell",
+      "name": "Tough Shell",
+      "description": "+1 natural armor AC.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:fearsome-might",
+      "name": "Fearsome Might",
+      "description": "+2 racial Intimidate. May use STR score instead of CHA score when computing Intimidate.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kindred:trait:fearsome-might:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:intimidate.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:spell-like-ability",
+      "name": "Spell-like Ability",
+      "description": "Deeper darkness spell-like ability once per day, caster level equals class level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:fiendish-magery",
+      "name": "Fiendish Magery",
+      "description": "Treat INT score as 2 higher ONLY for mage-class features and spells, not for ability checks or global Intelligence score.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:bullying",
+      "name": "Bullying",
+      "description": "+1 disarm and steal combat maneuver checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:fiendish-sprinter",
+      "name": "Fiendish Sprinter",
+      "description": "+10 feet movement only during charge, run or withdraw.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:maw-or-claw",
+      "name": "Maw or Claw",
+      "description": "Choose one primary bite (1d6) OR two primary claws (1d4 each), not both.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:kindred:pool:maw-or-claw-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:smite-good",
+      "name": "Smite Good",
+      "description": "Once/day swift action smite a visible good target; CHA bonus if any to attack and Hit Dice to damage until first successful hit.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:kindred:trait:vestigial-wings",
+      "name": "Vestigial Wings",
+      "description": "+4 Fly skill while flying by another source. Wings grant no flight speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:kindred:trait:vestigial-wings:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:fly.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6055"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6055"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:kindred:pool:languages-selection",
+      "name": "Languages selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly one required option, not connected to current wizard choice events. Do not select a default.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:kindred:pool:languages-selection:option:abyssal",
+          "name": "Abyssal",
+          "description": "Abyssal",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "abyssal",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kindred:pool:languages-selection:option:infernal",
+          "name": "Infernal",
+          "description": "Infernal",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "infernal",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:kindred:pool:maw-or-claw-selection",
+      "name": "Maw or Claw selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly one required option, not connected to current wizard choice events. Do not select a default.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:kindred:pool:maw-or-claw-selection:option:bite-1d6",
+          "name": "Bite (1d6)",
+          "description": "Bite (1d6)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "bite-1d6",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:kindred:pool:maw-or-claw-selection:option:two-claws-1d4-each",
+          "name": "Two Claws (1d4 each)",
+          "description": "Two Claws (1d4 each)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "two-claws-1d4-each",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:kindred:trait:ability-score-racial-traits",
+      "ffd20:race:kindred:trait:size",
+      "ffd20:race:kindred:trait:type",
+      "ffd20:race:kindred:trait:base-speed",
+      "ffd20:race:kindred:trait:languages",
+      "ffd20:race:kindred:trait:fiendish-resistance",
+      "ffd20:race:kindred:trait:tough-shell",
+      "ffd20:race:kindred:trait:fearsome-might",
+      "ffd20:race:kindred:trait:spell-like-ability",
+      "ffd20:race:kindred:trait:fiendish-magery",
+      "ffd20:race:kindred:trait:darkvision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:kindred:trait:bullying",
+      "ffd20:race:kindred:trait:fiendish-sprinter",
+      "ffd20:race:kindred:trait:maw-or-claw",
+      "ffd20:race:kindred:trait:smite-good",
+      "ffd20:race:kindred:trait:vestigial-wings"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:kindred:trait:bullying:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kindred:trait:fearsome-might"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kindred:trait:bullying"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Bullying replaces/modifies Fearsome Might.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:trait:fiendish-sprinter:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kindred:trait:fearsome-might"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kindred:trait:fiendish-sprinter"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Fiendish Sprinter replaces/modifies Fearsome Might.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:trait:maw-or-claw:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kindred:trait:fiendish-magery"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kindred:trait:maw-or-claw"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Maw or Claw replaces/modifies Fiendish Magery.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:trait:smite-good:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kindred:trait:fiendish-magery"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kindred:trait:smite-good"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Smite Good replaces/modifies Fiendish Magery.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:trait:vestigial-wings:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:kindred:trait:fearsome-might"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:kindred:trait:vestigial-wings"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Vestigial Wings replaces/modifies Fearsome Might.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:kindred:favored:black-mage",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:black-mage",
+        "name": "Kindred Black Mage favored reward",
+        "description": "+1/2 shadow damage for Black Mage shadow spells.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:favored:blue-mage",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Kindred Blue Mage favored reward",
+        "description": "+1/4 blue mage natural-attack damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:favored:cleric",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:cleric",
+        "name": "Kindred Cleric favored reward",
+        "description": "+1 channel heal/damage on undead targets.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6079"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:favored:dark-knight",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Kindred Dark Knight favored reward",
+        "description": "+1 holy resistance (max +10).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6080"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:favored:dragoon",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:dragoon",
+        "name": "Kindred Dragoon favored reward",
+        "description": "+1/3 spear/lance/polearm attack rolls.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6081"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:favored:red-mage",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:red-mage",
+        "name": "Kindred Red Mage favored reward",
+        "description": "+1/2 concentration casting defensively.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6082"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:favored:scholar",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:scholar",
+        "name": "Kindred Scholar favored reward",
+        "description": "+1 arcane reservoir point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6083"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:favored:time-mage",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:time-mage",
+        "name": "Kindred Time Mage favored reward",
+        "description": "+1/2 daily mote.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6084"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:kindred:favored:warrior",
+        "raceId": "ffd20:race:kindred",
+        "classId": "ffd20:class:warrior",
+        "name": "Kindred Warrior favored reward",
+        "description": "+1 CMD against disarm/sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6085"
+          }
+        ]
+      }
+    ]
+  }
+}

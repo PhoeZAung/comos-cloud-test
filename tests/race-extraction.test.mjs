@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,41);
+ assert.equal(manifest.races.length,45);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,41);
+ assert.equal(registry.races.length,45);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,38);
+ assert.equal(experimental.length,42);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -204,4 +204,13 @@ test('batch 13 Gnath preserves Small size, burrow speed and 9 mutually exclusive
  const speed=race.features.find(f=>f.name==='Base Speed');assert(speed.effects.some(x=>x.target==='identity.speed.burrow'&&x.value.value===20));
  b.alternateIds=[race.id+':trait:bond-to-the-land',race.id+':trait:tempered'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
  const day=race.data.alternateReplacements.find(op=>op.id.includes(':day-raider:'));assert.equal(day.targetFeatureIds.length,2);
+});
+
+test('batch 14 Goblin, Ixal, Kindred and Kobold preserve alternate replacements, scores and choices',()=>{
+ const expected=[['goblin',13,6,2,1,0],['ixal',15,5,0,0,2],['kindred',11,5,0,1,2],['kobold',13,5,0,0,0]];
+ for(const [key,standard,alt,heritage,favored,pools] of expected){const r=registry.races.find(x=>x.id==='ffd20:race:'+key);assert.equal(r?.testing,true);assert.deepEqual([r.data.standardTraitIds.length,r.data.alternateTraitIds.length,r.data.heritages.length,r.data.favoredRewards.length,r.choicePools.length],[standard,alt,heritage,favored,pools]);const b=newBuild();b.raceId=r.id;assert.deepEqual(raceTraits(b).errors,[]);if(heritage){b.heritageId=r.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
+ const goblin=registry.races.find(r=>r.id==='ffd20:race:goblin');let b=newBuild();b.raceId=goblin.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).dex,effectiveScores(b).int],[8,12,12]);b.alternateIds=[goblin.id+':trait:hobgoblinoid'];assert.deepEqual([effectiveScores(b).str,effectiveScores(b).cha,effectiveScores(b).int],[12,12,8]);assert(raceTraits(b).traits.some(f=>f.id.endsWith(':trait:hobgoblinoid')));
+ const ixal=registry.races.find(r=>r.id==='ffd20:race:ixal');b=newBuild();b.raceId=ixal.id;assert.deepEqual(ixal.choicePools.map(p=>p.options.length),[2,6]);assert(buildIssues(b).some(x=>/Ixal.*(terrain|subtype)/i.test(x.message)));b.alternateIds=[ixal.id+':trait:garudas-current'];assert(buildIssues(b).some(x=>/Ixal.*subtype/i.test(x.message)));
+ const kindred=registry.races.find(r=>r.id==='ffd20:race:kindred');b=newBuild();b.raceId=kindred.id;assert(buildIssues(b).some(x=>/Kindred.*language/i.test(x.message)));assert.equal(kindred.features.find(x=>x.name==='Languages').effects.length,1);b.alternateIds=[kindred.id+':trait:maw-or-claw'];assert(buildIssues(b).some(x=>/Maw or Claw/.test(x.message)));
+ const kobold=registry.races.find(r=>r.id==='ffd20:race:kobold');const speed=kobold.features.find(x=>x.name==='Base Speed');assert(speed.effects.some(e=>e.target==='identity.speed.burrow'&&e.value.value===20));
 });

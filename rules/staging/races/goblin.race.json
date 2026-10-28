@@ -1,0 +1,1815 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:goblin",
+  "name": "Goblin",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/goblin/",
+      "title": "Goblin — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Hobgoblinoid replaces the racial ability vector AND size; must not retain Small size bonuses after switching.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Pyromaniac does not specify a replacement trait. Its CHA-dependent spell-like abilities and spell damage scaling remain manual.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Scavenger source says master tinkerer rather than Master Tinker; verify alias mapping.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Moblin and Red Cap heritage score/skill replacement should not silently drop or retain Silver Tongued's special three-step Diplomacy rule.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Craftsman, Gobby Skill Bonus and Greedilox effects require situational Craft and appraisal context, not unconditional skill mapping.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Goblin Heritages",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source traits/options captured, unverified conditional effects tracked manually."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Standalone external content not extracted into race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Standalone external content not extracted into race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate rules entity not covered by this race definition."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate rules entity not covered by this race definition."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:goblin:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 INT, -2 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:size",
+      "name": "Size",
+      "description": "small; global size modifiers apply once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:type",
+      "name": "Type",
+      "description": "humanoid (goblin).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "goblin",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:languages",
+      "name": "Languages",
+      "description": "Speaks Common and Goblin. Additional Intelligence languages: any nonsecret language, including self-created ones.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.goblin",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Goblin",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:craftsman",
+      "name": "Craftsman",
+      "description": "+2 Craft or Profession checks to create objects of metal, wood, cloth or stone.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:field-medic",
+      "name": "Field Medic",
+      "description": "+2 Heal and Heal always a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:field-medic:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:heal.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:field-medic:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:heal.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:goblins-unique-handle-on-things",
+      "name": "Goblin’s Unique Handle on Things",
+      "description": "Proficient with short swords and handaxes.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:master-tinker",
+      "name": "Master Tinker",
+      "description": "+1 Disable Device and Knowledge (engineering); proficient with personally crafted nonexotic weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:master-tinker:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:disable-device.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:master-tinker:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-engineering.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:silver-tongued",
+      "name": "Silver Tongued",
+      "description": "+2 Diplomacy and Bluff; can improve attitudes up to three steps instead of two.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:silver-tongued:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:diplomacy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:silver-tongued:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:bluff.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:thug-life",
+      "name": "Thug Life",
+      "description": "+2 steal combat maneuver attempts.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:goblin-punch",
+      "name": "Goblin Punch",
+      "description": "Goblin Punch spell-like ability once per day; INT save modifier and caster level equals character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:low-light-vision",
+      "name": "Low-light Vision",
+      "description": "See twice as far as humans in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:gobby-skill-bonus",
+      "name": "Gobby Skill Bonus",
+      "description": "+2 racial Craft skill checks for all crafting.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:greedilox",
+      "name": "Greedilox",
+      "description": "+2 Appraise and +2 Diplomacy only for prices of nonmagical precious metal/gem goods; may value those goods 5% above actual price.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:hardy",
+      "name": "Hardy",
+      "description": "+2 saves versus poison.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:hobgoblinoid",
+      "name": "Hobgoblinoid",
+      "description": "Medium size; new racial scores +2 STR, +2 CHA, -2 INT, replacing small and original scores.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:hobgoblinoid:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:hobgoblinoid:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:hobgoblinoid:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:hobgoblinoid:effect:3",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:pyromaniac",
+      "name": "Pyromaniac",
+      "description": "Count as +1 level for fire-descriptor spells and fire-bomb damage, but not early access. At CHA 11+ gain burst of light, dancing lights, ignite, torchlight as four spell-like abilities each 1/day (character-level caster); source does not specify a replaced trait.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:scavenger",
+      "name": "Scavenger",
+      "description": "+2 Appraise and Perception when detecting hidden objects, spoiled food or potion identity by taste. Source calls replaced trait 'master tinkerer'.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:moblin-heritage-ability-scores",
+      "name": "Moblin Heritage Ability Scores",
+      "description": "+2 DEX, +2 INT, -2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:moblin-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Goblin Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Goblin Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:moblin-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Goblin Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Goblin Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:moblin-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Goblin Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Goblin Heritages",
+              "locator": "6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Goblin Heritages",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:moblin-heritage-skills",
+      "name": "Moblin Heritage Skills",
+      "description": "+2 racial bonuses to Knowledge (engineering) and Craft (alchemy) instead of typical +2 Bluff and Diplomacy. Verify interaction with Silver Tongued's three-step Diplomacy ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Goblin Heritages",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:red-cap-heritage-ability-scores",
+      "name": "Red Cap Heritage Ability Scores",
+      "description": "+2 DEX, +2 INT, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:goblin:trait:red-cap-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Goblin Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Goblin Heritages",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:red-cap-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Goblin Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Goblin Heritages",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:goblin:trait:red-cap-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Goblin Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Goblin Heritages",
+              "locator": "6063"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Goblin Heritages",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:goblin:trait:red-cap-heritage-skills",
+      "name": "Red Cap Heritage Skills",
+      "description": "+2 racial bonuses to Knowledge (local) and Stealth instead of typical +2 Bluff and Diplomacy. Verify interaction with Silver Tongued's three-step Diplomacy ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Goblin Heritages",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:goblin:trait:ability-score-racial-traits",
+      "ffd20:race:goblin:trait:size",
+      "ffd20:race:goblin:trait:type",
+      "ffd20:race:goblin:trait:base-speed",
+      "ffd20:race:goblin:trait:languages",
+      "ffd20:race:goblin:trait:craftsman",
+      "ffd20:race:goblin:trait:field-medic",
+      "ffd20:race:goblin:trait:goblins-unique-handle-on-things",
+      "ffd20:race:goblin:trait:master-tinker",
+      "ffd20:race:goblin:trait:silver-tongued",
+      "ffd20:race:goblin:trait:thug-life",
+      "ffd20:race:goblin:trait:goblin-punch",
+      "ffd20:race:goblin:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:goblin:trait:gobby-skill-bonus",
+      "ffd20:race:goblin:trait:greedilox",
+      "ffd20:race:goblin:trait:hardy",
+      "ffd20:race:goblin:trait:hobgoblinoid",
+      "ffd20:race:goblin:trait:pyromaniac",
+      "ffd20:race:goblin:trait:scavenger"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:goblin:trait:gobby-skill-bonus:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:goblin:trait:goblins-unique-handle-on-things"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:goblin:trait:gobby-skill-bonus"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Gobby Skill Bonus replaces/modifies Goblin’s Unique Handle on Things.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6048"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:trait:greedilox:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:goblin:trait:craftsman"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:goblin:trait:greedilox"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Greedilox replaces/modifies Craftsman.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6049"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:trait:hardy:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:goblin:trait:silver-tongued"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:goblin:trait:hardy"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Hardy replaces/modifies Silver Tongued.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6050"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:trait:hobgoblinoid:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:goblin:trait:ability-score-racial-traits",
+          "ffd20:race:goblin:trait:size"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:goblin:trait:hobgoblinoid"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Hobgoblinoid replaces/modifies Ability Score Racial Traits, Size.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:trait:pyromaniac:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:goblin:trait:pyromaniac"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Pyromaniac has no stated trait replacement in official source.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:trait:scavenger:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:goblin:trait:master-tinker"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:goblin:trait:scavenger"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scavenger replaces/modifies Master Tinker.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:goblin:heritage:moblin",
+        "name": "Moblin",
+        "description": "Moblin Goblin variant lineage with skill modifiers Knowledge (engineering) and Craft (alchemy).",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:goblin:heritage:moblin:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:goblin:trait:ability-score-racial-traits",
+              "ffd20:race:goblin:trait:silver-tongued"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:goblin:trait:moblin-heritage-ability-scores",
+              "ffd20:race:goblin:trait:moblin-heritage-skills"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Heritage scores and Silver Tongued skills replaced; special Diplomacy rule requires review.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Goblin Heritages",
+                "locator": "6062"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:goblin:trait:moblin-heritage-ability-scores",
+          "ffd20:race:goblin:trait:moblin-heritage-skills"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Goblin Heritages",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:heritage:red-cap",
+        "name": "Red Cap",
+        "description": "Red Cap Goblin variant lineage with skill modifiers Knowledge (local) and Stealth.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:goblin:heritage:red-cap:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:goblin:trait:ability-score-racial-traits",
+              "ffd20:race:goblin:trait:silver-tongued"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:goblin:trait:red-cap-heritage-ability-scores",
+              "ffd20:race:goblin:trait:red-cap-heritage-skills"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Heritage scores and Silver Tongued skills replaced; special Diplomacy rule requires review.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Goblin Heritages",
+                "locator": "6063"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:goblin:trait:red-cap-heritage-ability-scores",
+          "ffd20:race:goblin:trait:red-cap-heritage-skills"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Goblin Heritages",
+            "locator": "6063"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:goblin:favored:black-mage",
+        "raceId": "ffd20:race:goblin",
+        "classId": "ffd20:class:black-mage",
+        "name": "Goblin Black Mage favored reward",
+        "description": "+1/2 Black Mage fire spell damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6083"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:favored:chemist",
+        "raceId": "ffd20:race:goblin",
+        "classId": "ffd20:class:chemist",
+        "name": "Goblin Chemist favored reward",
+        "description": "+1/2 bomb damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6084"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:favored:cleric",
+        "raceId": "ffd20:race:goblin",
+        "classId": "ffd20:class:cleric",
+        "name": "Goblin Cleric favored reward",
+        "description": "+1 channel damage against creatures denied DEX bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6085"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:favored:engineer",
+        "raceId": "ffd20:race:goblin",
+        "classId": "ffd20:class:engineer",
+        "name": "Goblin Engineer favored reward",
+        "description": "+1/2 Craft checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6086"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:favored:gunbreaker",
+        "raceId": "ffd20:race:goblin",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Goblin Gunbreaker favored reward",
+        "description": "+1/6 keen edge shield AC.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6087"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:favored:medic",
+        "raceId": "ffd20:race:goblin",
+        "classId": "ffd20:class:medic",
+        "name": "Goblin Medic favored reward",
+        "description": "+1/3 battlefield inspiration temporary HP.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6088"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:goblin:favored:thief",
+        "raceId": "ffd20:race:goblin",
+        "classId": "ffd20:class:thief",
+        "name": "Goblin Thief favored reward",
+        "description": "+1 CMD against grapple or reposition.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6089"
+          }
+        ]
+      }
+    ]
+  }
+}

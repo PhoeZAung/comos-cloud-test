@@ -68,6 +68,15 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id==='ffd20:race:shindroid'&&!b.alternateIds.includes('ffd20:race:shindroid:trait:magitek-unit'))add(3,'Shindroid Magic Ineptitude forbids obtaining an MP pool without Magitek Unit; this Black Mage build cannot be saved unless Magitek Unit is selected.');
  if(race?.id==='ffd20:race:antica')add(3,'Antica cannot normally cast spells without Silent Spell or Telepathic Spellcaster. The current Black Mage wizard cannot verify this exception; you can inspect Antica rules but cannot save this automatic build.');
  if(race?.id==='ffd20:race:tonkin')add(3,'Tonkin cannot normally cast vocal-component spells, and Silent Spell/Telepathic Spellcaster compatibility is not yet verified in this Black Mage wizard. Character saving is blocked until supported.');
+ if(race?.id==='ffd20:race:ixal'){
+  const active=new Set(raceTraits(b).traits.map(f=>f.id));
+  if(active.has('ffd20:race:ixal:trait:bond-to-the-ice'))add(2,'Ixal Bond to the Ice requires choosing one forest or icy terrain; race-specific choice UI is unavailable and character saving is blocked.');
+  if(active.has('ffd20:race:ixal:trait:elemental-summoner'))add(2,'Ixal Elemental Summoner requires choosing one elemental subtype; race-specific choice UI is unavailable and character saving is blocked.');
+ }
+ if(race?.id==='ffd20:race:kindred'){
+  add(2,'Kindred must choose exactly one Abyssal or Infernal starting language; current wizard cannot store this required racial choice, so character saving is blocked.');
+  if(b.alternateIds.includes('ffd20:race:kindred:trait:maw-or-claw'))add(2,'Kindred Maw or Claw requires selecting one natural attack package, unsupported by the wizard; character saving is blocked.');
+ }
  if(race?.id==='ffd20:race:viera'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
   if(active.has('ffd20:race:viera:trait:elemental-summoner'))add(2,'Viera Elemental Summoner requires choosing one elemental subtype. Race-specific selection is not yet supported by this wizard; save is blocked until the subtype can be recorded.');
