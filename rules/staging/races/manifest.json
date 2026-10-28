@@ -246,6 +246,8 @@
     "Ixal mandatory Bond to the Ice terrain and Elemental Summoner subtype have no character-builder choice binding; block builds until choices can be recorded.",
     "Kindred starting Abyssal/Infernal choice and alternate Maw or Claw choice have no bound wizard selection UI; block such builds.",
     "Goblin Hobgoblinoid size and score replacements need size engine verification; Pyromaniac CHA-dependent spell-like abilities and conditional Craft bonuses stay manual.",
-    "Goblin Moblin and Red Cap heritage Silver Tongued replacements unresolved; do not auto-apply."
+    "Goblin Moblin and Red Cap heritage Silver Tongued replacements unresolved; do not auto-apply.",
+    "Kindred source index lists -2 CHA but detailed racial page says -4 CHA; staged -4 from detailed page pending independent review.",
+    "Kobold source index lists 20-ft. base speed; detailed racial page says 30-ft. land and 20-ft. burrow; staged detailed values pending review."
   ]
 }

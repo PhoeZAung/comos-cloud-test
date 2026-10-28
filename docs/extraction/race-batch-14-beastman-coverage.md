@@ -49,3 +49,10 @@ Source: https://finalfantasyd20.com/races/beastman-tribes/kobold/
 ## Review state and build guard
 
 Definitions are `needs_review` and `partial`. Only safe unconditional ability-score and literal skill fields may auto-project. Specific choice values, conditional bonuses, action resources, and class archetype/feat rules are not assumed. Ixal and Kindred save blockers are explicit until their choices can be stored. Goblin heritages remain unresolved. Beastkin remains unextracted. No Railway connection or deployment action occurred.
+
+## Source index versus detailed page conflicts
+
+- **Kindred CHA penalty:** Beastman index gives -2 CHA but its detailed **Standard Racial Traits** section explicitly gives -4 CHA. The testing JSON follows detailed -4 CHA pending source owner clarification.
+- **Kobold speed:** Beastman index gives 20 ft. base speed but its detailed **Standard Racial Traits** section gives land 30 ft. **and** burrow 20 ft. The testing JSON preserves separate 30-ft. land and 20-ft. burrow values pending clarification.
+
+References: https://finalfantasyd20.com/races/beastman-tribes/ , https://finalfantasyd20.com/races/beastman-tribes/kindred/ , https://finalfantasyd20.com/races/beastman-tribes/kobold/
