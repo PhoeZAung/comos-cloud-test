@@ -1,0 +1,1560 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:vanu-vanu",
+  "name": "Vanu Vanu",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/vanu-vanu/",
+      "title": "Vanu Vanu — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Three Vanu tribes substitute skill modifiers from Gift of Tongues; unspecified whether one-language-per-Linguistics-rank still persists, so heritage blocked.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Sky Sentinel situationally applies only to flying targets and never grants always-on global attack/AC/Perception.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Elemental's Gift is active once per day for one minute, not permanent.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Flightless Fall uses one or two DC15 Fly checks; no independent flight granted.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Vanu Vanu Heritages",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate external rules content not part of race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate external rules content not part of race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone feats/archetypes deferred."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone feats/archetypes deferred."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:vanu-vanu:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 CON, +2 WIS, -2 INT",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:size",
+      "name": "Size",
+      "description": "medium size; global size modifiers apply only once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:type",
+      "name": "Type",
+      "description": "humanoid (vanu).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "vanu",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30 ft land.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:languages",
+      "name": "Languages",
+      "description": "Begins speaking Common and Vanu. May learn Beastman languages via Linguistics.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.vanu",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Vanu",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:desert-runner",
+      "name": "Desert Runner",
+      "description": "+4 Constitution checks and Fortitude saves for fatigue/exhaustion and environmental or exertional hardship.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:elementals-gift",
+      "name": "Elemental’s Gift",
+      "description": "Swift action 1/day +2 deflection AC versus ranged attacks for 1 minute.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:heightened-elemental-resistance",
+      "name": "Heightened Elemental Resistance",
+      "description": "Wind resistance 10.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:sleepless-magicks",
+      "name": "Sleepless Magicks",
+      "description": "Immune to magical sleep; +2 racial saves versus enfeebling spells/effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:gift-of-tongues",
+      "name": "Gift of Tongues",
+      "description": "+1 racial Bluff and Diplomacy, learn one extra language for every Linguistics rank.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:gift-of-tongues:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:bluff.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6041"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6041"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:gift-of-tongues:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:diplomacy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6041"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6041"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:sky-sentinel",
+      "name": "Sky Sentinel",
+      "description": "+1 attacks, +2 dodge AC and +2 Perception against flying creatures, with no opponent elevation bonus; all situational.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:flightless-fall",
+      "name": "Flightless Fall",
+      "description": "DC 15 Fly to fall safely; another DC 15 Fly allows 5-ft glide per 20-ft fallen.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:nimble-faller",
+      "name": "Nimble Faller",
+      "description": "Land feet-first even on lethal falls; +1 CMD against trip.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:gundu-heritage-ability-scores",
+      "name": "Gundu Heritage Ability Scores",
+      "description": "+2 CON, +2 INT, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:gundu-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:gundu-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:gundu-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Vanu Vanu Heritages",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:gundu-heritage-benefit",
+      "name": "Gundu Heritage Benefit",
+      "description": "Skill replacement for +1 Bluff/Diplomacy: Knowledge(arcana) and Spellcraft; Linguistics rank-language behavior unresolved.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Vanu Vanu Heritages",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:vundu-heritage-ability-scores",
+      "name": "Vundu Heritage Ability Scores",
+      "description": "+2 STR, +2 CHA, -2 INT",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:vundu-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:vundu-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:vundu-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Vanu Vanu Heritages",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:vundu-heritage-benefit",
+      "name": "Vundu Heritage Benefit",
+      "description": "Skill replacement for +1 Bluff/Diplomacy: Swim and Intimidate; Linguistics rank-language behavior unresolved.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Vanu Vanu Heritages",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:zundu-heritage-ability-scores",
+      "name": "Zundu Heritage Ability Scores",
+      "description": "+2 DEX, +2 INT, -2 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:vanu-vanu:trait:zundu-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:zundu-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:vanu-vanu:trait:zundu-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Vanu Vanu Heritages",
+              "locator": "6063"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Vanu Vanu Heritages",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:vanu-vanu:trait:zundu-heritage-benefit",
+      "name": "Zundu Heritage Benefit",
+      "description": "Skill replacement for +1 Bluff/Diplomacy: Acrobatics and Knowledge(nature); Linguistics rank-language behavior unresolved.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Vanu Vanu Heritages",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:vanu-vanu:trait:ability-score-racial-traits",
+      "ffd20:race:vanu-vanu:trait:size",
+      "ffd20:race:vanu-vanu:trait:type",
+      "ffd20:race:vanu-vanu:trait:base-speed",
+      "ffd20:race:vanu-vanu:trait:languages",
+      "ffd20:race:vanu-vanu:trait:desert-runner",
+      "ffd20:race:vanu-vanu:trait:elementals-gift",
+      "ffd20:race:vanu-vanu:trait:heightened-elemental-resistance",
+      "ffd20:race:vanu-vanu:trait:sleepless-magicks",
+      "ffd20:race:vanu-vanu:trait:gift-of-tongues",
+      "ffd20:race:vanu-vanu:trait:sky-sentinel",
+      "ffd20:race:vanu-vanu:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:vanu-vanu:trait:flightless-fall",
+      "ffd20:race:vanu-vanu:trait:nimble-faller"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:vanu-vanu:trait:flightless-fall:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:vanu-vanu:trait:sky-sentinel"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:vanu-vanu:trait:flightless-fall"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Flightless Fall replaces Sky Sentinel.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:trait:nimble-faller:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:vanu-vanu:trait:sky-sentinel"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:vanu-vanu:trait:nimble-faller"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Nimble Faller replaces Sky Sentinel.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:vanu-vanu:heritage:gundu",
+        "name": "Gundu",
+        "description": "Skill replacement for +1 Bluff/Diplomacy: Knowledge(arcana) and Spellcraft; Linguistics rank-language behavior unresolved.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:vanu-vanu:heritage:gundu:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:vanu-vanu:trait:ability-score-racial-traits",
+              "ffd20:race:vanu-vanu:trait:gift-of-tongues"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:vanu-vanu:trait:gundu-heritage-ability-scores",
+              "ffd20:race:vanu-vanu:trait:gundu-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Gundu changes racial scores and Gift of Tongues; substitution unresolved pending review.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6061"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:vanu-vanu:trait:gundu-heritage-ability-scores",
+          "ffd20:race:vanu-vanu:trait:gundu-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Vanu Vanu Heritages",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:heritage:vundu",
+        "name": "Vundu",
+        "description": "Skill replacement for +1 Bluff/Diplomacy: Swim and Intimidate; Linguistics rank-language behavior unresolved.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:vanu-vanu:heritage:vundu:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:vanu-vanu:trait:ability-score-racial-traits",
+              "ffd20:race:vanu-vanu:trait:gift-of-tongues"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:vanu-vanu:trait:vundu-heritage-ability-scores",
+              "ffd20:race:vanu-vanu:trait:vundu-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Vundu changes racial scores and Gift of Tongues; substitution unresolved pending review.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6062"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:vanu-vanu:trait:vundu-heritage-ability-scores",
+          "ffd20:race:vanu-vanu:trait:vundu-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Vanu Vanu Heritages",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:heritage:zundu",
+        "name": "Zundu",
+        "description": "Skill replacement for +1 Bluff/Diplomacy: Acrobatics and Knowledge(nature); Linguistics rank-language behavior unresolved.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:vanu-vanu:heritage:zundu:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:vanu-vanu:trait:ability-score-racial-traits",
+              "ffd20:race:vanu-vanu:trait:gift-of-tongues"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:vanu-vanu:trait:zundu-heritage-ability-scores",
+              "ffd20:race:vanu-vanu:trait:zundu-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Zundu changes racial scores and Gift of Tongues; substitution unresolved pending review.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Vanu Vanu Heritages",
+                "locator": "6063"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:vanu-vanu:trait:zundu-heritage-ability-scores",
+          "ffd20:race:vanu-vanu:trait:zundu-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Vanu Vanu Heritages",
+            "locator": "6063"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:vanu-vanu:favored:beastmaster",
+        "raceId": "ffd20:race:vanu-vanu",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Vanu Vanu Beastmaster favored reward",
+        "description": "Choose +1 companion HP or skill rank, inherited by successor.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:favored:berserker",
+        "raceId": "ffd20:race:vanu-vanu",
+        "classId": "ffd20:class:berserker",
+        "name": "Vanu Vanu Berserker favored reward",
+        "description": "+1/2 Diplomacy/Intimidate checks to change attitudes.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:favored:black-belt",
+        "raceId": "ffd20:race:vanu-vanu",
+        "classId": "ffd20:class:black-belt",
+        "name": "Vanu Vanu Black Belt favored reward",
+        "description": "+1/4 martial flexibility use/day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:favored:dancer",
+        "raceId": "ffd20:race:vanu-vanu",
+        "classId": "ffd20:class:dancer",
+        "name": "Vanu Vanu Dancer favored reward",
+        "description": "+1 battle dance round/day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:favored:monk",
+        "raceId": "ffd20:race:vanu-vanu",
+        "classId": "ffd20:class:monk",
+        "name": "Vanu Vanu Monk favored reward",
+        "description": "+1/4 ki pool point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:favored:red-mage",
+        "raceId": "ffd20:race:vanu-vanu",
+        "classId": "ffd20:class:red-mage",
+        "name": "Vanu Vanu Red Mage favored reward",
+        "description": "+1/6 ruby arcana.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:vanu-vanu:favored:summoner",
+        "raceId": "ffd20:race:vanu-vanu",
+        "classId": "ffd20:class:summoner",
+        "name": "Vanu Vanu Summoner favored reward",
+        "description": "+1 avatar HP.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6079"
+          }
+        ]
+      }
+    ]
+  }
+}

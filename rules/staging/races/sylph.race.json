@@ -1,0 +1,2041 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:sylph",
+  "name": "Sylph",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/sylph/",
+      "title": "Sylph — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Sylph Small size already handled by global rules; fly speed 40 feet (poor) distinct from land 20.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Improved Flight changes movement without officially replacing Base Speed; unresolved to avoid incorrect 40/60 or 20/10 speeds.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Fey Magic has 1/day and 3/week usage, not all daily.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Heritage table header calls alternate skills but table specifies alternate spell-like abilities; use spell wording and block manual.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Fast healing trigger and per-day cap after lightning, spell resistance 6+level versus 11+level require rules runtime review.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Sylph Heritages",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source mechanics summarized; conditional/level-scaled effects need independent runtime review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate external rules content not part of race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate external rules content not part of race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone feats/archetypes deferred."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone feats/archetypes deferred."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:sylph:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 CHA, -4 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:size",
+      "name": "Size",
+      "description": "small size; global size modifiers apply only once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:type",
+      "name": "Type",
+      "description": "fey (sylph).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "fey",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "sylph",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:base-speed",
+      "name": "Base Speed",
+      "description": "20 ft land and 40 ft fly (poor maneuverability).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:base-speed:effect:1",
+          "kind": "identity",
+          "target": "identity.speed.fly",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 40,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:languages",
+      "name": "Languages",
+      "description": "Begins speaking Sylvan and Common. High-INT choices: Elvaan, Mandragoran, Mithran, Vieran.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.sylvan",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Sylvan",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:elemental-resistance",
+      "name": "Elemental Resistance",
+      "description": "Lightning resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:magic-resistant",
+      "name": "Magic Resistant",
+      "description": "+1 saves against spells or spell-like effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:spell-resistance-lesser",
+      "name": "Spell Resistance, Lesser",
+      "description": "Spell resistance 6 + character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:beguiling-liar",
+      "name": "Beguiling Liar",
+      "description": "+4 Bluff only to convince others of a lie.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:camouflage",
+      "name": "Camouflage",
+      "description": "+2 Stealth in wooded Black Shroud terrain.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:fey-magic",
+      "name": "Fey Magic",
+      "description": "+1 DC of illusion spells; Hidden Presence SLA 1/day; Charm, Lesser Confusion, Sleep each 3/week; caster level is character level, spell DC from CHA.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:breeze-kissed",
+      "name": "Breeze-Kissed",
+      "description": "Controllable +2 AC versus nonmagical ranged attacks, swift toggle. 1/day wind bull rush/trip at 30 ft, exhausts AC benefit for 24 hours.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:dirty-trickster",
+      "name": "Dirty Trickster",
+      "description": "+2 dirty trick CMB and waive INT feat prerequisites for specified dirty trick feats.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:fey-damage-resistance",
+      "name": "Fey Damage Resistance",
+      "description": "DR 5/cold iron.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6056"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:improved-flight",
+      "name": "Improved Flight",
+      "description": "Fly speed rises 40->60 ft, land speed decreases 20->10 ft, maneuverability improves two steps. Listed replacements omit movement feature; cannot auto apply.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:inquisitive",
+      "name": "Inquisitive",
+      "description": "+2 Disable Device and Escape Artist.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:inquisitive:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:disable-device.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:inquisitive:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:escape-artist.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:spell-resistance-greater",
+      "name": "Spell Resistance, Greater",
+      "description": "Spell resistance 11 + character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:storm-in-the-blood",
+      "name": "Storm in the Blood",
+      "description": "Fast healing 2 for 1 round whenever taking lightning damage even if resisted; 2 HP/level/day cap.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:tempered",
+      "name": "Tempered",
+      "description": "Wind resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:whispering-wind",
+      "name": "Whispering Wind",
+      "description": "+4 racial Stealth.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:whispering-wind:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:stealth.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:fairy-heritage-ability-scores",
+      "name": "Fairy Heritage Ability Scores",
+      "description": "+2 CHA, +2 DEX, -2 CON, -2 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:fairy-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6070"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6070"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:fairy-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6070"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6070"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:fairy-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6070"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6070"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:fairy-heritage-ability-scores:effect:3",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6070"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6070"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Sylph Heritages",
+          "locator": "6070"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:fairy-heritage-benefit",
+      "name": "Fairy Heritage Benefit",
+      "description": "Fey Magic replacement SLAs: Blur 1/day, Charm/Hypnotism/Sleep each 3/week.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Sylph Heritages",
+          "locator": "6070"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:pixie-heritage-ability-scores",
+      "name": "Pixie Heritage Ability Scores",
+      "description": "+2 DEX, +2 CHA, -4 CON",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:pixie-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6072"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6072"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:pixie-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6072"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6072"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:pixie-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6072"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6072"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Sylph Heritages",
+          "locator": "6072"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:pixie-heritage-benefit",
+      "name": "Pixie Heritage Benefit",
+      "description": "Fey Magic replacement SLAs: Vanish 1/day, Charm/Sleep/Ventriloquism each 3/week.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Sylph Heritages",
+          "locator": "6072"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:sprite-heritage-ability-scores",
+      "name": "Sprite Heritage Ability Scores",
+      "description": "+2 DEX, +2 INT, -4 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:sylph:trait:sprite-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6074"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6074"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:sprite-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6074"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6074"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:sylph:trait:sprite-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6074"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Sylph Heritages",
+              "locator": "6074"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Sylph Heritages",
+          "locator": "6074"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:sylph:trait:sprite-heritage-benefit",
+      "name": "Sprite Heritage Benefit",
+      "description": "Fey Magic replacement SLAs: Seducer's Eyes 1/day, Charm/Charm Animal/Sleep each 3/week.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Sylph Heritages",
+          "locator": "6074"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:sylph:trait:ability-score-racial-traits",
+      "ffd20:race:sylph:trait:size",
+      "ffd20:race:sylph:trait:type",
+      "ffd20:race:sylph:trait:base-speed",
+      "ffd20:race:sylph:trait:languages",
+      "ffd20:race:sylph:trait:elemental-resistance",
+      "ffd20:race:sylph:trait:magic-resistant",
+      "ffd20:race:sylph:trait:spell-resistance-lesser",
+      "ffd20:race:sylph:trait:beguiling-liar",
+      "ffd20:race:sylph:trait:camouflage",
+      "ffd20:race:sylph:trait:fey-magic",
+      "ffd20:race:sylph:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:sylph:trait:breeze-kissed",
+      "ffd20:race:sylph:trait:dirty-trickster",
+      "ffd20:race:sylph:trait:fey-damage-resistance",
+      "ffd20:race:sylph:trait:improved-flight",
+      "ffd20:race:sylph:trait:inquisitive",
+      "ffd20:race:sylph:trait:spell-resistance-greater",
+      "ffd20:race:sylph:trait:storm-in-the-blood",
+      "ffd20:race:sylph:trait:tempered",
+      "ffd20:race:sylph:trait:whispering-wind"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:sylph:trait:breeze-kissed:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:spell-resistance-lesser"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:breeze-kissed"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Breeze-Kissed replaces Spell Resistance, Lesser.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:trait:dirty-trickster:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:beguiling-liar"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:dirty-trickster"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dirty Trickster replaces Beguiling Liar.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:trait:fey-damage-resistance:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:magic-resistant",
+          "ffd20:race:sylph:trait:spell-resistance-lesser"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:fey-damage-resistance"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Fey Damage Resistance replaces Magic Resistant, Spell Resistance, Lesser.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6056"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:trait:improved-flight:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:camouflage",
+          "ffd20:race:sylph:trait:beguiling-liar"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:improved-flight"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Improved Flight replaces Camouflage, Beguiling Liar; compound replacement requires manual rules review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:trait:inquisitive:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:beguiling-liar"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:inquisitive"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Inquisitive replaces Beguiling Liar.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:trait:spell-resistance-greater:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:magic-resistant",
+          "ffd20:race:sylph:trait:spell-resistance-lesser"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:spell-resistance-greater"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Spell Resistance, Greater replaces Magic Resistant, Spell Resistance, Lesser.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:trait:storm-in-the-blood:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:beguiling-liar",
+          "ffd20:race:sylph:trait:camouflage"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:storm-in-the-blood"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Storm in the Blood replaces Beguiling Liar, Camouflage.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:trait:tempered:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:beguiling-liar",
+          "ffd20:race:sylph:trait:camouflage"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:tempered"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Tempered replaces Beguiling Liar, Camouflage.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:trait:whispering-wind:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:sylph:trait:camouflage",
+          "ffd20:race:sylph:trait:beguiling-liar"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:sylph:trait:whispering-wind"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Whispering Wind replaces Camouflage, Beguiling Liar.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:sylph:heritage:fairy",
+        "name": "Fairy",
+        "description": "Fey Magic replacement SLAs: Blur 1/day, Charm/Hypnotism/Sleep each 3/week.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:sylph:heritage:fairy:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:sylph:trait:ability-score-racial-traits",
+              "ffd20:race:sylph:trait:fey-magic"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:sylph:trait:fairy-heritage-ability-scores",
+              "ffd20:race:sylph:trait:fairy-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Fairy changes racial scores and Fey Magic; substitution unresolved pending review.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6070"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:sylph:trait:fairy-heritage-ability-scores",
+          "ffd20:race:sylph:trait:fairy-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Sylph Heritages",
+            "locator": "6070"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:heritage:pixie",
+        "name": "Pixie",
+        "description": "Fey Magic replacement SLAs: Vanish 1/day, Charm/Sleep/Ventriloquism each 3/week.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:sylph:heritage:pixie:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:sylph:trait:ability-score-racial-traits",
+              "ffd20:race:sylph:trait:fey-magic"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:sylph:trait:pixie-heritage-ability-scores",
+              "ffd20:race:sylph:trait:pixie-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Pixie changes racial scores and Fey Magic; substitution unresolved pending review.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6072"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:sylph:trait:pixie-heritage-ability-scores",
+          "ffd20:race:sylph:trait:pixie-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Sylph Heritages",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:heritage:sprite",
+        "name": "Sprite",
+        "description": "Fey Magic replacement SLAs: Seducer's Eyes 1/day, Charm/Charm Animal/Sleep each 3/week.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:sylph:heritage:sprite:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:sylph:trait:ability-score-racial-traits",
+              "ffd20:race:sylph:trait:fey-magic"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:sylph:trait:sprite-heritage-ability-scores",
+              "ffd20:race:sylph:trait:sprite-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Sprite changes racial scores and Fey Magic; substitution unresolved pending review.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Sylph Heritages",
+                "locator": "6074"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:sylph:trait:sprite-heritage-ability-scores",
+          "ffd20:race:sylph:trait:sprite-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Sylph Heritages",
+            "locator": "6074"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:sylph:favored:archer",
+        "raceId": "ffd20:race:sylph",
+        "classId": "ffd20:class:archer",
+        "name": "Sylph Archer favored reward",
+        "description": "+1/4 bow/crossbow damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6093"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:favored:bard",
+        "raceId": "ffd20:race:sylph",
+        "classId": "ffd20:class:bard",
+        "name": "Sylph Bard favored reward",
+        "description": "+1 bardic performance round/day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6094"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:favored:black-mage",
+        "raceId": "ffd20:race:sylph",
+        "classId": "ffd20:class:black-mage",
+        "name": "Sylph Black Mage favored reward",
+        "description": "Add one Black Mage spell known at least one spell level below the highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6095"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:favored:druid",
+        "raceId": "ffd20:race:sylph",
+        "classId": "ffd20:class:druid",
+        "name": "Sylph Druid favored reward",
+        "description": "+1/2 Knowledge(nature) involving weather/flying animals.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:favored:illusionist",
+        "raceId": "ffd20:race:sylph",
+        "classId": "ffd20:class:illusionist",
+        "name": "Sylph Illusionist favored reward",
+        "description": "+1/4 veil pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:favored:red-mage",
+        "raceId": "ffd20:race:sylph",
+        "classId": "ffd20:class:red-mage",
+        "name": "Sylph Red Mage favored reward",
+        "description": "+1/6 ruby arcana.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:favored:scholar",
+        "raceId": "ffd20:race:sylph",
+        "classId": "ffd20:class:scholar",
+        "name": "Sylph Scholar favored reward",
+        "description": "+1 arcane reservoir point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:sylph:favored:white-mage",
+        "raceId": "ffd20:race:sylph",
+        "classId": "ffd20:class:white-mage",
+        "name": "Sylph White Mage favored reward",
+        "description": "+1/2 Knowledge(planes) involving Plane of Air or air subtype.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100"
+          }
+        ]
+      }
+    ]
+  }
+}

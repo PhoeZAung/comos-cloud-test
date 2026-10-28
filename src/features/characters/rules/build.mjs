@@ -95,6 +95,9 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id==='ffd20:race:quadav'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:quadav:trait:bond-to-the-land'))add(2,'Quadav Bond to the Land requires choosing swamp or underground terrain; race choice UI is unsupported, so save is blocked.');
  }
+ if(race?.id==='ffd20:race:sahagin'){
+  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:sahagin:trait:tempered'))add(2,'Sahagin Tempered requires choosing either water or ice resistance. Race choice storage is not implemented; save is blocked.');
+ }
  if(race?.id==='ffd20:race:viera'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
   if(active.has('ffd20:race:viera:trait:elemental-summoner'))add(2,'Viera Elemental Summoner requires choosing one elemental subtype. Race-specific selection is not yet supported by this wizard; save is blocked until the subtype can be recorded.');

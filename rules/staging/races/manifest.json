@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "50 FFd20 races staged in batches 01–16; 16 Beastman races now available for wizard rules testing. All remain needs_review.",
+  "description": "54 staged FFd20 races from batches 01–17 (20 Beastman Tribes), enabled for wizard testing; all needs_review/partial.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -256,6 +256,26 @@
       "file": "rules/staging/races/quadav.race.json",
       "raceId": "ffd20:race:quadav",
       "sha256": "2ec8cc8fa18c49348df0aaa4ae5b2f780af8f8dbcab00eec93d662de5fd3f897"
+    },
+    {
+      "file": "rules/staging/races/sahagin.race.json",
+      "raceId": "ffd20:race:sahagin",
+      "sha256": "b57c3398b732923f94213f0c046ab5929742743a54a09f2cf2567e45b1048015"
+    },
+    {
+      "file": "rules/staging/races/sylph.race.json",
+      "raceId": "ffd20:race:sylph",
+      "sha256": "79d3707ee4dd482a256d8e4ba5df38ac3fa140c5a7e41db588b84f3d07687d55"
+    },
+    {
+      "file": "rules/staging/races/trollkin.race.json",
+      "raceId": "ffd20:race:trollkin",
+      "sha256": "6eea7607b11ff970d0aeeaf02ded12f0e948fa883ad8ed5745eef8298587862b"
+    },
+    {
+      "file": "rules/staging/races/vanu-vanu.race.json",
+      "raceId": "ffd20:race:vanu-vanu",
+      "sha256": "a9a3fbc7a20573282fa4ff20d53e042bc3d7a35a328af12b8d9423143808903a"
     }
   ],
   "blockers": [
@@ -297,6 +317,11 @@
     "Quadav Bond to the Land requires choosing swamp or underground; block saving until selected terrain can be recorded.",
     "Namazu Fast replaces both Skilled Traders and normal Base Speed; and Focused Study requires skill selection at 1, 8 and 16. Mark both replacements unresolved.",
     "Qiqirn introduction states two heritages but its table contains Leaf-Eater, Meat-Eater, and Qitari (3); preserve all three with unresolved replacements.",
-    "Quadav Water Tribe modifies swim speed and grants amphibious breathing; movement calculation and substitution remain unresolved."
+    "Quadav Water Tribe modifies swim speed and grants amphibious breathing; movement calculation and substitution remain unresolved.",
+    "Sahagin Tempered requires a choice of water or ice resistance; do not save active trait without recorded choice.",
+    "Sylph Improved Flight changes land/fly speed but has non-speed source replacement; unresolved until movement engine supports this and should not save with alternate.",
+    "Trollkin Faster Healing replaces Thick Skin by source wording but also supersedes Fast Healing; compound substitution remains unresolved.",
+    "Trollkin weakness title Acid or Fire conflicts with effect text fire or earth. Do not infer second suppression element.",
+    "Sahagin, Sylph and Vanu Vanu heritages use alternative spell/skill mechanics and remain blocked pending review."
   ]
 }

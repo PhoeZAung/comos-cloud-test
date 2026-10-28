@@ -53,7 +53,11 @@
     "staging/races/namazu.race.json",
     "staging/races/orc.race.json",
     "staging/races/qiqirn.race.json",
-    "staging/races/quadav.race.json"
+    "staging/races/quadav.race.json",
+    "staging/races/sahagin.race.json",
+    "staging/races/sylph.race.json",
+    "staging/races/trollkin.race.json",
+    "staging/races/vanu-vanu.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

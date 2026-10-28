@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,53);
+ assert.equal(manifest.races.length,57);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,53);
+ assert.equal(registry.races.length,57);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,50);
+ assert.equal(experimental.length,54);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -231,4 +231,13 @@ test('batch 16 Namazu, Orc, Qiqirn and Quadav preserve safe choices and source c
  const orc=registry.races.find(x=>x.id==='ffd20:race:orc');b=newBuild();b.raceId=orc.id;assert(buildIssues(b).some(x=>/Orc Skill Bonus/.test(x.message)));assert.equal(orc.choicePools[0].options.length,2);b.alternateIds=[orc.id+':trait:orc-lord'];assert(!buildIssues(b).some(x=>/Orc Skill Bonus/.test(x.message)));assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).cha,effectiveScores(b).int],[12,8,12,10]);
  const q=registry.races.find(x=>x.id==='ffd20:race:qiqirn');assert.deepEqual(q.data.heritages.map(h=>h.name),['Leaf-Eater','Meat-Eater','Qitari']);
  const quadav=registry.races.find(x=>x.id==='ffd20:race:quadav');b=newBuild();b.raceId=quadav.id;assert(buildIssues(b).some(x=>/Quadav.*terrain/.test(x.message)));assert(quadav.features.find(x=>x.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===30));b.alternateIds=[quadav.id+':trait:water-tribe'];assert(raceTraits(b).errors.length>0);
+});
+
+test('batch 17 Sahagin, Sylph, Trollkin and Vanu Vanu retain traits, conditional replacements and heritages',()=>{
+ const want=[['sahagin',13,5,2,1,1],['sylph',12,9,3,1,0],['trollkin',13,5,0,1,0],['vanu-vanu',12,2,3,0,0]];
+ for(const [key,std,alt,herit,fav,pools] of want){const race=registry.races.find(r=>r.id==='ffd20:race:'+key);assert(race?.testing);assert.deepEqual([race.data.standardTraitIds.length,race.data.alternateTraitIds.length,race.data.heritages.length,race.data.favoredRewards.length,race.choicePools.length],[std,alt,herit,fav,pools]);const b=newBuild();b.raceId=race.id;assert.deepEqual(raceTraits(b).errors,[]);if(herit){b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
+ let b=newBuild();b.raceId='ffd20:race:sahagin';const sahagin=registry.races.find(r=>r.id===b.raceId);assert(sahagin.features.find(f=>f.name==='Base Speed').effects.some(e=>e.target==='identity.speed.swim'&&e.value.value===30));b.alternateIds=[b.raceId+':trait:tempered'];assert(buildIssues(b).some(x=>/Sahagin.*Tempered/.test(x.message)));assert.deepEqual(sahagin.choicePools.map(p=>p.options.length),[2]);
+ const sylph=registry.races.find(r=>r.id==='ffd20:race:sylph');b=newBuild();b.raceId=sylph.id;assert.deepEqual([effectiveScores(b).dex,effectiveScores(b).cha,effectiveScores(b).str],[12,12,6]);assert(sylph.features.find(f=>f.name==='Base Speed').effects.some(e=>e.target==='identity.speed.fly'&&e.value.value===40));b.alternateIds=[sylph.id+':trait:improved-flight'];assert(raceTraits(b).errors.length>0);
+ const trollkin=registry.races.find(r=>r.id==='ffd20:race:trollkin');b=newBuild();b.raceId=trollkin.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).int,effectiveScores(b).cha],[12,12,6]);b.alternateIds=[trollkin.id+':trait:faster-healing'];assert(raceTraits(b).errors.length>0);assert(trollkin.data.alternateReplacements.find(x=>x.id.includes(':faster-healing:')).targetFeatureIds.length===2);
+ const vanu=registry.races.find(r=>r.id==='ffd20:race:vanu-vanu');assert.deepEqual(vanu.data.heritages.map(h=>h.name),['Gundu','Vundu','Zundu']);b=newBuild();b.raceId=vanu.id;b.alternateIds=[vanu.id+':trait:flightless-fall',vanu.id+':trait:nimble-faller'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
 });
