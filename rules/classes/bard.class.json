@@ -18,6 +18,13 @@
       "title": "Bard Song Talents — Official Final Fantasy d20",
       "sourceKind": "official_web",
       "retrievedOn": "2026-10-28"
+    },
+    {
+      "id": "song-list",
+      "url": "https://finalfantasyd20.com/magic/spells-by-class/bard/",
+      "title": "Bard Songs — Official Final Fantasy d20 index",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web"
     }
   ],
   "review": {
@@ -29,7 +36,7 @@
       {
         "path": "/data/events",
         "blocking": true,
-        "reason": "Bard songs and jingles are not yet extracted into a selectable options catalog. Levels/song restrictions and CHA-gated choices must be implemented before character saving."
+        "reason": "The Bard song catalog now indexes 11 jingles, 30 1st-level songs and 36 2nd-level songs as source-backed manual entries; levels 3–6 remain unextracted and the wizard has no songcasting selection/save adapter."
       },
       {
         "path": "/data/events",
@@ -3480,7 +3487,9 @@
           "section": "Songs",
           "locator": "6059"
         }
-      ]
+      ],
+      "songCatalogFile": "rules/classes/bard-songs.json",
+      "songCatalogCoverage": "partial_levels_0_to_2"
     },
     "resources": [
       {
