@@ -11,7 +11,7 @@ export async function generateArcherPreview({check=false}={}){
  if(featureIds.size!==c.data.features.length||c.data.upgrades.some(u=>!featureIds.has(u.featureId)))throw Error('Invalid Archer upgrade targets');
  if(t.options.length!==52||new Set(t.options.map(o=>o.id)).size!==52)throw Error('Archer talents missing or duplicated');
  const data={...c,data:{...c.data,talents:t.options}};
- const text='// Generated Archer preview catalog from rules/classes/archer.class.json + archer-talents.json.\n// This is read-only inspection data; it does not enable Archer character saving.\nexport const archer='+JSON.stringify(data)+';\n';
+ const text='// Generated Archer class catalog from rules/classes/archer.class.json + archer-talents.json.\n// The class adapter controls creation, upgrades and saving; archetypes remain unavailable.\nexport const archer='+JSON.stringify(data)+';\n';
  if(check){if(await readFile(dest,'utf8')!==text)throw Error('Archer class projection stale');}
  else await writeFile(dest,text);
  return data;

@@ -64,8 +64,10 @@ test('live wizard renders Archer level and changes as a read-only explorer; Blac
  assert.match(html,/data-rw-archer-level/);
  assert.match(html,/↑ Improved: Evasive Archer/);
  assert.match(html,/Hawkeye/);
- assert.match(html,/read-only rules explorer/);
- assert.match(html,/<option>Black Mage<\/option>/);
+ assert.match(html,/Archer is selectable for character creation and level-up/);
+ assert.match(html,/data-rw-field="classId"/);
+ assert.match(html,/value="ffd20:class:archer"/);
+ assert.match(html,/value="ffd20:class:black-mage"/);
 });
 test('invalid level inputs throw instead of silently changing levels',()=>{
  assert.throws(()=>archerAtLevel(21),/1–20/);
