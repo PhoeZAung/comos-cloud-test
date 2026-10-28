@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "59 staged FFd20 races from batches 01–19, including 22 Beastman Tribes and all 3 Monstrous Races. Available in standard wizard race list, rules still needs_review/partial.",
+  "description": "60 staged FFd20 races through batch 20, plus three normal races, including Beastkin recovered from user's saved official page. All staged rules remain needs_review/partial for wizard.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -301,6 +301,11 @@
       "file": "rules/staging/races/syricta.race.json",
       "raceId": "ffd20:race:syricta",
       "sha256": "1a6e067fbeecb0f63f4837cd8e883ffb14db64362e808bfecbdb5752f3c7d686"
+    },
+    {
+      "file": "rules/staging/races/beastkin.race.json",
+      "raceId": "ffd20:race:beastkin",
+      "sha256": "35e6e50afcc05de35a06278ee38349d1e21edf88d1b96110b3ad40eb0f9ff73d"
     }
   ],
   "blockers": [
@@ -354,6 +359,9 @@
     "Monstrous Half-Gigas and Lizardman type in source summary says Humanoid but detailed entry says Monstrous Humanoid. Detailed entries used pending review.",
     "Half-Gigas Fire/Ice/Thunder heritage trait substitutions remain unresolved and greyed out pending verification.",
     "Syricta standard Elemental Resistance and Breath Weapon require two player choices the wizard cannot store; default save remains blocked rather than inventing choices.",
-    "Syricta Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage and Wing-Clipped have partial or source-conflicted type/speed/language changes and remain unavailable."
+    "Syricta Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage and Wing-Clipped have partial or source-conflicted type/speed/language changes and remain unavailable.",
+    "Beastkin Alluring and Light Build replace a single +2 racial score component; partial vector replacement remains greyed.",
+    "Beastkin Feral INT penalty duplicates wording of baseline -2 INT; source gives no explicit replaced standard trait, so remains greyed.",
+    "Beastkin Loper adds speed without replacing Sprinter and requires correctly composited movement, remains greyed."
   ]
 }

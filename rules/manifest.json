@@ -62,7 +62,8 @@
     "staging/races/yagudo.race.json",
     "staging/races/half-gigas.race.json",
     "staging/races/lizardman.race.json",
-    "staging/races/syricta.race.json"
+    "staging/races/syricta.race.json",
+    "staging/races/beastkin.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

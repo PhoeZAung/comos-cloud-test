@@ -1,0 +1,1624 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:beastkin",
+  "name": "Beastkin",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/beastkin/",
+      "title": "Beastkin — Final Fantasy d20 (saved official page MHTML)",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Summary table calls Hunter 'Skill training' and Keen Senses 'Skill bonus'; detailed names are Hunter and Keen Senses and should not be duplicated.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Alluring and Light Build replace ONLY one bonus in the racial score vector, not the entire vector. Partial replacement unsupported, disable until reviewed.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Feral says -2 Intelligence when the base race already has -2 INT and does not name a replacement standard feature. Must clarify stacking and feature substitution.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Loper grants +10 base speed as well as +10 for charge/run/withdraw and does not replace Sprinter. Requires precise movement composition; disabled for now.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Fleet-Footed Run bonus feat and +2 initiative need sheet integration; do not silently award incorrect skill or ability modifiers.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Cold/Heat Acclimated benefits depend on environmental conditions. Cold Acclimated adds Ice Resistance 5.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Beastkin Immunities protects only from magical sleep and against enfeebling effects, Fearless against fear. These are not generic all-save bonuses.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official page HTML supplied in user saved MHTML, anchor/list locators retained."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official page HTML supplied in user saved MHTML, anchor/list locators retained."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official page HTML supplied in user saved MHTML, anchor/list locators retained."
+      },
+      {
+        "sourceId": "main",
+        "section": "Movement Racial Traits",
+        "status": "extracted",
+        "reason": "Official page HTML supplied in user saved MHTML, anchor/list locators retained."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Official page HTML supplied in user saved MHTML, anchor/list locators retained."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official page HTML supplied in user saved MHTML, anchor/list locators retained."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official page HTML supplied in user saved MHTML, anchor/list locators retained."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "No standalone feat/archetype details included in this saved race page; separate future catalog."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "No standalone feat/archetype details included in this saved race page; separate future catalog."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:beastkin:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 STR, +2 WIS, -2 INT.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "#beastkin-racial-traits / paragraph:1 / item:1"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:1"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "#beastkin-racial-traits / paragraph:1 / item:1"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:1"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "#beastkin-racial-traits / paragraph:1 / item:1"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:1"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "#beastkin-racial-traits / paragraph:1 / item:1"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:size",
+      "name": "Size",
+      "description": "Medium; do not double-count global size modifiers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:2"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "#beastkin-racial-traits / paragraph:1 / item:2"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:type",
+      "name": "Type",
+      "description": "Humanoid (beastkin).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:3"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "beastkin",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:3"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "#beastkin-racial-traits / paragraph:1 / item:3"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-ft land speed. Sprinter grants additional speed only in specified actions.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "#beastkin-racial-traits / paragraph:1 / item:4"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:4"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "#beastkin-racial-traits / paragraph:1 / item:4"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:languages",
+      "name": "Languages",
+      "description": "Common and Beastmen. Bonus choices for high INT: Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:5"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.beastmen",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Beastmen",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "#beastkin-racial-traits / paragraph:1 / item:5"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "#beastkin-racial-traits / paragraph:1 / item:5"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:beastkin-immunities",
+      "name": "Beastkin Immunities",
+      "description": "Immune to magical sleep effects; +2 racial saving throws against enfeebling spells/effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "#defense-racial-traits / li:1"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:fearless",
+      "name": "Fearless",
+      "description": "+2 racial saves against fear effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "#defense-racial-traits / li:2"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:natural-armor",
+      "name": "Natural Armor",
+      "description": "+1 natural armor AC.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "#defense-racial-traits / li:3"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:fleet-footed",
+      "name": "Fleet-Footed",
+      "description": "Run bonus feat and +2 racial initiative bonus (sheet integration remains manual).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "#feat-and-skill-racial-traits / li:1"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:hunter",
+      "name": "Hunter",
+      "description": "Stealth and Survival are always class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:hunter:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:stealth.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "#feat-and-skill-racial-traits / li:2"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:trait:hunter:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:survival.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "#feat-and-skill-racial-traits / li:2"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "#feat-and-skill-racial-traits / li:2"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:keen-senses:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "#feat-and-skill-racial-traits / li:3"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "#feat-and-skill-racial-traits / li:3"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "#feat-and-skill-racial-traits / li:3"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:sprinter",
+      "name": "Sprinter",
+      "description": "+10 ft speed only during charge, run or withdraw actions.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Movement Racial Traits",
+          "locator": "#movement-racial-traits / li:1"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:darkvision",
+      "name": "Darkvision",
+      "description": "See in the dark up to 60 ft.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "#senses-racial-traits / li:1"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as humes in dim lighting.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "#senses-racial-traits / li:2"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:alluring",
+      "name": "Alluring",
+      "description": "Replace only racial +2 WIS with +2 CHA; retain racial +2 STR and -2 INT. Partial ability-vector replacement.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:1"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:civilized",
+      "name": "Civilized",
+      "description": "+2 Diplomacy and Sense Motive.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:civilized:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:diplomacy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "#alternate-racial-traits / li:2"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "#alternate-racial-traits / li:2"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:trait:civilized:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:sense-motive.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "#alternate-racial-traits / li:2"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "#alternate-racial-traits / li:2"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:2"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:cold-acclimated",
+      "name": "Cold Acclimated",
+      "description": "Immune to environmental cold damage at temperatures below 40°F; treat extreme cold below 0°F as ordinary cold, plus ice resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:3"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:feral",
+      "name": "Feral",
+      "description": "Always treat Perception and Stealth as class skills. Says starts with -2 Intelligence, already same as baseline; whether extra -2 INT applies and what is replaced are unstated.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:4"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:heat-acclimated",
+      "name": "Heat Acclimated",
+      "description": "Automatically succeed Fortitude saves to avoid heat dangers through severe heat conditions.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:5"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:influential",
+      "name": "Influential",
+      "description": "+2 Diplomacy; +1 DC to enfeebling-school spells, not all spells.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:influential:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:diplomacy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "#alternate-racial-traits / li:6"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "#alternate-racial-traits / li:6"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:6"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:information-hunter",
+      "name": "Information Hunter",
+      "description": "+2 Diplomacy specifically to gather information; Knowledge (local) becomes a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:information-hunter:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-local.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "#alternate-racial-traits / li:7"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:7"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:light-build",
+      "name": "Light Build",
+      "description": "Replace only +2 STR with +2 DEX; retain +2 WIS and -2 INT. Partial racial-vector replacement.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:8"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:loper",
+      "name": "Loper",
+      "description": "Base speed +10 ft (30 to 40), plus an additional +10 ft when charging, running or withdrawing. Does not list Sprinter as replaced; speed adapter required.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:9"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:beastkin:trait:scent",
+      "name": "Scent",
+      "description": "Gain Scent instead of Low-Light Vision; retain Darkvision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "#alternate-racial-traits / li:10"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:beastkin:trait:ability-score-racial-traits",
+      "ffd20:race:beastkin:trait:size",
+      "ffd20:race:beastkin:trait:type",
+      "ffd20:race:beastkin:trait:base-speed",
+      "ffd20:race:beastkin:trait:languages",
+      "ffd20:race:beastkin:trait:beastkin-immunities",
+      "ffd20:race:beastkin:trait:fearless",
+      "ffd20:race:beastkin:trait:natural-armor",
+      "ffd20:race:beastkin:trait:fleet-footed",
+      "ffd20:race:beastkin:trait:hunter",
+      "ffd20:race:beastkin:trait:keen-senses",
+      "ffd20:race:beastkin:trait:sprinter",
+      "ffd20:race:beastkin:trait:darkvision",
+      "ffd20:race:beastkin:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:beastkin:trait:alluring",
+      "ffd20:race:beastkin:trait:civilized",
+      "ffd20:race:beastkin:trait:cold-acclimated",
+      "ffd20:race:beastkin:trait:feral",
+      "ffd20:race:beastkin:trait:heat-acclimated",
+      "ffd20:race:beastkin:trait:influential",
+      "ffd20:race:beastkin:trait:information-hunter",
+      "ffd20:race:beastkin:trait:light-build",
+      "ffd20:race:beastkin:trait:loper",
+      "ffd20:race:beastkin:trait:scent"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:beastkin:trait:alluring:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:ability-score-racial-traits"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:alluring"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Alluring modifies or replaces Ability Score Racial Traits; source ambiguity or partial integration requires review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:1"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:civilized:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:civilized"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Civilized modifies or replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:2"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:cold-acclimated:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:natural-armor"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:cold-acclimated"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Cold Acclimated modifies or replaces Natural Armor.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:3"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:feral:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:feral"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Feral has no explicit replaced standard feature; source ambiguity or partial integration requires review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:4"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:heat-acclimated:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:natural-armor"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:heat-acclimated"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heat Acclimated modifies or replaces Natural Armor.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:5"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:influential:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:influential"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Influential modifies or replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:6"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:information-hunter:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:information-hunter"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Information Hunter modifies or replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:7"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:light-build:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:ability-score-racial-traits"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:light-build"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Light Build modifies or replaces Ability Score Racial Traits; source ambiguity or partial integration requires review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:8"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:loper:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:natural-armor"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:loper"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Loper modifies or replaces Natural Armor; source ambiguity or partial integration requires review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:9"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:trait:scent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:beastkin:trait:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:beastkin:trait:scent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scent modifies or replaces Low-Light Vision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "#alternate-racial-traits / li:10"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:beastkin:favored:astrologian",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:astrologian",
+        "name": "Beastkin Astrologian favored reward",
+        "description": "+1/3 daily Draw uses.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:1"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:favored:bard",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:bard",
+        "name": "Beastkin Bard favored reward",
+        "description": "+1/6 bonus from Inspire Courage bardic performance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:2"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:favored:beastmaster",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Beastkin Beastmaster favored reward",
+        "description": "+1/2 damage from animal companion natural attacks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:3"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:favored:berserker",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:berserker",
+        "name": "Beastkin Berserker favored reward",
+        "description": "+1 daily rage round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:4"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:favored:cleric",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:cleric",
+        "name": "Beastkin Cleric favored reward",
+        "description": "+1/3 channel energy damage or healing.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:5"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:favored:druid",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:druid",
+        "name": "Beastkin Druid favored reward",
+        "description": "+1/4 luck bonus on animal companion saves.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:6"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:favored:medic",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:medic",
+        "name": "Beastkin Medic favored reward",
+        "description": "+1/6 dodge bonus granted by Evasive.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:7"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:favored:samurai",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:samurai",
+        "name": "Beastkin Samurai favored reward",
+        "description": "+1/3 critical confirmation.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:8"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:beastkin:favored:white-mage",
+        "raceId": "ffd20:race:beastkin",
+        "classId": "ffd20:class:white-mage",
+        "name": "Beastkin White Mage favored reward",
+        "description": "+1 additional self-healing from Lay on Hands.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "#favored-class-options / li:9"
+          }
+        ]
+      }
+    ]
+  }
+}

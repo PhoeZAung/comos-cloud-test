@@ -4,7 +4,7 @@ import {registry,newBuild,buildIssues} from '../src/features/characters/rules/bu
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 const get=key=>registry.races.find(r=>r.id==='ffd20:race:'+key);
 test('all races have neutral names in the wizard while review metadata remains unchanged',()=>{
- assert.equal(registry.races.length,59);
+ assert.equal(registry.races.length,63);
  const b=newBuild();b.raceId=get('velkk').id;
  const html=renderBuild(b,2);
  assert.match(html,/Official Velkk rules/);
@@ -25,4 +25,12 @@ test('unsupported standard trait choices and unavailable alternates cannot bypas
  assert(buildIssues(b).some(i=>/Elemental Summoner/.test(i.message)));
  b.raceId=get('sylph').id;b.alternateIds=[b.raceId+':trait:improved-flight'];
  assert(buildIssues(b).some(i=>/Improved Flight/.test(i.message)));
+});
+
+test('Beastkin uses normal wizard name and greys out only unsupported alternates',()=>{
+ const b=newBuild();b.raceId='ffd20:race:beastkin';const html=renderBuild(b,2);
+ assert.match(html,/Official Beastkin rules/);assert.doesNotMatch(html,/Beastkin \(testing\)|Testing race/);
+ for(const id of ['alluring','feral','light-build','loper'])assert.match(html,new RegExp('data-rw-alternate="ffd20:race:beastkin:trait:'+id+'" disabled'));
+ assert.match(html,/data-rw-alternate="ffd20:race:beastkin:trait:civilized"/);
+ assert.doesNotMatch(html,/data-rw-alternate="ffd20:race:beastkin:trait:civilized" disabled/);
 });

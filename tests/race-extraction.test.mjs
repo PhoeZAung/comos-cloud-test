@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,62);
+ assert.equal(manifest.races.length,63);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,62);
+ assert.equal(registry.races.length,63);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,59);
+ assert.equal(experimental.length,60);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -272,4 +272,15 @@ test('batch 19 Half-Gigas, Lizardman and Syricta are standard-list monstrous rac
  const lizard=registry.races.find(x=>x.id==='ffd20:race:lizardman');b=newBuild();b.raceId=lizard.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).dex,effectiveScores(b).cha],[12,12,8]);assert(lizard.features.find(f=>f.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===60));
  const syricta=registry.races.find(x=>x.id==='ffd20:race:syricta');b=newBuild();b.raceId=syricta.id;assert.deepEqual(syricta.choicePools.map(x=>x.options.length),[6,2]);assert(buildIssues(b).some(x=>/Elemental Resistance.*racial choice/.test(x.message)));assert(buildIssues(b).some(x=>/Breath Weapon.*racial choice/.test(x.message)));assert(syricta.features.find(f=>f.name==='Base Speed').effects.some(x=>x.target==='identity.speed.fly'&&x.value.value===40));
  b.alternateIds=[syricta.id+':trait:wing-clipped'];assert(raceTraits(b).errors.length>0);
+});
+
+test('Beastkin saved official page has complete traits and unavailable partial alternates',()=>{
+ const r=registry.races.find(x=>x.id==='ffd20:race:beastkin'),b=newBuild();assert(r?.testing);
+ assert.deepEqual([r.data.standardTraitIds.length,r.data.alternateTraitIds.length,r.data.heritages.length,r.data.favoredRewards.length],[14,10,0,0]);
+ assert.deepEqual(r.data.alternateReplacements.filter(o=>o.resolution==='unresolved').map(o=>o.addsFeatureIds[0].split(':').at(-1)),['alluring','feral','light-build','loper']);
+ b.raceId=r.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).int],[12,12,8]);
+ assert.deepEqual(raceTraits(b).errors,[]);assert.equal(r.features.find(f=>f.name==='Hunter').effects.length,2);
+ b.alternateIds=[r.id+':trait:alluring'];assert(raceTraits(b).errors.length>0);
+ b.alternateIds=[r.id+':trait:civilized'];assert.deepEqual(raceTraits(b).errors,[]);
+ b.alternateIds=[r.id+':trait:civilized',r.id+':trait:influential'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
 });
