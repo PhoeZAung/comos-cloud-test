@@ -1,0 +1,138 @@
+FFD20 BARD JINGLES — HUMAN-READABLE MECHANICS REVIEW
+=================================================
+11 individual source pages checked on 2026-10-28.
+NOT an approval of automatic gameplay effects. Bard remains staged.
+
+EXACT ENTRIES FOR REVIEW
+------------------------
+1. Boom
+   MP: 0; action: 1 standard action
+   Range: 30 ft.; target: one creature
+   Duration: instantaneous; concentration penalty lasts 1d3 rounds
+   Save: Fortitude partial; spell resistance: no
+   Maintained: No
+   Effect: Deal 1 non-elemental damage; failed Fortitude save also causes -2 Concentration for 1d3 rounds.
+   Scaling: none
+   Official page: https://finalfantasyd20.com/magic/spells/b/boom/
+
+2. Detune
+   MP: 0; action: 1 standard action
+   Range: 30 ft.; target: one instrument
+   Duration: instantaneous; detuning persists until fixed
+   Save: none; spell resistance: yes
+   Maintained: No
+   Effect: Instrument gives -4 to Perform checks until retuned for 1d4 rounds.
+   Scaling: none
+   Official page: https://finalfantasyd20.com/magic/spells/d/detune/
+
+3. Ghostharp
+   MP: 0; action: 1 standard action
+   Range: 30 ft.; target: one object
+   Duration: 1 minute/level (dismissible)
+   Save: none; spell resistance: no
+   Maintained: No
+   Effect: Object records and replays music performed within 50 feet during the past day. Cannot replay speech or magical effects.
+   Scaling: durationMinutes = casterLevel
+   Official page: https://finalfantasyd20.com/magic/spells/g/ghostharp/
+
+4. Ghost Sound
+   MP: 0; action: 1 standard action
+   Range: close (25 ft. + 5 ft./2 levels); target: illusory sounds
+   Duration: 1 round/level (dismissible)
+   Save: Will disbelief; spell resistance: no
+   Maintained: No
+   Effect: Sound of up to four humanoid voices per caster level, maximum 40; the chosen basic nature of the sound cannot change.
+   Scaling: rangeFeet = 25 + 5 * floor(casterLevel / 2); durationRounds = casterLevel; maxVoiceEquivalent = min(40, 4 * casterLevel)
+   Official page: https://finalfantasyd20.com/magic/spells/g/ghost-sound/
+
+5. Giggle
+   MP: 0; action: 1 standard action
+   Range: 30 ft.; target: one creature
+   Duration: 1 round
+   Save: Will negates; spell resistance: yes
+   Maintained: No
+   Effect: Target cannot speak or use verbal spells or Bard abilities; can move and attack.
+   Scaling: none
+   Official page: https://finalfantasyd20.com/magic/spells/g/giggle/
+
+6. Lullaby
+   MP: 0; action: 1 standard action
+   Range: 30 ft.; target: living creatures in 10-ft.-radius burst
+   Duration: up to 1 + CHA modifier rounds (maintained)
+   Save: Will negates; spell resistance: yes
+   Maintained: YES — spends a free action each round
+   Effect: Failures take -5 Perception and -2 Will against sleep only while maintained.
+   Scaling: maximumMaintainedRounds = 1 + charismaModifier
+   Official page: https://finalfantasyd20.com/magic/spells/l/lullaby/
+
+7. Rebound Sound
+   MP: 0; action: 1 standard action
+   Range: long (400 ft. + 40 ft./level); target: straight line
+   Duration: instantaneous
+   Save: none; spell resistance: no
+   Maintained: No
+   Effect: Echo reveals precise distance to a surface, including depth of water if sound penetrates it.
+   Scaling: rangeFeet = 400 + 40 * casterLevel
+   Official page: https://finalfantasyd20.com/magic/spells/r/rebound-sound/
+
+8. Songbird
+   MP: 0; action: 1 standard action
+   Range: personal; target: self
+   Duration: 1 minute/level
+   Save: none; spell resistance: no
+   Maintained: No
+   Effect: Competence +1 to Charisma-based checks involving a person who witnessed the performance.
+   Scaling: durationMinutes = casterLevel
+   Official page: https://finalfantasyd20.com/magic/spells/s/songbird/
+
+9. Song of Serenity
+   MP: 0; action: 1 standard action
+   Range: 30 ft.; target: one creature per round
+   Duration: up to 1 + CHA modifier rounds (maintained)
+   Save: Fortitude negates (harmless); spell resistance: yes (harmless)
+   Maintained: YES — spends a free action each round
+   Effect: A targeted creature ignores fatigue effects only while the song is maintained; fatigue is not cured.
+   Scaling: maximumMaintainedRounds = 1 + charismaModifier
+   Official page: https://finalfantasyd20.com/magic/spells/s/song-of-serenity/
+
+10. Stage Light
+   MP: 0; action: 1 standard action
+   Range: personal; target: one following floating orb
+   Duration: 1 minute (dismissible)
+   Save: none; spell resistance: no
+   Maintained: No
+   Effect: The orb follows the Bard and provides normal light in a 30-ft. radius, unaffected by water.
+   Scaling: none
+   Official page: https://finalfantasyd20.com/magic/spells/s/stage-light/
+
+11. Summon Instrument
+   MP: 0; action: 1 standard action
+   Range: 0 ft.; target: one handheld instrument
+   Duration: 1 hour/level (dismissible)
+   Save: none; spell resistance: no
+   Maintained: No
+   Effect: Summon one standard portable instrument playable only by Bard; disappears at end of duration.
+   Scaling: durationHours = casterLevel
+   Official page: https://finalfantasyd20.com/magic/spells/s/summon-instrument/
+
+BARD MAINTAINED-SONG INTERACTION RULES
+-------------------------------------
+1. Maintained songs need one free action each round. If the Bard cannot take that free action (including paralysis or unconsciousness), the maintained effects end.
+2. One maintained song at a time unless the Bard's Medley feature increases the limit.
+3. Normal songs can be cast while a maintained song runs. A normal song requiring concentration can coexist, but blocks beginning another song until concentration ends.
+4. A creature departing the maintained song's range retains the effect until the beginning of its next turn.
+5. At the start of the Bard's turn, the Bard may change the targets of a maintained song that has a target-count limit, immediately ending its effect on previous targets.
+6. For maintained songs requiring a save, the target saves every round until it fails; thereafter the ongoing effect remains until its duration ends or it is dismissed.
+7. Against a target with spell resistance, the Bard retries a caster level check each round until successful; later rounds of the same song do not repeat that check.
+8. Beginning a song provokes attacks of opportunity and uses concentration-interruption rules like spells.
+
+RULE DIFFERENCES / ISSUES TO REVIEW
+-----------------------------------
+[ ] Song of Serenity: current live site SUPPRESSES fatigue while maintained, but older PDF says instant CURE. Keep original fatigue state and check at table.
+[ ] Ghost Sound uses caster-level sound volume and range, not a flat 30 ft.
+[ ] Lullaby is an area spell and must not become a global -5 Perception passive effect.
+[ ] Jingles do not spend MP or require Perform checks; casting itself still has action and interruption rules.
+[ ] Maintained saves/spell resistance have repeat-until-first-success/first-failure behavior; do not apply blanket modifiers.
+[ ] No effects should apply to the saved character automatically until a vetted Bard adapter exists.
+
+CLASS STATE: STAGED; REVIEW STATE: NEEDS_REVIEW.
