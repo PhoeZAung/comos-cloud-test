@@ -29,3 +29,7 @@ Seto Lion has 8 alternates and Frost Wolf heritage; 50-ft base speed already inc
 ## Batch 12 — Varg and Viera
 
 Varg: 11 alternates, 2 heritages (Gnoll, Kitsune), 11 favored class options. Feral adds -2 INT; Light Build and Savant substitute the same ability vector and conflict. Viera: 7 alternates, 4 heritages (Fanow, Feol, Mist-Frenzied, Rava), 15 favored class options. Two distinct racial selection pools exist (6-element subtype selection and 3-spell Mist Sight), but wizard choices remain manual. Both races are testing-only and `needs_review`, not independently approved. See `docs/extraction/race-batch-12-coverage.md`.
+
+## Batch 13 — Beastman Tribes: Amalj'aa, Antica, Forgiven
+
+First three Beastman Tribes now appear in the wizard as **testing** races; all are `needs_review`/`partial`. Amalj'aa has 3 heritages with unresolved Stalker class-skill substitutions. Antica has a 15-foot burrow speed, understands rather than speaks its starting languages, and cannot cast normally without Silent Spell or Telepathic Spellcaster; current Black Mage builder refuses to save until feat support exists. Forgiven has 9 alternate traits, several source-wording `skilled`/`Skill Bonus` aliases, a partial Celestial-language replacement, and a one-of-two natural attack choice; unresolved alternates stay disabled. Favored class options remain manual. See `docs/extraction/race-batch-13-coverage.md`.

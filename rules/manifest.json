@@ -37,7 +37,10 @@
     "staging/races/shindroid.race.json",
     "staging/races/tonkin.race.json",
     "staging/races/varg.race.json",
-    "staging/races/viera.race.json"
+    "staging/races/viera.race.json",
+    "staging/races/amaljaa.race.json",
+    "staging/races/antica.race.json",
+    "staging/races/forgiven.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,37);
+ assert.equal(manifest.races.length,40);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,37);
+ assert.equal(registry.races.length,40);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,34);
+ assert.equal(experimental.length,37);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -170,4 +170,30 @@ test('Viera required elemental and Mist Sight choices block save until choice UI
  assert(buildIssues(b).some(issue=>/Viera Elemental Summoner/.test(issue.message)));
  b.alternateIds=[id+':trait:misty-mind'];assert(!buildIssues(b).some(issue=>/Viera Elemental Summoner/.test(issue.message)));
  b.alternateIds=[id+':trait:misty-mind',id+':trait:mist-sight'];assert(buildIssues(b).some(issue=>/Viera Mist Sight/.test(issue.message)));
+});
+
+test('first three Beastman Tribe race files appear for safe live testing',()=>{
+ const races=['amaljaa','antica','forgiven'].map(k=>registry.races.find(r=>r.id==='ffd20:race:'+k));
+ assert(races.every(r=>r?.testing&&r.reviewStatus==='needs_review'));
+ assert.deepEqual(races.map(r=>r.data.standardTraitIds.length),[11,14,9]);
+ assert.deepEqual(races.map(r=>r.data.alternateTraitIds.length),[5,4,9]);
+ assert.deepEqual(races.map(r=>r.data.heritages.length),[3,0,0]);
+ assert.deepEqual(races.map(r=>r.data.favoredRewards.length),[1,1,0]); // Only Black Mage has live favored reward references.
+ const [amal,antica,forgiven]=races;
+ const b=newBuild();b.raceId=amal.id;
+ assert.deepEqual([effectiveScores(b).str,effectiveScores(b).int,effectiveScores(b).dex],[12,12,8]);
+ b.heritageId=amal.data.heritages[0].id;
+ assert(raceTraits(b).errors.length>0,'Unresolved Amaljaa class skill substitution must block save');
+ b.heritageId='';b.raceId=antica.id;
+ assert(buildIssues(b).some(x=>/Antica|Silent Spell|Telepathic Spellcaster/.test(x.message)));
+ assert.equal(antica.features.find(f=>f.name==='Languages').effects.length,0,'Antica understands, but must not auto-speak, starting languages');
+ assert.deepEqual([effectiveScores(b).str,effectiveScores(b).con,effectiveScores(b).wis,effectiveScores(b).cha],[12,12,8,8]);
+ b.raceId=forgiven.id;
+ assert.deepEqual([effectiveScores(b).wis,effectiveScores(b).cha],[12,12]);
+ assert.equal(forgiven.features.find(f=>f.name==='Type').effects[0].textValue,'outsider');
+ const monstrous=forgiven.data.alternateReplacements.find(r=>r.addsFeatureIds.includes(forgiven.id+':trait:monstrous-heritage'));
+ assert.equal(monstrous.resolution,'manual');
+ assert.equal(forgiven.choicePools.find(p=>/Monstrous Heritage/.test(p.name)).options.length,2);
+ b.alternateIds=[forgiven.id+':trait:scion-of-mortality'];
+ assert(raceTraits(b).errors.length>0,'Partial type/language replacement must not be applied');
 });

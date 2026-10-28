@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "34 staged FFd20 races (batches 01–12) available for live wizard testing; all need independent approval.",
+  "description": "37 staged FFd20 races available in the wizard for live testing, including 3 Beastman Tribes. All remain needs_review and not independently import-ready.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -176,6 +176,21 @@
       "file": "rules/staging/races/viera.race.json",
       "raceId": "ffd20:race:viera",
       "sha256": "4b25662afcbba7597be08641157f802ed7e8c8c6c28dfdf7c3253b09daa545a9"
+    },
+    {
+      "file": "rules/staging/races/amaljaa.race.json",
+      "raceId": "ffd20:race:amaljaa",
+      "sha256": "b85cb98f82b58d6b7d0f705410acfc8380144f1f0f078303d4f4fb5c92c5a6bc"
+    },
+    {
+      "file": "rules/staging/races/antica.race.json",
+      "raceId": "ffd20:race:antica",
+      "sha256": "967f0b79de01b63ae707db8e9b795f9977538439b90221bdacc18202a87000aa"
+    },
+    {
+      "file": "rules/staging/races/forgiven.race.json",
+      "raceId": "ffd20:race:forgiven",
+      "sha256": "4c951fbaaa5baa698705d27b18488f96350f49445b0a669a21009cef13b72aa1"
     }
   ],
   "blockers": [
@@ -198,6 +213,9 @@
     "Shindroid summary index shows low-light vision but detailed traits only darkvision; low-light omitted until reviewed.",
     "Varg Feral adds -2 INT without replacing standards; Light Build and Savant compete for score vector.",
     "Viera Elemental Summoner and Mist Sight require mandatory single-option choices; current wizard handles them manually.",
-    "Varg and Viera heritage replacements remain blocked pending precise automation review."
+    "Varg and Viera heritage replacements remain blocked pending precise automation review.",
+    "Amalj'aa heritage alternate skills may not replace Stalker's class-skill grants; keep heritage selection manual.",
+    "Antica understand but do not speak their languages, and cannot cast spells without Silent Spell or Telepathic Spellcaster; Black Mage creation blocked until feat support.",
+    "Forgiven uses ambiguous skilled/Skill Bonus aliases and Scion of Mortality partial language/type replacement. Natural attack choice requires exactly one selection."
   ]
 }

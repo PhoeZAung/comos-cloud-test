@@ -1,0 +1,1658 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:forgiven",
+  "name": "Forgiven",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/forgiven/",
+      "title": "Forgiven — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Several alternates say they replace “skilled”, but standard trait is titled Skill Bonus. These aliases are mapped to Skill Bonus with manual-resolution blocker pending source clarification.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Scion of Mortality replaces only the Celestial starting language and alters the native subtype, NOT all Languages or Type. Its replacement is manual and disabled.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Monstrous Heritage requires exactly one of bite or claws; not auto-granted.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Summoner DR progression has first choice 1 then subsequent +1/2 and a cap; manually track rather than assuming uniform +1/2 for all.",
+        "blocking": true
+      },
+      {
+        "path": "/features/spell-like-ability",
+        "reason": "Daylight ability uses caster level equal to class level and CHA; not automatically known as a spell.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Favored rewards depend on unreviewed class content; manual per-level fractions and either-or options must not be auto-applied.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Mechanics marked conditional or manual are displayed as source rule cards and require independent approval before automation.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay text accounted for; mechanics still require review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay text accounted for; mechanics still require review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Gameplay text accounted for; mechanics still require review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay text accounted for; mechanics still require review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay text accounted for; mechanics still require review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay text accounted for; mechanics still require review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Gameplay text accounted for; mechanics still require review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "Separate catalog outside race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "Separate catalog outside race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate racial feat catalog, not part of this race file."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetype catalog, not part of race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:forgiven:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 WIS, +2 CHA.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6023"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6023"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6023"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6023"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:size",
+      "name": "Size",
+      "description": "Medium creature; no racial size modifier. Global size modifier applies once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:type",
+      "name": "Type",
+      "description": "Outsider creature with native subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "outsider",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "native",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6024"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6024"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Land speed 30 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common and Celestial. With high Intelligence, optional languages: Draconic, Dwarven, Elven, Mithran, Sylvan, Vieran.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.celestial",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Celestial",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:celestial-resistance",
+      "name": "Celestial Resistance",
+      "description": "Resistance 5 against holy, ice and lightning damage.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:celestial-resistance:effect:0",
+          "kind": "custom",
+          "target": "defense.resistance.holy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:celestial-resistance:effect:1",
+          "kind": "custom",
+          "target": "defense.resistance.ice",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:celestial-resistance:effect:2",
+          "kind": "custom",
+          "target": "defense.resistance.lightning",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 5,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:skill-bonus",
+      "name": "Skill Bonus",
+      "description": "+2 racial Diplomacy and Perception. This is the standard trait called “skilled” by several alternate-replacement paragraphs.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:skill-bonus:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:diplomacy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6034"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:skill-bonus:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6034"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:spell-like-ability",
+      "name": "Spell-Like Ability",
+      "description": "Daylight once/day, caster level equals forgiven class level; use CHA modifier for spell effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:darkvision:effect:0",
+          "kind": "identity",
+          "target": "identity.vision.darkvision_feet",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 60,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Senses Racial Traits",
+                "locator": "6041"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6041"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:celestial-crusader",
+      "name": "Celestial Crusader",
+      "description": "+1 insight attack and AC vs holy/shadow outsiders; +2 racial Knowledge (planes) and Spellcraft to identify those outsiders/their items/effects; can make those checks untrained. Source says replaces “skilled” and Celestial Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:celestial-crusader:effect:0",
+          "kind": "attack_bonus",
+          "target": "attack.vs_holy_shadow_outsiders",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6045"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "insight",
+          "condition": {
+            "type": "manual",
+            "description": "Versus holy or shadow outsider"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:celestial-crusader:effect:1",
+          "kind": "defense_bonus",
+          "target": "defense.ac.vs_holy_shadow_outsiders",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6045"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "insight",
+          "condition": {
+            "type": "manual",
+            "description": "Versus holy or shadow outsider"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:crusading-magic",
+      "name": "Crusading Magic",
+      "description": "+2 racial caster-level checks to overcome spell resistance and +2 racial Knowledge (planes); source says replaces “skilled” and Spell-Like Ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:crusading-magic:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-planes.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6046"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:crusading-magic:effect:1",
+          "kind": "custom",
+          "target": "casting.overcome_spell_resistance",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6046"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:deathless-spirit",
+      "name": "Deathless Spirit",
+      "description": "Shadow resistance 5, negative levels do not remove HP, +2 racial saves against death, energy drain, dark channel and dark school magic. Replaces Celestial Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:exalted-resistance",
+      "name": "Exalted Resistance",
+      "description": "SR equals 12+character level against spells with dark descriptor or cast by shadow/dark/evil outsiders. Replaces Celestial Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:halo",
+      "name": "Halo",
+      "description": "Torchlight spell-like ability at will as halo. While illuminated +2 circumstance Intimidate vs Evil/Shadow creatures and +2 saves against blinded/dazzled. Replaces Darkvision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:halo:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:intimidate.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6049"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "circumstance",
+          "condition": {
+            "type": "manual",
+            "description": "While halo active and target Evil/Shadow"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6049"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:immortal-spark",
+      "name": "Immortal Spark",
+      "description": "+2 Knowledge (history) and +2 saves versus death effects. Source says replaces “skilled”.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:forgiven:trait:immortal-spark:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-history.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6050"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6050"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:trait:immortal-spark:effect:1",
+          "kind": "defense_bonus",
+          "target": "defense.saves.death",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6050"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": {
+            "type": "manual",
+            "description": "Against death effects"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6050"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:monstrous-heritage",
+      "name": "Monstrous Heritage",
+      "description": "Choose exactly ONE: primary bite 1d6 OR two primary claws 1d4 each. Replaces Spell-Like Ability. Choice is not auto-selected.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:forgiven:pool:monstrous-heritage-natural-attack"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:scion-of-mortality",
+      "name": "Scion of Mortality",
+      "description": "Dual race treatment for effects: outsider(native) and humanoid(hume), passes as Hume without Disguise; replaces Celestial language and alters native subtype, not an entire Languages/Type feature.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:forgiven:trait:truespeaker",
+      "name": "Truespeaker",
+      "description": "+2 Linguistics and Sense Motive; gain two languages whenever gaining a Linguistics rank. Source says replaces “skilled”.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:forgiven:pool:monstrous-heritage-natural-attack",
+      "name": "Monstrous Heritage natural attack",
+      "choiceType": "feature",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Player must choose exactly one option. Comos currently stores this as a manual rules-selection reminder; do not grant both.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:forgiven:pool:monstrous-heritage-natural-attack:option:bite",
+          "name": "Bite",
+          "description": "One primary natural bite, 1d6.",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "bite",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:forgiven:pool:monstrous-heritage-natural-attack:option:claws",
+          "name": "Claws",
+          "description": "Two primary claw attacks, 1d4 each.",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "claws",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman",
+    "standardTraitIds": [
+      "ffd20:race:forgiven:trait:ability-score-racial-traits",
+      "ffd20:race:forgiven:trait:size",
+      "ffd20:race:forgiven:trait:type",
+      "ffd20:race:forgiven:trait:base-speed",
+      "ffd20:race:forgiven:trait:languages",
+      "ffd20:race:forgiven:trait:celestial-resistance",
+      "ffd20:race:forgiven:trait:skill-bonus",
+      "ffd20:race:forgiven:trait:spell-like-ability",
+      "ffd20:race:forgiven:trait:darkvision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:forgiven:trait:celestial-crusader",
+      "ffd20:race:forgiven:trait:crusading-magic",
+      "ffd20:race:forgiven:trait:deathless-spirit",
+      "ffd20:race:forgiven:trait:exalted-resistance",
+      "ffd20:race:forgiven:trait:halo",
+      "ffd20:race:forgiven:trait:immortal-spark",
+      "ffd20:race:forgiven:trait:monstrous-heritage",
+      "ffd20:race:forgiven:trait:scion-of-mortality",
+      "ffd20:race:forgiven:trait:truespeaker"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:forgiven:trait:celestial-crusader:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:celestial-resistance",
+          "ffd20:race:forgiven:trait:skill-bonus"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:celestial-crusader"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Celestial Crusader replaces Celestial Resistance, Skill Bonus.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6045"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:trait:crusading-magic:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:skill-bonus",
+          "ffd20:race:forgiven:trait:spell-like-ability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:crusading-magic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Crusading Magic replaces Skill Bonus, Spell-Like Ability.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6046"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:trait:deathless-spirit:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:celestial-resistance"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:deathless-spirit"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Deathless Spirit replaces Celestial Resistance.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6047"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:trait:exalted-resistance:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:celestial-resistance"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:exalted-resistance"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Exalted Resistance replaces Celestial Resistance.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6048"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:trait:halo:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:darkvision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:halo"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Halo replaces Darkvision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6049"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:trait:immortal-spark:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:skill-bonus"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:immortal-spark"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Immortal Spark replaces Skill Bonus.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6050"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:trait:monstrous-heritage:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:spell-like-ability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:monstrous-heritage"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Monstrous Heritage replaces Spell-Like Ability.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:trait:scion-of-mortality:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:languages",
+          "ffd20:race:forgiven:trait:type"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:scion-of-mortality"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scion of Mortality replaces Languages, Type.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:trait:truespeaker:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:forgiven:trait:skill-bonus"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:forgiven:trait:truespeaker"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Truespeaker replaces Skill Bonus.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:forgiven:favored:bard",
+        "raceId": "ffd20:race:forgiven",
+        "classId": "ffd20:class:bard",
+        "name": "Forgiven Bard favored reward",
+        "description": "Choose bardic performance; +1/6 effective level for that performance.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:favored:beastmaster",
+        "raceId": "ffd20:race:forgiven",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Forgiven Beastmaster favored reward",
+        "description": "Choose +1 HP or +1 skill rank for animal companion; transfers on replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:favored:chocobo-knight",
+        "raceId": "ffd20:race:forgiven",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Forgiven Chocobo Knight favored reward",
+        "description": "+1/4 challenge target damage bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:favored:cleric",
+        "raceId": "ffd20:race:forgiven",
+        "classId": "ffd20:class:cleric",
+        "name": "Forgiven Cleric favored reward",
+        "description": "+1/2 damage when channeling holy energy vs undead or Alignment Channel vs evil outsiders.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:favored:paladin",
+        "raceId": "ffd20:race:forgiven",
+        "classId": "ffd20:class:paladin",
+        "name": "Forgiven Paladin favored reward",
+        "description": "+1 lay on hands healing only when self-targeted.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:favored:summoner",
+        "raceId": "ffd20:race:forgiven",
+        "classId": "ffd20:class:summoner",
+        "name": "Forgiven Summoner favored reward",
+        "description": "Gain DR 1/evil initially; each subsequent selection increases DR/evil by +1/2, maximum DR 10/evil.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:forgiven:favored:white-mage",
+        "raceId": "ffd20:race:forgiven",
+        "classId": "ffd20:class:white-mage",
+        "name": "Forgiven White Mage favored reward",
+        "description": "+1/4 caster level for light descriptor spells.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6079"
+          }
+        ]
+      }
+    ]
+  }
+}
