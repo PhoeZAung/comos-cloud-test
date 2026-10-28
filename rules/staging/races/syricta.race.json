@@ -1,0 +1,1816 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:syricta",
+  "name": "Syricta",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/monstrous-races/syricta/",
+      "title": "Syricta — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Elemental Resistance (six element choices) and Breath Weapon shape (cone/line) are both mandatory; current wizard lacks race-specific choice storage, so default Syricta build is save-blocked.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Fly 40 ft (poor) and land 20 ft are separate; flight needs space for wing extension, land speed unaffected by armor/encumbrance.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Dragon Type modifies creature type and three standard traits; not safe to apply until verified.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Evasive Maneuvers describes base flight as 'clumsy' but the standard speed trait says 'poor'; source conflict requires review.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Memories of the Forgotten replaces ONLY the fly speed portion of Base Speed, and requires picking two Knowledge skills; not implemented.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Neglected Heritage removes only Draconic, not Common or all bonus language options; partial language replacement unresolved.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Wing-Clipped changes fly speed/maneuverability and cancels -2 DEX racial penalty, not the whole racial ability vector; unresolved.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Breath Weapon damage progression and 3/day uses require manual tracking.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Monstrous race category exceeds 15 RP and may require GM approval.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Movement Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "External feat/archetype catalog to extract separately."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External feat/archetype catalog to extract separately."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate future rules catalog."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate future rules catalog."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:syricta:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 STR, -2 DEX, +2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:syricta:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6033"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:size",
+      "name": "Size",
+      "description": "Medium; global size effects are applied only once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:syricta:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:type",
+      "name": "Type",
+      "description": "humanoid (reptilian).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:syricta:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "reptilian",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:base-speed",
+      "name": "Base Speed",
+      "description": "20 ft land and 40 ft fly (poor maneuverability).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:syricta:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:trait:base-speed:effect:1",
+          "kind": "identity",
+          "target": "identity.speed.fly",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 40,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:languages",
+      "name": "Languages",
+      "description": "Begins speaking Common and Draconic. Additional languages: Dwarvish, Elemental, Elvaan, Infernal, Kobold, Minotaur, Undercommon.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:syricta:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.draconic",
+          "operation": "set",
+          "value": null,
+          "textValue": "Draconic",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:dragonhide",
+      "name": "Dragonhide",
+      "description": "+2 natural armor AC.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:dragon-resistances",
+      "name": "Dragon Resistances",
+      "description": "+2 saves against paralysis and sleep only.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:elemental-resistance",
+      "name": "Elemental Resistance",
+      "description": "Choose exactly one earth/fire/ice/lightning/water/wind at creation; resistance 5 to chosen element.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:syricta:pool:elemental-resistance-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defense Racial Traits",
+            "locator": "6042"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:draconic-presence",
+      "name": "Draconic Presence",
+      "description": "+2 Intimidate and Diplomacy; Fly is a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:syricta:trait:draconic-presence:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:intimidate.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6045"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:trait:draconic-presence:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:diplomacy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6045"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:trait:draconic-presence:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.skill:fly.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:gliding-wings",
+      "name": "Gliding Wings",
+      "description": "No falling damage, as from nonmagical choco feather.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Movement Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:bite",
+      "name": "Bite",
+      "description": "Bite 1d6, primary or secondary while wielding manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:breath-weapon",
+      "name": "Breath Weapon",
+      "description": "3/day. Choose a 15-foot cone or 20-foot line at creation; damage 1d6 + 1d6 per two character levels, same element as Elemental Resistance; Reflex DC 10 + half class level + CON modifier.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:syricta:pool:breath-weapon-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Offense Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:claws",
+      "name": "Claws",
+      "description": "Natural claw attacks 1d4 each.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:slapping-tail",
+      "name": "Slapping Tail",
+      "description": "Tail attack of opportunity, 1d8 + STR, 5-foot reach.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:dragon-type",
+      "name": "Dragon Type",
+      "description": "Creature type becomes Dragon; sleep and paralysis immunity; loses elemental resistance, dragon resistances, breath. Requires cross-trait type replacement.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:evasive-maneuvers",
+      "name": "Evasive Maneuvers",
+      "description": "Fly maneuverability average, +2 dodge AC and Reflex against siege weapons. Detailed source says clumsy standard flight but base says poor.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:greed",
+      "name": "Greed",
+      "description": "+2 Appraise, Appraise is class skill; +2 Sleight of Hand only for stealing things.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:syricta:trait:greed:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:appraise.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6065"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:trait:greed:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:appraise.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6065"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:memories-of-the-forgotten",
+      "name": "Memories of the Forgotten",
+      "description": "+2 bonuses and class skills for TWO chosen Knowledge specializations; removes only flight, not land movement. Needs partial speed mapping and skill picker.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:neglected-heritage",
+      "name": "Neglected Heritage",
+      "description": "Remove Draconic from starting languages, retain Common. Draconic unavailable as bonus language, but learnable via Linguistics; +1 conditional Diplomacy.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:oppressive",
+      "name": "Oppressive",
+      "description": "Swift Sense Motive contested versus target HD/CHA or Bluff; on success +4 Intimidate vs target and +1 DC fear effects against target.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:weather-savvy",
+      "name": "Weather Savvy",
+      "description": "Full-round action accurately forecast 24-hour natural weather, not magic weather.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6070"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:syricta:trait:wing-clipped",
+      "name": "Wing-Clipped",
+      "description": "Fly 20 feet (clumsy) with DC30 Fly to ascend, +2 Bluff/Climb/Diplomacy, and removes normal -2 DEX racial modifier. Requires partial speed/score replacement.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6071"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:syricta:pool:elemental-resistance-selection",
+      "name": "Elemental Resistance selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Required choice at character creation. Existing wizard cannot persist race-specific selections; do not invent a default.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:syricta:pool:elemental-resistance-selection:option:earth",
+          "name": "Earth",
+          "description": "Earth",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "earth",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:pool:elemental-resistance-selection:option:fire",
+          "name": "Fire",
+          "description": "Fire",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "fire",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:pool:elemental-resistance-selection:option:ice",
+          "name": "Ice",
+          "description": "Ice",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ice",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:pool:elemental-resistance-selection:option:lightning",
+          "name": "Lightning",
+          "description": "Lightning",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lightning",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:pool:elemental-resistance-selection:option:water",
+          "name": "Water",
+          "description": "Water",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "water",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:pool:elemental-resistance-selection:option:wind",
+          "name": "Wind",
+          "description": "Wind",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wind",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:syricta:pool:breath-weapon-selection",
+      "name": "Breath Weapon selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Required choice at character creation. Existing wizard cannot persist race-specific selections; do not invent a default.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:syricta:pool:breath-weapon-selection:option:15-foot-cone",
+          "name": "15-foot cone",
+          "description": "15-foot cone",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "15-foot-cone",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:syricta:pool:breath-weapon-selection:option:20-foot-line",
+          "name": "20-foot line",
+          "description": "20-foot line",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "20-foot-line",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "6052"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "monstrous",
+    "standardTraitIds": [
+      "ffd20:race:syricta:trait:ability-score-racial-traits",
+      "ffd20:race:syricta:trait:size",
+      "ffd20:race:syricta:trait:type",
+      "ffd20:race:syricta:trait:base-speed",
+      "ffd20:race:syricta:trait:languages",
+      "ffd20:race:syricta:trait:dragonhide",
+      "ffd20:race:syricta:trait:dragon-resistances",
+      "ffd20:race:syricta:trait:elemental-resistance",
+      "ffd20:race:syricta:trait:draconic-presence",
+      "ffd20:race:syricta:trait:gliding-wings",
+      "ffd20:race:syricta:trait:bite",
+      "ffd20:race:syricta:trait:breath-weapon",
+      "ffd20:race:syricta:trait:claws",
+      "ffd20:race:syricta:trait:slapping-tail",
+      "ffd20:race:syricta:trait:darkvision",
+      "ffd20:race:syricta:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:syricta:trait:dragon-type",
+      "ffd20:race:syricta:trait:evasive-maneuvers",
+      "ffd20:race:syricta:trait:greed",
+      "ffd20:race:syricta:trait:memories-of-the-forgotten",
+      "ffd20:race:syricta:trait:neglected-heritage",
+      "ffd20:race:syricta:trait:oppressive",
+      "ffd20:race:syricta:trait:weather-savvy",
+      "ffd20:race:syricta:trait:wing-clipped"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:syricta:trait:dragon-type:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:syricta:trait:type",
+          "ffd20:race:syricta:trait:elemental-resistance",
+          "ffd20:race:syricta:trait:dragon-resistances",
+          "ffd20:race:syricta:trait:breath-weapon"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:syricta:trait:dragon-type"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dragon Type replaces or modifies Type, Elemental Resistance, Dragon Resistances, Breath Weapon; partial or source-conflicted mapping needs review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:trait:evasive-maneuvers:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:syricta:trait:darkvision",
+          "ffd20:race:syricta:trait:dragon-resistances"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:syricta:trait:evasive-maneuvers"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Evasive Maneuvers replaces or modifies Darkvision, Dragon Resistances; partial or source-conflicted mapping needs review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:trait:greed:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:syricta:trait:draconic-presence"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:syricta:trait:greed"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Greed replaces or modifies Draconic Presence.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:trait:memories-of-the-forgotten:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:syricta:trait:base-speed"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:syricta:trait:memories-of-the-forgotten"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Memories of the Forgotten replaces or modifies Base Speed; partial or source-conflicted mapping needs review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:trait:neglected-heritage:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:syricta:trait:languages"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:syricta:trait:neglected-heritage"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Neglected Heritage replaces or modifies Languages; partial or source-conflicted mapping needs review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:trait:oppressive:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:syricta:trait:draconic-presence"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:syricta:trait:oppressive"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Oppressive replaces or modifies Draconic Presence.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:trait:weather-savvy:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:syricta:trait:draconic-presence"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:syricta:trait:weather-savvy"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Weather Savvy replaces or modifies Draconic Presence.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6070"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:trait:wing-clipped:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:syricta:trait:base-speed",
+          "ffd20:race:syricta:trait:ability-score-racial-traits"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:syricta:trait:wing-clipped"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wing-Clipped replaces or modifies Base Speed, Ability Score Racial Traits; partial or source-conflicted mapping needs review.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6071"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:syricta:favored:bard",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:bard",
+        "name": "Syricta Bard favored reward",
+        "description": "+1 CMD versus disarm/sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6089"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:beastmaster",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Syricta Beastmaster favored reward",
+        "description": "+1 companion CMD adjacent to master, inherited by successor.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6090"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:dark-knight",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Syricta Dark Knight favored reward",
+        "description": "+1/2 harm touch healing/damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6091"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:dragoon",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:dragoon",
+        "name": "Syricta Dragoon favored reward",
+        "description": "+1/2 Acrobatics for jumps.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6092"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:knight",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:knight",
+        "name": "Syricta Knight favored reward",
+        "description": "+1 defensive stance round/day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6093"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:monk",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:monk",
+        "name": "Syricta Monk favored reward",
+        "description": "+1/4 ki pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6094"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:paladin",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:paladin",
+        "name": "Syricta Paladin favored reward",
+        "description": "+1/2 lay on hands healing/damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6095"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:red-mage",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:red-mage",
+        "name": "Syricta Red Mage favored reward",
+        "description": "+1/6 ruby arcana.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:samurai",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:samurai",
+        "name": "Syricta Samurai favored reward",
+        "description": "+1/2 Perception.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:syricta:favored:warrior",
+        "raceId": "ffd20:race:syricta",
+        "classId": "ffd20:class:warrior",
+        "name": "Syricta Warrior favored reward",
+        "description": "+1 CMD resisting disarm/sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098"
+          }
+        ]
+      }
+    ]
+  }
+}

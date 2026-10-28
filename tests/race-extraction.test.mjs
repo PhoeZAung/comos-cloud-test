@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,59);
+ assert.equal(manifest.races.length,62);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,59);
+ assert.equal(registry.races.length,62);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,56);
+ assert.equal(experimental.length,59);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -262,4 +262,14 @@ test('batch 18 Velkk and Yagudo complete Beastman Tribes while preserving source
  assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
  const sturdy=yagudo.data.alternateReplacements.find(x=>x.id.includes(':sturdy-feathers:'));
  assert.equal(sturdy.targetFeatureIds.length,2);
+});
+
+test('batch 19 Half-Gigas, Lizardman and Syricta are standard-list monstrous races with guarded unknown choices',()=>{
+ const expected=[['half-gigas',13,2,3,0,0],['lizardman',15,2,0,0,0],['syricta',16,8,0,0,2]];
+ for(const [name,standard,alternates,herit,favored,pools] of expected){const race=registry.races.find(r=>r.id==='ffd20:race:'+name);assert.equal(race?.testing,true);assert.deepEqual([race.data.standardTraitIds.length,race.data.alternateTraitIds.length,race.data.heritages.length,race.data.favoredRewards.length,race.choicePools.length],[standard,alternates,herit,favored,pools]);const b=newBuild();b.raceId=race.id;assert.deepEqual(raceTraits(b).errors,[]);if(herit){b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
+ let b=newBuild();b.raceId='ffd20:race:half-gigas';assert.deepEqual([effectiveScores(b).str,effectiveScores(b).con,effectiveScores(b).int,effectiveScores(b).wis,effectiveScores(b).cha],[14,12,8,8,8]);
+ const half=registry.races.find(x=>x.id===b.raceId);assert.deepEqual(half.data.heritages.map(x=>x.name),['Fire Gigas','Ice Gigas','Thunder Gigas']);
+ const lizard=registry.races.find(x=>x.id==='ffd20:race:lizardman');b=newBuild();b.raceId=lizard.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).dex,effectiveScores(b).cha],[12,12,8]);assert(lizard.features.find(f=>f.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===60));
+ const syricta=registry.races.find(x=>x.id==='ffd20:race:syricta');b=newBuild();b.raceId=syricta.id;assert.deepEqual(syricta.choicePools.map(x=>x.options.length),[6,2]);assert(buildIssues(b).some(x=>/Elemental Resistance.*racial choice/.test(x.message)));assert(buildIssues(b).some(x=>/Breath Weapon.*racial choice/.test(x.message)));assert(syricta.features.find(f=>f.name==='Base Speed').effects.some(x=>x.target==='identity.speed.fly'&&x.value.value===40));
+ b.alternateIds=[syricta.id+':trait:wing-clipped'];assert(raceTraits(b).errors.length>0);
 });

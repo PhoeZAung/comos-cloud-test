@@ -1,6 +1,6 @@
 # FFd20 race files: available for live wizard testing
 
-56 extracted races through batch 18 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
+59 extracted races through batch 19 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
 
 The race dropdown shows staged races with “(testing)” and the wizard displays a review warning. The existing runtime projection applies only its supported unconditional effects. Unsupported effects remain manual; alternates with unresolved replacement mapping stay disabled. Heritage and race-dependent choices, cross-race Half-Breed inheritance, and favored-class bonuses still need review. Test character totals against official source pages before play; a saved character is not evidence of rule correctness.
 
@@ -57,3 +57,7 @@ Four more source-grounded testing JSONs: Sahagin 5 alternates/2 heritages, Sylph
 ## Beastman batch 18 — Velkk and Yagudo (Beastman category complete)
 
 Velkk: 13 standard traits, 4 alternate traits, no heritages, 4 favored-class rewards; source index uses different labels for Water Resistant and Survivalist. Yagudo: 12 standard traits, 3 alternate traits, no heritages, 10 favored-class rewards; source index aliases Feathers of Gale and Valiant Linguist and refers to an unsupported bite upgrade. The Valiant Linguist 2-languages-per-rank and Zealot Devotee scaling need UI/runtime support. Both stay testing-only and `needs_review`. Full Beastman Tribes category now has 22 individual staged races. See `docs/extraction/race-batch-18-beastman-coverage.md`.
+
+## Batch 19 — Monstrous Races: Half-Gigas, Lizardman, Syricta
+
+All 3 official Monstrous Races are now extracted: Half-Gigas (13 standard, 2 alternates, 3 unresolved heritages), Lizardman (15 standard, 2 alternates), Syricta (16 standard, 8 alternates and 2 mandatory choice pools). All are in normal wizard race list. High-risk choices remain dimmed. See `docs/extraction/race-batch-19-monstrous-coverage.md` for specific human-readable blockers and index-vs-detailed source contradictions. Beastkin remains inaccessible/unextracted. No direct Railway access.

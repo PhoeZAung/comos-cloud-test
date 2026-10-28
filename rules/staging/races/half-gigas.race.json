@@ -1,0 +1,1768 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:half-gigas",
+  "name": "Half-Gigas",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/monstrous-races/half-gigas/",
+      "title": "Half-Gigas — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Summary lists Humanoid(giant); detailed racial traits say Monstrous Humanoid(giant). Staged detailed type pending review.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Three heritages replace both racial ability score modifiers and Natural Armor, substituting resistance 10; unavailable until verified.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Powerful Build is context-dependent and never makes Medium identity size permanently Large.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Nightstalker requires natural darkness/shadowy light; its Stealth bonus is not unconditional.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Monstrous category exceeds 15 RP and may require GM approval.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Half-Gigas Heritages",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Detailed source names and rules captured; nuanced mechanics require later human/rules review."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "External feat/archetype catalog to extract separately."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External feat/archetype catalog to extract separately."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate future rules catalog."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate future rules catalog."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:half-gigas:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+4 STR, +2 CON, -2 INT, -2 WIS, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:ability-score-racial-traits:effect:3",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:ability-score-racial-traits:effect:4",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:size",
+      "name": "Size",
+      "description": "Medium; global size effects are applied only once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:type",
+      "name": "Type",
+      "description": "monstrous humanoid (giant).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "monstrous humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "giant",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30 ft land.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:languages",
+      "name": "Languages",
+      "description": "Begins speaking Common and Giant. Additional languages: Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.giant",
+          "operation": "set",
+          "value": null,
+          "textValue": "Giant",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:hardy",
+      "name": "Hardy",
+      "description": "+2 saves against poison, spells, and spell-like abilities.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:natural-armor",
+      "name": "Natural Armor",
+      "description": "+2 natural armor AC.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:powerful-build",
+      "name": "Powerful Build",
+      "description": "Count one size larger only for favorable combat maneuver size calculations and size-based special attacks affecting you. True size stays Medium.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:stability",
+      "name": "Stability",
+      "description": "+4 CMD against bull rush or trip while grounded.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:imposing-figure",
+      "name": "Imposing Figure",
+      "description": "+2 Intimidate.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:imposing-figure:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:intimidate.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6042"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:slam",
+      "name": "Slam",
+      "description": "Natural slam 1d6 primary attack, secondary if wielding manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:nightstalker",
+      "name": "Nightstalker",
+      "description": "Ignore size Stealth penalties and gain +2 Stealth in shadowy light or natural darkness only.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:quick-at-hand",
+      "name": "Quick At Hand",
+      "description": "Use improvised melee and thrown weapons without improvised-weapon penalty.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:fire-gigas-heritage-ability-scores",
+      "name": "Fire Gigas Heritage Ability Scores",
+      "description": "+4 STR, +2 INT, -2 DEX, -2 WIS, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:fire-gigas-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:fire-gigas-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:fire-gigas-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:fire-gigas-heritage-ability-scores:effect:3",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:fire-gigas-heritage-ability-scores:effect:4",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Half-Gigas Heritages",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:fire-gigas-heritage-defense",
+      "name": "Fire Gigas Heritage Defense",
+      "description": "Fire resistance 10 instead of +2 natural armor.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Half-Gigas Heritages",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:ice-gigas-heritage-ability-scores",
+      "name": "Ice Gigas Heritage Ability Scores",
+      "description": "+4 STR, +2 WIS, -2 INT, -2 CON, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:ice-gigas-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:ice-gigas-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:ice-gigas-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:ice-gigas-heritage-ability-scores:effect:3",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:ice-gigas-heritage-ability-scores:effect:4",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6063"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Half-Gigas Heritages",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:ice-gigas-heritage-defense",
+      "name": "Ice Gigas Heritage Defense",
+      "description": "Ice resistance 10 instead of +2 natural armor.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Half-Gigas Heritages",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:thunder-gigas-heritage-ability-scores",
+      "name": "Thunder Gigas Heritage Ability Scores",
+      "description": "+4 STR, +2 CHA, -2 DEX, -2 WIS, -2 INT",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:half-gigas:trait:thunder-gigas-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:thunder-gigas-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:thunder-gigas-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:thunder-gigas-heritage-ability-scores:effect:3",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6064"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:half-gigas:trait:thunder-gigas-heritage-ability-scores:effect:4",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6064"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Half-Gigas Heritages",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Half-Gigas Heritages",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:half-gigas:trait:thunder-gigas-heritage-defense",
+      "name": "Thunder Gigas Heritage Defense",
+      "description": "Lightning resistance 10 instead of +2 natural armor.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Half-Gigas Heritages",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "monstrous",
+    "standardTraitIds": [
+      "ffd20:race:half-gigas:trait:ability-score-racial-traits",
+      "ffd20:race:half-gigas:trait:size",
+      "ffd20:race:half-gigas:trait:type",
+      "ffd20:race:half-gigas:trait:base-speed",
+      "ffd20:race:half-gigas:trait:languages",
+      "ffd20:race:half-gigas:trait:hardy",
+      "ffd20:race:half-gigas:trait:natural-armor",
+      "ffd20:race:half-gigas:trait:powerful-build",
+      "ffd20:race:half-gigas:trait:stability",
+      "ffd20:race:half-gigas:trait:imposing-figure",
+      "ffd20:race:half-gigas:trait:slam",
+      "ffd20:race:half-gigas:trait:darkvision",
+      "ffd20:race:half-gigas:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:half-gigas:trait:nightstalker",
+      "ffd20:race:half-gigas:trait:quick-at-hand"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:half-gigas:trait:nightstalker:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:half-gigas:trait:imposing-figure"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:half-gigas:trait:nightstalker"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Nightstalker replaces or modifies Imposing Figure.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:half-gigas:trait:quick-at-hand:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:half-gigas:trait:slam"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:half-gigas:trait:quick-at-hand"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Quick At Hand replaces or modifies Slam.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:half-gigas:heritage:fire-gigas",
+        "name": "Fire Gigas",
+        "description": "Fire resistance 10 instead of +2 natural armor.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:half-gigas:heritage:fire-gigas:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:half-gigas:trait:ability-score-racial-traits",
+              "ffd20:race:half-gigas:trait:natural-armor"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:half-gigas:trait:fire-gigas-heritage-ability-scores",
+              "ffd20:race:half-gigas:trait:fire-gigas-heritage-defense"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Fire Gigas replaces score vector and Natural Armor with resistance 10. Manual resolution required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6062"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:half-gigas:trait:fire-gigas-heritage-ability-scores",
+          "ffd20:race:half-gigas:trait:fire-gigas-heritage-defense"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Half-Gigas Heritages",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:half-gigas:heritage:ice-gigas",
+        "name": "Ice Gigas",
+        "description": "Ice resistance 10 instead of +2 natural armor.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:half-gigas:heritage:ice-gigas:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:half-gigas:trait:ability-score-racial-traits",
+              "ffd20:race:half-gigas:trait:natural-armor"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:half-gigas:trait:ice-gigas-heritage-ability-scores",
+              "ffd20:race:half-gigas:trait:ice-gigas-heritage-defense"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Ice Gigas replaces score vector and Natural Armor with resistance 10. Manual resolution required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6063"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:half-gigas:trait:ice-gigas-heritage-ability-scores",
+          "ffd20:race:half-gigas:trait:ice-gigas-heritage-defense"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Half-Gigas Heritages",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:half-gigas:heritage:thunder-gigas",
+        "name": "Thunder Gigas",
+        "description": "Lightning resistance 10 instead of +2 natural armor.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:half-gigas:heritage:thunder-gigas:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:half-gigas:trait:ability-score-racial-traits",
+              "ffd20:race:half-gigas:trait:natural-armor"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:half-gigas:trait:thunder-gigas-heritage-ability-scores",
+              "ffd20:race:half-gigas:trait:thunder-gigas-heritage-defense"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Thunder Gigas replaces score vector and Natural Armor with resistance 10. Manual resolution required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Half-Gigas Heritages",
+                "locator": "6064"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:half-gigas:trait:thunder-gigas-heritage-ability-scores",
+          "ffd20:race:half-gigas:trait:thunder-gigas-heritage-defense"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Half-Gigas Heritages",
+            "locator": "6064"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:half-gigas:favored:beastmaster",
+        "raceId": "ffd20:race:half-gigas",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Half-Gigas Beastmaster favored reward",
+        "description": "+1 companion CMD when adjacent to master, inherited by successor companion.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:half-gigas:favored:berserker",
+        "raceId": "ffd20:race:half-gigas",
+        "classId": "ffd20:class:berserker",
+        "name": "Half-Gigas Berserker favored reward",
+        "description": "+1 daily rage round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:half-gigas:favored:dragoon",
+        "raceId": "ffd20:race:half-gigas",
+        "classId": "ffd20:class:dragoon",
+        "name": "Half-Gigas Dragoon favored reward",
+        "description": "+1/2 Acrobatics for jumping.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:half-gigas:favored:samurai",
+        "raceId": "ffd20:race:half-gigas",
+        "classId": "ffd20:class:samurai",
+        "name": "Half-Gigas Samurai favored reward",
+        "description": "+1/2 Perception.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:half-gigas:favored:thief",
+        "raceId": "ffd20:race:half-gigas",
+        "classId": "ffd20:class:thief",
+        "name": "Half-Gigas Thief favored reward",
+        "description": "+1/3 sneak-attack critical confirmation, cap +5, nonstacking Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:half-gigas:favored:warrior",
+        "raceId": "ffd20:race:half-gigas",
+        "classId": "ffd20:class:warrior",
+        "name": "Half-Gigas Warrior favored reward",
+        "description": "+1 CMD resisting disarm or sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6078"
+          }
+        ]
+      }
+    ]
+  }
+}
