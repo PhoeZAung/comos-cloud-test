@@ -17,3 +17,5 @@ jobs:
         run: npm ci
       - name: Build and run complete tests
         run: npm test
+      - name: Verify cloud deployment build
+        run: npm run build:cloud
