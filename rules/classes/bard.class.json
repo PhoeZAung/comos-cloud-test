@@ -36,7 +36,7 @@
       {
         "path": "/data/events",
         "blocking": true,
-        "reason": "The Bard song catalog now indexes 11 jingles, 30 1st-level songs and 36 2nd-level songs as source-backed manual entries; levels 3–6 remain unextracted and the wizard has no songcasting selection/save adapter."
+        "reason": "All 176 Bard songs and jingles across levels 0–6 are now indexed with usage modes and source rows. Individual song mechanics, MP, actions, maintained effects, full source review, wizard choices and Bard save adapter are still incomplete."
       },
       {
         "path": "/data/events",
@@ -3489,7 +3489,7 @@
         }
       ],
       "songCatalogFile": "rules/classes/bard-songs.json",
-      "songCatalogCoverage": "partial_levels_0_to_2"
+      "songCatalogCoverage": "complete_index_pending_individual_mechanics"
     },
     "resources": [
       {
