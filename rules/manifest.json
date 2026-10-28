@@ -29,7 +29,10 @@
     "staging/races/nu-mou.race.json",
     "staging/races/palico.race.json",
     "staging/races/pupu.race.json",
-    "staging/races/qu.race.json"
+    "staging/races/qu.race.json",
+    "staging/races/roegadyn.race.json",
+    "staging/races/ronso.race.json",
+    "staging/races/seeq.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "26 staged FFd20 race definitions available in the wizard for live testing; each remains needs_review and not independently import-ready.",
+  "description": "29 staged FFd20 races from batches 01–10 for testing only; all need independent rules review and are not import-ready.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -136,6 +136,21 @@
       "file": "rules/staging/races/qu.race.json",
       "raceId": "ffd20:race:qu",
       "sha256": "f0c88ae5723ab5584ca2e1fc642bde21b518d141f04fc6e0bfc37393f1a46c88"
+    },
+    {
+      "file": "rules/staging/races/roegadyn.race.json",
+      "raceId": "ffd20:race:roegadyn",
+      "sha256": "3f74dbc7708ba2fd355246664be9a7fe5b3e5d0f947de6414d921656f98c9c5c"
+    },
+    {
+      "file": "rules/staging/races/ronso.race.json",
+      "raceId": "ffd20:race:ronso",
+      "sha256": "aed028d241152fc73981cdf376f1f1df856df3e058a38ccf18b16baf21783f1a"
+    },
+    {
+      "file": "rules/staging/races/seeq.race.json",
+      "raceId": "ffd20:race:seeq",
+      "sha256": "de42733ec0b59c2ca81c0d99b154885e20635d0799280b788b93dc08e7092d60"
     }
   ],
   "blockers": [
@@ -147,6 +162,8 @@
     "Immortal MP conflict with Black Mage: cannot have MP pool under race Magic Ineptitude. Do not complete automated build until this is reconciled.",
     "Mutant's alternate progression and d100 mutation results are manual; automated final save blocked until its ability-score logic is supported.",
     "Palico has two heritages despite one in source intro; replacements remain manual pending clarity.",
-    "PuPu source table/body differ on creature subtype, and chosen Knowledge skill cannot auto-select both options."
+    "PuPu source table/body differ on creature subtype, and chosen Knowledge skill cannot auto-select both options.",
+    "Ronso introduction says two heritages but table lists four; block substitutions until reviewed.",
+    "Roegadyn Powerful Build and Seeq condition-dependent skills require manual adjudication."
   ]
 }

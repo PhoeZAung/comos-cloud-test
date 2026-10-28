@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,29);
+ assert.equal(manifest.races.length,32);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,29);
+ assert.equal(registry.races.length,32);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,26);
+ assert.equal(experimental.length,29);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -135,4 +135,9 @@ test('batch 09 Palico, PuPu and Qu are visible as unreviewed testing races with 
  assert.equal(qu.data.standardTraitIds.length,11);
  assert.equal(qu.data.alternateTraitIds.length,3);
  assert.equal(qu.data.favoredRewards.some(r=>r.classId.endsWith(':paladin')),true);
+});
+
+test('batch 10 races stay visible for testing and guard unverified heritage choices',()=>{
+ const expected=[['roegadyn',4,3],['ronso',5,4],['seeq',6,0]];
+ for(const [name,alternateCount,heritageCount] of expected){const race=registry.races.find(r=>r.id==='ffd20:race:'+name);assert.equal(race?.testing,true);assert.equal(race.data.alternateTraitIds.length,alternateCount);assert.equal(race.data.heritages.length,heritageCount);const b=newBuild();b.raceId=race.id;assert.deepEqual(raceTraits(b).errors,[]);if(heritageCount){b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
 });
