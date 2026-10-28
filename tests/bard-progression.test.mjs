@@ -32,6 +32,9 @@ test('Bard upgrades replace, never accumulate, the original performance feature'
  assert.equal(state(c,20,'Clear Mind').mpPerHour,4);
  assert.equal(state(c,13,'Bardic Performance').startAction,'swift');
  assert.equal(state(c,19,'Skilled Performer').performBonusPoints,15);
+ assert.equal(state(c,18,'Versatile Performance').selectionSlots,5);
+ assert.equal(state(c,20,'Wide Audience').radiusFeet,70);
+ assert.equal(state(c,20,'Wide Audience').coneFeet,140);
 });
 test('staged Bard appears in selector but cannot be chosen and cannot pass save',()=>{
  const b=newBuild();b.raceId='ffd20:race:dwarf';

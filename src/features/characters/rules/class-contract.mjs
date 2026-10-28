@@ -24,6 +24,7 @@ export function validateClassDefinition(c,{optionCatalog=null,requireComplete=tr
  if(typeof c.name!=='string'||!c.name.trim())fail(c.id,'class name missing');
  if(!Array.isArray(c.sources)||!c.sources.some(s=>/^https:\/\//.test(s.url)))fail(c.id,'official source URL missing');
  if(!object(c.review)||!['needs_review','approved'].includes(c.review.state))fail(c.id,'explicit review state required');
+ if(c.review.coverage==='scaffold'||c.sources.some(s=>/REPLACE|CHECK-OFFICIAL/i.test(s.title||'')||/\/classes\/$/.test(s.url||'')))fail(c.id,'unfinished scaffold cannot be imported');
  const d=c.data;if(!object(d))fail(c.id,'data missing');
  if(!integer(d.hitDie,4,20))fail(c.id,'invalid Hit Die');
  if(!Array.isArray(d.levels)||(requireComplete&&d.levels.length!==20)||d.levels.length>20)fail(c.id,'must transcribe all 20 progression rows');
@@ -34,7 +35,7 @@ export function validateClassDefinition(c,{optionCatalog=null,requireComplete=tr
   if(!Array.isArray(row.iterativeAttacks)||row.iterativeAttacks.some(n=>!integer(n,1,30)))fail(path,'invalid attack sequence');
   const attacks=Array.from({length:Math.max(0,1+Math.floor((row.bab-1)/5))},(_,i)=>row.bab-5*i);
   if(JSON.stringify(row.iterativeAttacks)!==JSON.stringify(attacks))fail(path,'iterative attacks do not match BAB');
-  if(!Array.isArray(row.sourceRefs)||!row.sourceRefs.length)fail(path,'source row citation required');
+  if(!Array.isArray(row.sourceRefs)||!row.sourceRefs.length||row.sourceRefs.some(s=>/CHECK|TODO|REPLACE/i.test(s.locator||''))||/NOT EXTRACTED|TODO/i.test(row.special||''))fail(path,'verified source row reference required; placeholder not allowed');
  }
  if(!Array.isArray(d.features)||!Array.isArray(d.upgrades)||!Array.isArray(d.events))fail(c.id,'features/upgrades/events required');
  const features=new Map(d.features.map(f=>[f.id,f]));unique(d.features.map(f=>f.id),c.id+'/features');
@@ -42,7 +43,7 @@ export function validateClassDefinition(c,{optionCatalog=null,requireComplete=tr
  const allIds=unique(d.events.map(e=>e.id),c.id+'/events');
  for(const f of d.features){
   if(!f.id.startsWith(c.id+':feature:')||!integer(f.atLevel,1,20)||typeof f.description!=='string'||!f.description.trim())fail(c.id+'/features/'+f.id,'invalid feature fields');
-  if(!Array.isArray(f.sourceRefs)||!f.sourceRefs.length)fail(c.id+'/features/'+f.id,'missing source reference');
+  if(!Array.isArray(f.sourceRefs)||!f.sourceRefs.length||f.sourceRefs.some(s=>/CHECK|TODO|REPLACE/i.test(s.locator||'')))fail(c.id+'/features/'+f.id,'verified source reference required');
  }
  const paired=new Map();
  for(const u of d.upgrades){
@@ -52,7 +53,7 @@ export function validateClassDefinition(c,{optionCatalog=null,requireComplete=tr
   if(paired.has(key))fail(c.id+'/upgrades/'+u.id,'duplicate upgrade at same level for '+f.name);
   paired.set(key,u.id);
   if(!object(u.changes)||!Object.keys(u.changes).length||Object.values(u.changes).some(v=>!safeValue(v)))fail(c.id+'/upgrades/'+u.id,'changes must SET concrete scalar values; do not use accumulating bonuses');
-  if(!Array.isArray(u.sourceRefs)||!u.sourceRefs.length)fail(c.id+'/upgrades/'+u.id,'missing source evidence');
+  if(!Array.isArray(u.sourceRefs)||!u.sourceRefs.length||u.sourceRefs.some(s=>/CHECK|TODO|REPLACE/i.test(s.locator||'')))fail(c.id+'/upgrades/'+u.id,'verified source evidence required');
  }
  const grants=new Map(),linked=new Map();
  for(const e of d.events){

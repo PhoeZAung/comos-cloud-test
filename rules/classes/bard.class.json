@@ -755,7 +755,7 @@
           }
         ],
         "initialState": {
-          "specializations": 1
+          "selectionSlots": 1
         }
       },
       {
@@ -1610,11 +1610,11 @@
         "featureId": "ffd20:class:bard:feature:wide-audience",
         "atClassLevel": 8,
         "changes": {
-          "radiusFeet": 50,
-          "coneFeet": 100,
-          "extraTargets": 2
+          "radiusFeet": 40,
+          "coneFeet": 80,
+          "extraTargets": 1
         },
-        "description": "Source-wide song area/target options improve at Bard level 8; use only for eligible song shapes.",
+        "description": "Wide Audience eligible area/targets improve at Bard level 8; apply to area or multitarget songs only.",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -1628,11 +1628,11 @@
         "featureId": "ffd20:class:bard:feature:wide-audience",
         "atClassLevel": 12,
         "changes": {
-          "radiusFeet": 60,
-          "coneFeet": 120,
-          "extraTargets": 3
+          "radiusFeet": 50,
+          "coneFeet": 100,
+          "extraTargets": 2
         },
-        "description": "Source-wide song area/target options improve at Bard level 12; use only for eligible song shapes.",
+        "description": "Wide Audience eligible area/targets improve at Bard level 12; apply to area or multitarget songs only.",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -1646,11 +1646,11 @@
         "featureId": "ffd20:class:bard:feature:wide-audience",
         "atClassLevel": 16,
         "changes": {
-          "radiusFeet": 70,
-          "coneFeet": 140,
-          "extraTargets": 4
+          "radiusFeet": 60,
+          "coneFeet": 120,
+          "extraTargets": 3
         },
-        "description": "Source-wide song area/target options improve at Bard level 16; use only for eligible song shapes.",
+        "description": "Wide Audience eligible area/targets improve at Bard level 16; apply to area or multitarget songs only.",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -1664,11 +1664,11 @@
         "featureId": "ffd20:class:bard:feature:wide-audience",
         "atClassLevel": 20,
         "changes": {
-          "radiusFeet": 80,
-          "coneFeet": 160,
-          "extraTargets": 5
+          "radiusFeet": 70,
+          "coneFeet": 140,
+          "extraTargets": 4
         },
-        "description": "Source-wide song area/target options improve at Bard level 20; use only for eligible song shapes.",
+        "description": "Wide Audience eligible area/targets improve at Bard level 20; apply to area or multitarget songs only.",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -1682,7 +1682,7 @@
         "featureId": "ffd20:class:bard:feature:versatile-performance",
         "atClassLevel": 6,
         "changes": {
-          "specializations": 2
+          "selectionSlots": 2
         },
         "description": "Gain another Versatile Performance selection at level 6; prior choices persist.",
         "sourceRefs": [
@@ -1698,7 +1698,7 @@
         "featureId": "ffd20:class:bard:feature:versatile-performance",
         "atClassLevel": 10,
         "changes": {
-          "specializations": 3
+          "selectionSlots": 3
         },
         "description": "Gain another Versatile Performance selection at level 10; prior choices persist.",
         "sourceRefs": [
@@ -1714,7 +1714,7 @@
         "featureId": "ffd20:class:bard:feature:versatile-performance",
         "atClassLevel": 14,
         "changes": {
-          "specializations": 4
+          "selectionSlots": 4
         },
         "description": "Gain another Versatile Performance selection at level 14; prior choices persist.",
         "sourceRefs": [
@@ -1730,7 +1730,7 @@
         "featureId": "ffd20:class:bard:feature:versatile-performance",
         "atClassLevel": 18,
         "changes": {
-          "specializations": 5
+          "selectionSlots": 5
         },
         "description": "Gain another Versatile Performance selection at level 18; prior choices persist.",
         "sourceRefs": [

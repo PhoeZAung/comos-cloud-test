@@ -30,6 +30,13 @@ test('invalid upgrade IDs, duplicate upgrades and extra grant events are rejecte
  const grant=copy(c);grant.data.events.push({...grant.data.events.find(e=>e.type==='grant_feature'),id:'duplicate-grant'});
  assert.throws(()=>validateClassDefinition(grant),/exactly one initial grant/);
 });
+test('untouched extraction templates fail validation even if someone tries to register them',async()=>{
+ const c=await read('rules/classes/archer.class.json'),bad=structuredClone(c);
+ bad.review.coverage='scaffold';
+ assert.throws(()=>validateClassDefinition(bad),/unfinished scaffold/);
+ bad.review.coverage='partial';bad.data.levels[0].special='NOT EXTRACTED';
+ assert.throws(()=>validateClassDefinition(bad),/placeholder not allowed/);
+});
 test('new classes cannot go live from a manifest flag without an adapter',async()=>{
  const m=await read('rules/classes/manifest.json'),clone=structuredClone(m);
  clone.classes[0].status='staged';clone.classes[0].adapter='archer';
