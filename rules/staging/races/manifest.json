@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "46 staged FFd20 races from batches 01–15, including 12 Beastman Tribes, for live wizard testing, all needs_review.",
+  "description": "50 FFd20 races staged in batches 01–16; 16 Beastman races now available for wizard rules testing. All remain needs_review.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -236,6 +236,26 @@
       "file": "rules/staging/races/matanga.race.json",
       "raceId": "ffd20:race:matanga",
       "sha256": "ac8bee0a5cfeea129206c19b379d832dcaecab68ade0a76d67f43aacbd20656f"
+    },
+    {
+      "file": "rules/staging/races/namazu.race.json",
+      "raceId": "ffd20:race:namazu",
+      "sha256": "69cfd965df2d526a5f1ace4a00144be91110e281eb1053b746e61d38de12b55b"
+    },
+    {
+      "file": "rules/staging/races/orc.race.json",
+      "raceId": "ffd20:race:orc",
+      "sha256": "a909363a9bb7daf4083de1e80e628292f8e56e799fbf4b1792a83651a2187e81"
+    },
+    {
+      "file": "rules/staging/races/qiqirn.race.json",
+      "raceId": "ffd20:race:qiqirn",
+      "sha256": "8708e36cce151b15410fe371651c1b66df07d37b68b0f065b185c6f1891a81d8"
+    },
+    {
+      "file": "rules/staging/races/quadav.race.json",
+      "raceId": "ffd20:race:quadav",
+      "sha256": "2ec8cc8fa18c49348df0aaa4ae5b2f780af8f8dbcab00eec93d662de5fd3f897"
     }
   ],
   "blockers": [
@@ -272,6 +292,11 @@
     "Lamia Bond to the Land desert/water and Tempered water/wind choices cannot yet be recorded; block final saves.",
     "Loporrit Handy Craft/Profession, Explorer/Hydaelyn Spark/Purpose-Driven skill selections require a race-choice UI; block saves while active.",
     "Matanga Academic requires a selected Knowledge specialty and blocks save while active.",
-    "Lamia and Matanga heritages remain unresolved manual replacements. Source index differs from detailed Kojin, Loporrit and Matanga trait names."
+    "Lamia and Matanga heritages remain unresolved manual replacements. Source index differs from detailed Kojin, Loporrit and Matanga trait names.",
+    "Orc Skill Bonus has alternative Acrobatics vs Climb/Jump bonuses. No selection binding; prevent invalid save while active.",
+    "Quadav Bond to the Land requires choosing swamp or underground; block saving until selected terrain can be recorded.",
+    "Namazu Fast replaces both Skilled Traders and normal Base Speed; and Focused Study requires skill selection at 1, 8 and 16. Mark both replacements unresolved.",
+    "Qiqirn introduction states two heritages but its table contains Leaf-Eater, Meat-Eater, and Qitari (3); preserve all three with unresolved replacements.",
+    "Quadav Water Tribe modifies swim speed and grants amphibious breathing; movement calculation and substitution remain unresolved."
   ]
 }

@@ -1,6 +1,6 @@
 # FFd20 race files: available for live wizard testing
 
-46 extracted races through batch 15 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
+50 extracted races through batch 16 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
 
 The race dropdown shows staged races with “(testing)” and the wizard displays a review warning. The existing runtime projection applies only its supported unconditional effects. Unsupported effects remain manual; alternates with unresolved replacement mapping stay disabled. Heritage and race-dependent choices, cross-race Half-Breed inheritance, and favored-class bonuses still need review. Test character totals against official source pages before play; a saved character is not evidence of rule correctness.
 
@@ -45,3 +45,7 @@ Added 4 race testing definitions, with Goblin Moblin and Red Cap heritages and s
 ## Beastman batch 15 — Kojin, Lamia, Loporrit, Matanga
 
 Added 4 source-based testing JSONs with full standard/alternate, heritage tables and favored class options. Kojin has underwater and shell movement with no water breathing; Lamia has 20-ft land, 40-ft swim, and two required terrain/resistance choices; Loporrit starts Small with 40-ft speed and skill choice needs; Matanga has Powerful Build and a mandatory Knowledge choice. All mandatory unsupported selections are guarded in the builder. Source index discrepancies and unresolved alternate/heritage mechanics are documented in `docs/extraction/race-batch-15-beastman-coverage.md`.
+
+## Beastman Batch 16 — Namazu, Orc, Qiqirn, Quadav
+
+Added four one-per-race testing JSONs: Namazu has 4 alternates, Orc has 8, Qiqirn has 3 and three heritages (table overrides two-heritage intro), and Quadav has 3 alternates. Orc Skill Bonus and Quadav Bond to the Land require unresolved choices and block character saving. Namazu Fast / Focused Study and Quadav Water Tribe are unresolved substitutions. See `docs/extraction/race-batch-16-beastman-coverage.md`. No Railway activity.

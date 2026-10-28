@@ -49,7 +49,11 @@
     "staging/races/kojin.race.json",
     "staging/races/lamia.race.json",
     "staging/races/loporrit.race.json",
-    "staging/races/matanga.race.json"
+    "staging/races/matanga.race.json",
+    "staging/races/namazu.race.json",
+    "staging/races/orc.race.json",
+    "staging/races/qiqirn.race.json",
+    "staging/races/quadav.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

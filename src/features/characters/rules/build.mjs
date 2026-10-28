@@ -89,6 +89,12 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id==='ffd20:race:matanga'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:matanga:trait:academic'))add(2,'Matanga Academic requires one chosen Knowledge specialty, not yet stored by the wizard; character save is blocked.');
  }
+ if(race?.id==='ffd20:race:orc'){
+  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:orc:trait:skill-bonus'))add(2,'Orc Skill Bonus requires choosing either +2 Acrobatics or +1 Climb and Jump. Race choice UI is unsupported and save is blocked until recorded.');
+ }
+ if(race?.id==='ffd20:race:quadav'){
+  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:quadav:trait:bond-to-the-land'))add(2,'Quadav Bond to the Land requires choosing swamp or underground terrain; race choice UI is unsupported, so save is blocked.');
+ }
  if(race?.id==='ffd20:race:viera'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
   if(active.has('ffd20:race:viera:trait:elemental-summoner'))add(2,'Viera Elemental Summoner requires choosing one elemental subtype. Race-specific selection is not yet supported by this wizard; save is blocked until the subtype can be recorded.');

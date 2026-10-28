@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,49);
+ assert.equal(manifest.races.length,53);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,49);
+ assert.equal(registry.races.length,53);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,46);
+ assert.equal(experimental.length,50);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -222,4 +222,13 @@ test('batch 15 Kojin, Lamia, Loporrit and Matanga stage complete rules and safe 
  const lamia=registry.races.find(r=>r.id==='ffd20:race:lamia');b=newBuild();b.raceId=lamia.id;assert(buildIssues(b).some(x=>/Lamia.*Bond to the Land/.test(x.message)));assert(lamia.features.find(x=>x.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===40));b.alternateIds=[lamia.id+':trait:seasinger'];assert(!buildIssues(b).some(x=>/Lamia.*Bond to the Land/.test(x.message)));b.alternateIds.push(lamia.id+':trait:tempered');assert(buildIssues(b).some(x=>/Lamia.*Tempered/.test(x.message)));
  const loporrit=registry.races.find(r=>r.id==='ffd20:race:loporrit');b=newBuild();b.raceId=loporrit.id;assert(buildIssues(b).some(x=>/Loporrit.*Handy/.test(x.message)));assert.equal(loporrit.features.find(x=>x.name==='Base Speed').effects[0].value.value,40);b.alternateIds=[loporrit.id+':trait:natural-hunter'];assert(!buildIssues(b).some(x=>/Loporrit.*Handy/.test(x.message)));
  const matanga=registry.races.find(r=>r.id==='ffd20:race:matanga');b=newBuild();b.raceId=matanga.id;assert(buildIssues(b).some(x=>/Matanga.*Academic/.test(x.message)));b.alternateIds=[matanga.id+':trait:stoic'];assert(!buildIssues(b).some(x=>/Matanga.*Academic/.test(x.message)));
+});
+
+test('batch 16 Namazu, Orc, Qiqirn and Quadav preserve safe choices and source conflicts',()=>{
+ const expected=[['namazu',11,4,0,0,1],['orc',11,8,0,1,1],['qiqirn',11,3,3,0,0],['quadav',15,3,0,1,1]];
+ for(const [name,std,alt,herit,favored,pools] of expected){const r=registry.races.find(x=>x.id==='ffd20:race:'+name);assert(r?.testing);assert.deepEqual([r.data.standardTraitIds.length,r.data.alternateTraitIds.length,r.data.heritages.length,r.data.favoredRewards.length,r.choicePools.length],[std,alt,herit,favored,pools]);const b=newBuild();b.raceId=r.id;assert.deepEqual(raceTraits(b).errors,[]);if(herit){b.heritageId=r.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
+ const namazu=registry.races.find(x=>x.id==='ffd20:race:namazu');let b=newBuild();b.raceId=namazu.id;assert.deepEqual([effectiveScores(b).dex,effectiveScores(b).cha,effectiveScores(b).con],[12,12,8]);b.alternateIds=[namazu.id+':trait:fast'];assert(raceTraits(b).errors.length>0);
+ const orc=registry.races.find(x=>x.id==='ffd20:race:orc');b=newBuild();b.raceId=orc.id;assert(buildIssues(b).some(x=>/Orc Skill Bonus/.test(x.message)));assert.equal(orc.choicePools[0].options.length,2);b.alternateIds=[orc.id+':trait:orc-lord'];assert(!buildIssues(b).some(x=>/Orc Skill Bonus/.test(x.message)));assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).cha,effectiveScores(b).int],[12,8,12,10]);
+ const q=registry.races.find(x=>x.id==='ffd20:race:qiqirn');assert.deepEqual(q.data.heritages.map(h=>h.name),['Leaf-Eater','Meat-Eater','Qitari']);
+ const quadav=registry.races.find(x=>x.id==='ffd20:race:quadav');b=newBuild();b.raceId=quadav.id;assert(buildIssues(b).some(x=>/Quadav.*terrain/.test(x.message)));assert(quadav.features.find(x=>x.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===30));b.alternateIds=[quadav.id+':trait:water-tribe'];assert(raceTraits(b).errors.length>0);
 });
