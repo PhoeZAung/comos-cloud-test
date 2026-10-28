@@ -34,6 +34,11 @@
     "reviewedOn": null,
     "issues": [
       {
+        "path": "/data/spellcasting/jingleMechanicsFile",
+        "blocking": true,
+        "reason": "The 11 Jingle individual casting/effect pages are extracted in a separate mechanics batch (zero MP, no Perform check, duration, saves, scaling). Effects are not runtime-automated. Song of Serenity suspends fatigue while maintained and does not cure it."
+      },
+      {
         "path": "/data/events",
         "blocking": true,
         "reason": "All 176 Bard songs and jingles across levels 0–6 are now indexed with usage modes and source rows. Individual song mechanics, MP, actions, maintained effects, full source review, wizard choices and Bard save adapter are still incomplete."
@@ -3489,7 +3494,10 @@
         }
       ],
       "songCatalogFile": "rules/classes/bard-songs.json",
-      "songCatalogCoverage": "complete_index_pending_individual_mechanics"
+      "songCatalogCoverage": "complete_index_pending_individual_mechanics",
+      "jingleMechanicsFile": "rules/classes/bard-jingle-mechanics.json",
+      "jingleMechanicsCoverage": "all_11_individual_pages_checked",
+      "maintainedSongRuleSource": "https://finalfantasyd20.com/classes/core-classes/bard/"
     },
     "resources": [
       {
