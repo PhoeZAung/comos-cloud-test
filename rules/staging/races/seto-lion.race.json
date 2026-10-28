@@ -1,0 +1,1722 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:seto-lion",
+  "name": "Seto Lion",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/seto-lion/",
+      "title": "Seto Lion — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/features",
+        "reason": "50-foot starting speed already includes Fast and Quadruped. Faster and Nimble Attacks substitutions must reproject speed, not blindly stack extra feet.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Frost Wolf ability vector replaces standard vector; icy tail replaces Everburning Tail. Block until precisely validated.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Weapon-in-jaws equipment slots, quadruped carrying capacity, casting paws, age-gated fire and natural attack routines still require manual tracking.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Beastmaster 2.5-foot fractional reward has malformed source rounding language; Monk speed requires 5 selections. All class favored options remain manual.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Movement Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Other Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External catalog stored outside race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone external racial feat and archetype definitions are not part of this race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:seto-lion:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 WIS, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:seto-lion:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:seto-lion:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:seto-lion:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:size",
+      "name": "Size",
+      "description": "medium creature; apply global size adjustments once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:seto-lion:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6041"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:type",
+      "name": "Type",
+      "description": "magical beast (seto lion).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:seto-lion:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "magical beast",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:seto-lion:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "seto lion",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:base-speed",
+      "name": "Base Speed",
+      "description": "50 feet; includes Fast and Quadruped (+10 feet each).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:seto-lion:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 50,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6043"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:languages",
+      "name": "Languages",
+      "description": "Begins speaking Common and Lionese; bonus-language options: Any languages allowed by Linguistics/high Intelligence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:seto-lion:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:seto-lion:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.lionese",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Lionese",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:cats-luck",
+      "name": "Cat's Luck",
+      "description": "Once per day, reroll a Reflex saving throw and take the better roll; declare before rolling.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:altered-slots",
+      "name": "Altered Slots",
+      "description": "Two jewelry slots on the headdress replace two ring slots; one arm-wrapping slot replaces the hand slot. Hand gear must be specially made at no additional cost.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:skill-bonus",
+      "name": "Skill Bonus",
+      "description": "+2 racial bonus on Acrobatics checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:seto-lion:trait:skill-bonus:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:acrobatics.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6050"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6050"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:skill-training",
+      "name": "Skill Training",
+      "description": "Acrobatics and Climb are always class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:seto-lion:trait:skill-training:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:acrobatics.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:seto-lion:trait:skill-training:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:climb.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:everburning-tail",
+      "name": "Everburning Tail",
+      "description": "At age 30 or older, tail flame shines normally for 10 feet, brightens the next 10 feet one step, and can cause 1 fire damage per round or ignite flammables on contact; switch on/off at will, not when wet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:fast",
+      "name": "Fast",
+      "description": "+10 feet base speed; already included in the listed 50-foot speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Movement Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:bite",
+      "name": "Bite",
+      "description": "One natural bite attack, damage 1d3; primary attack unless using manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:claws",
+      "name": "Claws",
+      "description": "Two 1d4 natural claw attacks; primary unless using manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:jaw-weapons",
+      "name": "Jaw Weapons",
+      "description": "Can wield light or one-handed weapons in the jaws; other appendages cannot wield manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision out to 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as a hume in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:quadruped",
+      "name": "Quadruped",
+      "description": "Four-legged. +4 CMD versus trip, counts as long for size, 1.5x medium carrying capacity; front paws can perform casting gestures. +10 feet speed is already included in 50-foot base speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:climb",
+      "name": "Climb",
+      "description": "Climb speed 20 feet, with +8 racial bonus on Climb checks normally granted by climb speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6072"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:faster",
+      "name": "Faster",
+      "description": "Increase normal speed by 10 feet to 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6073"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:jumper",
+      "name": "Jumper",
+      "description": "Always count as having a running start for Acrobatics jump checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6074"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:nimble-attacks",
+      "name": "Nimble Attacks",
+      "description": "Gain Weapon Finesse as bonus feat and give up Bite and Fast (base speed must drop from 50 to 40 feet).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:large-bite",
+      "name": "Large Bite",
+      "description": "Bite damage increases from 1d3 to 1d4.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:point-blank-shot",
+      "name": "Point-Blank Shot",
+      "description": "Gain Point-Blank Shot as bonus feat.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:throw-anything",
+      "name": "Throw Anything",
+      "description": "Gain Throw Anything as bonus feat.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:scent",
+      "name": "Scent",
+      "description": "Gain scent instead of darkvision and low-light vision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6079"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:frost-wolf-heritage-ability-scores",
+      "name": "Frost Wolf Heritage Ability Scores",
+      "description": "+2 STR, +2 INT, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:seto-lion:trait:frost-wolf-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6087"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:seto-lion:trait:frost-wolf-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6087"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:seto-lion:trait:frost-wolf-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6087"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6087"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:seto-lion:trait:frost-wolf-heritage-benefit",
+      "name": "Frost Wolf Heritage Benefit",
+      "description": "Alternate appearance: wolf-like heritage with icy tail at age 30 or more, replacing fiery tail; cold tail light reaches 10 feet and improves light for another 10, deals 1 ice damage per round on contact, switchable at will.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6087"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:seto-lion:trait:ability-score-racial-traits",
+      "ffd20:race:seto-lion:trait:size",
+      "ffd20:race:seto-lion:trait:type",
+      "ffd20:race:seto-lion:trait:base-speed",
+      "ffd20:race:seto-lion:trait:languages",
+      "ffd20:race:seto-lion:trait:cats-luck",
+      "ffd20:race:seto-lion:trait:altered-slots",
+      "ffd20:race:seto-lion:trait:skill-bonus",
+      "ffd20:race:seto-lion:trait:skill-training",
+      "ffd20:race:seto-lion:trait:everburning-tail",
+      "ffd20:race:seto-lion:trait:fast",
+      "ffd20:race:seto-lion:trait:bite",
+      "ffd20:race:seto-lion:trait:claws",
+      "ffd20:race:seto-lion:trait:jaw-weapons",
+      "ffd20:race:seto-lion:trait:darkvision",
+      "ffd20:race:seto-lion:trait:low-light-vision",
+      "ffd20:race:seto-lion:trait:quadruped"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:seto-lion:trait:climb",
+      "ffd20:race:seto-lion:trait:faster",
+      "ffd20:race:seto-lion:trait:jumper",
+      "ffd20:race:seto-lion:trait:nimble-attacks",
+      "ffd20:race:seto-lion:trait:large-bite",
+      "ffd20:race:seto-lion:trait:point-blank-shot",
+      "ffd20:race:seto-lion:trait:throw-anything",
+      "ffd20:race:seto-lion:trait:scent"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:seto-lion:trait:climb:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:seto-lion:trait:skill-bonus"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:seto-lion:trait:climb"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Climb substitutes Skill Bonus.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:trait:faster:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:seto-lion:trait:claws"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:seto-lion:trait:faster"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Faster substitutes Claws.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:trait:jumper:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:seto-lion:trait:cats-luck",
+          "ffd20:race:seto-lion:trait:bite"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:seto-lion:trait:jumper"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Jumper substitutes Cat's Luck, Bite.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:trait:nimble-attacks:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:seto-lion:trait:bite",
+          "ffd20:race:seto-lion:trait:fast"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:seto-lion:trait:nimble-attacks"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Nimble Attacks substitutes Bite, Fast.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:trait:large-bite:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:seto-lion:trait:cats-luck"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:seto-lion:trait:large-bite"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Large Bite substitutes Cat's Luck.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:trait:point-blank-shot:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:seto-lion:trait:skill-bonus"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:seto-lion:trait:point-blank-shot"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Point-Blank Shot substitutes Skill Bonus.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:trait:throw-anything:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:seto-lion:trait:skill-bonus"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:seto-lion:trait:throw-anything"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Throw Anything substitutes Skill Bonus.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:trait:scent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:seto-lion:trait:darkvision",
+          "ffd20:race:seto-lion:trait:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:seto-lion:trait:scent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scent substitutes Darkvision, Low-Light Vision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6079"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:seto-lion:heritage:frost-wolf",
+        "name": "Frost Wolf",
+        "description": "Alternate appearance: wolf-like heritage with icy tail at age 30 or more, replacing fiery tail; cold tail light reaches 10 feet and improves light for another 10, deals 1 ice damage per round on contact, switchable at will.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:seto-lion:heritage:frost-wolf:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:seto-lion:trait:ability-score-racial-traits",
+              "ffd20:race:seto-lion:trait:everburning-tail"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:seto-lion:trait:frost-wolf-heritage-ability-scores",
+              "ffd20:race:seto-lion:trait:frost-wolf-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Frost Wolf replaces the standard ability score vector and listed racial feature(s); manual review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6087"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:seto-lion:trait:frost-wolf-heritage-ability-scores",
+          "ffd20:race:seto-lion:trait:frost-wolf-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6087"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:seto-lion:favored:astrologian",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:astrologian",
+        "name": "Seto Lion Astrologian favored reward",
+        "description": "+1/4 Reflex saves against area effects.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:beastmaster",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Seto Lion Beastmaster favored reward",
+        "description": "+2.5 feet to charge/run distance across rough terrain. Source has malformed rounding language; retain increments, manual adjudication.",
+        "increment": {
+          "numerator": 5,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:black-mage",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:black-mage",
+        "name": "Seto Lion Black Mage favored reward",
+        "description": "+1/2 fire damage to fire-damage spells cast by this class.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:blue-mage",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Seto Lion Blue Mage favored reward",
+        "description": "+1/6 to Knowledge (all) checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:dragoon",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:dragoon",
+        "name": "Seto Lion Dragoon favored reward",
+        "description": "+1/6 of an additional 1d6 deadly lancer damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6101"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:monk",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:monk",
+        "name": "Seto Lion Monk favored reward",
+        "description": "+1 foot to base speed; in combat effective only every five selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6102"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:ninja",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:ninja",
+        "name": "Seto Lion Ninja favored reward",
+        "description": "+1/4 attacks made while attacking or charging from higher ground.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6103"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:red-mage",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:red-mage",
+        "name": "Seto Lion Red Mage favored reward",
+        "description": "+1/6 melee attacks using spell combat with unarmed strikes or natural weapons.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6104"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:thief",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:thief",
+        "name": "Seto Lion Thief favored reward",
+        "description": "+1/2 to Stealth and Perception in dim light or darkness.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6105"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:seto-lion:favored:warrior",
+        "raceId": "ffd20:race:seto-lion",
+        "classId": "ffd20:class:warrior",
+        "name": "Seto Lion Warrior favored reward",
+        "description": "+1 CMD versus each of two chosen combat maneuvers.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6106"
+          }
+        ]
+      }
+    ]
+  }
+}

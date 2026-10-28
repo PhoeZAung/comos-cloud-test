@@ -1,0 +1,2713 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:shindroid",
+  "name": "Shindroid",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/shindroid/",
+      "title": "Shindroid — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/features",
+        "reason": "Magic Ineptitude makes a standard Shindroid incompatible with Black Mage MP; Magitek Unit removes this limitation. Black Mage builds must enforce it.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Introduction says three heritages; actual table lists four. Changes to Emotionless substitute only the skill penalty; do not accidentally remove morale restriction.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Anomaly modifies only part of Robotic Immunities, Hologram changes body/type/size, and Race Simulation is cross-race; unresolved until precise projection.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Healing exceptions, constructed dual-targeting, no-consumable and rejuvenation restrictions still require manual calculation.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Hologram Simulation excludes all variant heritages, Integrated Weaponry and Race Simulation; block unsupported combinations.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Other Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "External catalog stored outside race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External catalog stored outside race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone external racial feat and archetype definitions are not part of this race JSON."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone external racial feat and archetype definitions are not part of this race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:shindroid:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 INT, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:size",
+      "name": "Size",
+      "description": "medium creature; apply global size adjustments once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:type",
+      "name": "Type",
+      "description": "Constructed: treated as humanoid AND construct for type-targeting effects, without ordinary construct-wide immunities.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "constructed (humanoid and construct targeting)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30 feet; normal land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:languages",
+      "name": "Languages",
+      "description": "Begins speaking Common; bonus-language options: Any languages allowed by Linguistics/high Intelligence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:composite-plating",
+      "name": "Composite Plating",
+      "description": "+1 natural armor bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:robotic-immunities",
+      "name": "Robotic Immunities",
+      "description": "Immune to Fatigued, Exhausted and Sleep; immune to fear and emotion spells and effects. Other typical construct immunities do NOT automatically apply.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:part-robot",
+      "name": "Part Robot",
+      "description": "Gain Cybertech Savant as a bonus feat at first level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:perceptive",
+      "name": "Perceptive",
+      "description": "+2 racial Perception.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:perceptive:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:natural-weapons",
+      "name": "Natural Weapons",
+      "description": "One slam natural attack dealing 1d4, or 1d3 if small.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:immortal",
+      "name": "Immortal",
+      "description": "No beneficial or detrimental age-category changes, immune to magical aging including Withering; may die from other causes.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:self-sustained",
+      "name": "Self-Sustained",
+      "description": "Do not eat, drink or breathe; no smell or taste; cannot benefit from consumable magical effects, with nonhealing potion/oil and Living Construct exceptions.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:emotionless",
+      "name": "Emotionless",
+      "description": "-4 racial penalty on Sense Motive checks, and cannot gain morale bonuses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:emotionless:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:sense-motive.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Weakness Racial Traits",
+                "locator": "6057"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6057"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:high-maintenance",
+      "name": "High Maintenance",
+      "description": "Healing spells/effects apply at 50% except fast healing; cannot use Heal skill for benefit but can be repaired using Repair.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:magic-ineptitude",
+      "name": "Magic Ineptitude",
+      "description": "Cannot obtain MP or activate spell-trigger, spell-completion, command-word or use-activated magic items; static and explicitly allowed items unaffected.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:rejuvenation-cycle",
+      "name": "Rejuvenation Cycle",
+      "description": "Must power down 8 hours per 24 hours; each missed cycle gives cumulative -1 attacks, checks and saves until recharged.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:anomaly",
+      "name": "Anomaly",
+      "description": "-2 saves against mind-affecting, fear and emotion; can accept morale bonuses; loses -4 Sense Motive and gains Bluff/Sense Motive as class skills. Modifies Robotic Immunities and replaces Emotionless.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:body-double",
+      "name": "Body Double",
+      "description": "As a standard action assume one fixed humanoid form of same size; +10 Disguise to pass as that race.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:endure-elements",
+      "name": "Endure Elements",
+      "description": "Permanently affected as Endure Elements, nondispellable.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:factual",
+      "name": "Factual",
+      "description": "-4 racial penalty on Bluff checks instead of Emotionless penalties.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:factual:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:bluff.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6069"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6069"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6069"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:heavy-platform",
+      "name": "Heavy Platform",
+      "description": "+50 pounds body weight; movement reduced from 30 to 20 feet, no speed reduction from armor or encumbrance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6070"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:hologram-simulation",
+      "name": "Hologram Simulation",
+      "description": "Diminutive technological construct core projects a fixed hardlight body using a full-round action; can deactivate as standard action. Ability modifiers become +4 INT, -2 WIS. Incompatible with alternate heritage, Integrated Weaponry and Race Simulation.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6071"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:infiltration-unit",
+      "name": "Infiltration Unit",
+      "description": "Must breathe, eat and drink; can smell and taste, benefits from potions and oils.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6074"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:integrated-weaponry",
+      "name": "Integrated Weaponry",
+      "description": "Built-in one-handed firearm as natural weapon; proficient, no iterative attacks, unlimited recycled ammo and no melee firing opportunity attack; can be subject to weapon magic or sunder.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:ironspy",
+      "name": "Ironspy",
+      "description": "Reduces full-speed Stealth penalty by 5 and sniping penalty by 10.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:magitek-unit",
+      "name": "Magitek Unit",
+      "description": "May have MP and activate magic items; replaces normal Magic Ineptitude.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:nanite-surge",
+      "name": "Nanite Surge",
+      "description": "Immediate action before one d20 roll; gain 1 + floor(character level/4) bonus, 3 + INT modifier times daily, with one round of torchlight glow.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6079"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:race-simulation",
+      "name": "Race Simulation",
+      "description": "Choose a playable humanoid race; count as both races for relevant effects, adopt size and age effects from chosen race.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6081"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:repair-droid",
+      "name": "Repair Droid",
+      "description": "+2 racial Repair, which is always a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:repair-droid:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:repair.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6083"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6083"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:repair-droid:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:repair.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6083"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6083"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:technologically-knowledgeable",
+      "name": "Technologically-Knowledgeable",
+      "description": "+2 racial Knowledge (Technology), which is always a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:technologically-knowledgeable:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-technology.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6084"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6084"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:technologically-knowledgeable:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-technology.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6084"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6084"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:undying",
+      "name": "Undying",
+      "description": "At 0 HP disabled but strenuous activity does not further injure; at -1 HP automatically stabilize, still vulnerable to damage/death.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6085"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:android-heritage-ability-scores",
+      "name": "Android Heritage Ability Scores",
+      "description": "+2 DEX, +2 INT, -2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:android-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6093"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6093"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:android-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6093"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6093"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:android-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6093"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6093"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6093"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:android-heritage-benefit",
+      "name": "Android Heritage Benefit",
+      "description": "-4 Diplomacy replaces the normal -4 Sense Motive racial penalty; remaining Emotionless restrictions still apply.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6093"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:allagan-automata-heritage-ability-scores",
+      "name": "Allagan Automata Heritage Ability Scores",
+      "description": "+2 STR, +2 INT, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:allagan-automata-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6094"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6094"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:allagan-automata-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6094"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6094"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:allagan-automata-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6094"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6094"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6094"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:allagan-automata-heritage-benefit",
+      "name": "Allagan Automata Heritage Benefit",
+      "description": "-4 Intimidate replaces the normal -4 Sense Motive racial penalty; remaining Emotionless restrictions still apply.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6094"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:machine-lifeform-heritage-ability-scores",
+      "name": "Machine Lifeform Heritage Ability Scores",
+      "description": "+2 STR, +2 INT, -2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:machine-lifeform-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6095"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6095"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:machine-lifeform-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6095"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6095"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:machine-lifeform-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6095"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6095"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6095"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:machine-lifeform-heritage-benefit",
+      "name": "Machine Lifeform Heritage Benefit",
+      "description": "-4 Bluff replaces the normal -4 Sense Motive racial penalty; remaining Emotionless restrictions still apply.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6095"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:omicron-heritage-ability-scores",
+      "name": "Omicron Heritage Ability Scores",
+      "description": "+2 DEX, +2 INT, -2 CON",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:shindroid:trait:omicron-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6096"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6096"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:omicron-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6096"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6096"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:shindroid:trait:omicron-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6096"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6096"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6096"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:shindroid:trait:omicron-heritage-benefit",
+      "name": "Omicron Heritage Benefit",
+      "description": "-4 Acrobatics replaces the normal -4 Sense Motive racial penalty; remaining Emotionless restrictions still apply.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6096"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:shindroid:trait:ability-score-racial-traits",
+      "ffd20:race:shindroid:trait:size",
+      "ffd20:race:shindroid:trait:type",
+      "ffd20:race:shindroid:trait:base-speed",
+      "ffd20:race:shindroid:trait:languages",
+      "ffd20:race:shindroid:trait:composite-plating",
+      "ffd20:race:shindroid:trait:robotic-immunities",
+      "ffd20:race:shindroid:trait:part-robot",
+      "ffd20:race:shindroid:trait:perceptive",
+      "ffd20:race:shindroid:trait:natural-weapons",
+      "ffd20:race:shindroid:trait:darkvision",
+      "ffd20:race:shindroid:trait:immortal",
+      "ffd20:race:shindroid:trait:self-sustained",
+      "ffd20:race:shindroid:trait:emotionless",
+      "ffd20:race:shindroid:trait:high-maintenance",
+      "ffd20:race:shindroid:trait:magic-ineptitude",
+      "ffd20:race:shindroid:trait:rejuvenation-cycle"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:shindroid:trait:anomaly",
+      "ffd20:race:shindroid:trait:body-double",
+      "ffd20:race:shindroid:trait:endure-elements",
+      "ffd20:race:shindroid:trait:factual",
+      "ffd20:race:shindroid:trait:heavy-platform",
+      "ffd20:race:shindroid:trait:hologram-simulation",
+      "ffd20:race:shindroid:trait:infiltration-unit",
+      "ffd20:race:shindroid:trait:integrated-weaponry",
+      "ffd20:race:shindroid:trait:ironspy",
+      "ffd20:race:shindroid:trait:magitek-unit",
+      "ffd20:race:shindroid:trait:nanite-surge",
+      "ffd20:race:shindroid:trait:race-simulation",
+      "ffd20:race:shindroid:trait:repair-droid",
+      "ffd20:race:shindroid:trait:technologically-knowledgeable",
+      "ffd20:race:shindroid:trait:undying"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:shindroid:trait:anomaly:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:emotionless"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:anomaly"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Anomaly substitutes Emotionless.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:body-double:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:part-robot",
+          "ffd20:race:shindroid:trait:emotionless",
+          "ffd20:race:shindroid:trait:composite-plating"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:body-double"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Body Double substitutes Part Robot, Emotionless, Composite Plating.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:endure-elements:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:composite-plating",
+          "ffd20:race:shindroid:trait:part-robot"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:endure-elements"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Endure Elements substitutes Composite Plating, Part Robot.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:factual:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:emotionless"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:factual"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Factual substitutes Emotionless.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6069"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:heavy-platform:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:base-speed"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:heavy-platform"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Heavy Platform substitutes Base Speed.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6070"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:hologram-simulation:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:composite-plating",
+          "ffd20:race:shindroid:trait:ability-score-racial-traits"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:hologram-simulation"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Hologram Simulation substitutes Composite Plating, Ability Score Racial Traits.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6071"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:infiltration-unit:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:self-sustained"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:infiltration-unit"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Infiltration Unit substitutes Self-Sustained.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:integrated-weaponry:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:composite-plating",
+          "ffd20:race:shindroid:trait:natural-weapons"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:integrated-weaponry"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Integrated Weaponry substitutes Composite Plating, Natural Weapons.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:ironspy:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:composite-plating"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:ironspy"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Ironspy substitutes Composite Plating.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:magitek-unit:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:composite-plating",
+          "ffd20:race:shindroid:trait:part-robot",
+          "ffd20:race:shindroid:trait:magic-ineptitude"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:magitek-unit"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Magitek Unit substitutes Composite Plating, Part Robot, Magic Ineptitude.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:nanite-surge:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:part-robot"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:nanite-surge"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Nanite Surge substitutes Part Robot.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6079"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:race-simulation:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:immortal"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:race-simulation"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Race Simulation substitutes Immortal.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6081"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:repair-droid:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:perceptive"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:repair-droid"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Repair Droid substitutes Perceptive.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6083"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:technologically-knowledgeable:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:perceptive"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:technologically-knowledgeable"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Technologically-Knowledgeable substitutes Perceptive.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6084"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:trait:undying:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:shindroid:trait:robotic-immunities"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:shindroid:trait:undying"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Undying substitutes Robotic Immunities.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6085"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:shindroid:heritage:android",
+        "name": "Android",
+        "description": "-4 Diplomacy replaces the normal -4 Sense Motive racial penalty; remaining Emotionless restrictions still apply.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:shindroid:heritage:android:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:shindroid:trait:ability-score-racial-traits",
+              "ffd20:race:shindroid:trait:emotionless"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:shindroid:trait:android-heritage-ability-scores",
+              "ffd20:race:shindroid:trait:android-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Android replaces the standard ability score vector and listed racial feature(s); manual review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6093"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:shindroid:trait:android-heritage-ability-scores",
+          "ffd20:race:shindroid:trait:android-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6093"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:heritage:allagan-automata",
+        "name": "Allagan Automata",
+        "description": "-4 Intimidate replaces the normal -4 Sense Motive racial penalty; remaining Emotionless restrictions still apply.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:shindroid:heritage:allagan-automata:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:shindroid:trait:ability-score-racial-traits",
+              "ffd20:race:shindroid:trait:emotionless"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:shindroid:trait:allagan-automata-heritage-ability-scores",
+              "ffd20:race:shindroid:trait:allagan-automata-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Allagan Automata replaces the standard ability score vector and listed racial feature(s); manual review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6094"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:shindroid:trait:allagan-automata-heritage-ability-scores",
+          "ffd20:race:shindroid:trait:allagan-automata-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6094"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:heritage:machine-lifeform",
+        "name": "Machine Lifeform",
+        "description": "-4 Bluff replaces the normal -4 Sense Motive racial penalty; remaining Emotionless restrictions still apply.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:shindroid:heritage:machine-lifeform:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:shindroid:trait:ability-score-racial-traits",
+              "ffd20:race:shindroid:trait:emotionless"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:shindroid:trait:machine-lifeform-heritage-ability-scores",
+              "ffd20:race:shindroid:trait:machine-lifeform-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Machine Lifeform replaces the standard ability score vector and listed racial feature(s); manual review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6095"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:shindroid:trait:machine-lifeform-heritage-ability-scores",
+          "ffd20:race:shindroid:trait:machine-lifeform-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6095"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:heritage:omicron",
+        "name": "Omicron",
+        "description": "-4 Acrobatics replaces the normal -4 Sense Motive racial penalty; remaining Emotionless restrictions still apply.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:shindroid:heritage:omicron:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:shindroid:trait:ability-score-racial-traits",
+              "ffd20:race:shindroid:trait:emotionless"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:shindroid:trait:omicron-heritage-ability-scores",
+              "ffd20:race:shindroid:trait:omicron-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Omicron replaces the standard ability score vector and listed racial feature(s); manual review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6096"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:shindroid:trait:omicron-heritage-ability-scores",
+          "ffd20:race:shindroid:trait:omicron-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6096"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:shindroid:favored:chemist",
+        "raceId": "ffd20:race:shindroid",
+        "classId": "ffd20:class:chemist",
+        "name": "Shindroid Chemist favored reward",
+        "description": "+1/2 bomb damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6124"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:favored:engineer",
+        "raceId": "ffd20:race:shindroid",
+        "classId": "ffd20:class:engineer",
+        "name": "Shindroid Engineer favored reward",
+        "description": "+1/4 daily Repair use.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6125"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:favored:gunner",
+        "raceId": "ffd20:race:shindroid",
+        "classId": "ffd20:class:gunner",
+        "name": "Shindroid Gunner favored reward",
+        "description": "+1/3 firearm critical hit confirmation, max +5, does not stack with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6126"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:favored:knight",
+        "raceId": "ffd20:race:shindroid",
+        "classId": "ffd20:class:knight",
+        "name": "Shindroid Knight favored reward",
+        "description": "+1/6 progress toward a knight talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6127"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:favored:medic",
+        "raceId": "ffd20:race:shindroid",
+        "classId": "ffd20:class:medic",
+        "name": "Shindroid Medic favored reward",
+        "description": "+1/6 of a new medical practice.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6128"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:favored:ninja",
+        "raceId": "ffd20:race:shindroid",
+        "classId": "ffd20:class:ninja",
+        "name": "Shindroid Ninja favored reward",
+        "description": "+1/4 point in ki pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6129"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:favored:psychic",
+        "raceId": "ffd20:race:shindroid",
+        "classId": "ffd20:class:psychic",
+        "name": "Shindroid Psychic favored reward",
+        "description": "+1/6 new phrenic amplification.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6130"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:shindroid:favored:warrior",
+        "raceId": "ffd20:race:shindroid",
+        "classId": "ffd20:class:warrior",
+        "name": "Shindroid Warrior favored reward",
+        "description": "+1 CMD versus bull rush or dirty trick.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6131"
+          }
+        ]
+      }
+    ]
+  }
+}

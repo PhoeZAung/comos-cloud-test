@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,32);
+ assert.equal(manifest.races.length,35);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,32);
+ assert.equal(registry.races.length,35);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,29);
+ assert.equal(experimental.length,32);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -140,4 +140,12 @@ test('batch 09 Palico, PuPu and Qu are visible as unreviewed testing races with 
 test('batch 10 races stay visible for testing and guard unverified heritage choices',()=>{
  const expected=[['roegadyn',4,3],['ronso',5,4],['seeq',6,0]];
  for(const [name,alternateCount,heritageCount] of expected){const race=registry.races.find(r=>r.id==='ffd20:race:'+name);assert.equal(race?.testing,true);assert.equal(race.data.alternateTraitIds.length,alternateCount);assert.equal(race.data.heritages.length,heritageCount);const b=newBuild();b.raceId=race.id;assert.deepEqual(raceTraits(b).errors,[]);if(heritageCount){b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
+});
+
+test('batch 11 Seto Lion, Shindroid, Tonkin expose full alternates without unsafe mechanics',()=>{
+ const expected=[['seto-lion',17,8,1,10],['shindroid',17,15,4,8],['tonkin',14,5,2,8]];
+ for(const [key,standard,alt,herit,favored] of expected){const race=registry.races.find(r=>r.id==='ffd20:race:'+key);assert.equal(race?.testing,true);assert.equal(race.data.standardTraitIds.length,standard);assert.equal(race.data.alternateTraitIds.length,alt);assert.equal(race.data.heritages.length,herit);assert.equal(race.data.favoredRewards.length,key==='seto-lion'?1:0);const b=newBuild();b.raceId=race.id;assert.deepEqual(raceTraits(b).errors,[]);b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0,'heritage must not silently apply');}
+ const seto=registry.races.find(r=>r.id==='ffd20:race:seto-lion');let b=newBuild();b.raceId=seto.id;assert.equal(effectiveScores(b).dex,12);assert(seto.data.alternateReplacements.find(op=>op.id.includes(':nimble-attacks:')).resolution==='unresolved');
+ const shin=registry.races.find(r=>r.id==='ffd20:race:shindroid');b=newBuild();b.raceId=shin.id;assert(buildIssues(b).some(x=>/Shindroid|MP pool/i.test(x.message)));b.alternateIds=[shin.id+':trait:magitek-unit'];assert(!buildIssues(b).some(x=>/Shindroid.*MP pool/i.test(x.message)));assert(shin.data.heritages.map(h=>h.name).includes('Omicron'));
+ const tonkin=registry.races.find(r=>r.id==='ffd20:race:tonkin');b=newBuild();b.raceId=tonkin.id;assert(buildIssues(b).some(x=>/Tonkin|vocal component/i.test(x.message)));assert.equal(tonkin.features.find(f=>f.name==='Languages').effects.length,0);assert.equal(tonkin.data.alternateReplacements.find(x=>x.id.includes(':dancing-lantern:')).resolution,'unresolved');
 });

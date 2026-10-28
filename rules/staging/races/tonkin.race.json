@@ -1,0 +1,1624 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:tonkin",
+  "name": "Tonkin",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/tonkin/",
+      "title": "Tonkin — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/features",
+        "reason": "Tonkin understands rather than speaks starting Common and Tonberry. Spoken language grants must not be automatic.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Mute vocal spell restriction conflicts with ordinary Black Mage casting unless Silent Spell or Telepathic Spellcaster is implemented.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Dancing Lantern replaces only the torchlight spell-like portion of Lantern Bearer, not its light defenses. Keep this partial replacement blocked.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Palekin/Royalty replace the score vector and the +4 Stealth trait, not all stealth modifiers. Block heritage automation until reviewed.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "20-foot speed is unaffected by armor/encumbrance; special stacking on bleed damage and conditional telepathy need manual cards.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Movement Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Captured mechanically, pending independent verification."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "External catalog stored outside race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External catalog stored outside race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone external racial feat and archetype definitions are not part of this race JSON."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone external racial feat and archetype definitions are not part of this race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:tonkin:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 WIS, -2 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tonkin:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tonkin:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:size",
+      "name": "Size",
+      "description": "small creature; apply global size adjustments once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:type",
+      "name": "Type",
+      "description": "humanoid (tonberry).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tonkin:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "tonberry",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:base-speed",
+      "name": "Base Speed",
+      "description": "20 feet; not altered by armor/encumbrance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6031"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:languages",
+      "name": "Languages",
+      "description": "Understands but does not speak Common and Tonberry; bonus-language choices: Aklo, Auran, Draconic, Goblin, Numish, Sylvan.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:fearless",
+      "name": "Fearless",
+      "description": "+2 racial saves against fear spells and effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:murderous-aura",
+      "name": "Murderous Aura",
+      "description": "+2 racial Intimidate.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:murderous-aura:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:intimidate.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6039"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:sneaky",
+      "name": "Sneaky",
+      "description": "+4 racial Stealth.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:sneaky:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:stealth.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6040"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:lantern-bearer",
+      "name": "Lantern Bearer",
+      "description": "Immune to light-caused blindness or dazzle; treat as one level higher for effects of light spells/effects cast. INT >= 10 allows torchlight at will as a spell-like ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:limited-telepathy",
+      "name": "Limited Telepathy",
+      "description": "Can communicate mentally with a creature within 30 feet only if both share a language. Understands Common and Tonberry but cannot speak them normally.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:swift-as-shadows",
+      "name": "Swift as Shadows",
+      "description": "Reduce full-speed Stealth penalty by 5 and sniping Stealth penalty by 10.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Movement Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:serrated-wound",
+      "name": "Serrated Wound",
+      "description": "On damaging with a light piercing melee weapon, cause additional 1d4 bleed damage; does not stack with other bleed-causing abilities or equipment.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as a hume in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:unable-to-cast",
+      "name": "Unable to Cast",
+      "description": "Mute: spells requiring vocal components cannot be cast normally without Silent Spell or Telepathic Spellcaster.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:cornered-fury",
+      "name": "Cornered Fury",
+      "description": "+2 racial melee attacks and AC while at half HP or less and without a conscious ally within 30 ft.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:curiosity",
+      "name": "Curiosity",
+      "description": "+4 Diplomacy gathering information; Knowledge (History) and Knowledge (Local) class skills, or +2 racial if class already grants class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:dancing-lantern",
+      "name": "Dancing Lantern",
+      "description": "Dancing Lantern at will instead of torchlight at will. Replaces only spell-like ability within Lantern Bearer (keeps light defenses).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:dexterous-tail",
+      "name": "Dexterous Tail",
+      "description": "Tail can carry items and retrieve small stowed items as swift action, but cannot wield weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:keen-senses:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6065"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6065"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:palekin-heritage-ability-scores",
+      "name": "Palekin Heritage Ability Scores",
+      "description": "+2 INT, +2 DEX, -2 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:palekin-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6073"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6073"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tonkin:trait:palekin-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6073"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6073"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tonkin:trait:palekin-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6073"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6073"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6073"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:palekin-heritage-benefit",
+      "name": "Palekin Heritage Benefit",
+      "description": "Replace +4 Stealth skill bonus with +4 Knowledge (Dungeoneering) racial bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6073"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:tonkin-royalty-heritage-ability-scores",
+      "name": "Tonkin Royalty Heritage Ability Scores",
+      "description": "+2 DEX, +2 CHA, -2 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:tonkin:trait:tonkin-royalty-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6074"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6074"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tonkin:trait:tonkin-royalty-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6074"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6074"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tonkin:trait:tonkin-royalty-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6074"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6074"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6074"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:tonkin:trait:tonkin-royalty-heritage-benefit",
+      "name": "Tonkin Royalty Heritage Benefit",
+      "description": "Replace +4 Stealth skill bonus with +4 Diplomacy racial bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6074"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:tonkin:trait:ability-score-racial-traits",
+      "ffd20:race:tonkin:trait:size",
+      "ffd20:race:tonkin:trait:type",
+      "ffd20:race:tonkin:trait:base-speed",
+      "ffd20:race:tonkin:trait:languages",
+      "ffd20:race:tonkin:trait:fearless",
+      "ffd20:race:tonkin:trait:murderous-aura",
+      "ffd20:race:tonkin:trait:sneaky",
+      "ffd20:race:tonkin:trait:lantern-bearer",
+      "ffd20:race:tonkin:trait:limited-telepathy",
+      "ffd20:race:tonkin:trait:swift-as-shadows",
+      "ffd20:race:tonkin:trait:serrated-wound",
+      "ffd20:race:tonkin:trait:low-light-vision",
+      "ffd20:race:tonkin:trait:unable-to-cast"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:tonkin:trait:cornered-fury",
+      "ffd20:race:tonkin:trait:curiosity",
+      "ffd20:race:tonkin:trait:dancing-lantern",
+      "ffd20:race:tonkin:trait:dexterous-tail",
+      "ffd20:race:tonkin:trait:keen-senses"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:tonkin:trait:cornered-fury:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tonkin:trait:serrated-wound"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tonkin:trait:cornered-fury"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Cornered Fury substitutes Serrated Wound.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:trait:curiosity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tonkin:trait:sneaky",
+          "ffd20:race:tonkin:trait:swift-as-shadows"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tonkin:trait:curiosity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Curiosity substitutes Sneaky, Swift as Shadows.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:trait:dancing-lantern:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tonkin:trait:lantern-bearer"
+        ],
+        "targetEventIds": [],
+        "scope": "partial_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tonkin:trait:dancing-lantern"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dancing Lantern substitutes Lantern Bearer.",
+        "resolution": "unresolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:trait:dexterous-tail:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tonkin:trait:swift-as-shadows"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tonkin:trait:dexterous-tail"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dexterous Tail substitutes Swift as Shadows.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:trait:keen-senses:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:tonkin:trait:swift-as-shadows"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:tonkin:trait:keen-senses"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Keen Senses substitutes Swift as Shadows.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6065"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:tonkin:heritage:palekin",
+        "name": "Palekin",
+        "description": "Replace +4 Stealth skill bonus with +4 Knowledge (Dungeoneering) racial bonus.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:tonkin:heritage:palekin:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:tonkin:trait:ability-score-racial-traits",
+              "ffd20:race:tonkin:trait:sneaky"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:tonkin:trait:palekin-heritage-ability-scores",
+              "ffd20:race:tonkin:trait:palekin-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Palekin replaces the standard ability score vector and listed racial feature(s); manual review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6073"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:tonkin:trait:palekin-heritage-ability-scores",
+          "ffd20:race:tonkin:trait:palekin-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:heritage:tonkin-royalty",
+        "name": "Tonkin Royalty",
+        "description": "Replace +4 Stealth skill bonus with +4 Diplomacy racial bonus.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:tonkin:heritage:tonkin-royalty:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:tonkin:trait:ability-score-racial-traits",
+              "ffd20:race:tonkin:trait:sneaky"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:tonkin:trait:tonkin-royalty-heritage-ability-scores",
+              "ffd20:race:tonkin:trait:tonkin-royalty-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Tonkin Royalty replaces the standard ability score vector and listed racial feature(s); manual review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6074"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:tonkin:trait:tonkin-royalty-heritage-ability-scores",
+          "ffd20:race:tonkin:trait:tonkin-royalty-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6074"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:tonkin:favored:archer",
+        "raceId": "ffd20:race:tonkin",
+        "classId": "ffd20:class:archer",
+        "name": "Tonkin Archer favored reward",
+        "description": "+1/3 Aim attack bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:favored:astrologian",
+        "raceId": "ffd20:race:tonkin",
+        "classId": "ffd20:class:astrologian",
+        "name": "Tonkin Astrologian favored reward",
+        "description": "+1/4 Reflex saves against area effects.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:favored:dark-knight",
+        "raceId": "ffd20:race:tonkin",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Tonkin Dark Knight favored reward",
+        "description": "+1 holy-element resistance, maximum +10.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:favored:medic",
+        "raceId": "ffd20:race:tonkin",
+        "classId": "ffd20:class:medic",
+        "name": "Tonkin Medic favored reward",
+        "description": "+1/6 extra 1d6 surgical precision damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:favored:monk",
+        "raceId": "ffd20:race:tonkin",
+        "classId": "ffd20:class:monk",
+        "name": "Tonkin Monk favored reward",
+        "description": "+1 CMD against grapple or trip.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:favored:psychic",
+        "raceId": "ffd20:race:tonkin",
+        "classId": "ffd20:class:psychic",
+        "name": "Tonkin Psychic favored reward",
+        "description": "+1/6 phrenic amplification.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6101"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:favored:thief",
+        "raceId": "ffd20:race:tonkin",
+        "classId": "ffd20:class:thief",
+        "name": "Tonkin Thief favored reward",
+        "description": "+1/3 critical confirmation during sneak attacks, cap +5 and nonstacking with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6102"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:tonkin:favored:warrior",
+        "raceId": "ffd20:race:tonkin",
+        "classId": "ffd20:class:warrior",
+        "name": "Tonkin Warrior favored reward",
+        "description": "+1 CMD against dirty trick or steal.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6103"
+          }
+        ]
+      }
+    ]
+  }
+}

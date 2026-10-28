@@ -1,6 +1,6 @@
 # FFd20 race files: available for live wizard testing
 
-29 extracted races from batches 01–10 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
+32 extracted races from batches 01–11 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
 
 The race dropdown shows staged races with “(testing)” and the wizard displays a review warning. The existing runtime projection applies only its supported unconditional effects. Unsupported effects remain manual; alternates with unresolved replacement mapping stay disabled. Heritage and race-dependent choices, cross-race Half-Breed inheritance, and favored-class bonuses still need review. Test character totals against official source pages before play; a saved character is not evidence of rule correctness.
 
@@ -21,3 +21,7 @@ Palico has 11 alternate traits and two heritage rows (Cait Sith and Felyne), eve
 ## Batch 10 — Roegadyn, Ronso, Seeq
 
 Roegadyn (4 alternates, 3 heritages), Ronso (5 alternates, 4 heritages), and Seeq (6 alternates, no heritages) are available for testing after the normal GitHub-backed build. Ronso source introduction says two heritages, while its table contains four. Unresolved heritage replacement maps and situational bonuses are manual, `needs_review` and not import-ready. See `docs/extraction/race-batch-10-coverage.md`.
+
+## Batch 11 — Seto Lion, Shindroid, Tonkin
+
+Seto Lion has 8 alternates and Frost Wolf heritage; 50-ft base speed already includes both Fast and Quadruped so speed-changing alternates stay blocked. Shindroid has 15 alternate traits and **4 heritages**, although its introduction says 3. Shindroid cannot gain MP under Magic Ineptitude; the Black Mage wizard requires selecting Magitek Unit. Tonkin has 5 alternates and 2 heritages; its mute vocal-component rule blocks saving an unsupported Black Mage. Dancing Lantern modifies only the spell-like component of Lantern Bearer, therefore its replacement is marked unresolved. All remain testing-only, `needs_review`, and not import-ready. See `docs/extraction/race-batch-11-coverage.md`.
