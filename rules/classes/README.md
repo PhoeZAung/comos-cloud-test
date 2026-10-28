@@ -66,3 +66,15 @@ This is an **illustrative mapping only**, not a claim about the Abhorsen archety
 ## Bard Song Talents extraction
 
 Bard has an independent `rules/classes/bard-talents.json` with **32 normal and 12 advanced talents**, class feature and talent prerequisites, explicit repeat limits, asterisk song-modifier exclusivity, and a stable three-event Bardic Inspiration die upgrade (d8 at 5, d10 at 10, d12 at 15). The generic importer now validates all those properties and provides `eligibleClassTalents` / `classTalentAtLevel` to apply level-specific changes without duplicate feat cards. Song Talents at levels 12–20 choose from both normal and advanced options, using the SAME one slot per even level; Bard stays staged until songs and adapter are implemented. See `docs/extraction/bard-song-talents-batch-02.md`.
+
+## One-command staging and human review
+
+For each new class (extract **one class at a time**):
+
+1. `npm run rules:class:new -- <slug>` creates a safely unregistered JSON scaffold.
+2. Fill all twenty levels, **one stable feature ID per ability**, later `upgrades[]` (never duplicate grants), source references, choices and option lists. Handle archetypes as separately staged files.
+3. `npm run rules:class:review -- <slug>` generates `docs/review/FFd20-<slug>-Class-Review.txt`. It lists unresolved issues, every ability's starting state and per-level upgrades, exact provenance references, all table rows, choices and a plain-language checklist. It also reports the first structural validation error if the class is unfinished.
+4. Once the data is structurally valid, `npm run rules:class:stage -- <slug>` checks the JSON, adds it to the manifest as **staged and disabled** and regenerates `class-catalog.mjs`. This command refuses duplicate registrations or unfinished scaffolds.
+5. Run `npm run rules:class:check` and `npm test`. Only enable a class after its **separate live adapter and gameplay tests** exist.
+
+The review text is not a sign-off or automatic approval. Staging **never** makes a class playable or changes the current live Archer/Black Mage builds. Game-changing upgrades and archetype replacements must be verified against official rules before activation.
