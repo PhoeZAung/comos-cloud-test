@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "comos.classes.manifest.v1",
+  "classes": [
+    {
+      "id": "ffd20:class:archer",
+      "file": "rules/classes/archer.class.json",
+      "optionFile": "rules/classes/archer-talents.json",
+      "status": "live",
+      "adapter": "archer",
+      "coverage": "partial"
+    }
+  ]
+}

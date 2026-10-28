@@ -3,6 +3,7 @@ import {pointSpend,standardArray,rollScores,moveScoreToken} from '../features/ch
 import {fixedSkills} from '../features/sheet/skills.mjs';
 import {recordId} from './record-id.mjs';
 import {archer,archerAtLevel,archerChanges,archerTalentOptions} from '../features/characters/rules/archer-levels.mjs';
+import {classCatalog} from '../features/characters/rules/class-catalog.mjs';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const opt=(id,label,current,disabled=false)=>`<option value="${e(id)}" ${id===current?'selected':''} ${disabled?'disabled':''}>${e(label)}</option>`;
 
@@ -75,7 +76,7 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
   }
  }
  if(step===3){const current=classFor(b);
- body=field(['levelup','multiclass'].includes(mode)?'Level up class':'Class',`<select aria-label="Class" data-rw-field="classId" ${mode!=='create'?'disabled':''}>${availableClasses.map(c=>opt(c.id,c.name,b.classId)).join('')}</select>`);
+ body=field(['levelup','multiclass'].includes(mode)?'Level up class':'Class',`<select aria-label="Class" data-rw-field="classId" ${mode!=='create'?'disabled':''}>${availableClasses.map(c=>opt(c.id,c.name,b.classId)).join('')}${classCatalog.classes.filter(c=>c.status!=='live').map(c=>opt(c.id,c.name+' · extraction in progress',b.classId,true)).join('')}</select>`);
  body+=field('Archetype',`<select data-rw-field="archetypeId" ${mode!=='create'||current?.name==='Archer'?'disabled':''}>${opt('','Base '+(current?.name||'class'),b.archetypeId)}${current?.name==='Black Mage'?registry.archetypes.map(a=>opt(a.id,a.name,b.archetypeId,true)).join(''):''}</select>`);
  if(current?.name==='Archer')body+=archerProgressPanel(archerPreviewLevel);
  body+='<p class="field-help">More classes become available when their individual rules are extracted. Unverified archetypes remain disabled.</p>';
