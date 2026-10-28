@@ -1,0 +1,41 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {classAtLevel,validateClassDefinition,validateClassManifest} from '../src/features/characters/rules/class-contract.mjs';
+import {buildClassCatalog,generateClassCatalog} from '../scripts/generate-class-catalog.mjs';
+import {classCatalog} from '../src/features/characters/rules/class-catalog.mjs';
+import {newBuild,availableClasses} from '../src/features/characters/rules/build.mjs';
+import {renderBuild} from '../src/ui/rules-wizard.mjs';
+const read=async file=>JSON.parse(await readFile(new URL('../'+file,import.meta.url),'utf8'));
+const state=(c,level,name)=>classAtLevel(c,level).features.find(f=>f.name===name)?.state;
+test('Bard source stage has verified 20-level table, stable upgrade identities and is disabled',async()=>{
+ const c=await read('rules/classes/bard.class.json');const m=validateClassManifest(await read('rules/classes/manifest.json'));
+ const report=validateClassDefinition(c);
+ assert.equal(report.levels,20);assert(report.upgrades>30);
+ assert.equal(c.data.levels[0].baseMp,2);assert.equal(c.data.levels[19].baseMp,79);
+ assert.equal(c.data.levels[19].maxSpellLevel,6);assert.deepEqual(c.data.levels[19].iterativeAttacks,[15,10,5]);
+ assert(m.classes.some(x=>x.id===c.id&&x.status==='staged'&&x.adapter===null));
+ assert(!availableClasses.some(x=>x.id===c.id));
+ await generateClassCatalog({check:true});
+ assert.deepEqual(await buildClassCatalog(),classCatalog);
+});
+test('Bard upgrades replace, never accumulate, the original performance feature',async()=>{
+ const c=await read('rules/classes/bard.class.json');
+ const look=(n,name)=>classAtLevel(c,n).features.filter(f=>f.name===name);
+ for(const n of [1,5,11,17,20])assert.equal(look(n,'Inspire Courage').length,1);
+ assert.equal(state(c,1,'Inspire Courage').bonus,1);
+ assert.equal(state(c,5,'Inspire Courage').bonus,2);
+ assert.equal(state(c,11,'Inspire Courage').bonus,3);
+ assert.equal(state(c,17,'Inspire Courage').bonus,4);
+ assert.equal(state(c,19,'Inspiration').temporaryHpDice,9);
+ assert.equal(state(c,16,'Medley').simultaneousSongs,5);
+ assert.equal(state(c,20,'Clear Mind').mpPerHour,4);
+ assert.equal(state(c,13,'Bardic Performance').startAction,'swift');
+ assert.equal(state(c,19,'Skilled Performer').performBonusPoints,15);
+});
+test('staged Bard appears in selector but cannot be chosen and cannot pass save',()=>{
+ const b=newBuild();b.raceId='ffd20:race:dwarf';
+ const html=renderBuild(b,3,{mode:'create'});
+ assert.match(html,/Bard · extraction in progress/);
+ assert.match(html,/value="ffd20:class:bard"[^>]*disabled/);
+});

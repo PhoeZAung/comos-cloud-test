@@ -1,0 +1,3514 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:bard",
+  "name": "Bard",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/bard/",
+      "title": "Bard — Official Final Fantasy d20 class",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-28"
+    },
+    {
+      "id": "talents",
+      "url": "https://finalfantasyd20.com/classes/core-classes/bard/song-talents/",
+      "title": "Bard Song Talents — Official Final Fantasy d20",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-28"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/events",
+        "blocking": true,
+        "reason": "Bard songs and jingles are not yet extracted into a selectable options catalog. Levels/song restrictions and CHA-gated choices must be implemented before character saving."
+      },
+      {
+        "path": "/data/events",
+        "blocking": true,
+        "reason": "Song Talents and Advanced Song Talents options/prerequisites need separate extraction; advanced options substitute for regular slots, not extra slots."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Performance actions, targets, ongoing effects, aura ranges, saving throws and resources remain manual descriptions; not permanent sheet bonuses."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Versatile Performance has specialty-specific substitution and advanced options; choice UI and dependency checks are not implemented."
+      },
+      {
+        "path": "/data",
+        "blocking": true,
+        "reason": "Bard runtime adapter for CHA song MP, casting, skill points and upgrades not yet written. Staged display only."
+      },
+      {
+        "path": "/data/archetypeIndex",
+        "blocking": true,
+        "reason": "Bard archetypes are index-only; each must be extracted separately."
+      }
+    ]
+  },
+  "data": {
+    "category": "core",
+    "maximumLevel": 20,
+    "hitDie": 8,
+    "alignment": "Any",
+    "primaryAbility": "cha",
+    "secondaryAbility": "dex",
+    "skillPointsPerLevel": {
+      "base": 6,
+      "plusAbilityModifier": "int",
+      "minimum": 1
+    },
+    "startingWealth": {
+      "dice": 3,
+      "sides": 6,
+      "multiplier": 10,
+      "currency": "gil",
+      "average": 105,
+      "outfitCapGil": 10
+    },
+    "classSkills": [
+      "acrobatics",
+      "appraise",
+      "bluff",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "disguise",
+      "escape-artist",
+      "intimidate",
+      "knowledge:*",
+      "linguistics",
+      "perception",
+      "perform:*",
+      "profession:*",
+      "sense-motive",
+      "sleight-of-hand",
+      "spellcraft",
+      "stealth",
+      "use-magic-device"
+    ],
+    "proficiencies": {
+      "weapons": [
+        "simple",
+        "harp-bows"
+      ],
+      "armor": [
+        "light"
+      ],
+      "shields": []
+    },
+    "levels": [
+      {
+        "level": 1,
+        "bab": 0,
+        "iterativeAttacks": [],
+        "fort": 0,
+        "ref": 2,
+        "will": 2,
+        "special": "Bardic Performance; Musical Power; Countersong; Jingles; Distraction; Fascinate; Inspire Courage +1; Limit Breaks",
+        "baseMp": 2,
+        "maxSpellLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6024"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 0,
+        "ref": 3,
+        "will": 3,
+        "special": "Versatile Performance; Well-Versed; Song Talent",
+        "baseMp": 3,
+        "maxSpellLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6025"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 1,
+        "ref": 3,
+        "will": 3,
+        "special": "Inspire Competence +2; Inspiration 1d6",
+        "baseMp": 4,
+        "maxSpellLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6026"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 1,
+        "ref": 4,
+        "will": 4,
+        "special": "Medley 2 songs; Wide Audience; Song Talent",
+        "baseMp": 5,
+        "maxSpellLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6027"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 1,
+        "ref": 4,
+        "will": 4,
+        "special": "Clear Mind I; Inspire Courage +2; Inspiration 2d6",
+        "baseMp": 6,
+        "maxSpellLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6028"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 2,
+        "ref": 5,
+        "will": 5,
+        "special": "Versatile Performance; Song Talent; Suggestion",
+        "baseMp": 8,
+        "maxSpellLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6029"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 2,
+        "ref": 5,
+        "will": 5,
+        "special": "Skilled Performer +5; Inspire Competence +3; Inspiration 3d6",
+        "baseMp": 10,
+        "maxSpellLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6030"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 2,
+        "ref": 6,
+        "will": 6,
+        "special": "Song Talent; Dirge of Doom; Medley 3 songs",
+        "baseMp": 13,
+        "maxSpellLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6031"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 3,
+        "ref": 6,
+        "will": 6,
+        "special": "Inspire Greatness; Inspiration 4d6",
+        "baseMp": 16,
+        "maxSpellLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6032"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 3,
+        "ref": 7,
+        "will": 7,
+        "special": "Clear Mind II; Versatile Performance; Song Talent",
+        "baseMp": 20,
+        "maxSpellLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6033"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 3,
+        "ref": 7,
+        "will": 7,
+        "special": "Inspire Competence +4; Inspire Courage +3; Inspiration 5d6",
+        "baseMp": 24,
+        "maxSpellLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6034"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 4,
+        "ref": 8,
+        "will": 8,
+        "special": "Soothing Performance; Medley 4 songs; Advanced Song Talent",
+        "baseMp": 29,
+        "maxSpellLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6035"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 4,
+        "ref": 8,
+        "will": 8,
+        "special": "Skilled Performer +10; Can't Stop My Performance; Inspiration 6d6",
+        "baseMp": 34,
+        "maxSpellLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6036"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 4,
+        "ref": 9,
+        "will": 9,
+        "special": "Frightening Tune; Versatile Performance; Advanced Song Talent",
+        "baseMp": 39,
+        "maxSpellLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6037"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 5,
+        "ref": 9,
+        "will": 9,
+        "special": "Clear Mind III; Inspire Competence +5; Inspire Heroics; Inspiration 7d6",
+        "baseMp": 45,
+        "maxSpellLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6038"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 5,
+        "ref": 10,
+        "will": 10,
+        "special": "Medley 5 songs; Advanced Song Talent; Unstoppable Performance",
+        "baseMp": 51,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6039"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 5,
+        "ref": 10,
+        "will": 10,
+        "special": "Inspire Courage +4; Inspiration 8d6; Adoring Fan; 1 MP Song (3/day)",
+        "baseMp": 57,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6040"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 6,
+        "ref": 11,
+        "will": 11,
+        "special": "Versatile Performance; Funeral Ballad; Advanced Song Talent",
+        "baseMp": 64,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6041"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 6,
+        "ref": 11,
+        "will": 11,
+        "special": "Skilled Performer +15; Inspire Competence +6; Inspiration 9d6",
+        "baseMp": 71,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6042"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 6,
+        "ref": 12,
+        "will": 12,
+        "special": "Clear Mind IV; Deadly Performance; Master Bard; Advanced Song Talent",
+        "baseMp": 79,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Bard",
+            "locator": "6043"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:bard:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "Simple weapons and harp bows; light armor, no shields. Light armor does not cause song failure.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6047"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:limit-breaks",
+        "name": "Limit Breaks",
+        "atLevel": 1,
+        "description": "Siren's Song and Soul Voice are the Bard Limit Breaks; shared Limit Break rules apply.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:sirens-song",
+        "name": "Siren's Song",
+        "atLevel": 1,
+        "description": "Swift-action Limit Break; songs ignore sound-blocking and distorting effects for a level-scaled duration.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6055"
+          }
+        ],
+        "initialState": {
+          "durationRounds": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:soul-voice",
+        "name": "Soul Voice",
+        "atLevel": 1,
+        "description": "Swift-action Limit Break; one song started each round has its variables maximized and doubled for a level-scaled duration.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6057"
+          }
+        ],
+        "initialState": {
+          "durationRounds": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:songs",
+        "name": "Songs",
+        "atLevel": 1,
+        "description": "Charisma-based songcasting using MP; learn 3 + CHA modifier first-level songs at creation and two more per Bard level; maintained-song constraints apply.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:jingles",
+        "name": "Jingles",
+        "atLevel": 1,
+        "description": "Learn two 0-level songs at first level, +1 every four Bard levels thereafter; no MP cost.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6070"
+          }
+        ],
+        "initialState": {
+          "knownJinglesBase": 2
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:musical-power",
+        "name": "Musical Power",
+        "atLevel": 1,
+        "description": "Ranged touch performance attack, using Perform ranks in place of BAB, dealing 1d4 + CHA damage; 25 ft + 5 ft per two levels.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:bardic-performance",
+        "name": "Bardic Performance",
+        "atLevel": 1,
+        "description": "4 + CHA modifier rounds/day at level 1; +2 rounds per subsequent level. Start as standard action, becoming move at 7 and swift at 13.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6080"
+          }
+        ],
+        "initialState": {
+          "startAction": "standard"
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:countersong",
+        "name": "Countersong",
+        "atLevel": 1,
+        "description": "Maintain a performance against sonic and language-dependent effects, allowing an affected ally to substitute an appropriate Perform result.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6092"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:distraction",
+        "name": "Distraction",
+        "atLevel": 1,
+        "description": "Maintain a performance that defends allies from illusion effects using an appropriate Perform result.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6095"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:fascinate",
+        "name": "Fascinate",
+        "atLevel": 1,
+        "description": "Maintain a performance against visible, hearing creatures, with level-based target count; Will save ends effect and blocks repeated attempts for 24 hours.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6097"
+          }
+        ],
+        "initialState": {
+          "targets": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:inspire-courage",
+        "name": "Inspire Courage",
+        "atLevel": 1,
+        "description": "Active performance buffs allies' attacks, weapon damage and saves against charm/fear; starts at +1 and scales to +4.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6100"
+          }
+        ],
+        "initialState": {
+          "bonus": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:versatile-performance",
+        "name": "Versatile Performance",
+        "atLevel": 2,
+        "description": "Choose one Perform specialty to substitute its total bonus for associated skills; choose additional specialty or advanced alternative at levels 6,10,14,18.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6125"
+          }
+        ],
+        "initialState": {
+          "specializations": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:well-versed",
+        "name": "Well-Versed",
+        "atLevel": 2,
+        "description": "+4 on saving throws versus bardic performance, sonic and language-dependent effects.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6122"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:song-talents",
+        "name": "Song Talents",
+        "atLevel": 2,
+        "description": "Select one song talent at every even Bard level. From level 12, advanced options become eligible in place of a normal talent.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6137"
+          }
+        ],
+        "initialState": {
+          "talentSelections": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:inspire-competence",
+        "name": "Inspire Competence",
+        "atLevel": 3,
+        "description": "Active performance boosts an ally's skill check by +2 at level 3, improving every four Bard levels to +6 at 19; cannot target self.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6102"
+          }
+        ],
+        "initialState": {
+          "bonus": 2
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:inspiration",
+        "name": "Inspiration",
+        "atLevel": 3,
+        "description": "Move-action morale encouragement grants allies temporary HP, beginning at 1d6 and adding 1d6 per two class levels; 3 + CHA modifier uses/day.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6140"
+          }
+        ],
+        "initialState": {
+          "temporaryHpDice": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:medley",
+        "name": "Medley",
+        "atLevel": 4,
+        "description": "Maintain two songs at once starting at level 4, increasing to five songs by level 16; additional Perform checks required.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6143"
+          }
+        ],
+        "initialState": {
+          "simultaneousSongs": 2
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:wide-audience",
+        "name": "Wide Audience",
+        "atLevel": 4,
+        "description": "Choose a 60-foot cone instead of 30-foot radius; appropriate song area or target count scales every four levels.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6146"
+          }
+        ],
+        "initialState": {
+          "radiusFeet": 30,
+          "coneFeet": 60,
+          "extraTargets": 0
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:clear-mind",
+        "name": "Clear Mind",
+        "atLevel": 5,
+        "description": "Recover Bard MP while relaxed and awake, initially 1 MP per hour; improves every five Bard levels.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6149"
+          }
+        ],
+        "initialState": {
+          "mpPerHour": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:suggestion",
+        "name": "Suggestion",
+        "atLevel": 6,
+        "description": "Use a standard action to suggest an action to an already fascinated creature; Will DC 10 + half Bard level + CHA modifier.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6104"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:skilled-performer",
+        "name": "Skilled Performer",
+        "atLevel": 7,
+        "description": "Gain a bonus for Perform skill points (+5 at 7, +10 at 13, +15 at 19), allocated among Perform specialties; not general skill points.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6152"
+          }
+        ],
+        "initialState": {
+          "performBonusPoints": 5
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:dirge-of-doom",
+        "name": "Dirge of Doom",
+        "atLevel": 8,
+        "description": "While performing, eligible enemies within 30 ft become shaken (never directly frightened/panicked).",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6106"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:inspire-greatness",
+        "name": "Inspire Greatness",
+        "atLevel": 9,
+        "description": "Performance grants temporary bonus Hit Dice and combat bonuses to a willing ally, with target count scaling at 12,15,18.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6108"
+          }
+        ],
+        "initialState": {
+          "targets": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:soothing-performance",
+        "name": "Soothing Performance",
+        "atLevel": 12,
+        "description": "Four-round performance applies Cura-like healing and removes fatigue, sickness and shaken from affected creatures.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6111"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:advanced-song-talents",
+        "name": "Advanced Song Talents",
+        "atLevel": 12,
+        "description": "Advanced options become selectable instead of a normal Song Talent at levels 12,14,16,18,20. Not a second free talent.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6155"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:cant-stop-my-performance",
+        "name": "Can't Stop My Performance",
+        "atLevel": 13,
+        "description": "Immune to silence and blindness effects per class text.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6158"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:frightening-tune",
+        "name": "Frightening Tune",
+        "atLevel": 14,
+        "description": "Active performance can frighten hearing enemies within 30 feet; successful Will save blocks repeat for 24 hours.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6113"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:inspire-heroics",
+        "name": "Inspire Heroics",
+        "atLevel": 15,
+        "description": "Active performance grants +4 morale to saves and +4 dodge to AC to eligible allies while maintained.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6115"
+          }
+        ],
+        "initialState": {
+          "targets": 1
+        }
+      },
+      {
+        "id": "ffd20:class:bard:feature:unstoppable-performance",
+        "name": "Unstoppable Performance",
+        "atLevel": 16,
+        "description": "Bardic performances can affect blind and deaf creatures without penalty.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6162"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:adoring-fan",
+        "name": "Adoring Fan",
+        "atLevel": 17,
+        "description": "Performance can dominate a failed-save listener temporarily, followed by a charm effect; target gains 24-hour protection on successful save.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6117"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:1-mp-song",
+        "name": "1 MP Song",
+        "atLevel": 17,
+        "description": "Three times daily, reduce next song's MP cost to 1 after metasong adjustments.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6165"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:funeral-ballad",
+        "name": "Funeral Ballad",
+        "atLevel": 18,
+        "description": "Once/day, a 10-round performance can restore a dead creature using an Arise-like effect.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6119"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:deadly-performance",
+        "name": "Deadly Performance",
+        "atLevel": 20,
+        "description": "Performance may kill a single creature after a Will save; success instead dazes target and prevents repeat for 24 hours.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6120"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:feature:master-bard",
+        "name": "Master Bard",
+        "atLevel": 20,
+        "description": "Song/performance DCs +2; once/day start up to five Medley songs with one standard action and no Perform checks.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6168"
+          }
+        ]
+      }
+    ],
+    "upgrades": [
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-courage:5",
+        "featureId": "ffd20:class:bard:feature:inspire-courage",
+        "atClassLevel": 5,
+        "changes": {
+          "bonus": 2
+        },
+        "description": "Inspire Courage becomes +2 to applicable bonuses while active.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6101"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-courage:11",
+        "featureId": "ffd20:class:bard:feature:inspire-courage",
+        "atClassLevel": 11,
+        "changes": {
+          "bonus": 3
+        },
+        "description": "Inspire Courage becomes +3 to applicable bonuses while active.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6101"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-courage:17",
+        "featureId": "ffd20:class:bard:feature:inspire-courage",
+        "atClassLevel": 17,
+        "changes": {
+          "bonus": 4
+        },
+        "description": "Inspire Courage becomes +4 to applicable bonuses while active.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6101"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-competence:7",
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "atClassLevel": 7,
+        "changes": {
+          "bonus": 3
+        },
+        "description": "Inspire Competence becomes +3 while active.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6102"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-competence:11",
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "atClassLevel": 11,
+        "changes": {
+          "bonus": 4
+        },
+        "description": "Inspire Competence becomes +4 while active.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6102"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-competence:15",
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "atClassLevel": 15,
+        "changes": {
+          "bonus": 5
+        },
+        "description": "Inspire Competence becomes +5 while active.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6102"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-competence:19",
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "atClassLevel": 19,
+        "changes": {
+          "bonus": 6
+        },
+        "description": "Inspire Competence becomes +6 while active.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6102"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspiration:5",
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "atClassLevel": 5,
+        "changes": {
+          "temporaryHpDice": 2
+        },
+        "description": "Inspiration becomes 2d6 temporary HP for eligible creatures.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6141"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspiration:7",
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "atClassLevel": 7,
+        "changes": {
+          "temporaryHpDice": 3
+        },
+        "description": "Inspiration becomes 3d6 temporary HP for eligible creatures.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6141"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspiration:9",
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "atClassLevel": 9,
+        "changes": {
+          "temporaryHpDice": 4
+        },
+        "description": "Inspiration becomes 4d6 temporary HP for eligible creatures.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6141"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspiration:11",
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "atClassLevel": 11,
+        "changes": {
+          "temporaryHpDice": 5
+        },
+        "description": "Inspiration becomes 5d6 temporary HP for eligible creatures.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6141"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspiration:13",
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "atClassLevel": 13,
+        "changes": {
+          "temporaryHpDice": 6
+        },
+        "description": "Inspiration becomes 6d6 temporary HP for eligible creatures.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6141"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspiration:15",
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "atClassLevel": 15,
+        "changes": {
+          "temporaryHpDice": 7
+        },
+        "description": "Inspiration becomes 7d6 temporary HP for eligible creatures.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6141"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspiration:17",
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "atClassLevel": 17,
+        "changes": {
+          "temporaryHpDice": 8
+        },
+        "description": "Inspiration becomes 8d6 temporary HP for eligible creatures.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6141"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspiration:19",
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "atClassLevel": 19,
+        "changes": {
+          "temporaryHpDice": 9
+        },
+        "description": "Inspiration becomes 9d6 temporary HP for eligible creatures.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6141"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:medley:8",
+        "featureId": "ffd20:class:bard:feature:medley",
+        "atClassLevel": 8,
+        "changes": {
+          "simultaneousSongs": 3
+        },
+        "description": "Medley can maintain 3 songs, subject to checks.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6143"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:medley:12",
+        "featureId": "ffd20:class:bard:feature:medley",
+        "atClassLevel": 12,
+        "changes": {
+          "simultaneousSongs": 4
+        },
+        "description": "Medley can maintain 4 songs, subject to checks.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6143"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:medley:16",
+        "featureId": "ffd20:class:bard:feature:medley",
+        "atClassLevel": 16,
+        "changes": {
+          "simultaneousSongs": 5
+        },
+        "description": "Medley can maintain 5 songs, subject to checks.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6143"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:clear-mind:10",
+        "featureId": "ffd20:class:bard:feature:clear-mind",
+        "atClassLevel": 10,
+        "changes": {
+          "mpPerHour": 2
+        },
+        "description": "Clear Mind regenerates 2 MP/hour in stated conditions.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6151"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:clear-mind:15",
+        "featureId": "ffd20:class:bard:feature:clear-mind",
+        "atClassLevel": 15,
+        "changes": {
+          "mpPerHour": 3
+        },
+        "description": "Clear Mind regenerates 3 MP/hour in stated conditions.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6151"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:clear-mind:20",
+        "featureId": "ffd20:class:bard:feature:clear-mind",
+        "atClassLevel": 20,
+        "changes": {
+          "mpPerHour": 4
+        },
+        "description": "Clear Mind regenerates 4 MP/hour in stated conditions.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6151"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:skilled-performer:13",
+        "featureId": "ffd20:class:bard:feature:skilled-performer",
+        "atClassLevel": 13,
+        "changes": {
+          "performBonusPoints": 10
+        },
+        "description": "Skilled Performer allows allocating 10 bonus points among Perform specialties.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6154"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:skilled-performer:19",
+        "featureId": "ffd20:class:bard:feature:skilled-performer",
+        "atClassLevel": 19,
+        "changes": {
+          "performBonusPoints": 15
+        },
+        "description": "Skilled Performer allows allocating 15 bonus points among Perform specialties.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6154"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:jingles:5",
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "atClassLevel": 5,
+        "changes": {
+          "knownJinglesBase": 3
+        },
+        "description": "Jingles known rises to 3.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:jingles:9",
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "atClassLevel": 9,
+        "changes": {
+          "knownJinglesBase": 4
+        },
+        "description": "Jingles known rises to 4.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:jingles:13",
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "atClassLevel": 13,
+        "changes": {
+          "knownJinglesBase": 5
+        },
+        "description": "Jingles known rises to 5.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:jingles:17",
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "atClassLevel": 17,
+        "changes": {
+          "knownJinglesBase": 6
+        },
+        "description": "Jingles known rises to 6.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:bardic-performance:7",
+        "featureId": "ffd20:class:bard:feature:bardic-performance",
+        "atClassLevel": 7,
+        "changes": {
+          "startAction": "move"
+        },
+        "description": "Performance can start as a move action; maintain as free action.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6085"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:bardic-performance:13",
+        "featureId": "ffd20:class:bard:feature:bardic-performance",
+        "atClassLevel": 13,
+        "changes": {
+          "startAction": "swift"
+        },
+        "description": "Performance can start as a swift action; maintain as free action.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6085"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:wide-audience:8",
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "atClassLevel": 8,
+        "changes": {
+          "radiusFeet": 50,
+          "coneFeet": 100,
+          "extraTargets": 2
+        },
+        "description": "Source-wide song area/target options improve at Bard level 8; use only for eligible song shapes.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6148"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:wide-audience:12",
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "atClassLevel": 12,
+        "changes": {
+          "radiusFeet": 60,
+          "coneFeet": 120,
+          "extraTargets": 3
+        },
+        "description": "Source-wide song area/target options improve at Bard level 12; use only for eligible song shapes.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6148"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:wide-audience:16",
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "atClassLevel": 16,
+        "changes": {
+          "radiusFeet": 70,
+          "coneFeet": 140,
+          "extraTargets": 4
+        },
+        "description": "Source-wide song area/target options improve at Bard level 16; use only for eligible song shapes.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6148"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:wide-audience:20",
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "atClassLevel": 20,
+        "changes": {
+          "radiusFeet": 80,
+          "coneFeet": 160,
+          "extraTargets": 5
+        },
+        "description": "Source-wide song area/target options improve at Bard level 20; use only for eligible song shapes.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6148"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:versatile-performance:6",
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "atClassLevel": 6,
+        "changes": {
+          "specializations": 2
+        },
+        "description": "Gain another Versatile Performance selection at level 6; prior choices persist.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6129"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:versatile-performance:10",
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "atClassLevel": 10,
+        "changes": {
+          "specializations": 3
+        },
+        "description": "Gain another Versatile Performance selection at level 10; prior choices persist.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6129"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:versatile-performance:14",
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "atClassLevel": 14,
+        "changes": {
+          "specializations": 4
+        },
+        "description": "Gain another Versatile Performance selection at level 14; prior choices persist.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6129"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:versatile-performance:18",
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "atClassLevel": 18,
+        "changes": {
+          "specializations": 5
+        },
+        "description": "Gain another Versatile Performance selection at level 18; prior choices persist.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6129"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:4",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 4,
+        "changes": {
+          "talentSelections": 2
+        },
+        "description": "Total Song Talent slots 2 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:6",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 6,
+        "changes": {
+          "talentSelections": 3
+        },
+        "description": "Total Song Talent slots 3 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:8",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 8,
+        "changes": {
+          "talentSelections": 4
+        },
+        "description": "Total Song Talent slots 4 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:10",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 10,
+        "changes": {
+          "talentSelections": 5
+        },
+        "description": "Total Song Talent slots 5 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:12",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 12,
+        "changes": {
+          "talentSelections": 6
+        },
+        "description": "Total Song Talent slots 6 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:14",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 14,
+        "changes": {
+          "talentSelections": 7
+        },
+        "description": "Total Song Talent slots 7 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:16",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 16,
+        "changes": {
+          "talentSelections": 8
+        },
+        "description": "Total Song Talent slots 8 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:18",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 18,
+        "changes": {
+          "talentSelections": 9
+        },
+        "description": "Total Song Talent slots 9 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:song-talents:20",
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "atClassLevel": 20,
+        "changes": {
+          "talentSelections": 10
+        },
+        "description": "Total Song Talent slots 10 (at level 12+ may select advanced instead).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6138"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:fascinate:4",
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "atClassLevel": 4,
+        "changes": {
+          "targets": 2
+        },
+        "description": "Fascinate target capacity increases to 2.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:fascinate:7",
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "atClassLevel": 7,
+        "changes": {
+          "targets": 3
+        },
+        "description": "Fascinate target capacity increases to 3.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:fascinate:10",
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "atClassLevel": 10,
+        "changes": {
+          "targets": 4
+        },
+        "description": "Fascinate target capacity increases to 4.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:fascinate:13",
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "atClassLevel": 13,
+        "changes": {
+          "targets": 5
+        },
+        "description": "Fascinate target capacity increases to 5.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:fascinate:16",
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "atClassLevel": 16,
+        "changes": {
+          "targets": 6
+        },
+        "description": "Fascinate target capacity increases to 6.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:fascinate:19",
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "atClassLevel": 19,
+        "changes": {
+          "targets": 7
+        },
+        "description": "Fascinate target capacity increases to 7.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-greatness:12",
+        "featureId": "ffd20:class:bard:feature:inspire-greatness",
+        "atClassLevel": 12,
+        "changes": {
+          "targets": 2
+        },
+        "description": "Inspire Greatness can target 2 allies.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6108"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-greatness:15",
+        "featureId": "ffd20:class:bard:feature:inspire-greatness",
+        "atClassLevel": 15,
+        "changes": {
+          "targets": 3
+        },
+        "description": "Inspire Greatness can target 3 allies.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6108"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-greatness:18",
+        "featureId": "ffd20:class:bard:feature:inspire-greatness",
+        "atClassLevel": 18,
+        "changes": {
+          "targets": 4
+        },
+        "description": "Inspire Greatness can target 4 allies.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6108"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:inspire-heroics:18",
+        "featureId": "ffd20:class:bard:feature:inspire-heroics",
+        "atClassLevel": 18,
+        "changes": {
+          "targets": 2
+        },
+        "description": "Inspire Heroics can target two allies.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6115"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:sirens-song:5",
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "atClassLevel": 5,
+        "changes": {
+          "durationRounds": 2
+        },
+        "description": "Limit Break lasts 2 rounds.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:soul-voice:5",
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "atClassLevel": 5,
+        "changes": {
+          "durationRounds": 2
+        },
+        "description": "Limit Break lasts 2 rounds.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:sirens-song:9",
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "atClassLevel": 9,
+        "changes": {
+          "durationRounds": 3
+        },
+        "description": "Limit Break lasts 3 rounds.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:soul-voice:9",
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "atClassLevel": 9,
+        "changes": {
+          "durationRounds": 3
+        },
+        "description": "Limit Break lasts 3 rounds.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:sirens-song:13",
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "atClassLevel": 13,
+        "changes": {
+          "durationRounds": 4
+        },
+        "description": "Limit Break lasts 4 rounds.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:soul-voice:13",
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "atClassLevel": 13,
+        "changes": {
+          "durationRounds": 4
+        },
+        "description": "Limit Break lasts 4 rounds.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:sirens-song:17",
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "atClassLevel": 17,
+        "changes": {
+          "durationRounds": 5
+        },
+        "description": "Limit Break lasts 5 rounds.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:upgrade:soul-voice:17",
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "atClassLevel": 17,
+        "changes": {
+          "durationRounds": 5
+        },
+        "description": "Limit Break lasts 5 rounds.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "6057"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:class:bard:event:gain:weapon-and-armor-proficiency",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:weapon-and-armor-proficiency",
+        "description": "Gain Weapon and Armor Proficiency."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:limit-breaks",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:limit-breaks",
+        "description": "Gain Limit Breaks."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:sirens-song",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "description": "Gain Siren's Song."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:soul-voice",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "description": "Gain Soul Voice."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:songs",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:songs",
+        "description": "Gain Songs."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:jingles",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "description": "Gain Jingles."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:musical-power",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:musical-power",
+        "description": "Gain Musical Power."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:bardic-performance",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:bardic-performance",
+        "description": "Gain Bardic Performance."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:countersong",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:countersong",
+        "description": "Gain Countersong."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:distraction",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:distraction",
+        "description": "Gain Distraction."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:fascinate",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "description": "Gain Fascinate."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:inspire-courage",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:bard:feature:inspire-courage",
+        "description": "Gain Inspire Courage."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:versatile-performance",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "description": "Gain Versatile Performance."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:well-versed",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:bard:feature:well-versed",
+        "description": "Gain Well-Versed."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:song-talents",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "description": "Gain Song Talents."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:inspire-competence",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "description": "Gain Inspire Competence."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:inspiration",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "description": "Gain Inspiration."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:medley",
+        "type": "grant_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:bard:feature:medley",
+        "description": "Gain Medley."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:wide-audience",
+        "type": "grant_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "description": "Gain Wide Audience."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:clear-mind",
+        "type": "grant_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:bard:feature:clear-mind",
+        "description": "Gain Clear Mind."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:suggestion",
+        "type": "grant_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:bard:feature:suggestion",
+        "description": "Gain Suggestion."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:skilled-performer",
+        "type": "grant_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:bard:feature:skilled-performer",
+        "description": "Gain Skilled Performer."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:dirge-of-doom",
+        "type": "grant_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:bard:feature:dirge-of-doom",
+        "description": "Gain Dirge of Doom."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:inspire-greatness",
+        "type": "grant_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:bard:feature:inspire-greatness",
+        "description": "Gain Inspire Greatness."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:soothing-performance",
+        "type": "grant_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:bard:feature:soothing-performance",
+        "description": "Gain Soothing Performance."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:advanced-song-talents",
+        "type": "grant_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:bard:feature:advanced-song-talents",
+        "description": "Gain Advanced Song Talents."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:cant-stop-my-performance",
+        "type": "grant_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:bard:feature:cant-stop-my-performance",
+        "description": "Gain Can't Stop My Performance."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:frightening-tune",
+        "type": "grant_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:bard:feature:frightening-tune",
+        "description": "Gain Frightening Tune."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:inspire-heroics",
+        "type": "grant_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:bard:feature:inspire-heroics",
+        "description": "Gain Inspire Heroics."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:unstoppable-performance",
+        "type": "grant_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:bard:feature:unstoppable-performance",
+        "description": "Gain Unstoppable Performance."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:adoring-fan",
+        "type": "grant_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:bard:feature:adoring-fan",
+        "description": "Gain Adoring Fan."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:1-mp-song",
+        "type": "grant_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:bard:feature:1-mp-song",
+        "description": "Gain 1 MP Song."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:funeral-ballad",
+        "type": "grant_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:bard:feature:funeral-ballad",
+        "description": "Gain Funeral Ballad."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:deadly-performance",
+        "type": "grant_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:bard:feature:deadly-performance",
+        "description": "Gain Deadly Performance."
+      },
+      {
+        "id": "ffd20:class:bard:event:gain:master-bard",
+        "type": "grant_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:bard:feature:master-bard",
+        "description": "Gain Master Bard."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-courage:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:bard:feature:inspire-courage",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-courage:5",
+        "description": "Inspire Courage becomes +2 to applicable bonuses while active."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-courage:11",
+        "type": "upgrade_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:bard:feature:inspire-courage",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-courage:11",
+        "description": "Inspire Courage becomes +3 to applicable bonuses while active."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-courage:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:bard:feature:inspire-courage",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-courage:17",
+        "description": "Inspire Courage becomes +4 to applicable bonuses while active."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-competence:7",
+        "type": "upgrade_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-competence:7",
+        "description": "Inspire Competence becomes +3 while active."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-competence:11",
+        "type": "upgrade_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-competence:11",
+        "description": "Inspire Competence becomes +4 while active."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-competence:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-competence:15",
+        "description": "Inspire Competence becomes +5 while active."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-competence:19",
+        "type": "upgrade_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:bard:feature:inspire-competence",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-competence:19",
+        "description": "Inspire Competence becomes +6 while active."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspiration:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "upgradeId": "ffd20:class:bard:upgrade:inspiration:5",
+        "description": "Inspiration becomes 2d6 temporary HP for eligible creatures."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspiration:7",
+        "type": "upgrade_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "upgradeId": "ffd20:class:bard:upgrade:inspiration:7",
+        "description": "Inspiration becomes 3d6 temporary HP for eligible creatures."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspiration:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "upgradeId": "ffd20:class:bard:upgrade:inspiration:9",
+        "description": "Inspiration becomes 4d6 temporary HP for eligible creatures."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspiration:11",
+        "type": "upgrade_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "upgradeId": "ffd20:class:bard:upgrade:inspiration:11",
+        "description": "Inspiration becomes 5d6 temporary HP for eligible creatures."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspiration:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "upgradeId": "ffd20:class:bard:upgrade:inspiration:13",
+        "description": "Inspiration becomes 6d6 temporary HP for eligible creatures."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspiration:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "upgradeId": "ffd20:class:bard:upgrade:inspiration:15",
+        "description": "Inspiration becomes 7d6 temporary HP for eligible creatures."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspiration:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "upgradeId": "ffd20:class:bard:upgrade:inspiration:17",
+        "description": "Inspiration becomes 8d6 temporary HP for eligible creatures."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspiration:19",
+        "type": "upgrade_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:bard:feature:inspiration",
+        "upgradeId": "ffd20:class:bard:upgrade:inspiration:19",
+        "description": "Inspiration becomes 9d6 temporary HP for eligible creatures."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:medley:8",
+        "type": "upgrade_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:bard:feature:medley",
+        "upgradeId": "ffd20:class:bard:upgrade:medley:8",
+        "description": "Medley can maintain 3 songs, subject to checks."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:medley:12",
+        "type": "upgrade_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:bard:feature:medley",
+        "upgradeId": "ffd20:class:bard:upgrade:medley:12",
+        "description": "Medley can maintain 4 songs, subject to checks."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:medley:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:bard:feature:medley",
+        "upgradeId": "ffd20:class:bard:upgrade:medley:16",
+        "description": "Medley can maintain 5 songs, subject to checks."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:clear-mind:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:bard:feature:clear-mind",
+        "upgradeId": "ffd20:class:bard:upgrade:clear-mind:10",
+        "description": "Clear Mind regenerates 2 MP/hour in stated conditions."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:clear-mind:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:bard:feature:clear-mind",
+        "upgradeId": "ffd20:class:bard:upgrade:clear-mind:15",
+        "description": "Clear Mind regenerates 3 MP/hour in stated conditions."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:clear-mind:20",
+        "type": "upgrade_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:bard:feature:clear-mind",
+        "upgradeId": "ffd20:class:bard:upgrade:clear-mind:20",
+        "description": "Clear Mind regenerates 4 MP/hour in stated conditions."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:skilled-performer:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:bard:feature:skilled-performer",
+        "upgradeId": "ffd20:class:bard:upgrade:skilled-performer:13",
+        "description": "Skilled Performer allows allocating 10 bonus points among Perform specialties."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:skilled-performer:19",
+        "type": "upgrade_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:bard:feature:skilled-performer",
+        "upgradeId": "ffd20:class:bard:upgrade:skilled-performer:19",
+        "description": "Skilled Performer allows allocating 15 bonus points among Perform specialties."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:jingles:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "upgradeId": "ffd20:class:bard:upgrade:jingles:5",
+        "description": "Jingles known rises to 3."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:jingles:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "upgradeId": "ffd20:class:bard:upgrade:jingles:9",
+        "description": "Jingles known rises to 4."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:jingles:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "upgradeId": "ffd20:class:bard:upgrade:jingles:13",
+        "description": "Jingles known rises to 5."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:jingles:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:bard:feature:jingles",
+        "upgradeId": "ffd20:class:bard:upgrade:jingles:17",
+        "description": "Jingles known rises to 6."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:bardic-performance:7",
+        "type": "upgrade_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:bard:feature:bardic-performance",
+        "upgradeId": "ffd20:class:bard:upgrade:bardic-performance:7",
+        "description": "Performance can start as a move action; maintain as free action."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:bardic-performance:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:bard:feature:bardic-performance",
+        "upgradeId": "ffd20:class:bard:upgrade:bardic-performance:13",
+        "description": "Performance can start as a swift action; maintain as free action."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:wide-audience:8",
+        "type": "upgrade_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "upgradeId": "ffd20:class:bard:upgrade:wide-audience:8",
+        "description": "Source-wide song area/target options improve at Bard level 8; use only for eligible song shapes."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:wide-audience:12",
+        "type": "upgrade_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "upgradeId": "ffd20:class:bard:upgrade:wide-audience:12",
+        "description": "Source-wide song area/target options improve at Bard level 12; use only for eligible song shapes."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:wide-audience:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "upgradeId": "ffd20:class:bard:upgrade:wide-audience:16",
+        "description": "Source-wide song area/target options improve at Bard level 16; use only for eligible song shapes."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:wide-audience:20",
+        "type": "upgrade_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:bard:feature:wide-audience",
+        "upgradeId": "ffd20:class:bard:upgrade:wide-audience:20",
+        "description": "Source-wide song area/target options improve at Bard level 20; use only for eligible song shapes."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:versatile-performance:6",
+        "type": "upgrade_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "upgradeId": "ffd20:class:bard:upgrade:versatile-performance:6",
+        "description": "Gain another Versatile Performance selection at level 6; prior choices persist."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:versatile-performance:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "upgradeId": "ffd20:class:bard:upgrade:versatile-performance:10",
+        "description": "Gain another Versatile Performance selection at level 10; prior choices persist."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:versatile-performance:14",
+        "type": "upgrade_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "upgradeId": "ffd20:class:bard:upgrade:versatile-performance:14",
+        "description": "Gain another Versatile Performance selection at level 14; prior choices persist."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:versatile-performance:18",
+        "type": "upgrade_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:bard:feature:versatile-performance",
+        "upgradeId": "ffd20:class:bard:upgrade:versatile-performance:18",
+        "description": "Gain another Versatile Performance selection at level 18; prior choices persist."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:4",
+        "type": "upgrade_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:4",
+        "description": "Total Song Talent slots 2 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:6",
+        "type": "upgrade_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:6",
+        "description": "Total Song Talent slots 3 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:8",
+        "type": "upgrade_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:8",
+        "description": "Total Song Talent slots 4 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:10",
+        "description": "Total Song Talent slots 5 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:12",
+        "type": "upgrade_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:12",
+        "description": "Total Song Talent slots 6 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:14",
+        "type": "upgrade_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:14",
+        "description": "Total Song Talent slots 7 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:16",
+        "description": "Total Song Talent slots 8 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:18",
+        "type": "upgrade_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:18",
+        "description": "Total Song Talent slots 9 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:song-talents:20",
+        "type": "upgrade_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:bard:feature:song-talents",
+        "upgradeId": "ffd20:class:bard:upgrade:song-talents:20",
+        "description": "Total Song Talent slots 10 (at level 12+ may select advanced instead)."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:fascinate:4",
+        "type": "upgrade_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "upgradeId": "ffd20:class:bard:upgrade:fascinate:4",
+        "description": "Fascinate target capacity increases to 2."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:fascinate:7",
+        "type": "upgrade_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "upgradeId": "ffd20:class:bard:upgrade:fascinate:7",
+        "description": "Fascinate target capacity increases to 3."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:fascinate:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "upgradeId": "ffd20:class:bard:upgrade:fascinate:10",
+        "description": "Fascinate target capacity increases to 4."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:fascinate:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "upgradeId": "ffd20:class:bard:upgrade:fascinate:13",
+        "description": "Fascinate target capacity increases to 5."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:fascinate:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "upgradeId": "ffd20:class:bard:upgrade:fascinate:16",
+        "description": "Fascinate target capacity increases to 6."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:fascinate:19",
+        "type": "upgrade_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:bard:feature:fascinate",
+        "upgradeId": "ffd20:class:bard:upgrade:fascinate:19",
+        "description": "Fascinate target capacity increases to 7."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-greatness:12",
+        "type": "upgrade_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:bard:feature:inspire-greatness",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-greatness:12",
+        "description": "Inspire Greatness can target 2 allies."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-greatness:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:bard:feature:inspire-greatness",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-greatness:15",
+        "description": "Inspire Greatness can target 3 allies."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-greatness:18",
+        "type": "upgrade_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:bard:feature:inspire-greatness",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-greatness:18",
+        "description": "Inspire Greatness can target 4 allies."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:inspire-heroics:18",
+        "type": "upgrade_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:bard:feature:inspire-heroics",
+        "upgradeId": "ffd20:class:bard:upgrade:inspire-heroics:18",
+        "description": "Inspire Heroics can target two allies."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:sirens-song:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "upgradeId": "ffd20:class:bard:upgrade:sirens-song:5",
+        "description": "Limit Break lasts 2 rounds."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:soul-voice:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "upgradeId": "ffd20:class:bard:upgrade:soul-voice:5",
+        "description": "Limit Break lasts 2 rounds."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:sirens-song:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "upgradeId": "ffd20:class:bard:upgrade:sirens-song:9",
+        "description": "Limit Break lasts 3 rounds."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:soul-voice:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "upgradeId": "ffd20:class:bard:upgrade:soul-voice:9",
+        "description": "Limit Break lasts 3 rounds."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:sirens-song:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "upgradeId": "ffd20:class:bard:upgrade:sirens-song:13",
+        "description": "Limit Break lasts 4 rounds."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:soul-voice:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "upgradeId": "ffd20:class:bard:upgrade:soul-voice:13",
+        "description": "Limit Break lasts 4 rounds."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:sirens-song:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:bard:feature:sirens-song",
+        "upgradeId": "ffd20:class:bard:upgrade:sirens-song:17",
+        "description": "Limit Break lasts 5 rounds."
+      },
+      {
+        "id": "ffd20:class:bard:event:upgrade:soul-voice:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:bard:feature:soul-voice",
+        "upgradeId": "ffd20:class:bard:upgrade:soul-voice:17",
+        "description": "Limit Break lasts 5 rounds."
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:song-talents:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolId": "ffd20:class:bard:pool:song-talents",
+        "count": 1,
+        "description": "Select one song talent, with advanced options available instead at level 12+.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:versatile-performance:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolId": "ffd20:class:bard:pool:versatile-performance",
+        "count": 1,
+        "description": "Select a Perform specialization or eligible advanced option.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:versatile-performance:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolId": "ffd20:class:bard:pool:versatile-performance",
+        "count": 1,
+        "description": "Select a Perform specialization or eligible advanced option.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:versatile-performance:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolId": "ffd20:class:bard:pool:versatile-performance",
+        "count": 1,
+        "description": "Select a Perform specialization or eligible advanced option.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:versatile-performance:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolId": "ffd20:class:bard:pool:versatile-performance",
+        "count": 1,
+        "description": "Select a Perform specialization or eligible advanced option.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:versatile-performance:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolId": "ffd20:class:bard:pool:versatile-performance",
+        "count": 1,
+        "description": "Select a Perform specialization or eligible advanced option.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": {
+          "kind": "formula",
+          "expression": "3 + CHA_MOD"
+        },
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:3",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:7",
+        "type": "choose",
+        "atClassLevel": 7,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:11",
+        "type": "choose",
+        "atClassLevel": 11,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:13",
+        "type": "choose",
+        "atClassLevel": 13,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:17",
+        "type": "choose",
+        "atClassLevel": 17,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:19",
+        "type": "choose",
+        "atClassLevel": 19,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:songs:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolId": "ffd20:class:bard:pool:songs",
+        "count": 2,
+        "description": "Choose Bard songs known; CHA and song-level restrictions apply.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:jingles:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolId": "ffd20:class:bard:pool:jingles",
+        "count": 2,
+        "description": "Choose eligible 0-level jingles.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:jingles:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolId": "ffd20:class:bard:pool:jingles",
+        "count": 1,
+        "description": "Choose eligible 0-level jingles.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:jingles:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolId": "ffd20:class:bard:pool:jingles",
+        "count": 1,
+        "description": "Choose eligible 0-level jingles.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:jingles:13",
+        "type": "choose",
+        "atClassLevel": 13,
+        "poolId": "ffd20:class:bard:pool:jingles",
+        "count": 1,
+        "description": "Choose eligible 0-level jingles.",
+        "implementation": "pending_catalog"
+      },
+      {
+        "id": "ffd20:class:bard:event:choice:jingles:17",
+        "type": "choose",
+        "atClassLevel": 17,
+        "poolId": "ffd20:class:bard:pool:jingles",
+        "count": 1,
+        "description": "Choose eligible 0-level jingles.",
+        "implementation": "pending_catalog"
+      }
+    ],
+    "archetypeIndex": [
+      {
+        "id": "ffd20:class:bard:archetype:abhorsen",
+        "name": "Abhorsen",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:agent-of-inquiry",
+        "name": "Agent of Inquiry",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:cacophonist",
+        "name": "Cacophonist",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:clown",
+        "name": "Clown",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:dragon-herald",
+        "name": "Dragon Herald",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:dragonkin",
+        "name": "Dragonkin",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:guitarist",
+        "name": "Guitarist",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:juggler",
+        "name": "Juggler",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:marshal",
+        "name": "Marshal",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:mediator",
+        "name": "Mediator",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:orator",
+        "name": "Orator",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:pied-piper",
+        "name": "Pied Piper",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:prankster",
+        "name": "Prankster",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:princess",
+        "name": "Princess",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:rearguard",
+        "name": "Rearguard",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:rocker",
+        "name": "Rocker",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:skald",
+        "name": "Skald",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:songhealer",
+        "name": "Songhealer",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:songstress",
+        "name": "Songstress",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:storyteller",
+        "name": "Storyteller",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      },
+      {
+        "id": "ffd20:class:bard:archetype:watersinger",
+        "name": "Watersinger",
+        "status": "index_only",
+        "enabledInWizard": false,
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/archetypes/"
+      }
+    ],
+    "spellcasting": {
+      "learningMode": "songs",
+      "ability": "cha",
+      "maxSongLevel": 6,
+      "startingSongs": "3 + CHA_MOD (1st-level)",
+      "additionalSongsPerBardLevel": 2,
+      "baseMpByClassLevel": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        8,
+        10,
+        13,
+        16,
+        20,
+        24,
+        29,
+        34,
+        39,
+        45,
+        51,
+        57,
+        64,
+        71,
+        79
+      ],
+      "bonusMp": "official CHA bonus-MP table",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Songs",
+          "locator": "6059"
+        }
+      ]
+    },
+    "resources": [
+      {
+        "id": "ffd20:class:bard:resource:performance",
+        "name": "Bardic Performance rounds",
+        "maximumFormula": "4 + CHA_MOD + 2 * (CLASS_LEVEL - 1)",
+        "recovery": "daily",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bardic Performance",
+            "locator": "6082"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:bard:resource:inspiration",
+        "name": "Inspiration uses",
+        "maximumFormula": "3 + CHA_MOD",
+        "recovery": "daily",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inspiration",
+            "locator": "6141"
+          }
+        ]
+      }
+    ]
+  }
+}

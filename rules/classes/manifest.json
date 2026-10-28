@@ -8,6 +8,13 @@
       "status": "live",
       "adapter": "archer",
       "coverage": "partial"
+    },
+    {
+      "id": "ffd20:class:bard",
+      "file": "rules/classes/bard.class.json",
+      "status": "staged",
+      "adapter": null,
+      "coverage": "partial"
     }
   ]
 }
