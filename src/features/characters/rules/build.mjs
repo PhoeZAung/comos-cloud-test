@@ -7,12 +7,13 @@ import {blackMageSummary} from '../rules-summary.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
 import {fixedSkills} from '../../sheet/skills.mjs';
 import {pointSpend,standardArray} from '../ability-generation.mjs';
-export {registry,spells};
+import {ARCHER_ID,BLACK_MAGE_ID,availableClasses,classFor,isArcher,classHitDie,classDefaultHp,className,classSkill,archerChoiceEvents,archerEligibleOptions,archerPreview,archerIssues,archerFeatureChanges,compileArcherBuild} from './class-adapters.mjs';
+export {registry,spells,availableClasses,classFor,className,classSkill};
 export const stats=['str','dex','con','int','wis','cha'];
 export const steps=['Identity','Base scores','Race','Class','Choices','Spells','Review'];
 const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
-export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,raceId:'',heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
+export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
 export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id));}
 export function raceTraits(b){
@@ -50,10 +51,10 @@ export function calculated(value,b,effective=effectiveScores(b)){
  let v=sum();if(at!==tokens.length||!Number.isFinite(v)||Math.abs(v)>1000000)bad('Invalid formula result.');
  v=value.rounding==='ceil'?Math.ceil(v):value.rounding==='none'?v:Math.floor(v);if(value.minimum!==null)v=Math.max(v,value.minimum);if(value.maximum!==null)v=Math.min(v,value.maximum);return v;
 }
-export function choiceEvents(b){return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
-export function eligibleOptions(b,event){const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
-export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?6:4));}
-export function spellCounts(b){const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
+export function choiceEvents(b){if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
+export function eligibleOptions(b,event){if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
+export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?classHitDie(b):classDefaultHp(b)));}
+export function spellCounts(b){if(isArcher(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
  const errors=[];const add=(step,message)=>errors.push({step,message});
  if(!b.name.trim())add(0,'Enter a character name.');
@@ -77,10 +78,10 @@ export function buildIssues(b,{complete=true}={}){
  }
 
  if(race?.id==='ffd20:race:mutant')add(3,'Mutant requires random level-based ability increases and replaces standard fourth-level ability increases. The current wizard cannot safely calculate this progression, so automated character saving is disabled until its progression is implemented.');
- if(race?.id==='ffd20:race:immortal')add(3,'Immortal Magic Ineptitude forbids obtaining an MP pool; Black Mage is not currently supported for this race. You can explore its rules, but cannot save this incompatible automated build.');
- if(race?.id==='ffd20:race:shindroid'&&!b.alternateIds.includes('ffd20:race:shindroid:trait:magitek-unit'))add(3,'Shindroid Magic Ineptitude forbids obtaining an MP pool without Magitek Unit; this Black Mage build cannot be saved unless Magitek Unit is selected.');
- if(race?.id==='ffd20:race:antica')add(3,'Antica cannot normally cast spells without Silent Spell or Telepathic Spellcaster. The current Black Mage wizard cannot verify this exception; you can inspect Antica rules but cannot save this automatic build.');
- if(race?.id==='ffd20:race:tonkin')add(3,'Tonkin cannot normally cast vocal-component spells, and Silent Spell/Telepathic Spellcaster compatibility is not yet verified in this Black Mage wizard. Character saving is blocked until supported.');
+ if(!isArcher(b)&&race?.id==='ffd20:race:immortal')add(3,'Immortal Magic Ineptitude forbids obtaining an MP pool; Black Mage is not currently supported for this race. You can explore its rules, but cannot save this incompatible automated build.');
+ if(!isArcher(b)&&race?.id==='ffd20:race:shindroid'&&!b.alternateIds.includes('ffd20:race:shindroid:trait:magitek-unit'))add(3,'Shindroid Magic Ineptitude forbids obtaining an MP pool without Magitek Unit; this Black Mage build cannot be saved unless Magitek Unit is selected.');
+ if(!isArcher(b)&&race?.id==='ffd20:race:antica')add(3,'Antica cannot normally cast spells without Silent Spell or Telepathic Spellcaster. The current Black Mage wizard cannot verify this exception; you can inspect Antica rules but cannot save this automatic build.');
+ if(!isArcher(b)&&race?.id==='ffd20:race:tonkin')add(3,'Tonkin cannot normally cast vocal-component spells, and Silent Spell/Telepathic Spellcaster compatibility is not yet verified in this Black Mage wizard. Character saving is blocked until supported.');
  if(race?.id==='ffd20:race:ixal'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
   if(active.has('ffd20:race:ixal:trait:bond-to-the-ice'))add(2,'Ixal Bond to the Ice requires choosing one forest or icy terrain; race-specific choice UI is unavailable and character saving is blocked.');
@@ -116,6 +117,8 @@ export function buildIssues(b,{complete=true}={}){
   if(active.has('ffd20:race:viera:trait:elemental-summoner'))add(2,'Viera Elemental Summoner requires choosing one elemental subtype. Race-specific selection is not yet supported by this wizard; save is blocked until the subtype can be recorded.');
   if(active.has('ffd20:race:viera:trait:mist-sight'))add(2,'Viera Mist Sight requires one selected spell-like ability (not all three). Race-specific selection is not yet supported; save is blocked until the spell choice can be recorded.');
  }
+ if(isArcher(b)){for(const issue of archerIssues(b,{complete}))add(issue.step,issue.message);return errors;}
+ if(!classFor(b))add(3,'Unknown or unavailable class.');
  if(!Number.isInteger(b.level)||b.level<1||b.level>20||buildLevel(b)>20)add(3,'Choose a Black Mage level from 1 to 20.');
  if(b.archetypeId)add(3,'This archetype is not ready for automatic application. Choose base Black Mage for this release.');
  const effective=effectiveScores(b);if(effective.int>45)add(1,'Effective Intelligence above 45 needs a verified bonus-MP table extension.');
@@ -136,7 +139,7 @@ export function buildIssues(b,{complete=true}={}){
 export function sanitizeBuild(raw){
  const b=newBuild(),keys=Object.keys(b);if(!raw||typeof raw!=='object'||Array.isArray(raw)||Object.keys(raw).some(k=>!keys.includes(k))||raw.version!==registry.version)bad('Unsupported character build.');
  if(raw.carry!==undefined&&raw.carry!==null){if(typeof raw.carry!=='object'||Array.isArray(raw.carry)||JSON.stringify(raw.carry).length>25000)bad('Invalid previous class data.');b.carry=structuredClone(raw.carry);}
- for(const k of ['name','alignment','bio','portrait','raceId','heritageId','archetypeId']){if(typeof raw[k]!=='string'||raw[k].length>(k==='portrait'?160000:k==='bio'?2000:k==='name'?80:250))bad('Invalid '+k+'.');b[k]=raw[k];}
+ for(const k of ['name','alignment','bio','portrait','raceId','heritageId','archetypeId','classId']){const v=k==='classId'?(raw.classId??BLACK_MAGE_ID):raw[k];if(typeof v!=='string'||v.length>(k==='portrait'?160000:k==='bio'?2000:k==='name'?80:250))bad('Invalid '+k+'.');b[k]=v;}if(!classFor(b))bad('Class not enabled.');
  if(!raw.baseScores||Object.keys(raw.baseScores).some(k=>!stats.includes(k)))bad('Invalid base scores.');for(const k of stats){if(!Number.isInteger(raw.baseScores[k])||raw.baseScores[k]<1||raw.baseScores[k]>45)bad('Invalid base scores.');b.baseScores[k]=raw.baseScores[k];}
  for(const k of ['disabledTraits','alternateIds','spellIds']){if(!Array.isArray(raw[k])||raw[k].length>400||raw[k].some(v=>typeof v!=='string'||v.length>250))bad('Invalid '+k+'.');b[k]=uniq(raw[k]);}
  if(raw.spellSelections!==undefined&&raw.spellSelections!==null){const groups=raw.spellSelections;if(!groups||typeof groups!=='object'||Array.isArray(groups)||Object.keys(groups).some(k=>!['cantrips','leveled'].includes(k)))bad('Invalid spell slots.');for(const k of ['cantrips','leveled'])if(!Array.isArray(groups[k])||groups[k].length>200||groups[k].some(v=>v!==null&&(typeof v!=='string'||v.length>250)))bad('Invalid spell slots.');if(JSON.stringify([...groups.cantrips,...groups.leveled].filter(Boolean))!==JSON.stringify(b.spellIds))bad('Spell slots do not match learned spells.');b.spellSelections=structuredClone(groups);}
@@ -157,6 +160,7 @@ export function sanitizeBuild(raw){
 }
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 export function previewBuild(b){
+ if(isArcher(b)){const scores=effectiveScores(b);return archerPreview(b,{scores,race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b),carriedLevels:carriedLevels(b)});}
  const scores=effectiveScores(b),ownSummary=blackMageSummary(b.level,scores.int),summary={...ownSummary,bab:ownSummary.bab+Number(b.carry?.bab||0),fort:ownSummary.fort+Number(b.carry?.fort||0),ref:ownSummary.ref+Number(b.carry?.ref||0),will:ownSummary.will+Number(b.carry?.will||0),baseMp:ownSummary.baseMp+Number(b.carry?.mpClass||0),bonusMp:ownSummary.bonusMp+Number(b.carry?.mpBonus||0),mp:ownSummary.mp+Number(b.carry?.mpClass||0)+Number(b.carry?.mpBonus||0)},race=raceFor(b),racial=raceTraits(b);
  const featureIds=new Set(registry.class.data.events.filter(e=>e.type==='grant_feature'&&e.atClassLevel<=b.level).flatMap(e=>e.featureIds));
  for(const event of choiceEvents(b))for(const id of b.choices[event.id]||[]){const opt=eligibleOptions(b,event).find(o=>o.id===id);for(const f of opt?.featureIds||[])featureIds.add(f);}
@@ -166,6 +170,13 @@ export function previewBuild(b){
  return {scores,summary,race,racial,features,hp:hp+carriedHp,skillBudget:Number(b.carry?.skillBudget||0)+carriedLevels(b)*(mod(scores.int)-mod(b.carry?.int??scores.int))+summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
 export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false}={}){
+ if(isArcher(raw)){
+  if(append||raw.carry)bad('Archer multiclassing is not yet supported.');
+  if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==ARCHER_ID)bad('A saved character cannot change its class.');
+  const b=sanitizeBuild(raw),p=previewBuild(b);
+  if(!allowRankReduction&&previous.rulesBuild&&b.skillRanks?.some((n,i)=>n<Number(previous.rulesBuild.rankFloor?.[i]??previous.rulesBuild.input.skillRanks?.[i]??0)))bad('Confirmed skill ranks cannot be reduced.');
+  return compileArcherBuild(b,previous,{preview:p,raceTraits,calculated,rankFloor:previous.rulesBuild?.rankFloor});
+ }
  const previousManaged=append?null:previous.rulesBuild;
  const expectedCarry=append?carryCharacter(previous):previousManaged?.input?.carry;
  if(!sameCarry(raw?.carry,expectedCarry))bad('Previous class data cannot be replaced.');
@@ -221,6 +232,21 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  syncLimitBreaks(next);return next;
 }
 export function levelUpBuild(raw,previous){
+ if(isArcher(raw)){
+  const old=previous.rulesBuild?.input;if(!old||old.classId!==ARCHER_ID)bad('This is not an Archer build.');
+  if(raw.level!==old.level+1||raw.level>20)bad('Archer level up adds exactly one level.');
+  const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+  for(const k of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId'])if(!same(raw[k],old[k]))bad('Level up cannot change '+k+'.');
+  const boosted={...(old.abilityIncreases||{})};
+  if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose a +1 ability increase.');boosted[raw.level]=raw.abilityIncreases[raw.level];}
+  if(!same(raw.abilityIncreases||{},boosted))bad('Only the current milestone grants a boost.');
+  if(!same(raw.hpRolls,[...hpHistory(old),classDefaultHp(raw)]))bad('Archer gains 5 base HP per new level.');
+  if(!Array.isArray(raw.skillRanks)||raw.skillRanks.some((n,i)=>n<Number(previous.skills?.[i]?.lvl||0)))bad('Level up cannot remove existing skill ranks.');
+  if(raw.spellIds?.length||raw.initialIntMod!==null&&raw.initialIntMod!==undefined)bad('Archer has no spellbook.');
+  for(const [id,v] of Object.entries(old.choices||{}))if(!same(raw.choices?.[id],v))bad('Earlier talent/feat choices cannot be changed on level up.');
+  if(!same(raw.favored,old.favored))bad('Favored rewards remain manual.');
+  const next=compileBuild(raw,previous),current=sheetStats(next);next.hp_curr=current.hpMax;next.mp=next.mp_curr=0;next.mp_temp=0;return next;
+ }
  const old=previous.rulesBuild?.input;if(!sameCarry(raw?.carry,old?.carry))bad('Previous class data cannot be replaced.');if(!old)bad('Open Edit to establish this character’s reviewed class build before leveling up.');
  if(buildLevel(old)>=20||raw.level!==old.level+1)bad('Level up adds exactly one level, up to level 20.');
  const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
@@ -238,6 +264,7 @@ export function levelUpBuild(raw,previous){
 }
 
 export function classFeatureChanges(build,baseline){
+ if(isArcher(build))return archerFeatureChanges(build,baseline);
  const after=previewBuild(build).features,before=baseline?previewBuild(baseline).features:[],oldIds=new Set(before.map(f=>f.id));
  const signature=(f,b)=>JSON.stringify({selectionCount:Object.values(b.choices||{}).flat().filter(id=>registry.class.choicePools.some(pool=>pool.options.some(o=>o.id===id&&o.featureIds.includes(f.id)))).length,resources:registry.class.resources.filter(r=>r.id===f.id.replace(':feature:',':resource:')||f.actions?.some(a=>a.costs?.some(c=>c.resourceId===r.id))).map(r=>calculated(r.maximum,b)),effects:(f.effects||[]).map(e=>calculated(e.value,b)),notes:(f.scalingNotes||[]).filter(n=>n.fromClassLevel<=b.level)});
  return after.map(feature=>({feature,kind:!oldIds.has(feature.id)?'new':baseline&&signature(feature,build)!==signature(feature,baseline)?'upgrade':null})).filter(row=>row.kind);
@@ -245,6 +272,7 @@ export function classFeatureChanges(build,baseline){
 export const hasSpellcasting=definition=>Boolean(definition?.data?.spellcasting&&definition.data.spellcasting.learningMode!=='none');
 
 export function appendClassBuild(raw,previous){
+ if(isArcher(raw))bad('Archer multiclassing is not yet verified. Create or level up an Archer for now.');
  if(raw.level!==1)bad('A new class begins at level 1.');
  const carry=carryCharacter(previous);if(!sameCarry(raw.carry,carry))bad('Previous class data cannot be replaced.');if(JSON.stringify(raw.hpRolls)!=='[4]')bad('A new class adds 4 base HP after character level 1.');const milestones=raw.abilityIncreases||{},total=buildLevel(raw);if(total%4===0?Object.keys(milestones).length!==1||!stats.includes(milestones[total]):Object.keys(milestones).length!==0)bad('Choose one ability increase only at a character-level milestone.');if(raw.initialIntMod!==null&&raw.initialIntMod!==mod(effectiveScores(raw).int))bad('Starting spell entitlement uses the new class starting modifier.');if(buildLevel({...raw,carry})>20)bad('Total level cannot exceed 20.');
  if(!Array.isArray(raw.skillRanks)||raw.skillRanks.some((n,i)=>n<carry.ranks[i]))bad('Adding a class cannot reduce existing skill ranks.');
