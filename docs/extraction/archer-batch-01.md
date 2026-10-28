@@ -20,3 +20,9 @@ Archer's 20 progression rows were transcribed in their official sequence. 52 arc
 The current COSMOS character save and level-up engine is hard-coded to Black Mage. A read-only Archer preview is included in the live wizard to inspect all 20 levels and upgrade events without using the Black Mage class calculations. This is not yet an Archer character builder. It cannot save Archer character records and deliberately does not mark the class approved. Separate integration work will implement legal feat/talent selections, HP, BAB, saves, class skills, proficiencies, and Archer character save, followed by archetypes in later batches.
 
 Sources were read as public website references, but feature descriptions are concise paraphrases, not copies of the site's entire text; source review is still pending.
+
+## Live class preview integration
+
+The class step now displays a read-only Archer rules explorer with a 1–20 level selector, official BAB/save values, class talents list, every feature at the chosen level, and specific NEW/UPGRADED labels driven by stable feature IDs. Existing Black Mage character save is unchanged. No Archer class can be saved yet, because the database and sheet rules adapter have not been generalized for Archer.
+
+To inspect Archer on the live site: sign in, open character creation, continue to Class step, and choose levels on the Archer explorer. The preview is not a selectable class for character saving.

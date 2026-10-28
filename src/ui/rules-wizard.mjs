@@ -2,6 +2,7 @@ import {registry,spells,newBuild,steps,stats,raceFor,raceTraits,replacementFor,r
 import {pointSpend,standardArray,rollScores,moveScoreToken} from '../features/characters/ability-generation.mjs';
 import {fixedSkills} from '../features/sheet/skills.mjs';
 import {recordId} from './record-id.mjs';
+import {archer,archerAtLevel,archerChanges,archerTalentOptions} from '../features/characters/rules/archer-levels.mjs';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const opt=(id,label,current,disabled=false)=>`<option value="${e(id)}" ${id===current?'selected':''} ${disabled?'disabled':''}>${e(label)}</option>`;
 
@@ -31,7 +32,36 @@ const field=(label,html)=>`<label class="rw-field"><span>${e(label)}</span>${htm
 const racialGroup=(title,html)=>`<details class="rw-panel rw-racial-group" open><summary>${e(title)}</summary>${html}</details>`;
 const input=(value,attributes)=>`<input ${attributes} value="${e(value)}">`;
 const check=(label,attributes,checked,help='')=>`<label class="rw-check"><input type="checkbox" ${attributes} ${checked?'checked':''}><span>${e(label)}${help?'<small>'+e(help)+'</small>':''}</span></label>`;
-export function renderBuild(b,step,{query='',level='all',message='',legacy=false,mode='edit',baseline=null,displayStep=step,displaySteps=steps,rankFloor=null}={}){
+function archerProgressPanel(level){
+ const view=archerAtLevel(level),update=archerChanges(level);
+ const stateText=f=>{
+  const x=f.state||{};
+  if(f.name==='Aim')return '+'+x.bonus+' insight vs '+x.targets+' aimed target(s); '+(x.action==='move_or_swift'?'move or swift action':'move action');
+  if(f.name==='Hawkeye')return '+'+x.perceptionBonus+' Perception; +'+x.rangeIncrementFeet+' ft range increment';
+  if(f.name==='Expert Archer')return '+'+x.rangedAttackBonus+' bow/crossbow attack and damage';
+  if(f.name==='Fast Movement')return '+'+x.speedBonusFeet+' ft under armor/load/action conditions';
+  if(f.name==='Evasive Archer')return '+'+x.rangedAcDodgeBonus+' ranged-only dodge AC';
+  if(f.name==='Critical Aim')return '+'+x.extraThreatRange+' threat-range increase with bows/crossbows';
+  if(f.name==='Evasion')return x.improved?'Improved Evasion (half damage even on a failed qualifying save)':'Evasion (no damage on qualifying successful save)';
+  if(f.name==='Uncanny Dodge')return x.improved?'Improved Uncanny Dodge (cannot normally be flanked)':'Uncanny Dodge (retains DEX vs surprise/invisibility)';
+  if(f.name==='Shell Piercer')return x.durationRounds+' rounds; '+x.arrowsOrDcBonus+' arrow(s) against touch AC per round';
+  if(f.name==='Trueshot Arrow')return x.durationRounds+' rounds; DC competence bonus +'+x.arrowsOrDcBonus;
+  return f.description;
+ };
+ const item=entry=>'<details class="rw-archer-feature"><summary>'+e(entry.name)+' <small>'+e(stateText(entry))+'</small></summary><p>'+e(entry.description)+'</p>'+(entry.history.length?'<p class="field-help">Improved at Archer levels '+entry.history.map(x=>x.atClassLevel).join(', ')+'.</p>':'')+'</details>';
+ return '<section class="rw-panel rw-archer-explorer" aria-label="Archer class level explorer"><h2>Archer — Class Levels & Upgrades</h2>'+
+ '<p class="field-help">View Archer rules at any class level. This is a read-only rules explorer; character saving still uses Black Mage. No Archer abilities are applied to your current character.</p>'+
+ '<p><a href="'+e(archer.sources[0].url)+'" target="_blank" rel="noopener">Official Archer class rules ↗</a></p>'+
+ field('Inspect Archer level','<select data-rw-archer-level aria-label="Inspect Archer level">'+Array.from({length:20},(_,i)=>opt(String(i+1),'Level '+(i+1),String(level))).join('')+'</select>')+
+ '<div class="rw-archer-stats"><div><small>Hit Die</small><strong>d8</strong></div><div><small>BAB</small><strong>'+e(view.row.iterativeAttacks.length?view.row.iterativeAttacks.map(n=>'+'+n).join('/'): '+0')+'</strong></div><div><small>Fort / Ref / Will</small><strong>+'+view.row.fort+' / +'+view.row.ref+' / +'+view.row.will+'</strong></div><div><small>Archery talents</small><strong>'+view.totalTalentSlots+'</strong></div></div>'+
+ '<h3>Changes at level '+level+'</h3>'+
+ '<div class="rw-archer-changes">'+update.map(x=>'<div><strong>'+e(x.kind==='upgrade'?'↑ Improved':x.kind==='new'?'✦ New':'◇ Choice')+': '+e(x.name||'Ability')+'</strong><p>'+e(x.description)+'</p></div>').join('')+'</div>'+
+ '<details class="rw-archer-section" open><summary>Current class abilities ('+view.features.length+')</summary>'+view.features.map(item).join('')+'</details>'+
+ '<details class="rw-archer-section"><summary>Archery talents ('+archer.data.talents.length+' options; '+view.totalTalentSlots+' selection slots by this level)</summary><p class="field-help">Descriptions and prerequisites are for inspection only. Dimmed talents require more levels or verification; asterisk talents cannot be combined during the same round, but can be learned separately.</p>'+
+ archerTalentOptions(level).map(t=>'<details class="rw-archer-feature '+(!t.meetsLevel||t.requiresVerification?'rw-trait--review':'')+'"><summary>'+e(t.name)+(t.asterisk?' *':'')+' <small>'+(t.meetsLevel?'':'Level '+t.minimumLevel+' required')+(t.requiresVerification?' · prerequisites to verify':'')+'</small></summary><p>'+e(t.description)+'</p>'+(t.requiresTalentIds.length?'<p class="field-help">Requires '+e(t.requiresTalentIds.map(id=>id.split(':').at(-1).replaceAll('-',' ')).join(', '))+'</p>':'')+(t.additionalPrerequisite?'<p class="field-help">'+e(t.additionalPrerequisite)+'</p>':'')+'</details>').join('')+'</details>'+
+ '<details class="rw-archer-section"><summary>Archer archetypes ('+archer.data.archetypeIndex.length+' — future extraction)</summary>'+archer.data.archetypeIndex.map(x=>'<p class="rw-archer-future">'+e(x.name)+(x.racePrerequisite?' · '+e(x.racePrerequisite)+' only':'')+' · Needs individual extraction</p>').join('')+'</details></section>';
+}
+export function renderBuild(b,step,{query='',level='all',message='',legacy=false,mode='edit',baseline=null,displayStep=step,displaySteps=steps,rankFloor=null,archerPreviewLevel=1}={}){
  const race=raceFor(b),racial=raceTraits(b),scores=effectiveScores(b);let body='';
  if(step===0)body=`<p class="rw-source">FFD20</p>${field('Character name',input(b.name,'data-rw-field="name" maxlength="80" autocomplete="off"'))}${field('Alignment',`<select data-rw-field="alignment">${opt('','Choose',b.alignment)}${['Lawful Good','Neutral Good','Chaotic Good','Lawful Neutral','True Neutral','Chaotic Neutral','Lawful Evil','Neutral Evil','Chaotic Evil',...(!['Lawful Good','Neutral Good','Chaotic Good','Lawful Neutral','True Neutral','Chaotic Neutral','Lawful Evil','Neutral Evil','Chaotic Evil',''].includes(b.alignment)?[b.alignment]:[])].map(a=>opt(a,a,b.alignment)).join('')}</select>`)}${field('Biography',`<textarea data-rw-field="bio" maxlength="2000" rows="4">${e(b.bio)}</textarea>`)}${field('Portrait',`<input type="file" data-rw-portrait accept="image/png,image/jpeg,image/webp">`)}${b.portrait?'<img class="rw-portrait" src="'+e(b.portrait)+'" alt="Character portrait">':''}`;
  if(step===1)body=abilityPanel(b,{mode,baseline,legacy});
@@ -44,7 +74,7 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
    body+=racialGroup('Alternate racial traits',race.data.alternateTraitIds.map(id=>{const f=race.features.find(f=>f.id===id),ops=replacementFor(race,id),reason=traitReview(race,id);return `<div class="rw-trait rw-trait-compact ${reason?'rw-trait--review':''}"><input type="checkbox" aria-label="${e(f.name)}" data-rw-alternate="${e(id)}" ${reason?'disabled':''} ${b.alternateIds.includes(id)?'checked':''}><details><summary>${e(f.name)}${reason?'<small class="rw-trait-status">Needs review</small>':''}</summary><p>${e(f.description)}</p><p>${e(ops.map(o=>o.description).join(' '))}</p>${reason?'<p class="rw-trait-reason">'+e(reason)+'</p>':''}</details></div>`;}).join(''));
   }
  }
- if(step===3)body=field(['levelup','multiclass'].includes(mode)?'Level up class':'Class',`<select aria-label="Class"><option>Black Mage</option></select>`)+field('Archetype',`<select data-rw-field="archetypeId" ${['levelup','multiclass'].includes(mode)?'disabled':''}>${opt('','Base Black Mage',b.archetypeId)}${registry.archetypes.map(a=>opt(a.id,a.name,b.archetypeId,true)).join('')}</select>`);
+ if(step===3)body=field(['levelup','multiclass'].includes(mode)?'Level up class':'Class',`<select aria-label="Class"><option>Black Mage</option></select>`)+field('Archetype',`<select data-rw-field="archetypeId" ${['levelup','multiclass'].includes(mode)?'disabled':''}>${opt('','Base Black Mage',b.archetypeId)}${registry.archetypes.map(a=>opt(a.id,a.name,b.archetypeId,true)).join('')}</select>`)+archerProgressPanel(archerPreviewLevel);
  if(step===4){body=choiceEvents(b).filter(event=>!baseline||event.atClassLevel>baseline.level).map(event=>{const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)),count=calculated(event.count,b);return panel(`${pool.name} · level ${event.atClassLevel}`,'<a class="rw-source-link" href="'+e(choiceSource(event))+'" target="_blank" rel="noopener" aria-label="Official '+e(pool.name)+' source">↗</a>'+Array.from({length:count},(_,i)=>{const selected=pool.options.find(o=>o.id===b.choices[event.id]?.[i]);return `<button type="button" class="rw-slot" data-rw-open-choice="${event.id}" data-choice-index="${i}"><span>${e(pool.name)} ${i+1}</span><strong>${e(selected?.name||'Choose…')}</strong><span aria-hidden="true">＋</span></button>`;}).join(''));}).join('');if(!choiceEvents(b).some(event=>!baseline||event.atClassLevel>baseline.level))body+='<p>No class choices gained at this level.</p>';}
  if(step===10){const changes=classFeatureChanges(b,baseline);body=changes.map(({feature,kind})=>'<details class="rw-panel"><summary><span class="rw-feature-state">'+(kind==='upgrade'?'↑ Upgraded':'✦ New')+'</span> '+e(feature.name)+'</summary><p class="rw-full-desc">'+e(feature.description)+'</p></details>').join('')||'<p>No new class traits at this level.</p>';}
  if(step===5)body=spellSlots(b,baseline);
@@ -73,10 +103,11 @@ export function wizardOrder(b,mode='create',baseline=null){
 export function mountRulesWizard(){
  const main=document.querySelector('main'),control=new AbortController(),url=new URL(location.href),id=url.searchParams.get('characterId'),live=document.body.dataset.mode==='live';let mode=id?(url.searchParams.get('levelUp')==='1'?'levelup':'edit'):'create';
  let order=['levelup','multiclass'].includes(mode)?[3,9,7,4,10,5,6]:[0,2,3,4,1,5,7,8,6],labels=['levelup','multiclass'].includes(mode)?['Class','Growth','Skills','Class choices','Class traits','Spells','Review']:['Identity','Race','Class','Class choices','Ability scores','Spells','Skills','Feats','Review'];
+ let archerPreviewLevel=1;
  let closed=false,b=newBuild(),baseline=null,step=0,character=null,message='',key='',draftId=recordId(),saving=false,picker=null,pickerQuery='',pickerLevel='all',pickerLimit=25,selectedToken=null,touchDrag=null,ignoreTileClick=false;
  const dialog=document.createElement('dialog');dialog.className='rw-picker';dialog.setAttribute('aria-label','Choose a character option');document.body.append(dialog);
  function saveDraft(){if(!key)return;try{sessionStorage.setItem(key,JSON.stringify({b,step,draftId,baseRevision:character?.revision,mode}));}catch{}}
- function draw(focus=false){if(closed)return;const logical=order[step];order=wizardOrder(b,mode,baseline);labels=order.map(i=>wizardLabels[i]);step=Math.max(0,order.indexOf(logical));main.innerHTML=renderBuild(b,order[step],{message,mode,baseline,displayStep:step,displaySteps:labels,legacy:Boolean(character&&!character.data.rulesBuild),rankFloor:character?.data.rulesBuild?.rankFloor||character?.data.rulesBuild?.input.skillRanks});if(focus){main.querySelector('h1').setAttribute('tabindex','-1');main.querySelector('h1').focus();window.scrollTo(0,0);}}
+ function draw(focus=false){if(closed)return;const logical=order[step];order=wizardOrder(b,mode,baseline);labels=order.map(i=>wizardLabels[i]);step=Math.max(0,order.indexOf(logical));main.innerHTML=renderBuild(b,order[step],{message,mode,baseline,displayStep:step,displaySteps:labels,legacy:Boolean(character&&!character.data.rulesBuild),rankFloor:character?.data.rulesBuild?.rankFloor||character?.data.rulesBuild?.input.skillRanks,archerPreviewLevel});if(focus){main.querySelector('h1').setAttribute('tabindex','-1');main.querySelector('h1').focus();window.scrollTo(0,0);}}
  const changed=()=>{b.reviewed=false;message='';saveDraft();};
  function scoreFeedback(){for(const caption of main.querySelectorAll('[data-rw-caption]'))caption.innerHTML=scoreCaption(b,caption.dataset.rwCaption);const spent=main.querySelector('[data-rw-spent]');if(spent)spent.textContent=pointSpend(b.baseScores)+' / '+b.pointBudget;const slots=main.querySelector('[data-rw-score-spells]');if(slots)slots.innerHTML=spellSlots(b,baseline,{bonusOnly:true});}
  function assignToken(i){if(selectedToken===null)return;b.scoreAssignments=moveScoreToken(b.scoreAssignments,selectedToken,i);assignPool();selectedToken=null;changed();draw();}
@@ -120,6 +151,7 @@ export function mountRulesWizard(){
  }
  main.addEventListener('input',event=>{const t=event.target;if(t.matches('[data-rw-rank]')){setRank(Number(t.dataset.rwRank),Number(t.value));return;}if(t.matches('[data-rw-field]'))b[t.dataset.rwField]=t.value;if(t.matches('[data-rw-score]')){b.baseScores[t.dataset.rwScore]=Number(t.value);scoreFeedback();}changed();},{signal:control.signal});
  main.addEventListener('change',async event=>{const t=event.target;try{
+   if(t.matches('[data-rw-archer-level]')){archerPreviewLevel=Math.max(1,Math.min(20,Number(t.value)||1));draw();return;}
   if(t.matches('[data-rw-field]')){const k=t.dataset.rwField;b[k]=t.value;if(k==='raceId'){b.heritageId='';b.disabledTraits=[];b.alternateIds=[];}changed();draw();}
   if(t.matches('[data-rw-score]')){changed();draw();}
   if(t.matches('[data-rw-method]')){b.abilityMethod=t.value;b.scoreAssignments=[null,null,null,null,null,null];if(t.value==='point-buy')b.baseScores=Object.fromEntries(stats.map(k=>[k,10]));assignPool();changed();draw();}
