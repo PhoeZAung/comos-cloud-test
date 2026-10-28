@@ -1,0 +1,346 @@
+COSMOS FFd20 — RACE REVIEW: START HERE
+====================================
+Source inventory: 63 registered races, October 28, 2026.
+This file is a quick, readable INDEX. Open the companion detailed TXT to
+see the full source wording, questions, suggestions, and answer blanks.
+
+How to respond:
+  Pick any race. Send me its item IDs and your changes.
+  Example: "63-A1: Use +2 Charisma instead of +2 Wisdom, keep other bonuses."
+  You do NOT need to re-approve every ordinary racial trait.
+
+A = source/trait replacements needing a ruling or full implementation.
+C = missing wizard choices (usually a coding job, not your ruling).
+R = other source or automation notes (many just require coding).
+Only the exact option named in an entry is in question; it does not condemn
+the entire race. Extracted rules are NOT falsely marked as approved.
+
+INDEX TOTALS
+Races: 63  |  A entries: 186  |  C entries: 106  |  R notes: 310
+
+RACE INDEX BY EXTRACTION ORDER
+------------------------------
+01. Dwarf
+    Options/heredities to confirm: 1 — 01-A1 Alternate — Saltbeard
+    Wizard choices to add: 7 — 01-C1 High Intelligence bonus languages; 01-C2 Mountain Familarity; 01-C3 Surface Survivalist; 01-C4 Favored Astrologian target; 01-C5 Favored Black Mage target; 01-C6 Favored Druid target; 01-C7 Favored Red Mage target
+    Other source/mechanics notes: 5
+
+02. Elvaan
+    Options/heredities to confirm: 0
+    Wizard choices to add: 6 — 02-C1 High Intelligence bonus languages; 02-C2 Martial Background; 02-C3 Elemental Resistance; 02-C4 Spirit of the Waters; 02-C5 Favored Cleric target; 02-C6 Favored Necromancer target
+    Other source/mechanics notes: 4
+
+03. Galka
+    Options/heredities to confirm: 0
+    Wizard choices to add: 3 — 03-C1 High Intelligence bonus languages; 03-C2 Favored Astrologian target; 03-C3 Favored Paladin target
+    Other source/mechanics notes: 3
+
+04. Hume
+    Options/heredities to confirm: 2 — 04-A1 Alternate — Adoptive Parentage; 04-A2 Alternate — Mixed Heritage
+    Wizard choices to add: 5 — 04-C1 Ability Score Adjustment; 04-C2 Alchemically Enhanced; 04-C3 Dual Talent; 04-C4 Lufenian heritage alternate ability; 04-C5 Mako-Infused Super Soldier heritage ability adjustments
+    Other source/mechanics notes: 5
+
+05. Moogle
+    Options/heredities to confirm: 2 — 05-A1 Alternate — Grounded; 05-A2 Alternate — Limited Telepathy
+    Wizard choices to add: 4 — 05-C1 Handy; 05-C2 Academician; 05-C3 Explorer; 05-C4 Goug Tinker heritage alternate ability
+    Other source/mechanics notes: 5
+
+06. Half-Breed
+    Options/heredities to confirm: 1 — 06-A1 Alternate — Ancestral Arms
+    Wizard choices to add: 12 — 06-C1 Defense Trait Selection; 06-C2 Feat and Skill Trait Selection; 06-C3 Magical Trait Selection; 06-C4 Movement Trait Selection; 06-C5 Offense Trait Selection; 06-C6 Senses Trait Selection; 06-C7 Weakness Trait Selection; 06-C8 Multitalented; 06-C9 Ability Score Adjustment; 06-C10 Size; 06-C11 Type; 06-C12 Ancestral Arms
+    Other source/mechanics notes: 4
+
+07. Mithra
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 4
+
+08. Tarutaru
+    Options/heredities to confirm: 2 — 08-A1 Alternate — Explorer; 08-A2 Alternate — unnamed
+    Wizard choices to add: 7 — 08-C1 Talented; 08-C2 Academician; 08-C3 Explorer; 08-C4 Dunesfolk Lalafell heritage alternate ability; 08-C5 Gnome heritage alternate ability; 08-C6 Nymian heritage alternate ability; 08-C7 Pelupelu heritage alternate ability
+    Other source/mechanics notes: 5
+
+09. Aegyl
+    Options/heredities to confirm: 2 — 09-A1 Alternate — Wing-Clipped; 09-A2 Alternate — unnamed
+    Wizard choices to add: 0
+    Other source/mechanics notes: 4
+
+10. Al Bhed
+    Options/heredities to confirm: 2 — 10-A1 Alternate — Magic Resistant; 10-A2 Alternate — Xenophobic
+    Wizard choices to add: 2 — 10-C1 Mechanical Genius; 10-C2 Academician
+    Other source/mechanics notes: 4
+
+11. Au Ra
+    Options/heredities to confirm: 8 — 11-A1 Alternate — Battle-Hardened; 11-A2 Alternate — Bull-Headed; 11-A3 Alternate — Supremacy Champion; 11-A4 Alternate — Weapon Familiarity; 11-A5 Alternate — Pacification and Avoidance; 11-A6 Heritage — Azim; 11-A7 Heritage — Raen; 11-A8 Heritage — Khagan
+    Wizard choices to add: 1 — 11-C1 Weapon Familiarity
+    Other source/mechanics notes: 5
+
+12. Bangaa
+    Options/heredities to confirm: 7 — 12-A1 Alternate — Blinded; 12-A2 Alternate — Questioning; 12-A3 Alternate — Weapon Familiarity; 12-A4 Heritage — Bista; 12-A5 Heritage — Faas; 12-A6 Heritage — Ruga; 12-A7 Heritage — Sanga
+    Wizard choices to add: 3 — 12-C1 Questioning; 12-C2 Weapon Familiarity; 12-C3 Languages
+    Other source/mechanics notes: 6
+
+13. Burmecian
+    Options/heredities to confirm: 7 — 13-A1 Alternate — Cleyran Ancestry; 13-A2 Alternate — Cornered Fury; 13-A3 Alternate — Mountaineer Training; 13-A4 Alternate — Scent; 13-A5 Alternate — Skulk; 13-A6 Alternate — Unnatural; 13-A7 Heritage — Cleyran
+    Wizard choices to add: 1 — 13-C1 Languages
+    Other source/mechanics notes: 5
+
+14. Dracobaltian
+    Options/heredities to confirm: 0
+    Wizard choices to add: 1 — 14-C1 Languages
+    Other source/mechanics notes: 5
+
+15. Garif
+    Options/heredities to confirm: 3 — 15-A1 Alternate — Historian; 15-A2 Alternate — Soldier; 15-A3 Alternate — Unmasked
+    Wizard choices to add: 4 — 15-C1 Languages; 15-C2 Bond to the Land; 15-C3 Pastoralist; 15-C4 Soldier
+    Other source/mechanics notes: 3
+
+16. Garlean
+    Options/heredities to confirm: 12 — 16-A1 Alternate — Before Their Time; 16-A2 Alternate — Engineer; 16-A3 Alternate — Magic Resistant; 16-A4 Alternate — Magic User; 16-A5 Alternate — Master Tinker; 16-A6 Alternate — Physically Inspired; 16-A7 Alternate — Wary; 16-A8 Alternate — Wright; 16-A9 Alternate — Xenophobia Extremis; 16-A10 Heritage — Baelsar; 16-A11 Heritage — Galvus; 16-A12 Heritage — Garlond
+    Wizard choices to add: 3 — 16-C1 Languages; 16-C2 Sovereignty of The Nation; 16-C3 Technologically Advanced
+    Other source/mechanics notes: 5
+
+17. Genome
+    Options/heredities to confirm: 4 — 17-A1 Alternate — Ignorant Upbringing; 17-A2 Alternate — Mystic Vessel; 17-A3 Alternate — Resilient Soul; 17-A4 Alternate — Weapon Familiarity
+    Wizard choices to add: 3 — 17-C1 Languages; 17-C2 Ignorant Upbringing; 17-C3 Resilient Soul
+    Other source/mechanics notes: 4
+
+18. Gria
+    Options/heredities to confirm: 11 — 18-A1 Alternate — Bestial; 18-A2 Alternate — Desert Runner; 18-A3 Alternate — Dual Minded; 18-A4 Alternate — Erdane Guardian; 18-A5 Alternate — Orc Ferocity; 18-A6 Alternate — Fleet-Footed; 18-A7 Alternate — Skymaster; 18-A8 Heritage — Cave Wyrm; 18-A9 Heritage — Draconic; 18-A10 Heritage — Ocean Wyrm; 18-A11 Heritage — Sand Wyrm
+    Wizard choices to add: 2 — 18-C1 Languages; 18-C2 Martial Background
+    Other source/mechanics notes: 4
+
+19. Guado
+    Options/heredities to confirm: 4 — 19-A1 Alternate — Carrion Sense; 19-A2 Alternate — Deep Magic; 19-A3 Alternate — Fast Movement; 19-A4 Alternate — Unsent Summoner
+    Wizard choices to add: 2 — 19-C1 Languages; 19-C2 Elemental Summoner
+    Other source/mechanics notes: 3
+
+20. Hypello
+    Options/heredities to confirm: 5 — 20-A1 Alternate — Defensive Training; 20-A2 Alternate — Fishy Merchant; 20-A3 Alternate — Glider; 20-A4 Alternate — Land Lubber; 20-A5 Heritage — Poroggo
+    Wizard choices to add: 1 — 20-C1 Languages
+    Other source/mechanics notes: 5
+
+21. Immortal
+    Options/heredities to confirm: 6 — 21-A1 Alternate — Background Character; 21-A2 Alternate — Blank Slate; 21-A3 Alternate — Explorer; 21-A4 Alternate — Emissary; 21-A5 Heritage — Ancients; 21-A6 Heritage — Unlimited
+    Wizard choices to add: 4 — 21-C1 Languages; 21-C2 Ability Score Adjustment; 21-C3 Long-Lived; 21-C4 Heritage Unlimited Ability Scores
+    Other source/mechanics notes: 5
+
+22. Lambkin
+    Options/heredities to confirm: 6 — 22-A1 Alternate — Academician; 22-A2 Alternate — Greater Magic Resistant; 22-A3 Alternate — Inquisitive; 22-A4 Alternate — Magical Linguist; 22-A5 Alternate — Polyglot; 22-A6 Alternate — Practicality
+    Wizard choices to add: 4 — 22-C1 Languages; 22-C2 Academician; 22-C3 Polyglot; 22-C4 Practicality
+    Other source/mechanics notes: 4
+
+23. Mandragora
+    Options/heredities to confirm: 27 — 23-A1 Alternate — Bower Born; 23-A2 Alternate — Buoyant; 23-A3 Alternate — Burned One; 23-A4 Alternate — Cactuar Kin; 23-A5 Alternate — Claws; 23-A6 Alternate — Dark Root; 23-A7 Alternate — Edible Mushrooms; 23-A8 Alternate — Evergreen; 23-A9 Alternate — Intoxicating Aroma; 23-A10 Alternate — Malboro Kin; 23-A11 Alternate — Natural Magic; 23-A12 Alternate — Ochu Kin; 23-A13 Alternate — Pestilent; 23-A14 Alternate — Photosynthetic Regrowth; 23-A15 Alternate — Pithy Toughness; 23-A16 Alternate — Protective Sap; 23-A17 Alternate — Rooted Foot; 23-A18 Alternate — Stability; 23-A19 Alternate — Tentacle Attacks; 23-A20 Alternate — Thick Bark; 23-A21 Alternate — Verdant Heart; 23-A22 Alternate — Writhing Eye; 23-A23 Heritage — Alraune; 23-A24 Heritage — Killer Tomato; 23-A25 Heritage — Korrigan; 23-A26 Heritage — Pumpkin Head; 23-A27 Heritage — Wild Onion
+    Wizard choices to add: 3 — 23-C1 Languages; 23-C2 Burned One; 23-C3 Evergreen
+    Other source/mechanics notes: 5
+
+24. Moomba
+    Options/heredities to confirm: 1 — 24-A1 Alternate — Climb
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+25. Mutant
+    Options/heredities to confirm: 0
+    Wizard choices to add: 5 — 25-C1 Variable Mutant Abilities; 25-C2 Alternative Physical Features (Optional); 25-C3 Ability Score Racial Traits; 25-C4 Ability Score Racial Traits; 25-C5 Ability Score Racial Traits
+    Other source/mechanics notes: 7
+
+26. Nu Mou
+    Options/heredities to confirm: 0
+    Wizard choices to add: 1 — 26-C1 Sagacious
+    Other source/mechanics notes: 5
+
+27. Palico
+    Options/heredities to confirm: 2 — 27-A1 Heritage — Cait Sith; 27-A2 Heritage — Felyne
+    Wizard choices to add: 1 — 27-C1 Languages
+    Other source/mechanics notes: 6
+
+28. PuPu
+    Options/heredities to confirm: 0
+    Wizard choices to add: 1 — 28-C1 Technological Savant
+    Other source/mechanics notes: 5
+
+29. Qu
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+30. Roegadyn
+    Options/heredities to confirm: 3 — 30-A1 Heritage — Lohengarde; 30-A2 Heritage — Othardian; 30-A3 Heritage — Sea Wolf
+    Wizard choices to add: 0
+    Other source/mechanics notes: 4
+
+31. Ronso
+    Options/heredities to confirm: 4 — 31-A1 Heritage — Helion Hrothgar; 31-A2 Heritage — Lost Hrothgar; 31-A3 Heritage — Revgaji; 31-A4 Heritage — Yeti
+    Wizard choices to add: 0
+    Other source/mechanics notes: 4
+
+32. Seeq
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 3
+
+33. Seto Lion
+    Options/heredities to confirm: 3 — 33-A1 Alternate — Faster; 33-A2 Alternate — Nimble Attacks; 33-A3 Heritage — Frost Wolf
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+34. Shindroid
+    Options/heredities to confirm: 8 — 34-A1 Alternate — Anomaly; 34-A2 Alternate — Heavy Platform; 34-A3 Alternate — Hologram Simulation; 34-A4 Alternate — Race Simulation; 34-A5 Heritage — Android; 34-A6 Heritage — Allagan Automata; 34-A7 Heritage — Machine Lifeform; 34-A8 Heritage — Omicron
+    Wizard choices to add: 0
+    Other source/mechanics notes: 6
+
+35. Tonkin
+    Options/heredities to confirm: 3 — 35-A1 Alternate — Dancing Lantern; 35-A2 Heritage — Palekin; 35-A3 Heritage — Tonkin Royalty
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+36. Varg
+    Options/heredities to confirm: 2 — 36-A1 Heritage — Gnoll; 36-A2 Heritage — Kitsune
+    Wizard choices to add: 0
+    Other source/mechanics notes: 4
+
+37. Viera
+    Options/heredities to confirm: 4 — 37-A1 Heritage — Fanow; 37-A2 Heritage — Feol; 37-A3 Heritage — Mist-Frenzied; 37-A4 Heritage — Rava
+    Wizard choices to add: 2 — 37-C1 Elemental Summoner; 37-C2 Mist Sight
+    Other source/mechanics notes: 5
+
+38. Amalj’aa
+    Options/heredities to confirm: 3 — 38-A1 Heritage — Brother of Ash; 38-A2 Heritage — Mamool Ja; 38-A3 Heritage — Zun
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+39. Antica
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 6
+
+40. Forgiven
+    Options/heredities to confirm: 6 — 40-A1 Alternate — Celestial Crusader; 40-A2 Alternate — Crusading Magic; 40-A3 Alternate — Immortal Spark; 40-A4 Alternate — Monstrous Heritage; 40-A5 Alternate — Scion of Mortality; 40-A6 Alternate — Truespeaker
+    Wizard choices to add: 1 — 40-C1 Monstrous Heritage
+    Other source/mechanics notes: 7
+
+41. Gnath
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+42. Goblin
+    Options/heredities to confirm: 2 — 42-A1 Heritage — Moblin; 42-A2 Heritage — Red Cap
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+43. Ixal
+    Options/heredities to confirm: 0
+    Wizard choices to add: 2 — 43-C1 Bond to the Ice; 43-C2 Elemental Summoner
+    Other source/mechanics notes: 5
+
+44. Kindred
+    Options/heredities to confirm: 0
+    Wizard choices to add: 2 — 44-C1 Languages; 44-C2 Maw or Claw
+    Other source/mechanics notes: 5
+
+45. Kobold
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+46. Kojin
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+47. Lamia
+    Options/heredities to confirm: 3 — 47-A1 Heritage — Ananta; 47-A2 Heritage — Medusa; 47-A3 Heritage — Undine
+    Wizard choices to add: 2 — 47-C1 Bond to the Land; 47-C2 Tempered
+    Other source/mechanics notes: 5
+
+48. Loporrit
+    Options/heredities to confirm: 0
+    Wizard choices to add: 4 — 48-C1 Handy; 48-C2 Explorer; 48-C3 Hydaelyn’s Spark; 48-C4 Purpose-Driven
+    Other source/mechanics notes: 5
+
+49. Matanga
+    Options/heredities to confirm: 2 — 49-A1 Heritage — Arkasodara; 49-A2 Heritage — Gajasura
+    Wizard choices to add: 1 — 49-C1 Academic
+    Other source/mechanics notes: 5
+
+50. Namazu
+    Options/heredities to confirm: 2 — 50-A1 Alternate — Fast; 50-A2 Alternate — Focused Study
+    Wizard choices to add: 1 — 50-C1 Focused Study
+    Other source/mechanics notes: 5
+
+51. Orc
+    Options/heredities to confirm: 0
+    Wizard choices to add: 1 — 51-C1 Skill Bonus
+    Other source/mechanics notes: 4
+
+52. Qiqirn
+    Options/heredities to confirm: 3 — 52-A1 Heritage — Leaf-Eater; 52-A2 Heritage — Meat-Eater; 52-A3 Heritage — Qitari
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+53. Quadav
+    Options/heredities to confirm: 1 — 53-A1 Alternate — Water Tribe
+    Wizard choices to add: 1 — 53-C1 Bond to the Land
+    Other source/mechanics notes: 5
+
+54. Sahagin
+    Options/heredities to confirm: 2 — 54-A1 Heritage — Desert Sahagin; 54-A2 Heritage — Swamp Sahagin
+    Wizard choices to add: 1 — 54-C1 Tempered
+    Other source/mechanics notes: 5
+
+55. Sylph
+    Options/heredities to confirm: 4 — 55-A1 Alternate — Improved Flight; 55-A2 Heritage — Fairy; 55-A3 Heritage — Pixie; 55-A4 Heritage — Sprite
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+56. Trollkin
+    Options/heredities to confirm: 1 — 56-A1 Alternate — Faster Healing
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+57. Vanu Vanu
+    Options/heredities to confirm: 3 — 57-A1 Heritage — Gundu; 57-A2 Heritage — Vundu; 57-A3 Heritage — Zundu
+    Wizard choices to add: 0
+    Other source/mechanics notes: 4
+
+58. Velkk
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 6
+
+59. Yagudo
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 6
+
+60. Half-Gigas
+    Options/heredities to confirm: 3 — 60-A1 Heritage — Fire Gigas; 60-A2 Heritage — Ice Gigas; 60-A3 Heritage — Thunder Gigas
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+61. Lizardman
+    Options/heredities to confirm: 0
+    Wizard choices to add: 0
+    Other source/mechanics notes: 5
+
+62. Syricta
+    Options/heredities to confirm: 5 — 62-A1 Alternate — Dragon Type; 62-A2 Alternate — Evasive Maneuvers; 62-A3 Alternate — Memories of the Forgotten; 62-A4 Alternate — Neglected Heritage; 62-A5 Alternate — Wing-Clipped
+    Wizard choices to add: 2 — 62-C1 Elemental Resistance; 62-C2 Breath Weapon
+    Other source/mechanics notes: 9
+
+63. Beastkin
+    Options/heredities to confirm: 4 — 63-A1 Alternate — Alluring; 63-A2 Alternate — Feral; 63-A3 Alternate — Light Build; 63-A4 Alternate — Loper
+    Wizard choices to add: 0
+    Other source/mechanics notes: 7
+
+SUGGESTED FIRST REVIEW
+----------------------
+Start with race 63 (Beastkin) because you supplied the missing official
+page; it has 4 unresolved alternates. Or choose whichever race your table
+wants to use first. You can reply with one race's decisions at a time.
+
+Keep in mind: selecting "Accept" means accepting the proposed safe handling,
+not certifying the source text as independently verified. This index and
+the full dossier are documentation; neither changes the live wizard.
