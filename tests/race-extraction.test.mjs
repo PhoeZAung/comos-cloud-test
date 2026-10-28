@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {generateRaceCatalog,projectRaceDefinition} from '../scripts/generate-races.mjs';
-import {registry,raceFor,newBuild,choiceEvents,eligibleOptions,calculated,spells,compileBuild,effectiveScores,raceTraits} from '../src/features/characters/rules/build.mjs';
+import {registry,raceFor,newBuild,choiceEvents,eligibleOptions,calculated,spells,compileBuild,effectiveScores,raceTraits,buildIssues} from '../src/features/characters/rules/build.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
 import {renderSection} from '../src/features/sheet/view.mjs';
 const root=new URL('../',import.meta.url);
