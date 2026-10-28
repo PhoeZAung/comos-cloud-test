@@ -170,6 +170,7 @@ export function previewBuild(b){
  return {scores,summary,race,racial,features,hp:hp+carriedHp,skillBudget:Number(b.carry?.skillBudget||0)+carriedLevels(b)*(mod(scores.int)-mod(b.carry?.int??scores.int))+summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
 export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false}={}){
+ if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==(raw?.classId||BLACK_MAGE_ID))bad('A saved character cannot change classes.');
  if(isArcher(raw)){
   if(append||raw.carry)bad('Archer multiclassing is not yet supported.');
   if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==ARCHER_ID)bad('A saved character cannot change its class.');

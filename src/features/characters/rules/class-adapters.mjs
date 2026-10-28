@@ -16,7 +16,7 @@ function makeArcherClass(){
  const pools=[
   ...Object.entries(archer.data.stylePools).map(([key,list])=>({
    id:ARCHER_ID+':pool:'+key,name:key==='initial'?'Archery Style':key==='improved'?'Improved Archery Style':'Archery Style Mastery',
-   options:list.map(name=>({id:ARCHER_ID+':style:'+slug(name),name,description:'Bonus style feat: '+name,repeatLimit:1,featureIds:[]}))})),
+   options:(key==='mastery'?[...archer.data.stylePools.initial,...archer.data.stylePools.improved,...list]:key==='improved'?[...archer.data.stylePools.initial,...list]:list).map(name=>({id:ARCHER_ID+':style:'+slug(name),name,description:'Bonus style feat: '+name,repeatLimit:1,featureIds:[]}))})),
   {id:ARCHER_ID+':pool:archery-talents',name:'Archery Talents',options:archer.data.talents.map(t=>({
    id:t.id,name:t.name,description:t.description,repeatLimit:t.repeatLimit||1,
    featureIds:[t.id],minimumLevel:t.minimumLevel,requiresTalentIds:t.requiresTalentIds,
@@ -39,8 +39,8 @@ export const classHasSpells=b=>!isArcher(b);
 
 export function classSkill(b,id){
  if(!isArcher(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
- const value=id.replace(/^skill:/,'');
- return archer.data.classSkills?.includes(value)||false;
+ const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
+ return skills.includes(value)||value.startsWith('knowledge-')&&skills.includes('knowledge:'+value.slice('knowledge-'.length))||['craft','profession'].includes(value)&&skills.includes(value+':*');
 }
 export function archerChoiceEvents(b){
  if(!isArcher(b))return [];
