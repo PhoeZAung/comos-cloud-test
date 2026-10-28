@@ -63,7 +63,20 @@ export function buildIssues(b,{complete=true}={}){
  if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>buildLevel(b)))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
  const race=raceFor(b);if(!race)add(2,'Choose a race.');
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
- if(race?.id==='ffd20:race:mutant')add(3,'Mutant requires random level-based ability increases and replaces standard fourth-level ability increases. The current wizard cannot safely calculate this progression, so use this race for rules testing only; automated character saving is disabled.');
+ if(race){
+  const mustChoose=f=>Boolean(f?.choicePoolIds?.length);
+  for(const f of raceTraits(b).traits)if(race.data.standardTraitIds.includes(f.id)&&mustChoose(f))add(2,f.name+' requires a racial choice the wizard cannot yet record.');
+  for(const id of b.alternateIds){
+   const f=race.features.find(f=>f.id===id),ops=replacementFor(race,id);
+   if(mustChoose(f))add(2,(f.name||'Alternate trait')+' requires a racial choice the wizard cannot yet record.');
+   if(!ops.length||ops.some(op=>op.resolution!=='resolved'||op.scope!=='whole_feature'||op.operation!=='replace'))
+    add(2,(f?.name||'Alternate trait')+' has an unresolved replacement rule.');
+  }
+  const heritage=race.data.heritages.find(h=>h.id===b.heritageId);
+  if(heritage?.replacements.some(op=>op.resolution!=='resolved'||op.scope!=='whole_feature'))add(2,'Selected heritage has an unresolved racial replacement.');
+ }
+
+ if(race?.id==='ffd20:race:mutant')add(3,'Mutant requires random level-based ability increases and replaces standard fourth-level ability increases. The current wizard cannot safely calculate this progression, so automated character saving is disabled until its progression is implemented.');
  if(race?.id==='ffd20:race:immortal')add(3,'Immortal Magic Ineptitude forbids obtaining an MP pool; Black Mage is not currently supported for this race. You can explore its rules, but cannot save this incompatible automated build.');
  if(race?.id==='ffd20:race:shindroid'&&!b.alternateIds.includes('ffd20:race:shindroid:trait:magitek-unit'))add(3,'Shindroid Magic Ineptitude forbids obtaining an MP pool without Magitek Unit; this Black Mage build cannot be saved unless Magitek Unit is selected.');
  if(race?.id==='ffd20:race:antica')add(3,'Antica cannot normally cast spells without Silent Spell or Telepathic Spellcaster. The current Black Mage wizard cannot verify this exception; you can inspect Antica rules but cannot save this automatic build.');
