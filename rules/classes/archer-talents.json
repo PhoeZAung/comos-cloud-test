@@ -1,0 +1,982 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class_option_catalog",
+  "id": "ffd20:catalog:archer-talents",
+  "name": "Archery Talents",
+  "parentClassId": "ffd20:class:archer",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "talents",
+      "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-28"
+    }
+  ],
+  "notes": [
+    "All options extracted as source-linked summaries. Game mechanics manual until exact prereq/feat engine is implemented. Asterisk talents may be learned together but not combined in the same round."
+  ],
+  "options": [
+    {
+      "id": "ffd20:class:archer:talent:acute-senses",
+      "name": "Acute Senses",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Free-action Perception reroll; must take new result.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6009"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:ambushing-shot",
+      "name": "Ambushing Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Act as initiative 20 in surprise round, but only one bow/crossbow attack action; normal initiative thereafter.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6010"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:arrow-splitter",
+      "name": "Arrow-Splitter",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "+1 ranged attack vs targets at least two sizes smaller; ranged attacks deal full damage to objects.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6012"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:blood-reader",
+      "name": "Blood Reader",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "While seeing a living aimed target, know its remaining hit points.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6013"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:chameleon-step",
+      "name": "Chameleon Step",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Move up to double speed as move action without Stealth movement penalty; 3 + DEX mod uses/day.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6014"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:camouflage",
+      "name": "Camouflage",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "After 1 minute preparing natural foliage gain +4 Stealth matching the surroundings until disrupted.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6015"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:close-ranged-sniper",
+      "name": "Close-Ranged Sniper",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Gain Point Blank Shot or Far Shot/Precise Shot if already known.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6017"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:combat-trick",
+      "name": "Combat Trick",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Gain one combat feat; this talent may only be selected once.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6018"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:critical-genius",
+      "name": "Critical Genius",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Choose one bow/crossbow; critical threat 19–20 and multiplier x2. At Archer 12 becomes 18–20; extra BAB damage after a crit on attack action.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6019"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:defensive-bow-stance",
+      "name": "Defensive Bow Stance",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Swift action: bow/crossbow attacks do not provoke until next turn.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6022"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:defensive-grace",
+      "name": "Defensive Grace",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Once per encounter add Aim bonus to CMD and ranged-target-specific dodge AC; Take Aim doubles it.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6023"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:expert-initiative",
+      "name": "Expert Initiative",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Reroll initiative once per day, must accept new result.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6024"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:expert-tracker",
+      "name": "Expert Tracker",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "No Survival tracking penalty at full movement speed.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6025"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:extended-ambush",
+      "name": "Extended Ambush",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "In surprise round, a ranged attack against surprised target allows free action Aim.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6026"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:flee",
+      "name": "Flee",
+      "minimumLevel": 2,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:long-strides"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Move away from designated opponent without provoking their opportunity attack; brief +10 speed.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6027"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:greater-targeted-shot",
+      "name": "Greater Targeted Shot",
+      "minimumLevel": 10,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:improved-targeted-shot"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "If a Targeted Shot deals at least half of target HP and 40 damage, double its effects and duration.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6028"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:greater-intercept",
+      "name": "Greater Intercept",
+      "minimumLevel": 18,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:intercept-arrow",
+        "ffd20:class:archer:talent:improved-intercept"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "On deflecting an arrow, redirect it to another target within 30 ft.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6029"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:grounding-shot",
+      "name": "Grounding Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Ignore usual penalty shooting prone targets; +2 damage vs prone targets.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6030"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:hateful-attack",
+      "name": "Hateful Attack",
+      "minimumLevel": 8,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Swift-action automatic confirmation of a ranged critical threat.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6031"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:hide-in-plain-sight",
+      "name": "Hide in Plain Sight",
+      "minimumLevel": 10,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Use Stealth even when observed.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6032"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:hunters-target",
+      "name": "Hunter's Target",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Once/encounter swift designated target; on ranged hit gain +half Archer level damage vs that target.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6033"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:improved-targeted-shot",
+      "name": "Improved Targeted Shot",
+      "minimumLevel": 6,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Reduce Targeted Shot attack penalty by 2.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6034"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:improved-intercept",
+      "name": "Improved Intercept",
+      "minimumLevel": 10,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:intercept-arrow"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Forgo full-attack shot to intercept before next turn as immediate action.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6035"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:intercept-arrow",
+      "name": "Intercept Arrow",
+      "minimumLevel": 4,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Ready a bow/crossbow attack to deflect incoming ranged weapon attack within 30 ft by opposed attack roll.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6036"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:long-strides",
+      "name": "Long Strides",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "+10 speed in light/no armor; add +10 to natural fly/climb/swim modes.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6038"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:marauders-step",
+      "name": "Marauder's Step",
+      "minimumLevel": 8,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "Shot on the Run feat",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "With Shot on the Run feat: move half speed before ranged full-attack, under armor/load restrictions.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6039"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:nowhere-to-run",
+      "name": "Nowhere to Run",
+      "minimumLevel": 2,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:hunters-target"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Opportunity attack when designated Hunter's Target withdraws.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6040"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:piercing-shot",
+      "name": "Piercing Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Standard action: shoot along weapon range increment, attack every creature in line; only first gets a confirmed crit.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6042"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:reset-initiative",
+      "name": "Reset Initiative",
+      "minimumLevel": 2,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:expert-initiative"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Once/encounter after first round change initiative to current+5.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6044"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:saving-grace",
+      "name": "Saving Grace",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Once/encounter add aimed-target bonus to saving throws vs attacks by that target; Take Aim doubles.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6045"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:second-chance-shot",
+      "name": "Second Chance Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Immediate action reroll missed ranged attack with -5 penalty.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6046"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:secondary-target",
+      "name": "Secondary Target",
+      "minimumLevel": 14,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "On ranged miss redirect to another enemy within 20 feet of original target.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6047"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:shared-precision",
+      "name": "Shared Precision",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "Precise Shot feat",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Requires Precise Shot feat; grant nearby allies Precise Shot against the struck target for 1 round.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6049"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:sure-footing",
+      "name": "Sure Footing",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "+5 Acrobatics in narrow-surface or loose-ground movement conditions.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6050"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:sure-shot",
+      "name": "Sure Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Full-round shot up to third range increment, target flat-footed, ignore DR unless target has Uncanny Dodge.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6051"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:surge",
+      "name": "Surge",
+      "minimumLevel": 2,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:long-strides"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Once/encounter swift move up to speed.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6052"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:surprise-shift",
+      "name": "Surprise Shift",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Swift 5-foot move without provoking or consuming normal 5-foot step.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6053"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:swift-strider",
+      "name": "Swift Strider",
+      "minimumLevel": 2,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:long-strides",
+        "ffd20:class:archer:talent:surge"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Once/encounter each: Blurring Burst (+2 Reflex), Sudden Assault (charge), Weaving Stride (conditional +2 AC per AoO).",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6054"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:threatening-shot",
+      "name": "Threatening Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Threaten first range increment for flanking only, not opportunity attacks; not adjacent.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6058"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:vantage-point",
+      "name": "Vantage Point",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "When wholly above enemy ignore range penalties and low cover lacking height.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6060"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:weak-point",
+      "name": "Weak Point",
+      "minimumLevel": 2,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:keen-shot"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Once/encounter swift ignore one visible target's DR for the rest of turn.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6061"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:without-a-trace",
+      "name": "Without a Trace",
+      "minimumLevel": 2,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:hide-in-plain-sight"
+      ],
+      "additionalPrerequisite": "Evasion class feature",
+      "asterisk": false,
+      "repeatLimit": 1,
+      "description": "Requires Evasion class feature; when Evasion avoids damage, immediate Stealth at -20 plus +1 per avoided damage die.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6062"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:aiding-shot",
+      "name": "Aiding Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "On ranged hit grant allies +2 circumstance attack versus struck target until next turn.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6065"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:distracting-shot",
+      "name": "Distracting Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "On bow/crossbow hit impose -2 enemy attack for one round.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6066"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:hobbling-shot",
+      "name": "Hobbling Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "On hit halve enemy land speed 1 min if Fort DC 10 + half Archer level + DEX mod fails.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6067"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:keen-shot",
+      "name": "Keen Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "Ignore concealment penalty but not total concealment.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6068"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:splitshot",
+      "name": "Splitshot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "Two arrows/bolts at two targets from one attack action with -2 penalty; target separation scales with BAB.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6069"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:surprise-shot",
+      "name": "Surprise Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "Immediate ranged shot when initiative rolled, if holding loaded weapon.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6071"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:tangling-shot",
+      "name": "Tangling Shot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [
+        "ffd20:class:archer:talent:distracting-shot",
+        "ffd20:class:archer:talent:hobbling-shot"
+      ],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "On hit enemy becomes entangled for one round unless Fort save succeeds.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6072"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:trick-shot",
+      "name": "Trick Shot",
+      "minimumLevel": 6,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "Learn disarm/feint/sunder shots at level 6; extra trick every four levels; bull rush/grapple/trip options from level 14.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6073"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:two-with-one-blow",
+      "name": "Two with One Blow",
+      "minimumLevel": 4,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "Use bow/crossbow attack at -4 vs two adjacent opponents; separate damage and crit confirms.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6075"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:class:archer:talent:weak-spot",
+      "name": "Weak Spot",
+      "minimumLevel": 2,
+      "requiresTalentIds": [],
+      "additionalPrerequisite": "",
+      "asterisk": true,
+      "repeatLimit": 1,
+      "description": "Ranged touch attack versus same/larger target but forfeit ability modifier damage bonus.",
+      "automation": "manual",
+      "sourceRefs": [
+        {
+          "sourceId": "archer",
+          "section": "Table: Archery Talents",
+          "locator": "6077"
+        }
+      ]
+    }
+  ]
+}
