@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "37 staged FFd20 races available in the wizard for live testing, including 3 Beastman Tribes. All remain needs_review and not independently import-ready.",
+  "description": "38 staged FFd20 races, including four Beastman Tribes, for live wizard testing, all still needs_review and not import-ready.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -191,6 +191,11 @@
       "file": "rules/staging/races/forgiven.race.json",
       "raceId": "ffd20:race:forgiven",
       "sha256": "4c951fbaaa5baa698705d27b18488f96350f49445b0a669a21009cef13b72aa1"
+    },
+    {
+      "file": "rules/staging/races/gnath.race.json",
+      "raceId": "ffd20:race:gnath",
+      "sha256": "6965db38d5c65d9f716d5817257cce26d8b5ab0189431531fb213bb2bfd1ac71"
     }
   ],
   "blockers": [
@@ -216,6 +221,7 @@
     "Varg and Viera heritage replacements remain blocked pending precise automation review.",
     "Amalj'aa heritage alternate skills may not replace Stalker's class-skill grants; keep heritage selection manual.",
     "Antica understand but do not speak their languages, and cannot cast spells without Silent Spell or Telepathic Spellcaster; Black Mage creation blocked until feat support.",
-    "Forgiven uses ambiguous skilled/Skill Bonus aliases and Scion of Mortality partial language/type replacement. Natural attack choice requires exactly one selection."
+    "Forgiven uses ambiguous skilled/Skill Bonus aliases and Scion of Mortality partial language/type replacement. Natural attack choice requires exactly one selection.",
+    "Gnath Carrion Sense is limited to dying creatures/corpses, not general scent. Day Raider removes Darkvision and Light Sensitivity together."
   ]
 }

@@ -40,7 +40,8 @@
     "staging/races/viera.race.json",
     "staging/races/amaljaa.race.json",
     "staging/races/antica.race.json",
-    "staging/races/forgiven.race.json"
+    "staging/races/forgiven.race.json",
+    "staging/races/gnath.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

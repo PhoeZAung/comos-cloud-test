@@ -1,0 +1,1444 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:gnath",
+  "name": "Gnath",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/gnath/",
+      "title": "Gnath — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Small size modifiers must only be applied once; 20-foot land speed and 20-foot burrowing speed are separate and should be displayed independently.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Carrion Sense is restricted to corpses and creatures with 25% HP or less; it is not general-purpose scent.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Day Raider replaces both Darkvision and Light Sensitivity. Do not retain the latter effects after swapping.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Bond to the Land, Improved Exoskeleton, One Swarm One Will and Tempered all replace Exoskeleton; they conflict in wizard selection.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Swarming shared-space combat effects and the 50% armor price penalty from Improved Exoskeleton need manual handling.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Source mechanics accounted for; unsupported conditional effects remain manual."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "External catalog not independently extracted."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External catalog not independently extracted."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone feat/archetype rules are independent entities."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone feat/archetype rules are independent entities."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:gnath:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 WIS, -4 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gnath:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6027"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gnath:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6027"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gnath:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6027"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:size",
+      "name": "Size",
+      "description": "Small. Global Small size rules apply once, not again here.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gnath:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:type",
+      "name": "Type",
+      "description": "Humanoid (gnath).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gnath:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gnath:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "gnath",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:base-speed",
+      "name": "Base Speed",
+      "description": "20 feet land speed and 20 feet burrowing speed; neither should override the other.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gnath:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gnath:trait:base-speed:effect:1",
+          "kind": "identity",
+          "target": "identity.speed.burrow",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6030"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:languages",
+      "name": "Languages",
+      "description": "Start speaking Common and Undercommon. High-Intelligence bonus languages: Antican, Goblin, Kobold, Yagudo.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gnath:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gnath:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.undercommon",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Undercommon",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:exoskeleton",
+      "name": "Exoskeleton",
+      "description": "+1 natural armor bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:crafty",
+      "name": "Crafty",
+      "description": "+2 racial Craft (alchemy) and Profession (miner) checks; Craft (alchemy) is always a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:gnath:trait:crafty:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:craft-alchemy.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gnath:trait:crafty:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:profession-miner.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:gnath:trait:crafty:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.skill:craft-alchemy.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:limited-telepathy",
+      "name": "Limited Telepathy",
+      "description": "Communicate mentally with creatures within 30 feet only when both share a language.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficiency with scimitar, katana, light/heavy crossbows and shortbow.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:carrion-sense",
+      "name": "Carrion Sense",
+      "description": "Scent-like sense only for corpses and creatures at 25% of max HP or lower.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision out to 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:light-sensitivity",
+      "name": "Light Sensitivity",
+      "description": "Light sensitivity as defined by general game rules. Specific penalties are not duplicated here.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:bite",
+      "name": "Bite",
+      "description": "Primary 1d3 natural bite, secondary when using manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:bond-to-the-land",
+      "name": "Bond to the Land",
+      "description": "+2 dodge AC when fighting in mountains or plains.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:claws",
+      "name": "Claws",
+      "description": "Two natural 1d3 primary claw attacks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:day-raider",
+      "name": "Day Raider",
+      "description": "Gain low-light vision; remove both Darkvision and Light Sensitivity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:echo-whistler",
+      "name": "Echo Whistler",
+      "description": "3/day mimic a previously heard voice or sound; opposed Bluff versus Sense Motive, with +2 circumstance on checks in echoing structures.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:improved-exoskeleton",
+      "name": "Improved Exoskeleton",
+      "description": "+2 natural armor; armor purchasing and crafting costs increase 50%.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:one-swarm-one-will",
+      "name": "One Swarm, One Will",
+      "description": "+2 racial Will saves versus mind-affecting effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:swarming",
+      "name": "Swarming",
+      "description": "May share the square of one Small ally. Two gnaths with Swarming in the same space each get +1 circumstance AC; +1 racial aid another rolls.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:gnath:trait:tempered",
+      "name": "Tempered",
+      "description": "Earth elemental resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6066"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:gnath:trait:ability-score-racial-traits",
+      "ffd20:race:gnath:trait:size",
+      "ffd20:race:gnath:trait:type",
+      "ffd20:race:gnath:trait:base-speed",
+      "ffd20:race:gnath:trait:languages",
+      "ffd20:race:gnath:trait:exoskeleton",
+      "ffd20:race:gnath:trait:crafty",
+      "ffd20:race:gnath:trait:limited-telepathy",
+      "ffd20:race:gnath:trait:weapon-familiarity",
+      "ffd20:race:gnath:trait:carrion-sense",
+      "ffd20:race:gnath:trait:darkvision",
+      "ffd20:race:gnath:trait:light-sensitivity"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:gnath:trait:bite",
+      "ffd20:race:gnath:trait:bond-to-the-land",
+      "ffd20:race:gnath:trait:claws",
+      "ffd20:race:gnath:trait:day-raider",
+      "ffd20:race:gnath:trait:echo-whistler",
+      "ffd20:race:gnath:trait:improved-exoskeleton",
+      "ffd20:race:gnath:trait:one-swarm-one-will",
+      "ffd20:race:gnath:trait:swarming",
+      "ffd20:race:gnath:trait:tempered"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:gnath:trait:bite:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:carrion-sense"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:bite"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Bite replaces Carrion Sense.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:trait:bond-to-the-land:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:exoskeleton"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:bond-to-the-land"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Bond to the Land replaces Exoskeleton.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:trait:claws:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:claws"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Claws replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:trait:day-raider:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:light-sensitivity",
+          "ffd20:race:gnath:trait:darkvision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:day-raider"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Day Raider replaces Light Sensitivity, Darkvision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:trait:echo-whistler:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:crafty"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:echo-whistler"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Echo Whistler replaces Crafty.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:trait:improved-exoskeleton:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:exoskeleton"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:improved-exoskeleton"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Improved Exoskeleton replaces Exoskeleton.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:trait:one-swarm-one-will:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:exoskeleton"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:one-swarm-one-will"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "One Swarm, One Will replaces Exoskeleton.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:trait:swarming:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:crafty"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:swarming"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Swarming replaces Crafty.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:trait:tempered:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:gnath:trait:exoskeleton"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:gnath:trait:tempered"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Tempered replaces Exoskeleton.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6066"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:gnath:favored:black-mage",
+        "raceId": "ffd20:race:gnath",
+        "classId": "ffd20:class:black-mage",
+        "name": "Gnath Black Mage favored reward",
+        "description": "+1 concentration check against damage while casting Black Mage spells.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6082"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:favored:chemist",
+        "raceId": "ffd20:race:gnath",
+        "classId": "ffd20:class:chemist",
+        "name": "Gnath Chemist favored reward",
+        "description": "+1/2 bomb damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6083"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:favored:dark-knight",
+        "raceId": "ffd20:race:gnath",
+        "classId": "ffd20:class:dark-knight",
+        "name": "Gnath Dark Knight favored reward",
+        "description": "+1/2 HP healed or damaged by harm touch.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6084"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:favored:geomancer",
+        "raceId": "ffd20:race:gnath",
+        "classId": "ffd20:class:geomancer",
+        "name": "Gnath Geomancer favored reward",
+        "description": "+1/2 to favored-terrain initiative bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6085"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:favored:illusionist",
+        "raceId": "ffd20:race:gnath",
+        "classId": "ffd20:class:illusionist",
+        "name": "Gnath Illusionist favored reward",
+        "description": "+1/6 DC of illusion spells.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6086"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:favored:psychic",
+        "raceId": "ffd20:race:gnath",
+        "classId": "ffd20:class:psychic",
+        "name": "Gnath Psychic favored reward",
+        "description": "+1/4 point to phrenic pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6087"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:favored:sword-saint",
+        "raceId": "ffd20:race:gnath",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Gnath Sword Saint favored reward",
+        "description": "+1/4 extra warleader ability use.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6088"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:gnath:favored:warrior",
+        "raceId": "ffd20:race:gnath",
+        "classId": "ffd20:class:warrior",
+        "name": "Gnath Warrior favored reward",
+        "description": "+1/2 critical confirmation with close/light blade weapons, max +4 and nonstacking with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6089"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,40);
+ assert.equal(manifest.races.length,41);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,40);
+ assert.equal(registry.races.length,41);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,37);
+ assert.equal(experimental.length,38);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -196,4 +196,12 @@ test('first three Beastman Tribe race files appear for safe live testing',()=>{
  assert.equal(forgiven.choicePools.find(p=>/Monstrous Heritage/.test(p.name)).options.length,2);
  b.alternateIds=[forgiven.id+':trait:scion-of-mortality'];
  assert(raceTraits(b).errors.length>0,'Partial type/language replacement must not be applied');
+});
+
+test('batch 13 Gnath preserves Small size, burrow speed and 9 mutually exclusive alternate replacements',()=>{
+ const race=registry.races.find(r=>r.id==='ffd20:race:gnath');assert(race?.testing);assert.equal(race.data.standardTraitIds.length,12);assert.equal(race.data.alternateTraitIds.length,9);assert.equal(race.data.heritages.length,0);assert.equal(race.data.favoredRewards.length,1);
+ const b=newBuild();b.raceId=race.id;assert.deepEqual(raceTraits(b).errors,[]);assert.equal(effectiveScores(b).str,6);assert.equal(effectiveScores(b).dex,12);assert.equal(effectiveScores(b).wis,12);
+ const speed=race.features.find(f=>f.name==='Base Speed');assert(speed.effects.some(x=>x.target==='identity.speed.burrow'&&x.value.value===20));
+ b.alternateIds=[race.id+':trait:bond-to-the-land',race.id+':trait:tempered'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
+ const day=race.data.alternateReplacements.find(op=>op.id.includes(':day-raider:'));assert.equal(day.targetFeatureIds.length,2);
 });

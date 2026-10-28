@@ -33,3 +33,7 @@ Varg: 11 alternates, 2 heritages (Gnoll, Kitsune), 11 favored class options. Fer
 ## Batch 13 — Beastman Tribes: Amalj'aa, Antica, Forgiven
 
 First three Beastman Tribes now appear in the wizard as **testing** races; all are `needs_review`/`partial`. Amalj'aa has 3 heritages with unresolved Stalker class-skill substitutions. Antica has a 15-foot burrow speed, understands rather than speaks its starting languages, and cannot cast normally without Silent Spell or Telepathic Spellcaster; current Black Mage builder refuses to save until feat support exists. Forgiven has 9 alternate traits, several source-wording `skilled`/`Skill Bonus` aliases, a partial Celestial-language replacement, and a one-of-two natural attack choice; unresolved alternates stay disabled. Favored class options remain manual. See `docs/extraction/race-batch-13-coverage.md`.
+
+## Beastman Batch 13 continuation — Gnath
+
+Gnath has 12 standard traits, 9 alternate racial traits, 8 favored class rewards, and no listed heritage. Distinct 20-ft land and burrowing speeds; Day Raider removes both darkvision and light sensitivity; Carrion Sense is restricted. All are testing-only, manual condition mechanics and `needs_review`. See `docs/extraction/race-batch-13-gnath-coverage.md`.
