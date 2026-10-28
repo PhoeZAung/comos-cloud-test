@@ -148,6 +148,22 @@ export function mountSheet(){
   if(button.matches('[data-favorite]')&&(pendingRemaining||remainingPromise||remainingInvalid)){if(remainingInvalid){status('Enter valid remaining uses first.');return;}clearTimeout(remainingTimer);void(async()=>{if(!await persistRemaining())return;const [collection,index]=button.dataset.favorite.split(':');await save({action:'entry',collection,index:Number(index),mode:'update',fields:{favorite:character.data[collection][Number(index)].favorite!==true}});})();return;}
   if(button.matches('[data-edit-entry]')&&(pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)){void(async()=>{if(!await persistRemaining())return;const [key,index]=button.dataset.editEntry.split(':');editEntry(key,Number(index));})();return;}
   if(busy)return;
+  if(button.matches('[data-delete-character]')){
+   if(conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or discard unsaved changes before deleting this character.');return;}
+   const name=window.prompt('Delete "'+character.name+'" from your characters? This archives the character; an administrator can restore it. Type the exact character name to confirm:');
+   if(name===null)return;
+   if(name!==character.name){status('Character name did not match. Nothing was deleted.');return;}
+   void(async()=>{
+    setBusy(true);status('Deleting character…');
+    try{
+     const result=await request({op:'archive',confirmName:name});
+     if(!result.archived)throw Error('The character could not be archived.');
+     closed=true;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();
+     location.assign('characters.html');
+    }catch(err){if(!closed)status(err.message);}
+    finally{if(!closed)setBusy(false);}
+   })();return;
+  }
   if(button.matches('[data-level-up],[data-open-rest]')){const modal=document.createElement('dialog');modal.className='cs-dialog cs-quick-action';modal.setAttribute('aria-label',button.hasAttribute('data-level-up')?'Level up':'Rest');modal.innerHTML=button.hasAttribute('data-level-up')?'<a class="button primary" href="create-identity.html?characterId='+encodeURIComponent(button.dataset.levelUp)+'&levelUp=1">Level up</a>':'<button class="button primary" type="button" data-confirm-rest>Rest</button>';modal.addEventListener('click',event=>{if(event.target===modal)modal.close();if(event.target.closest('[data-confirm-rest]')){modal.close();void save({action:'rest'});}});modal.addEventListener('close',()=>modal.remove(),{once:true});document.body.append(modal);modal.showModal();return;}
   if(button.matches('[data-rule-abilities]')){void openRuleAbilities();return;}
   if(button.matches('[data-accessory-open]')){const panel=root.querySelector('.cs-accessory-panel');panel.open=!panel.open;button.setAttribute('aria-expanded',String(panel.open));if(panel.open)panel.scrollIntoView({block:'nearest'});return;}

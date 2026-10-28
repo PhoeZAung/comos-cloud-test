@@ -19,5 +19,22 @@ test('directory, tags, sheets and wizard edits enforce owner/admin access and pr
   r=await fetch(base+'/character-records/'+id,{method:'POST',headers,body:JSON.stringify({op:'edit',revision:2,fields:{charName:'Renamed',level:'4'}})});assert.equal(r.status,200);const d=(await r.json()).character;assert.equal(d.data.hp_curr,8);assert.deepEqual(d.data.items,[{name:'Staff'}]);assert.equal(d.tags[0],tag.id);
   r=await fetch(base+'/character-records/'+id,{method:'POST',headers,body:JSON.stringify({op:'edit',revision:2,fields:{charName:'Stale'}})});assert.equal(r.status,409);
   r=await fetch(base+'/character-records/'+id,{method:'POST',headers:{...headers,Origin:'https://evil.test'},body:'{}'});assert.equal(r.status,403);
+  // A player can archive only their own character, after confirming its exact name and current revision.
+  const ownerHeaders={...headers,Cookie:'__Host-comos_session=owner'};
+  const otherHeaders={...headers,Cookie:'__Host-comos_session=other'};
+  const archive={op:'archive',revision:3,confirmName:'Renamed'};
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers:otherHeaders,body:JSON.stringify(archive)});assert.equal(r.status,404);
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers:ownerHeaders,body:JSON.stringify({...archive,confirmName:'Wrong'})});assert.equal(r.status,400);
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers:ownerHeaders,body:JSON.stringify({...archive,revision:2})});assert.equal(r.status,409);
+  assert.equal(db.prepare('SELECT archived FROM characters WHERE id=?').get(id).archived,0);
+  r=await fetch(base+'/character-records/'+id,{method:'POST',headers:ownerHeaders,body:JSON.stringify(archive)});
+  assert.equal(r.status,200);assert.deepEqual(await r.json(),{archived:true,id});
+  assert.equal((await fetch(base+'/character-records/'+id,{headers:ownerHeaders})).status,404);
+  assert.equal((await fetch(base+'/character-records/'+id,{headers})).status,404);
+  assert.equal(db.prepare('SELECT archived FROM characters WHERE id=?').get(id).archived,1);
+  assert.equal(db.prepare('SELECT revision FROM characters WHERE id=?').get(id).revision,4);
+  assert.equal(JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json).hp_curr,8);
+  assert.equal(characters.list().characters.some(c=>c.id===id),false);
+  assert.equal(characters.list({archived:true}).characters.some(c=>c.id===id),true);
  }finally{await new Promise(r=>server.close(r));db.close();}
 });
