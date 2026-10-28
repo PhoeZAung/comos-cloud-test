@@ -155,12 +155,12 @@
     {
       "file": "rules/staging/races/seto-lion.race.json",
       "raceId": "ffd20:race:seto-lion",
-      "sha256": "7252404787b2c846d3edc99c346b899972444d505c76c9e58101a35b2a4bdb0c"
+      "sha256": "9140b79bd63c658a4f977a95e621b3e7bce3d6c4ad24c711210898e760bc9d0a"
     },
     {
       "file": "rules/staging/races/shindroid.race.json",
       "raceId": "ffd20:race:shindroid",
-      "sha256": "641a89622cb66650feea27a6adc6bad3977811a162493092a56eae491415f893"
+      "sha256": "5b353d82a5b785c870b8e75ba508cd2de5cc1d805ffcc34c6674ad209283f7e2"
     },
     {
       "file": "rules/staging/races/tonkin.race.json",
@@ -183,6 +183,8 @@
     "Shindroid Magic Ineptitude prohibits MP except with Magitek Unit; Black Mage integration must block incompatible builds.",
     "Shindroid summary says three heritages but actual table lists four; preserve four with partial Emotionless replacement review.",
     "Tonkin mute vocal-component restriction must block automated Black Mage saving until feat support is present.",
-    "Seto Lion base speed already includes Fast and Quadruped; replacing Fast or adding Faster must not silently miscalculate movement."
+    "Seto Lion base speed already includes Fast and Quadruped; replacing Fast or adding Faster must not silently miscalculate movement.",
+    "Seto Lion summary index speed 40 ft conflicts with detailed page 50 ft; using 50 for staging pending review.",
+    "Shindroid summary index shows low-light vision but detailed traits only darkvision; low-light omitted until reviewed."
   ]
 }

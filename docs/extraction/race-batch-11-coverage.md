@@ -35,3 +35,7 @@ Source: https://finalfantasyd20.com/races/base-races/tonkin/
 - BLOCKING: 20-foot speed is unaffected by armor/encumbrance; special stacking on bleed damage and conditional telepathy need manual cards.
 
 All three are `needs_review`, `partial`, and for live wizard testing only, not independent rules approval. No Railway API, connection, or deployment action was made. Conditional effects stay manual. Racial feats/archetypes are not extracted as standalone rule definitions in this batch.
+
+## Cross-page verification conflicts
+- Seto Lion: summary race index says 40-ft. movement, detailed race page says 50-ft. including Fast and Quadruped. Staged 50 ft per detailed page, blocking review issue logged.
+- Shindroid: summary index shows low-light vision and darkvision, detailed race page lists only darkvision. Low-light vision was not added, review issue logged.

@@ -45,6 +45,11 @@
         "path": "/data/alternateReplacements",
         "reason": "Hologram Simulation excludes all variant heritages, Integrated Weaponry and Race Simulation; block unsupported combinations.",
         "blocking": true
+      },
+      {
+        "path": "/features/darkvision",
+        "reason": "Source conflict: base-races summary says Darkvision and Low-Light Vision, but detailed Shindroid racial traits include only Darkvision. Do not silently grant Low-Light Vision until reviewed.",
+        "blocking": true
       }
     ],
     "sectionInventory": [

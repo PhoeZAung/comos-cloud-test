@@ -40,6 +40,11 @@
         "path": "/data/favoredRewards",
         "reason": "Beastmaster 2.5-foot fractional reward has malformed source rounding language; Monk speed requires 5 selections. All class favored options remain manual.",
         "blocking": true
+      },
+      {
+        "path": "/features/base-speed",
+        "reason": "Source conflict: base-races summary table lists Seto Lion 40-foot base speed, while its detailed racial page explicitly states 50 feet, with Fast and Quadruped already included. Detailed source governs staging; independent review required.",
+        "blocking": true
       }
     ],
     "sectionInventory": [
