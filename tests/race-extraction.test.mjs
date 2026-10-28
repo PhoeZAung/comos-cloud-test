@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,45);
+ assert.equal(manifest.races.length,49);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,45);
+ assert.equal(registry.races.length,49);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,42);
+ assert.equal(experimental.length,46);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -213,4 +213,13 @@ test('batch 14 Goblin, Ixal, Kindred and Kobold preserve alternate replacements,
  const ixal=registry.races.find(r=>r.id==='ffd20:race:ixal');b=newBuild();b.raceId=ixal.id;assert.deepEqual(ixal.choicePools.map(p=>p.options.length),[2,6]);assert(buildIssues(b).some(x=>/Ixal.*(terrain|subtype)/i.test(x.message)));b.alternateIds=[ixal.id+':trait:garudas-current'];assert(buildIssues(b).some(x=>/Ixal.*subtype/i.test(x.message)));
  const kindred=registry.races.find(r=>r.id==='ffd20:race:kindred');b=newBuild();b.raceId=kindred.id;assert(buildIssues(b).some(x=>/Kindred.*language/i.test(x.message)));assert.equal(kindred.features.find(x=>x.name==='Languages').effects.length,1);b.alternateIds=[kindred.id+':trait:maw-or-claw'];assert(buildIssues(b).some(x=>/Maw or Claw/.test(x.message)));
  const kobold=registry.races.find(r=>r.id==='ffd20:race:kobold');const speed=kobold.features.find(x=>x.name==='Base Speed');assert(speed.effects.some(e=>e.target==='identity.speed.burrow'&&e.value.value===20));
+});
+
+test('batch 15 Kojin, Lamia, Loporrit and Matanga stage complete rules and safe mandatory choices',()=>{
+ const expected=[['kojin',12,4,0,0,0],['lamia',14,5,3,0,2],['loporrit',12,8,0,0,4],['matanga',13,3,2,0,1]];
+ for(const [key,standard,alt,herit,favored,pools] of expected){const race=registry.races.find(r=>r.id==='ffd20:race:'+key);assert.equal(race?.testing,true);assert.deepEqual([race.data.standardTraitIds.length,race.data.alternateTraitIds.length,race.data.heritages.length,race.data.favoredRewards.length,race.choicePools.length],[standard,alt,herit,favored,pools]);const b=newBuild();b.raceId=race.id;assert.deepEqual(raceTraits(b).errors,[]);if(herit){b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
+ const kojin=registry.races.find(r=>r.id==='ffd20:race:kojin');let b=newBuild();b.raceId=kojin.id;assert.deepEqual([effectiveScores(b).con,effectiveScores(b).wis,effectiveScores(b).cha],[12,12,8]);b.alternateIds=[kojin.id+':trait:natural-prankster'];assert.deepEqual([effectiveScores(b).con,effectiveScores(b).wis,effectiveScores(b).cha],[12,8,12]);const kspeed=kojin.features.find(f=>f.name==='Base Speed');assert(kspeed.effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===30));
+ const lamia=registry.races.find(r=>r.id==='ffd20:race:lamia');b=newBuild();b.raceId=lamia.id;assert(buildIssues(b).some(x=>/Lamia.*Bond to the Land/.test(x.message)));assert(lamia.features.find(x=>x.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===40));b.alternateIds=[lamia.id+':trait:seasinger'];assert(!buildIssues(b).some(x=>/Lamia.*Bond to the Land/.test(x.message)));b.alternateIds.push(lamia.id+':trait:tempered');assert(buildIssues(b).some(x=>/Lamia.*Tempered/.test(x.message)));
+ const loporrit=registry.races.find(r=>r.id==='ffd20:race:loporrit');b=newBuild();b.raceId=loporrit.id;assert(buildIssues(b).some(x=>/Loporrit.*Handy/.test(x.message)));assert.equal(loporrit.features.find(x=>x.name==='Base Speed').effects[0].value.value,40);b.alternateIds=[loporrit.id+':trait:natural-hunter'];assert(!buildIssues(b).some(x=>/Loporrit.*Handy/.test(x.message)));
+ const matanga=registry.races.find(r=>r.id==='ffd20:race:matanga');b=newBuild();b.raceId=matanga.id;assert(buildIssues(b).some(x=>/Matanga.*Academic/.test(x.message)));b.alternateIds=[matanga.id+':trait:stoic'];assert(!buildIssues(b).some(x=>/Matanga.*Academic/.test(x.message)));
 });

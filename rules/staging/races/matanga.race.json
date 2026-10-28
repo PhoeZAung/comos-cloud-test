@@ -1,0 +1,1409 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:matanga",
+  "name": "Matanga",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/matanga/",
+      "title": "Matanga — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Academic requires Knowledge skill selection unavailable in current wizard; block saving until recorded.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Arkasodara/Gajasura heritages replace score vector and Craftsman, leaving Academic intact; block unresolved heritage substitutions.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Powerful Build does not make size actually Large; it is conditional, never an unconditional size category adjustment.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Stoic is stateful: accepting morale bonus removes benefit for 24 hours.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Top index names Minor Shards of the Past but detailed trait list names Academic, use detailed term.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Matanga Heritages",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "External standalone catalog not included in race definition."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External standalone catalog not included in race definition."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate rules entities not extracted here."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate rules entities not extracted here."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:matanga:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 CON, +2 INT, -2 DEX",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:matanga:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:matanga:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:matanga:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:size",
+      "name": "Size",
+      "description": "medium; global size adjustments apply only once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:matanga:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:type",
+      "name": "Type",
+      "description": "humanoid (matanga)",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:matanga:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:matanga:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "matanga",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30 feet land; distinct movement modes.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:matanga:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:languages",
+      "name": "Languages",
+      "description": "Begins speaking Common and Matanga. High INT bonus options: Dwarven Elvaan Giant Goblin Lalafellan Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:matanga:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:matanga:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.matanga",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Matanga",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:hardy",
+      "name": "Hardy",
+      "description": "+2 saves vs poison, spells and spell-like abilities.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:powerful-build",
+      "name": "Powerful Build",
+      "description": "Counts one size larger for CMB/CMD when advantageous, and size-dependent special attack eligibility; no stacking with effects that alter actual size.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:stability",
+      "name": "Stability",
+      "description": "+4 CMD against bull rush and trip while grounded.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:academic",
+      "name": "Academic",
+      "description": "Choose one Knowledge skill for +2 racial bonus and class skill status.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:matanga:pool:academic-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feat and Skill Racial Traits",
+            "locator": "6038"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:craftsman",
+      "name": "Craftsman",
+      "description": "+2 all Craft checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:dexterous-trunk",
+      "name": "Dexterous Trunk",
+      "description": "Can carry object and retrieve small stowed item with trunk as swift action, but no weapon use.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:powerful-tusks",
+      "name": "Powerful Tusks",
+      "description": "Natural gore attack 1d6.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:battle-hardened",
+      "name": "Battle-Hardened",
+      "description": "+1 CMD instead of Stability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:orc-ferocity",
+      "name": "Orc Ferocity",
+      "description": "Once per day after reduced below 0 HP without death, act one extra round as disabled; then fall unconscious unless healed positive.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:stoic",
+      "name": "Stoic",
+      "description": "Usually no morale bonuses; gain +2 saves versus emotion/fear and +2 intimidate DC; can accept morale bonus but loses trait for 24 hours.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:arkasodara-heritage-ability-scores",
+      "name": "Arkasodara Heritage Ability Scores",
+      "description": "+2 CON, +2 WIS, -2 DEX",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:matanga:trait:arkasodara-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Matanga Heritages",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Matanga Heritages",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:matanga:trait:arkasodara-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Matanga Heritages",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Matanga Heritages",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:matanga:trait:arkasodara-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Matanga Heritages",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Matanga Heritages",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Matanga Heritages",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:arkasodara-heritage-benefit",
+      "name": "Arkasodara Heritage Benefit",
+      "description": "+2 Diplomacy instead of Craftsman +2 Craft; merchant lineage.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Matanga Heritages",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:gajasura-heritage-ability-scores",
+      "name": "Gajasura Heritage Ability Scores",
+      "description": "+2 STR, +2 INT, -2 CHA",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:matanga:trait:gajasura-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Matanga Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Matanga Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:matanga:trait:gajasura-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Matanga Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Matanga Heritages",
+              "locator": "6062"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:matanga:trait:gajasura-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Matanga Heritages",
+                "locator": "6062"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Matanga Heritages",
+              "locator": "6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Matanga Heritages",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:matanga:trait:gajasura-heritage-benefit",
+      "name": "Gajasura Heritage Benefit",
+      "description": "+2 Survival instead of Craftsman +2 Craft; mountain nomad lineage.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Matanga Heritages",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:matanga:pool:academic-selection",
+      "name": "Academic selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Selection required. Current wizard lacks racial choice event binding; no default. Named specialty placeholders require free-text/skill-picker UI.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:matanga:pool:academic-selection:option:choose-knowledge-specialty",
+          "name": "Choose Knowledge specialty",
+          "description": "Choose Knowledge specialty",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "choose-knowledge-specialty",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:matanga:trait:ability-score-racial-traits",
+      "ffd20:race:matanga:trait:size",
+      "ffd20:race:matanga:trait:type",
+      "ffd20:race:matanga:trait:base-speed",
+      "ffd20:race:matanga:trait:languages",
+      "ffd20:race:matanga:trait:hardy",
+      "ffd20:race:matanga:trait:powerful-build",
+      "ffd20:race:matanga:trait:stability",
+      "ffd20:race:matanga:trait:academic",
+      "ffd20:race:matanga:trait:craftsman",
+      "ffd20:race:matanga:trait:dexterous-trunk",
+      "ffd20:race:matanga:trait:powerful-tusks",
+      "ffd20:race:matanga:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:matanga:trait:battle-hardened",
+      "ffd20:race:matanga:trait:orc-ferocity",
+      "ffd20:race:matanga:trait:stoic"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:matanga:trait:battle-hardened:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:matanga:trait:stability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:matanga:trait:battle-hardened"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Battle-Hardened replaces Stability.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6050"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:matanga:trait:orc-ferocity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:matanga:trait:stability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:matanga:trait:orc-ferocity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Orc Ferocity replaces Stability.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:matanga:trait:stoic:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:matanga:trait:academic"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:matanga:trait:stoic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Stoic replaces Academic.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:matanga:heritage:arkasodara",
+        "name": "Arkasodara",
+        "description": "+2 Diplomacy instead of Craftsman +2 Craft; merchant lineage.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:matanga:heritage:arkasodara:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:matanga:trait:ability-score-racial-traits",
+              "ffd20:race:matanga:trait:craftsman"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:matanga:trait:arkasodara-heritage-ability-scores",
+              "ffd20:race:matanga:trait:arkasodara-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Arkasodara replaces score vector and Craftsman; manual pending verified sheet integration.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Matanga Heritages",
+                "locator": "6061"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:matanga:trait:arkasodara-heritage-ability-scores",
+          "ffd20:race:matanga:trait:arkasodara-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Matanga Heritages",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:matanga:heritage:gajasura",
+        "name": "Gajasura",
+        "description": "+2 Survival instead of Craftsman +2 Craft; mountain nomad lineage.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:matanga:heritage:gajasura:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:matanga:trait:ability-score-racial-traits",
+              "ffd20:race:matanga:trait:craftsman"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:matanga:trait:gajasura-heritage-ability-scores",
+              "ffd20:race:matanga:trait:gajasura-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Gajasura replaces score vector and Craftsman; manual pending verified sheet integration.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Matanga Heritages",
+                "locator": "6062"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:matanga:trait:gajasura-heritage-ability-scores",
+          "ffd20:race:matanga:trait:gajasura-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Matanga Heritages",
+            "locator": "6062"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:matanga:favored:beastmaster",
+        "raceId": "ffd20:race:matanga",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Matanga Beastmaster favored reward",
+        "description": "+1/2 animal companion natural attack damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6071"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:matanga:favored:blue-mage",
+        "raceId": "ffd20:race:matanga",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Matanga Blue Mage favored reward",
+        "description": "+1/6 Knowledge (all) checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6072"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:matanga:favored:chemist",
+        "raceId": "ffd20:race:matanga",
+        "classId": "ffd20:class:chemist",
+        "name": "Matanga Chemist favored reward",
+        "description": "+1/6 discovery.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:matanga:favored:knight",
+        "raceId": "ffd20:race:matanga",
+        "classId": "ffd20:class:knight",
+        "name": "Matanga Knight favored reward",
+        "description": "+1 defensive stance round daily.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:matanga:favored:medic",
+        "raceId": "ffd20:race:matanga",
+        "classId": "ffd20:class:medic",
+        "name": "Matanga Medic favored reward",
+        "description": "+1/6 medical practice.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -77,6 +77,18 @@ export function buildIssues(b,{complete=true}={}){
   add(2,'Kindred must choose exactly one Abyssal or Infernal starting language; current wizard cannot store this required racial choice, so character saving is blocked.');
   if(b.alternateIds.includes('ffd20:race:kindred:trait:maw-or-claw'))add(2,'Kindred Maw or Claw requires selecting one natural attack package, unsupported by the wizard; character saving is blocked.');
  }
+ if(race?.id==='ffd20:race:lamia'){
+  const active=new Set(raceTraits(b).traits.map(f=>f.id));
+  if(active.has('ffd20:race:lamia:trait:bond-to-the-land'))add(2,'Lamia Bond to the Land requires desert or water terrain selection; race-specific choice storage is unavailable and save is blocked.');
+  if(active.has('ffd20:race:lamia:trait:tempered'))add(2,'Lamia Tempered requires choosing water or wind resistance; race-specific choice storage is unavailable and save is blocked.');
+ }
+ if(race?.id==='ffd20:race:loporrit'){
+  const active=new Set(raceTraits(b).traits.map(f=>f.id));
+  for(const [trait,description] of [['handy','Handy Craft/Profession specialty'],['explorer','Explorer Knowledge specialty'],['hydaelyns-spark','Hydaelyn Spark skill'],['purpose-driven','Purpose-Driven class skill']])if(active.has('ffd20:race:loporrit:trait:'+trait))add(2,'Loporrit '+description+' requires an explicit racial skill selection; current wizard cannot store it, so save is blocked.');
+ }
+ if(race?.id==='ffd20:race:matanga'){
+  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:matanga:trait:academic'))add(2,'Matanga Academic requires one chosen Knowledge specialty, not yet stored by the wizard; character save is blocked.');
+ }
  if(race?.id==='ffd20:race:viera'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
   if(active.has('ffd20:race:viera:trait:elemental-summoner'))add(2,'Viera Elemental Summoner requires choosing one elemental subtype. Race-specific selection is not yet supported by this wizard; save is blocked until the subtype can be recorded.');

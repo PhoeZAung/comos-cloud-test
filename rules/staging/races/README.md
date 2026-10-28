@@ -1,6 +1,6 @@
 # FFd20 race files: available for live wizard testing
 
-34 extracted races from batches 01–12 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
+46 extracted races through batch 15 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
 
 The race dropdown shows staged races with “(testing)” and the wizard displays a review warning. The existing runtime projection applies only its supported unconditional effects. Unsupported effects remain manual; alternates with unresolved replacement mapping stay disabled. Heritage and race-dependent choices, cross-race Half-Breed inheritance, and favored-class bonuses still need review. Test character totals against official source pages before play; a saved character is not evidence of rule correctness.
 
@@ -41,3 +41,7 @@ Gnath has 12 standard traits, 9 alternate racial traits, 8 favored class rewards
 ## Beastman Batch 14 — Goblin, Ixal, Kindred, Kobold
 
 Added 4 race testing definitions, with Goblin Moblin and Red Cap heritages and six alternates, Ixal five alternates plus two required race choice pools, Kindred five alternates plus required language and Maw/Claw choice pools, Kobold five alternates and 20 ft burrow speed. Mandatory Ixal and Kindred choices are guarded in the Black Mage build validator. Unclear conditional mechanical effects remain manual; Moblin/Red Cap replacement unresolved. See `docs/extraction/race-batch-14-beastman-coverage.md`.
+
+## Beastman batch 15 — Kojin, Lamia, Loporrit, Matanga
+
+Added 4 source-based testing JSONs with full standard/alternate, heritage tables and favored class options. Kojin has underwater and shell movement with no water breathing; Lamia has 20-ft land, 40-ft swim, and two required terrain/resistance choices; Loporrit starts Small with 40-ft speed and skill choice needs; Matanga has Powerful Build and a mandatory Knowledge choice. All mandatory unsupported selections are guarded in the builder. Source index discrepancies and unresolved alternate/heritage mechanics are documented in `docs/extraction/race-batch-15-beastman-coverage.md`.

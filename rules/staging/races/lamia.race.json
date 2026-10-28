@@ -1,0 +1,1917 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:lamia",
+  "name": "Lamia",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/beastman-tribes/lamia/",
+      "title": "Lamia — Final Fantasy d20",
+      "retrievedOn": "2026-10-28",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Lamia requires selecting desert or water as Bond to the Land terrain; selection is not implemented in wizard.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Lamia Tempered requires one of two elemental resistances rather than both.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "20-ft land and 40-ft swim movement distinct and not reduced by armor/encumbrance.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Legless removes foot equipment slot while adding second neck slot; equipment adapter not supported.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Heritages replace both score vector and Tripping Tail with specific different actions, unresolved until reviewed.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Lamia Heritages",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Mechanics summarized from detailed source; independent rules/automation approval pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "External standalone catalog not included in race definition."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External standalone catalog not included in race definition."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate rules entities not extracted here."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate rules entities not extracted here."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:lamia:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 CHA, -2 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:size",
+      "name": "Size",
+      "description": "medium; global size adjustments apply only once.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:type",
+      "name": "Type",
+      "description": "humanoid (reptillian)",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "reptillian",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:base-speed",
+      "name": "Base Speed",
+      "description": "20 feet land and 40 feet swimming; distinct movement modes.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:base-speed:effect:1",
+          "kind": "identity",
+          "target": "identity.speed.swim",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 40,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:languages",
+      "name": "Languages",
+      "description": "Begins speaking Common and Aquan. High INT bonus options: Aboleth Aklo Draconic Elvaan Sahagin Sylvan.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.aquan",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Aquan",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:bond-to-the-land",
+      "name": "Bond to the Land",
+      "description": "Choose desert OR water terrain at creation for +2 dodge AC there.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:lamia:pool:bond-to-the-land-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defense Racial Traits",
+            "locator": "6036"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:hold-breath",
+      "name": "Hold Breath",
+      "description": "Hold breath 4 x CON score rounds before drowning.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:tough-scales",
+      "name": "Tough Scales",
+      "description": "+1 natural armor bonus.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:jewelers-craft",
+      "name": "Jeweler’s Craft",
+      "description": "+2 Craft/Profession checks to create metal items, including jewelry.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:slapping-tail",
+      "name": "Slapping Tail",
+      "description": "Primary tail natural attack 1d8 plus STR; can use for 5-foot reach attacks of opportunity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:tripping-tail",
+      "name": "Tripping Tail",
+      "description": "After hitting with Slapping Tail may make free trip without provoking.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with scimitar and cutlass.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:legless",
+      "name": "Legless",
+      "description": "Cannot use leg/foot armor or foot-slot magic items, even with polymorph. May wear two magical neck-slot items using tail. Restriction ends only on resurrection as another race.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:darkvision",
+      "name": "Darkvision",
+      "description": "60 ft darkvision plus light sensitivity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:seasinger",
+      "name": "Seasinger",
+      "description": "+2 Perform (sing), +1 DC for language-dependent spells.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:seasinger:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perform-sing.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6056"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6056"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6056"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:seducer",
+      "name": "Seducer",
+      "description": "+2 Diplomacy against attractive-eligible creatures; CHA 11+ grants charm SLA 1/day at character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:swordtrained",
+      "name": "Swordtrained",
+      "description": "Proficient falchion, greatsword, longsword, rapier, shortsword, two-bladed sword.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:tempered",
+      "name": "Tempered",
+      "description": "Choose water OR wind resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:lamia:pool:tempered-selection"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:ananta-heritage-ability-scores",
+      "name": "Ananta Heritage Ability Scores",
+      "description": "+2 DEX, +2 CHA, -2 WIS",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:ananta-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6067"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6067"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:ananta-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6067"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6067"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:ananta-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6067"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6067"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Lamia Heritages",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:ananta-heritage-benefit",
+      "name": "Ananta Heritage Benefit",
+      "description": "Deep Magic: +2 caster checks to beat spell resistance and +2 dispel checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Lamia Heritages",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:medusa-heritage-ability-scores",
+      "name": "Medusa Heritage Ability Scores",
+      "description": "+2 CON, +2 CHA, -2 DEX",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:medusa-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6068"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6068"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:medusa-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6068"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6068"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:medusa-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6068"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6068"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Lamia Heritages",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:medusa-heritage-benefit",
+      "name": "Medusa Heritage Benefit",
+      "description": "Curse Gaze spell-like ability 3/day, CHA save DC, caster level equals class level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Lamia Heritages",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:undine-heritage-ability-scores",
+      "name": "Undine Heritage Ability Scores",
+      "description": "+2 DEX, +2 CHA, -2 INT",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lamia:trait:undine-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6069"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6069"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:undine-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6069"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6069"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:trait:undine-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6069"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Lamia Heritages",
+              "locator": "6069"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Lamia Heritages",
+          "locator": "6069"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lamia:trait:undine-heritage-benefit",
+      "name": "Undine Heritage Benefit",
+      "description": "Nereid Fascination 1/day; 20-ft radius fascinates humanoids 1 round/character level; Will DC 10+half level+CHA modifier.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Lamia Heritages",
+          "locator": "6069"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:lamia:pool:bond-to-the-land-selection",
+      "name": "Bond to the Land selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Selection required. Current wizard lacks racial choice event binding; no default. Named specialty placeholders require free-text/skill-picker UI.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:lamia:pool:bond-to-the-land-selection:option:desert",
+          "name": "Desert",
+          "description": "Desert",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "desert",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:pool:bond-to-the-land-selection:option:water",
+          "name": "Water",
+          "description": "Water",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "water",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:lamia:pool:tempered-selection",
+      "name": "Tempered selection",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Selection required. Current wizard lacks racial choice event binding; no default. Named specialty placeholders require free-text/skill-picker UI.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:lamia:pool:tempered-selection:option:water",
+          "name": "Water",
+          "description": "Water",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "water",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6059"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lamia:pool:tempered-selection:option:wind",
+          "name": "Wind",
+          "description": "Wind",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wind",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6059"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "beastman_tribe",
+    "standardTraitIds": [
+      "ffd20:race:lamia:trait:ability-score-racial-traits",
+      "ffd20:race:lamia:trait:size",
+      "ffd20:race:lamia:trait:type",
+      "ffd20:race:lamia:trait:base-speed",
+      "ffd20:race:lamia:trait:languages",
+      "ffd20:race:lamia:trait:bond-to-the-land",
+      "ffd20:race:lamia:trait:hold-breath",
+      "ffd20:race:lamia:trait:tough-scales",
+      "ffd20:race:lamia:trait:jewelers-craft",
+      "ffd20:race:lamia:trait:slapping-tail",
+      "ffd20:race:lamia:trait:tripping-tail",
+      "ffd20:race:lamia:trait:weapon-familiarity",
+      "ffd20:race:lamia:trait:low-light-vision",
+      "ffd20:race:lamia:trait:legless"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:lamia:trait:darkvision",
+      "ffd20:race:lamia:trait:seasinger",
+      "ffd20:race:lamia:trait:seducer",
+      "ffd20:race:lamia:trait:swordtrained",
+      "ffd20:race:lamia:trait:tempered"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:lamia:trait:darkvision:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lamia:trait:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lamia:trait:darkvision"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Darkvision replaces Low-Light Vision.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:trait:seasinger:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lamia:trait:bond-to-the-land"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lamia:trait:seasinger"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Seasinger replaces Bond to the Land.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6056"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:trait:seducer:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lamia:trait:bond-to-the-land",
+          "ffd20:race:lamia:trait:jewelers-craft"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lamia:trait:seducer"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Seducer replaces Bond to the Land, Jeweler’s Craft.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:trait:swordtrained:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lamia:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lamia:trait:swordtrained"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Swordtrained replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:trait:tempered:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lamia:trait:tough-scales"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lamia:trait:tempered"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Tempered replaces Tough Scales.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:lamia:heritage:ananta",
+        "name": "Ananta",
+        "description": "Deep Magic: +2 caster checks to beat spell resistance and +2 dispel checks.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:lamia:heritage:ananta:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:lamia:trait:ability-score-racial-traits",
+              "ffd20:race:lamia:trait:tripping-tail"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:lamia:trait:ananta-heritage-ability-scores",
+              "ffd20:race:lamia:trait:ananta-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Ananta replaces score vector and Tripping Tail; manual pending verified sheet integration.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6067"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:lamia:trait:ananta-heritage-ability-scores",
+          "ffd20:race:lamia:trait:ananta-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Lamia Heritages",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:heritage:medusa",
+        "name": "Medusa",
+        "description": "Curse Gaze spell-like ability 3/day, CHA save DC, caster level equals class level.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:lamia:heritage:medusa:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:lamia:trait:ability-score-racial-traits",
+              "ffd20:race:lamia:trait:tripping-tail"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:lamia:trait:medusa-heritage-ability-scores",
+              "ffd20:race:lamia:trait:medusa-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Medusa replaces score vector and Tripping Tail; manual pending verified sheet integration.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6068"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:lamia:trait:medusa-heritage-ability-scores",
+          "ffd20:race:lamia:trait:medusa-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Lamia Heritages",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:heritage:undine",
+        "name": "Undine",
+        "description": "Nereid Fascination 1/day; 20-ft radius fascinates humanoids 1 round/character level; Will DC 10+half level+CHA modifier.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:lamia:heritage:undine:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:lamia:trait:ability-score-racial-traits",
+              "ffd20:race:lamia:trait:tripping-tail"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:lamia:trait:undine-heritage-ability-scores",
+              "ffd20:race:lamia:trait:undine-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Undine replaces score vector and Tripping Tail; manual pending verified sheet integration.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Lamia Heritages",
+                "locator": "6069"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:lamia:trait:undine-heritage-ability-scores",
+          "ffd20:race:lamia:trait:undine-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Lamia Heritages",
+            "locator": "6069"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:lamia:favored:archer",
+        "raceId": "ffd20:race:lamia",
+        "classId": "ffd20:class:archer",
+        "name": "Lamia Archer favored reward",
+        "description": "+1/3 Aim attack bonus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6085"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:favored:bard",
+        "raceId": "ffd20:race:lamia",
+        "classId": "ffd20:class:bard",
+        "name": "Lamia Bard favored reward",
+        "description": "+1 bardic performance round/day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6086"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:favored:cleric",
+        "raceId": "ffd20:race:lamia",
+        "classId": "ffd20:class:cleric",
+        "name": "Lamia Cleric favored reward",
+        "description": "+1/3 channel energy damage/heal.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6087"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:favored:dancer",
+        "raceId": "ffd20:race:lamia",
+        "classId": "ffd20:class:dancer",
+        "name": "Lamia Dancer favored reward",
+        "description": "+1/4 ki pool point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6088"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:favored:necromancer",
+        "raceId": "ffd20:race:lamia",
+        "classId": "ffd20:class:necromancer",
+        "name": "Lamia Necromancer favored reward",
+        "description": "+1 spell known at least one level below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6089"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:favored:sword-saint",
+        "raceId": "ffd20:race:lamia",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Lamia Sword Saint favored reward",
+        "description": "+1/6 new swordskill.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6090"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lamia:favored:white-mage",
+        "raceId": "ffd20:race:lamia",
+        "classId": "ffd20:class:white-mage",
+        "name": "Lamia White Mage favored reward",
+        "description": "+1 shadow resistance to cap 10.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6091"
+          }
+        ]
+      }
+    ]
+  }
+}

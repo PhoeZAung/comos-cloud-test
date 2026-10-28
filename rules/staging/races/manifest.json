@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "42 staged FFd20 races from batches 01–14, including eight Beastman Tribes, enabled for wizard testing; all needs_review.",
+  "description": "46 staged FFd20 races from batches 01–15, including 12 Beastman Tribes, for live wizard testing, all needs_review.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -216,6 +216,26 @@
       "file": "rules/staging/races/kobold.race.json",
       "raceId": "ffd20:race:kobold",
       "sha256": "0afe444a57a007ac9abed0be3396b30138ed6fe54ba8972234cd1e53900ac232"
+    },
+    {
+      "file": "rules/staging/races/kojin.race.json",
+      "raceId": "ffd20:race:kojin",
+      "sha256": "cd2ba854267a5cc23dfbeccac4f20203d13d30a35d562d8f763931552d8608f4"
+    },
+    {
+      "file": "rules/staging/races/lamia.race.json",
+      "raceId": "ffd20:race:lamia",
+      "sha256": "042fee6688151db38756544a674d9b552e34dd94b3d1ddbf0238fb47b35f6b80"
+    },
+    {
+      "file": "rules/staging/races/loporrit.race.json",
+      "raceId": "ffd20:race:loporrit",
+      "sha256": "23d4782369b353968a14c3a7b70ec7b0ee3e3b5a28fd5b16220748f85ee73dd0"
+    },
+    {
+      "file": "rules/staging/races/matanga.race.json",
+      "raceId": "ffd20:race:matanga",
+      "sha256": "ac8bee0a5cfeea129206c19b379d832dcaecab68ade0a76d67f43aacbd20656f"
     }
   ],
   "blockers": [
@@ -248,6 +268,10 @@
     "Goblin Hobgoblinoid size and score replacements need size engine verification; Pyromaniac CHA-dependent spell-like abilities and conditional Craft bonuses stay manual.",
     "Goblin Moblin and Red Cap heritage Silver Tongued replacements unresolved; do not auto-apply.",
     "Kindred source index lists -2 CHA but detailed racial page says -4 CHA; staged -4 from detailed page pending independent review.",
-    "Kobold source index lists 20-ft. base speed; detailed racial page says 30-ft. land and 20-ft. burrow; staged detailed values pending review."
+    "Kobold source index lists 20-ft. base speed; detailed racial page says 30-ft. land and 20-ft. burrow; staged detailed values pending review.",
+    "Lamia Bond to the Land desert/water and Tempered water/wind choices cannot yet be recorded; block final saves.",
+    "Loporrit Handy Craft/Profession, Explorer/Hydaelyn Spark/Purpose-Driven skill selections require a race-choice UI; block saves while active.",
+    "Matanga Academic requires a selected Knowledge specialty and blocks save while active.",
+    "Lamia and Matanga heritages remain unresolved manual replacements. Source index differs from detailed Kojin, Loporrit and Matanga trait names."
   ]
 }
