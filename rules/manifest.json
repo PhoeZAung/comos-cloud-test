@@ -35,7 +35,9 @@
     "staging/races/seeq.race.json",
     "staging/races/seto-lion.race.json",
     "staging/races/shindroid.race.json",
-    "staging/races/tonkin.race.json"
+    "staging/races/tonkin.race.json",
+    "staging/races/varg.race.json",
+    "staging/races/viera.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

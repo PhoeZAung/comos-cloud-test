@@ -1,0 +1,2532 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:viera",
+  "name": "Viera",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/viera/",
+      "title": "Viera — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data",
+        "reason": "Elemental Summoner subtype has exactly six candidate choices; wizard does not yet bind race-specific choice events.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Mist Sight has exactly three alternatives but grants only one; its use counter and selection need wizard support.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Four Viera heritages substitute the full racial scores and People of the Wood skill bonuses; block until reviewed.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Fleet-Footed and Spirit of the Waters both replace Weapon Familiarity, creating a conflict.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "Conditional magic bonuses, optional Aquan language, and class-favored fractional choices remain manual.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Summary captured; independent review still required."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Feats",
+        "status": "excluded",
+        "reason": "External feat/archetype catalog outside race JSON."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External feat/archetype catalog outside race JSON."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Separate external catalog not independently extracted."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate external catalog not independently extracted."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:viera:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 DEX, +2 WIS, -2 CON",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:size",
+      "name": "Size",
+      "description": "Medium size; no inherent size adjustment.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:type",
+      "name": "Type",
+      "description": "Humanoid with viera subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "viera",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:languages",
+      "name": "Languages",
+      "description": "Begin speaking Common and Vieran. High-INT optional languages: Banganese, Elvaan, Lalafellan, Mithran, Moogle, Numish, Seeq.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:languages:effect:1",
+          "kind": "identity",
+          "target": "identity.languages.vieran",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Vieran",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:vieran-immunities",
+      "name": "Vieran Immunities",
+      "description": "Immune to magical sleep, plus +2 racial saves against enfeebling spells and effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial Perception.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:keen-senses:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:hunter",
+      "name": "Hunter",
+      "description": "Stealth and Survival are always class skills.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:hunter:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:stealth.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:hunter:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:survival.class_skill",
+          "operation": "grant",
+          "value": null,
+          "textValue": "class skill",
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:people-of-the-wood",
+      "name": "People of the Wood",
+      "description": "+1 racial Knowledge (nature) and Survival.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:people-of-the-wood:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-nature.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:people-of-the-wood:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.skill:survival.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:elemental-summoner",
+      "name": "Elemental Summoner",
+      "description": "At character creation choose earth, fire, ice, lightning, water or wind; summoning a creature with that subtype increases spell duration two rounds; retraining required to change.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:viera:pool:elemental-summoner-subtype"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magical Racial Traits",
+            "locator": "6040"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:viera:trait:vieran-magic",
+      "name": "Vieran Magic",
+      "description": "+2 caster-level checks to overcome spell resistance and +2 racial Spellcraft specifically to identify magic item properties.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Proficient with shortbow and longbow (including composite), greatbow and orc hornbow.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as humans in dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:fleet-footed",
+      "name": "Fleet-Footed",
+      "description": "Gain Run as bonus feat, plus +2 initiative.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:mist-sight",
+      "name": "Mist Sight",
+      "description": "Choose exactly one: detect magic, detect secret doors, or detect undead, as a 3/day spell-like ability at character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:viera:pool:mist-sight-spell"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      "selectionTiming": "creation"
+    },
+    {
+      "id": "ffd20:race:viera:trait:misted-bows",
+      "name": "Misted Bows",
+      "description": "Bow of the Viera spell-like ability 1/day at character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:misty-mind",
+      "name": "Misty Mind",
+      "description": "+2 racial Will saves against enfeebling charm/compulsion; second save 1 round after failed check for ongoing effects, limited by similar reroll features.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:silent-hunter",
+      "name": "Silent Hunter",
+      "description": "Reduce movement Stealth penalty by 5 and can use Stealth while running at -20 total.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:spirit-of-the-waters",
+      "name": "Spirit of the Waters",
+      "description": "+4 Swim, always take 10 swimming, may choose Aquan language, proficient with longspear, trident, and net.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:spirit-of-the-waters:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:swim.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:urbanite",
+      "name": "Urbanite",
+      "description": "+2 Diplomacy gathering information and Sense Motive getting social hunch (not global bonuses).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:fanow-heritage-ability-scores",
+      "name": "Fanow Heritage Ability Scores",
+      "description": "+2 DEX, +2 WIS, -2 STR",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:fanow-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6067"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6067"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:fanow-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6067"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6067"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:fanow-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6067"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6067"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:fanow-heritage-benefit",
+      "name": "Fanow Heritage Benefit",
+      "description": "+1 racial bonus on Knowledge (History), Stealth instead of Knowledge (nature) and Survival. Rak'Tika Greatwoods lineage with alternative racial skill modifiers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:feol-heritage-ability-scores",
+      "name": "Feol Heritage Ability Scores",
+      "description": "+2 DEX, +2 INT, -2 CON",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:feol-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6068"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6068"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:feol-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6068"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6068"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:feol-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6068"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6068"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:feol-heritage-benefit",
+      "name": "Feol Heritage Benefit",
+      "description": "+1 racial bonus on Knowledge (Local), Knowledge (Engineering) instead of Knowledge (nature) and Survival. Aegyl-descended variant with alternative skill modifiers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:mist-frenzied-heritage-ability-scores",
+      "name": "Mist-Frenzied Heritage Ability Scores",
+      "description": "+2 STR, +2 CHA, -2 INT",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:mist-frenzied-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.str",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6069"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6069"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:mist-frenzied-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6069"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6069"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:mist-frenzied-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6069"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6069"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6069"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:mist-frenzied-heritage-benefit",
+      "name": "Mist-Frenzied Heritage Benefit",
+      "description": "+1 racial bonus on Knowledge (Arcana), Intimidate instead of Knowledge (nature) and Survival. Mist-exposed variant with alternative skill modifiers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6069"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:rava-heritage-ability-scores",
+      "name": "Rava Heritage Ability Scores",
+      "description": "+2 DEX, +2 CHA, -2 CON",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:viera:trait:rava-heritage-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6070"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:rava-heritage-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6070"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:trait:rava-heritage-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6070"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6070"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:viera:trait:rava-heritage-benefit",
+      "name": "Rava Heritage Benefit",
+      "description": "+1 racial bonus on Knowledge (Planes), Handle Animal instead of Knowledge (nature) and Survival. Golmore Jungle lineage with alternative skill modifiers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6070"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:viera:pool:elemental-summoner-subtype",
+      "name": "Elemental Summoner subtype",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly one player selection; not yet linked to current wizard event system.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:viera:pool:elemental-summoner-subtype:option:earth",
+          "name": "Earth",
+          "description": "Earth",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "earth",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:pool:elemental-summoner-subtype:option:fire",
+          "name": "Fire",
+          "description": "Fire",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "fire",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:pool:elemental-summoner-subtype:option:ice",
+          "name": "Ice",
+          "description": "Ice",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ice",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:pool:elemental-summoner-subtype:option:lightning",
+          "name": "Lightning",
+          "description": "Lightning",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lightning",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:pool:elemental-summoner-subtype:option:water",
+          "name": "Water",
+          "description": "Water",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "water",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:pool:elemental-summoner-subtype:option:wind",
+          "name": "Wind",
+          "description": "Wind",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wind",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:viera:pool:mist-sight-spell",
+      "name": "Mist Sight spell",
+      "choiceType": "race_trait_option",
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly one player selection; not yet linked to current wizard event system.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "options": [
+        {
+          "id": "ffd20:race:viera:pool:mist-sight-spell:option:detect-magic",
+          "name": "Detect Magic",
+          "description": "Detect Magic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "detect-magic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:pool:mist-sight-spell:option:detect-secret-doors",
+          "name": "Detect Secret Doors",
+          "description": "Detect Secret Doors",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "detect-secret-doors",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:viera:pool:mist-sight-spell:option:detect-undead",
+          "name": "Detect Undead",
+          "description": "Detect Undead",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "detect-undead",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:viera:trait:ability-score-racial-traits",
+      "ffd20:race:viera:trait:size",
+      "ffd20:race:viera:trait:type",
+      "ffd20:race:viera:trait:base-speed",
+      "ffd20:race:viera:trait:languages",
+      "ffd20:race:viera:trait:vieran-immunities",
+      "ffd20:race:viera:trait:keen-senses",
+      "ffd20:race:viera:trait:hunter",
+      "ffd20:race:viera:trait:people-of-the-wood",
+      "ffd20:race:viera:trait:elemental-summoner",
+      "ffd20:race:viera:trait:vieran-magic",
+      "ffd20:race:viera:trait:weapon-familiarity",
+      "ffd20:race:viera:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:viera:trait:fleet-footed",
+      "ffd20:race:viera:trait:mist-sight",
+      "ffd20:race:viera:trait:misted-bows",
+      "ffd20:race:viera:trait:misty-mind",
+      "ffd20:race:viera:trait:silent-hunter",
+      "ffd20:race:viera:trait:spirit-of-the-waters",
+      "ffd20:race:viera:trait:urbanite"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:viera:trait:fleet-footed:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:viera:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:viera:trait:fleet-footed"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Fleet-Footed replaces Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:trait:mist-sight:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:viera:trait:vieran-magic"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:viera:trait:mist-sight"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Mist Sight replaces Vieran Magic.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:trait:misted-bows:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:viera:trait:hunter"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:viera:trait:misted-bows"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Misted Bows replaces Hunter.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:trait:misty-mind:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:viera:trait:elemental-summoner"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:viera:trait:misty-mind"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Misty Mind replaces Elemental Summoner.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:trait:silent-hunter:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:viera:trait:vieran-immunities"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:viera:trait:silent-hunter"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Silent Hunter replaces Vieran Immunities.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:trait:spirit-of-the-waters:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:viera:trait:people-of-the-wood",
+          "ffd20:race:viera:trait:weapon-familiarity"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:viera:trait:spirit-of-the-waters"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Spirit of the Waters replaces People of the Wood, Weapon Familiarity.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:trait:urbanite:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:viera:trait:people-of-the-wood"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:viera:trait:urbanite"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Urbanite replaces People of the Wood.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:viera:heritage:fanow",
+        "name": "Fanow",
+        "description": "Rak'Tika Greatwoods lineage with alternative racial skill modifiers.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:viera:heritage:fanow:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:viera:trait:ability-score-racial-traits",
+              "ffd20:race:viera:trait:people-of-the-wood"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:viera:trait:fanow-heritage-ability-scores",
+              "ffd20:race:viera:trait:fanow-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Fanow heritage replaces racial vector and affinity/skill adjustments; further review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6067"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:viera:trait:fanow-heritage-ability-scores",
+          "ffd20:race:viera:trait:fanow-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:heritage:feol",
+        "name": "Feol",
+        "description": "Aegyl-descended variant with alternative skill modifiers.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:viera:heritage:feol:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:viera:trait:ability-score-racial-traits",
+              "ffd20:race:viera:trait:people-of-the-wood"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:viera:trait:feol-heritage-ability-scores",
+              "ffd20:race:viera:trait:feol-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Feol heritage replaces racial vector and affinity/skill adjustments; further review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6068"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:viera:trait:feol-heritage-ability-scores",
+          "ffd20:race:viera:trait:feol-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:heritage:mist-frenzied",
+        "name": "Mist-Frenzied",
+        "description": "Mist-exposed variant with alternative skill modifiers.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:viera:heritage:mist-frenzied:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:viera:trait:ability-score-racial-traits",
+              "ffd20:race:viera:trait:people-of-the-wood"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:viera:trait:mist-frenzied-heritage-ability-scores",
+              "ffd20:race:viera:trait:mist-frenzied-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Mist-Frenzied heritage replaces racial vector and affinity/skill adjustments; further review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6069"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:viera:trait:mist-frenzied-heritage-ability-scores",
+          "ffd20:race:viera:trait:mist-frenzied-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6069"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:heritage:rava",
+        "name": "Rava",
+        "description": "Golmore Jungle lineage with alternative skill modifiers.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:viera:heritage:rava:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:viera:trait:ability-score-racial-traits",
+              "ffd20:race:viera:trait:people-of-the-wood"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:viera:trait:rava-heritage-ability-scores",
+              "ffd20:race:viera:trait:rava-heritage-benefit"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Rava heritage replaces racial vector and affinity/skill adjustments; further review required.",
+            "resolution": "unresolved",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6070"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:viera:trait:rava-heritage-ability-scores",
+          "ffd20:race:viera:trait:rava-heritage-benefit"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6070"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:viera:favored:archer",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:archer",
+        "name": "Viera Archer favored reward",
+        "description": "+1/2 bow/crossbow critical confirmation, max +4 and not with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6095"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:bard",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:bard",
+        "name": "Viera Bard favored reward",
+        "description": "+1 CMD against disarm/sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:beastmaster",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Viera Beastmaster favored reward",
+        "description": "+1 foot base speed, combat effect every fifth selection.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:berserker",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:berserker",
+        "name": "Viera Berserker favored reward",
+        "description": "+1 foot base speed, combat effect every fifth selection.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:blue-mage",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Viera Blue Mage favored reward",
+        "description": "Learn one additional Blue Mage spell at least one level lower than highest-level castable spell.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:fencer",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:fencer",
+        "name": "Viera Fencer favored reward",
+        "description": "+1/6 duelist stance AC.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:gambler",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:gambler",
+        "name": "Viera Gambler favored reward",
+        "description": "+1/6 new gambler gambit.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6101"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:geomancer",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:geomancer",
+        "name": "Viera Geomancer favored reward",
+        "description": "+1/2 Knowledge (nature).",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6102"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:gunner",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:gunner",
+        "name": "Viera Gunner favored reward",
+        "description": "+1/3 firearm critical confirmation, max +5 and not with Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6103"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:monk",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:monk",
+        "name": "Viera Monk favored reward",
+        "description": "+1 foot base speed, combat effect every fifth selection.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6104"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:ninja",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:ninja",
+        "name": "Viera Ninja favored reward",
+        "description": "+1 Acrobatics after ki point; requires Ninja level 5.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6105"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:red-mage",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:red-mage",
+        "name": "Viera Red Mage favored reward",
+        "description": "+1/4 arcane pool.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6106"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:summoner",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:summoner",
+        "name": "Viera Summoner favored reward",
+        "description": "-1 round avatar summoning time, minimum 1 round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6107"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:thief",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:thief",
+        "name": "Viera Thief favored reward",
+        "description": "+1/6 thief talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6108"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:viera:favored:warrior",
+        "raceId": "ffd20:race:viera",
+        "classId": "ffd20:class:warrior",
+        "name": "Viera Warrior favored reward",
+        "description": "+1 CMD against disarm/sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6109"
+          }
+        ]
+      }
+    ]
+  }
+}

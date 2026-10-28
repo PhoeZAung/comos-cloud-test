@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "32 staged FFd20 races, from batches 01–11, for live wizard testing; all remain needs_review and not import-ready.",
+  "description": "34 staged FFd20 races (batches 01–12) available for live wizard testing; all need independent approval.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -166,6 +166,16 @@
       "file": "rules/staging/races/tonkin.race.json",
       "raceId": "ffd20:race:tonkin",
       "sha256": "8278e0da307e3df9f940a044f6b49351071d42ca4d790ce3c27a72e61030e28c"
+    },
+    {
+      "file": "rules/staging/races/varg.race.json",
+      "raceId": "ffd20:race:varg",
+      "sha256": "daf2bb0e395aff26bfcb4130f04608ac5a4a10d0a0f8de559b80a20b49a0e82e"
+    },
+    {
+      "file": "rules/staging/races/viera.race.json",
+      "raceId": "ffd20:race:viera",
+      "sha256": "4b25662afcbba7597be08641157f802ed7e8c8c6c28dfdf7c3253b09daa545a9"
     }
   ],
   "blockers": [
@@ -185,6 +195,9 @@
     "Tonkin mute vocal-component restriction must block automated Black Mage saving until feat support is present.",
     "Seto Lion base speed already includes Fast and Quadruped; replacing Fast or adding Faster must not silently miscalculate movement.",
     "Seto Lion summary index speed 40 ft conflicts with detailed page 50 ft; using 50 for staging pending review.",
-    "Shindroid summary index shows low-light vision but detailed traits only darkvision; low-light omitted until reviewed."
+    "Shindroid summary index shows low-light vision but detailed traits only darkvision; low-light omitted until reviewed.",
+    "Varg Feral adds -2 INT without replacing standards; Light Build and Savant compete for score vector.",
+    "Viera Elemental Summoner and Mist Sight require mandatory single-option choices; current wizard handles them manually.",
+    "Varg and Viera heritage replacements remain blocked pending precise automation review."
   ]
 }

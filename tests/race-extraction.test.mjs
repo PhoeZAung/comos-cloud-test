@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,35);
+ assert.equal(manifest.races.length,37);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,35);
+ assert.equal(registry.races.length,37);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,32);
+ assert.equal(experimental.length,34);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -148,4 +148,19 @@ test('batch 11 Seto Lion, Shindroid, Tonkin expose full alternates without unsaf
  const seto=registry.races.find(r=>r.id==='ffd20:race:seto-lion');let b=newBuild();b.raceId=seto.id;assert.equal(effectiveScores(b).dex,12);assert(seto.data.alternateReplacements.find(op=>op.id.includes(':nimble-attacks:')).resolution==='unresolved');
  const shin=registry.races.find(r=>r.id==='ffd20:race:shindroid');b=newBuild();b.raceId=shin.id;assert(buildIssues(b).some(x=>/Shindroid|MP pool/i.test(x.message)));b.alternateIds=[shin.id+':trait:magitek-unit'];assert(!buildIssues(b).some(x=>/Shindroid.*MP pool/i.test(x.message)));assert(shin.data.heritages.map(h=>h.name).includes('Omicron'));
  const tonkin=registry.races.find(r=>r.id==='ffd20:race:tonkin');b=newBuild();b.raceId=tonkin.id;assert(buildIssues(b).some(x=>/Tonkin|vocal component/i.test(x.message)));assert.equal(tonkin.features.find(f=>f.name==='Languages').effects.length,0);assert.equal(tonkin.data.alternateReplacements.find(x=>x.id.includes(':dancing-lantern:')).resolution,'unresolved');
+});
+
+test('batch 12 Varg and Viera preserve variants, choices and score vectors',()=>{
+ const v=registry.races.find(r=>r.id==='ffd20:race:varg'),a=registry.races.find(r=>r.id==='ffd20:race:viera');
+ assert.equal(v?.testing,true);assert.equal(a?.testing,true);
+ assert.deepEqual([v.data.standardTraitIds.length,v.data.alternateTraitIds.length,v.data.heritages.length],[14,11,2]);
+ assert.deepEqual([a.data.standardTraitIds.length,a.data.alternateTraitIds.length,a.data.heritages.length],[13,7,4]);
+ assert.deepEqual(a.choicePools.map(p=>p.options.length),[6,3]);
+ let b=newBuild();b.raceId=v.id;assert.deepEqual(raceTraits(b).errors,[]);
+ b.alternateIds=[v.id+':trait:feral'];assert.equal(effectiveScores(b).int,8);
+ b.alternateIds=[v.id+':trait:light-build'];assert.deepEqual([effectiveScores(b).str,effectiveScores(b).dex,effectiveScores(b).wis,effectiveScores(b).cha],[10,12,12,8]);
+ b.alternateIds=[v.id+':trait:savant'];assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).cha,effectiveScores(b).con],[10,12,12,8]);
+ b.alternateIds=[v.id+':trait:light-build',v.id+':trait:savant'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
+ for(const race of [v,a]){b=newBuild();b.raceId=race.id;b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}
+ b=newBuild();b.raceId=a.id;b.alternateIds=[a.id+':trait:fleet-footed',a.id+':trait:spirit-of-the-waters'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
 });
