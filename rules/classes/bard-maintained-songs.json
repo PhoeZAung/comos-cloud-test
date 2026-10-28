@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "comos.bard-maintenance.v1",
+  "kind": "bard_song_maintenance_rules",
+  "classId": "ffd20:class:bard",
+  "review": {
+    "state": "needs_review",
+    "automation": "manual",
+    "coverage": "source_checked_general_rules"
+  },
+  "sourceURL": "https://finalfantasyd20.com/classes/core-classes/bard/",
+  "sourceSection": "Class Features — Songs",
+  "rules": [
+    {
+      "id": "maintain-action",
+      "kind": "action",
+      "description": "Maintained songs need one free action each round. If the Bard cannot take that free action (including paralysis or unconsciousness), the maintained effects end."
+    },
+    {
+      "id": "single-song",
+      "kind": "capacity",
+      "baseActiveSongs": 1,
+      "modifiedByFeatureId": "ffd20:class:bard:feature:medley",
+      "description": "One maintained song at a time unless the Bard's Medley feature increases the limit."
+    },
+    {
+      "id": "normal-song-interaction",
+      "kind": "interaction",
+      "description": "Normal songs can be cast while a maintained song runs. A normal song requiring concentration can coexist, but blocks beginning another song until concentration ends."
+    },
+    {
+      "id": "range-grace",
+      "kind": "range",
+      "description": "A creature departing the maintained song's range retains the effect until the beginning of its next turn."
+    },
+    {
+      "id": "retarget",
+      "kind": "target",
+      "description": "At the start of the Bard's turn, the Bard may change the targets of a maintained song that has a target-count limit, immediately ending its effect on previous targets."
+    },
+    {
+      "id": "repeat-saves",
+      "kind": "saving_throw",
+      "description": "For maintained songs requiring a save, the target saves every round until it fails; thereafter the ongoing effect remains until its duration ends or it is dismissed."
+    },
+    {
+      "id": "repeat-resistance",
+      "kind": "spell_resistance",
+      "description": "Against a target with spell resistance, the Bard retries a caster level check each round until successful; later rounds of the same song do not repeat that check."
+    },
+    {
+      "id": "song-start",
+      "kind": "casting",
+      "description": "Beginning a song provokes attacks of opportunity and uses concentration-interruption rules like spells."
+    }
+  ]
+}
