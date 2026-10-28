@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "54 staged FFd20 races from batches 01–17 (20 Beastman Tribes), enabled for wizard testing; all needs_review/partial.",
+  "description": "56 staged FFd20 races through batch 18, including all 22 Beastman Tribes, visible for wizard testing; all still needs_review and not import-ready.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -276,6 +276,16 @@
       "file": "rules/staging/races/vanu-vanu.race.json",
       "raceId": "ffd20:race:vanu-vanu",
       "sha256": "a9a3fbc7a20573282fa4ff20d53e042bc3d7a35a328af12b8d9423143808903a"
+    },
+    {
+      "file": "rules/staging/races/velkk.race.json",
+      "raceId": "ffd20:race:velkk",
+      "sha256": "6d8fab01d35eb2e7207925d475608dc7fab280a8a6d9e2d0301403977013ebcb"
+    },
+    {
+      "file": "rules/staging/races/yagudo.race.json",
+      "raceId": "ffd20:race:yagudo",
+      "sha256": "d6a8321fdeed90b5d47de9259c9ccc7f4a5fbc0d51b3d1bfc05a994aa2f15249"
     }
   ],
   "blockers": [
@@ -322,6 +332,9 @@
     "Sylph Improved Flight changes land/fly speed but has non-speed source replacement; unresolved until movement engine supports this and should not save with alternate.",
     "Trollkin Faster Healing replaces Thick Skin by source wording but also supersedes Fast Healing; compound substitution remains unresolved.",
     "Trollkin weakness title Acid or Fire conflicts with effect text fire or earth. Do not infer second suppression element.",
-    "Sahagin, Sylph and Vanu Vanu heritages use alternative spell/skill mechanics and remain blocked pending review."
+    "Sahagin, Sylph and Vanu Vanu heritages use alternative spell/skill mechanics and remain blocked pending review.",
+    "Velkk source summary calls detailed Water Resistant 'Elemental Resistance' and Survivalist 'Skill Bonus'; pending source nomenclature review.",
+    "Yagudo source table calls detailed Feathers of Gale 'Natural Armor' and Valiant Linguist 'Gifted Linguist'; table also mentions bite upgrade without detailed rule. Do not invent an upgrade.",
+    "Yagudo Zealot Devotee +1 per five Knowledge(religion) ranks and Valiant Linguist two languages per Linguistics rank need runtime progression and player language selection."
   ]
 }

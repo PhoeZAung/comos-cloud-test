@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,57);
+ assert.equal(manifest.races.length,59);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,57);
+ assert.equal(registry.races.length,59);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,54);
+ assert.equal(experimental.length,56);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -240,4 +240,26 @@ test('batch 17 Sahagin, Sylph, Trollkin and Vanu Vanu retain traits, conditional
  const sylph=registry.races.find(r=>r.id==='ffd20:race:sylph');b=newBuild();b.raceId=sylph.id;assert.deepEqual([effectiveScores(b).dex,effectiveScores(b).cha,effectiveScores(b).str],[12,12,6]);assert(sylph.features.find(f=>f.name==='Base Speed').effects.some(e=>e.target==='identity.speed.fly'&&e.value.value===40));b.alternateIds=[sylph.id+':trait:improved-flight'];assert(raceTraits(b).errors.length>0);
  const trollkin=registry.races.find(r=>r.id==='ffd20:race:trollkin');b=newBuild();b.raceId=trollkin.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).int,effectiveScores(b).cha],[12,12,6]);b.alternateIds=[trollkin.id+':trait:faster-healing'];assert(raceTraits(b).errors.length>0);assert(trollkin.data.alternateReplacements.find(x=>x.id.includes(':faster-healing:')).targetFeatureIds.length===2);
  const vanu=registry.races.find(r=>r.id==='ffd20:race:vanu-vanu');assert.deepEqual(vanu.data.heritages.map(h=>h.name),['Gundu','Vundu','Zundu']);b=newBuild();b.raceId=vanu.id;b.alternateIds=[vanu.id+':trait:flightless-fall',vanu.id+':trait:nimble-faller'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
+});
+
+test('batch 18 Velkk and Yagudo complete Beastman Tribes while preserving source-defined alternatives',()=>{
+ const expected=[['velkk',13,4,0,1],['yagudo',12,3,0,1]];
+ for(const [key,standard,alternates,heritages,favored] of expected){
+  const r=registry.races.find(x=>x.id==='ffd20:race:'+key);assert(r?.testing);
+  assert.deepEqual([r.data.standardTraitIds.length,r.data.alternateTraitIds.length,r.data.heritages.length,r.data.favoredRewards.length],[standard,alternates,heritages,favored]);
+  const b=newBuild();b.raceId=r.id;assert.deepEqual(raceTraits(b).errors,[]);
+ }
+ const velkk=registry.races.find(x=>x.id==='ffd20:race:velkk');let b=newBuild();b.raceId=velkk.id;
+ assert.deepEqual([effectiveScores(b).str,effectiveScores(b).cha,effectiveScores(b).int],[12,12,8]);
+ assert(velkk.features.some(x=>x.name==='Water Resistant'));assert(velkk.features.some(x=>x.name==='Survivalist'));
+ b.alternateIds=[velkk.id+':trait:nature-inhabitant',velkk.id+':trait:squalid'];
+ assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
+ const yagudo=registry.races.find(x=>x.id==='ffd20:race:yagudo');b=newBuild();b.raceId=yagudo.id;
+ assert.deepEqual([effectiveScores(b).dex,effectiveScores(b).wis,effectiveScores(b).con],[12,12,8]);
+ assert(yagudo.features.some(x=>x.name==='Feathers of Gale'));
+ assert(yagudo.features.some(x=>x.name==='Valiant Linguist'));
+ b.alternateIds=[yagudo.id+':trait:magical-linguist',yagudo.id+':trait:stability'];
+ assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
+ const sturdy=yagudo.data.alternateReplacements.find(x=>x.id.includes(':sturdy-feathers:'));
+ assert.equal(sturdy.targetFeatureIds.length,2);
 });

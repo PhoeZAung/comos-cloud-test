@@ -1,6 +1,6 @@
 # FFd20 race files: available for live wizard testing
 
-54 extracted races through batch 17 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
+56 extracted races through batch 18 are kept as individual `.race.json` files. Every definition is still `needs_review` with `coverage: partial` and `importReady: false`. These files are explicitly listed in `rules/manifest.json` for **live user testing**, not for rules approval. The normal three races (Dwarf, Elvaan, Galka) are preserved.
 
 The race dropdown shows staged races with “(testing)” and the wizard displays a review warning. The existing runtime projection applies only its supported unconditional effects. Unsupported effects remain manual; alternates with unresolved replacement mapping stay disabled. Heritage and race-dependent choices, cross-race Half-Breed inheritance, and favored-class bonuses still need review. Test character totals against official source pages before play; a saved character is not evidence of rule correctness.
 
@@ -53,3 +53,7 @@ Added four one-per-race testing JSONs: Namazu has 4 alternates, Orc has 8, Qiqir
 ## Beastman Batch 17 — Sahagin, Sylph, Trollkin, Vanu Vanu
 
 Four more source-grounded testing JSONs: Sahagin 5 alternates/2 heritages, Sylph 9 alternates/3 heritages, Trollkin 5 alternates, Vanu Vanu 2 alternates/3 heritages. Tempered Sahagin is one-of-two choice and save-blocked; Sylph Improved Flight/Trollkin Faster Healing unresolved due compound source replacement, and all listed heritage substitutions remain blocked. Trollkin weakness says 'Acid or Fire' but body says 'fire or earth'; kept as manual review discrepancy. All 54 staged races are unapproved and intended for testing. See `docs/extraction/race-batch-17-beastman-coverage.md`.
+
+## Beastman batch 18 — Velkk and Yagudo (Beastman category complete)
+
+Velkk: 13 standard traits, 4 alternate traits, no heritages, 4 favored-class rewards; source index uses different labels for Water Resistant and Survivalist. Yagudo: 12 standard traits, 3 alternate traits, no heritages, 10 favored-class rewards; source index aliases Feathers of Gale and Valiant Linguist and refers to an unsupported bite upgrade. The Valiant Linguist 2-languages-per-rank and Zealot Devotee scaling need UI/runtime support. Both stay testing-only and `needs_review`. Full Beastman Tribes category now has 22 individual staged races. See `docs/extraction/race-batch-18-beastman-coverage.md`.

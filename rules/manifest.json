@@ -57,7 +57,9 @@
     "staging/races/sahagin.race.json",
     "staging/races/sylph.race.json",
     "staging/races/trollkin.race.json",
-    "staging/races/vanu-vanu.race.json"
+    "staging/races/vanu-vanu.race.json",
+    "staging/races/velkk.race.json",
+    "staging/races/yagudo.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"
