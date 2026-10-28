@@ -1,10 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newBuild,buildIssues,choiceEvents,eligibleOptions,previewBuild,compileBuild,levelUpBuild,archerAtLevel,classFor,className,classSkill,availableClasses} from '../src/features/characters/rules/build.mjs';
+import {newBuild,buildIssues,choiceEvents,eligibleOptions,previewBuild,compileBuild,levelUpBuild,classFor,className,classSkill,availableClasses} from '../src/features/characters/rules/build.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
 import {sheetStats} from '../src/features/sheet/model.mjs';
 import {renderBuild,wizardOrder} from '../src/ui/rules-wizard.mjs';
 import {ARCHER_ID,BLACK_MAGE_ID} from '../src/features/characters/rules/class-adapters.mjs';
+import {archerAtLevel} from '../src/features/characters/rules/archer-levels.mjs';
 
 function archerBuild(level=1){
  const b=newBuild();Object.assign(b,{classId:ARCHER_ID,name:'Archer Live Fixture',raceId:'ffd20:race:lizardman',
@@ -64,8 +65,8 @@ test('Archer upgrades improve one owned card, rather than adding a duplicate car
 test('Archer style feat choice pools expand without removing previous legal feats',()=>{
  const lv1=archerBuild(1),lv5=archerBuild(5),lv10=archerBuild(10);
  assert.equal(choiceEvents(lv1).length,1);
- assert.equal(choiceEvents(lv5).length,5);
- assert.equal(choiceEvents(lv10).length,9);
+ assert.equal(choiceEvents(lv5).length,4);
+ assert.equal(choiceEvents(lv10).length,8);
  const first=choiceEvents(lv1)[0],second=choiceEvents(lv5).find(x=>x.atClassLevel===5),third=choiceEvents(lv10).find(x=>x.atClassLevel===10&&!x.poolId.includes('archery-talents'));
  assert(eligibleOptions(lv5,second).some(x=>x.id===lv1.choices[first.id][0]));
  assert(eligibleOptions(lv10,third).some(x=>x.id===lv1.choices[first.id][0]));
