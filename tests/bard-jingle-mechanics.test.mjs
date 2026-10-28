@@ -1,0 +1,40 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {validateBardJingleMechanics,jingleDetails} from '../src/features/characters/rules/jingle-contract.mjs';
+
+const read=async file=>JSON.parse(await readFile(new URL('../'+file,import.meta.url),'utf8'));
+test('all eleven source-checked Bard jingles match known catalog IDs and remain manual',async()=>{
+ const catalog=await read('rules/classes/bard-songs.json');
+ const batch=await read('rules/classes/bard-jingle-mechanics.json');
+ const report=validateBardJingleMechanics(batch,catalog);
+ assert.equal(report.total,11);
+ assert.equal(report.maintained.length,2);
+ assert.ok(batch.entries.every(e=>e.mpCost===0&&e.castingTime==='1 standard action'&&e.automation==='manual'));
+ assert.equal(jingleDetails(batch,'ffd20:song:bard:boom').savingThrow,'Fortitude partial');
+ assert.equal(jingleDetails(batch,'ffd20:song:bard:detune').spellResistance,'yes');
+ assert.equal(jingleDetails(batch,'ffd20:song:bard:ghost-sound').scaling.length,3);
+ assert.match(jingleDetails(batch,'ffd20:song:bard:lullaby').duration,/CHA modifier/);
+ assert.equal(jingleDetails(batch,'ffd20:song:bard:song-of-serenity').targeting,'one creature per round');
+ assert.match(jingleDetails(batch,'ffd20:song:bard:song-of-serenity').mechanicsSummary,/fatigue is not cured/i);
+ assert.equal(jingleDetails(batch,'ffd20:song:bard:summon-instrument').duration,'1 hour/level (dismissible)');
+});
+test('misidentified or prematurely activated jingle effects are rejected',async()=>{
+ const catalog=await read('rules/classes/bard-songs.json');
+ const batch=await read('rules/classes/bard-jingle-mechanics.json');
+ const wrong=structuredClone(batch);
+ wrong.entries[0].songId='ffd20:song:bard:fake';
+ assert.throws(()=>validateBardJingleMechanics(wrong,catalog),/unknown, duplicated or mismatched/);
+ const auto=structuredClone(batch);
+ auto.entries[0].automation='automatic';
+ assert.throws(()=>validateBardJingleMechanics(auto,catalog),/safety state/);
+ const cost=structuredClone(batch);
+ cost.entries[0].mpCost=1;
+ assert.throws(()=>validateBardJingleMechanics(cost,catalog),/activation or safety/);
+ const maintained=structuredClone(batch);
+ maintained.entries.find(e=>e.name==='Song of Serenity').maintained=false;
+ assert.throws(()=>validateBardJingleMechanics(maintained,catalog),/maintained flag/);
+ const premature=structuredClone(batch);
+ premature.review.state='approved';
+ assert.throws(()=>validateBardJingleMechanics(premature,catalog),/staged and blocked/);
+});
