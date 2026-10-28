@@ -74,11 +74,11 @@ test('staged races appear for live testing while keeping unverified mechanics ma
   for(const f of race.features)for(const e of f.effects){
    if(e.automation==='automatic'){
     assert.equal(e.condition,null,'conditional bonus may not auto-apply');
-    assert(/^(ability_scores|skills|identity|proficiencies\\.weapon)\\./.test(e.target),'automatic effect path not supported');
+    assert(['ability_scores.','skills.','identity.','proficiencies.weapon.'].some(prefix=>e.target.startsWith(prefix)),'automatic effect path not supported');
    }
   }
  }
- assert.equal(registry.races.some(r=>r.name==='Beastkin'),false);
+ assert.equal(registry.races.some(r=>r.name==='Beastkin'),true);
 });
 
 test('batch 07 race lineages and special restrictions are visible without unsafe automatic grants',async()=>{
@@ -134,7 +134,9 @@ test('batch 09 Palico, PuPu and Qu are visible as unreviewed testing races with 
  assert.equal(pupu.choicePools.find(p=>/Technological Savant specialty/.test(p.name)).options.length,2);
  assert.equal(qu.data.standardTraitIds.length,11);
  assert.equal(qu.data.alternateTraitIds.length,3);
- assert.equal(qu.data.favoredRewards.some(r=>r.classId.endsWith(':paladin')),true);
+ const quSource=await read('rules/staging/races/qu.race.json');
+ assert.equal(quSource.data.favoredRewards.some(r=>r.classId.endsWith(':paladin')),true);
+ assert.equal(qu.data.favoredRewards.some(r=>r.classId.endsWith(':paladin')),false,'Runtime only projects enabled favored-class rewards');
 });
 
 test('batch 10 races stay visible for testing and guard unverified heritage choices',()=>{

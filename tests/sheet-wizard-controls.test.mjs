@@ -10,6 +10,6 @@ test('character cards have no separate edit or open-sheet action',()=>{for(const
 test('character sheet exposes a separately labeled, confirmable deletion action',()=>{
  const html=renderSheetFrame({id:'123e4567-e89b-42d3-a456-426614174000',name:'Test character',data},'overview');
  assert.match(html,/data-delete-character aria-label="Delete character"/);
- assert.match(html,/title="Delete character \\(archive\\)"/);
+ assert.match(html,/title="Delete character \(archive\)"/);
  assert.match(html,/data-level-up=/);
 });
