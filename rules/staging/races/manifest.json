@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "Staged, unapproved FFd20 race extraction definitions. Listed in the live wizard for hands-on testing; NOT independently reviewed or import-ready.",
+  "description": "20 staged FFd20 races available in wizard for live testing. All remain needs_review and not independently import-ready.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -91,6 +91,21 @@
       "file": "rules/staging/races/hypello.race.json",
       "raceId": "ffd20:race:hypello",
       "sha256": "fcf0abb03a9e50ac999f8216e21cc9f753d2e165a5e8bf06c51e49c632e45d95"
+    },
+    {
+      "file": "rules/staging/races/immortal.race.json",
+      "raceId": "ffd20:race:immortal",
+      "sha256": "50944470672de206884e11f159269e97789e5fde0f1a738ec56883266b2eb413"
+    },
+    {
+      "file": "rules/staging/races/lambkin.race.json",
+      "raceId": "ffd20:race:lambkin",
+      "sha256": "936e0805063894772491ad88df03285d5dc9a43e1e7f1626faeca65a125d6003"
+    },
+    {
+      "file": "rules/staging/races/mandragora.race.json",
+      "raceId": "ffd20:race:mandragora",
+      "sha256": "32b5702fa2a6811a1bd3810baa38c12916729f83f27a558000802f9009cb0e7d"
     }
   ],
   "blockers": [
@@ -98,6 +113,7 @@
     "Incomplete conditional effect/runtime adapter support",
     "Unresolved class-favored dependencies",
     "Beastkin incomplete and omitted",
-    "Live testing is not independent rules approval; unresolved selections and conditional mechanics remain manual."
+    "Live testing is not independent rules approval; unresolved selections and conditional mechanics remain manual.",
+    "Immortal MP conflict with Black Mage: cannot have MP pool under race Magic Ineptitude. Do not complete automated build until this is reconciled."
   ]
 }

@@ -1,0 +1,2027 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:lambkin",
+  "name": "Lambkin",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/lambkin/",
+      "title": "Lambkin - Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Class-targeted favored rewards remain manual until referenced class feature IDs and fractional accumulations are reconciled.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Auto-Float is conditional on dispel/antimagic and changes movement drastically; requires specialized runtime status representation, not just speed=20.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Polyglot alters languages while fully replacing Magic Expert. Needs component-level replacement; must not delete starting Common and Lambkin.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "Academician and Practicality select a single skill; bonus-language selections need live choice engine.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "External feats catalog excluded; direct racial grants retained."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetypes catalog excluded from race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:lambkin:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 INT; +2 WIS; -2 CON.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:ability-score-adjustment:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:ability-score-adjustment:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:ability-score-adjustment:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6025"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:size",
+      "name": "Size",
+      "description": "Small: +1 size AC, +1 size attack, -1 CMB and CMD, +4 size Stealth.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:size:effect:0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:size:effect:1",
+          "kind": "defense_bonus",
+          "target": "size.ac",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:size:effect:2",
+          "kind": "attack_bonus",
+          "target": "size.attack",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:size:effect:3",
+          "kind": "custom",
+          "target": "size.cmb",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:size:effect:4",
+          "kind": "custom",
+          "target": "size.cmd",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:size:effect:5",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6026"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:type",
+      "name": "Type",
+      "description": "Humanoid with lambkin subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:type:effect:0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (lambkin)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:base-speed",
+      "name": "Base Speed",
+      "description": "20-foot land speed. Hover a few feet above ground through Auto-Float; losing Float allows only 5-foot crawl movement per move action.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common, Lambkin. High-Intelligence options: Galkan, Giant, Goblin, Lalafellan, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Lambkin",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:lambkin:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": 0,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6029"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:magic-resistant",
+      "name": "Magic Resistant",
+      "description": "Spell resistance equals 6 + character level.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:magic-resistant:effect:0",
+          "kind": "custom",
+          "target": "defense.spell_resistance",
+          "operation": "add",
+          "value": null,
+          "textValue": "SR=6+CHARACTER_LEVEL",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:magic-expert",
+      "name": "Magic Expert",
+      "description": "+2 racial Knowledge (arcana) and Spellcraft.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:magic-expert:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge_arcana",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:magic-expert:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.spellcraft",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:auto-float",
+      "name": "Auto-Float",
+      "description": "Always under Float; without Float may only crawl 5 feet per move action. Dispel caster level equals character level and suppresses Float for 1 round. Anti-magic zones suppress Float until leaving.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:auto-float:effect:0",
+          "kind": "custom",
+          "target": "status.float",
+          "operation": "add",
+          "value": null,
+          "textValue": "Always floating; dispel for one round, suppressed in antimagic; while absent crawling only at 5 feet per movement action",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:magic-aptitude",
+      "name": "Magic Aptitude",
+      "description": "+2 racial caster-level checks to overcome spell resistance; +2 racial dispel checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:magic-aptitude:effect:0",
+          "kind": "custom",
+          "target": "casting.spell_penetration",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 racial on CL checks against SR",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:magic-aptitude:effect:1",
+          "kind": "custom",
+          "target": "casting.dispel",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 racial on dispel checks",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:magick-focus",
+      "name": "Magick Focus",
+      "description": "+2 racial concentration checks to cast spells defensively.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:magick-focus:effect:0",
+          "kind": "custom",
+          "target": "casting.concentration",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 racial on concentration when casting defensively only",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "See twice as far as a hume under dim light.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:low-light-vision:effect:0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "double range in dim light",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:academician",
+      "name": "Academician",
+      "description": "Choose ONE Knowledge skill for a +2 bonus. Replaces Magic Expert.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:academician:effect:0",
+          "kind": "custom",
+          "target": "skills.chosen_knowledge",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 to one selected Knowledge skill, not all",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6047"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:lambkin:pool:academic-knowledge"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6047"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:greater-magic-resistant",
+      "name": "Greater Magic Resistant",
+      "description": "Spell resistance increases to 11 + character level. Replaces Magic Resistant and Magic Aptitude.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:greater-magic-resistant:effect:0",
+          "kind": "custom",
+          "target": "defense.spell_resistance",
+          "operation": "add",
+          "value": null,
+          "textValue": "SR=11+CHARACTER_LEVEL (replaces SR 6+level)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6048"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:inquisitive",
+      "name": "Inquisitive",
+      "description": "+2 racial Disable Device and Escape Artist; replaces Magic Expert.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:inquisitive:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.disable_device",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6049"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6049"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:inquisitive:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.escape_artist",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6049"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6049"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:magical-linguist",
+      "name": "Magical Linguist",
+      "description": "+1 DC spells with language-dependent descriptor or glyphs/symbols/magical writings, +2 racial saves against these spells. CHA >=11 grants each 1/day comprehend languages, message, read magic (CL = character level). Replaces Magic Aptitude.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:magical-linguist:effect:0",
+          "kind": "custom",
+          "target": "spell_dc.language",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 spell DC language/glyph/symbol/writings",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6050-6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:magical-linguist:effect:1",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6050-6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Language-dependent/glyph/symbol/magical-writing spell"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6050-6051"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:magical-linguist:effect:2",
+          "kind": "custom",
+          "target": "spell_like.linguist",
+          "operation": "add",
+          "value": null,
+          "textValue": "If CHA >= 11: 1/day each comprehend languages, message, read magic, caster level = character level",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6050-6051"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6050-6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:polyglot",
+      "name": "Polyglot",
+      "description": "+2 racial Linguistics and it becomes class skill; additional ONE language of choice beyond Common/Lambkin and eligible bonus languages; replaces Magic Expert AND modifies Languages.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:polyglot:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.linguistics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6052-6053"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052-6053"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:polyglot:effect:1",
+          "kind": "custom",
+          "target": "skills.linguistics_class",
+          "operation": "add",
+          "value": null,
+          "textValue": "Linguistics always class skill; retain existing Common and Lambkin; grant ONE extra chosen language",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6052-6053"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:lambkin:pool:polyglot-language"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052-6053"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052-6053"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:lambkin:trait:practicality",
+      "name": "Practicality",
+      "description": "Choose ONE Craft or Profession skill for +2 bonus; +2 Sense Motive and saves versus illusions; replaces Magic Expert and Magic Resistant.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:lambkin:trait:practicality:effect:0",
+          "kind": "custom",
+          "target": "skills.chosen_craft_profession",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 one selected Craft or Profession skill only",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6054"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:practicality:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.sense_motive",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6054"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6054"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:trait:practicality:effect:2",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6054"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": {
+            "type": "manual",
+            "description": "Illusion"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6054"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:lambkin:pool:practical-specialty"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:lambkin:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:lambkin:pool:bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:pool:bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:pool:bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:pool:bonus-languages:option:lalafellan",
+          "name": "Lalafellan",
+          "description": "Lalafellan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lalafellan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:lambkin:pool:bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible high-Intelligence choices. Count and repeated selections require standard language-rule audit.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:lambkin:pool:academic-knowledge",
+      "name": "Academician Knowledge skill",
+      "choiceType": "skill",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Select exactly one Knowledge skill; catalog not yet mapped.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6047"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:lambkin:pool:polyglot-language",
+      "name": "Polyglot extra language",
+      "choiceType": "language",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "One additional chosen language, independent of high-INT bonus languages, which are retained.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:lambkin:pool:practical-specialty",
+      "name": "Practicality Craft or Profession",
+      "choiceType": "skill",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "One Craft/Profession specialty only; skill specialization requires catalog.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:lambkin:trait:ability-score-adjustment",
+      "ffd20:race:lambkin:trait:size",
+      "ffd20:race:lambkin:trait:type",
+      "ffd20:race:lambkin:trait:base-speed",
+      "ffd20:race:lambkin:trait:languages",
+      "ffd20:race:lambkin:trait:magic-resistant",
+      "ffd20:race:lambkin:trait:magic-expert",
+      "ffd20:race:lambkin:trait:auto-float",
+      "ffd20:race:lambkin:trait:magic-aptitude",
+      "ffd20:race:lambkin:trait:magick-focus",
+      "ffd20:race:lambkin:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:lambkin:trait:academician",
+      "ffd20:race:lambkin:trait:greater-magic-resistant",
+      "ffd20:race:lambkin:trait:inquisitive",
+      "ffd20:race:lambkin:trait:magical-linguist",
+      "ffd20:race:lambkin:trait:polyglot",
+      "ffd20:race:lambkin:trait:practicality"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:lambkin:trait:academician:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lambkin:trait:magic-expert"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lambkin:trait:academician"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Academician: replaces Magic Expert.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6047"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:trait:greater-magic-resistant:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lambkin:trait:magic-resistant",
+          "ffd20:race:lambkin:trait:magic-aptitude"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lambkin:trait:greater-magic-resistant"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Greater Magic Resistant: replaces Magic Resistant, Magic Aptitude.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6048"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:trait:inquisitive:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lambkin:trait:magic-expert"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lambkin:trait:inquisitive"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Inquisitive: replaces Magic Expert.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6049"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:trait:magical-linguist:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lambkin:trait:magic-aptitude"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lambkin:trait:magical-linguist"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Magical Linguist: replaces Magic Aptitude.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6050-6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:trait:polyglot:replacement",
+        "operation": "modify",
+        "targetFeatureIds": [
+          "ffd20:race:lambkin:trait:magic-expert",
+          "ffd20:race:lambkin:trait:languages"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lambkin:trait:polyglot"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Polyglot: modifies Magic Expert, Languages.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052-6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:trait:practicality:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:lambkin:trait:magic-expert",
+          "ffd20:race:lambkin:trait:magic-resistant"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:lambkin:trait:practicality"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Practicality: replaces Magic Expert, Magic Resistant.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:lambkin:favored:astrologian",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:astrologian",
+        "name": "Lambkin Astrologian favored reward",
+        "description": "Gain one spell known from Astrologian list below highest spell level.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6063 Astrologian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:black-mage",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:black-mage",
+        "name": "Lambkin Black Mage favored reward",
+        "description": "Gain one spell known from Black Mage list below highest spell level.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6064 Black Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:blue-mage",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Lambkin Blue Mage favored reward",
+        "description": "+1/6 all Knowledge skill checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6065 Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:cleric",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:cleric",
+        "name": "Lambkin Cleric favored reward",
+        "description": "One spell known Cleric list below highest available spell level.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6066 Cleric"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:druid",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:druid",
+        "name": "Lambkin Druid favored reward",
+        "description": "+1/2 daily use on a selected 1st-level domain power ordinarily used 3+WIS/day.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6067 Druid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:geomancer",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:geomancer",
+        "name": "Lambkin Geomancer favored reward",
+        "description": "One spell known Geomancer list below highest available spell level.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6068 Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:illusionist",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:illusionist",
+        "name": "Lambkin Illusionist favored reward",
+        "description": "+1/6 DC of all illusion spells.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6069 Illusionist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:necromancer",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:necromancer",
+        "name": "Lambkin Necromancer favored reward",
+        "description": "+1 bone commander skill rank, retained by replacement commander.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6070 Necromancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:red-mage",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:red-mage",
+        "name": "Lambkin Red Mage favored reward",
+        "description": "+1/2 concentration checks when casting defensively.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6071 Red Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:scholar",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:scholar",
+        "name": "Lambkin Scholar favored reward",
+        "description": "+1 arcane-reservoir point.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6072 Scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:summoner",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:summoner",
+        "name": "Lambkin Summoner favored reward",
+        "description": "Reduce rounds to summon avatar by 1, minimum 1 round.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073 Summoner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:time-mage",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:time-mage",
+        "name": "Lambkin Time Mage favored reward",
+        "description": "+1/6 of an additional d3 on mote-boosted skill/ability check.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074 Time Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:lambkin:favored:white-mage",
+        "raceId": "ffd20:race:lambkin",
+        "classId": "ffd20:class:white-mage",
+        "name": "Lambkin White Mage favored reward",
+        "description": "One spell known from White Mage list below highest castable level.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

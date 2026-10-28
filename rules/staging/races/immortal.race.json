@@ -1,0 +1,2530 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:immortal",
+  "name": "Immortal",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/immortal/",
+      "title": "Immortal - Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Class-targeted favored rewards remain manual until referenced class feature IDs and fractional accumulations are reconciled.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Magic Ineptitude forbids obtaining an MP pool; current wizard Black Mage automatically computes MP. Immortal + Black Mage class selection is mechanically conflicting and must be reviewed manually; do NOT infer a spellcasting exception.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "+2 chosen ability score and up to four Knowledge class skills are not applied by the current wizard choice adapter. No score granted until chosen.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Source prose says one variant but TABLE has two: Ancients and Unlimited. Unlimited WIS/CHA selection and both replacement rules need explicit choice routing.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Linking, Spirit-Tapped, Undying and antimagic unconsciousness require custom state/actions and remain manual.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "excluded",
+        "reason": "Source section absent or separately excluded; no mechanics inferred."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "External feats catalog excluded; direct racial grants retained."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetypes catalog excluded from race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:immortal:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "Choose exactly one of STR, DEX, CON, INT, WIS or CHA for a +2 racial bonus at creation. A selected score is not automatically assigned until the player makes this choice.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:immortal:pool:flexible-score"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6031"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:size",
+      "name": "Size",
+      "description": "Medium size; no size-based adjustments.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:size:effect:0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:type",
+      "name": "Type",
+      "description": "Humanoid with immortal subtype.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:type:effect:0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid (immortal)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:base-speed",
+      "name": "Base Speed",
+      "description": "30-foot land speed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6034"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6034"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6034"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common. High-Intelligence options: Celestial, Draconic, Galkan, Goblin, Lalafellan, Mithran, Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:immortal:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": 0,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6035"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:immunity-to-death",
+      "name": "Immunity to Death",
+      "description": "Immune to death spells and death effects, including Death.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:immunity-to-death:effect:0",
+          "kind": "custom",
+          "target": "immunities.death",
+          "operation": "add",
+          "value": null,
+          "textValue": "Death spells and effects",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:immunity-to-undeath",
+      "name": "Immunity to Undeath",
+      "description": "Cannot be raised as an undead by effects such as Animate Dead.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:immunity-to-undeath:effect:0",
+          "kind": "custom",
+          "target": "immunities.undeath",
+          "operation": "add",
+          "value": null,
+          "textValue": "Immune to being raised as undead",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6040"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6040"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:integrated",
+      "name": "Integrated",
+      "description": "+1 racial bonus on Bluff, Disguise and Knowledge (local) checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:integrated:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.bluff",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6043"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:integrated:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.disguise",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6043"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:integrated:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge_local",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6043"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:long-lived",
+      "name": "Long-Lived",
+      "description": "At creation select UP TO four distinct Knowledge skills; each becomes a class skill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:long-lived:effect:0",
+          "kind": "custom",
+          "target": "skills.class_knowledge",
+          "operation": "add",
+          "value": null,
+          "textValue": "Up to four chosen Knowledge skills become class skills",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:immortal:pool:long-lived-knowledge"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feat and Skill Racial Traits",
+            "locator": "6044"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:sociable",
+      "name": "Sociable",
+      "description": "After failing Diplomacy to change attitude by 5 or more, may retry even if 24 hours have not passed.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:sociable:effect:0",
+          "kind": "custom",
+          "target": "diplomacy.extra_attempt",
+          "operation": "add",
+          "value": null,
+          "textValue": "Retry attitude adjustment after failure by >=5 despite 24-hour restriction",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6045"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:linking",
+      "name": "Linking",
+      "description": "Once per day as a full-round action link with one WILLING non-Immortal spellcaster. Gain access to one spell from that spellcaster’s known spells as a spell-like ability during the day. Spell must have casting time <= standard action, spell level <= half Immortal character level, and the Immortal must meet the needed mental score. The source does not specify some spell choice and activation details.",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:linking:effect:0",
+          "kind": "custom",
+          "target": "magic.linking",
+          "operation": "add",
+          "value": null,
+          "textValue": "1/day full-round link to one willing non-Immortal caster; choose single qualified known spell <= floor(character level/2), mental-stat qualification, standard-or-faster; spell-like activation within day",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6047-6048"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6047-6048"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:immortal",
+      "name": "Immortal",
+      "description": "Do not gain age-category benefits or penalties; stop aging before middle age, immune to age attacks. Disease/natural causes may still kill the creature.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:immortal:effect:0",
+          "kind": "custom",
+          "target": "immunities.aging",
+          "operation": "add",
+          "value": null,
+          "textValue": "Age-category adjustments suppressed; immune to effects that age target",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Other Racial Traits",
+              "locator": "6050"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:spirit-tapped",
+      "name": "Spirit-Tapped",
+      "description": "Upon dropping to negative HP at or below CON score, instead of dying gain one permanent negative level and enter a special dead state, fast-healing equal to half character level until 0+ HP, stacking no higher than character level minus one negative levels. Once limit reached remain inert until healed of a negative level. Dismemberment, vorpal and 0 CON can still kill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:spirit-tapped:effect:0",
+          "kind": "custom",
+          "target": "death.spirit_tapped",
+          "operation": "add",
+          "value": null,
+          "textValue": "Special dying/dead state at negative HP <= CON; negative levels; conditional fast healing; cap and exceptions; GM/manual",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Other Racial Traits",
+              "locator": "6051-6052"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6051-6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:undying",
+      "name": "Undying",
+      "description": "At exactly 0 HP disabled but can take one move OR standard action each round without strenuous-action HP damage. At -1 or less automatically stabilize, but further damage may kill.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:undying:effect:0",
+          "kind": "custom",
+          "target": "hp.undying",
+          "operation": "add",
+          "value": null,
+          "textValue": "At 0 HP disabled one action no extra loss; at negative HP auto stabilize without immunity to death",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Other Racial Traits",
+              "locator": "6053"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:magic-ineptitude",
+      "name": "Magic Ineptitude",
+      "description": "Cannot obtain a magic pool (MP); cannot use spell-trigger, spell-completion, command-word, or use-activated magic items except via Linking. Exceptions: alchemical items; activating/deactivating own magic weapons and armor; passive static bonuses from magical wondrous items/rings.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:magic-ineptitude:effect:0",
+          "kind": "custom",
+          "target": "magic.mp_restriction",
+          "operation": "add",
+          "value": null,
+          "textValue": "No magic pool and forbidden item activation except source-listed exceptions/Linking; blocks ordinary Black Mage MP",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6055"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:not-of-this-plane",
+      "name": "Not of this Plane",
+      "description": "If successfully dispelled while no active effects are present (dispel DC 10 + HD + WIS modifier), knocked unconscious for rounds equal to opponent caster level. Anti-magic field causes unconsciousness until leaving. Also subject to spells negatively affecting outsiders or summons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:not-of-this-plane:effect:0",
+          "kind": "custom",
+          "target": "conditions.plane_disruption",
+          "operation": "add",
+          "value": null,
+          "textValue": "Conditional dispel DC 10+HD+WIS mod; unconscious for enemy CL rounds; anti-magic unconscious while present; outsider/summon-targeted negative spells apply",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6056-6057"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6056-6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:background-character",
+      "name": "Background Character",
+      "description": "+1 racial Disguise, Knowledge (dungeoneering), Stealth; replaces Integrated.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:background-character:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.disguise",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:background-character:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.knowledge_dungeoneering",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:background-character:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6061"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6061"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:blank-slate",
+      "name": "Blank Slate",
+      "description": "1/day free action: for one skill check use ranks equal to half character level (minimum 1). Replaces Long-Lived.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:blank-slate:effect:0",
+          "kind": "custom",
+          "target": "skills.improvised_ranks",
+          "operation": "add",
+          "value": null,
+          "textValue": "Once per day one check ranks max(1,floor(character level/2))",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:explorer",
+      "name": "Explorer",
+      "description": "+2 racial Acrobatics, Climb and Swim; all three become class skills; replaces Long-Lived.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:explorer:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.acrobatics",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:explorer:effect:1",
+          "kind": "custom",
+          "target": "skills.class_acrobatics",
+          "operation": "add",
+          "value": null,
+          "textValue": "acrobatics class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:explorer:effect:2",
+          "kind": "skill_bonus",
+          "target": "skills.climb",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:explorer:effect:3",
+          "kind": "custom",
+          "target": "skills.class_climb",
+          "operation": "add",
+          "value": null,
+          "textValue": "climb class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:explorer:effect:4",
+          "kind": "skill_bonus",
+          "target": "skills.swim",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6063"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:explorer:effect:5",
+          "kind": "custom",
+          "target": "skills.class_swim",
+          "operation": "add",
+          "value": null,
+          "textValue": "swim class skill",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6063"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6063"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:emissary",
+      "name": "Emissary",
+      "description": "1/day roll two dice for one Bluff OR Diplomacy check and use higher; replaces Sociable.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:emissary:effect:0",
+          "kind": "custom",
+          "target": "checks.emissary",
+          "operation": "add",
+          "value": null,
+          "textValue": "Once/day roll twice for single Bluff or Diplomacy check; use higher",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6064"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6064"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:heritage-ancients-ability-scores",
+      "name": "Heritage Ancients Ability Scores",
+      "description": "+2 INT.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:heritage-ancients-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6072 table row Ancients"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6072 table row Ancients"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6072 table row Ancients"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:heritage-ancients-alternate-paralysis",
+      "name": "Heritage Ancients Alternate Paralysis,",
+      "description": "Paralysis, phantasms and poison immunity; +2 racial saves against spells and spell-like abilities.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:heritage-ancients-alternate-paralysis:effect:0",
+          "kind": "custom",
+          "target": "immunities.ancients",
+          "operation": "add",
+          "value": null,
+          "textValue": "Paralysis; phantasms; poison (instead of immune to undeath)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6072 table row Ancients"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:trait:heritage-ancients-alternate-paralysis:effect:1",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6072 table row Ancients"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Saving versus spell or spell-like ability"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6072 table row Ancients"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6072 table row Ancients"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:heritage-unlimited-ability-scores",
+      "name": "Heritage Unlimited Ability Scores",
+      "description": ".",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:immortal:pool:heritage-unlimited-score"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6073 table row Unlimited"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6073 table row Unlimited"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:immortal:trait:heritage-unlimited-alternate-immunity",
+      "name": "Heritage Unlimited Alternate Immunity",
+      "description": "Immunity to illusion spells and similar abilities, instead of immunity to undeath. +2 to exactly ONE of Wisdom or Charisma.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:immortal:trait:heritage-unlimited-alternate-immunity:effect:0",
+          "kind": "custom",
+          "target": "immunities.illusion",
+          "operation": "add",
+          "value": null,
+          "textValue": "Illusion spells and similar effects",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6073 table row Unlimited"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6073 table row Unlimited"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:immortal:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:immortal:pool:bonus-languages:option:celestial",
+          "name": "Celestial",
+          "description": "Celestial",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "celestial",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:bonus-languages:option:lalafellan",
+          "name": "Lalafellan",
+          "description": "Lalafellan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lalafellan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:bonus-languages:option:mithran",
+          "name": "Mithran",
+          "description": "Mithran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "mithran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible high-Intelligence choices. Count and repeated selections require standard language-rule audit.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6035"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:immortal:pool:flexible-score",
+      "name": "Immortal chosen +2 score",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:immortal:pool:flexible-score:option:strength",
+          "name": "Strength",
+          "description": "Strength",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "strength",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:flexible-score:option:dexterity",
+          "name": "Dexterity",
+          "description": "Dexterity",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dexterity",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:flexible-score:option:constitution",
+          "name": "Constitution",
+          "description": "Constitution",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "constitution",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:flexible-score:option:intelligence",
+          "name": "Intelligence",
+          "description": "Intelligence",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "intelligence",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:flexible-score:option:wisdom",
+          "name": "Wisdom",
+          "description": "Wisdom",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wisdom",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:flexible-score:option:charisma",
+          "name": "Charisma",
+          "description": "Charisma",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "charisma",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "One score only. Existing wizard cannot bind this choice to a single ability effect; manual until implemented.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:immortal:pool:long-lived-knowledge",
+      "name": "Long-Lived Knowledge skills",
+      "choiceType": "skill",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Choose 0-4 Knowledge skills from actual skills catalog. Racial class-skill selection requires custom UI.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6044"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:immortal:pool:heritage-unlimited-score",
+      "name": "Choose Unlimited ability score",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:immortal:pool:heritage-unlimited-score:option:wisdom",
+          "name": "Wisdom",
+          "description": "Wisdom",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wisdom",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6073"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:immortal:pool:heritage-unlimited-score:option:charisma",
+          "name": "Charisma",
+          "description": "Charisma",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "charisma",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6073"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Pick ONE +2 score instead of both; the choice must not auto-grant both scores.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6073"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:immortal:trait:ability-score-adjustment",
+      "ffd20:race:immortal:trait:size",
+      "ffd20:race:immortal:trait:type",
+      "ffd20:race:immortal:trait:base-speed",
+      "ffd20:race:immortal:trait:languages",
+      "ffd20:race:immortal:trait:immunity-to-death",
+      "ffd20:race:immortal:trait:immunity-to-undeath",
+      "ffd20:race:immortal:trait:integrated",
+      "ffd20:race:immortal:trait:long-lived",
+      "ffd20:race:immortal:trait:sociable",
+      "ffd20:race:immortal:trait:linking",
+      "ffd20:race:immortal:trait:immortal",
+      "ffd20:race:immortal:trait:spirit-tapped",
+      "ffd20:race:immortal:trait:undying",
+      "ffd20:race:immortal:trait:magic-ineptitude",
+      "ffd20:race:immortal:trait:not-of-this-plane"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:immortal:trait:background-character",
+      "ffd20:race:immortal:trait:blank-slate",
+      "ffd20:race:immortal:trait:explorer",
+      "ffd20:race:immortal:trait:emissary"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:immortal:trait:background-character:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:immortal:trait:integrated"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:immortal:trait:background-character"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Background Character: replaces Integrated.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:trait:blank-slate:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:immortal:trait:long-lived"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:immortal:trait:blank-slate"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Blank Slate: replaces Long-Lived.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:trait:explorer:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:immortal:trait:long-lived"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:immortal:trait:explorer"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Explorer: replaces Long-Lived.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:trait:emissary:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:immortal:trait:sociable"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:immortal:trait:emissary"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Emissary: replaces Sociable.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6064"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:immortal:heritage:ancients",
+        "name": "Ancients",
+        "description": "Paralysis, phantasms and poison immunity; +2 racial saves against spells and spell-like abilities.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:immortal:heritage:ancients:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:immortal:trait:immunity-to-undeath",
+              "ffd20:race:immortal:trait:ability-score-adjustment"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:immortal:trait:heritage-ancients-ability-scores",
+              "ffd20:race:immortal:trait:heritage-ancients-alternate-paralysis"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Variant heritage replaces racial ability vector and the listed baseline trait(s); other racial traits stay.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6072 table row Ancients"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:immortal:trait:heritage-ancients-ability-scores",
+          "ffd20:race:immortal:trait:heritage-ancients-alternate-paralysis"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6072 table row Ancients"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:heritage:unlimited",
+        "name": "Unlimited",
+        "description": "Immunity to illusion spells and similar abilities, instead of immunity to undeath. +2 to exactly ONE of Wisdom or Charisma.",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:immortal:heritage:unlimited:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:immortal:trait:ability-score-adjustment",
+              "ffd20:race:immortal:trait:immunity-to-undeath"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:immortal:trait:heritage-unlimited-ability-scores",
+              "ffd20:race:immortal:trait:heritage-unlimited-alternate-immunity"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Variant heritage replaces racial ability vector and the listed baseline trait(s); other racial traits stay.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6073 table row Unlimited"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:immortal:trait:heritage-unlimited-ability-scores",
+          "ffd20:race:immortal:trait:heritage-unlimited-alternate-immunity"
+        ],
+        "choicePoolIds": [
+          "ffd20:race:immortal:pool:heritage-unlimited-score"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6073 table row Unlimited"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:immortal:favored:archer",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:archer",
+        "name": "Immortal Archer favored reward",
+        "description": "+1/4 damage with bows and crossbows.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6083 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:beastmaster",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Immortal Beastmaster favored reward",
+        "description": "+1 HP OR +1 skill rank to animal companion, carries to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6084 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:berserker",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:berserker",
+        "name": "Immortal Berserker favored reward",
+        "description": "+1 base movement foot per reward; actual speed increases once per five picks, stacking with class speed.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6085 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:black-belt",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:black-belt",
+        "name": "Immortal Black Belt favored reward",
+        "description": "+1 CMD resisting two maneuvers selected by player.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6086 Black Belt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:blue-mage",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Immortal Blue Mage favored reward",
+        "description": "+1/6 to all Knowledge skill checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6087 Blue Mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:chemist",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:chemist",
+        "name": "Immortal Chemist favored reward",
+        "description": "+1/4 thrown-weapon damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 4
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6088 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:chocobo-knight",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Immortal Chocobo Knight favored reward",
+        "description": "+1 companion mount HP OR skill rank, carries to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6089 Chocobo Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:dragoon",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:dragoon",
+        "name": "Immortal Dragoon favored reward",
+        "description": "+1/3 damage with spears, lances and polearms.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6090 Dragoon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:engineer",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:engineer",
+        "name": "Immortal Engineer favored reward",
+        "description": "+1 automaton HP OR +1 to selected saving throw, carries to replacement.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6091 Engineer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:fencer",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:fencer",
+        "name": "Immortal Fencer favored reward",
+        "description": "+1/6 of a new lunge technique.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6092 Fencer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:gambler",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:gambler",
+        "name": "Immortal Gambler favored reward",
+        "description": "+1/5 gil-toss damage.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 5
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6093 Gambler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:gunbreaker",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:gunbreaker",
+        "name": "Immortal Gunbreaker favored reward",
+        "description": "+1/6 of a gunbreaker talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6094 Gunbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:gunner",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:gunner",
+        "name": "Immortal Gunner favored reward",
+        "description": "+1/3 firearm crit confirmation, max +5, no stack Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6095 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:knight",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:knight",
+        "name": "Immortal Knight favored reward",
+        "description": "+1/6 knight talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6096 Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:medic",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:medic",
+        "name": "Immortal Medic favored reward",
+        "description": "+1/6 medical practice.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6097 Medic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:samurai",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:samurai",
+        "name": "Immortal Samurai favored reward",
+        "description": "+1/6 known Bushido.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6098 Samurai"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:sword-saint",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:sword-saint",
+        "name": "Immortal Sword Saint favored reward",
+        "description": "+1 CMD resisting two selected maneuvers.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6099 Sword Saint"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:thief",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:thief",
+        "name": "Immortal Thief favored reward",
+        "description": "+1/6 thief talent.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6100 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:immortal:favored:warrior",
+        "raceId": "ffd20:race:immortal",
+        "classId": "ffd20:class:warrior",
+        "name": "Immortal Warrior favored reward",
+        "description": "+1 CMD resisting two selected maneuvers.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6101 Warrior"
+          }
+        ]
+      }
+    ]
+  }
+}

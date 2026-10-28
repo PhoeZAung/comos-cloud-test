@@ -20,7 +20,10 @@
     "staging/races/genome.race.json",
     "staging/races/gria.race.json",
     "staging/races/guado.race.json",
-    "staging/races/hypello.race.json"
+    "staging/races/hypello.race.json",
+    "staging/races/immortal.race.json",
+    "staging/races/lambkin.race.json",
+    "staging/races/mandragora.race.json"
   ],
   "enabledClassIds": [
     "ffd20:class:black-mage"

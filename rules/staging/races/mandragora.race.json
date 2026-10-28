@@ -1,0 +1,4679 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:mandragora",
+  "name": "Mandragora",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/mandragora/",
+      "title": "Mandragora - Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Class-targeted favored rewards remain manual until referenced class feature IDs and fractional accumulations are reconciled.",
+        "blocking": true
+      },
+      {
+        "path": "/features",
+        "reason": "Conditional hydration/fast healing, immune sleep despite dual type, Shriek DC, sunlight fatigue/exhaustion, fire vulnerability and cold exposure require manual combat condition and resource tracking.",
+        "blocking": true
+      },
+      {
+        "path": "/data/heritages",
+        "reason": "Five heritage ability score vectors REPLACE standard vector; each spells entry replaces Photosynthesis, but table does not supply daily uses/DC/level. Do not assume 1/day without checking spell definitions.",
+        "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "reason": "Burned One/Evergreen choose exactly one resistance, not both. Separate spell-like feature entries require source spell pages.",
+        "blocking": true
+      },
+      {
+        "path": "/excludedSections",
+        "reason": "Mandragora-specific racial feats are in separate racial feats catalog and were not extracted as feat records.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Variant Heritages",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official gameplay section read in full; records have exact source line locators."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "External feats catalog excluded; direct racial grants retained."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Separate archetypes catalog excluded from race JSON."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:mandragora:trait:ability-score-adjustment",
+      "name": "Ability Score Adjustment",
+      "description": "+2 DEX; +2 WIS; -2 CON.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:ability-score-adjustment:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:ability-score-adjustment:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:ability-score-adjustment:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6035"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6035"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:size",
+      "name": "Size",
+      "description": "Small: +1 size AC, +1 size attack, -1 CMB and CMD, +4 size Stealth.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:size:effect:0",
+          "kind": "identity",
+          "target": "size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "Small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:size:effect:1",
+          "kind": "defense_bonus",
+          "target": "size.ac",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:size:effect:2",
+          "kind": "attack_bonus",
+          "target": "size.attack",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:size:effect:3",
+          "kind": "custom",
+          "target": "size.cmb",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:size:effect:4",
+          "kind": "custom",
+          "target": "size.cmd",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:size:effect:5",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "size",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:type",
+      "name": "Type",
+      "description": "Humanoid Plant: counts as BOTH humanoid and plant for targeted effects; not immune to mind-affecting, poison, paralysis, polymorph, or stun by virtue of being plant.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:type:effect:0",
+          "kind": "identity",
+          "target": "creature_type",
+          "operation": "set",
+          "value": null,
+          "textValue": "Humanoid and Plant (dual type for targeted effects)",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6037"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:base-speed",
+      "name": "Base Speed",
+      "description": "20-foot land speed. ",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6038"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:languages",
+      "name": "Languages",
+      "description": "Starts speaking Common, Mandragoran. High-Intelligence options: Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin, Sylvan.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "languages.starting",
+          "operation": "set",
+          "value": null,
+          "textValue": "Common; Mandragoran",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:mandragora:pool:bonus-languages"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": 0,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "6039"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:elemental-resistance",
+      "name": "Elemental Resistance",
+      "description": "Earth resistance 5.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:elemental-resistance:effect:0",
+          "kind": "custom",
+          "target": "resistance.earth",
+          "operation": "add",
+          "value": null,
+          "textValue": "Earth 5",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6041"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:hydrated-vitality",
+      "name": "Hydrated Vitality",
+      "description": "Submerged entirely in natural non-stagnant water: fast healing 2 for 1 round. Daily healing maximum 2 hit points per character level. Stagnant, poisoned or artificially trapped water does not activate.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:hydrated-vitality:effect:0",
+          "kind": "custom",
+          "target": "healing.hydrated",
+          "operation": "add",
+          "value": null,
+          "textValue": "Fast healing 2 for 1 round per valid full immersion; max healed 2x level HP/day",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6042"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:natural-armor",
+      "name": "Natural Armor",
+      "description": "+1 natural armor bonus to AC.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:natural-armor:effect:0",
+          "kind": "custom",
+          "target": "defense.natural_armor",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 natural armor AC",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6043"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6043"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:plant-resistance",
+      "name": "Plant Resistance",
+      "description": "+2 racial saves against mind-affecting, paralysis, poison and polymorph; immune sleep effects. Not broad Plant type immunity.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:plant-resistance:effect:0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Defense Racial Traits",
+                "locator": "6044"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "Mind-affecting/paralysis/poison/polymorph"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:plant-resistance:effect:1",
+          "kind": "custom",
+          "target": "immunities.sleep",
+          "operation": "add",
+          "value": null,
+          "textValue": "Sleep effects",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Defense Racial Traits",
+              "locator": "6044"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:camouflage",
+      "name": "Camouflage",
+      "description": "+4 racial Stealth in marshes, jungles and forested terrain.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:camouflage:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.stealth",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6047"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": {
+            "type": "manual",
+            "description": "In marsh/jungle/forest"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6047"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:in-tune-with-the-earth",
+      "name": "In Tune with the Earth",
+      "description": "Effective caster level +1 when casting earth-descriptor spells, not early access to higher spell levels or powers.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:in-tune-with-the-earth:effect:0",
+          "kind": "custom",
+          "target": "caster_level.earth",
+          "operation": "add",
+          "value": null,
+          "textValue": "+1 effective level for earth-descriptor spells; no early feature access",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6050"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6050"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:spell-like-ability",
+      "name": "Spell-Like Ability",
+      "description": "1/day photosynthesis as spell-like ability (caster level = class level).",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:spell-like-ability:effect:0",
+          "kind": "custom",
+          "target": "spell_like.photosynthesis",
+          "operation": "add",
+          "value": null,
+          "textValue": "1/day Photosynthesis, CL=class level; spell entry external",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Magical Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:terrain-stride",
+      "name": "Terrain Stride",
+      "description": "Ignore natural difficult terrain in forests; magically altered terrain applies normally.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:terrain-stride:effect:0",
+          "kind": "custom",
+          "target": "movement.forest",
+          "operation": "add",
+          "value": null,
+          "textValue": "Ignore natural forest difficult terrain only",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Movement Racial Traits",
+              "locator": "6054"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Movement Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:shriek",
+      "name": "Shriek",
+      "description": "1/day standard action: creatures in 30-ft spread Will save (DC 10 + half character level + WIS mod) or nauseated 1d4 rounds. Sonic, mind-affecting.",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:shriek:effect:0",
+          "kind": "custom",
+          "target": "abilities.shriek",
+          "operation": "add",
+          "value": null,
+          "textValue": "30-ft spread, standard 1/day, Will DC 10+floor(level/2)+WIS mod, nausea 1d4 rds, sonic mind-affecting",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "6057"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:weapon-familiarity",
+      "name": "Weapon Familiarity",
+      "description": "Weapons with “mandragoran” in name count as martial weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:weapon-familiarity:effect:0",
+          "kind": "custom",
+          "target": "weapon.mandragoran",
+          "operation": "add",
+          "value": null,
+          "textValue": "Treat Mandragoran weapons as martial",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Offense Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:bioluminescence",
+      "name": "Bioluminescence",
+      "description": "At will cause body to glow as a torch.",
+      "featureKind": "racial_trait",
+      "activation": "active",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:bioluminescence:effect:0",
+          "kind": "custom",
+          "target": "abilities.light",
+          "operation": "add",
+          "value": null,
+          "textValue": "At-will torch equivalent body light",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Other Racial Traits",
+              "locator": "6060"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:sunlight-sustenance",
+      "name": "Sunlight Sustenance",
+      "description": "Needs water not food; with >=6 hr sunlight daily needs 1/4 normal water. After >2 days without adequate sunlight becomes fatigued; >1 week becomes exhausted until receives 6 hr sunlight. One hour of daylight spell meets daily need.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:sunlight-sustenance:effect:0",
+          "kind": "custom",
+          "target": "survival.sunlight",
+          "operation": "add",
+          "value": null,
+          "textValue": "Conditional reduced water, fatigue, exhaustion, daylight spell alternative; no food",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Other Racial Traits",
+              "locator": "6061-6062"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6061-6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:low-light-vision",
+      "name": "Low-Light Vision",
+      "description": "Double vision distance in dim light compared with Hume.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:low-light-vision:effect:0",
+          "kind": "identity",
+          "target": "senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "double range in dim light",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6065"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6065"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:temperature-vulnerability",
+      "name": "Temperature Vulnerability",
+      "description": "-4 Fortitude saves versus environmental effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:temperature-vulnerability:effect:0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.fortitude",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Weakness Racial Traits",
+                "locator": "6067"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": {
+            "type": "manual",
+            "description": "Environmental effect"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6067"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6067"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:vulnerable-to-fire",
+      "name": "Vulnerable to Fire",
+      "description": "150% fire damage unless immune, -2 saves versus fire spells/effects, and opposing caster gets +2 caster-level check using these effects.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:vulnerable-to-fire:effect:0",
+          "kind": "custom",
+          "target": "vulnerabilities.fire",
+          "operation": "add",
+          "value": null,
+          "textValue": "Fire damage x1.5 unless immune; -2 saves fire; attacker +2 CL on fire effects",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6068"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6068"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:weakened-by-cold",
+      "name": "Weakened by Cold",
+      "description": "On ice damage, Fort save DC=10+half damage suffered; fail staggered for 1 round.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:weakened-by-cold:effect:0",
+          "kind": "custom",
+          "target": "vulnerabilities.cold",
+          "operation": "add",
+          "value": null,
+          "textValue": "Ice damage -> Fort DC 10 + floor(damage/2) -> stagger 1 round on fail",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Weakness Racial Traits",
+              "locator": "6069"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6069"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:bower-born",
+      "name": "Bower Born",
+      "description": "+2 racial Diplomacy and Handle Animal checks. Replaces Camouflage.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:bower-born:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.diplomacy",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6073"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6073"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:bower-born:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.handle_animal",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6073"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6073"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6073"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:buoyant",
+      "name": "Buoyant",
+      "description": "Swim speed 20 ft; +4 competence Swim checks. Replaces Camouflage, In Tune with the Earth.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:buoyant:effect:0",
+          "kind": "custom",
+          "target": "movement.swim",
+          "operation": "add",
+          "value": null,
+          "textValue": "20-foot swim speed",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6074"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:buoyant:effect:1",
+          "kind": "skill_bonus",
+          "target": "skills.swim",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6074"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "competence",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6074"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6074"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:burned-one",
+      "name": "Burned One",
+      "description": "Choose fire OR lightning resistance 5 permanently. Replaces Plant Resistance, Vulnerable to Fire.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:burned-one:effect:0",
+          "kind": "custom",
+          "target": "resistance.selected",
+          "operation": "add",
+          "value": null,
+          "textValue": "One selected Fire/Lightning resistance 5, not both",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6075"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:mandragora:pool:burned-one-resistance"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6075"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6075"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:cactuar-kin",
+      "name": "Cactuar Kin",
+      "description": "Natural/unarmed attackers touching this mandragora suffer 1d3 piercing; grappling opponent also 1d3 each round. Replaces Plant Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:cactuar-kin:effect:0",
+          "kind": "custom",
+          "target": "attacks.natural",
+          "operation": "add",
+          "value": null,
+          "textValue": "Natural/unarmed attackers touching this mandragora suffer 1d3 piercing; grappling opponent also 1d3 each round.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6076"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6076"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:claws",
+      "name": "Claws",
+      "description": "Two primary claws dealing 1d3 damage each. Replaces Shriek.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:claws:effect:0",
+          "kind": "custom",
+          "target": "attacks.natural",
+          "operation": "add",
+          "value": null,
+          "textValue": "Two primary claws dealing 1d3 damage each.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6077"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6077"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:dark-root",
+      "name": "Dark Root",
+      "description": "Darkvision 60 ft and burrow 15 ft. Replaces Low-Light Vision, Bioluminescence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:dark-root:effect:0",
+          "kind": "identity",
+          "target": "senses.darkvision",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 60,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6078"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6078"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:dark-root:effect:1",
+          "kind": "identity",
+          "target": "speed.burrow",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 15,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6078"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6078"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6078"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:edible-mushrooms",
+      "name": "Edible Mushrooms",
+      "description": "1/day feed up to maximum of 1 or CON modifier Medium creatures for 24h. Replaces Spell-Like Ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:edible-mushrooms:effect:0",
+          "kind": "custom",
+          "target": "abilities.edible-mushrooms",
+          "operation": "add",
+          "value": null,
+          "textValue": "1/day feed up to maximum of 1 or CON modifier Medium creatures for 24h.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6079"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6079"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:evergreen",
+      "name": "Evergreen",
+      "description": "Choose ice OR wind resistance 5 permanently. Replaces Plant Resistance, Weakened by Cold.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:evergreen:effect:0",
+          "kind": "custom",
+          "target": "resistance.selected",
+          "operation": "add",
+          "value": null,
+          "textValue": "One selected Ice/Wind resistance 5, not both",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6080"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:mandragora:pool:evergreen-resistance"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6080"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6080"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:intoxicating-aroma",
+      "name": "Intoxicating Aroma",
+      "description": "1/day standard action: target creatures within 30 ft Will DC 10+half character level+CHA mod or fascinated 1d4 rounds. Replaces Spell-Like Ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:intoxicating-aroma:effect:0",
+          "kind": "custom",
+          "target": "abilities.intoxicating-aroma",
+          "operation": "add",
+          "value": null,
+          "textValue": "1/day standard action: target creatures within 30 ft Will DC 10+half character level+CHA mod or fascinated 1d4 rounds.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6081"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6081"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:malboro-kin",
+      "name": "Malboro Kin",
+      "description": "Water resistance 5 and stench with poison sickening: creatures sharing square, swallowing whole, or Scent creatures within 10 feet Fort DC 10+half level+CON mod or sickened 1 round; save grants immunity for 24h. Replaces Elemental Resistance, Plant Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:malboro-kin:effect:0",
+          "kind": "custom",
+          "target": "abilities.malboro-kin",
+          "operation": "add",
+          "value": null,
+          "textValue": "Water resistance 5 and stench with poison sickening: creatures sharing square, swallowing whole, or Scent creatures within 10 feet Fort DC 10+half level+CON mod or sickened 1 round; save grants immunity for 24h.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6082-6083"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6082-6083"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:natural-magic",
+      "name": "Natural Magic",
+      "description": "If CHA >=11: 1/day each detect poison, goodberry, purify food and drink; CL=character level, DC=10+spell level+CHA mod. Replaces Spell-Like Ability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:natural-magic:effect:0",
+          "kind": "custom",
+          "target": "abilities.natural-magic",
+          "operation": "add",
+          "value": null,
+          "textValue": "If CHA >=11: 1/day each detect poison, goodberry, purify food and drink; CL=character level, DC=10+spell level+CHA mod.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6084"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6084"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:ochu-kin",
+      "name": "Ochu Kin",
+      "description": "1/day standard action poisonous spore cloud radius 10 ft for 1 round; inhalers Will DC 10+half character level+CON mod or dazed 1 round; holding breath avoids, mandragora immune. Replaces Plant Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:ochu-kin:effect:0",
+          "kind": "custom",
+          "target": "abilities.ochu-kin",
+          "operation": "add",
+          "value": null,
+          "textValue": "1/day standard action poisonous spore cloud radius 10 ft for 1 round; inhalers Will DC 10+half character level+CON mod or dazed 1 round; holding breath avoids, mandragora immune.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6085-6086"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6085-6086"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:pestilent",
+      "name": "Pestilent",
+      "description": "Immunity poison and disease. Replaces Plant Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:pestilent:effect:0",
+          "kind": "custom",
+          "target": "immunities.poison_disease",
+          "operation": "add",
+          "value": null,
+          "textValue": "Poison and disease",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6087"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6087"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:photosynthetic-regrowth",
+      "name": "Photosynthetic Regrowth",
+      "description": "Recover lost HP hourly instead of daily while in direct sunlight for each full hour. Replaces Natural Armor.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:photosynthetic-regrowth:effect:0",
+          "kind": "custom",
+          "target": "abilities.photosynthetic-regrowth",
+          "operation": "add",
+          "value": null,
+          "textValue": "Recover lost HP hourly instead of daily while in direct sunlight for each full hour.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6088"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6088"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:pithy-toughness",
+      "name": "Pithy Toughness",
+      "description": "Toughness bonus feat. Replaces Plant Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:pithy-toughness:effect:0",
+          "kind": "custom",
+          "target": "feats.toughness",
+          "operation": "add",
+          "value": null,
+          "textValue": "Toughness bonus feat",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6089"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6089"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:protective-sap",
+      "name": "Protective Sap",
+      "description": "While below half maximum HP gain +2 natural armor. Replaces Natural Armor.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:protective-sap:effect:0",
+          "kind": "custom",
+          "target": "defense.natural_armor",
+          "operation": "add",
+          "value": null,
+          "textValue": "+2 natural armor only while current HP < max HP/2",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6090"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6090"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:rooted-foot",
+      "name": "Rooted Foot",
+      "description": "Stand from prone as swift action; +2 racial CMD versus bull rush or trip while on ground. Replaces Shriek.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:rooted-foot:effect:0",
+          "kind": "custom",
+          "target": "maneuvers.rooted-foot",
+          "operation": "add",
+          "value": null,
+          "textValue": "Stand from prone as swift action; +2 racial CMD versus bull rush or trip while on ground.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6091"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6091"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:stability",
+      "name": "Stability",
+      "description": "Immediate action to root feet granting +4 racial CMD against bull rush or trip while standing on ground. Replaces Hydrated Vitality.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:stability:effect:0",
+          "kind": "custom",
+          "target": "maneuvers.stability",
+          "operation": "add",
+          "value": null,
+          "textValue": "Immediate action to root feet granting +4 racial CMD against bull rush or trip while standing on ground.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6092"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6092"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:tentacle-attacks",
+      "name": "Tentacle Attacks",
+      "description": "Two primary tentacle attacks 1d4 each with 10-ft reach for tentacles only. Replaces Shriek.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:tentacle-attacks:effect:0",
+          "kind": "custom",
+          "target": "attacks.natural",
+          "operation": "add",
+          "value": null,
+          "textValue": "Two primary tentacle attacks 1d4 each with 10-ft reach for tentacles only.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6093"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6093"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:thick-bark",
+      "name": "Thick Bark",
+      "description": "+1 racial Fortitude saves and +2 saves against fire spells/effects. Replaces Plant Resistance, Vulnerable to Fire.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:thick-bark:effect:0",
+          "kind": "defense_bonus",
+          "target": "saving_throws.fortitude",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6094"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6094"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:thick-bark:effect:1",
+          "kind": "defense_bonus",
+          "target": "saving_throws.all",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6094"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": {
+            "type": "manual",
+            "description": "Fire spell or effect"
+          },
+          "automation": "conditional",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6094"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6094"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:verdant-heart",
+      "name": "Verdant Heart",
+      "description": "Druid spell/class ability Wisdom effectively +2; plant-domain cleric/druid CL +1 for domain spells and powers; no early access. Replaces In Tune with the Earth, Shriek.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:verdant-heart:effect:0",
+          "kind": "custom",
+          "target": "casting.verdant",
+          "operation": "add",
+          "value": null,
+          "textValue": "Druid spell/class ability Wisdom effectively +2; plant-domain cleric/druid CL +1 for domain spells and powers; no early access.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6095-6096"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6095-6096"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:writhing-eye",
+      "name": "Writhing Eye",
+      "description": "Full-round action provoking AoO: send 15-ft sensory vine through tiny gaps, perceive within 20 feet of tip. Replaces Low-Light Vision.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:writhing-eye:effect:0",
+          "kind": "custom",
+          "target": "abilities.writhing-eye",
+          "operation": "add",
+          "value": null,
+          "textValue": "Full-round action provoking AoO: send 15-ft sensory vine through tiny gaps, perceive within 20 feet of tip.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6097"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6097"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-alraune-ability-scores",
+      "name": "Heritage Alraune Ability Scores",
+      "description": "+2 DEX; +2 INT; -2 WIS.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-alraune-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6104 table row Alraune"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6104 table row Alraune"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-alraune-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6104 table row Alraune"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6104 table row Alraune"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-alraune-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6104 table row Alraune"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6104 table row Alraune"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6104 table row Alraune"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-alraune-alternate-spell-like",
+      "name": "Heritage Alraune Alternate Spell-like",
+      "description": "Spell-like ability Magic Fang (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-alraune-alternate-spell-like:effect:0",
+          "kind": "custom",
+          "target": "spell_like.magic-fang",
+          "operation": "add",
+          "value": null,
+          "textValue": "Magic Fang - heritage replacement for Photosynthesis; exact use rules and spell body external/unverified",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6104 table row Alraune"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6104 table row Alraune"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-killer-tomato-ability-scores",
+      "name": "Heritage Killer Tomato Ability Scores",
+      "description": "+2 DEX; +2 WIS; -2 INT.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-killer-tomato-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6105 table row Killer Tomato"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6105 table row Killer Tomato"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-killer-tomato-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6105 table row Killer Tomato"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6105 table row Killer Tomato"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-killer-tomato-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6105 table row Killer Tomato"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6105 table row Killer Tomato"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6105 table row Killer Tomato"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-killer-tomato-alternate-spell-like",
+      "name": "Heritage Killer Tomato Alternate Spell-like",
+      "description": "Spell-like ability Blood Drain (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-killer-tomato-alternate-spell-like:effect:0",
+          "kind": "custom",
+          "target": "spell_like.blood-drain",
+          "operation": "add",
+          "value": null,
+          "textValue": "Blood Drain - heritage replacement for Photosynthesis; exact use rules and spell body external/unverified",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6105 table row Killer Tomato"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6105 table row Killer Tomato"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-korrigan-ability-scores",
+      "name": "Heritage Korrigan Ability Scores",
+      "description": "+2 DEX; +2 INT; -2 CON.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-korrigan-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6106 table row Korrigan"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6106 table row Korrigan"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-korrigan-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6106 table row Korrigan"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6106 table row Korrigan"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-korrigan-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6106 table row Korrigan"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6106 table row Korrigan"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6106 table row Korrigan"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-korrigan-alternate-spell-like",
+      "name": "Heritage Korrigan Alternate Spell-like",
+      "description": "Spell-like ability Engulfing Winds (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-korrigan-alternate-spell-like:effect:0",
+          "kind": "custom",
+          "target": "spell_like.engulfing-winds",
+          "operation": "add",
+          "value": null,
+          "textValue": "Engulfing Winds - heritage replacement for Photosynthesis; exact use rules and spell body external/unverified",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6106 table row Korrigan"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6106 table row Korrigan"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-pumpkin-head-ability-scores",
+      "name": "Heritage Pumpkin Head Ability Scores",
+      "description": "+2 DEX; +2 CHA; -2 CON.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-pumpkin-head-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6107 table row Pumpkin Head"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6107 table row Pumpkin Head"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-pumpkin-head-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6107 table row Pumpkin Head"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6107 table row Pumpkin Head"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-pumpkin-head-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6107 table row Pumpkin Head"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6107 table row Pumpkin Head"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6107 table row Pumpkin Head"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-pumpkin-head-alternate-spell-like",
+      "name": "Heritage Pumpkin Head Alternate Spell-like",
+      "description": "Spell-like ability Pumpkin Head (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-pumpkin-head-alternate-spell-like:effect:0",
+          "kind": "custom",
+          "target": "spell_like.pumpkin-head",
+          "operation": "add",
+          "value": null,
+          "textValue": "Pumpkin Head - heritage replacement for Photosynthesis; exact use rules and spell body external/unverified",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6107 table row Pumpkin Head"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6107 table row Pumpkin Head"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-wild-onion-ability-scores",
+      "name": "Heritage Wild Onion Ability Scores",
+      "description": "+2 DEX; +2 CHA; -2 WIS.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-wild-onion-ability-scores:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.dex",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6108 table row Wild Onion"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6108 table row Wild Onion"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-wild-onion-ability-scores:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6108 table row Wild Onion"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6108 table row Wild Onion"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-wild-onion-ability-scores:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.wis",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6108 table row Wild Onion"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6108 table row Wild Onion"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6108 table row Wild Onion"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mandragora:trait:heritage-wild-onion-alternate-spell-like",
+      "name": "Heritage Wild Onion Alternate Spell-like",
+      "description": "Spell-like ability Sickening Breath (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mandragora:trait:heritage-wild-onion-alternate-spell-like:effect:0",
+          "kind": "custom",
+          "target": "spell_like.sickening-breath",
+          "operation": "add",
+          "value": null,
+          "textValue": "Sickening Breath - heritage replacement for Photosynthesis; exact use rules and spell body external/unverified",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Variant Heritages",
+              "locator": "6108 table row Wild Onion"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Variant Heritages",
+          "locator": "6108 table row Wild Onion"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:mandragora:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:mandragora:pool:bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:pool:bonus-languages:option:dwarven",
+          "name": "Dwarven",
+          "description": "Dwarven",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dwarven",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:pool:bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:pool:bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:pool:bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:pool:bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:pool:bonus-languages:option:sylvan",
+          "name": "Sylvan",
+          "description": "Sylvan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "sylvan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6039"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Only eligible high-Intelligence choices. Count and repeated selections require standard language-rule audit.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6039"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:mandragora:pool:burned-one-resistance",
+      "name": "Burned One choose resistance",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:mandragora:pool:burned-one-resistance:option:fire",
+          "name": "Fire",
+          "description": "Fire",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "fire",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6075"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:pool:burned-one-resistance:option:lightning",
+          "name": "Lightning",
+          "description": "Lightning",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lightning",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6075"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly ONE resistance 5; choice cannot be changed.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6075"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:mandragora:pool:evergreen-resistance",
+      "name": "Evergreen choose resistance",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:mandragora:pool:evergreen-resistance:option:ice",
+          "name": "Ice",
+          "description": "Ice",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ice",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6080"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mandragora:pool:evergreen-resistance:option:wind",
+          "name": "Wind",
+          "description": "Wind",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wind",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6080"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Exactly ONE resistance 5; choice cannot be changed.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6080"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:mandragora:trait:ability-score-adjustment",
+      "ffd20:race:mandragora:trait:size",
+      "ffd20:race:mandragora:trait:type",
+      "ffd20:race:mandragora:trait:base-speed",
+      "ffd20:race:mandragora:trait:languages",
+      "ffd20:race:mandragora:trait:elemental-resistance",
+      "ffd20:race:mandragora:trait:hydrated-vitality",
+      "ffd20:race:mandragora:trait:natural-armor",
+      "ffd20:race:mandragora:trait:plant-resistance",
+      "ffd20:race:mandragora:trait:camouflage",
+      "ffd20:race:mandragora:trait:in-tune-with-the-earth",
+      "ffd20:race:mandragora:trait:spell-like-ability",
+      "ffd20:race:mandragora:trait:terrain-stride",
+      "ffd20:race:mandragora:trait:shriek",
+      "ffd20:race:mandragora:trait:weapon-familiarity",
+      "ffd20:race:mandragora:trait:bioluminescence",
+      "ffd20:race:mandragora:trait:sunlight-sustenance",
+      "ffd20:race:mandragora:trait:low-light-vision",
+      "ffd20:race:mandragora:trait:temperature-vulnerability",
+      "ffd20:race:mandragora:trait:vulnerable-to-fire",
+      "ffd20:race:mandragora:trait:weakened-by-cold"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:mandragora:trait:bower-born",
+      "ffd20:race:mandragora:trait:buoyant",
+      "ffd20:race:mandragora:trait:burned-one",
+      "ffd20:race:mandragora:trait:cactuar-kin",
+      "ffd20:race:mandragora:trait:claws",
+      "ffd20:race:mandragora:trait:dark-root",
+      "ffd20:race:mandragora:trait:edible-mushrooms",
+      "ffd20:race:mandragora:trait:evergreen",
+      "ffd20:race:mandragora:trait:intoxicating-aroma",
+      "ffd20:race:mandragora:trait:malboro-kin",
+      "ffd20:race:mandragora:trait:natural-magic",
+      "ffd20:race:mandragora:trait:ochu-kin",
+      "ffd20:race:mandragora:trait:pestilent",
+      "ffd20:race:mandragora:trait:photosynthetic-regrowth",
+      "ffd20:race:mandragora:trait:pithy-toughness",
+      "ffd20:race:mandragora:trait:protective-sap",
+      "ffd20:race:mandragora:trait:rooted-foot",
+      "ffd20:race:mandragora:trait:stability",
+      "ffd20:race:mandragora:trait:tentacle-attacks",
+      "ffd20:race:mandragora:trait:thick-bark",
+      "ffd20:race:mandragora:trait:verdant-heart",
+      "ffd20:race:mandragora:trait:writhing-eye"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:mandragora:trait:bower-born:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:camouflage"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:bower-born"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Bower Born: replaces Camouflage.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:buoyant:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:camouflage",
+          "ffd20:race:mandragora:trait:in-tune-with-the-earth"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:buoyant"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Buoyant: replaces Camouflage, In Tune with the Earth.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:burned-one:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:plant-resistance",
+          "ffd20:race:mandragora:trait:vulnerable-to-fire"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:burned-one"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Burned One: replaces Plant Resistance, Vulnerable to Fire.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:cactuar-kin:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:plant-resistance"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:cactuar-kin"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Cactuar Kin: replaces Plant Resistance.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:claws:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:shriek"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:claws"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Claws: replaces Shriek.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:dark-root:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:low-light-vision",
+          "ffd20:race:mandragora:trait:bioluminescence"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:dark-root"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dark Root: replaces Low-Light Vision, Bioluminescence.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:edible-mushrooms:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:spell-like-ability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:edible-mushrooms"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Edible Mushrooms: replaces Spell-Like Ability.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6079"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:evergreen:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:plant-resistance",
+          "ffd20:race:mandragora:trait:weakened-by-cold"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:evergreen"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Evergreen: replaces Plant Resistance, Weakened by Cold.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6080"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:intoxicating-aroma:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:spell-like-ability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:intoxicating-aroma"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Intoxicating Aroma: replaces Spell-Like Ability.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6081"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:malboro-kin:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:elemental-resistance",
+          "ffd20:race:mandragora:trait:plant-resistance"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:malboro-kin"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Malboro Kin: replaces Elemental Resistance, Plant Resistance.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6082-6083"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:natural-magic:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:spell-like-ability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:natural-magic"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Natural Magic: replaces Spell-Like Ability.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6084"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:ochu-kin:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:plant-resistance"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:ochu-kin"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Ochu Kin: replaces Plant Resistance.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6085-6086"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:pestilent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:plant-resistance"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:pestilent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Pestilent: replaces Plant Resistance.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6087"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:photosynthetic-regrowth:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:natural-armor"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:photosynthetic-regrowth"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Photosynthetic Regrowth: replaces Natural Armor.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6088"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:pithy-toughness:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:plant-resistance"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:pithy-toughness"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Pithy Toughness: replaces Plant Resistance.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6089"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:protective-sap:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:natural-armor"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:protective-sap"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Protective Sap: replaces Natural Armor.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6090"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:rooted-foot:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:shriek"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:rooted-foot"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Rooted Foot: replaces Shriek.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6091"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:stability:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:hydrated-vitality"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:stability"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Stability: replaces Hydrated Vitality.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6092"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:tentacle-attacks:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:shriek"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:tentacle-attacks"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Tentacle Attacks: replaces Shriek.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6093"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:thick-bark:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:plant-resistance",
+          "ffd20:race:mandragora:trait:vulnerable-to-fire"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:thick-bark"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Thick Bark: replaces Plant Resistance, Vulnerable to Fire.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6094"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:verdant-heart:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:in-tune-with-the-earth",
+          "ffd20:race:mandragora:trait:shriek"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:verdant-heart"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Verdant Heart: replaces In Tune with the Earth, Shriek.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6095-6096"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:trait:writhing-eye:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mandragora:trait:low-light-vision"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mandragora:trait:writhing-eye"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Writhing Eye: replaces Low-Light Vision.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6097"
+          }
+        ]
+      }
+    ],
+    "heritages": [
+      {
+        "id": "ffd20:race:mandragora:heritage:alraune",
+        "name": "Alraune",
+        "description": "Spell-like ability Magic Fang (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:mandragora:heritage:alraune:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:mandragora:trait:ability-score-adjustment",
+              "ffd20:race:mandragora:trait:spell-like-ability"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:mandragora:trait:heritage-alraune-ability-scores",
+              "ffd20:race:mandragora:trait:heritage-alraune-alternate-spell-like"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Variant heritage replaces racial ability vector and the listed baseline trait(s); other racial traits stay.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6104 table row Alraune"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:mandragora:trait:heritage-alraune-ability-scores",
+          "ffd20:race:mandragora:trait:heritage-alraune-alternate-spell-like"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6104 table row Alraune"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:heritage:killer-tomato",
+        "name": "Killer Tomato",
+        "description": "Spell-like ability Blood Drain (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:mandragora:heritage:killer-tomato:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:mandragora:trait:ability-score-adjustment",
+              "ffd20:race:mandragora:trait:spell-like-ability"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:mandragora:trait:heritage-killer-tomato-ability-scores",
+              "ffd20:race:mandragora:trait:heritage-killer-tomato-alternate-spell-like"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Variant heritage replaces racial ability vector and the listed baseline trait(s); other racial traits stay.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6105 table row Killer Tomato"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:mandragora:trait:heritage-killer-tomato-ability-scores",
+          "ffd20:race:mandragora:trait:heritage-killer-tomato-alternate-spell-like"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6105 table row Killer Tomato"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:heritage:korrigan",
+        "name": "Korrigan",
+        "description": "Spell-like ability Engulfing Winds (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:mandragora:heritage:korrigan:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:mandragora:trait:ability-score-adjustment",
+              "ffd20:race:mandragora:trait:spell-like-ability"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:mandragora:trait:heritage-korrigan-ability-scores",
+              "ffd20:race:mandragora:trait:heritage-korrigan-alternate-spell-like"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Variant heritage replaces racial ability vector and the listed baseline trait(s); other racial traits stay.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6106 table row Korrigan"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:mandragora:trait:heritage-korrigan-ability-scores",
+          "ffd20:race:mandragora:trait:heritage-korrigan-alternate-spell-like"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6106 table row Korrigan"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:heritage:pumpkin-head",
+        "name": "Pumpkin Head",
+        "description": "Spell-like ability Pumpkin Head (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:mandragora:heritage:pumpkin-head:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:mandragora:trait:ability-score-adjustment",
+              "ffd20:race:mandragora:trait:spell-like-ability"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:mandragora:trait:heritage-pumpkin-head-ability-scores",
+              "ffd20:race:mandragora:trait:heritage-pumpkin-head-alternate-spell-like"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Variant heritage replaces racial ability vector and the listed baseline trait(s); other racial traits stay.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6107 table row Pumpkin Head"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:mandragora:trait:heritage-pumpkin-head-ability-scores",
+          "ffd20:race:mandragora:trait:heritage-pumpkin-head-alternate-spell-like"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6107 table row Pumpkin Head"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:heritage:wild-onion",
+        "name": "Wild Onion",
+        "description": "Spell-like ability Sickening Breath (replaces Photosynthesis; uses/DC/CL not specified by heritage table)",
+        "requirements": null,
+        "abilityAdjustmentMode": "replace_racial_vector",
+        "replacements": [
+          {
+            "id": "ffd20:race:mandragora:heritage:wild-onion:replacement",
+            "operation": "replace",
+            "targetFeatureIds": [
+              "ffd20:race:mandragora:trait:ability-score-adjustment",
+              "ffd20:race:mandragora:trait:spell-like-ability"
+            ],
+            "targetEventIds": [],
+            "scope": "whole_feature",
+            "removesComponents": [],
+            "addsFeatureIds": [
+              "ffd20:race:mandragora:trait:heritage-wild-onion-ability-scores",
+              "ffd20:race:mandragora:trait:heritage-wild-onion-alternate-spell-like"
+            ],
+            "addsEventIds": [],
+            "condition": null,
+            "description": "Variant heritage replaces racial ability vector and the listed baseline trait(s); other racial traits stay.",
+            "resolution": "manual",
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Variant Heritages",
+                "locator": "6108 table row Wild Onion"
+              }
+            ]
+          }
+        ],
+        "featureIds": [
+          "ffd20:race:mandragora:trait:heritage-wild-onion-ability-scores",
+          "ffd20:race:mandragora:trait:heritage-wild-onion-alternate-spell-like"
+        ],
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Variant Heritages",
+            "locator": "6108 table row Wild Onion"
+          }
+        ]
+      }
+    ],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:mandragora:favored:archer",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:archer",
+        "name": "Mandragora Archer favored reward",
+        "description": "+1/2 bow/crossbow critical confirmation max +4; does not stack Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6137 Archer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:beastmaster",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Mandragora Beastmaster favored reward",
+        "description": "+1/2 natural-attack damage for companion.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6138 Beastmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:berserker",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:berserker",
+        "name": "Mandragora Berserker favored reward",
+        "description": "Reduce rage AC penalty by 1/5 per reward, cap 2.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 5
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6139 Berserker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:chemist",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:chemist",
+        "name": "Mandragora Chemist favored reward",
+        "description": "+1/6 new discovery.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6140 Chemist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:chocobo-knight",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Mandragora Chocobo Knight favored reward",
+        "description": "+1-foot mount speed; applies in 5-foot increments; carries to replacement mount.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6141 Chocobo Knight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:druid",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:druid",
+        "name": "Mandragora Druid favored reward",
+        "description": "+1/2 concentration bonus; doubles forest or swamp.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6142 Druid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:geomancer",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:geomancer",
+        "name": "Mandragora Geomancer favored reward",
+        "description": "+1/2 Knowledge (nature) checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6143 Geomancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:gunner",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:gunner",
+        "name": "Mandragora Gunner favored reward",
+        "description": "+1/6 to dodge AC from nimble class feature.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6144 Gunner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:paladin",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:paladin",
+        "name": "Mandragora Paladin favored reward",
+        "description": "+1/2 HP healed or harmed by lay on hands.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6145 Paladin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:thief",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:thief",
+        "name": "Mandragora Thief favored reward",
+        "description": "+1/3 sneak-attack critical confirmation max +5, does not stack Critical Focus.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 3
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6146 Thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mandragora:favored:white-mage",
+        "raceId": "ffd20:race:mandragora",
+        "classId": "ffd20:class:white-mage",
+        "name": "Mandragora White Mage favored reward",
+        "description": "+1/2 HP healed or harmed by lay on hands.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "manual",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6147 White Mage"
+          }
+        ]
+      }
+    ]
+  }
+}

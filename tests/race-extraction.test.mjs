@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,20);
+ assert.equal(manifest.races.length,23);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,20);
+ assert.equal(registry.races.length,23);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,17);
+ assert.equal(experimental.length,20);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -79,4 +79,22 @@ test('staged races appear for live testing while keeping unverified mechanics ma
   }
  }
  assert.equal(registry.races.some(r=>r.name==='Beastkin'),false);
+});
+
+test('batch 07 race lineages and special restrictions are visible without unsafe automatic grants',async()=>{
+ const immigrant=registry.races.find(r=>r.id==='ffd20:race:immortal');
+ const lambkin=registry.races.find(r=>r.id==='ffd20:race:lambkin');
+ const mandragora=registry.races.find(r=>r.id==='ffd20:race:mandragora');
+ assert.deepEqual(immigrant.data.heritages.map(h=>h.name),['Ancients','Unlimited']);
+ assert.equal(immigrant.data.favoredRewards.length,0); // No currently enabled Black Mage favored reward on the official page.
+ const b=newBuild();b.raceId=immigrant.id;
+ assert.equal(effectiveScores(b).str,10); // Chosen +2 must not grant to every score.
+ assert(buildIssues(b).some(i=>/Immortal|MP pool/i.test(i.message)));
+ assert(lambkin.features.some(f=>f.name==='Auto-Float'));
+ assert.equal(mandragora.data.heritages.length,5);
+ assert.equal(mandragora.data.alternateTraitIds.length,22);
+ for(const h of mandragora.data.heritages){
+  b.raceId=mandragora.id;b.heritageId=h.id;
+  assert(raceTraits(b).errors.length>0); // Hero does not get unverified replacement effects for free.
+ }
 });
