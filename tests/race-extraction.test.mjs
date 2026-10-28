@@ -57,13 +57,13 @@ test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Salt
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
  const manifest=await read('rules/manifest.json');
  const staging=await read('rules/staging/races/manifest.json');
- assert.equal(manifest.races.length,23);
+ assert.equal(manifest.races.length,26);
  assert.equal(staging.enabledInWizard,true);
  assert.equal(staging.importReady,false);
- assert.equal(registry.races.length,23);
+ assert.equal(registry.races.length,26);
  const live=registry.races.filter(r=>!r.testing),experimental=registry.races.filter(r=>r.testing);
  assert.equal(live.length,3);
- assert.equal(experimental.length,20);
+ assert.equal(experimental.length,23);
  for(const race of experimental){
   assert.equal(race.reviewStatus,'needs_review');
   assert(race.data.standardTraitIds.length>0);
@@ -97,4 +97,19 @@ test('batch 07 race lineages and special restrictions are visible without unsafe
   b.raceId=mandragora.id;b.heritageId=h.id;
   assert(raceTraits(b).errors.length>0); // Hero does not get unverified replacement effects for free.
  }
+});
+
+test('batch 08 race options are staged and mutant cannot silently override level-up scores',async()=>{
+ const moomba=registry.races.find(r=>r.id==='ffd20:race:moomba');
+ const mutant=registry.races.find(r=>r.id==='ffd20:race:mutant');
+ const nuMou=registry.races.find(r=>r.id==='ffd20:race:nu-mou');
+ assert.equal(moomba.data.standardTraitIds.length,15);
+ assert.equal(moomba.data.alternateTraitIds.length,5);
+ assert.equal(mutant.data.alternateTraitIds.length,6);
+ assert.deepEqual(mutant.choicePools.filter(p=>p.options.length===100).map(p=>p.options.length),[100,100]);
+ const b=newBuild();b.raceId=mutant.id;
+ assert(buildIssues(b).some(i=>/Mutant|mutation|ability progression/i.test(i.message)));
+ assert.equal(nuMou.data.alternateTraitIds.length,8);
+ assert.equal(nuMou.data.heritages.length,0);
+ assert.equal(nuMou.choicePools.find(p=>/Sagacious/.test(p.name)).options.length,0);
 });

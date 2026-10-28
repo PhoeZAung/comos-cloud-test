@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.race-staging-index.v1",
-  "description": "20 staged FFd20 races available in wizard for live testing. All remain needs_review and not independently import-ready.",
+  "description": "23 staged FFd20 races available for live wizard testing. All remain needs_review and not independently import-ready.",
   "createdOn": "2026-10-27",
   "source": "FFd20 official race pages; mechanical staging records with manual review flags",
   "state": "needs_review",
@@ -106,6 +106,21 @@
       "file": "rules/staging/races/mandragora.race.json",
       "raceId": "ffd20:race:mandragora",
       "sha256": "32b5702fa2a6811a1bd3810baa38c12916729f83f27a558000802f9009cb0e7d"
+    },
+    {
+      "file": "rules/staging/races/moomba.race.json",
+      "raceId": "ffd20:race:moomba",
+      "sha256": "6e2627e482eb119d685e977341b85461a07debb70b869d41afcf0173e7dffecf"
+    },
+    {
+      "file": "rules/staging/races/mutant.race.json",
+      "raceId": "ffd20:race:mutant",
+      "sha256": "2b1ab7a4d2b5615918140da5c8fcdaf6e1d2b5cd133f24f44bfbe83a31231e96"
+    },
+    {
+      "file": "rules/staging/races/nu-mou.race.json",
+      "raceId": "ffd20:race:nu-mou",
+      "sha256": "b2503a7bcddfe3cae70e983c5866cfbdd8baa03d605a2278258f06bb429fe6a3"
     }
   ],
   "blockers": [
@@ -114,6 +129,7 @@
     "Unresolved class-favored dependencies",
     "Beastkin incomplete and omitted",
     "Live testing is not independent rules approval; unresolved selections and conditional mechanics remain manual.",
-    "Immortal MP conflict with Black Mage: cannot have MP pool under race Magic Ineptitude. Do not complete automated build until this is reconciled."
+    "Immortal MP conflict with Black Mage: cannot have MP pool under race Magic Ineptitude. Do not complete automated build until this is reconciled.",
+    "Mutant's alternate progression and d100 mutation results are manual; automated final save blocked until its ability-score logic is supported."
   ]
 }

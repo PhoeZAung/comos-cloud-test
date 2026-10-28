@@ -1,0 +1,1280 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:moomba",
+  "name": "Moomba",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/moomba/",
+      "title": "Moomba — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/data/alternateReplacements/climb",
+        "reason": "Source Climb changes land speed without a declared replacement; leave this option disabled until component-level logic is designed.",
+        "blocking": true
+      },
+      {
+        "path": "/features/languages",
+        "reason": "Double-rank language rules, understanding without fluent speech, and limited language choices require a dedicated adapter.",
+        "blocking": true
+      },
+      {
+        "path": "/features/vocal-failure",
+        "reason": "Per-cast verbal-component Linguistics check must be enforced manually; loss of spell is not modeled by current wizard.",
+        "blocking": true
+      },
+      {
+        "path": "/features/natural-attacks",
+        "reason": "Claw/bite/tail primary/secondary usage and attack of opportunity need combat handling.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Ten class rewards are manual and await class reconciliation.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Standard Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Offense Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Weakness Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Racial Archetypes",
+        "status": "excluded",
+        "reason": "External catalog excluded under extraction contract."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone external feat or class-archetype catalog excluded; only directly granted feats within traits included."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone external feat or class-archetype catalog excluded; only directly granted feats within traits included."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:moomba:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "+2 Constitution, +2 Charisma, −2 Intelligence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moomba:trait:ability-score-racial-traits:effect:0",
+          "kind": "ability_score",
+          "target": "ability_scores.con",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moomba:trait:ability-score-racial-traits:effect:1",
+          "kind": "ability_score",
+          "target": "ability_scores.cha",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moomba:trait:ability-score-racial-traits:effect:2",
+          "kind": "ability_score",
+          "target": "ability_scores.int",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": -2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6029"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:size",
+      "name": "Size",
+      "description": "Small creature; standard size effects (AC +1 size, attack +1 size, CMB/CMD -1, Stealth +4 size).",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moomba:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "small",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6030"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6030"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:type",
+      "name": "Type",
+      "description": "Creature type monstrous humanoid/moomba.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moomba:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "monstrous humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moomba:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "moomba",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6031"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6031"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Base land speed 40 ft.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moomba:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 40,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Standard Racial Traits",
+                "locator": "6032"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6032"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:languages",
+      "name": "Languages",
+      "description": "Fully understand Common from the outset but do not speak full languages. Communicate clearly with moomba or shumi, and can write learned languages; learning a language requires twice normal Linguistics ranks, still without fluent speech. Optional additional understood languages: Undercommon or Moogle at high Intelligence.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moomba:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Understand Common, but not fluently speak it; communicating with moomba and shumi is fluent.",
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6033"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "6033"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:desert-runner",
+      "name": "Desert Runner",
+      "description": "+4 racial bonus on Constitution checks and Fortitude saves for avoiding exhaustion, fatigue, and harm from running, forced marches, starvation, thirst, heat or cold.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6037"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:stability",
+      "name": "Stability",
+      "description": "+4 racial CMD against bull rush or trip while standing on ground.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6038"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:choco-mog-buddies",
+      "name": "Choco / Mog buddies",
+      "description": "+4 to Diplomacy, Bluff, Wild Empathy and Ride checks involving moogles or chocobos.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:prehensile-tail",
+      "name": "Prehensile Tail",
+      "description": "Can hold objects but not weapons in tail; may retrieve a small stowed possession as a swift action.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:bite",
+      "name": "Bite",
+      "description": "One bite natural attack dealing 1d3 damage; primary normally, secondary while also using manufactured weapons.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6044"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:claws",
+      "name": "Claws",
+      "description": "Two primary natural claw attacks, each dealing 1d3 damage.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6045"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:slapping-tail",
+      "name": "Slapping Tail",
+      "description": "Tail attack of opportunity with 5-foot reach; secondary attack for 1d4 + STR modifier damage.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Offense Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision to 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moomba:trait:darkvision:effect:0",
+          "kind": "identity",
+          "target": "identity.senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6049"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6049"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:broken-language",
+      "name": "Broken Language",
+      "description": "-4 penalty on Diplomacy except when interacting with moombas, shumi, moogles and chocobos; speech is incomplete.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:vocal-failure",
+      "name": "Vocal Failure",
+      "description": "When casting a spell with a verbal component, succeed on Linguistics DC 15 + 2 × spell level or lose spell. Spell/MP loss interaction needs verification.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Weakness Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:climb",
+      "name": "Climb",
+      "description": "Gain climb speed 20 feet and the associated +8 racial Climb check bonus. Base land speed becomes 30 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:moomba:trait:climb:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.climb",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 20,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6058"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6058"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6058"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:nimble-attacks",
+      "name": "Nimble Attacks",
+      "description": "Gain Weapon Finesse as a bonus feat instead of Bite.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6059"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:scent",
+      "name": "Scent",
+      "description": "Gain scent ability in place of Darkvision and Prehensile Tail.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6060"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:silent-spellcasting",
+      "name": "Silent Spellcasting",
+      "description": "Gain Silent Spell metamagic feat instead of Desert Runner and Stability.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6061"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:moomba:trait:vocal-adept",
+      "name": "Vocal Adept",
+      "description": "No Linguistics checks required to cast spells with verbal components. Replaces Broken Language, Vocal Failure, Bite, Claws, Slapping Tail.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6062"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    }
+  ],
+  "resources": [],
+  "choicePools": [],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:moomba:trait:ability-score-racial-traits",
+      "ffd20:race:moomba:trait:size",
+      "ffd20:race:moomba:trait:type",
+      "ffd20:race:moomba:trait:base-speed",
+      "ffd20:race:moomba:trait:languages",
+      "ffd20:race:moomba:trait:desert-runner",
+      "ffd20:race:moomba:trait:stability",
+      "ffd20:race:moomba:trait:choco-mog-buddies",
+      "ffd20:race:moomba:trait:prehensile-tail",
+      "ffd20:race:moomba:trait:bite",
+      "ffd20:race:moomba:trait:claws",
+      "ffd20:race:moomba:trait:slapping-tail",
+      "ffd20:race:moomba:trait:darkvision",
+      "ffd20:race:moomba:trait:broken-language",
+      "ffd20:race:moomba:trait:vocal-failure"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:moomba:trait:climb",
+      "ffd20:race:moomba:trait:nimble-attacks",
+      "ffd20:race:moomba:trait:scent",
+      "ffd20:race:moomba:trait:silent-spellcasting",
+      "ffd20:race:moomba:trait:vocal-adept"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:moomba:trait:climb:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moomba:trait:climb"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Gain climb speed 20 feet and the associated +8 racial Climb check bonus. Base land speed becomes 30 feet. The source says this changes speed but gives no formal whole-trait replacement target.",
+        "resolution": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6058"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:trait:nimble-attacks:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moomba:trait:bite"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moomba:trait:nimble-attacks"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Gain Weapon Finesse as a bonus feat instead of Bite. ",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6059"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:trait:scent:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moomba:trait:darkvision",
+          "ffd20:race:moomba:trait:prehensile-tail"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moomba:trait:scent"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Gain scent ability in place of Darkvision and Prehensile Tail. ",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6060"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:trait:silent-spellcasting:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moomba:trait:desert-runner",
+          "ffd20:race:moomba:trait:stability"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moomba:trait:silent-spellcasting"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Gain Silent Spell metamagic feat instead of Desert Runner and Stability. ",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:trait:vocal-adept:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:moomba:trait:broken-language",
+          "ffd20:race:moomba:trait:vocal-failure",
+          "ffd20:race:moomba:trait:bite",
+          "ffd20:race:moomba:trait:claws",
+          "ffd20:race:moomba:trait:slapping-tail"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:moomba:trait:vocal-adept"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "No Linguistics checks required to cast spells with verbal components. Replaces Broken Language, Vocal Failure, Bite, Claws, Slapping Tail. ",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6062"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:moomba:favored:beastmaster",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:beastmaster",
+        "name": "Moomba Beastmaster favored reward",
+        "description": "Give companion +1 HP or +1 rank; replacement companion inherits saved additions.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6073"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:berserker",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:berserker",
+        "name": "Moomba Berserker favored reward",
+        "description": "Reduce rage AC penalty by 1/5 to a maximum of 2.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 5
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6074"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:black-belt",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:black-belt",
+        "name": "Moomba Black Belt favored reward",
+        "description": "Unarmed hits on objects made from clay, stone or metal lower hardness by 1, minimum 0.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6075"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:chemist",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:chemist",
+        "name": "Moomba Chemist favored reward",
+        "description": "Add 1 ft to splash-weapon range increment; relevant only each five selections.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6076"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:chocobo-knight",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:chocobo-knight",
+        "name": "Moomba Chocobo Knight favored reward",
+        "description": "Mount gains 1 HP and replacement mount retains those additions.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6077"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:dancer",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:dancer",
+        "name": "Moomba Dancer favored reward",
+        "description": "Add 1 ft to base speed, combat effect only per full five selections; stacks with fleet under its conditions.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6078"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:engineer",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:engineer",
+        "name": "Moomba Engineer favored reward",
+        "description": "Gain +1/2 to Craft checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6079"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:monk",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:monk",
+        "name": "Moomba Monk favored reward",
+        "description": "Lower hardness of struck clay, stone or metal object by 1 on unarmed strike, minimum zero.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6080"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:thief",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:thief",
+        "name": "Moomba Thief favored reward",
+        "description": "Gain +1/2 on Stealth and Perception in dim light/darkness.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6081"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:moomba:favored:warrior",
+        "raceId": "ffd20:race:moomba",
+        "classId": "ffd20:class:warrior",
+        "name": "Moomba Warrior favored reward",
+        "description": "Gain +1 CMD against disarm or sunder.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6082"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,5216 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "race",
+  "id": "ffd20:race:mutant",
+  "name": "Mutant",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/races/base-races/mutant/",
+      "title": "Mutant — Final Fantasy d20",
+      "retrievedOn": "2026-10-27",
+      "sourceKind": "official_web",
+      "contentSha256": null
+    }
+  ],
+  "dependencies": [],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "reviewedBy": null,
+    "reviewedOn": null,
+    "issues": [
+      {
+        "path": "/choicePools",
+        "reason": "Both 100-outcome tables extracted and crosschecked but actual roll handling, no-chosen-random-outcome, and result application are manual. Source roll-100 and physical 99–100 multiple-roll rules require specialized wizard UI.",
+        "blocking": true
+      },
+      {
+        "path": "/features/variable-stats",
+        "reason": "Cannot represent +1 ability per character level and suppress the default every-4-level ability increase with current build engine. Must not save automated Mutant build until implemented.",
+        "blocking": true
+      },
+      {
+        "path": "/features/ability-score-racial-traits",
+        "reason": "Choose exactly one physical +2, one mental +2, and one −2; standard wizard has no matching racial choice event.",
+        "blocking": true
+      },
+      {
+        "path": "/features/variable-resistance",
+        "reason": "Roll 1d6 for one of six elements with resistance 5, do not grant all six.",
+        "blocking": true
+      },
+      {
+        "path": "/features/spell-like-ability",
+        "reason": "Selected first-level blue mage spell requires manual spell-list validation and once/day handling.",
+        "blocking": true
+      },
+      {
+        "path": "/data/alternateReplacements",
+        "reason": "Variable Defenses replaces both Variable Stats and standard level-up ability score grants; latter is not a selectable racial feature. Current representation is incomplete.",
+        "blocking": true
+      },
+      {
+        "path": "/data/favoredRewards",
+        "reason": "Eleven class rewards manual and not reconciled.",
+        "blocking": true
+      }
+    ],
+    "sectionInventory": [
+      {
+        "sourceId": "main",
+        "section": "Mutant Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Defense Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Feat and Skill Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Magical Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Other Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Senses Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Alternate Racial Traits",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Favored Class Options",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Table: Variant Mutant Abilities",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      },
+      {
+        "sourceId": "main",
+        "section": "Table: Alternative Physical Features",
+        "status": "extracted",
+        "reason": "Official page gameplay section checked; independent rules review pending."
+      }
+    ]
+  },
+  "excludedSections": [
+    {
+      "sourceId": "main",
+      "section": "Racial Feats",
+      "reason": "Standalone external feat or class-archetype catalog excluded; only directly granted feats within traits included."
+    },
+    {
+      "sourceId": "main",
+      "section": "Racial Archetypes",
+      "reason": "Standalone external feat or class-archetype catalog excluded; only directly granted feats within traits included."
+    }
+  ],
+  "features": [
+    {
+      "id": "ffd20:race:mutant:trait:ability-score-racial-traits",
+      "name": "Ability Score Racial Traits",
+      "description": "At creation choose one physical ability (STR/DEX/CON) for +2, one mental ability (INT/WIS/CHA) for +2, and one ability for −2. Choices must be made individually, not applied to all.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:mutant:pool:physical-2",
+        "ffd20:race:mutant:pool:mental-2",
+        "ffd20:race:mutant:pool:penalty-2"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Mutant Racial Traits",
+          "locator": "6025"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mutant Racial Traits",
+            "locator": "6025"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:size",
+      "name": "Size",
+      "description": "Medium creature with no size bonus or penalty.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mutant:trait:size:effect:0",
+          "kind": "identity",
+          "target": "identity.size_category",
+          "operation": "set",
+          "value": null,
+          "textValue": "medium",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6026"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Mutant Racial Traits",
+          "locator": "6026"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:type",
+      "name": "Type",
+      "description": "Creature type humanoid/mutant.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mutant:trait:type:effect:0",
+          "kind": "identity",
+          "target": "identity.type",
+          "operation": "set",
+          "value": null,
+          "textValue": "humanoid",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:trait:type:effect:1",
+          "kind": "identity",
+          "target": "identity.subtypes",
+          "operation": "grant",
+          "value": null,
+          "textValue": "mutant",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6027"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Mutant Racial Traits",
+          "locator": "6027"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:base-speed",
+      "name": "Base Speed",
+      "description": "Base land speed 30 ft.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mutant:trait:base-speed:effect:0",
+          "kind": "identity",
+          "target": "identity.speed.land",
+          "operation": "set",
+          "value": {
+            "kind": "constant",
+            "value": 30,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Mutant Racial Traits",
+                "locator": "6028"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Mutant Racial Traits",
+          "locator": "6028"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:languages",
+      "name": "Languages",
+      "description": "Begin speaking Common; high-INT optional languages: Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin and Orc.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "identity"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mutant:trait:languages:effect:0",
+          "kind": "identity",
+          "target": "identity.languages.common",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Common",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6029"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Mutant Racial Traits",
+          "locator": "6029"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:variable-resistance",
+      "name": "Variable Resistance",
+      "description": "At character creation, roll 1d6: 1 Earth, 2 Fire, 3 Ice, 4 Lightning, 5 Water, 6 Wind. Gain resistance 5 to exactly the rolled element.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Defense Racial Traits",
+          "locator": "6032"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:keen-senses",
+      "name": "Keen Senses",
+      "description": "+2 racial to Perception checks.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mutant:trait:keen-senses:effect:0",
+          "kind": "skill_bonus",
+          "target": "skills.skill:perception.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Feat and Skill Racial Traits",
+                "locator": "6036"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Feat and Skill Racial Traits",
+          "locator": "6036"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:spell-like-ability",
+      "name": "Spell-Like Ability",
+      "description": "Choose one 1st-level Blue Mage spell, once per day (caster level equals mutant class level). If Blue Mage, gain +2 to Knowledge checks to learn spells.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Magical Racial Traits",
+          "locator": "6039"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:variable-mutant-abilities",
+      "name": "Variable Mutant Abilities",
+      "description": "On creation roll 1d100 on the Variant Mutant Abilities table for one result. If a result grants a spell or SLA, caster level is total character level. May additionally roll on the Alternative Physical Features table (1d100). Result 100 instructs further rolls.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:mutant:pool:table-variant-mutant-abilities"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6041"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Other Racial Traits",
+            "locator": "6041"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:variable-stats",
+      "name": "Variable Stats",
+      "description": "At each total character level after 1st, roll 1d6 to grant +1 to one ability (STR,DEX,CON,INT,WIS,CHA). Each score can receive at most +6 from this trait; reroll capped outcomes. Replaces ordinary character-level ability increases at 4/8/12/16/20.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Other Racial Traits",
+          "locator": "6042"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:darkvision",
+      "name": "Darkvision",
+      "description": "Darkvision 60 feet.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mutant:trait:darkvision:effect:0",
+          "kind": "identity",
+          "target": "identity.senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6046"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6046"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:low-light-vision",
+      "name": "Low-light Vision",
+      "description": "Twice the human visual range in dim lighting, retaining detail and color.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mutant:trait:low-light-vision:effect:0",
+          "kind": "identity",
+          "target": "identity.senses.low_light_vision",
+          "operation": "grant",
+          "value": null,
+          "textValue": "twice normal range",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "6047"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Senses Racial Traits",
+          "locator": "6047"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:dual-minded",
+      "name": "Dual Minded",
+      "description": "+2 to all Will saves. Replaces Variable Resistance.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [
+        {
+          "id": "ffd20:race:mutant:trait:dual-minded:effect:0",
+          "kind": "defense_bonus",
+          "target": "defense.saves.will",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Alternate Racial Traits",
+                "locator": "6051"
+              }
+            ]
+          },
+          "textValue": null,
+          "bonusType": null,
+          "condition": null,
+          "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "6051"
+            }
+          ]
+        }
+      ],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6051"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:eye-for-opportunity",
+      "name": "Eye for Opportunity",
+      "description": "+1 racial attack bonus on attacks of opportunity. Replaces Keen Senses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6052"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:scavenger",
+      "name": "Scavenger",
+      "description": "+2 racial Appraise and Perception checks when finding concealed objects/traps, identifying spoiled food, or tasting potions. Replaces Keen Senses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6053"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:sociable",
+      "name": "Sociable",
+      "description": "If Diplomacy attempt to improve an attitude fails by 5 or more, may try again before 24 hours elapse. Replaces Keen Senses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6054"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:variable-defenses",
+      "name": "Variable Defenses",
+      "description": "At each level beyond 1st roll 1d6: 1 +3 HP, 2 +1 MP, 3 +1 Fort, 4 +1 Ref, 5 +1 Will, 6 +1 stackable AC. Each specific benefit maximum five times; reroll capped outcomes. Replaces Variable Stats and normal character-level ability increases at 4/8/12/16/20.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6055"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:wary",
+      "name": "Wary",
+      "description": "+1 racial to Sense Motive and Bluff. Replaces Keen Senses.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Alternate Racial Traits",
+          "locator": "6057"
+        }
+      ],
+      "choiceCount": null,
+      "selectionTiming": "none"
+    },
+    {
+      "id": "ffd20:race:mutant:trait:alternative-physical-features-optional",
+      "name": "Alternative Physical Features (Optional)",
+      "description": "Optional separate d100 roll for visible mutant body variation, with multiple-roll instructions for 99 and 100. This is not a replacement for the required mutant ability roll.",
+      "featureKind": "racial_trait",
+      "activation": "passive",
+      "rulesType": "unknown",
+      "sheetTargets": [
+        "racialAbilities"
+      ],
+      "automation": "manual",
+      "requirements": null,
+      "componentIds": [],
+      "effects": [],
+      "actions": [],
+      "choicePoolIds": [
+        "ffd20:race:mutant:pool:table-alternative-physical-features"
+      ],
+      "scalingNotes": [],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Alternative Physical Features",
+          "locator": "6180"
+        }
+      ],
+      "choiceCount": {
+        "kind": "constant",
+        "value": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Alternative Physical Features",
+            "locator": "6180"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
+    }
+  ],
+  "resources": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities",
+      "name": "Table: Variant Mutant Abilities — roll 1d100",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:001",
+          "name": "01 — Animate 1-HD skeleton with animate dead once daily as SLA",
+          "description": "Animate 1-HD skeleton with animate dead once daily as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "001",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 01"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:002",
+          "name": "02 — All-around vision from unusual sensory organ",
+          "description": "All-around vision from unusual sensory organ",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "002",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 02"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:003",
+          "name": "03 — First daily hit from slashing damage grants +1 to attack and damage ",
+          "description": "First daily hit from slashing damage grants +1 to attack and damage next round",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "003",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 03"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:004",
+          "name": "04 — Grab SLA usable three times daily",
+          "description": "Grab SLA usable three times daily",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "004",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 04"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:005",
+          "name": "05 — +2 racial bonus to one selected Knowledge skill",
+          "description": "+2 racial bonus to one selected Knowledge skill",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "005",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 05"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:006",
+          "name": "06 — Levitate self and up to 10 pounds at will as supernatural effect",
+          "description": "Levitate self and up to 10 pounds at will as supernatural effect",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "006",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 06"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:007",
+          "name": "07 — May eat ash, cinders, dust and sand for nourishment",
+          "description": "May eat ash, cinders, dust and sand for nourishment",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "007",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 07"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:008",
+          "name": "08 — +1 to attack and damage against good-aligned outsiders",
+          "description": "+1 to attack and damage against good-aligned outsiders",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "008",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 08"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:009",
+          "name": "09 — Additional +2 racial Charisma",
+          "description": "Additional +2 racial Charisma",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "009",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 09"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:010",
+          "name": "10 — Bite natural weapon deals 1d4",
+          "description": "Bite natural weapon deals 1d4",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "010",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 10"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:011",
+          "name": "11 — Once per day, during one move action, land speed becomes 50 feet",
+          "description": "Once per day, during one move action, land speed becomes 50 feet",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "011",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 11"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:012",
+          "name": "12 — Sleep not required, but not immune to sleep effects",
+          "description": "Sleep not required, but not immune to sleep effects",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "012",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 12"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:013",
+          "name": "13 — +2 saves against disease",
+          "description": "+2 saves against disease",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "013",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 13"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:014",
+          "name": "14 — +5 feet to base land movement",
+          "description": "+5 feet to base land movement",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "014",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 14"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:015",
+          "name": "15 — +2 racial Diplomacy",
+          "description": "+2 racial Diplomacy",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "015",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 15"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:016",
+          "name": "16 — Can use Large weapons without penalty due to oversize limbs",
+          "description": "Can use Large weapons without penalty due to oversize limbs",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "016",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 16"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:017",
+          "name": "17 — Claw natural weapons deal 1d4",
+          "description": "Claw natural weapons deal 1d4",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "017",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 17"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:018",
+          "name": "18 — Damage reduction 2/bludgeoning",
+          "description": "Damage reduction 2/bludgeoning",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "018",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 18"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:019",
+          "name": "19 — Swim speed 30 feet",
+          "description": "Swim speed 30 feet",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "019",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 19"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:020",
+          "name": "20 — +2 combat maneuver checks",
+          "description": "+2 combat maneuver checks",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "020",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 20"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:021",
+          "name": "21 — Reroll one die once daily; must take new result",
+          "description": "Reroll one die once daily; must take new result",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "021",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 21"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:022",
+          "name": "22 — Detect evil as spell, three times daily",
+          "description": "Detect evil as spell, three times daily",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "022",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 22"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:023",
+          "name": "23 — Water need eliminated",
+          "description": "Water need eliminated",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "023",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 23"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:024",
+          "name": "24 — Produce removable dagger-like barb once daily",
+          "description": "Produce removable dagger-like barb once daily",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "024",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 24"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:025",
+          "name": "25 — Earth elemental resistance 5",
+          "description": "Earth elemental resistance 5",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "025",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 25"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:026",
+          "name": "26 — A creature grappling you takes 1d4 fire damage each round",
+          "description": "A creature grappling you takes 1d4 fire damage each round",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "026",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 26"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:027",
+          "name": "27 — Speak two extra languages used by extraplanar beings",
+          "description": "Speak two extra languages used by extraplanar beings",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "027",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 27"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:028",
+          "name": "28 — Evil creatures called by summon monster persist three extra rounds",
+          "description": "Evil creatures called by summon monster persist three extra rounds",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "028",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 28"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:029",
+          "name": "29 — +1 Reflex saves",
+          "description": "+1 Reflex saves",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "029",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 29"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:030",
+          "name": "30 — Change shadow silhouette to any object or creature of own size or sm",
+          "description": "Change shadow silhouette to any object or creature of own size or smaller",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "030",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 30"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:031",
+          "name": "31 — Burrow through dirt, sand or loose gravel 5 feet per round",
+          "description": "Burrow through dirt, sand or loose gravel 5 feet per round",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "031",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 31"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:032",
+          "name": "32 — +1 rolls confirming critical hits",
+          "description": "+1 rolls confirming critical hits",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "032",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 32"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:033",
+          "name": "33 — Damage reduction 2/silver",
+          "description": "Damage reduction 2/silver",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "033",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 33"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:034",
+          "name": "34 — Stay conscious down to -5 hit points",
+          "description": "Stay conscious down to -5 hit points",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "034",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 34"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:035",
+          "name": "35 — +2 racial Climb from long limbs and powerful grip",
+          "description": "+2 racial Climb from long limbs and powerful grip",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "035",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 35"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:036",
+          "name": "36 — Telepathic communication with sentient creature you are touching",
+          "description": "Telepathic communication with sentient creature you are touching",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "036",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 36"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:037",
+          "name": "37 — Death knell once daily as SLA",
+          "description": "Death knell once daily as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "037",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 37"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:038",
+          "name": "38 — Full-round concentration grants tremorsense 60 feet for one round, a",
+          "description": "Full-round concentration grants tremorsense 60 feet for one round, at will",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "038",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 38"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:039",
+          "name": "39 — Move at twice normal speed for one round, once daily",
+          "description": "Move at twice normal speed for one round, once daily",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "039",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 39"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:040",
+          "name": "40 — Bleed to collect one vial valuable blood per day as full-round actio",
+          "description": "Bleed to collect one vial valuable blood per day as full-round action",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "040",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 40"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:041",
+          "name": "41 — Spell resistance 10 + half Hit Dice",
+          "description": "Spell resistance 10 + half Hit Dice",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "041",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 41"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:042",
+          "name": "42 — Animate dead spell can bring you back to life as raise a limited 1d4",
+          "description": "Animate dead spell can bring you back to life as raise a limited 1d4 times",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "042",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 42"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:043",
+          "name": "43 — Treat Charisma as 2 higher for spells and spell-like abilities",
+          "description": "Treat Charisma as 2 higher for spells and spell-like abilities",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "043",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 43"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:044",
+          "name": "44 — Gain normal Small creature size traits",
+          "description": "Gain normal Small creature size traits",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "044",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 44"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:045",
+          "name": "45 — +2 racial Disguise due to malleable facial features",
+          "description": "+2 racial Disguise due to malleable facial features",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "045",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 45"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:046",
+          "name": "46 — Additional +2 racial Intelligence",
+          "description": "Additional +2 racial Intelligence",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "046",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 46"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:047",
+          "name": "47 — Summon food and water three times daily as SLA",
+          "description": "Summon food and water three times daily as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "047",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 47"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:048",
+          "name": "48 — Invisible to unintelligent undead (supernatural)",
+          "description": "Invisible to unintelligent undead (supernatural)",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "048",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 48"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:049",
+          "name": "49 — Both holy and shadow channeling heal you",
+          "description": "Both holy and shadow channeling heal you",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "049",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 49"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:050",
+          "name": "50 — +1 natural armor AC",
+          "description": "+1 natural armor AC",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "050",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 50"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:051",
+          "name": "51 — Speak with all birds",
+          "description": "Speak with all birds",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "051",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 51"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:052",
+          "name": "52 — +2 saves against poison",
+          "description": "+2 saves against poison",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "052",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 52"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:053",
+          "name": "53 — Gain scent ability",
+          "description": "Gain scent ability",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "053",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 53"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:054",
+          "name": "54 — Damage reduction 2/piercing",
+          "description": "Damage reduction 2/piercing",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "054",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 54"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:055",
+          "name": "55 — +2 racial Sleight of Hand",
+          "description": "+2 racial Sleight of Hand",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "055",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 55"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:056",
+          "name": "56 — Acid spit once daily, 1d4 acid, range increment 5 feet",
+          "description": "Acid spit once daily, 1d4 acid, range increment 5 feet",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "056",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 56"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:057",
+          "name": "57 — Grapplers take 1d4 ice damage per round",
+          "description": "Grapplers take 1d4 ice damage per round",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "057",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 57"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:058",
+          "name": "58 — Heal twice normal rest damage",
+          "description": "Heal twice normal rest damage",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "058",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 58"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:059",
+          "name": "59 — +1 Will saves",
+          "description": "+1 Will saves",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "059",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 59"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:060",
+          "name": "60 — +2 initiative when night",
+          "description": "+2 initiative when night",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "060",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 60"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:061",
+          "name": "61 — Can grow spikes on worn armor, gauntlets or shield while wearing the",
+          "description": "Can grow spikes on worn armor, gauntlets or shield while wearing them",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "061",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 61"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:062",
+          "name": "62 — Deathwatch three times daily as SLA",
+          "description": "Deathwatch three times daily as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "062",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 62"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:063",
+          "name": "63 — +2 saves versus gaze attacks",
+          "description": "+2 saves versus gaze attacks",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "063",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 63"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:064",
+          "name": "64 — Once daily see through up to 5 feet of substance other than lead as ",
+          "description": "Once daily see through up to 5 feet of substance other than lead as glass for 1 round",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "064",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 64"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:065",
+          "name": "65 — +2 racial Acrobatics",
+          "description": "+2 racial Acrobatics",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "065",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 65"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:066",
+          "name": "66 — May drink ash, cinders, dust and sand for nourishment",
+          "description": "May drink ash, cinders, dust and sand for nourishment",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "066",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 66"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:067",
+          "name": "67 — Eyes see in darkness like devil",
+          "description": "Eyes see in darkness like devil",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "067",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 67"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:068",
+          "name": "68 — Damage reduction 2/cold iron",
+          "description": "Damage reduction 2/cold iron",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "068",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 68"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:069",
+          "name": "69 — Fog cloud once daily as SLA",
+          "description": "Fog cloud once daily as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "069",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 69"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:070",
+          "name": "70 — Know of and decide results of attempts to detect own alignment",
+          "description": "Know of and decide results of attempts to detect own alignment",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "070",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 70"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:071",
+          "name": "71 — Eat from corpse as full-round action to heal 1d6+1 HP once daily",
+          "description": "Eat from corpse as full-round action to heal 1d6+1 HP once daily",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "071",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 71"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:072",
+          "name": "72 — Telepathy with any evil creature within 50 feet",
+          "description": "Telepathy with any evil creature within 50 feet",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "072",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 72"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:073",
+          "name": "73 — Minor image three times daily as SLA",
+          "description": "Minor image three times daily as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "073",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 73"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:074",
+          "name": "74 — Once daily animate Small or smaller object as SLA for rounds equal t",
+          "description": "Once daily animate Small or smaller object as SLA for rounds equal to level",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "074",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 74"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:075",
+          "name": "75 — Wind resistance 5",
+          "description": "Wind resistance 5",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "075",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 75"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:076",
+          "name": "76 — Hold breath three additional rounds",
+          "description": "Hold breath three additional rounds",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "076",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 76"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:077",
+          "name": "77 — Speak with insects",
+          "description": "Speak with insects",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "077",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 77"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:078",
+          "name": "78 — Attempted grapplers suffer 1d4 damage from spikes",
+          "description": "Attempted grapplers suffer 1d4 damage from spikes",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "078",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 78"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:079",
+          "name": "79 — +1 Fortitude saves",
+          "description": "+1 Fortitude saves",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "079",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 79"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:080",
+          "name": "80 — +2 CMD",
+          "description": "+2 CMD",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "080",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 80"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:081",
+          "name": "81 — Rage spell on self once daily as SLA",
+          "description": "Rage spell on self once daily as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "081",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 81"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:082",
+          "name": "82 — +2 saves against mind-affecting effects",
+          "description": "+2 saves against mind-affecting effects",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "082",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 82"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:083",
+          "name": "83 — Once daily exposure to fire heals 1d6 HP; fire damage still applies",
+          "description": "Once daily exposure to fire heals 1d6 HP; fire damage still applies",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "083",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 83"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:084",
+          "name": "84 — Immune to magical sleep and paralysis",
+          "description": "Immune to magical sleep and paralysis",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "084",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 84"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:085",
+          "name": "85 — Additional +2 racial Perception",
+          "description": "Additional +2 racial Perception",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "085",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 85"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:086",
+          "name": "86 — 15% chance critical hits against you are negated",
+          "description": "15% chance critical hits against you are negated",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "086",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 86"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:087",
+          "name": "87 — Need only one-quarter usual hume food and water",
+          "description": "Need only one-quarter usual hume food and water",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "087",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 87"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:088",
+          "name": "88 — Melee damage treated as any alignment to bypass damage reduction",
+          "description": "Melee damage treated as any alignment to bypass damage reduction",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "088",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 88"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:089",
+          "name": "89 — Cure spell once daily as SLA",
+          "description": "Cure spell once daily as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "089",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 89"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:090",
+          "name": "90 — Additional +2 racial Wisdom",
+          "description": "Additional +2 racial Wisdom",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "090",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 90"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:091",
+          "name": "91 — Damage reduction 2/slashing",
+          "description": "Damage reduction 2/slashing",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "091",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 91"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:092",
+          "name": "92 — Can see creatures on Ethereal Plane",
+          "description": "Can see creatures on Ethereal Plane",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "092",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 92"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:093",
+          "name": "93 — Once daily ask corpse one yes/no question as speak with dead SLA",
+          "description": "Once daily ask corpse one yes/no question as speak with dead SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "093",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 93"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:094",
+          "name": "94 — +2 saves against nausea",
+          "description": "+2 saves against nausea",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "094",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 94"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:095",
+          "name": "95 — +2 racial Escape Artist",
+          "description": "+2 racial Escape Artist",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "095",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 95"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:096",
+          "name": "96 — Ventriloquism at will as SLA",
+          "description": "Ventriloquism at will as SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "096",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 96"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:097",
+          "name": "97 — Once daily standard action suppress unusual mutant appearance for CO",
+          "description": "Once daily standard action suppress unusual mutant appearance for CON-mod minutes, appearing hume",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "097",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 97"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:098",
+          "name": "98 — +1 bonus HP per character level",
+          "description": "+1 bonus HP per character level",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "098",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 98"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:099",
+          "name": "99 — Commune with ancestor once weekly via SLA",
+          "description": "Commune with ancestor once weekly via SLA",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "099",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 99"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-variant-mutant-abilities:outcome:100",
+          "name": "100 — Roll on this table twice; on further rolls ignore any additional res",
+          "description": "Roll on this table twice; on further rolls ignore any additional result 100",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "100",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Variant Mutant Abilities",
+              "locator": "d100 row 100"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Record actual GM/player d100 roll rather than picking freely; outcomes are manual, including rerolls/extra rolls; no automatic character modification.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Variant Mutant Abilities",
+          "locator": "6072"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:mutant:pool:table-alternative-physical-features",
+      "name": "Table: Alternative Physical Features — roll 1d100",
+      "choiceType": "other",
+      "options": [
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:001",
+          "name": "01 — Arms: elbow spurs",
+          "description": "Arms: elbow spurs",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "001",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 01"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:002",
+          "name": "02 — Arms: oversize limb",
+          "description": "Arms: oversize limb",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "002",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 02"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:003",
+          "name": "03 — Arms: stony forearms",
+          "description": "Arms: stony forearms",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "003",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 03"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:004",
+          "name": "04 — Arms: tentacle-like",
+          "description": "Arms: tentacle-like",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "004",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 04"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:005",
+          "name": "05 — Arms: undersize limb",
+          "description": "Arms: undersize limb",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "005",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 05"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:006",
+          "name": "06 — Build: emaciated",
+          "description": "Build: emaciated",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "006",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 06"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:007",
+          "name": "07 — Build: hunchback",
+          "description": "Build: hunchback",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "007",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 07"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:008",
+          "name": "08 — Build: obese",
+          "description": "Build: obese",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "008",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 08"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:009",
+          "name": "09 — Build: unnaturally heavy",
+          "description": "Build: unnaturally heavy",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "009",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 09"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:010",
+          "name": "10 — Build: unnaturally light",
+          "description": "Build: unnaturally light",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "010",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 10"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:011",
+          "name": "11 — Digits: abnormally long",
+          "description": "Digits: abnormally long",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "011",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 11"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:012",
+          "name": "12 — Digits: extra digits",
+          "description": "Digits: extra digits",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "012",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 12"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:013",
+          "name": "13 — Digits: extra joints",
+          "description": "Digits: extra joints",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "013",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 13"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:014",
+          "name": "14 — Digits: no nails",
+          "description": "Digits: no nails",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "014",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 14"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:015",
+          "name": "15 — Digits: odd number",
+          "description": "Digits: odd number",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "015",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 15"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:016",
+          "name": "16 — Ears: bat-like",
+          "description": "Ears: bat-like",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "016",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 16"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:017",
+          "name": "17 — Ears: missing",
+          "description": "Ears: missing",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "017",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 17"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:018",
+          "name": "18 — Ears: pig-like",
+          "description": "Ears: pig-like",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "018",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 18"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:019",
+          "name": "19 — Ears: pointed",
+          "description": "Ears: pointed",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "019",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 19"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:020",
+          "name": "20 — Ears: other",
+          "description": "Ears: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "020",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 20"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:021",
+          "name": "21 — Eyes: cyclopic",
+          "description": "Eyes: cyclopic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "021",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 21"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:022",
+          "name": "22 — Eyes: goatlike",
+          "description": "Eyes: goatlike",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "022",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 22"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:023",
+          "name": "23 — Eyes: glowing",
+          "description": "Eyes: glowing",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "023",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 23"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:024",
+          "name": "24 — Eyes: smoking",
+          "description": "Eyes: smoking",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "024",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 24"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:025",
+          "name": "25 — Eyes: other",
+          "description": "Eyes: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "025",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 25"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:026",
+          "name": "26 — Face: canine muzzle",
+          "description": "Face: canine muzzle",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "026",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 26"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:027",
+          "name": "27 — Face: insectile mandibles",
+          "description": "Face: insectile mandibles",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "027",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 27"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:028",
+          "name": "28 — Face: missing nose",
+          "description": "Face: missing nose",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "028",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 28"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:029",
+          "name": "29 — Face: underdeveloped",
+          "description": "Face: underdeveloped",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "029",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 29"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:030",
+          "name": "30 — Face: other",
+          "description": "Face: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "030",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 30"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:031",
+          "name": "31 — Hands: backward-bending fingers",
+          "description": "Hands: backward-bending fingers",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "031",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 31"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:032",
+          "name": "32 — Hands: extra thumbs",
+          "description": "Hands: extra thumbs",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "032",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 32"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:033",
+          "name": "33 — Hands: pincers",
+          "description": "Hands: pincers",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "033",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 33"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:034",
+          "name": "34 — Hands: suckered",
+          "description": "Hands: suckered",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "034",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 34"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:035",
+          "name": "35 — Hands: other",
+          "description": "Hands: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "035",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 35"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:036",
+          "name": "36 — Head: animalistic",
+          "description": "Head: animalistic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "036",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 36"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:037",
+          "name": "37 — Head: animate hair",
+          "description": "Head: animate hair",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "037",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 37"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:038",
+          "name": "38 — Head: bald",
+          "description": "Head: bald",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "038",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 38"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:039",
+          "name": "39 — Head: malformed",
+          "description": "Head: malformed",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "039",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 39"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:040",
+          "name": "40 — Head: other",
+          "description": "Head: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "040",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 40"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:041",
+          "name": "41 — Horns: draconic",
+          "description": "Horns: draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "041",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 41"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:042",
+          "name": "42 — Horns: metallic",
+          "description": "Horns: metallic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "042",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 42"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:043",
+          "name": "43 — Horns: ram-like",
+          "description": "Horns: ram-like",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "043",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 43"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:044",
+          "name": "44 — Horns: vestigial",
+          "description": "Horns: vestigial",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "044",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 44"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:045",
+          "name": "45 — Horns: other",
+          "description": "Horns: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "045",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 45"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:046",
+          "name": "46 — Legs: backward-bending",
+          "description": "Legs: backward-bending",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "046",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 46"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:047",
+          "name": "47 — Legs: birdlike",
+          "description": "Legs: birdlike",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "047",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 47"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:048",
+          "name": "48 — Legs: cloven feet",
+          "description": "Legs: cloven feet",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "048",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 48"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:049",
+          "name": "49 — Legs: froglike",
+          "description": "Legs: froglike",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "049",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 49"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:050",
+          "name": "50 — Legs: other",
+          "description": "Legs: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "050",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 50"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:051",
+          "name": "51 — Skin: feathered",
+          "description": "Skin: feathered",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "051",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 51"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:052",
+          "name": "52 — Skin: loose",
+          "description": "Skin: loose",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "052",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 52"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:053",
+          "name": "53 — Skin: patterned",
+          "description": "Skin: patterned",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "053",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 53"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:054",
+          "name": "54 — Skin: rotting",
+          "description": "Skin: rotting",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "054",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 54"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:055",
+          "name": "55 — Skin: scaled",
+          "description": "Skin: scaled",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "055",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 55"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:056",
+          "name": "56 — Skin: slimy",
+          "description": "Skin: slimy",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "056",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 56"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:057",
+          "name": "57 — Skin: strangely colored",
+          "description": "Skin: strangely colored",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "057",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 57"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:058",
+          "name": "58 — Skin: translucent",
+          "description": "Skin: translucent",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "058",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 58"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:059",
+          "name": "59 — Skin: variable color",
+          "description": "Skin: variable color",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "059",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 59"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:060",
+          "name": "60 — Skin: other",
+          "description": "Skin: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "060",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 60"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:061",
+          "name": "61 — Tail: aquatic",
+          "description": "Tail: aquatic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "061",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 61"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:062",
+          "name": "62 — Tail: fiendish",
+          "description": "Tail: fiendish",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "062",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 62"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:063",
+          "name": "63 — Tail: mammalian",
+          "description": "Tail: mammalian",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "063",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 63"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:064",
+          "name": "64 — Tail: reptilian",
+          "description": "Tail: reptilian",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "064",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 64"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:065",
+          "name": "65 — Tail: other",
+          "description": "Tail: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "065",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 65"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:066",
+          "name": "66 — Teeth: blunt",
+          "description": "Teeth: blunt",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "066",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 66"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:067",
+          "name": "67 — Teeth: fanged",
+          "description": "Teeth: fanged",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "067",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 67"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:068",
+          "name": "68 — Teeth: metallic",
+          "description": "Teeth: metallic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "068",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 68"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:069",
+          "name": "69 — Teeth: needle-like",
+          "description": "Teeth: needle-like",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "069",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 69"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:070",
+          "name": "70 — Teeth: other",
+          "description": "Teeth: other",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "070",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 70"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:071",
+          "name": "71 — Other: androgynous",
+          "description": "Other: androgynous",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "071",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 71"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:072",
+          "name": "72 — Other: antennae",
+          "description": "Other: antennae",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "072",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 72"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:073",
+          "name": "73 — Other: avian snood",
+          "description": "Other: avian snood",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "073",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 73"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:074",
+          "name": "74 — Other: bleeding pores",
+          "description": "Other: bleeding pores",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "074",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 74"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:075",
+          "name": "75 — Other: bony ridges",
+          "description": "Other: bony ridges",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "075",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 75"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:076",
+          "name": "76 — Other: emits strange noises",
+          "description": "Other: emits strange noises",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "076",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 76"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:077",
+          "name": "77 — Other: exoskeleton",
+          "description": "Other: exoskeleton",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "077",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 77"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:078",
+          "name": "78 — Other: external organ",
+          "description": "Other: external organ",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "078",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 78"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:079",
+          "name": "79 — Other: extraneous nipple",
+          "description": "Other: extraneous nipple",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "079",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 79"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:080",
+          "name": "80 — Other: eyestalks",
+          "description": "Other: eyestalks",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "080",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 80"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:081",
+          "name": "81 — Other: forked tongue",
+          "description": "Other: forked tongue",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "081",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 81"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:082",
+          "name": "82 — Other: fungal or leafy growths",
+          "description": "Other: fungal or leafy growths",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "082",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 82"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:083",
+          "name": "83 — Other: hermaphroditic",
+          "description": "Other: hermaphroditic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "083",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 83"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:084",
+          "name": "84 — Other: incongruous footprints",
+          "description": "Other: incongruous footprints",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "084",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 84"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:085",
+          "name": "85 — Other: infernal glow",
+          "description": "Other: infernal glow",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "085",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 85"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:086",
+          "name": "86 — Other: infested",
+          "description": "Other: infested",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "086",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 86"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:087",
+          "name": "87 — Other: inhuman voice",
+          "description": "Other: inhuman voice",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "087",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 87"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:088",
+          "name": "88 — Other: missing joint",
+          "description": "Other: missing joint",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "088",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 88"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:089",
+          "name": "89 — Other: no reflection",
+          "description": "Other: no reflection",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "089",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 89"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:090",
+          "name": "90 — Other: no shadow",
+          "description": "Other: no shadow",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "090",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 90"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:091",
+          "name": "91 — Other: profane birthmark",
+          "description": "Other: profane birthmark",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "091",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 91"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:092",
+          "name": "92 — Other: smoking breath",
+          "description": "Other: smoking breath",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "092",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 92"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:093",
+          "name": "93 — Other: spinneret",
+          "description": "Other: spinneret",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "093",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 93"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:094",
+          "name": "94 — Other: strange smell",
+          "description": "Other: strange smell",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "094",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 94"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:095",
+          "name": "95 — Other: uncontrollable twitch",
+          "description": "Other: uncontrollable twitch",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "095",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 95"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:096",
+          "name": "96 — Other: unnatural temperature",
+          "description": "Other: unnatural temperature",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "096",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 96"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:097",
+          "name": "97 — Other: vestigial limb",
+          "description": "Other: vestigial limb",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "097",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 97"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:098",
+          "name": "98 — Other: whistling umbilicus",
+          "description": "Other: whistling umbilicus",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "098",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 98"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:099",
+          "name": "99 — Roll twice; ignore any additional results of 99 or higher",
+          "description": "Roll twice; ignore any additional results of 99 or higher",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "099",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 99"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:table-alternative-physical-features:outcome:100",
+          "name": "100 — Roll three times; ignore any additional results of 99 or higher",
+          "description": "Roll three times; ignore any additional results of 99 or higher",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "100",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Alternative Physical Features",
+              "locator": "d100 row 100"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Record actual GM/player d100 roll rather than picking freely; outcomes are manual, including rerolls/extra rolls; no automatic character modification.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Table: Alternative Physical Features",
+          "locator": "6180"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:mutant:pool:physical-2",
+      "name": "Physical +2 score choice",
+      "choiceType": "ability_score",
+      "options": [
+        {
+          "id": "ffd20:race:mutant:pool:physical-2:str",
+          "name": "STR",
+          "description": "+2 to STR at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "str",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:physical-2:dex",
+          "name": "DEX",
+          "description": "+2 to DEX at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dex",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:physical-2:con",
+          "name": "CON",
+          "description": "+2 to CON at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "con",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "One score from this group at creation; UI capability incomplete, no automatic score modification.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Mutant Racial Traits",
+          "locator": "6025"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:mutant:pool:mental-2",
+      "name": "Mental +2 score choice",
+      "choiceType": "ability_score",
+      "options": [
+        {
+          "id": "ffd20:race:mutant:pool:mental-2:int",
+          "name": "INT",
+          "description": "+2 to INT at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "int",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:mental-2:wis",
+          "name": "WIS",
+          "description": "+2 to WIS at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wis",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:mental-2:cha",
+          "name": "CHA",
+          "description": "+2 to CHA at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "cha",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "One score from this group at creation; UI capability incomplete, no automatic score modification.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Mutant Racial Traits",
+          "locator": "6025"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:mutant:pool:penalty-2",
+      "name": "Penalty −2 score choice",
+      "choiceType": "ability_score",
+      "options": [
+        {
+          "id": "ffd20:race:mutant:pool:penalty-2:str",
+          "name": "STR",
+          "description": "-2 to STR at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "str",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:penalty-2:dex",
+          "name": "DEX",
+          "description": "-2 to DEX at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dex",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:penalty-2:con",
+          "name": "CON",
+          "description": "-2 to CON at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "con",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:penalty-2:int",
+          "name": "INT",
+          "description": "-2 to INT at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "int",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:penalty-2:wis",
+          "name": "WIS",
+          "description": "-2 to WIS at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "wis",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mutant:pool:penalty-2:cha",
+          "name": "CHA",
+          "description": "-2 to CHA at creation",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "cha",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Mutant Racial Traits",
+              "locator": "6025"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "One score from this group at creation; UI capability incomplete, no automatic score modification.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Mutant Racial Traits",
+          "locator": "6025"
+        }
+      ]
+    }
+  ],
+  "levelBindings": [],
+  "data": {
+    "raceType": "base",
+    "standardTraitIds": [
+      "ffd20:race:mutant:trait:ability-score-racial-traits",
+      "ffd20:race:mutant:trait:size",
+      "ffd20:race:mutant:trait:type",
+      "ffd20:race:mutant:trait:base-speed",
+      "ffd20:race:mutant:trait:languages",
+      "ffd20:race:mutant:trait:variable-resistance",
+      "ffd20:race:mutant:trait:keen-senses",
+      "ffd20:race:mutant:trait:spell-like-ability",
+      "ffd20:race:mutant:trait:variable-mutant-abilities",
+      "ffd20:race:mutant:trait:variable-stats",
+      "ffd20:race:mutant:trait:darkvision",
+      "ffd20:race:mutant:trait:low-light-vision"
+    ],
+    "alternateTraitIds": [
+      "ffd20:race:mutant:trait:dual-minded",
+      "ffd20:race:mutant:trait:eye-for-opportunity",
+      "ffd20:race:mutant:trait:scavenger",
+      "ffd20:race:mutant:trait:sociable",
+      "ffd20:race:mutant:trait:variable-defenses",
+      "ffd20:race:mutant:trait:wary"
+    ],
+    "alternateReplacements": [
+      {
+        "id": "ffd20:race:mutant:trait:dual-minded:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mutant:trait:variable-resistance"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mutant:trait:dual-minded"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Dual Minded replaces Variable Resistance.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6051"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:trait:eye-for-opportunity:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mutant:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mutant:trait:eye-for-opportunity"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Eye for Opportunity replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6052"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:trait:scavenger:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mutant:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mutant:trait:scavenger"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Scavenger replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6053"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:trait:sociable:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mutant:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mutant:trait:sociable"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Sociable replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6054"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:trait:variable-defenses:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mutant:trait:variable-stats"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mutant:trait:variable-defenses"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Variable Defenses replaces Variable Stats.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6055"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:trait:wary:replacement",
+        "operation": "replace",
+        "targetFeatureIds": [
+          "ffd20:race:mutant:trait:keen-senses"
+        ],
+        "targetEventIds": [],
+        "scope": "whole_feature",
+        "removesComponents": [],
+        "addsFeatureIds": [
+          "ffd20:race:mutant:trait:wary"
+        ],
+        "addsEventIds": [],
+        "condition": null,
+        "description": "Wary replaces Keen Senses.",
+        "resolution": "resolved",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alternate Racial Traits",
+            "locator": "6057"
+          }
+        ]
+      }
+    ],
+    "heritages": [],
+    "heritagePolicy": {
+      "defaultHeritageId": null,
+      "maximumSelected": 1,
+      "retainUnreplacedStandards": true
+    },
+    "standardTraitPolicy": {
+      "enabledByDefault": true,
+      "userCanDisable": true
+    },
+    "alternateTraitPolicy": {
+      "enabledByDefault": false,
+      "requiresExplicitSelection": true
+    },
+    "favoredRewards": [
+      {
+        "id": "ffd20:race:mutant:favored:astrologian",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:astrologian",
+        "name": "Mutant Astrologian favored reward",
+        "description": "Add one known astrologian spell of level at least one below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6061"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:black-mage",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:black-mage",
+        "name": "Mutant Black Mage favored reward",
+        "description": "Add a known black mage spell of a level at least one below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6062"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:blue-mage",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:blue-mage",
+        "name": "Mutant Blue Mage favored reward",
+        "description": "+1/6 on all Knowledge checks.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6063"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:cleric",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:cleric",
+        "name": "Mutant Cleric favored reward",
+        "description": "Add one cleric spell known at least one level below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6064"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:illusionist",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:illusionist",
+        "name": "Mutant Illusionist favored reward",
+        "description": "+1/6 on all illusion spell DCs.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6065"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:necromancer",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:necromancer",
+        "name": "Mutant Necromancer favored reward",
+        "description": "+1 skill rank to bone commander, including replacement commander.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6066"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:red-mage",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:red-mage",
+        "name": "Mutant Red Mage favored reward",
+        "description": "+1/2 on concentration checks to cast defensively.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 2
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6067"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:scholar",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:scholar",
+        "name": "Mutant Scholar favored reward",
+        "description": "+1 to maximum arcane reservoir.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6068"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:summoner",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:summoner",
+        "name": "Mutant Summoner favored reward",
+        "description": "Reduce time needed to summon avatar by 1 round, minimum 1.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6069"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:time-mage",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:time-mage",
+        "name": "Mutant Time Mage favored reward",
+        "description": "+1/6 an extra d4 on mote-boosted skill or ability check.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 6
+        },
+        "roundingPolicy": "accumulate_then_floor",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6070"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:race:mutant:favored:white-mage",
+        "raceId": "ffd20:race:mutant",
+        "classId": "ffd20:class:white-mage",
+        "name": "Mutant White Mage favored reward",
+        "description": "Add one known white mage spell at least one level below highest castable.",
+        "increment": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "roundingPolicy": "exact",
+        "effect": null,
+        "choicePoolIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Class Options",
+            "locator": "6071"
+          }
+        ]
+      }
+    ]
+  }
+}
