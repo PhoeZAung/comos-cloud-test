@@ -159,7 +159,7 @@ export function compileArcherBuild(b,previous,{preview,raceTraits,calculated,ran
   const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,
    desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:f.description,
    rulesName:f.name,rulesDescription:f.description,sourceRuleId:f.id,
-   sourceClass:'Archer',rulesOwned:true,...(/limit break/i.test(f.name)?{limitBreak:true}:{})};
+   sourceClass:'Archer',rulesOwned:true,...(['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');

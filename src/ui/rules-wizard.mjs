@@ -147,7 +147,7 @@ export function mountRulesWizard(){
   b.spellSelections=groupedSpells(b);syncSpells();
   key='comos-rules-draft-v8:'+user.id+':'+(id||'new')+':'+mode;
   try{const saved=JSON.parse(sessionStorage.getItem(key)||'null');if(saved?.mode===mode&&saved?.b?.version===registry.version&&saved.baseRevision===(character?.revision)&&Number.isInteger(saved.step)&&saved.step>=0&&saved.step<order.length){b=saved.b;step=saved.step;draftId=saved.draftId;}}catch{}
-  b.spellSelections=groupedSpells(b);syncSpells();draw();
+  b.spellSelections=groupedSpells(b);syncSpells();archerPreviewLevel=b.level;draw();
  }catch(error){if(!closed)main.innerHTML='<p role="alert">'+e(error.message)+'</p><a class="button" href="'+(id?'create-identity.html?characterId='+encodeURIComponent(id):'signin.html')+'">'+(id?'Edit build':'Sign in')+'</a>';}}
  function findStep(issue){if(issue.step===5)return order.indexOf(5);if(issue.step===1)return Math.max(0,order.indexOf(1));return Math.max(0,order.indexOf(issue.step));}
  async function finish(){if(saving)return;const found=buildIssues(b);if(found.length){step=findStep(found[0]);message=found[0].message;draw(true);return;}if(!live){message='This preview does not save real characters.';draw();return;}
@@ -157,7 +157,7 @@ export function mountRulesWizard(){
  main.addEventListener('input',event=>{const t=event.target;if(t.matches('[data-rw-rank]')){setRank(Number(t.dataset.rwRank),Number(t.value));return;}if(t.matches('[data-rw-field]'))b[t.dataset.rwField]=t.value;if(t.matches('[data-rw-score]')){b.baseScores[t.dataset.rwScore]=Number(t.value);scoreFeedback();}changed();},{signal:control.signal});
  main.addEventListener('change',async event=>{const t=event.target;try{
    if(t.matches('[data-rw-archer-level]')){archerPreviewLevel=Math.max(1,Math.min(20,Number(t.value)||1));draw();return;}
-  if(t.matches('[data-rw-field]')){const k=t.dataset.rwField;b[k]=t.value;if(k==='classId'){b.choices={};b.archetypeId='';b.spellIds=[];b.spellSelections={cantrips:[],leveled:[]};b.initialIntMod=null;b.hpRolls=[b.classId==='ffd20:class:archer'?8:6];b.favored=[];}if(k==='raceId'){b.heritageId='';b.disabledTraits=[];b.alternateIds=[];}changed();draw();}
+  if(t.matches('[data-rw-field]')){const k=t.dataset.rwField;b[k]=t.value;if(k==='classId'){b.choices={};b.archetypeId='';b.spellIds=[];b.spellSelections={cantrips:[],leveled:[]};b.initialIntMod=null;b.hpRolls=[b.classId==='ffd20:class:archer'?8:6];b.favored=[];archerPreviewLevel=b.level;}if(k==='raceId'){b.heritageId='';b.disabledTraits=[];b.alternateIds=[];}changed();draw();}
   if(t.matches('[data-rw-score]')){changed();draw();}
   if(t.matches('[data-rw-method]')){b.abilityMethod=t.value;b.scoreAssignments=[null,null,null,null,null,null];if(t.value==='point-buy')b.baseScores=Object.fromEntries(stats.map(k=>[k,10]));assignPool();changed();draw();}
   if(t.matches('[data-rw-budget]')){b.pointBudget=Number(t.value);changed();draw();}
