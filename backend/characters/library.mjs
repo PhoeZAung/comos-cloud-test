@@ -1,3 +1,4 @@
+import {classHitDie,className} from '../../src/features/characters/rules/class-adapters.mjs';
 import {randomUUID,createHash} from 'node:crypto';
 import {compileBuild} from '../../src/features/characters/rules/build.mjs';
 import {validateWizardFields} from './editor-fields.mjs';
@@ -59,7 +60,7 @@ export function createCharacterLibraryService(db){
     createBuild(ownerId,raw,{admin=false}={}){
       if(!ownerId||!uuid.test(raw?.requestId||''))throw fail('INVALID_CHARACTER','Invalid build request.');
       if(raw.build?.level!==1)throw fail('INVALID_CHARACTER','New characters start at level 1. Use Level up on the sheet afterward.');
-      if(JSON.stringify(raw.build.hpRolls)!==(raw.build.classId==='ffd20:class:archer'?'[8]':'[6]'))throw fail('INVALID_CHARACTER',raw.build.classId==='ffd20:class:archer'?'Archer starts with maximum d8 Hit Die: 8 base HP.':'Black Mage starts with maximum d6 Hit Die: 6 base HP.');
+      if(JSON.stringify(raw.build.hpRolls)!==JSON.stringify([classHitDie(raw.build)]))throw fail('INVALID_CHARACTER',className(raw.build)+' starts with maximum d'+classHitDie(raw.build)+' Hit Die: '+classHitDie(raw.build)+' base HP.');
       if(!Array.isArray(raw.build.favored)||raw.build.favored.length)throw fail('INVALID_CHARACTER','Apply favored rewards manually after creation.');
       if(raw.build.initialIntMod!==undefined&&raw.build.initialIntMod!==null)throw fail('INVALID_CHARACTER','Starting spell entitlement is determined when the character is created.');
       if(!Array.isArray(raw.build.skillRanks))throw fail('INVALID_CHARACTER','Allocate all skill points before saving.');

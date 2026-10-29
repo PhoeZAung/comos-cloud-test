@@ -1,3 +1,4 @@
+import {levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
 import {registry} from './catalog.mjs';
 import {archer,archerAtLevel,archerChanges} from './archer-levels.mjs';
 import {fixedSkills} from '../../sheet/skills.mjs';
@@ -29,16 +30,17 @@ function makeArcherClass(){
   data:{...archer.data,events},resources:[]};
 }
 export const archerClass=makeArcherClass();
-export const availableClasses=[registry.class,archerClass];
+export const availableClasses=[registry.class,archerClass,...levelOneClasses];
 export const classFor=b=>availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID))||null;
 export const isArcher=b=>(b?.classId===ARCHER_ID);
 export const className=b=>classFor(b)?.name||'Unknown class';
-export const classHitDie=b=>isArcher(b)?8:6;
-export const classDefaultHp=b=>(isArcher(b)?5:4);
-export const classHasSpells=b=>!isArcher(b);
+export const classHitDie=b=>Number.isInteger(classFor(b)?.data.hitDie)?classFor(b).data.hitDie:(isArcher(b)?8:6);
+export const classDefaultHp=b=>Math.floor(classHitDie(b)/2)+1;
+export const classHasSpells=b=>!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
- if(!isArcher(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
+ if(!isArcher(b)&&!isLevelOneClass(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
+ if(isLevelOneClass(b)){const value=id.replace(/^skill:/,'');return classFor(b).data.classSkills.some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
  const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
  return skills.includes(value)||value.startsWith('knowledge-')&&skills.includes('knowledge:'+value.slice('knowledge-'.length))||['craft','profession'].includes(value)&&skills.includes(value+':*');
 }
@@ -117,13 +119,14 @@ export function archerIssues(b,{complete=true}={}){
  return issues;
 }
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
-export function compileArcherBuild(b,previous,{preview,raceTraits,calculated,rankFloor}){
+export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated,rankFloor}){
+ const definition=classFor(b),name=definition.name;
  const p=preview,oldManaged=previous.rulesBuild,next=structuredClone(previous),rollback=oldManaged?.rollback||structuredClone(previous);
  const ownedKeys=['hp_max','bab','fort_base','ref_base','will_base','mp_class','mp_bonus','mp_max_spell_level','speed','size_category','languages','senses','proficiencies'];
  Object.assign(next,p.scores,{charName:b.name.trim(),alignment:b.alignment,bio:b.bio,portrait:b.portrait,
-  source:'FFD20',race:p.race.name,class:'Archer',classId:ARCHER_ID,
+  source:'FFD20',race:p.race.name,class:name,classId:definition.id,
   level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,
-  classes:[{name:'Archer',level:b.level,archetype:''}],archetype:'',
+  classes:[{name,level:b.level,archetype:b.archetypeId===MOG_KNIGHT_ID?'Mog Knight':''}],archetype:b.archetypeId===MOG_KNIGHT_ID?'Mog Knight':'',archetypeId:b.archetypeId,
   hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,
   mp:0,mp_class:0,mp_bonus:0,mp_max_spell_level:0,spell_dc_base:'dex'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition);
@@ -136,21 +139,22 @@ export function compileArcherBuild(b,previous,{preview,raceTraits,calculated,ran
   if(effect.target.startsWith('proficiencies.weapon.'))profs.push(effect.textValue||effect.target.split('.').at(-1).replaceAll('-',' '));
  }
  next.size=next.size_category;next.languages=uniq(langs).join(', ');next.senses=uniq(senses).join('; ');
- next.proficiencies=uniq([...profs,'Simple weapons','Bows','Crossbows','Light armor']).join(', ');
+ next.proficiencies=uniq([...profs,...(Array.isArray(definition.data.proficiencies)?definition.data.proficiencies:['Simple weapons','Bows','Crossbows','Light armor'])]).join(', ');
  next.racialIdentity={type:effects.find(e=>e.target==='identity.type')?.textValue||'',subtypes:uniq(effects.filter(e=>e.target==='identity.subtypes').map(e=>e.textValue).filter(Boolean)),
   rules:p.racial.traits.filter(f=>f.sheetTargets?.includes('identity')&&f.effects.some(e=>e.target.startsWith('identity.'))).map(f=>({id:f.id,name:f.name,description:f.description}))};
  if(!Object.keys(previous).length){
   next.hp_curr=p.hp;next.mp=next.mp_curr=0;next.mp_temp=0;
-  next.items=[{name:'Starting outfit',type:'Gear',amount:1,desc:'Starting outfit worth up to 10 gil.',value:10,sourceRuleId:ARCHER_ID+':starting-outfit'}];
-  next.weapons=[];next.currency_gil=next.gil=175;
+  next.items=[{name:'Starting outfit',type:'Gear',amount:1,desc:'Starting outfit worth up to 10 gil.',value:10,sourceRuleId:definition.id+':starting-outfit'}];
+  next.weapons=[];next.currency_gil=next.gil=definition.data.startingWealth??175;
  }
  const previousSkills=previous.skills||fixedSkills.map(r=>({...r,lvl:0,temp:0,cs:false,subName:''}));
  next.skills=previousSkills.map((row,i)=>{
   const r={...row},sid=skillId(r),owned=classSkill(b,sid)||p.racial.traits.some(f=>f.effects.some(e=>e.target==='skills.'+sid+'.class_skill'&&e.automation==='automatic'));
   r.lvl=b.skillRanks?.[i]||0;r.cs=owned||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=owned;
   r.temp=Number(row.temp||0)-Number(row.rulesBonus||0);let bonus=0;
-  for(const e of effects)if(e.target==='skills.'+sid+'.bonus')bonus+=Number(calculated(e.value,b)||0);else if(e.target==='skills.'+sid+'.class_skill')r.cs=true;
-  if(sid==='skill:perception'&&b.level>=2)bonus+=archerAtLevel(b.level).features.find(f=>f.name==='Hawkeye')?.state.perceptionBonus||0;
+  for(const e of effects)if(e.target==='skills.'+sid+'.bonus'||e.target==='skills.row.'+i+'.bonus')bonus+=Number(calculated(e.value,b)||0);else if(e.target==='skills.'+sid+'.class_skill')r.cs=true;
+  if(isArcher(b)&&sid==='skill:perception'&&b.level>=2)bonus+=archerAtLevel(b.level).features.find(f=>f.name==='Hawkeye')?.state.perceptionBonus||0;
+  for(const e of effects)if(e.target==='skills.row.'+i+'.bonus'&&e.specialty)r.subName=e.specialty;
   r.rulesBonus=bonus;r.temp+=bonus;return r;
  });
  const rows={activeAbilities:[],passiveAbilities:[],racialAbilities:[],feats:[],spells:[]};
@@ -159,10 +163,12 @@ export function compileArcherBuild(b,previous,{preview,raceTraits,calculated,ran
   const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,
    desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:f.description,
    rulesName:f.name,rulesDescription:f.description,sourceRuleId:f.id,
-   sourceClass:'Archer',rulesOwned:true,...(['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
+   sourceClass:name,rulesOwned:true,...(f.featureKind==='limit_break'||['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
+  if(isLevelOneClass(b)&&['Commander’s Aura','Battle Dance','Challenge'].includes(f.name)){const maximum=f.name==='Challenge'?1:Math.max(0,4+mod(p.scores.cha)),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;if(f.name!=='Challenge')row.uses_formula='4+{CHA}';}
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
+ if(isLevelOneClass(b)){const feat=b.classId===DANCER_ID?'Improved Unarmed Strike':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat);rows.feats.push({...previous.feats?.find(r=>r.sourceRuleId===id),name:feat,desc:'Granted by '+name+' at level 1. Check the feat conditions before applying its effects.',sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false});}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let lv=1;lv<=b.level;lv+=2){const id='comos:feat-slot:'+lv,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+lv,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  for(const event of archerChoiceEvents(b).filter(e=>!eventPool(e).endsWith('archery-talents'))){
@@ -176,7 +182,7 @@ export function compileArcherBuild(b,previous,{preview,raceTraits,calculated,ran
   const owned=new Set(oldManaged?.ownedIds||[]);
   next[key]=[...(previous[key]||[]).filter(row=>!row.rulesOwned||!owned.has(row.sourceRuleId)&&!rows[key].some(f=>f.sourceRuleId===row.sourceRuleId)),...rows[key]];
  }
- next.favoredClassBonuses={};next.favored_class_options=p.race.data.favoredRewards.filter(x=>x.classId===ARCHER_ID).map(x=>x.description).join('\n')+'\nFavored rewards require manual adjudication.';
+ next.favoredClassBonuses={};next.favored_class_options=p.race.data.favoredRewards.filter(x=>x.classId===definition.id).map(x=>x.description).join('\n')+'\nFavored rewards require manual adjudication.';
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
  next.castingProfiles=[];next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);

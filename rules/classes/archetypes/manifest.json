@@ -1,4 +1,11 @@
 {
   "schemaVersion": "comos.archetypes.manifest.v1",
-  "archetypes": []
+  "archetypes": [
+    {
+      "id": "ffd20:archetype:chocobo-knight:mog-knight",
+      "file": "rules/classes/archetypes/chocobo-knight-mog-knight.archetype.json",
+      "status": "live",
+      "adapter": "mog-knight-level-one"
+    }
+  ]
 }

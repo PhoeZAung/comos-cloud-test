@@ -1,0 +1,598 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:dancer",
+  "name": "Dancer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/",
+      "title": "Dancer",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "fba54e9b71df5e701df1238da0c1c7f864ebd7e4be7002db47df4e56ea306dc1"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "notes": "First-level character creation only; full progression rows are transcribed, but later-level features/choices are not enabled. Conditional mechanics and mount operation remain manual."
+  },
+  "data": {
+    "hitDie": 8,
+    "skillRanksPerLevel": 4,
+    "classSkills": [
+      "acrobatics",
+      "appraise",
+      "bluff",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "disguise",
+      "escape-artist",
+      "intimidate",
+      "knowledge:*",
+      "linguistics",
+      "perception",
+      "perform:*",
+      "profession:*",
+      "sense-motive",
+      "sleight-of-hand",
+      "spellcraft",
+      "stealth",
+      "use-magic-device"
+    ],
+    "startingWealth": 105,
+    "proficiencies": [
+      "Simple weapons",
+      "Monk weapons",
+      "Bladed scarves",
+      "Dancing scarves"
+    ],
+    "spellcasting": {
+      "learningMode": "none"
+    },
+    "supportedLevels": [
+      1
+    ],
+    "levels": [
+      {
+        "level": 1,
+        "bab": 0,
+        "iterativeAttacks": [],
+        "fort": 2,
+        "ref": 2,
+        "will": 0,
+        "special": "AC Bonus , Unarmed Strike , Battle Dance , Fleet (+10 ft.), Limit Breaks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-1"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 0,
+        "special": "Evasion , Versatile Dance , Dance Talent , Ki Pool",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-2"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 1,
+        "special": "Beguiling Dance , Mystic Dance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-3"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Dance Talent , Uncanny Dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-4"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Fleet (+15 ft.), Dance of the Vexing Snake",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-5"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Dance Talent , Mystic Dance , Rain of Blows , Dancer’s Strike",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-6"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Wearying Dance , Contradance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-7"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 2,
+        "special": "Dance Talent , Improved Uncanny Dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-8"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 3,
+        "special": "Fleet (+20 ft.), Dance of the Floating Step , Mystic Dance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-9"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Dance Talent , Unfettered Movement , Fan Dance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-10"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Frightful Dance , Asura Dance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-11"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Advanced Dance Talent , Mystic Dance , Dance of Fury",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-12"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Fleet (+25 ft.), Dance of the Crushing Python",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-13"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 4,
+        "special": "Advanced Dance Talent , Improved Evasion",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-14"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 5,
+        "special": "Dance of the Springing Tiger , Mystic Dance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-15"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Saber Dance , Advanced Dance Talent",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-16"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Fleet (+30 ft.), Dance of the Soaring Eagle",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-17"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Advanced Dance Talent , Mystic Dance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-18"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Dance of Death’s Embrace , Leaf on the Wind",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-19"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 12,
+        "ref": 12,
+        "will": 6,
+        "special": "Advanced Dance Talent , Battle Fury",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-20"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:dancer:feature:proficiencies",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "Proficient with simple weapons, monk weapons, and bladed scarves. No armor or shield proficiency, except dancing scarves. A bladed scarf may be wielded as a one-handed melee weapon.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "proficiencies"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:ac-bonus",
+        "name": "AC Bonus",
+        "atLevel": 1,
+        "description": "When unarmored and unencumbered, add a positive Charisma bonus to AC and CMD under the source conditions. Other ability-score AC bonuses do not stack. Suppressed by armor (except dancing scarves), shield, medium/heavy load, immobilization, or helplessness. This conditional bonus remains manual in the first-level integration.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:unarmed-strike",
+        "name": "Unarmed Strike",
+        "atLevel": 1,
+        "description": "Gain Improved Unarmed Strike. Level-1 unarmed damage is 1d4 Small, 1d6 Medium, or 1d8 Large; apply full Strength modifier. May deal lethal or nonlethal damage without the usual penalty. Treat the strike as both manufactured and natural for applicable effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unarmed Strike",
+            "locator": "unarmed-strike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:battle-dance",
+        "name": "Battle Dance",
+        "atLevel": 1,
+        "description": "At level 1, use Inspire Courage for 4 + Charisma modifier rounds per day. Start with a move action and maintain each round as a free action. Armor other than dancing scarves prevents benefits. Only one battle dance can run at a time; performance stops when the dancer cannot maintain it. Inspire Courage grants the source-defined +1 morale protection against charm/fear and +1 competence to attacks and weapon damage at level 1. Benefits remain manual.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:fleet",
+        "name": "Fleet",
+        "atLevel": 1,
+        "description": "While performing a battle dance, gain +10 feet enhancement to land speed at level 1. No speed bonus applies while not performing; this conditional increase remains manual.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fleet",
+            "locator": "fleet"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:perfect-dance",
+        "name": "Perfect Dance",
+        "atLevel": 1,
+        "description": "Limit Break: as a swift action, gain +2 dodge AC and +2 insight to attacks and skill checks for 1 round at level 1. Apply only while the limit break is active.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Dance",
+            "locator": "perfect-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:trance",
+        "name": "Trance",
+        "atLevel": 1,
+        "description": "Limit Break: as a swift action, perform a known battle or mystic dance without its performance-round or ki cost for 1 round at level 1. This does not grant later-level dances or a ki pool.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trance",
+            "locator": "trance"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:class:dancer:event:proficiencies",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:dancer:feature:proficiencies"
+      },
+      {
+        "id": "ffd20:class:dancer:event:ac-bonus",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:dancer:feature:ac-bonus"
+      },
+      {
+        "id": "ffd20:class:dancer:event:unarmed-strike",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:dancer:feature:unarmed-strike"
+      },
+      {
+        "id": "ffd20:class:dancer:event:battle-dance",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:dancer:feature:battle-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:fleet",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:dancer:feature:fleet"
+      },
+      {
+        "id": "ffd20:class:dancer:event:perfect-dance",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:dancer:feature:perfect-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:trance",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:dancer:feature:trance"
+      }
+    ],
+    "archetypeIndex": []
+  }
+}

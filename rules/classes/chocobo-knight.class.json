@@ -1,0 +1,607 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:chocobo-knight",
+  "name": "Chocobo Knight",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/",
+      "title": "Chocobo Knight",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "fd7ec4dee855821e24be06bc3d01b31fade1e2e100ca941a33468b6a8e4c6484"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "notes": "First-level character creation only; full progression rows are transcribed, but later-level features/choices are not enabled. Conditional mechanics and mount operation remain manual."
+  },
+  "data": {
+    "hitDie": 10,
+    "skillRanksPerLevel": 4,
+    "classSkills": [
+      "bluff",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "handle-animal",
+      "intimidate",
+      "knowledge:nobility",
+      "profession:*",
+      "ride",
+      "sense-motive",
+      "swim"
+    ],
+    "startingWealth": 175,
+    "proficiencies": [
+      "Simple weapons",
+      "Martial weapons",
+      "Knight swords",
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields",
+      "Tower shields"
+    ],
+    "spellcasting": {
+      "learningMode": "none"
+    },
+    "supportedLevels": [
+      1
+    ],
+    "levels": [
+      {
+        "level": 1,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 2,
+        "ref": 0,
+        "will": 0,
+        "special": "Chocobo Mount , In or Out of the Saddle , Challenge (1/day), Commander's Aura , Limit Breaks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-1"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 3,
+        "ref": 0,
+        "will": 0,
+        "special": "Mounted Talent , Steadfast Mount , Banner",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-2"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 3,
+        "ref": 1,
+        "will": 1,
+        "special": "Knight's Charge , Commander's Shout",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-3"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": "Mounted Talent , Expert Trainer , Challenge (2/day)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-4"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 4,
+        "ref": 1,
+        "will": 1,
+        "special": "Mounted Mettle , Battlefield Agility",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-5"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": "Mounted Talent , Master Feeder",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-6"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 5,
+        "ref": 2,
+        "will": 2,
+        "special": "Challenge (3/day), Improved Chocobo Mount , Iron Chocobo",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-7"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 6,
+        "ref": 2,
+        "will": 2,
+        "special": "Mounted Talent , Relentless Steed , Chivalry's Call",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-8"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 6,
+        "ref": 3,
+        "will": 3,
+        "special": "Mounted Expertise , Rider's Bond",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-9"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 7,
+        "ref": 3,
+        "will": 3,
+        "special": "Mounted Talent , Burst of Speed , Challenge (4/day)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-10"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 7,
+        "ref": 3,
+        "will": 3,
+        "special": "Greater Charge , Dual Aura",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-11"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 8,
+        "ref": 4,
+        "will": 4,
+        "special": "Advanced Mounted Talent , Superior Mounted Combat",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-12"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 8,
+        "ref": 4,
+        "will": 4,
+        "special": "Challenge (5/day), Chocobo's Parry",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-13"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 9,
+        "ref": 4,
+        "will": 4,
+        "special": "Advanced Mounted Talent , Defensive Charging",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-14"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 9,
+        "ref": 5,
+        "will": 5,
+        "special": "Protect the Meek , Superior Chocobo Mount , Victor's Rally",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-15"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 16,
+        "iterativeAttacks": [
+          16,
+          11,
+          6,
+          1
+        ],
+        "fort": 10,
+        "ref": 5,
+        "will": 5,
+        "special": "Advanced Mounted Talent , Unavoidable Onslaught , Challenge (6/day)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-16"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 17,
+        "iterativeAttacks": [
+          17,
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 5,
+        "will": 5,
+        "special": "Erratic Charge , General's Awe",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-17"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 18,
+        "iterativeAttacks": [
+          18,
+          13,
+          8,
+          3
+        ],
+        "fort": 11,
+        "ref": 6,
+        "will": 6,
+        "special": "Advanced Mounted Talent , Spiritual Bond",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-18"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 19,
+        "iterativeAttacks": [
+          19,
+          14,
+          9,
+          4
+        ],
+        "fort": 11,
+        "ref": 6,
+        "will": 6,
+        "special": "Indomitable Steed , Challenge (7/day)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-19"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 20,
+        "iterativeAttacks": [
+          20,
+          15,
+          10,
+          5
+        ],
+        "fort": 12,
+        "ref": 6,
+        "will": 6,
+        "special": "Advanced Mounted Talent , Supreme Charge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-20"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:chocobo-knight:feature:proficiencies",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "Proficient with simple and martial weapons, knight swords, all armor, and shields including tower shields.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "proficiencies"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:chocobo-mount",
+        "name": "Chocobo Mount",
+        "atLevel": 1,
+        "description": "Gain a loyal yellow chocobo companion using Chocobo Knight level as effective Beastmaster level. Use the mount progression table on the official class page; shared saves is excluded. Companion choices, attacks, and advancement are managed manually in this first-level integration.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chocobo Mount",
+            "locator": "chocobo-mount"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:mounted-combat",
+        "name": "Mounted Combat",
+        "atLevel": 1,
+        "description": "In or Out of the Saddle grants Mounted Combat as a bonus feat. Apply its Ride-check protection under the feat conditions; the feat does not add a permanent AC bonus.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mounted Combat",
+            "locator": "mounted-combat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:challenge",
+        "name": "Challenge",
+        "atLevel": 1,
+        "description": "Once per day at level 1, challenge one visible target as a swift action. Melee attacks against that target gain +1 damage. Take -2 AC against attacks from other creatures. The challenge ends when its target is dead or unconscious, or combat ends. Apply these conditional modifiers manually.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:commanders-aura",
+        "name": "Commander’s Aura",
+        "atLevel": 1,
+        "description": "Project one morale aura for 4 + Charisma modifier rounds per day at level 1. Start with a move action, switch with a swift action, and end with a free action. Select one of the official aura modes and apply its situational benefit manually; no aura bonus is permanently added to the sheet.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Commander’s Aura",
+            "locator": "commanders-aura"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "name": "Fight as One",
+        "atLevel": 1,
+        "description": "Limit Break: rider and mount receive +2 morale to attacks, saves, and skill checks for 1 round at level 1; the mount can full-attack after a charge. Activate as a swift action. Effects are conditional and managed manually.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fight as One",
+            "locator": "fight-as-one"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "name": "Supreme Overrun",
+        "atLevel": 1,
+        "description": "Limit Break: rider and mount charge 60 feet in a line, dealing 1d6 damage per Chocobo Knight level to enemies in the area; Reflex DC 10 + half class level + Strength modifier halves damage. Adjudicate the charge manually.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Supreme Overrun",
+            "locator": "supreme-overrun"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:class:chocobo-knight:event:proficiencies",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:chocobo-knight:feature:proficiencies"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:chocobo-mount",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:chocobo-knight:feature:chocobo-mount"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:mounted-combat",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:chocobo-knight:feature:mounted-combat"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:challenge",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:commanders-aura",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:chocobo-knight:feature:commanders-aura"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:fight-as-one",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:supreme-overrun",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun"
+      }
+    ],
+    "archetypeIndex": []
+  }
+}
