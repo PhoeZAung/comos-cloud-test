@@ -10,7 +10,8 @@ export function validateArchetypeManifest(manifest){
  for(const row of manifest.archetypes){
   if(!/^ffd20:archetype:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*$/.test(row.id))invalid('manifest','invalid ID');
   if(!/^rules\/classes\/archetypes\/[a-z][a-z0-9-]*-[a-z][a-z0-9-]*\.archetype\.json$/.test(row.file))invalid('manifest','unsafe path');
-  if(row.status!=='staged'||row.adapter!==null)invalid('manifest','no archetype can become live without its specialized validated adapter');
+  const supported=row.id==='ffd20:archetype:chocobo-knight:mog-knight'&&row.status==='live'&&row.adapter==='mog-knight-level-one';
+  if(!supported&&(row.status!=='staged'||row.adapter!==null))invalid('manifest','no archetype can become live without its specialized validated adapter');
  }
  return manifest;
 }

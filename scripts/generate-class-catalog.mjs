@@ -14,14 +14,15 @@ export async function buildClassCatalog(){
   const opts=entry.optionFile?JSON.parse(await readFile(fileURL(entry.optionFile),'utf8')):null;
   if(c.id!==entry.id)throw Error('Class manifest ID mismatch: '+entry.file);
   const report=validateClassDefinition(c,{optionCatalog:opts});
-  if(entry.status==='live'&&entry.adapter!=='archer')throw Error('Class has no verified runtime adapter: '+entry.id);
+  const levelOne=['ffd20:class:chocobo-knight','ffd20:class:dancer'].includes(entry.id)&&entry.adapter==='martial-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
+  if(entry.status==='live'&&entry.adapter!=='archer'&&!levelOne)throw Error('Class has no verified runtime adapter: '+entry.id);
   if(entry.status==='live'&&c.review.state!=='needs_review'&&c.review.state!=='approved')throw Error('Review missing');
   classes.push({id:c.id,name:c.name,status:entry.status,adapter:entry.adapter,review:c.review.state,
    description:'See official source for class features, progression and limitations.',
    source:c.sources[0].url,summary:report,levels:c.data.levels,
    features:c.data.features,upgrades:c.data.upgrades,events:c.data.events,
    archetypes:c.data.archetypeIndex||[],optionCount:opts?.options.length||0,
-   options:opts?.options||[]});
+   options:opts?.options||[],...(levelOne?{data:c.data,sources:c.sources,supportedLevels:[1]}:{})});
  }
  const archetypeManifest=validateArchetypeManifest(JSON.parse(await readFile(fileURL('rules/classes/archetypes/manifest.json'),'utf8')));
  const archetypeRecords=[];
@@ -32,7 +33,8 @@ export async function buildClassCatalog(){
   const archetype=JSON.parse(await readFile(fileURL(entry.file),'utf8'));
   if(archetype.id!==entry.id)throw Error('Archetype manifest ID mismatch');
   const summary=validateArchetypeDefinition(archetype,parent);
-  archetypeRecords.push({...summary,status:'staged',source:archetype.sources[0].url,review:archetype.review.state});
+  archetypeRecords.push({...summary,status:entry.status,adapter:entry.adapter,source:archetype.sources[0].url,review:archetype.review.state,
+   ...(entry.status==='live'?{data:archetype.data,sources:archetype.sources}:{})});
  }
  return {schemaVersion:'comos.class-catalog.v1',classes,archetypeRecords};
 }

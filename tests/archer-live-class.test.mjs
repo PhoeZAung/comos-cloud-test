@@ -1,3 +1,4 @@
+import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newBuild,buildIssues,choiceEvents,eligibleOptions,previewBuild,compileBuild,levelUpBuild,classFor,className,classSkill,availableClasses} from '../src/features/characters/rules/build.mjs';
@@ -23,8 +24,8 @@ function archerBuild(level=1){
  }
  return b;
 }
-test('class adapters register two independent live classes, retaining Black Mage by default',()=>{
- assert.deepEqual(availableClasses.map(x=>x.name),['Black Mage','Archer']);
+test('class adapters retain existing classes alongside first-level test classes, retaining Black Mage by default',()=>{
+ assert.deepEqual(availableClasses.map(x=>x.name),['Black Mage','Archer','Chocobo Knight','Dancer']);
  assert.equal(newBuild().classId,BLACK_MAGE_ID);
  assert.equal(className(archerBuild()),'Archer');
  assert.equal(classFor(archerBuild()).data.hitDie,8);
@@ -87,4 +88,11 @@ test('Archer creation wizard includes class selector, class choices and no Black
  assert.match(html,/value="ffd20:class:archer"/);
  assert(wizardOrder(b,'create').includes(4));assert(!wizardOrder(b,'create').includes(5));
  assert.match(renderBuild(b,4),/Archery Style/);
+});
+
+test('Archer sheet INT and CON edits never grant Black Mage bonus MP',()=>{
+ const d=compileBuild(archerBuild());d.hp_curr=2;
+ const updated=mergeSheetData(d,{action:'fields',fields:{int:18,con:14}});
+ assert.equal(updated.mp_bonus,0);assert.equal(updated.mp_class,0);
+ assert.equal(updated.hp_max,d.hp_max+2);assert.equal(updated.hp_curr,2);
 });
