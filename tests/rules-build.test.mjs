@@ -96,3 +96,40 @@ test('level up fills missing historical HP and refills current HP and MP',()=>{c
 test('navigation precedes content; class step is two selectors and alignment is a select',()=>{const b=validBuild(1);const page=renderBuild(b,3,{mode:'create'});assert(page.indexOf('data-rw-next')<page.indexOf('aria-label="Class"'));assert.doesNotMatch(page,/<h2>Black Mage|Level 1|Official archetype/);assert.match(renderBuild(b,0),/<select data-rw-field="alignment"/);assert.doesNotMatch(renderBuild(b,4),/data-rw-feature-list/);assert.match(renderBuild(b,7),/rw-class-skill/);});
 
 test('growth includes BAB and every save even when unchanged; racial groups start open',()=>{const b=validBuild(2),old=validBuild(1);const html=renderBuild(b,9,{mode:'levelup',baseline:old});for(const label of ['BAB','Fortitude','Reflex','Will'])assert.match(html,new RegExp(label));assert.match(renderBuild(b,2),/rw-racial-group" open/);assert.match(renderBuild(b,5),/rw-spell-group/);const ability=renderBuild({...b,level:4},1,{mode:'levelup',baseline:b});assert.match(ability,/rw-current-scores/);});
+
+test('admin creates a complete player-owned character without granting ordinary players admin creation',async()=>{
+ const db=await openDatabase(':memory:'),users=createUserRepository(db);
+ const admin=users.create({displayName:'Admin'}),owner=users.create({displayName:'Player'}),other=users.create({displayName:'Other'});
+ const identities={admin,owner,other},origin='https://example.test';
+ const sessions={restore:async cookie=>{if(!identities[cookie])throw Error('No session.');return {subject:cookie,user:identities[cookie]};}};
+ const server=createApiServer({db,directoryRoutes:createDirectoryRoutes({db,sessions,adminUids:['admin'],origin}),characterLibraryRoutes:createCharacterLibraryRoutes({db,sessions,adminUids:['admin'],origin})});
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ const base='http://127.0.0.1:'+server.address().port+'/api/v1',route=base+'/admin/characters/create';
+ const headers={Cookie:'__Host-comos_session=admin',Origin:origin,'Content-Type':'application/json'};
+ const payload={ownerId:owner.id,requestId:randomUUID(),build:validBuild(1)};
+ try{
+  assert.equal((await fetch(route,{method:'POST',headers:{...headers,Cookie:'__Host-comos_session=other'},body:JSON.stringify(payload)})).status,403);
+  assert.equal((await fetch(route,{method:'POST',headers:{...headers,Origin:'https://evil.test'},body:JSON.stringify(payload)})).status,403);
+  assert.equal((await fetch(route,{method:'POST',headers,body:JSON.stringify({...payload,ownerId:'not-a-user'})})).status,400);
+  assert.equal((await fetch(route,{method:'POST',headers,body:JSON.stringify({...payload,admin:true})})).status,400);
+  const response=await fetch(route,{method:'POST',headers,body:JSON.stringify(payload)});assert.equal(response.status,201);const created=(await response.json()).character;
+  assert.equal(db.prepare('SELECT owner_id FROM characters WHERE id=?').get(created.id).owner_id,owner.id);
+  const duplicate=await fetch(route,{method:'POST',headers,body:JSON.stringify(payload)});assert.equal(duplicate.status,201);assert.equal((await duplicate.json()).character.id,created.id);
+  assert.equal(db.prepare('SELECT count(*) AS n FROM characters').get().n,1);
+  const ownerHeaders={Cookie:'__Host-comos_session=owner'},otherHeaders={Cookie:'__Host-comos_session=other'};
+  assert.equal((await fetch(base+'/character-records/'+created.id,{headers:ownerHeaders})).status,200);
+  assert.equal((await fetch(base+'/character-records/'+created.id,{headers:otherHeaders})).status,404);
+  assert.equal((await fetch(base+'/character-records/'+created.id,{headers})).status,200);
+  const listing=await (await fetch(base+'/my/characters',{headers:ownerHeaders})).json();assert.equal(listing.characters[0].id,created.id);
+  assert.equal((await (await fetch(base+'/my/characters',{headers})).json()).characters.length,0);
+  let edit=await fetch(base+'/character-records/'+created.id,{method:'POST',headers,body:JSON.stringify({op:'wizard-build',revision:1,build:payload.build})});assert.equal(edit.status,200);
+  edit=await fetch(base+'/character-records/'+created.id,{method:'POST',headers,body:JSON.stringify({op:'sheet',revision:2,action:'fields',fields:{bio:'DM edited'}})});assert.equal(edit.status,200);
+  assert.equal((await (await fetch(base+'/character-records/'+created.id,{headers:ownerHeaders})).json()).character.data.bio,'DM edited');
+ }finally{await new Promise(resolve=>server.close(resolve));db.close();}
+});
+test('class chooser exposes supported Black Mage and Archer while incomplete classes remain unavailable',()=>{
+ const wizard=renderBuild(validBuild(1),3,{mode:'create'});
+ assert.match(wizard,/Black Mage/);assert.match(wizard,/Archer/);assert.match(wizard,/extraction in progress/);
+ assert.match(renderBuild(validBuild(1),0,{ownerName:'<Player>'}),/Creating a character for <strong>&lt;Player&gt;<\\/strong>/);
+ assert.doesNotMatch(renderBuild(validBuild(1),0,{ownerName:'<Player>'}),/<Player>/);
+});
