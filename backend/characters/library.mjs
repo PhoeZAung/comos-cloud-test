@@ -116,9 +116,9 @@ export function createCharacterLibraryService(db){
 export function createCharacterLibraryRoutes({db,sessions,origin,adminUids=[],throttle=createAuthThrottle()}){
   const service=createCharacterLibraryService(db),admins=new Set(adminUids);
   return async(req,res,pathname,send)=>{
-    const list=pathname==='/api/v1/my/characters',upload=pathname==='/api/v1/my/characters/import',loreTags=pathname==='/api/v1/my/lore-tags';
-    if(!list&&!upload&&!loreTags)return false;
-    if(!(list&&['GET','POST'].includes(req.method))&&!(upload&&req.method==='POST')&&!(loreTags&&req.method==='GET')){res.setHeader('Allow',list?'GET, POST':loreTags?'GET':'POST');send(405,{error:'method_not_allowed'});return true;}
+    const list=pathname==='/api/v1/my/characters',upload=pathname==='/api/v1/my/characters/import',loreTags=pathname==='/api/v1/my/lore-tags',adminCreate=pathname==='/api/v1/admin/characters/create';
+    if(!list&&!upload&&!loreTags&&!adminCreate)return false;
+    if(!(list&&['GET','POST'].includes(req.method))&&!(upload&&req.method==='POST')&&!(loreTags&&req.method==='GET')&&!(adminCreate&&req.method==='POST')){res.setHeader('Allow',list?'GET, POST':loreTags?'GET':'POST');send(405,{error:'method_not_allowed'});return true;}
     if(req.method==='POST'&&(req.headers.origin!==origin||req.headers['sec-fetch-site']==='cross-site')){send(403,{error:'origin_not_allowed'});return true;}
     const permit=throttle.enter(req.socket?.remoteAddress||'unknown',req.method==='GET'?'restore':'profile');
     if(!permit.allowed){res.setHeader('Retry-After',String(permit.retryAfter));send(429,{error:'too_many_requests'});return true;}
@@ -126,7 +126,17 @@ export function createCharacterLibraryRoutes({db,sessions,origin,adminUids=[],th
       const session=await adminSession(req,sessions,admins);
       if(!session){send(401,{error:'sign_in_required'});return true;}
       const userId=session.user.id;
-      if(loreTags){
+      if(adminCreate){
+        if(!session.admin){send(403,{error:'admin_required'});return true;}
+        const body=await adminJson(req,210000);
+        if(!plain(body)||Object.keys(body).some(k=>!['ownerId','requestId','build'].includes(k))||
+           typeof body.ownerId!=='string'||body.ownerId.length>128||
+           !db.prepare('SELECT 1 FROM users WHERE id=?').get(body.ownerId))
+          throw fail('INVALID_CHARACTER','Choose an existing Comos player.');
+        // The request's owner is trusted only after admin session verification.
+        // Do not give the target player the admin-only Lore tag.
+        send(201,{character:service.createBuild(body.ownerId,{build:body.build,requestId:body.requestId})});
+      }else if(loreTags){
         const url=new URL(req.url,origin);
         if(url.search){send(400,{error:'invalid_request'});return true;}
         send(200,{tags:service.loreTags(userId,{admin:session.admin})});
