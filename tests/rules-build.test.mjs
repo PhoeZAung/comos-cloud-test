@@ -123,8 +123,8 @@ test('admin creates a complete player-owned character without granting ordinary 
   const listing=await (await fetch(base+'/my/characters',{headers:ownerHeaders})).json();assert.equal(listing.characters[0].id,created.id);
   assert.equal((await (await fetch(base+'/my/characters',{headers})).json()).characters.length,0);
   let edit=await fetch(base+'/character-records/'+created.id,{method:'POST',headers,body:JSON.stringify({op:'wizard-build',revision:1,build:payload.build})});assert.equal(edit.status,200);
-  edit=await fetch(base+'/character-records/'+created.id,{method:'POST',headers,body:JSON.stringify({op:'sheet',revision:2,action:'fields',fields:{bio:'DM edited'}})});assert.equal(edit.status,200);
-  assert.equal((await (await fetch(base+'/character-records/'+created.id,{headers:ownerHeaders})).json()).character.data.bio,'DM edited');
+  edit=await fetch(base+'/character-records/'+created.id,{method:'POST',headers,body:JSON.stringify({op:'sheet',revision:2,action:'fields',fields:{notesArea:'DM edited'}})});assert.equal(edit.status,200);
+  assert.equal((await (await fetch(base+'/character-records/'+created.id,{headers:ownerHeaders})).json()).character.data.notesArea,'DM edited');
  }finally{await new Promise(resolve=>server.close(resolve));db.close();}
 });
 test('class chooser exposes supported Black Mage and Archer while incomplete classes remain unavailable',()=>{
