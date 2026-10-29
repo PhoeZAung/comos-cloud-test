@@ -4,6 +4,7 @@ import {fixedSkills} from '../features/sheet/skills.mjs';
 import {recordId} from './record-id.mjs';
 import {archer,archerAtLevel,archerChanges,archerTalentOptions} from '../features/characters/rules/archer-levels.mjs';
 import {classCatalog} from '../features/characters/rules/class-catalog.mjs';
+import {CLASS_NAMES} from '../features/characters/ffd20.mjs';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const opt=(id,label,current,disabled=false)=>`<option value="${e(id)}" ${id===current?'selected':''} ${disabled?'disabled':''}>${e(label)}</option>`;
 
@@ -76,10 +77,11 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
   }
  }
  if(step===3){const current=classFor(b);
- body=field(['levelup','multiclass'].includes(mode)?'Level up class':'Class',`<select aria-label="Class" data-rw-field="classId" ${mode!=='create'?'disabled':''}>${availableClasses.map(c=>opt(c.id,c.name,b.classId)).join('')}${classCatalog.classes.filter(c=>c.status!=='live').map(c=>opt(c.id,c.name+' · extraction in progress',b.classId,true)).join('')}</select>`);
+ const unregistered=CLASS_NAMES.filter(name=>!availableClasses.some(c=>c.name===name)&&!classCatalog.classes.some(c=>c.name===name));
+ body=field(['levelup','multiclass'].includes(mode)?'Level up class':'Class',`<select aria-label="Class" data-rw-field="classId" ${mode!=='create'?'disabled':''}>${availableClasses.map(c=>opt(c.id,c.name,b.classId)).join('')}${classCatalog.classes.filter(c=>c.status!=='live').map(c=>opt(c.id,c.name+' · extraction in progress',b.classId,true)).join('')}${unregistered.map(name=>opt('unavailable:'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-'),name+' · rules not integrated',b.classId,true)).join('')}</select>`);
  body+=field('Archetype',`<select data-rw-field="archetypeId" ${mode!=='create'||current?.name==='Archer'?'disabled':''}>${opt('','Base '+(current?.name||'class'),b.archetypeId)}${current?.name==='Black Mage'?registry.archetypes.map(a=>opt(a.id,a.name,b.archetypeId,true)).join(''):''}</select>`);
  if(current?.name==='Archer')body+=archerProgressPanel(archerPreviewLevel);
- body+='<p class="field-help">More classes become available when their individual rules are extracted. Unverified archetypes remain disabled.</p>';
+ body+='<p class="field-help">Black Mage and Archer are the only classes with enabled automatic creation and progression. All other FFD20 classes are listed for reference, but require a verified rules adapter before saving. Unverified archetypes remain disabled.</p>';
 }
  if(step===4){body=choiceEvents(b).filter(event=>!baseline||event.atClassLevel>baseline.level).map(event=>{const pool=classFor(b).choicePools.find(p=>event.poolIds.includes(p.id)),count=calculated(event.count,b);return panel(`${pool.name} · level ${event.atClassLevel}`,'<a class="rw-source-link" href="'+e(choiceSource(event,b))+'" target="_blank" rel="noopener" aria-label="Official '+e(pool.name)+' source">↗</a>'+Array.from({length:count},(_,i)=>{const selected=pool.options.find(o=>o.id===b.choices[event.id]?.[i]);return `<button type="button" class="rw-slot" data-rw-open-choice="${event.id}" data-choice-index="${i}"><span>${e(pool.name)} ${i+1}</span><strong>${e(selected?.name||'Choose…')}</strong><span aria-hidden="true">＋</span></button>`;}).join(''));}).join('');if(!choiceEvents(b).some(event=>!baseline||event.atClassLevel>baseline.level))body+='<p>No class choices gained at this level.</p>';}
  if(step===10){const changes=classFeatureChanges(b,baseline);body=changes.map(({feature,kind})=>'<details class="rw-panel"><summary><span class="rw-feature-state">'+(kind==='upgrade'?'↑ Upgraded':'✦ New')+'</span> '+e(feature.name)+'</summary><p class="rw-full-desc">'+e(feature.description)+'</p></details>').join('')||'<p>No new class traits at this level.</p>';}
