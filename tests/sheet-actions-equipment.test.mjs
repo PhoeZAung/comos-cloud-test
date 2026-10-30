@@ -4,7 +4,7 @@ import {renderSection,renderSheetFrame,renderSpellLevels,collectionBlock} from '
 import {openDatabase} from '../backend/db/database.mjs';import {createUserRepository} from '../backend/repositories/users.mjs';import {createCharactersService} from '../backend/characters/service.mjs';import {createDirectoryRoutes} from '../backend/characters/directory.mjs';import {createApiServer} from '../backend/http/app.mjs';
 const d={str:18,dex:14,int:16,bab:3,mp:5,mp_temp:2,classes:[{name:'Warrior',level:4}],items:[{name:'Shield',amount:1,equip_slot:'hand2',equipped:true,sourceItemId:'keep'},{name:'Rings',amount:3,category:'Magic Items',custom:{keep:true}}],weapons:[{name:'Greatsword',damage:'2d6+6',two_handed:true}],activeAbilities:[{name:'Burst',u_curr:2,u_max:3,attack_type:'ranged_touch',damage:'1d6 fire + {INT}',dc_formula:'10+{INT}'}]};
 test('two-handed weapons reserve both hands, replace offhand gear, and clear together',()=>{
- const next=mergeSheetData(d,{action:'equip',collection:'weapons',slot:'hands',index:0});assert.equal(equippedInSlot(next,'hands').collection,'weapons');assert.equal(equippedInSlot(next,'hand2').item.name,'Greatsword');assert.match(renderEquipment(next),/data-unequip-slot="hands"/);assert.match(renderEquipment(next),/data-unequip-slot="hand2"/);assert.equal(next.items[0].equipped,false);assert.equal(d.items[0].equipped,true);assert.equal(next.items[0].sourceItemId,'keep');
+ const next=mergeSheetData(d,{action:'equip',collection:'weapons',slot:'hands',index:0});assert.equal(equippedInSlot(next,'hands').collection,'weapons');assert.equal(equippedInSlot(next,'hand2').item.name,'Greatsword');assert.match(renderEquipment(next),/data-equip-change="hands"/);assert.match(renderEquipment(next),/data-equip-change="hand2"/);assert.equal(next.items[0].equipped,false);assert.equal(d.items[0].equipped,true);assert.equal(next.items[0].sourceItemId,'keep');
  const cleared=mergeSheetData(next,{action:'equip',slot:'hand2',index:null});assert.equal(equippedInSlot(cleared,'hands'),null);assert.equal(equippedInSlot(cleared,'hand2'),null);
  const shield=mergeSheetData(next,{action:'equip',slot:'hand2',index:0});assert.equal(equippedInSlot(shield,'hands'),null);assert.equal(equippedInSlot(shield,'hand2').item.name,'Shield');
  const again=mergeSheetData({...d,weapons:[{...d.weapons[0],two_handed:false,equip_slot:'hands',equipped:true}]},{action:'entry',collection:'weapons',mode:'update',index:0,fields:{two_handed:true}});assert.equal(again.items[0].equipped,false);
@@ -18,7 +18,8 @@ test('Grouped equipment preserves existing slot IDs without carrying inventory o
  const html=renderEquipment(next);
  assert.equal(equipmentSlots.length,17);
  for(const label of ['Hand 2','Ranged','Legs','Accessories'])assert.match(html,new RegExp(label));
- assert.match(html,/data-unequip-slot="legs"/);
+ assert.match(html,/data-equip-change="legs"/);
+ assert.match(html,/data-item-description="items:0"/);
  assert.match(html,/data-equip-slot="headband"/);
  assert.match(html,/data-equip-slot="ring1"/);
  assert.doesNotMatch(html,/Carried \/ Not Equipped|data-remove-gear|data-assign-weapon/);
