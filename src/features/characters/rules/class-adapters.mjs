@@ -153,7 +153,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  }
  const previousSkills=previous.skills||fixedSkills.map(r=>({...r,lvl:0,temp:0,cs:false,subName:''}));
  next.skills=previousSkills.map((row,i)=>{
-  const r={...row},sid=skillId(r),owned=classSkill(b,sid)||p.racial.traits.some(f=>f.effects.some(e=>e.target==='skills.'+sid+'.class_skill'&&e.automation==='automatic'));
+  const r={...row},sid=skillId(r),owned=classSkill(b,sid)||p.racial.traits.some(f=>f.effects.some(e=>(e.target==='skills.'+sid+'.class_skill'||e.target==='skills.row.'+i+'.class_skill')&&e.automation==='automatic'&&!e.condition));
   r.lvl=b.skillRanks?.[i]||0;r.cs=owned||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=owned;
   r.temp=Number(row.temp||0)-Number(row.rulesBonus||0);let bonus=0;
   for(const e of effects)if(e.target==='skills.'+sid+'.bonus'||e.target==='skills.row.'+i+'.bonus')bonus+=Number(calculated(e.value,b)||0);else if(e.target==='skills.'+sid+'.class_skill')r.cs=true;

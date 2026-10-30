@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 43,
+  "revision": 46,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 1,
+  "schedulePosition": 2,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -301,19 +301,35 @@
       "updatedAt": "2026-10-30T18:25:52.713Z"
     },
     "ffd20:race:aegyl": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "Standard identity, Perception, optional languages and Eternal Hope counter validated across seven adapters; phone Dancer/Bard create/edit/save/reopen passed",
-      "nextAction": "Publish checked batch through exact-head CI and verify public assets before advancing to Al Bhed",
-      "scope": "Standard traits; flight/clearance, resistances, conditional saves and Diplomacy remain manual; alternates and favored rewards guarded/pending",
-      "note": "354 tests and cloud build pass; phone fixtures preserve manual initiative and spent Hope. No production provider login.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Standard traits, source-listed languages and daily Hope counter deployed; five public assets verified",
+      "nextAction": "Alternates, favored rewards and conditional-effect automation require separate source-reviewed batches",
+      "scope": "Standard creation/editing; flight clearance, resistances and conditional saves/Diplomacy manual; variants/alternates guarded",
+      "note": "PR #18 branch/main CI passed; 354 tests, cloud build and mobile fixture pass; public assets match/database ready. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/aegyl-standard-creation.md",
-        "docs/extraction/aegyl-browser-validation.json"
+        "docs/extraction/aegyl-browser-validation.json",
+        "docs/extraction/aegyl-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T18:27:50.659Z"
+      "updatedAt": "2026-10-30T18:30:31.950Z"
+    },
+    "ffd20:race:al-bhed": {
+      "state": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Mechanical Genius choice, selected rank, specialty/class-skill ownership and standard traits validated across seven adapters and phone Dancer/Bard fixtures",
+      "nextAction": "Exact-head CI, merge and public asset verification; then continue Au Ra",
+      "scope": "First-level standard creation/editing; eligible skill choice, one restricted extra rank, source-listed languages, proficiencies and manual Technologist card; conditional defenses/repair/feat effects manual, later progression and alternates guarded",
+      "note": "357 tests, cloud build and phone create/edit/save/reopen pass; required rank guard exercised and manual skill modifiers preserved. No provider login test.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/al-bhed-standard-creation.md",
+        "docs/extraction/al-bhed-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T18:33:10.991Z"
     }
   },
   "history": [
@@ -694,6 +710,33 @@
       "stage": "runtime-validated",
       "cursor": "Standard identity, Perception, optional languages and Eternal Hope counter validated across seven adapters; phone Dancer/Bard create/edit/save/reopen passed",
       "time": "2026-10-30T18:27:50.659Z"
+    },
+    {
+      "revision": 44,
+      "itemId": "ffd20:race:aegyl",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Standard traits, source-listed languages and daily Hope counter deployed; five public assets verified",
+      "time": "2026-10-30T18:30:31.950Z"
+    },
+    {
+      "revision": 45,
+      "itemId": "ffd20:race:al-bhed",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T18:30:32.123Z"
+    },
+    {
+      "revision": 46,
+      "itemId": "ffd20:race:al-bhed",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Mechanical Genius choice, selected rank, specialty/class-skill ownership and standard traits validated across seven adapters and phone Dancer/Bard fixtures",
+      "time": "2026-10-30T18:33:10.991Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
