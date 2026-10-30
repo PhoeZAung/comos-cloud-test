@@ -1135,7 +1135,29 @@
       "automation": "manual",
       "requirements": null,
       "componentIds": [],
-      "effects": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:architectural-ingenuity-skills-skill-knowledge-engineering-bonus",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-engineering.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "architectural-ingenuity"
+            }
+          ]
+        }
+      ],
       "actions": [],
       "choicePoolIds": [],
       "scalingNotes": [],
@@ -1163,7 +1185,29 @@
       "automation": "manual",
       "requirements": null,
       "componentIds": [],
-      "effects": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:beastmaster-skills-skill-handle-animal-bonus",
+          "kind": "skill_bonus",
+          "target": "skills.skill:handle-animal.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "beastmaster"
+            }
+          ]
+        }
+      ],
       "actions": [],
       "choicePoolIds": [],
       "scalingNotes": [],
@@ -1219,7 +1263,44 @@
       "automation": "manual",
       "requirements": null,
       "componentIds": [],
-      "effects": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:chain-fighter-proficiencies-weapon-flail",
+          "kind": "identity",
+          "target": "proficiencies.weapon.flail",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Flail",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "chain-fighter"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:chain-fighter-proficiencies-weapon-heavy-flail",
+          "kind": "identity",
+          "target": "proficiencies.weapon.heavy-flail",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Heavy flail",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "chain-fighter"
+            }
+          ]
+        }
+      ],
       "actions": [],
       "choicePoolIds": [],
       "scalingNotes": [],
@@ -1247,7 +1328,65 @@
       "automation": "manual",
       "requirements": null,
       "componentIds": [],
-      "effects": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:city-raised-skills-skill-knowledge-local-bonus",
+          "kind": "skill_bonus",
+          "target": "skills.skill:knowledge-local.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "city-raised"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:city-raised-proficiencies-weapon-whip",
+          "kind": "identity",
+          "target": "proficiencies.weapon.whip",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Whip",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "city-raised"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:galka:effect:city-raised-proficiencies-weapon-longsword",
+          "kind": "identity",
+          "target": "proficiencies.weapon.longsword",
+          "operation": "grant",
+          "value": null,
+          "textValue": "Longsword",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "city-raised"
+            }
+          ]
+        }
+      ],
       "actions": [],
       "choicePoolIds": [],
       "scalingNotes": [],
@@ -1292,7 +1431,7 @@
               }
             ]
           },
-          "textValue": null,
+          "textValue": "Darkvision 60 ft.",
           "bonusType": null,
           "condition": null,
           "automation": "automatic",
@@ -1332,7 +1471,29 @@
       "automation": "manual",
       "requirements": null,
       "componentIds": [],
-      "effects": [],
+      "effects": [
+        {
+          "id": "ffd20:race:galka:effect:scavenger-skills-skill-appraise-bonus",
+          "kind": "skill_bonus",
+          "target": "skills.skill:appraise.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 2
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Alternate Racial Traits",
+              "locator": "scavenger"
+            }
+          ]
+        }
+      ],
       "actions": [],
       "choicePoolIds": [],
       "scalingNotes": [],

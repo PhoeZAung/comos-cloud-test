@@ -188,6 +188,10 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
    rulesName:'Archer '+option.name,rulesDescription:'Archery Style bonus feat: '+option.name,
    sourceRuleId:event.id,sourceClass:'Archer',rulesOwned:true,pendingFeat:false});
  }
+ if(b.classId===GUNBREAKER_ID&&b.level>=2){
+  const picked=b.choices?.[GUNBREAKER_ID+':event:talent:2']?.[0],bonus=picked?.endsWith(':ranged-combat-training')?'Precise Shot':picked?.endsWith(':threat-control')?'Antagonize':null;
+  if(bonus){const id=picked+':bonus-feat',old=previous.feats?.find(f=>f.sourceRuleId===id),desc='Bonus feat from Gunbreaker level 2 talent; apply feat-specific rules manually.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:bonus,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:bonus,rulesDescription:desc,sourceRuleId:id,rulesOwned:true,sourceClass:'Gunbreaker',pendingFeat:false});}
+ }
  if(isBard(b))rows.spells=bardSpellRows(b,previous);
  rows.feats.push(...racialChoiceFeats(b,p.race,p.racial.traits,previous));
  for(const key of Object.keys(rows)){

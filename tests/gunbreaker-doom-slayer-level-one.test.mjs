@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {newBuild,compileBuild,previewBuild,buildIssues,classSkill} from '../src/features/characters/rules/build.mjs';
+import {newBuild,compileBuild,previewBuild,buildIssues,classSkill,choiceEvents,eligibleOptions,levelUpBuild,classFeatureChanges} from '../src/features/characters/rules/build.mjs';
 import {GUNBREAKER_ID,DOOM_SLAYER_ID} from '../src/features/characters/rules/level-one-classes.mjs';
 import {validateClassDefinition} from '../src/features/characters/rules/class-contract.mjs';
 import {validateArchetypeDefinition} from '../src/features/characters/rules/archetype-contract.mjs';
@@ -11,7 +11,8 @@ test('Gunbreaker table and Doom Slayer replacement contract are valid',async()=>
  const c=JSON.parse(await readFile(new URL('../rules/classes/gunbreaker.class.json',import.meta.url),'utf8'));
  const a=JSON.parse(await readFile(new URL('../rules/classes/archetypes/gunbreaker-doom-slayer.archetype.json',import.meta.url),'utf8'));
  assert.equal(validateClassDefinition(c).levels,20);
- assert.equal(validateArchetypeDefinition(a,c).replacements,2);
+ assert.equal(validateArchetypeDefinition(a,c).replacements,3);
+ assert.deepEqual(c.data.supportedLevels,[1,2]);assert.deepEqual(a.data.supportedLevels,[1,2]);
  assert.deepEqual(c.data.levels.map(row=>row.bab),Array.from({length:20},(_,i)=>i+1));
 });
 test('Both Galka Gunbreaker builds have correct baseline and distinct class abilities',()=>{
@@ -29,12 +30,27 @@ test('Both Galka Gunbreaker builds have correct baseline and distinct class abil
   assert.equal(d.weapons.length,0);assert.equal(d.spells.length,0);
  }
 });
-test('Unsupported later-level progression and incompatible archetypes are guarded',()=>{
- const b=make(DOOM_SLAYER_ID);
- assert.equal(buildIssues(b).length,0);
- assert(buildIssues({...b,level:2,hpRolls:[10,6]}).some(x=>/level-1/.test(x.message)));
- assert(buildIssues({...b,archetypeId:'other'}).some(x=>/not enabled/.test(x.message)));
- assert.throws(()=>compileBuild({...b,level:2,hpRolls:[10,6]}),/level-1/);
+test('Level 2 requires exactly one sourced talent and applies correct Doom Slayer replacement',()=>{
+ for(const archetypeId of ['',DOOM_SLAYER_ID]){
+  const first=make(archetypeId),firstSheet=compileBuild(first);firstSheet.hp_curr=2;
+  const second=structuredClone(first);second.level=2;second.hpRolls=[10,6];second.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(second).skillBudget?1:0);
+  const ev=choiceEvents(second);assert.equal(ev.length,1);
+  const choice=eligibleOptions(second,ev[0]).find(o=>o.name==='Ranged Combat Training');assert(choice);
+  assert(buildIssues(second).some(x=>/exactly one/.test(x.message)));
+  second.choices[ev[0].id]=[choice.id];assert.deepEqual(buildIssues(second),[]);
+  const changes=classFeatureChanges(second,first);assert.equal(changes.length,2);
+  const after=levelUpBuild(second,firstSheet);
+  assert.deepEqual([after.level,after.bab,after.fort_base,after.ref_base,after.will_base,after.hp_max,after.hp_curr,after.mp_max_spell_level],[2,2,3,3,0,16,16,0]);
+  assert.equal(after.classes[0].archetype,archetypeId?'Doom Slayer':'');
+  assert.equal(after.passiveAbilities.some(f=>f.name==='Keen Edge'),!archetypeId);
+  assert.equal(after.activeAbilities.some(f=>f.name==='Ravenous Hatred'),Boolean(archetypeId));
+  assert(after.passiveAbilities.some(f=>f.name==='Ranged Combat Training'));
+  assert(after.feats.some(f=>f.name==='Precise Shot'));
+  assert.throws(()=>levelUpBuild({...second,level:3,hpRolls:[10,6,6]},after),/level 1 to level 2/);
+  assert.throws(()=>levelUpBuild({...second,alternateIds:['ffd20:race:galka:feature:wary']},firstSheet),/cannot change alternateIds/);
+ }
+ const b=make(DOOM_SLAYER_ID);assert(buildIssues({...b,archetypeId:'other'}).some(x=>/not enabled/.test(x.message)));
+ assert(buildIssues({...b,level:3,hpRolls:[10,6,6]}).some(x=>/levels 1/.test(x.message)));
 });
 
 test('Doom Slayer replaces base class skills without changing Galka traits',()=>{
