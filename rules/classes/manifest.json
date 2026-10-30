@@ -58,6 +58,13 @@
       "status": "live",
       "adapter": "martial-level-one",
       "coverage": "partial"
+    },
+    {
+      "id": "ffd20:class:gunbreaker",
+      "file": "rules/classes/gunbreaker.class.json",
+      "status": "live",
+      "adapter": "martial-level-one",
+      "coverage": "partial"
     }
   ]
 }
