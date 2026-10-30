@@ -12,14 +12,14 @@ import {createUserRepository} from '../backend/repositories/users.mjs';
 import {createCharacterLibraryService} from '../backend/characters/library.mjs';
 import {classHitDie} from '../src/features/characters/rules/class-adapters.mjs';
 function fixture(className='dancer',score='intelligence'){
- const b=newBuild();Object.assign(b,{name:'Hume '+className,raceId:HUME_ID,classId:'ffd20:class:'+className,reviewed:true,racialChoices:{[HUME_SCORE]:[HUME_SCORE+':option:'+score]}});
+ const b=newBuild();Object.assign(b,{alignment:'Lawful Good',name:'Hume '+className,raceId:HUME_ID,classId:'ffd20:class:'+className,reviewed:true,racialChoices:{[HUME_SCORE]:[HUME_SCORE+':option:'+score]}});
  Object.assign(b.baseScores,{int:12,cha:12});b.hpRolls=[classHitDie(b)];
  for(const event of choiceEvents(b))b.choices[event.id]=eligibleOptions(b,event).slice(0,calculated(event.count,b)).map(o=>o.id);
  if(hasSpellcasting(classFor(b))){const counts=spellCounts(b),spells=spellsForBuild(b);b.spellIds=[...spells.filter(s=>s.level===0).slice(0,counts.cantrips),...spells.filter(s=>s.level===1).slice(0,counts.leveled)].map(s=>s.id);}
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
-const classes=['black-mage','archer','chocobo-knight','dancer','dragoon','bard','beastmaster'];
-test('Hume score, Skilled budget and extra feat work consistently across all seven current compiler paths',()=>{
+const classes=['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster'];
+test('Hume score, Skilled budget and extra feat work consistently across all eight current compiler paths',()=>{
  for(const cls of classes){
   const b=fixture(cls);assert.deepEqual(buildIssues(b),[],cls);const d=compileBuild(b),budget=skillBudget(d);
   assert.equal(d.int,14);assert.equal(d.size_category,'Medium');assert.equal(d.speed,30);assert.equal(d.languages,'Common');

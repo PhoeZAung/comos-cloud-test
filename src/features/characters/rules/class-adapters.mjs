@@ -1,4 +1,4 @@
-import {levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
+import {KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
 import {registry} from './catalog.mjs';
 import {archer,archerAtLevel,archerChanges} from './archer-levels.mjs';
 import {fixedSkills} from '../../sheet/skills.mjs';
@@ -172,12 +172,13 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
    sourceClass:name,rulesOwned:true,...(f.featureKind==='limit_break'||!isBard(b)&&['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
   if(isLevelOneClass(b)&&['Commander’s Aura','Battle Dance','Challenge'].includes(f.name)){const maximum=f.name==='Challenge'?1:Math.max(0,4+mod(p.scores.cha)),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;if(f.name!=='Challenge')row.uses_formula='4+{CHA}';}
   if(isBard(b)&&f.id.endsWith(':bardic-performance')){const maximum=4+mod(p.scores.cha),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.uses_formula='4+{CHA}';row.restoreOnLongRest=false;}
+  const classCounter=levelOneCounter(b,f,p.scores);if(classCounter){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=classCounter.maximum;row.u_curr=Math.max(0,classCounter.maximum-spent);row.restoreOnLongRest=false;}
   if(isBeastmaster(b)){const counter=beastmasterCounter(f,p.scores);if(counter){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=counter.maximum;row.u_curr=Math.max(0,counter.maximum-spent);row.uses_formula=counter.formula;row.restoreOnLongRest=false;}}
   const racial=racialCounter(b,f);if(racial){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=racial.maximum;row.u_curr=Math.max(0,racial.maximum-spent);row.restoreOnLongRest=false;}
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
- if([DANCER_ID,CHOCOBO_KNIGHT_ID].includes(b.classId)){const feat=b.classId===DANCER_ID?'Improved Unarmed Strike':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat);rows.feats.push({...previous.feats?.find(r=>r.sourceRuleId===id),name:feat,desc:'Granted by '+name+' at level 1. Check the feat conditions before applying its effects.',sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false});}
+ if([DANCER_ID,CHOCOBO_KNIGHT_ID,KNIGHT_ID].includes(b.classId)){const feat=b.classId===DANCER_ID?'Improved Unarmed Strike':b.classId===KNIGHT_ID?'Antagonize':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id),desc='Granted by '+name+' at level 1. Check the feat conditions before applying its effects.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:feat,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:feat,rulesDescription:desc,sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let lv=1;lv<=b.level;lv+=2){const id='comos:feat-slot:'+lv,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+lv,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  for(const event of archerChoiceEvents(b).filter(e=>!eventPool(e).endsWith('archery-talents'))){

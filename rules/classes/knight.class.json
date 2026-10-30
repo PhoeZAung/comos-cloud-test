@@ -1,0 +1,1035 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:knight",
+  "name": "Knight",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/knight/",
+      "title": "Knight — Official Final Fantasy d20",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "694ad6f5c4f764a1f8d2096144dda916618ad243335e024511cd65f0d1d18543"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "First-level creation/editing only; later talents/progression/archetypes/multiclassing and independent full review await separate batches."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Defensive Stance conditions, attack/damage/Will/dodge and temporary HP, fatigue, movement restrictions and recovery timing; Defend Ally transfers; Antagonize resolution and Limit Break effects remain manual. Counter capacity uses permanent build Constitution only."
+      },
+      {
+        "path": "/data/alignment",
+        "blocking": true,
+        "reason": "Lawful alignment is required during creation/editing. Code-of-conduct adjudication, loss/changes after manual sheet overrides and later progression remain manual."
+      }
+    ]
+  },
+  "data": {
+    "category": "core",
+    "maximumLevel": 20,
+    "supportedLevels": [
+      1
+    ],
+    "alignment": "Any lawful",
+    "hitDie": 12,
+    "skillRanksPerLevel": 4,
+    "classSkills": [
+      "acrobatics",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "handle-animal",
+      "intimidate",
+      "knowledge:nobility",
+      "perception",
+      "profession:*",
+      "ride",
+      "sense-motive",
+      "swim"
+    ],
+    "startingWealth": 175,
+    "proficiencies": [
+      "Simple weapons",
+      "Martial weapons",
+      "Knight swords",
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields including tower shields"
+    ],
+    "spellcasting": {
+      "learningMode": "none"
+    },
+    "levels": [
+      {
+        "level": 1,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 2,
+        "ref": 0,
+        "will": 2,
+        "special": "Defensive Stance, Threat Control, Defend Ally (+2), Limit Breaks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 1",
+            "locator": "class-table-level-1"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 3,
+        "ref": 0,
+        "will": 3,
+        "special": "Knight Talent, Stand Firm, Defensive Training",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 2",
+            "locator": "class-table-level-2"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 3,
+        "ref": 1,
+        "will": 3,
+        "special": "Shield Block (+1), Armor Training 1",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 3",
+            "locator": "class-table-level-3"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 4,
+        "ref": 1,
+        "will": 4,
+        "special": "Knight Talent, Defend Ally (+3), Bulwark, Active Defense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 4",
+            "locator": "class-table-level-4"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 4,
+        "ref": 1,
+        "will": 4,
+        "special": "Deft Shield, Armored Defense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 5",
+            "locator": "class-table-level-5"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 5,
+        "ref": 2,
+        "will": 5,
+        "special": "Knight Talent, Fortress of Defense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 6",
+            "locator": "class-table-level-6"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 5,
+        "ref": 2,
+        "will": 5,
+        "special": "Shield Ally, Defend Ally (+4), Armor Training 2",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 7",
+            "locator": "class-table-level-7"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 6,
+        "ref": 2,
+        "will": 6,
+        "special": "Knight Talent, Courtly Refinement",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 8",
+            "locator": "class-table-level-8"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 6,
+        "ref": 3,
+        "will": 6,
+        "special": "Shield Block (+2), Fortification (Light)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 9",
+            "locator": "class-table-level-9"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 7,
+        "ref": 3,
+        "will": 7,
+        "special": "Knight Talent, Stalwart, Defend Ally (+5)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 10",
+            "locator": "class-table-level-10"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 7,
+        "ref": 3,
+        "will": 7,
+        "special": "Improved Defensive Stance, Armor Training 3",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 11",
+            "locator": "class-table-level-11"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 8,
+        "ref": 4,
+        "will": 8,
+        "special": "Advanced Knight Talent, Knight's Vigilance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 12",
+            "locator": "class-table-level-12"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 8,
+        "ref": 4,
+        "will": 8,
+        "special": "Counterattack, Defend Ally (+6)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 13",
+            "locator": "class-table-level-13"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 9,
+        "ref": 4,
+        "will": 9,
+        "special": "Advanced Knight Talent, Improved Shield Ally",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 14",
+            "locator": "class-table-level-14"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 9,
+        "ref": 5,
+        "will": 9,
+        "special": "Shield Block (+3), Fortification (Medium), Steel Defense, Armor Training 4",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 15",
+            "locator": "class-table-level-15"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 16,
+        "iterativeAttacks": [
+          16,
+          11,
+          6,
+          1
+        ],
+        "fort": 10,
+        "ref": 5,
+        "will": 10,
+        "special": "Advanced Knight Talent, Defend Ally (+7)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 16",
+            "locator": "class-table-level-16"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 17,
+        "iterativeAttacks": [
+          17,
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 5,
+        "will": 10,
+        "special": "Tireless Stance, Champion Defense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 17",
+            "locator": "class-table-level-17"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 18,
+        "iterativeAttacks": [
+          18,
+          13,
+          8,
+          3
+        ],
+        "fort": 11,
+        "ref": 6,
+        "will": 11,
+        "special": "Advanced Knight Talent, Shield Mastery",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 18",
+            "locator": "class-table-level-18"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 19,
+        "iterativeAttacks": [
+          19,
+          14,
+          9,
+          4
+        ],
+        "fort": 11,
+        "ref": 6,
+        "will": 11,
+        "special": "Shield Ward, Defend Ally (+8), Armor Training 5",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 19",
+            "locator": "class-table-level-19"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 20,
+        "iterativeAttacks": [
+          20,
+          15,
+          10,
+          5
+        ],
+        "fort": 12,
+        "ref": 6,
+        "will": 12,
+        "special": "Advanced Knight Talent, Indestructible, Superior Defensive Stance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 20",
+            "locator": "class-table-level-20"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:knight:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "A knight is proficient with all simple and martial weapons (including knight swords) and with all armor (light, medium, and heavy) and shields (including tower shields).",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:knight:feature:defensive-stance",
+        "name": "Defensive Stance",
+        "atLevel": 1,
+        "description": "Starting at 1st level, a knight can enter a defensive stance, a position of readiness and trance-like determination. A knight can maintain this stance for a number of rounds per day equal to 4 + his Constitution modifier. At each level after 1st, he can maintain the stance for 2 additional rounds per day. Temporary increases to Constitution, such as those gained from spells like dwarf’s endurance, do not increase the total number of rounds that the knight can maintain a defensive stance per day. The knight can enter a defensive stance as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). The total number of rounds of defensive stance per day is renewed after resting for 8 hours, although these hours do not need to be consecutive.\n\nWhile in a defensive stance, the knight gains a +2 bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, and Will saving throws. In addition, he gains a +2 dodge bonus to Armor Class. He also gains 2 temporary hit points per knight Hit Die. These temporary hit points are lost first when a character takes damage, disappear when the defensive stance ends, and are not replenished if the knight enters a defensive stance again within 1 minute of his previous defensive stance. While in a defensive stance, a knight cannot move more than half of his movement speed or his stance ends.\n\nA knight can end his defensive stance as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), and is fatigued for 1 minute after a defensive stance ends. This fatigue cannot be reduced or mitigated in any way and applies even to normally fatigue-immune characters but can be cured as normal. A knight can’t enter a new defensive stance while fatigued or exhausted, but can otherwise enter a defensive stance multiple times per day. If a knight falls unconscious, his defensive stance immediately ends. Defensive stance does not stack with rage. If mounted or otherwise not on his feet, this stance ends automatically.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defensive Stance",
+            "locator": "defensive-stance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:knight:feature:threat-control",
+        "name": "Threat Control",
+        "atLevel": 1,
+        "description": "At 1st level, the knight gains the [Antagonize](https://www.d20pfsrd.com/feats/general-feats/antagonize/) feat as a bonus feat.\n\nAdditionally, if the knight fails an Intimidate skill check with the Antagonize feat, he may attempt the check again against the same creature.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Threat Control",
+            "locator": "threat-control"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:knight:feature:defend-ally",
+        "name": "Defend Ally",
+        "atLevel": 1,
+        "description": "Also, at 1st level, once per turn as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), the knight can target an adjacent ally and transfer up to 2 points of Armor Class to them until his next turn (making his own Armor Class worse by the same number). The maximum number of points he can transfer increases by 1 for every three levels beyond 1st.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defend Ally",
+            "locator": "defend-ally"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:knight:feature:code-of-conduct",
+        "name": "Code of Conduct",
+        "atLevel": 1,
+        "description": "A knight must be of any lawful alignment and cannot level further into this class if he shifts to a chaotic alignment.\n\nAdditionally, a knight’s code requires that he respect legitimate authority and act with honor (not lying, not cheating, not using poison, and so forth).",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Code of Conduct",
+            "locator": "code-of-conduct"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:knight:feature:a-knights-blessing",
+        "name": "A Knight’s Blessing",
+        "atLevel": 1,
+        "description": "This Limit Break allows the knight to protect not only himself but his allies. For a duration of 1 round + 1 round per four knight levels after 1st, the knight and any allies within 30 feet gain the effects of [Protect](https://www.finalfantasyd20.com/magic/spells/p/protect/), [Shell](https://www.finalfantasyd20.com/magic/spells/s/shell/), and [Regen](https://www.finalfantasyd20.com/magic/spells/r/regen/). At 5th level, these increase to the II versions, at 9th level, the III versions, at 13th level, the IV versions, and at 17th level, the V versions. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks A Knight’s Blessing",
+            "locator": "limit-breaks-a-knights-blessing"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:knight:feature:a-knights-protection",
+        "name": "A Knight’s Protection",
+        "atLevel": 1,
+        "description": "This Limit Break covers both the knight and his allies in a protective bubble. For a duration of 1 round + 1 round per four knight levels after 1st, this Limit Break grants the knight and any allies within 30 feet a protective bubble that grants damage reduction 1/- as well as [elemental resistance](https://www.finalfantasyd20.com/magic/elements/#elemental-resistance) ([all](https://www.finalfantasyd20.com/magic/elements/)) 5. Damage reduction increases by 1 and elemental resistance increases by 5 per four knight levels after 1st. This DR and ER stack with any granted by the knight’s class features and knight talents. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks A Knight’s Protection",
+            "locator": "limit-breaks-a-knights-protection"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:class:knight:event:grant-weapon-and-armor-proficiency",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:knight:feature:weapon-and-armor-proficiency"
+      },
+      {
+        "id": "ffd20:class:knight:event:grant-defensive-stance",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:knight:feature:defensive-stance"
+      },
+      {
+        "id": "ffd20:class:knight:event:grant-threat-control",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:knight:feature:threat-control"
+      },
+      {
+        "id": "ffd20:class:knight:event:grant-defend-ally",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:knight:feature:defend-ally"
+      },
+      {
+        "id": "ffd20:class:knight:event:grant-code-of-conduct",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:knight:feature:code-of-conduct"
+      },
+      {
+        "id": "ffd20:class:knight:event:grant-a-knights-blessing",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:knight:feature:a-knights-blessing"
+      },
+      {
+        "id": "ffd20:class:knight:event:grant-a-knights-protection",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:knight:feature:a-knights-protection"
+      }
+    ],
+    "deferredFeatureSections": [
+      {
+        "name": "Stand Firm",
+        "description": "At 2nd level, a knight gains a +1 bonus to his combat maneuver defense against bull rush, overrun, and trip. This bonus also applies on saves against trample attacks. The bonus increases by +1 for every four levels beyond 2nd.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stand Firm",
+            "locator": "stand-firm"
+          }
+        ]
+      },
+      {
+        "name": "Defensive Training",
+        "description": "Starting at 2nd level, a knight counts his total knight level as his warrior level for the purpose of qualifying for any armor or shield-related feats. If he has levels in warrior, these levels stack.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defensive Training",
+            "locator": "defensive-training"
+          }
+        ]
+      },
+      {
+        "name": "Knight Talents",
+        "description": "As a knight gains experience, he learns a number of talents that aid him in defending himself and his allies. Starting at 2nd level, a knight gains one knight talent. He gains an additional knight talent for every 2 levels of knight attained after 2nd level. Unless specified otherwise, a knight cannot select an individual talent more than once.\n\n* A complete list of knight talents can be found here: [Knight Talents](http://finalfantasyd20.com/classes/core-classes/knight/knight-talents/)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knight Talents",
+            "locator": "knight-talents"
+          }
+        ]
+      },
+      {
+        "name": "Shield Block",
+        "description": "Starting at 3rd level, the knight excels in using his armor and shield to frustrate his enemy’s attacks. As a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), he can designate a single opponent as the target of this ability. His shield bonus to AC against that foe increases by 1, as he moves his shield to deflect an incoming blow, possibly providing just enough protection to turn a telling swing into a near miss. This shield bonus increases to +2 at 9th level, and +3 at 15th level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Block",
+            "locator": "shield-block"
+          }
+        ]
+      },
+      {
+        "name": "Armor Training",
+        "description": "Starting at 3rd level, a knight learns to be more maneuverable while wearing armor. Whenever he is wearing armor, he reduces the armor check penalty by 1 (to a minimum of 0) and increases the maximum Dexterity bonus allowed by his armor by 1. Every four levels thereafter (7th, 11th, 15th and 19th), these bonuses increase by +1 each time, to a maximum –5 reduction of the armor check penalty and a +5 increase of the maximum Dexterity bonus allowed. In addition, a knight can also move at his normal speed while wearing medium armor. At 7th level, a knight can move at his normal speed while wearing heavy armor.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armor Training",
+            "locator": "armor-training"
+          }
+        ]
+      },
+      {
+        "name": "Active Defense",
+        "description": "At 4th level, a knight gains a +1 dodge bonus to AC when wielding a shield and fighting defensively, using Combat Expertise, or using total defense. This bonus increases by +1 for every four levels beyond 4th. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), he may share this bonus with one adjacent ally or half of the bonus (minimum + 0) with all adjacent allies, until the beginning of his next turn.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Active Defense",
+            "locator": "active-defense"
+          }
+        ]
+      },
+      {
+        "name": "Bulwark",
+        "description": "At 4th level, while wielding a shield, the knight can, as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), provide partial cover (+2 cover bonus to AC, +1 bonus on Reflex saves) to himself and all adjacent allies until the beginning of his next turn.\n\nAt 11th level, he can instead provide cover (+4 cover bonus to AC, +2 bonus on Reflex saves) and evasion (as a thief) to one adjacent ally until the beginning of his next turn. This cover does not allow Stealth checks.\n\nAt 18th level, he can provide cover to himself and all adjacent allies, or he can provide improved cover (+8 cover bonus to AC, +4 bonus on Reflex saves, improved evasion) to a single adjacent ally. The knight ignores the armor limitation of evasion for himself.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bulwark",
+            "locator": "bulwark"
+          }
+        ]
+      },
+      {
+        "name": "Deft Shield",
+        "description": "At 5th level, the armor check penalty from a shield is reduced by –1 for a knight. If the shield is also a tower shield, the attack roll penalty is also reduced by –1. At 10th level, these penalties are reduced by –2.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deft Shield",
+            "locator": "deft-shield"
+          }
+        ]
+      },
+      {
+        "name": "Armored Defense",
+        "description": "At 5th level, a knight gains DR 1/— when wearing light armor, DR 2/— when wearing medium armor, and DR 3/— when wearing heavy armor. At 10th level and every five knight levels thereafter, this damage reduction increases by 1 (light), 2 (medium), 3 (heavy). This damage reduction stacks with that provided by adamantine armor, other knight class abilities, and the [Armor Specialization](https://www.finalfantasyd20.com/feats/combat-feats/armor-specialization) feat, but not with other forms of damage reduction.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armored Defense",
+            "locator": "armored-defense"
+          }
+        ]
+      },
+      {
+        "name": "Fortress of Defense",
+        "description": "At 6th level, spaces the knight threatens are treated as difficult terrain by enemies, no matter their type of movement. Enemies may still attempt to run or charge through the spaces, and get stopped before entering them, ending the run/charge. In addition, enemies struck by the knight’s attacks of opportunity are flat-footed until the end of his next turn.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fortress of Defense",
+            "locator": "fortress-of-defense"
+          }
+        ]
+      },
+      {
+        "name": "Shield Ally",
+        "description": "At 7th level, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), the knight can designate an adjacent ally. Until his next turn, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) usable outside of his turn, he may force the next physical attack made against that ally to be made against him instead. Also, until his next turn, attacks against the designated ally, including ones redirected by the knight, gain a penalty equal to (-2, increased by 1 per four knight levels after 7th). If the ally is willing, the knight may swap his position with theirs without provoking attacks when he uses this ability, either when designating or when affecting an attack. The knight may only redirect attacks before their results are known. The swap’s movement does not count for movement-limiting abilities such as defensive stance.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Ally",
+            "locator": "shield-ally"
+          }
+        ]
+      },
+      {
+        "name": "Courtly Refinement ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))",
+        "description": "At 8th level, the knight flourishes both in and out of the battlefield. He selects two skills from Sense Motive, Knowledge: Nobility and any charisma-based skill but Use Magic Device. He adds half of his knight level as a bonus to the selected skills while out of combat.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Courtly Refinement ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))",
+            "locator": "courtly-refinement-ex-https-www-finalfantasyd20-com-system-rules-pathfinder-basics-extraordinary"
+          }
+        ]
+      },
+      {
+        "name": "Fortification",
+        "description": "At 9th level, a knight can use his armor to shield critical areas from injury. He treats any armor he wears as if it had the light fortification special ability. At 15th level, his armor gains the moderate fortification special ability. This fortification does not stack in any way with armor that has these special abilities. In these cases, the knight takes the better of the two fortifications.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fortification",
+            "locator": "fortification"
+          }
+        ]
+      },
+      {
+        "name": "Stalwart",
+        "description": "At 10th level, a knight can use mental and physical resiliency to avoid certain attacks. If he makes a Fortitude or Will saving throw against an attack that has a reduced effect on a successful save, he instead avoids the effect entirely. A helpless knight does not gain the benefit of the stalwart ability.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stalwart",
+            "locator": "stalwart"
+          }
+        ]
+      },
+      {
+        "name": "Improved Defensive Stance",
+        "description": "At 11th level, a knight’s bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, Will saves, dodge bonus to AC while in a defensive stance increases to +3. Also, the amount of temporary hit points gained when entering a defensive stance increases to 3 per knight level. In addition, while in a defensive stance, he may move up to his normal movement without losing the benefit of the stance.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Defensive Stance",
+            "locator": "improved-defensive-stance"
+          }
+        ]
+      },
+      {
+        "name": "Knight’s Vigilance",
+        "description": "At 12th level, a knight is accustomed to harsh conditions of hostile territory, both in the thick of battle and during travel. The knight gains [Endurance](https://www.d20pfsrd.com/feats/general-feats/endurance \"Endurance (https://www.d20pfsrd.com/feats/general-feats/endurance)\") as a bonus feat. If he already has that feat, he may select another feat for which he meets the prerequisites which lists Endurance as a prerequisite. In addition, he may sleep in medium or heavy armor without becoming fatigued, he requires half as much sleep as normal, and can survive twice as long without food and water before needing to make checks. Finally, the penalty for Perception checks made while the knight is sleeping is halved.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knight’s Vigilance",
+            "locator": "knights-vigilance"
+          }
+        ]
+      },
+      {
+        "name": "Advanced Knight Talents",
+        "description": "At 12th level, and every two levels thereafter, a knight can choose one of the following knight advanced talents in place of a knight talent.\n\n* A complete list of advanced knight talents can be found here: [Advanced Knight Talents](http://finalfantasyd20.com/classes/core-classes/knight/knight-talents/#advanced-knight-talents)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Knight Talents",
+            "locator": "advanced-knight-talents"
+          }
+        ]
+      },
+      {
+        "name": "Counterattack",
+        "description": "At 13th level, a knight can make an attack of opportunity against an opponent who hits an adjacent ally with a melee attack, so long as the attacking creature is within the knight’s reach. The knight must be able to see the attacks coming to use this class feature.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Counterattack",
+            "locator": "counterattack"
+          }
+        ]
+      },
+      {
+        "name": "Improved Shield Ally",
+        "description": "At 14th level, when the knight uses Shield Ally, he can intercept any attacks instead of just physical, and can choose to intercept further attacks made against the designated ally. The total attacks he can intercept per turn is equal to his Charisma modifier (minimum 1). Intercepting an attack past the first is a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) usable outside of his turn. The knight may only swap places with the ally once per turn with Shield Ally.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Shield Ally",
+            "locator": "improved-shield-ally"
+          }
+        ]
+      },
+      {
+        "name": "Steel Defense",
+        "description": "At 15th level, the knight is capable of turning an otherwise lethal blow and continue the fight. When an attack that inflicts hit point damage from a natural attack, melee weapon, or ranged weapon would reduce the knight to 0 or fewer hit points, he can make a Fortitude save (DC the attacker’s attack roll) to deflect the attack to his armor or shield (light, heavy, or tower shields only), causing it to suffer the damage in his place (apply item hardness as normal). If this would break the character’s armor, it gains the broken condition until it is repaired. The knight cannot use this ability with broken armor or a broken shield. The knight must be wearing armor or a shield to use this ability.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Steel Defense",
+            "locator": "steel-defense"
+          }
+        ]
+      },
+      {
+        "name": "Tireless Stance",
+        "description": "At 17th level and higher, a knight no longer becomes fatigued at the end of his defensive stance. If he enters a defensive stance again within 1 minute of ending his defensive stance, he doesn’t gain any temporary hit points from his defensive stance.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tireless Stance",
+            "locator": "tireless-stance"
+          }
+        ]
+      },
+      {
+        "name": "Champion Defense",
+        "description": "At 17th level, once per day when the knight would be reduced to 0 or fewer hit points by damage in combat from a weapon, unarmed, or natural attack, the knight can attempt to absorb all the damage with his shield. To use this ability, the knight must attempt a Fortitude saving throw, with the DC equal to the damage dealt. If it succeeds, he takes only half damage from the blow; otherwise, he takes full damage. He must be aware of the attack and able to react to it in order to use this ability—if he is denied his Dexterity bonus to AC, he can’t use this ability. At 19th level, he can use this ability twice per day.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Champion Defense",
+            "locator": "champion-defense"
+          }
+        ]
+      },
+      {
+        "name": "Shield Mastery",
+        "description": "At 18th level, a knight gains DR 5/— when wielding a shield. This DR stacks with other forms of DR.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Mastery",
+            "locator": "shield-mastery"
+          }
+        ]
+      },
+      {
+        "name": "Shield Ward",
+        "description": "At 19th level, a knight gains evasion (as a thief) while wielding a shield, and adds his shield bonus to his AC (not including enhancement bonuses) on Reflex saves and to his touch AC. In addition, his shield cannot be disarmed or sundered. The knight ignores the armor limitation of evasion.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Ward",
+            "locator": "shield-ward"
+          }
+        ]
+      },
+      {
+        "name": "Superior Defensive Stance",
+        "description": "At 20th level, a knight’s bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, Will saves, dodge bonus to AC while in a defensive stance increases to +4. In addition, the amount of temporary hit points gained when entering a defensive stance increases to 4 per knight level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Defensive Stance",
+            "locator": "superior-defensive-stance"
+          }
+        ]
+      },
+      {
+        "name": "Indestructible",
+        "description": "At 20th level, a knight gains complete immunity to critical hits and sneak attacks while he is wearing armor. In addition, unless his armor has the fragile armor quality, it cannot be sundered while he is wearing it.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Indestructible",
+            "locator": "indestructible"
+          }
+        ]
+      }
+    ],
+    "archetypeIndex": [
+      {
+        "id": "ffd20:archetype:knight:aggressor",
+        "name": "Aggressor",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/aggressor/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:choco-guardian",
+        "name": "Choco Guardian",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/choco-guardian/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:commandant",
+        "name": "Commandant",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/commandant/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:commander",
+        "name": "Commander",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/commander/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:enforcer",
+        "name": "Enforcer",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/enforcer/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:foebreaker",
+        "name": "Foebreaker",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/foebreaker/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:judge-magister",
+        "name": "Judge Magister",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/judge-magister/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:juggernaut",
+        "name": "Juggernaut",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/juggernaut/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:knave",
+        "name": "Knave",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/knave/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:onion-knight",
+        "name": "Onion Knight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/onion-knight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:pluto-knight",
+        "name": "Pluto Knight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/pluto-knight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:primal-knight",
+        "name": "Primal Knight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/primal-knight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:sentinel",
+        "name": "Sentinel",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/sentinel/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:shell-knight",
+        "name": "Shell Knight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/shell-knight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:shield-guardian",
+        "name": "Shield Guardian",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/shield-guardian/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:temporal-knight",
+        "name": "Temporal Knight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/temporal-knight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:warlord",
+        "name": "Warlord",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/warlord/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:azure-knight",
+        "name": "Azure Knight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/azure-knight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:captain",
+        "name": "Captain",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/captain/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:knight:heavy-knight",
+        "name": "Heavy Knight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/knight/archetypes/heavy-knight/",
+        "status": "not-integrated"
+      }
+    ]
+  }
+}

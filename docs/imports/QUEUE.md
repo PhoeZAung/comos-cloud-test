@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 7 | 7 | 66 | 7 | 0 | 0 |
+| class | 73/73 | 8 | 8 | 65 | 7 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 51 | 11 | 0 | 0 |
-| archetype | 579/579 | 4 | 2 | 575 | 1 | 0 | 473 |
+| archetype | 579/579 | 4 | 2 | 575 | 2 | 0 | 453 |
 
-Checkpoint revision: **52**. Active: **ffd20:archetype:chocobo-knight:deadly-lancer**. Next: **ffd20:archetype:chocobo-knight:deadly-lancer**.
+Checkpoint revision: **56**. Active: **ffd20:class:knight**. Next: **ffd20:class:knight**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -29,7 +29,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 5 | [Beastmaster](https://finalfantasyd20.com/classes/core-classes/beastmaster/) | existing live adapter · levels 1 | live_partial · deployed | Bounded first-level Beastmaster adapter merged and live; seven public runtime assets match the tested cloud build; Later milestones: companion combat/training and replacement handling, source conflict resolution, higher-level feature and choice mappings, archetypes and independent full review |
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | live_partial · deployment-verified | Six first-level abilities, class stats and proficiencies deployed and verified; Later class talents, progression, archetypes and multiclassing require separate source-reviewed adapters |
-| 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
+| 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | existing live adapter · levels 1 | in_progress · runtime-validated | Knight gameplay/browser checks passed; CI-exposed invalid-build module rewrite race reproduced and repaired; Run exact-head CI after build validation repair, merge and verify public assets; then Bangaa |
 | 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 11 | [Thief](https://finalfantasyd20.com/classes/core-classes/thief/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |

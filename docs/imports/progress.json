@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 52,
+  "revision": 56,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 4,
+  "schedulePosition": 0,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -349,19 +349,35 @@
       "updatedAt": "2026-10-30T18:41:40.532Z"
     },
     "ffd20:archetype:chocobo-knight:deadly-lancer": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "Two exact first-level replacements and manual Charging Lancer validated; 19 later tricks/13 upgrades retained; mobile Galka/Moogle save/reopen passed",
-      "nextAction": "Exact-head CI, merge and public asset verification; then Knight",
-      "scope": "First-level Chocobo Knight archetype only: modified proficiencies and aura replacement, qualifying mounted damage manual; later tricks/progression, multiclassing and unverified parent replacements guarded",
-      "note": "363 tests, cloud build and phone fixtures pass; parent resources/features retained, correct source restoration verified and later choices rejected. No provider login test.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "First-level proficiencies/aura replacements and manual qualifying charge deployed; six public assets verified",
+      "nextAction": "Later tricks/progression, canonical parent targets and conditional mounted combat resolution require separate reviewed batches",
+      "scope": "First-level Chocobo Knight archetype; changed proficiencies and aura, retained parent mount/Challenge/feat/Limit Breaks; qualifying damage manual, later choices/progression/multiclassing guarded",
+      "note": "PR #21 branch/main CI passed; 363 tests, cloud build and phone fixtures pass; six public assets match/database ready. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/deadly-lancer-level-one-import.md",
-        "docs/extraction/deadly-lancer-browser-validation.json"
+        "docs/extraction/deadly-lancer-browser-validation.json",
+        "docs/extraction/deadly-lancer-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T18:43:25.411Z"
+      "updatedAt": "2026-10-30T18:46:24.578Z"
+    },
+    "ffd20:class:knight": {
+      "state": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Knight gameplay/browser checks passed; CI-exposed invalid-build module rewrite race reproduced and repaired",
+      "nextAction": "Run exact-head CI after build validation repair, merge and verify public assets; then Bangaa",
+      "scope": "First-level lawful creation/editing only; permanent-CON stance counter, manual feat and seven source cards; stance/ally/Limit Break effects and code adjudication manual; later progression/archetypes/multiclassing guarded",
+      "note": "366 tests and cloud build pass after rejecting unsupported build arguments before generation. Existing preview regression failed before repair and passes after. Initial CI run 41110059141 rejected due to a module read during rewrite; new CI pending.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/knight-level-one-import.md",
+        "docs/extraction/knight-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T18:51:45.577Z"
     }
   },
   "history": [
@@ -823,6 +839,42 @@
       "stage": "runtime-validated",
       "cursor": "Two exact first-level replacements and manual Charging Lancer validated; 19 later tricks/13 upgrades retained; mobile Galka/Moogle save/reopen passed",
       "time": "2026-10-30T18:43:25.411Z"
+    },
+    {
+      "revision": 53,
+      "itemId": "ffd20:archetype:chocobo-knight:deadly-lancer",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "First-level proficiencies/aura replacements and manual qualifying charge deployed; six public assets verified",
+      "time": "2026-10-30T18:46:24.578Z"
+    },
+    {
+      "revision": 54,
+      "itemId": "ffd20:class:knight",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T18:46:24.752Z"
+    },
+    {
+      "revision": 55,
+      "itemId": "ffd20:class:knight",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Lawful first-level Knight, d12/proficiencies, stance capacity and manual Antagonize/reference abilities validated; mobile Galka/Moogle save/reopen passed",
+      "time": "2026-10-30T18:48:27.568Z"
+    },
+    {
+      "revision": 56,
+      "itemId": "ffd20:class:knight",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Knight gameplay/browser checks passed; CI-exposed invalid-build module rewrite race reproduced and repaired",
+      "time": "2026-10-30T18:51:45.577Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

@@ -3,10 +3,11 @@ import {BEASTMASTER_ID,isBeastmaster,beastmasterClass,beastmasterFeatures,beastm
 
 export const CHOCOBO_KNIGHT_ID='ffd20:class:chocobo-knight';
 export const DANCER_ID='ffd20:class:dancer';
+export const KNIGHT_ID='ffd20:class:knight';
 export const DRAGOON_ID='ffd20:class:dragoon';
 export const DEADLY_LANCER_ID='ffd20:archetype:chocobo-knight:deadly-lancer';
 export const MOG_KNIGHT_ID='ffd20:archetype:chocobo-knight:mog-knight';
-export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,BEASTMASTER_ID].includes(b?.classId);
+export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,KNIGHT_ID,BEASTMASTER_ID].includes(b?.classId);
 export const levelOneClasses=[...classCatalog.classes.filter(c=>c.adapter==='martial-level-one').map(c=>({
  ...c,resources:[],choicePools:[],sources:c.sources,data:c.data
 })),...(beastmasterClass?[beastmasterClass]:[])];
@@ -36,11 +37,14 @@ export function levelOnePreview(b,{scores,race,racial,hpRolls}){
   hp:hpRolls.reduce((sum,n)=>sum+Math.max(1,n+mod(scores.con)),0),skillBudget:Math.max(1,4+mod(scores.int))*b.level};
 }
 
+export const levelOneCounter=(b,feature,scores)=>b.classId===KNIGHT_ID&&feature.id===KNIGHT_ID+':feature:defensive-stance'?{maximum:Math.max(0,4+Math.floor((scores.con-10)/2))}:null;
+
 export function levelOneIssues(b,{complete=true}={}){
  if(isBeastmaster(b))return beastmasterIssues(b,{complete});
  const issues=[],add=(step,message)=>issues.push({step,message});
  const c=levelOneClasses.find(c=>c.id===b.classId);
  if(b.level!==1)add(3,c.name+' currently supports level-1 testing only. Later-level choices and progression are not enabled.');
+ if(b.classId===KNIGHT_ID&&!['Lawful Good','Lawful Neutral','Lawful Evil'].includes(b.alignment))add(3,'Knight requires a lawful alignment. Choose it under Identity.');
  if(b.carry)add(3,'Multiclassing is not implemented for '+c.name+'.');
  if(b.archetypeId&&!levelOneArchetype(b))add(3,'Mog Knight requires both the Moogle race and Chocobo Knight class. Other archetypes are not enabled.');
  if(b.spellIds?.length||b.initialIntMod!==null&&b.initialIntMod!==undefined)add(5,c.name+' does not learn Black Mage spells or obtain an MP pool.');
