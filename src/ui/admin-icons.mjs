@@ -4,4 +4,4 @@ export const item=svg('<path d="M6 12h20l-2 17H8zM11 12V8a5 5 0 0110 0v4M6 17h20
 export const tag=svg('<path d="M3 4h12l14 14-11 11L3 14z"/><circle cx="9" cy="10" r="2"/>');
 export const external=svg('<path d="M17 4h11v11M28 4L13 19M13 7H5v21h21v-8"/>');
 export const edit=svg('<path d="M5 22L22 5l5 5-17 17-7 2zM19 8l5 5"/>');
-export const levelUp=svg('<path d="M16 27V6m-7 7 7-7 7 7M5 28h22"/>');
+export const levelUp='<span class="cs-level-up-icon" aria-hidden="true"></span>';
