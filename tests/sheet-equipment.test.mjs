@@ -19,36 +19,34 @@ const inventory={str:12,dex:14,items:[
  {name:'Historical armor',amount:1,equipped:true,sourceItemId:'legacy'}
 ]};
 const equip=(data,slot,index)=>mergeSheetData(data,{action:'equip',slot,index});
-test('Equipment groups all seventeen slots without a silhouette or boxed slot buttons',()=>{
+test('Equipment uses three bordered groups and all seventeen slots without extra panels',()=>{
  assert.deepEqual(equipmentSlots.map(slot=>slot.label),[
   'Head','Headband','Eyes','Shoulders','Necklace','Chest','Arms','Body','Belt','Wrists','Hand 1','Hand 2','Ranged','Legs','Ring 1','Ring 2','Feet'
  ]);
  assert.equal(new Set(equipmentSlotIds).size,17);
  const html=renderEquipment(inventory);
  assert.equal((html.match(/data-equip-slot="/g)||[]).length,17);
- assert.match(html,/Weapons/);assert.match(html,/Armor/);assert.match(html,/Accessories/);
- assert.match(html,/Carried \/ Not Equipped/);
+ for(const name of ['Weapons','Armor','Accessories'])assert.match(html,new RegExp('class="cs-loadout-group" aria-label="'+name+' equipment"'));
  assert.match(html,/data-equip-slot="ring1"/);
  assert.match(html,/data-equip-slot="ring2"/);
- assert.match(html,/Previously equipped, no slot/);
- assert.match(html,/data-assign-item="0"/);
- assert.match(html,/data-remove-gear="items:0"/);
- assert.match(html,/data-add-entry="items"/);
+ assert.ok(html.indexOf('data-equip-slot="shoulders"')<html.indexOf('data-equip-slot="chest"'),'shoulders displayed before chest');
+ assert.doesNotMatch(html,/Carried \/ Not Equipped|Current sheet stats|data-remove-gear|data-add-entry|data-assign-item/);
  assert.doesNotMatch(html,/cs-body-silhouette|cs-body-board|cs-gear-slot|data-slot-connector|data-equipped-region/);
- assert.ok(html.includes('0 / 17 slots equipped'));
  const raw={...inventory,items:[{name:'<img src=x onerror=alert(1)>',amount:1,equipped:true,equip_slot:'head'}]};
  const escaped=renderEquipment(raw);
  assert.doesNotMatch(escaped,/<img src=x|<script>/);
  assert.match(escaped,/&lt;img/);
  assert.match(escaped,/data-unequip-slot="head"/);
- assert.doesNotMatch(escaped,/data-remove-gear="items:0"/,'equipped items must be unequipped before deletion');
 });
-test('Unequipped gear returns to carried inventory and can then be removed safely',()=>{
+test('Unequipped gear stays in Inventory and can still be removed',()=>{
  const first=equip(inventory,'head',0);
- assert.doesNotMatch(renderEquipment(first),/data-remove-gear="items:0"/);
+ assert.match(renderEquipment(first),/data-unequip-slot="head"/);
  const clear=equip(first,'head',null);
- assert.match(renderEquipment(clear),/data-remove-gear="items:0"/);
  assert.equal(clear.items[0].name,'Iron helm');
+ assert.doesNotMatch(renderEquipment(clear),/Iron helm|Carried \/ Not Equipped/);
+ const inventoryHTML=renderSection({id:'sample',name:'Hero',data:clear},'items',{itemView:'inventory'});
+ assert.match(inventoryHTML,/Iron helm/);
+ assert.match(inventoryHTML,/data-remove-entry="items:0"/);
  const removed=mergeSheetData(clear,{action:'entry',collection:'items',mode:'remove',index:0});
  assert.equal(removed.items.some(item=>item.name==='Iron helm'),false);
  assert.equal(equippedInSlot(removed,'head'),null);
@@ -103,8 +101,7 @@ test('Server refuses forged slots, empty inventory and malformed item selection'
  assert.match(html,/data-equipment-dialog/);
  assert.match(html,/data-equip-item-select/);
  assert.match(html,/data-equip-preview/);
- assert.match(html,/Current sheet stats/);
- assert.match(html,/Equipping items does not automatically recalculate combat statistics/);
+ assert.doesNotMatch(html,/Current sheet stats|Carried \/ Not Equipped/);
  const inventoryHTML=renderSection({id:randomUUID(),name:'Mage',data:inventory},'items',{itemView:'inventory'});
  assert.match(inventoryHTML,/data-add-entry="items"/);
  assert.match(inventoryHTML,/data-assign-item="0"/);
