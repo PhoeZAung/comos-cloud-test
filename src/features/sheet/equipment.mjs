@@ -50,10 +50,10 @@ export function renderEquipment(data={}){
  const section=group=>{
   const assigned=group.slots.filter(slot=>equippedInSlot(data,slot)).length;
   const items=group.slots.map(id=>{
-   const slot=equipmentSlots.find(s=>s.id===id),item=equippedInSlot(data,id)?.item;
+   const slot=equipmentSlots.find(s=>s.id===id),gear=equippedInSlot(data,id),item=gear?.item;
    const itemName=item?.name||'Not equipped';
    return '<div class="cs-loadout-row'+(item?' is-equipped':'')+'">'
-    +'<button type="button" class="cs-loadout-select" '+(item?'data-item-description="'+gear.collection+':'+gear.index+'" aria-label="View '+e(itemName)+' description"':'data-equip-slot="'+id+'" aria-label="Equip '+e(slot.label)+'")+'">'
+    +'<button type="button" class="cs-loadout-select" '+(item?'data-item-description="'+gear.collection+':'+gear.index+'" aria-label="View '+e(itemName)+' description"':'data-equip-slot="'+id+'" aria-label="Equip '+e(slot.label)+'"')+'>'
     +'<span class="cs-loadout-row-details"><span class="cs-loadout-slot-label">'+e(slot.label)+'</span><span class="cs-loadout-item-name">'+e(itemName)+'</span></span>'
     +(item?'':'<span class="cs-loadout-chevron" aria-hidden="true">+</span>')+'</button>'
     +(item?'<button type="button" class="cs-loadout-action" data-equip-change="'+id+'" aria-label="Change '+e(itemName)+' in '+e(slot.label)+'">Change</button>':'')
