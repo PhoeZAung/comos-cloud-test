@@ -13,8 +13,8 @@ function fixture(cls='dancer'){
  if(hasSpellcasting(classFor(b))){const count=spellCounts(b),spells=spellsForBuild(b);b.spellIds=[...spells.filter(s=>s.level===0).slice(0,count.cantrips),...spells.filter(s=>s.level===1).slice(0,count.leveled)].map(s=>s.id);}
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
-test('Beastkin standard traits work across eight class adapters without global Sprinter, immunity or save modifiers',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
+test('Beastkin standard traits work across nine class adapters without global Sprinter, immunity or save modifiers',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','monk','bard','beastmaster']){
   const d=compileBuild(fixture(cls));assert.deepEqual([d.str,d.dex,d.int,d.wis],[12,10,12,12]);assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Beastmen');assert.match(d.senses,/Darkvision 60 feet/);assert.match(d.senses,/2x/);
   assert.equal(d.skills.find(s=>s.name==='Perception').rulesBonus,2);for(const name of ['Stealth','Survival'])assert.equal(d.skills.find(s=>s.name===name).cs,true);
   assert.equal(d.init_temp,2);assert.equal(d.ac_natural,1);assert.equal(sheetStats(d).ac,11);assert.equal(sheetStats(d).touch,10);

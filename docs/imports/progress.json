@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 71,
+  "revision": 72,
   "schedule": [
     "class",
     "race",
@@ -447,15 +447,18 @@
     },
     "ffd20:class:monk": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Legal first-level creation first; later progression and choices in verified milestones.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Printed any-alignment d12/full-BAB Monk, positive-CON Bodybuilding HP and manual martial references validated; mobile Galka/Moogle CON edits and save/reopen passed",
+      "nextAction": "Exact-head CI, merge and public asset verification; then Dracobaltian",
+      "scope": "First-level creation/editing; class stats/proficiencies, Bodybuilding HP and manual Improved Unarmed Strike/eight source cards; martial actions/gear restrictions/feat and Limit Break effects manual; later Ki/talents/blitz/progression/archetypes/multiclassing guarded",
+      "note": "381 tests/build/phone fixtures pass; nine race matrices cover nine adapters; live CON edits include Bodybuilding without healing and update Knight stance capacity. Core maneuver totals still manual. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T19:25:38.455Z"
+      "evidence": [
+        "docs/extraction/monk-level-one-import.md",
+        "docs/extraction/monk-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T19:33:42.982Z"
     }
   },
   "history": [
@@ -1088,6 +1091,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T19:25:38.455Z"
+    },
+    {
+      "revision": 72,
+      "itemId": "ffd20:class:monk",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Printed any-alignment d12/full-BAB Monk, positive-CON Bodybuilding HP and manual martial references validated; mobile Galka/Moogle CON edits and save/reopen passed",
+      "time": "2026-10-30T19:33:42.982Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

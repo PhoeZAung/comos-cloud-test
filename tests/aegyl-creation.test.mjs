@@ -14,8 +14,8 @@ function fixture(cls='dancer'){
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
 const hope=d=>d.racialAbilities.find(f=>f.sourceRuleId===AEGYL_ID+':trait:eternal-hope');
-test('Aegyl standard traits map across eight class adapters without flattening conditional flight, defenses or Diplomacy',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
+test('Aegyl standard traits map across nine class adapters without flattening conditional flight, defenses or Diplomacy',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','monk','bard','beastmaster']){
   const d=compileBuild(fixture(cls));assert.deepEqual([d.con,d.dex,d.wis,d.cha],[10,12,12,12]);
   assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Aegyllan');assert.match(d.senses,/Twice normal/);
   assert.equal(d.skills.find(s=>s.name==='Perception').rulesBonus,2);

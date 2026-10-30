@@ -21,6 +21,7 @@ test('Knight first-level source uses d12, lawful alignment, all armor/shields an
 test('Knight stance uses permanent build Constitution and preserves expenditure, current HP, feat notes and manual fields on edit',()=>{
  const b=fixture(),d=compileBuild(b);stance(d).u_curr=2;d.hp_curr=2;d.ac_temp=3;d.feats.find(f=>f.name==='Antagonize').desc='Manual Antagonize notes';d.con=20;
  const twice=compileBuild(d.rulesBuild.input,d);assert.equal(stance(twice).u_max,4);assert.equal(stance(twice).u_curr,2);assert.equal(twice.hp_curr,2);assert.equal(twice.ac_temp,3);assert.equal(twice.feats.find(f=>f.name==='Antagonize').desc,'Manual Antagonize notes');
+ const fieldEdit=mergeSheetData(twice,{action:'fields',fields:{con:14}});assert.equal(stance(fieldEdit).u_max,6);assert.equal(stance(fieldEdit).u_curr,4);assert.equal(fieldEdit.hp_max,14);
  const permanent=structuredClone(b);permanent.baseScores.con=14;const increased=compileBuild(permanent,twice);assert.equal(stance(increased).u_max,6);assert.equal(stance(increased).u_curr,4);
  const rested=mergeSheetData(twice,{action:'rest'});assert.equal(stance(rested).u_curr,2);
  const deleted=structuredClone(d);deleted.activeAbilities=deleted.activeAbilities.filter(f=>f.sourceRuleId!==ID+':feature:defensive-stance');const restored=addRuleAbility(deleted,ID+':feature:defensive-stance');assert.equal(restored.u_max,4);assert.equal(restored.sourceClass,'Knight');

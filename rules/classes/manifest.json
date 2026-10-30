@@ -51,6 +51,13 @@
       "status": "live",
       "adapter": "martial-level-one",
       "coverage": "partial"
+    },
+    {
+      "id": "ffd20:class:monk",
+      "file": "rules/classes/monk.class.json",
+      "status": "live",
+      "adapter": "martial-level-one",
+      "coverage": "partial"
     }
   ]
 }

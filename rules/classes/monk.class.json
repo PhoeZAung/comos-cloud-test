@@ -1,0 +1,1031 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:monk",
+  "name": "Monk",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/",
+      "title": "Monk — Official Final Fantasy d20",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "67962e3628cc238458a7a19711023eb9c654a9bd4f57a8e9864bbaf99a259f56"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "First-level creation/editing only; Ki Pool and talents begin at 2nd, blitz techniques at 3rd. Later progression, archetypes/multiclassing and independent full review await separate batches."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Bodybuilding extra HP from positive build Constitution is supported; Toughness interaction is manual. Armor/shield/load restrictions, flurry/flying-kick actions, unarmed damage and Martial Wisdom feat qualification remain manual. Do not add generic Wisdom to AC, extra actual Wisdom, Ki/MP, first-level Stunning Fist or unsourced bonus choices."
+      }
+    ]
+  },
+  "data": {
+    "category": "core",
+    "maximumLevel": 20,
+    "supportedLevels": [
+      1
+    ],
+    "alignment": "Any",
+    "hitDie": 12,
+    "skillRanksPerLevel": 4,
+    "classSkills": [
+      "acrobatics",
+      "climb",
+      "craft:*",
+      "escape-artist",
+      "intimidate",
+      "knowledge:history",
+      "knowledge:religion",
+      "perception",
+      "perform:*",
+      "profession:*",
+      "ride",
+      "sense-motive",
+      "stealth",
+      "swim"
+    ],
+    "startingWealth": 35,
+    "proficiencies": [
+      "Club",
+      "Light crossbow",
+      "Heavy crossbow",
+      "Dagger",
+      "Handaxe",
+      "Javelin",
+      "Kama",
+      "Nunchaku",
+      "Quarterstaff",
+      "Sai",
+      "Shuriken",
+      "Siangham",
+      "Sling",
+      "Weapons with monk special quality"
+    ],
+    "spellcasting": {
+      "learningMode": "none"
+    },
+    "levels": [
+      {
+        "level": 1,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 2,
+        "ref": 2,
+        "will": 0,
+        "special": "Bodybuilding, Flurry of Blows, Flying Kick, Martial Arts, Martial Wisdom, Limit Breaks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 1",
+            "locator": "class-table-level-1"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 0,
+        "special": "Ascetic, Ki Pool, Monk Talent",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 2",
+            "locator": "class-table-level-2"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 1,
+        "special": "Blitz Technique, Boost (+3)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 3",
+            "locator": "class-table-level-3"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Martial Arts (1d6/1d8), Monk Talent, Style Flexibility (1 feat)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 4",
+            "locator": "class-table-level-4"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Counterstance, Zen",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 5",
+            "locator": "class-table-level-5"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Monk Talent, Boost (+4), Blitz Technique",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 6",
+            "locator": "class-table-level-6"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Flying Kick (standard action), Greased Lightning (+3 cap)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 7",
+            "locator": "class-table-level-7"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 2,
+        "special": "Martial Arts (1d8/1d10), Monk Talent, Diamond Body",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 8",
+            "locator": "class-table-level-8"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 3,
+        "special": "Blitz Technique, Boost (+5), Style Flexibility (2 feats)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 9",
+            "locator": "class-table-level-9"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Monk Talent, Greased Lightning (+4 cap), Formless Strikes (1/day)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 10",
+            "locator": "class-table-level-10"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Flurry of Blows (additional attack), Lifefont (+2 HP/5 ft.)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 11",
+            "locator": "class-table-level-11"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Martial Arts (1d10/2d6), Monk Talent, Blitz Technique, Boost (+6)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 12",
+            "locator": "class-table-level-12"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Flying Kick (move action), Greased Lightning (+5 cap), Reinforced Fortitude",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 13",
+            "locator": "class-table-level-13"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 4,
+        "special": "Monk Talent, Style Flexibility (3 feats), Diamond Body (50% critical negation)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 14",
+            "locator": "class-table-level-14"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 5,
+        "special": "Blitz Technique, Boost (+7)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 15",
+            "locator": "class-table-level-15"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 16,
+        "iterativeAttacks": [
+          16,
+          11,
+          6,
+          1
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Martial Arts (2d6/2d8), Monk Talent, Greased Lightning (+6 cap)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 16",
+            "locator": "class-table-level-16"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 17,
+        "iterativeAttacks": [
+          17,
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Formless Strikes (2/day), Lifefont (+3 HP/5 ft.), Fleet Footwork",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 17",
+            "locator": "class-table-level-17"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 18,
+        "iterativeAttacks": [
+          18,
+          13,
+          8,
+          3
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Monk Talent, Blitz Technique, Boost (+8)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 18",
+            "locator": "class-table-level-18"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 19,
+        "iterativeAttacks": [
+          19,
+          14,
+          9,
+          4
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Greased Lightning (+7 cap), Inner Strength",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 19",
+            "locator": "class-table-level-19"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 20,
+        "iterativeAttacks": [
+          20,
+          15,
+          10,
+          5
+        ],
+        "fort": 12,
+        "ref": 12,
+        "will": 6,
+        "special": "Martial Arts (2d8/2d10), Monk Talent, Diamond Body (critical immunity), Perfect Self",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class table level 20",
+            "locator": "class-table-level-20"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:monk:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "Monks are proficient with certain basic peasant weapons and some special weapons that are part of monk training. The weapons with which the monk is proficient are club, crossbow (light or heavy), dagger, handaxe, javelin, kama, nunchaku, quarterstaff, sai, shuriken, siangham, sling, and any weapon with the monk special weapon quality.\n\nMonks are not proficient with any armor or shields—in fact, many of the monk’s special powers require unfettered movement. When wearing armor, using a shield, or carrying a medium or heavy load, the monk loses his flurry of blows, flying kick, blitz techniques, and greased lightning abilities.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:monk:feature:bodybuilding",
+        "name": "Bodybuilding",
+        "atLevel": 1,
+        "description": "At 1st level, the monk rigorously trains his body in fitness and enduring physical pain, allowing him to shrug off blows that would normally prove fatal to others. He gains an extra amount of maximum hit points equal to his monk level multiplied by his Constitution bonus (ex: a 5th level monk with a +4 Constitution modifier would have +20 to his maximum hit points as a result of this ability). Additionally, if the monk picks up the [Toughness](https://www.d20pfsrd.com/feats/general-feats/toughness) feat, it instead grants him a +5 hit points and +1 hit point per level.\n\nSheet handling: the extra HP from a positive build Constitution bonus is already included in maximum HP. Apply the Toughness interaction manually.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bodybuilding",
+            "locator": "bodybuilding"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:monk:feature:flurry-of-blows",
+        "name": "Flurry of Blows",
+        "atLevel": 1,
+        "description": "At 1st level, a monk can make a flurry of blows as a full-attack action. When making a flurry of blows, the monk can make one additional attack at his highest base attack bonus. This additional attack stacks with the bonus attacks from [Haste](https://www.finalfantasyd20.com/magic/spells/h/haste/) and other similar effects. When using this ability, the monk can make these attacks with any combination of his unarmed strikes and weapons that have the monk special weapon quality. He takes no penalty for using multiple weapons when making a flurry of blows, but he does not gain any additional attacks beyond what’s already granted by the flurry for doing so. (He can still gain additional attacks from a high base attack bonus, from this ability, and from [Haste](https://www.finalfantasyd20.com/magic/spells/h/haste/)and similar effects).\n\nAt 11th level, a monk can make an additional attack at his highest base attack bonus whenever he makes a flurry of blows. This stacks with the first attack from this ability and additional attacks from [Haste](https://www.finalfantasyd20.com/magic/spells/h/haste/) and similar effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Flurry of Blows",
+            "locator": "flurry-of-blows"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:monk:feature:flying-kick",
+        "name": "Flying Kick",
+        "atLevel": 1,
+        "description": "At 1st level, the monk attains the ability to perform a flying kick, allowing him to assail multiple nearby enemies at once.\n\nAs a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the monk can leap at a target within half his movement speed (thereby ignoring any difficult terrain in between) and make an unarmed strike at his highest base attack bonus. Upon a successful hit, the monk may then continue this ability by entering his target’s square, allowing him to choose a new target from that location and repeat this process until he runs out of movement or eligible targets. While using this ability, the monk does not provoke attacks of opportunity, and cannot affect the same target more than once.\n\nAfter the monk resolves his last successful attack with this ability, or if he misses an attack, the monk lands in the nearest open square next to his target as if he charged from his last location and receives a -2 penalty to his AC. This penalty lasts until the start of the monk’s next turn.\n\nStarting at 7th level, this ability is usable by the monk as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard).\n\nStarting at 13th level, this ability is usable by the monk as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) once per round.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Flying Kick",
+            "locator": "flying-kick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:monk:feature:martial-arts",
+        "name": "Martial Arts",
+        "atLevel": 1,
+        "description": "At 1st level, the monk gains [Improved Unarmed Strike](https://www.d20pfsrd.com/feats/combat-feats/improved-unarmed-strike-combat-final/) as a bonus feat. Monks are highly trained in fighting unarmed, giving them considerable advantages when doing so. The monk’s attacks may be with either fist interchangeably or even from elbows, knees, and feet. This means that the monk may even make unarmed strikes with his hands full. There is no such thing as an off-hand attack for the monk striking unarmed. A monk may thus apply his full Strength bonus on damage rolls for all his unarmed strikes. Usually the monk’s unarmed strikes deal lethal damage, but he can choose to deal nonlethal damage instead with no penalty on his attack roll. He has the same choice to deal lethal or nonlethal damage while grappling. A monk also deals more damage with his unarmed strikes than a normal person would, as shown on the table below. The unarmed damage values listed on that table are for Medium monks. A Small monk deals less damage than the amount given there with his unarmed attacks, while a Large monk deals more damage; see the following table. A monk’s unarmed strike is treated as both a manufactured weapon and a natural weapon for the purpose of spells and effects that modify either manufactured weapons or natural weapons.\n\nFirst-level unarmed damage: Small 1d4; Medium 1d6; Large 1d8. Resolve attacks and size changes manually.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts",
+            "locator": "martial-arts"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:monk:feature:martial-wisdom",
+        "name": "Martial Wisdom",
+        "atLevel": 1,
+        "description": "At 1st level, the monk’s Wisdom score counts as 3 points higher for the purposes of meeting the prerequisites of style feats, combat feats that have a style feat listed as a prerequisite, and the [Stunning Fist](https://www.d20pfsrd.com/feats/combat-feats/stunning-fist-combat/) feat.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Wisdom",
+            "locator": "martial-wisdom"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:monk:feature:body-of-stone",
+        "name": "Body of Stone",
+        "atLevel": 1,
+        "description": "This Limit Break allows the monk to harden his body, greatly mitigating oncoming physical damage for a short period of time. For a duration of 1 round + 1 round per four monk levels attained after 1st, the monk gains DR 4/–. He gains an additional point of this type of DR every two monk levels he attains after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks Body of Stone",
+            "locator": "limit-breaks-body-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:monk:feature:flawless-fists",
+        "name": "Flawless Fists",
+        "atLevel": 1,
+        "description": "This Limit Break allows the monk to perfectly flow his ki around his body, sharpening both mind and body to a fine edge. For a duration of 1 round + 1 round per four monk levels after 1st, the monk gains a +1 competence bonus to his attack rolls and ignores damage reduction and hardness up to his monk level when using unarmed strikes. For every four monk levels attained after 1st, he gains an additional +1 competence bonus to his attack rolls. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks Flawless Fists",
+            "locator": "limit-breaks-flawless-fists"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:class:monk:event:grant-weapon-and-armor-proficiency",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:monk:feature:weapon-and-armor-proficiency"
+      },
+      {
+        "id": "ffd20:class:monk:event:grant-bodybuilding",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:monk:feature:bodybuilding"
+      },
+      {
+        "id": "ffd20:class:monk:event:grant-flurry-of-blows",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:monk:feature:flurry-of-blows"
+      },
+      {
+        "id": "ffd20:class:monk:event:grant-flying-kick",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:monk:feature:flying-kick"
+      },
+      {
+        "id": "ffd20:class:monk:event:grant-martial-arts",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:monk:feature:martial-arts"
+      },
+      {
+        "id": "ffd20:class:monk:event:grant-martial-wisdom",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:monk:feature:martial-wisdom"
+      },
+      {
+        "id": "ffd20:class:monk:event:grant-body-of-stone",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:monk:feature:body-of-stone"
+      },
+      {
+        "id": "ffd20:class:monk:event:grant-flawless-fists",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:monk:feature:flawless-fists"
+      }
+    ],
+    "unarmedDamage": [
+      {
+        "fromClassLevel": 1,
+        "small": "1d4",
+        "medium": "1d6",
+        "large": "1d8",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Unarmed Damage from 1",
+            "locator": "martial-arts-unarmed-damage-from-1"
+          }
+        ]
+      },
+      {
+        "fromClassLevel": 4,
+        "small": "1d6",
+        "medium": "1d8",
+        "large": "2d6",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Unarmed Damage from 4",
+            "locator": "martial-arts-unarmed-damage-from-4"
+          }
+        ]
+      },
+      {
+        "fromClassLevel": 8,
+        "small": "1d8",
+        "medium": "1d10",
+        "large": "2d8",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Unarmed Damage from 8",
+            "locator": "martial-arts-unarmed-damage-from-8"
+          }
+        ]
+      },
+      {
+        "fromClassLevel": 12,
+        "small": "1d10",
+        "medium": "2d6",
+        "large": "3d6",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Unarmed Damage from 12",
+            "locator": "martial-arts-unarmed-damage-from-12"
+          }
+        ]
+      },
+      {
+        "fromClassLevel": 16,
+        "small": "2d6",
+        "medium": "2d8",
+        "large": "3d8",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Unarmed Damage from 16",
+            "locator": "martial-arts-unarmed-damage-from-16"
+          }
+        ]
+      },
+      {
+        "fromClassLevel": 20,
+        "small": "2d8",
+        "medium": "2d10",
+        "large": "4d8",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Unarmed Damage from 20",
+            "locator": "martial-arts-unarmed-damage-from-20"
+          }
+        ]
+      }
+    ],
+    "deferredFeatureSections": [
+      {
+        "name": "Ascetic",
+        "description": "At 2nd level, the monk endures the harshest of environmental conditions, transcending pain and discomfort. He always takes minimum damage from heat, cold, hunger/thirst, or fatigue environmental effects and does not suffer the [Fatigued](https://www.finalfantasyd20.com/magic/status-effects/#fatigued) status effect when damage is taken from these sources.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ascetic",
+            "locator": "ascetic"
+          }
+        ]
+      },
+      {
+        "name": "Ki Pool",
+        "description": "At 2nd level, a monk taps into a wellspring of supernatural energy known as ki, granting him the power to perform extraordinary feats of body and spirit through blitz techniques. The number of points in a monk’s ki pool is equal to half his monk level + his Constitution modifier. Additionally, the monk gains the Chakra blitz technique:\n\n*Chakra ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: At 2nd level, by spending 1 point from his ki pool as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the monk is healed for an amount of damage equal to his Constitution score (not modifier) × (1 per three monk levels attained; minimum 1).\n\nLastly, as long as the monk has at least 1 point in his ki pool, his unarmed strikes are considered ki strikes, progressively improving as he advances in level:\n\n* **At 2nd level**, his unarmed attacks can be treated as magic weapons for the purpose of overcoming damage reduction.\n* **At 7th level**, his unarmed attacks are also treated as cold iron and silver for the purpose of overcoming damage reduction.\n* **At 10th level**, his unarmed attacks are also treated as being aligned, based upon his alignment. If the monk has an alignment that is not Neutral along either the Law-Chaos or Good-Evil axis, his unarmed attacks count as that alignment (for example, a Lawful Good monk’s unarmed attacks are counted as both Lawfully-aligned and Good-aligned). If the monk’s alignment along either axis is Neutral, he must either choose an end of that axis to count his unarmed strikes as, or he may instead retain his neutrality and count his unarmed strikes as neither alignment.\n* **At 16th level**, his unarmed attacks are treated as adamantine weapons for the purpose of overcoming damage reduction and bypassing hardness.\n\nThe ki pool is replenished each morning after 8 hours of rest or meditation; these hours do not need to be consecutive.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "name": "Monk Talents",
+        "description": "As the monk gains experience, he learns a number of talents that aid him and confound his foes. Starting at 2nd level, the monk gains one monk talent. He gains an additional monk talent for every 2 levels of monk attained after 2nd level. Unless specified otherwise, the monk cannot select an individual talent more than once.\n\n* A complete list of monk talents can be found here: [Monk Talents](http://finalfantasyd20.com/classes/core-classes/monk/monk-talents/)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Monk Talents",
+            "locator": "monk-talents"
+          }
+        ]
+      },
+      {
+        "name": "Blitz Techniques",
+        "description": "At 3rd level and every third level thereafter, the monk can select one blitz technique. These powerful techniques employ the monk’s ki, expending 1 ki point on usage, to accomplish amazing feats of mystical power and strength. Once a blitz technique is selected, it cannot be changed later. Unless otherwise noted, a monk cannot select an individual blitz technique more than once.\n\n* A complete list of blitz techniques can be found here: [Blitz Techniques](http://finalfantasyd20.com/classes/core-classes/monk/blitz-techniques/)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blitz Techniques",
+            "locator": "blitz-techniques"
+          }
+        ]
+      },
+      {
+        "name": "Boost",
+        "description": "At 3rd level, the monk learns to harness the power of his strikes for a short duration. As a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), he can increase the damage of his melee attacks by 3 for 3 rounds. This damage increases by an additional point every three levels after 3rd.\n\nThe monk can use this ability a number of times per day equal to 3 + his Constitution modifier.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Boost",
+            "locator": "boost"
+          }
+        ]
+      },
+      {
+        "name": "Style Flexibility",
+        "description": "At 4th level, the monk gains the ability to deeply contemplate and refine his combat techniques, enhancing his adaptability in battle. This grants him a style feat slot which can be filled, or substituted, with a chosen style feat or a combat feat that lists a style feat as a prerequisite. Filling or substituting feats within any number of style feat slots requires one hour of uninterrupted meditation. The monk must meet all prerequisites for the chosen feat.\n\nThe monk gains an additional style feat slot at 9th and 14th levels.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Style Flexibility",
+            "locator": "style-flexibility"
+          }
+        ]
+      },
+      {
+        "name": "Counterstance",
+        "description": "At 5th level, a monk gains the ability to retaliate against those who strike him.\n\nAs an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), the monk can adopt a counterstance, allowing him to make an immediate counterattack with a –4 penalty against an enemy within reach who has just attacked him using an action involving an attack roll. This counterattack occurs after the enemy’s attacks have been resolved. The counterstance remains active until the start of the monk’s next turn, but it ends prematurely if the monk is knocked prone, rendered helpless, or moves after activating the stance. The monk must be able to see the incoming attacks to use this ability.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Counterstance",
+            "locator": "counterstance"
+          }
+        ]
+      },
+      {
+        "name": "Zen",
+        "description": "At 5th level, the monk can enter a state of zen, allowing him to recuperate from his wounds quickly.\n\nTo enter this state, the monk must be conscious and in a seated position within a relaxed environment, free from overt distractions, such as combat raging nearby or other loud noises. For example, he could be riding in the back of a carriage and benefit from this ability, but not astride a mount of their own.\n\nWhile in this state, the monk regains a number of hit points equal to his monk level per hour. Bleed effects are not healed when recovering hit points in this manner.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Zen",
+            "locator": "zen"
+          }
+        ]
+      },
+      {
+        "name": "Greased Lightning",
+        "description": "At 7th level, for each two consecutive melee attacks the monk lands during his turn, he gains a stack of Greased Lightning, up to a maximum of 3 stacks. For each stack of Greased Lightning he has, he gains a +1 insight bonus to attack. All stacks of Greased Lightning are lost 1 minute after the latest one was gained, or if he is knocked prone or is otherwise rendered helpless.\n\nAt 10th level and every three levels thereafter, the maximum stacks he can hold increases by 1, to a maximum of 7 at 19th level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greased Lightning",
+            "locator": "greased-lightning"
+          }
+        ]
+      },
+      {
+        "name": "Diamond Body",
+        "description": "At 8th level, the monk hardens his bodily defenses.\n\nWhen a critical hit is scored on the monk, there is a 25% chance that the critical hit is negated and damage is instead rolled normally. Additionally, the monk becomes immune to all forms of non-self-inflicted Constitution damage, drain, and penalties.\n\nAt 14th level, the chance to negate a critical hit is increased to 50%.\n\nAt 20th level, the monk becomes immune to critical hits.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diamond Body",
+            "locator": "diamond-body"
+          }
+        ]
+      },
+      {
+        "name": "Formless Strikes",
+        "description": "At 10th level, the monk gains the ability to change his physical strikes into pure energy, bypassing his enemy’s defenses.\n\nAs a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the monk can convert his unarmed strike damage into non-elemental damage lasting for a number of rounds equal to half his monk level.\n\nThe monk can use this ability once a day, gaining an additional usage at 17th level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Formless Strikes",
+            "locator": "formless-strikes"
+          }
+        ]
+      },
+      {
+        "name": "Lifefont",
+        "description": "At 11th level, the monk becomes so accustomed to movement that the very act of it invigorates him.\n\nFor every 5 feet of distance the monk travels, he gains +2 temporary hit points. This effect stacks with itself, allowing the monk to receive up to his monk level in temporary hit points from this ability.\n\nAt 17th level, the monk instead gains +3 temporary hit points for every 5 feet traveled.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lifefont",
+            "locator": "lifefont"
+          }
+        ]
+      },
+      {
+        "name": "Reinforced Fortitude",
+        "description": "At 13th level, if the monk makes a Fortitude save that has an effect on a successful save, he takes no effect on a successful save (i.e., “Fortitude partial” becomes “Fortitude negate”). A helpless monk does not gain the benefit of this ability.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reinforced Fortitude",
+            "locator": "reinforced-fortitude"
+          }
+        ]
+      },
+      {
+        "name": "Fleet Footwork",
+        "description": "At 17th level, the monk learns to deftly weave his footwork in between his strikes.\n\nThe monk may take a 5 foot step with each successful strike he makes, so long as he does not exceed his speed.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fleet Footwork",
+            "locator": "fleet-footwork"
+          }
+        ]
+      },
+      {
+        "name": "Inner Strength",
+        "description": "At 19th level, the monk attains the ability to draw out his latent power, bolstering his defenses.\n\nAs a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the monk gains a source of DR/–, with this amount being equal to the monk’s Constitution bonus. This effect stacks with any existing sources of DR/–, and lasts for 1 minute.\n\nThe monk can use this ability 3 times per day.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inner Strength",
+            "locator": "inner-strength"
+          }
+        ]
+      },
+      {
+        "name": "Perfect Self",
+        "description": "At 20th level, the monk’s soul and body become intertwined, becoming inseparable by even supernatural means. He is immune to death effects and all forms of negative levels and energy drain.\n\nAdditionally, the monk gains the ability to enter a state of perfect calm. During this time, the monk can take no actions, but he does regain ki at the rate of 1 point per 10 minutes spent at calm. He cannot use this ability to gain an amount of ki in excess of his maximum.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Self",
+            "locator": "perfect-self"
+          }
+        ]
+      }
+    ],
+    "archetypeIndex": [
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept",
+        "name": "Diminutive Adept",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/diminutive-adept/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple",
+        "name": "Elemental Fist Disciple",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/elemental-fist-disciple/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight",
+        "name": "Featherweight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/featherweight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr",
+        "name": "Fist of Rhalgr",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight",
+        "name": "Heavyweight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/heavyweight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk",
+        "name": "Ironskin Monk",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ironskin-monk/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master",
+        "name": "Ki Master",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk",
+        "name": "Life Monk",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/life-monk/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:master-of-many-styles",
+        "name": "Master of Many Styles",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/master-of-many-styles/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist",
+        "name": "Meowfist",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/meowfist/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild",
+        "name": "Monk of the Wild",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/monk-of-the-wild/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:nimble-guardian",
+        "name": "Nimble Guardian",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/nimble-guardian/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper",
+        "name": "Peacekeeper",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/peacekeeper/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist",
+        "name": "Scaled Fist",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/scaled-fist/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:streak",
+        "name": "Streak",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/streak/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone",
+        "name": "Student of the Stone",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/student-of-the-stone/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:treetop-monk",
+        "name": "Treetop Monk",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/treetop-monk/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:wanderer",
+        "name": "Wanderer",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/wanderer/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:weapon-adept",
+        "name": "Weapon Adept",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/weapon-adept/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk",
+        "name": "White Monk",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/white-monk/",
+        "status": "not-integrated"
+      }
+    ]
+  }
+}

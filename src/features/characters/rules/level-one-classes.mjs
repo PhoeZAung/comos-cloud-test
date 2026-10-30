@@ -3,12 +3,13 @@ import {BEASTMASTER_ID,isBeastmaster,beastmasterClass,beastmasterFeatures,beastm
 
 export const CHOCOBO_KNIGHT_ID='ffd20:class:chocobo-knight';
 export const DANCER_ID='ffd20:class:dancer';
+export const MONK_ID='ffd20:class:monk';
 export const KNIGHT_ID='ffd20:class:knight';
 export const DRAGOON_ID='ffd20:class:dragoon';
 export const FELL_RIDER_ID='ffd20:archetype:chocobo-knight:fell-rider';
 export const DEADLY_LANCER_ID='ffd20:archetype:chocobo-knight:deadly-lancer';
 export const MOG_KNIGHT_ID='ffd20:archetype:chocobo-knight:mog-knight';
-export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,KNIGHT_ID,BEASTMASTER_ID].includes(b?.classId);
+export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,KNIGHT_ID,MONK_ID,BEASTMASTER_ID].includes(b?.classId);
 export const levelOneClasses=[...classCatalog.classes.filter(c=>c.adapter==='martial-level-one').map(c=>({
  ...c,resources:[],choicePools:[],sources:c.sources,data:c.data
 })),...(beastmasterClass?[beastmasterClass]:[])];
@@ -31,12 +32,14 @@ export function levelOneFeatures(b){
  return features;
 }
 
+export const levelOneExtraHp=(b,scores)=>b?.classId===MONK_ID?Math.max(0,Math.floor((Number(scores.con)-10)/2))*b.level:0;
+
 export function levelOnePreview(b,{scores,race,racial,hpRolls}){
  const c=levelOneClasses.find(c=>c.id===b.classId),row=c.data.levels[Math.max(0,Math.min(19,b.level-1))];
  const mod=n=>Math.floor((n-10)/2);
  return {scores,race,racial,features:levelOneFeatures(b),
   summary:{bab:row.bab,fort:row.fort,ref:row.ref,will:row.will,baseMp:0,bonusMp:0,mp:0,spellLevel:0,skillPerLevel:Math.max(1,4+mod(scores.int))},
-  hp:hpRolls.reduce((sum,n)=>sum+Math.max(1,n+mod(scores.con)),0),skillBudget:Math.max(1,4+mod(scores.int))*b.level};
+  hp:hpRolls.reduce((sum,n)=>sum+Math.max(1,n+mod(scores.con)),0)+levelOneExtraHp(b,scores),skillBudget:Math.max(1,4+mod(scores.int))*b.level};
 }
 
 export const levelOneCounter=(b,feature,scores)=>b.classId===KNIGHT_ID&&feature.id===KNIGHT_ID+':feature:defensive-stance'?{maximum:Math.max(0,4+Math.floor((scores.con-10)/2))}:null;

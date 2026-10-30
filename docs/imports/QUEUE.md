@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 8 | 8 | 64 | 8 | 0 | 0 |
+| class | 73/73 | 9 | 9 | 64 | 8 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 48 | 14 | 0 | 0 |
-| archetype | 579/579 | 5 | 3 | 574 | 3 | 0 | 453 |
+| archetype | 579/579 | 5 | 3 | 574 | 3 | 0 | 433 |
 
-Checkpoint revision: **71**. Active: **ffd20:class:monk**. Next: **ffd20:class:monk**.
+Checkpoint revision: **72**. Active: **ffd20:class:monk**. Next: **ffd20:class:monk**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -30,7 +30,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | live_partial · deployment-verified | Six first-level abilities, class stats and proficiencies deployed and verified; Later class talents, progression, archetypes and multiclassing require separate source-reviewed adapters |
 | 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | existing live adapter · levels 1 | live_partial · deployment-verified | Lawful first-level Knight, stance counter and manual defensive references deployed; five public assets verified; Later talents/progression/archetypes, code adjudication and defensive effect/recovery automation require separate reviewed batches |
-| 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | not enabled | in_progress · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
+| 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | existing live adapter · levels 1 | in_progress · runtime-validated | Printed any-alignment d12/full-BAB Monk, positive-CON Bodybuilding HP and manual martial references validated; mobile Galka/Moogle CON edits and save/reopen passed; Exact-head CI, merge and public asset verification; then Dracobaltian |
 | 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 11 | [Thief](https://finalfantasyd20.com/classes/core-classes/thief/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 12 | [Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |

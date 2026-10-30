@@ -14,8 +14,8 @@ function fixture(cls='dancer'){
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
 const ferocity=d=>d.racialAbilities.find(f=>f.sourceRuleId===AU_RA_ID+':trait:ferocity');
-test('Au Ra defaults to Xaela standards across eight adapters and leaves conditional defenses manual',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
+test('Au Ra defaults to Xaela standards across nine adapters and leaves conditional defenses manual',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','monk','bard','beastmaster']){
   const d=compileBuild(fixture(cls));assert.deepEqual([d.str,d.wis,d.cha],[12,12,12]);assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Draconic');assert.match(d.senses,/Darkvision 60 feet/);
   assert.equal(d.skills.find(s=>s.name==='Intimidate').rulesBonus,2);assert.equal(d.skills.find(s=>s.name==='Survival').rulesBonus,cls==='beastmaster'?4:2);
   assert.equal(d.ac_natural,1);assert.equal(sheetStats(d).ac,11);assert.equal(sheetStats(d).touch,10);assert.equal(sheetStats(d).flat,11);

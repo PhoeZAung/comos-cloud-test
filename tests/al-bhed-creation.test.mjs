@@ -13,8 +13,8 @@ function fixture(cls='dancer',selected=4){
  b.skillRanks=fixedSkills.map(()=>0);b.skillRanks[selected]=1;let remaining=previewBuild(b).skillBudget-1;for(let i=0;remaining>0;i++)if(i!==selected){b.skillRanks[i]=1;remaining--;}
  return b;
 }
-test('Al Bhed standard first-level builds map identity, class skills, selected rank and manual feat through eight adapters',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
+test('Al Bhed standard first-level builds map identity, class skills, selected rank and manual feat through nine adapters',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','monk','bard','beastmaster']){
   const b=fixture(cls),d=compileBuild(b);assert.deepEqual([d.dex,d.int,d.cha],[12,12,12]);assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Albhedian');assert.match(d.proficiencies,/Simple firearms/);
   for(const name of ['Repair','Drive','Pilot','Craft','Disable Device','Knw: Engineering','Use Magic Device'])assert.equal(d.skills.find(s=>s.name===name).cs,true,name+' '+cls);
   assert.equal(d.skills[4].rulesBonus,2);assert.equal(d.skills[4].subName,'Woodworking');assert.equal(d.skills[4].lvl,1);assert.equal(d.skills[5].rulesBonus,0);
