@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-10-30T18:59:05.061078+00:00",
+  "mergeCommit": "838006d1c8fc99d3adad595910bf1a0a9092b93b",
+  "baseURL": "https://feisty-freedom-production-304e.up.railway.app",
+  "assets": [
+    {
+      "path": "assets/rules-wizard.mjs",
+      "status": 200,
+      "expectedSha256": "91424f3ac29e580964877e57cee7a3a7c4ac8244f3319050b6cd06db50281f93",
+      "actualSha256": "91424f3ac29e580964877e57cee7a3a7c4ac8244f3319050b6cd06db50281f93",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/build.mjs",
+      "status": 200,
+      "expectedSha256": "a4965cbf333f319be9216cf5df89e03440718ee3a89f01ec73d1366ec84f6989",
+      "actualSha256": "a4965cbf333f319be9216cf5df89e03440718ee3a89f01ec73d1366ec84f6989",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/racial-choices.mjs",
+      "status": 200,
+      "expectedSha256": "af420f9c76a248440a66430212c848624acc6c7cb21387a7446a59ab4ebbf693",
+      "actualSha256": "af420f9c76a248440a66430212c848624acc6c7cb21387a7446a59ab4ebbf693",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/racial-progress.mjs",
+      "status": 200,
+      "expectedSha256": "bc4360516e298d97358c40d0d04149fd74520300fad6afaa503a52922887e8d5",
+      "actualSha256": "bc4360516e298d97358c40d0d04149fd74520300fad6afaa503a52922887e8d5",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/races.mjs",
+      "status": 200,
+      "expectedSha256": "f8e1401e94990cf31fca604d124e764c6a8cb4b6af668e0344c8ee4868094590",
+      "actualSha256": "f8e1401e94990cf31fca604d124e764c6a8cb4b6af668e0344c8ee4868094590",
+      "matches": true
+    }
+  ],
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "apiVersion": 1,
+      "database": "ready",
+      "schemaVersion": 20,
+      "authentication": "configured"
+    }
+  },
+  "productionProviderLoginTested": false,
+  "pullRequest": "https://github.com/PhoeZAung/comos-cloud-test/pull/23",
+  "branchCI": 41111086653,
+  "mainCI": 41111289592,
+  "mainCIStatus": "queued",
+  "testsPassed": 369
+}

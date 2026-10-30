@@ -1,5 +1,5 @@
 import {fixedSkills} from '../../sheet/skills.mjs';
-import {BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
+import {BEASTKIN_ID,BEASTKIN_LANGUAGES,BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
 
 const IMMORTAL='ffd20:race:immortal:pool:';
 const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
@@ -7,7 +7,7 @@ const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 
@@ -101,9 +101,9 @@ export function racialChoiceFeats(b,race,traits,previous={}){
   const id=AL_BHED_ID+':bonus-feat:technologist',old=previous.feats?.find(f=>f.sourceRuleId===id),name='Technologist',desc='Granted by Al Bhed Technologist. Resolve technological skills and feat effects manually using the official feat rules.';
   return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:name,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:name,rulesDescription:desc,sourceRuleId:id,sourceRace:'Al Bhed',rulesOwned:true,pendingFeat:false,automation:'manual'}];
  }
- if(b.raceId===MITHRA_ID&&traits.some(f=>f.id===MITHRA_ID+':trait:fleet-footed')){
-  const id=MITHRA_ID+':bonus-feat:run',old=previous.feats?.find(f=>f.sourceRuleId===id);
-  return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:'Run',desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:'Granted by Mithra Fleet-Footed. Apply the Run feat’s movement benefits manually; Sprinter is a separate conditional rule.',rulesName:'Run',rulesDescription:'Granted by Mithra Fleet-Footed. Apply the Run feat’s movement benefits manually; Sprinter is a separate conditional rule.',sourceRuleId:id,sourceRace:'Mithra',rulesOwned:true,pendingFeat:false,automation:'manual'}];
+ if([MITHRA_ID,BEASTKIN_ID].includes(b.raceId)&&traits.some(f=>f.id===b.raceId+':trait:fleet-footed')){
+  const id=b.raceId+':bonus-feat:run',old=previous.feats?.find(f=>f.sourceRuleId===id);
+  return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:'Run',desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:'Granted by '+race.name+' Fleet-Footed. Apply the Run feat’s movement benefits manually; Sprinter is a separate conditional rule.',rulesName:'Run',rulesDescription:'Granted by '+race.name+' Fleet-Footed. Apply the Run feat’s movement benefits manually; Sprinter is a separate conditional rule.',sourceRuleId:id,sourceRace:race.name,rulesOwned:true,pendingFeat:false,automation:'manual'}];
  }
  if(humeTraitActive(b,'bonus-feat')){
   const id=HUME_ID+':bonus-feat:level-1',old=previous.feats?.find(f=>f.sourceRuleId===id);

@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/base-races/beastkin/",
       "title": "Beastkin — Final Fantasy d20 (saved official page MHTML)",
-      "retrievedOn": "2026-10-28",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "0797d628337476a96ebccf82c1be645e80fbfeff01700346ac6a322845d8e837"
     }
   ],
   "dependencies": [],
@@ -55,6 +56,11 @@
         "path": "/data",
         "reason": "Beastkin Immunities protects only from magical sleep and against enfeebling effects, Fearless against fear. These are not generic all-save bonuses.",
         "blocking": true
+      },
+      {
+        "path": "/data/standardTraitIds",
+        "blocking": true,
+        "reason": "Standard testing supports printed STR/WIS/INT vector, identity, Hunter class skills, Perception, darkvision/low-light vision, seven optional languages, owned +1 natural armor/+2 initiative and a manual Run card. Magic-sleep immunity, enfeebling/fear saves and conditional Sprinter movement remain manual; no blanket save/speed/condition changes. Alternates and independent full review pending."
       }
     ],
     "sectionInventory": [
@@ -445,7 +451,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:beastkin:pool:high-intelligence-bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -725,7 +733,26 @@
       "automation": "manual",
       "requirements": null,
       "componentIds": [],
-      "effects": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:darkvision:runtime:sense",
+          "kind": "identity",
+          "target": "identity.senses.darkvision",
+          "operation": "set",
+          "value": null,
+          "textValue": "Darkvision 60 feet",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "#senses-racial-traits / li:1"
+            }
+          ]
+        }
+      ],
       "actions": [],
       "choicePoolIds": [],
       "scalingNotes": [],
@@ -752,7 +779,26 @@
       "automation": "manual",
       "requirements": null,
       "componentIds": [],
-      "effects": [],
+      "effects": [
+        {
+          "id": "ffd20:race:beastkin:trait:low-light-vision:runtime:sense",
+          "kind": "identity",
+          "target": "identity.senses.low_light_vision",
+          "operation": "set",
+          "value": null,
+          "textValue": "2x normal distance in dim light",
+          "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Senses Racial Traits",
+              "locator": "#senses-racial-traits / li:2"
+            }
+          ]
+        }
+      ],
       "actions": [],
       "choicePoolIds": [],
       "scalingNotes": [],
@@ -1143,7 +1189,152 @@
     }
   ],
   "resources": [],
-  "choicePools": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:beastkin:pool:high-intelligence-bonus-languages",
+      "name": "Beastkin bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:beastkin:pool:high-intelligence-bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:pool:high-intelligence-bonus-languages:option:dwarven",
+          "name": "Dwarven",
+          "description": "Dwarven",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dwarven",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:pool:high-intelligence-bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:pool:high-intelligence-bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:pool:high-intelligence-bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:pool:high-intelligence-bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:beastkin:pool:high-intelligence-bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Optional source list, bounded by positive Intelligence modifier.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
+        }
+      ]
+    }
+  ],
   "levelBindings": [],
   "data": {
     "raceType": "base",
