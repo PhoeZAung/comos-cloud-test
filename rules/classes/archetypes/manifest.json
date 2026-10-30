@@ -12,6 +12,13 @@
       "file": "rules/classes/archetypes/chocobo-knight-antrider.archetype.json",
       "status": "staged",
       "adapter": null
+    },
+    {
+      "id": "ffd20:archetype:chocobo-knight:beast-rider",
+      "file": "rules/classes/archetypes/chocobo-knight-beast-rider.archetype.json",
+      "status": "staged",
+      "adapter": null,
+      "coverage": "partial"
     }
   ]
 }

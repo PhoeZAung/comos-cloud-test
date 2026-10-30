@@ -1,0 +1,859 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:dragoon",
+  "name": "Dragoon",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/dragoon/",
+      "title": "Dragoon — Official Final Fantasy d20",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "1d9f5fced026e63c130099f80e6af5f275ca76e0d8f48dcfb5a9b05a9d8993d1"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "First-level testing only. Later progression, talent choices, archetypes, multiclassing and independent full review are not enabled."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Jump-only Acrobatics and Strength bonuses, Deadly Lancer altitude/caps/damage, Pole Fighting grip actions and Limit Break temporary effects are manual reference cards. Do not apply these as permanent Acrobatics, attack, damage, armor or HP modifiers. Jump treats the check as having Run; it does not grant a general Run bonus feat."
+      },
+      {
+        "path": "/data/deferredFeatureSections",
+        "blocking": true,
+        "reason": "Later source sections are retained without canonical grant/upgrade or talent-choice events. Super Jump and dragon blood are not granted at first level; existing progression rows are source data only."
+      }
+    ]
+  },
+  "data": {
+    "category": "core",
+    "hitDie": 10,
+    "skillRanksPerLevel": 4,
+    "classSkills": [
+      "acrobatics",
+      "climb",
+      "craft:*",
+      "handle-animal",
+      "intimidate",
+      "knowledge:arcana",
+      "knowledge:local",
+      "perception",
+      "perform:*",
+      "profession:*",
+      "ride",
+      "survival",
+      "swim"
+    ],
+    "startingWealth": 175,
+    "proficiencies": [
+      "Simple weapons",
+      "Polearm weapon group",
+      "Spear weapon group",
+      "Light armor",
+      "Medium armor",
+      "Heavy armor"
+    ],
+    "spellcasting": {
+      "learningMode": "none"
+    },
+    "supportedLevels": [
+      1
+    ],
+    "levels": [
+      {
+        "level": 1,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 2,
+        "ref": 2,
+        "will": 0,
+        "special": "Deadly Lancer (+1d6), Jump, Pole Fighting, Strengthened Agility, Limit Breaks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-1"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 0,
+        "special": "Dragoon Talent, Hardy Landing (10 ft.), Super Jump",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-2"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 1,
+        "special": "Deadly Lancer (+2d6), Jump (+10 ft.), Armor Training (Medium/1), Blood of the Dragon, Lancet",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-3"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Dragoon Talent, Hardy Landing (20 ft.), Elusive Jump (+3)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-4"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Deadly Lancer (+3d6), Dragon's Breath, Polearm Training (+1)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-5"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Jump (+20 ft.), Dragoon Talent, Hardy Landing (30 ft.), Wyrmkiller",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-6"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Deadly Lancer (+4d6), Armor Training (Heavy/2), Swoop of the Dragon",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-7"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 2,
+        "special": "Dragoon Talent, Hardy Landing (40 ft.), Tail Sweep",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-8"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 3,
+        "special": "Deadly Lancer (+5d6), Jump (+30 ft.), Elusive Jump (+4), Wall Jumping",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-9"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Dragoon Talent, Hardy Landing (50 ft.), Polearm Training (+2), Ride the Wind (10 ft.)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-10"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Deadly Lancer (+6d6), Armor Training (3), Dragon Sight",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-11"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Jump (+40 ft.), Dragoon Talent, Hardy Landing (60 ft.), Spinning Lance",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-12"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Deadly Lancer (+7d6), Ride the Wind (20 ft.), Multi-Jump",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-13"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 4,
+        "special": "Dragoon Talent, Hardy Landing (70 ft.), Elusive Jump (+5)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-14"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 5,
+        "special": "Deadly Lancer (+8d6), Jump (+50 ft.), Armor Training (4), Polearm Training (+3), Flawless Lancer",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-15"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 16,
+        "iterativeAttacks": [
+          16,
+          11,
+          6,
+          1
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Dragoon Talent, Hardy Landing (80 ft.), Ride the Wind (30 ft.)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-16"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 17,
+        "iterativeAttacks": [
+          17,
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Deadly Lancer (+9d6), Stardiver",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-17"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 18,
+        "iterativeAttacks": [
+          18,
+          13,
+          8,
+          3
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Jump (+60 ft.), Dragoon Talent, Hardy Landing (90 ft.)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-18"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 19,
+        "iterativeAttacks": [
+          19,
+          14,
+          9,
+          4
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Deadly Lancer (+10d6), Armor Training (5), Elusive Jump (+6), Ride the Wind (40 ft.), Piercing Critical",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-19"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 20,
+        "iterativeAttacks": [
+          20,
+          15,
+          10,
+          5
+        ],
+        "fort": 12,
+        "ref": 12,
+        "will": 6,
+        "special": "Dragoon Talent, Hardy Landing (any), Polearm Training (+4), Master Dragoon",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-20"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:dragoon:feature:deadly-lancer",
+        "name": "Deadly Lancer",
+        "atLevel": 1,
+        "description": "At 1st level, the dragoon hones the art of leveraging the impact of his jump attacks to devastate his foes. The dragoon adds a bonus amount of damage equal to 1d6 + an additional 1d6 for every two levels gained beyond 1st when performing a long jump attack, a high jump attack, or a dive attack with a melee weapon:\n\n* *Long Jump Attack:* The dragoon makes an attack after a successful [Acrobatics](https://www.d20pfsrd.com/skills/acrobatics/) skill check to long jump at least 10 feet towards his target (whether as part of a charge, or after a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) made in the same round).\n* *High Jump Attack:* The dragoon makes an attack after a successful [Acrobatics](https://www.d20pfsrd.com/skills/acrobatics/) skill check to high jump at least 10 feet towards a target (whether as part of a charge, or after a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) made in the same round) that possesses a higher altitude. For every 10 feet of vertical height he achieves, the dragoon may also move 5 feet horizontally, allowing a diagonal leap towards the target.\n* *Dive Attack:* As a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the dragoon can attempt an [Acrobatics](https://www.d20pfsrd.com/skills/acrobatics/) skill check to perform a high jump. While airborne from this jump, he may target an enemy at a lower altitude within a range equal to half the altitude he achieves and perform a dive attack. If already airborne at the start of his turn due to flight or other movement, the dragoon may use his current altitude as the starting point for a dive attack as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round). Unless otherwise stated, a dive attack cannot be substituted for a combat maneuver.When performing a dive attack, the dragoon receives a +1 circumstance bonus to his attack for every 10 feet of altitude difference between him and his target. Additionally, he deals an extra 1d6 damage for every 10 feet of altitude difference (on top of the level-based scaling bonus damage stated earlier in this ability). The total amount of extra damage dice and attack bonus gained from this ability is capped by the dragoon’s level (ex: a 5th level dragoon cannot exceed a +5 attack bonus and 5d6 points of extra damage when performing a dive attack).On a successful dive attack, the dragoon lands within 10 feet of his target, taking falling damage as if he fell from his target’s altitude (if applicable). If the dive attack misses, the dragoon suffers falling damage as if he fell from the starting altitude of his dive attack, landing in the nearest available square next to his target, as if completing a charge. The dragoon cannot use a [Fly](https://www.d20pfsrd.com/skills/fly) skill check to negate this falling damage. If no space is available within the dragoon’s landing range, he lands prone in the nearest open square.Any movement that is part of a dive attack does not provoke attacks of opportunity, and any distance traveled that is part of a dive attack does not contribute to the dragoon’s [maximum jump distance](https://www.finalfantasyd20.com/classes/core-classes/dragoon/#jump).\n\nAdditional damage gained from this ability is not multiplied on a critical hit or any class feature that multiplies damage.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deadly Lancer",
+            "locator": "deadly-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dragoon:feature:jump",
+        "name": "Jump",
+        "atLevel": 1,
+        "description": "At 1st level, a dragoon trains for years in the ability to leap astounding and even supernatural distances.\n\nThe dragoon adds his dragoon levels to all Acrobatic skill checks for jumping. A dragoon’s ability to jump with his Acrobatic checks is treated as though he got a running start and has the [Run](https://www.d20pfsrd.com/feats/general-feats/run/) feat, regardless of whether or not he gets a running start. The dragoon may long jump as part of a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) or charge action, allowing him to ignore difficult terrain for the distance he jumps. The dragoon uses his jump’s Acrobatics check to resolve against all opponents CMD while long jumping or high jumping through threatened squares, but takes the +10 to DC for moving at full speed while doing so.\n\nA dragoon’s maximum jump distance is twice his base speed, instead of being [limited by his normal base speed](https://www.d20pfsrd.com/SKILLS/acrobatics/#Jumping_and_Falling) (30-foot land speed = 60-foot jump maximum). Starting at 3rd level and for every 3rd level thereafter, the dragoon further increases his maximum jump distance by an additional 10 feet.\n\nShould the dragoon utilize any of his base speed for movement on his turn, subtract that distance from his maximum jump distance to determine the distance he has left to jump.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jump",
+            "locator": "jump"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dragoon:feature:pole-fighting",
+        "name": "Pole Fighting",
+        "atLevel": 1,
+        "description": "At 1st level, a dragoon can shorten the grip on his spear, lance, or polearm with reach and use it against adjacent targets as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate). While under this effect, this removes the reach special feature from the weapon. The dragoon can spend another [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) to return to the normal grip.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Pole Fighting",
+            "locator": "pole-fighting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dragoon:feature:strengthened-agility",
+        "name": "Strengthened Agility",
+        "atLevel": 1,
+        "description": "Beginning at 1st level, a dragoon adds his Strength modifier as a bonus (minimum 0) on any [Acrobatics](https://www.d20pfsrd.com/skills/acrobatics/) skill checks made to [jump](https://www.d20pfsrd.com/skills/Acrobatics/#Jumping_and_Falling).",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Strengthened Agility",
+            "locator": "strengthened-agility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dragoon:feature:bahamut-leaps",
+        "name": "Bahamut Leaps",
+        "atLevel": 1,
+        "description": "This Limit Break allows the dragoon to jump further than ever before. For the duration of 1 round + 1 round per four dragoon levels after 1st, the dragoon can jump farther than his speed allows, doubles his bonus to Acrobatics when jumping, and mitigates all falling damage. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "bahamut-leaps"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dragoon:feature:bahamut-scales",
+        "name": "Bahamut Scales",
+        "atLevel": 1,
+        "description": "This Limit Break causes the dragoon to grow magic dragon scales from his body, shielding him from harm. For the duration of 1 round + 1 round per four dragoon levels after 1st, the dragoon gains a +2 natural armor bonus to AC, increasing by an additional +1 for every two levels the dragoon possesses after 1st. Additionally, he gains an amount of temporary hit points equal to twice his dragoon level. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "bahamut-scales"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:class:dragoon:event:grant-deadly-lancer",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:dragoon:feature:deadly-lancer"
+      },
+      {
+        "id": "ffd20:class:dragoon:event:grant-jump",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:dragoon:feature:jump"
+      },
+      {
+        "id": "ffd20:class:dragoon:event:grant-pole-fighting",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:dragoon:feature:pole-fighting"
+      },
+      {
+        "id": "ffd20:class:dragoon:event:grant-strengthened-agility",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:dragoon:feature:strengthened-agility"
+      },
+      {
+        "id": "ffd20:class:dragoon:event:grant-bahamut-leaps",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:dragoon:feature:bahamut-leaps"
+      },
+      {
+        "id": "ffd20:class:dragoon:event:grant-bahamut-scales",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:dragoon:feature:bahamut-scales"
+      }
+    ],
+    "deferredFeatureSections": [
+      {
+        "name": "Dragoon Talents",
+        "description": "Starting at 2nd level, a dragoon gains a dragoon talent. He gains an additional one for every 2 dragoon levels attained after 2nd. Unless otherwise noted, a dragoon cannot select an individual dragoon talent more than once.\n\n* A complete list of dragoon talents can be found here: [Dragoon Talents](https://www.finalfantasyd20.com/classes/core-classes/dragoon/dragoon-talents/)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragoon Talents",
+            "locator": "dragoon-talents"
+          }
+        ]
+      },
+      {
+        "name": "Hardy Landing",
+        "description": "Starting at 2nd level, a dragoon becomes skilled at mitigating falling damage.\n\nWhen first gaining this ability, the dragoon takes damage as if the fall were 10 feet shorter than it actually is (this effect stacks with the Acrobatics skill check (DC 15) to ignore the first 10 feet of a fall). Additionally, the dragoon treats all damage from falling as nonlethal. The dragoon’s ability to absorb his fall improves with his dragoon level, allowing him another 10 feet every two levels after 2nd, until at 20th level he can fall any distance without harm.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hardy Landing",
+            "locator": "hardy-landing"
+          }
+        ]
+      },
+      {
+        "name": "Super Jump",
+        "description": "At 2nd level, the dragoon can empower his jump to send him soaring, emulating the ability to fly.\n\nBy activating this ability at the start of his jump as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), the dragoon lowers the Acrobatics high jump DC multiplier from 4 to 1 for that jump (ex: a high jump of 20 feet would be lowered from an Acrobatics DC of 80 to an Acrobatics DC of 20). Additionally, the dragoon receives a +10 bonus to Acrobatics for that jump. The dragoon suffers no falling damage for the vertical distance he high jumps when using this ability.\n\nThe dragoon can use this ability a number of times per day equal to 3 + his dragoon level, and no more than once per round.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Super Jump",
+            "locator": "super-jump"
+          }
+        ]
+      },
+      {
+        "name": "Armor Training",
+        "description": "At 3rd level, a dragoon learns to be more maneuverable, even while encumbered by armor.\n\nWhenever he is wearing armor, he reduces the armor check penalty by 1 (to a minimum of 0) and increases the maximum Dexterity bonus allowed by his armor by 1. Every four levels thereafter (7th, 11th, 15th, and 19th), these bonuses increase by +1 each time, to a maximum –5 reduction of the armor check penalty and a +5 increase of the maximum Dexterity bonus allowed.\n\nIn addition, a dragoon can also move at his normal speed while wearing medium armor.\n\nAt 7th level, a dragoon can move at his normal speed while wearing heavy armor.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armor Training",
+            "locator": "armor-training"
+          }
+        ]
+      },
+      {
+        "name": "Blood of the Dragon",
+        "description": "At 3rd level, dragon’s blood has coalesced with the dragoon’s own, enabling him to achieve supernatural feats of power.\n\nThe number of dragon blood points in the dragoon’s blood is equal to half his dragoon level + his Constitution modifier. Dragon blood points are replenished once per day when the dragoon rests for a full 8 hours. Additionally, the dragoon may perform the Lancet ability. The dragoon unlocks additional Blood of the Dragon abilities as he levels up, with each expending 1 point of dragon blood upon activation.\n\nUnless otherwise noted, the DC for all Blood of the Dragon abilities is equal to 10 + half the dragoon’s level + his Constitution modifier.\n\n*Lancet (Ex)*: At 3rd level, the dragoon can empower his next melee attack with a polearm or spear that inflicts piercing damage to drain the life force from a living foe as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). The dragoon receives a +2 circumstance bonus to this attack and heals himself of 2d6 damage, with the attack bonus and amount of healing dice increasing by 1 for every two dragoon levels attained after 3rd. This effect lasts until the end of the dragoon’s turn or until expended by a successful attack.\n\n*Dragon’s Breath (Su)*: At 5th level, the dragoon can breath either a 15 foot cone or line that deals 1d6 points of elemental damage per dragoon level as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). The dragoon chooses the element type upon using this ability, be it earth, fire, ice, lightning, water, or wind. A successful Reflex save halves this damage.\n\n*Tail Sweep (Ex)*: At 8th level, the dragoon can make a trip combat maneuver with his polearm or spear against creatures within an area that he threatens as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). The affected area must consist of at least three contiguous squares. Additionally, the dragoon receives a bonus to this combat maneuver check equal to half his dragoon level. This action does not provoke attacks of opportunity, and does not cause the dragoon to fall prone should he fail his check by 10 or more.\n\n*Dragon Sight (Su)*: At 11th level, the dragoon can utilize his dragon blood to greatly enhance his perceptive abilities for 1 minute as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). While in effect, the dragoon’s irises glow a fiery crimson, with him being able to see through normal and magical darkness, see the exact locations of creatures or objects under blur or displacement effects, and see invisible creatures or objects normally for up to 120 feet (as if the [*true seeing*](https://www.finalfantasyd20.com/magic/spells/t/true-seeing/) spell). Additionally, the dragoon gains a Perception bonus equal to his dragoon level. The dragoon may extend the effect’s duration by an additional minute as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), provided he expends an extra point of dragon blood while the ability remains active.\n\n*Stardiver (Su)*: At 17th level, as part of his dive attack, the dragoon can cause his ensuing dive to erupt in a cataclysm of flames, incinerating creatures near his target. Upon a successful dive attack, the dragoon inflicts fire damage equal to his dive attack’s Deadly Lancer damage to all creatures (excluding the target of the dive attack and the dragoon himself) within 5 feet of his target. The dragoon may choose to widen the explosion’s radius to his liking, growing up to an additional 5 feet for every 10 feet of altitude difference. Creatures within this radius are allowed a Reflex save to halve the damage. The dragoon cannot utilize Stardiver as part of a Multi-Jump.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blood of the Dragon",
+            "locator": "blood-of-the-dragon"
+          }
+        ]
+      },
+      {
+        "name": "Elusive Jump",
+        "description": "At 4th level, a dragoon gains the ability to instinctively leap away from danger using his trained agility.\n\nAs an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), he may expend one daily use of his Super Jump ability to perform a long jump of up to 15 feet to an unoccupied square he can see. Movement made in this way does not provoke attacks of opportunity. The benefits of Elusive Jump vary depending on the triggering threat:\n\n* **Against targeted attacks:** If the dragoon is targeted by a melee or ranged attack, he gains a +3 dodge bonus to AC against that attack and any additional attacks made against him as part of the same action. The leap occurs after all such attacks are resolved.\n* **Against area effects:** If the dragoon is targeted by a spell or ability with an area of effect that allows a Reflex save, he may use this ability to leap out of the area. If he successfully lands outside the effect’s area, he gains a +3 bonus on any Reflex saves required by that effect.\n\nThese bonuses increase by +1 at 9th level and every five levels thereafter (to a maximum of +6 at 19th level).\n\nThe dragoon must declare the use of Elusive Jump after a hostile action is announced, but before any dice are rolled.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Elusive Jump",
+            "locator": "elusive-jump"
+          }
+        ]
+      },
+      {
+        "name": "Polearm Training",
+        "description": "At 5th level a dragoon gains a +1 bonus on attack and damage rolls with spears, lances, and polearms.\n\nThis bonus increases by +1 for every five levels beyond 5th.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Polearm Training",
+            "locator": "polearm-training"
+          }
+        ]
+      },
+      {
+        "name": "Wyrmkiller",
+        "description": "At 6th level a dragoon becomes an expert in dragon lore and fighting dragons.\n\nA dragoon may attempt Knowledge: Arcana skill checks untrained when dealing with dragons or creatures of the dragon subtype. He also receives a bonus to Knowledge: Arcana skill checks equal to his dragoon level when dealing with dragons or creatures with the dragon subtype.\n\nAdditionally, the dragoon maximizes all Deadly Lancer damage dice versus dragons or creatures with the dragon subtype.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Wyrmkiller",
+            "locator": "wyrmkiller"
+          }
+        ]
+      },
+      {
+        "name": "Swoop of the Dragon",
+        "description": "At 7th level, a dragoon’s charge is akin to the ferocious swoop of a dragon.\n\nWhen long jumping as part of a charge action, the dragoon receives a +4 attack bonus with a spear or polearm (instead of the normal +2).\n\nIn addition, the dragoon takes no penalty to his AC with this action (normally a -2 penalty to AC for 1 round).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swoop of the Dragon",
+            "locator": "swoop-of-the-dragon"
+          }
+        ]
+      },
+      {
+        "name": "Wall Jumping",
+        "description": "At 9th level, a dragoon may select a square with a wall as his target for a long jump as part of a charge or [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) (see Jump class feature). If he arrives at the targeted square he may pivot and make another Acrobatics check with a +10 bonus to long jump and continue that charge or [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) and travel in a line that is non-parallel to that wall. A dragoon can utilize this class feature multiple times in the same turn, with the bonus to Acrobatics degrading by 5 for every wall jump after the first (this can turn into a penalty), but still cannot exceed his maximum allowable jump distance.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Wall Jumping",
+            "locator": "wall-jumping"
+          }
+        ]
+      },
+      {
+        "name": "Ride the Wind",
+        "description": "At 10th level, a dragoon learns to manipulate the very air around him to maximize his diving power and maneuverability.\n\nThe dragoon treats all dive attacks as if he dove from 10 feet higher, with this amount increasing by an additional 10 feet for every 3rd level after 10th.\n\nAdditionally, a dragoon may spend a daily usage of his Super Jump ability mid-jump to change direction once. This may occur at the apex of his high jump to allow the dragoon to move horizontally from that position before performing a dive attack. The distance traveled as a result of this ability counts towards the dragoon’s maximum jumping distance.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ride the Wind",
+            "locator": "ride-the-wind"
+          }
+        ]
+      },
+      {
+        "name": "Spinning Lance",
+        "description": "At 12th level, a dragoon gains the ability to spin his lance, allowing him to deflect incoming attacks.\n\nImmediately after his attack or full-attack action, the dragoon gains a shield bonus to his AC equal to the number of successful attacks he made with his polearm or spear in that round. If the dragoon is wearing a shield, the shield bonus to AC stacks, but he only gains half the benefit (minimum +1). This effect lasts for 1 round, but may be extended by an additional round if he utilizes a total defense action in the round thereafter. The dragoon does not retain this bonus if he is rendered helpless or is knocked prone.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spinning Lance",
+            "locator": "spinning-lance"
+          }
+        ]
+      },
+      {
+        "name": "Multi-Jump",
+        "description": "At 13th level, a dragoon learns to harness the momentum of his dive attacks to perform a series of chained aerial strikes.\n\nWhenever the dragoon successfully resolves a dive attack, he may choose not to land. Instead, he can immediately activate his Super Jump ability (expending one daily use) to launch into another high jump and perform an additional dive attack. Each successive dive attack must target a different creature and uses the dragoon’s next available iterative attack bonus, as though part of a full-attack action. This ability cannot be used if the dragoon has already made all available attacks for the round (including any granted by effects such as haste).\n\nEach additional jump made through Multi-Jump imposes a cumulative –20 penalty on the Acrobatics skill check to determine jump distance and height.\n\nA single target cannot be hit more than once per round by dive attacks made through this ability. Jumps performed via Multi-Jump do not count toward the dragoon’s maximum jumping distance for the round.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Multi-Jump",
+            "locator": "multi-jump"
+          }
+        ]
+      },
+      {
+        "name": "Flawless Lancer",
+        "description": "At 15th level, a dragoon doesn’t automatically miss when he rolls a natural 1 on an attack roll that would utilize his Deadly Lancer class feature.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Flawless Lancer",
+            "locator": "flawless-lancer"
+          }
+        ]
+      },
+      {
+        "name": "Piercing Critical",
+        "description": "At 19th level, a dragoon increases his critical threat range by 1 while using a polearm or spear. This amount increases to 2 for attacks that would utilize his Deadly Lancer class feature. These increases are applied after any effects that multiply the critical threat range of a weapon (ex: the Improved Critical feat).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Piercing Critical",
+            "locator": "piercing-critical"
+          }
+        ]
+      },
+      {
+        "name": "Master Dragoon",
+        "description": "At 20th level, the dragoon deals double weapon damage for attacks that utilize his Deadly Lancer class feature. This is not the same as a critical hit. In addition, if the dragoon confirms a critical hit on an attack that utilizes his Deadly Lancer class feature, the target is stunned for 1d4 rounds. A Fortitude save reduces this to staggered for 1d4 rounds. The DC is equal to 10 + the number of Deadly Lancer dice inflicted.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Dragoon",
+            "locator": "master-dragoon"
+          }
+        ]
+      }
+    ],
+    "archetypeIndex": [
+      {
+        "id": "ffd20:archetype:dragoon:azure-dragoon",
+        "name": "Azure Dragoon",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/azure-dragoon/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:dark-dragoon",
+        "name": "Dark Dragoon",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dark-dragoon/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:dragon-knight",
+        "name": "Dragon Knight",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dragon-knight/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:dragon-slayer",
+        "name": "Dragon Slayer",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dragon-slayer/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:drigagoonie",
+        "name": "Drigagoonie",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/drigagoonie/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:elemental-dragoon",
+        "name": "Elemental Dragoon",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/elemental-dragoon/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:farstriker",
+        "name": "Farstriker",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/farstriker/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:holy-dragoon",
+        "name": "Holy Dragoon",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/holy-dragoon/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:lancer",
+        "name": "Lancer",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/lancer/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:lunar-vanguard",
+        "name": "Lunar Vanguard",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/lunar-vanguard/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:spear-warden",
+        "name": "Spear Warden",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/spear-warden/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:spearmaster",
+        "name": "Spearmaster",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/spearmaster/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:dragoon:valkyrie",
+        "name": "Valkyrie",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/valkyrie/",
+        "status": "not-integrated"
+      }
+    ]
+  }
+}
