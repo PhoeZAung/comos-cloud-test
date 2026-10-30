@@ -50,13 +50,13 @@ export function renderEquipment(data={}){
  const section=group=>{
   const assigned=group.slots.filter(slot=>equippedInSlot(data,slot)).length;
   const items=group.slots.map(id=>{
-   const slot=equipmentSlots.find(s=>s.id===id),item=equippedInSlot(data,id)?.item;
+   const slot=equipmentSlots.find(s=>s.id===id),gear=equippedInSlot(data,id),item=gear?.item;
    const itemName=item?.name||'Not equipped';
    return '<div class="cs-loadout-row'+(item?' is-equipped':'')+'">'
-    +'<button type="button" class="cs-loadout-select" data-equip-slot="'+id+'" aria-label="'+e(slot.label+': '+itemName+'. Choose equipment')+'">'
+    +'<button type="button" class="cs-loadout-select" '+(item?'data-item-description="'+gear.collection+':'+gear.index+'" aria-label="View '+e(itemName)+' description"':'data-equip-slot="'+id+'" aria-label="Equip '+e(slot.label)+'"')+'>'
     +'<span class="cs-loadout-row-details"><span class="cs-loadout-slot-label">'+e(slot.label)+'</span><span class="cs-loadout-item-name">'+e(itemName)+'</span></span>'
-    +'<span class="cs-loadout-chevron" aria-hidden="true">'+(item?'›':'+')+'</span></button>'
-    +(item?'<button type="button" class="cs-loadout-action" data-unequip-slot="'+id+'" aria-label="Unequip '+e(item.name||'item')+' from '+e(slot.label)+'">Unequip</button>':'')
+    +(item?'':'<span class="cs-loadout-chevron" aria-hidden="true">+</span>')+'</button>'
+    +(item?'<button type="button" class="cs-loadout-action" data-equip-change="'+id+'" aria-label="Change '+e(itemName)+' in '+e(slot.label)+'">Change</button>':'')
     +'</div>';
   }).join('');
   return '<section class="cs-loadout-group" aria-label="'+group.name+' equipment">'
@@ -68,8 +68,8 @@ export function renderEquipment(data={}){
  const miscRows=miscEntries.map(({id,entry})=>{
   const name=e(entry.item.name||'Unnamed item');
   return '<div class="cs-loadout-row is-equipped">'
-   +'<button type="button" class="cs-loadout-select" data-equip-slot="'+id+'" aria-label="Change '+name+'"><span class="cs-loadout-row-details"><span class="cs-loadout-item-name">'+name+'</span></span><span class="cs-loadout-chevron" aria-hidden="true">›</span></button>'
-   +'<button type="button" class="cs-loadout-action" data-unequip-slot="'+id+'" aria-label="Unequip '+name+'">Unequip</button></div>';
+   +'<button type="button" class="cs-loadout-select" data-item-description="'+entry.collection+':'+entry.index+'" aria-label="View '+name+' description"><span class="cs-loadout-row-details"><span class="cs-loadout-item-name">'+name+'</span></span></button>'
+   +'<button type="button" class="cs-loadout-action" data-equip-change="'+id+'" aria-label="Change '+name+'">Change</button></div>';
  }).join('');
  const misc='<section class="cs-loadout-group cs-loadout-misc" aria-label="Misc equipment">'
   +'<div class="cs-loadout-group-title"><span aria-hidden="true" class="cs-loadout-group-icon">✧</span><h3>Misc</h3>'
