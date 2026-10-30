@@ -11,6 +11,14 @@
       "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
       "archiveSha256": "cae85922095326db7aadf59e8d7cebb9dd73b6a9d90748017ae3b1fa5bb3980c"
+    },
+    {
+      "id": "companions",
+      "url": "https://finalfantasyd20.com/classes/core-classes/beastmaster/animal-companions/",
+      "title": "Animal Companions — Official Final Fantasy d20",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "09f7736b086cc40efcb6dbda752e5814c920f38e84a8dd76a410327b92a96883"
     }
   ],
   "review": {
@@ -26,7 +34,7 @@
       {
         "path": "/data/companion",
         "blocking": true,
-        "reason": "Species eligibility/stat blocks, companion skill/feat/trick choices, persistence and a verified companion adapter are the next implementation batch. Do not substitute the druid companion progression: the FFd20 source explicitly uses d10 Hit Dice and full BAB."
+        "reason": "All 35 FFd20 species entries now retain starter levels, grouped eligibility, starting statistics and source rule sections. They are source staging, not playable options. Companion skill/feat/trick choices, persistence and the Beastmaster runtime adapter are still to implement."
       },
       {
         "path": "/data/animalAspects",
@@ -52,6 +60,21 @@
         "path": "/data/companion/rulesText",
         "blocking": true,
         "reason": "Companion table labels share senses and prose Shared Senses are retained as printed. Shared Senses uses Wisdom-modifier daily uses without an explicit minimum; no minimum is invented. Conditional companion effects remain manual."
+      },
+      {
+        "path": "/data/companion/speciesGroups",
+        "blocking": true,
+        "reason": "Magical beasts require Beast Speaker and their individual prerequisites; mastery additionally requires Beast Speaker Mastery. Plant companions require Mandragora and Tree Guardian. These group conditions must not be dropped when creating a future selection pool. Vermin have no skill ranks or feats while mindless; do not assign Intelligence 0."
+      },
+      {
+        "path": "/data/companion/species",
+        "blocking": true,
+        "reason": "Initial statistics are normalized, but attacks and special abilities remain source descriptions, not derived combat modifiers. Advancements and mastery blocks are deferred descriptions, not starting abilities or automatic level-up events. Omitted natural armor is recorded as null instead of assumed zero."
+      },
+      {
+        "path": "/data/companion/species",
+        "blocking": true,
+        "reason": "Source inconsistencies remain manual: Cave/Poison Bat Screech says stuns but applies staggered; Flying Killer lists evasion at advancement but then describes Improved Evasion; Blood Sucker ink radius is 20 feet in its stat block but 10 feet in prose; Killer Mantis mandibles damage differs between advancement summary and prose. No conflicting value is selected automatically."
       }
     ]
   },
@@ -1233,8 +1256,2180 @@
       ],
       "rulesText": "* *Class Level:*The character’s beastmaster level. The beastmaster’s class levels stack with levels of any other classes that are entitled to an animal companion for the purpose of determining the companion’s statistics.\n* *HD:* This is the total number of ten-sided (d10) Hit Dice the animal companion possesses, each of which gains a Constitution modifier, as normal. A beastmaster’s animal companion is stronger than most animals.\n* *BAB:* This is the animal companion’s base attack bonus. Animal companions do not gain additional attacks using their natural weapons for a high base attack bonus.\n* *Fort/Ref/Will:* These are the animal companion’s base saving throw bonuses. An animal companion has good Fortitude and Reflex saves.\n* *Skills:* This lists the total skill ranks for the animal companion. Animal companions can assign skill ranks to any skill listed below. If an animal companion increases its Intelligence to 10 or higher, it gains bonus skill ranks as normal. Animal companions with an Intelligence of 3 or higher can purchase ranks in any skill. An animal companion cannot have more ranks in a skill than it has Hit Dice.\n  + Animal companions can have ranks in any of the following skills: Acrobatics\\* (Dex), Climb\\* (Str), Escape Artist (Dex), Fly\\* (Dex), Intimidate (Cha), Perception\\* (Wis), Stealth\\* (Dex), Survival (Wis), and Swim\\* (Str). All of the skills marked with an (\\*) are class skills for animal companions. Animal companions with an Intelligence of 3 or higher can put ranks into any skill.\n* *Feats:* This is the total number of feats possessed by an animal companion. Animal companions should select their feats from those listed below. Animal companions can select other feats, although they are unable to utilize some feats (such as Martial Weapon Proficiency).\n  + Animal companions can select from the following feats: Acrobatic, Agile Maneuvers, Armor Proficiency (light, medium, and heavy), Athletic, Blind-Fight, Combat Reflexes, Diehard, Dodge, Endurance, Great Fortitude, Improved Bull Rush, Improved Initiative, Improved Natural Armor, Improved Natural Attack, Improved Overrun, Intimidating Prowess, Iron Will, Lightning Reflexes, Mobility, Power Attack, Run, Skill Focus, Spring Attack, Stealthy, Toughness, Weapon Finesse, and Weapon Focus. Animal companions with an Intelligence of 3 or higher can select any feat they are physically capable of using. GMs might expand this list to include feats from other sources.\n* *Natural Armor Bonus:* The number noted here is an improvement to the animal companion’s existing natural armor bonus.\n* *Str/Dex Bonus:* Add this value to the animal companion’s Strength and Dexterity scores.\n* *Bonus Tricks:* The value given in this column is the total number of “bonus” tricks that the animal knows in addition to any that the beastmaster might choose to teach it (see the Handle Animal skill). These bonus tricks don’t require any training time or Handle Animal checks, and they don’t count against the normal limit of tricks known by the animal. The beastmaster selects these bonus tricks, and once selected, they can’t be changed.\n\n*Special:* This includes a number of abilities gained by all animal companions as they increase in power. Each of these bonuses is described below.\n\n* *Link ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A beastmaster can handle his companion as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), or push it as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), even if he doesn’t have any ranks in the Handle Animal skill. The beastmaster gains a +4 competence bonus on all wild empathy checks and Handle Animal checks made regarding the animal companion.\n* *Magic Attacks ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The animal companion treats its natural attacks as if they were magic for the purposes of overcoming damage reduction. If the beastmaster is 10th level or higher, all of the animal companion’s natural weapons are treated as the alignment of the beastmaster for the purpose of overcoming damage reduction.\n* *Shared Senses ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* When within 30 feet of their animal companion, the beastmaster can select one of its senses as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to gain for 1 minute. If the beastmaster already has the same sense, he increases his by half of what his companion has. The beastmaster can share its companion’s senses a number of times per day equal to his Wisdom modifier.\n* *Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* If the animal companion is subjected to an attack that normally allows a Reflex saving throw for half damage, it takes no damage if it makes a successful saving throw.\n* *Devotion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The animal companion gains a +4 morale bonus on Will saves against enfeebling spells and effects.\n* *Ability Score Increase ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The animal companion adds +1 to any one of its ability scores.\n* *Multiattack:* The animal companion gains Multiattack as a bonus feat if it has three or more natural attacks and does not already have this feat. If it does not have the requisite three or more attacks, the companion instead gains a second attack with its primary natural weapon, albeit at a –5 penalty.\n* *Improved Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* When subjected to an attack that normally allows a Reflex saving throw for half damage, the animal companion takes no damage if it makes a successful saving throw and half damage if the saving throw fails.\n* *Blood Bond ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* After a beastmaster has achieved 18th level, the bond between him and his companion grows so strong that the companion gains a +2 bonus on all attack rolls, checks and saves if it witnesses the beastmaster being threatened or harmed. This bonus lasts as long as the threat is immediate and apparent.\n\nThe [ambusher](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/ambusher-companion-archetype/), [bully](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/bully-companion-archetype/), [daredevil](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/daredevil-companion-archetype/), [precocious companion](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/precocious-companion-archetype/), [tracker](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/tracker-companion-archetype/), [verdant companion](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/verdant-companion-archetype/), and [wrecker archetypes](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/wrecker-companion-archetype/) are all particularly appropriate for the beastmaster’s animal companion. These archetypes replace shared senses, if applicable, instead of shared spells.",
       "speciesSourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/animal-companions/",
-      "speciesStatus": "pending-source-review",
-      "automation": "none"
+      "speciesStatus": "staged-source-only",
+      "automation": "none",
+      "speciesSourceRules": "An animal companion’s abilities are determined by the beastmaster’s level and its animal racial traits.\n\nEach animal companion has different starting sizes, speed, attacks, ability scores, and special qualities. All animal attacks are made using the creature’s full [base attack bonus](https://www.d20pfsrd.com/gamemastering/combat#TOC-Attack-Bonus) unless otherwise noted. Animal attacks add the animal’s [Strength](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Strength-Str-) modifier to the damage roll, unless it is its only attack, in which case it adds 1-1/2 its [Strength](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Strength-Str-) modifier. Some have special abilities, such as [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent). As you gain levels, your animal companion improves as well, usually at 4th or 7th level, in addition to the standard bonuses noted on **Table: Animal Companion Base Statistics**. Instead of taking the listed benefit at 4th or 7th level, you can instead choose to increase the companion’s [Dexterity](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Dexterity-Dex-) and [Constitution](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-) by 2.",
+      "speciesGroups": [
+        {
+          "id": "animal",
+          "name": "Animal Companions",
+          "requirements": {
+            "requiredFeatNames": [],
+            "requiredRaceIds": [],
+            "requiredArchetypeIds": [],
+            "masteryRequiredFeatNames": []
+          },
+          "rulesText": "An animal companion’s abilities are determined by the beastmaster’s level and its animal racial traits.\n\nEach animal companion has different starting sizes, speed, attacks, ability scores, and special qualities. All animal attacks are made using the creature’s full [base attack bonus](https://www.d20pfsrd.com/gamemastering/combat#TOC-Attack-Bonus) unless otherwise noted. Animal attacks add the animal’s [Strength](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Strength-Str-) modifier to the damage roll, unless it is its only attack, in which case it adds 1-1/2 its [Strength](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Strength-Str-) modifier. Some have special abilities, such as [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent). As you gain levels, your animal companion improves as well, usually at 4th or 7th level, in addition to the standard bonuses noted on **Table: Animal Companion Base Statistics**. Instead of taking the listed benefit at 4th or 7th level, you can instead choose to increase the companion’s [Dexterity](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Dexterity-Dex-) and [Constitution](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-) by 2.",
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Animal Companions",
+              "locator": "animal-companions"
+            }
+          ]
+        },
+        {
+          "id": "magical-beast",
+          "name": "Magical Beast Companions",
+          "requirements": {
+            "requiredFeatNames": [
+              "Beast Speaker"
+            ],
+            "requiredRaceIds": [],
+            "requiredArchetypeIds": [],
+            "masteryRequiredFeatNames": [
+              "Beast Speaker Mastery"
+            ]
+          },
+          "rulesText": "The following creatures can be chosen as beast companions by a character with [the Beast Speaker feat](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/). Their entries and advancement are the same as for [animal companions](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions), with two exceptions. First, creatures with an [Intelligence](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Intelligence-Int-) score of 3 or higher have one or more additional prerequisites the character must meet to select the companion. Second, each beast companion has a mastery ability that it can use only if the character it is bonded to has the [Beast Speaker Mastery feat](https://www.d20pfsrd.com/feats/general-feats/beast-speaker-mastery/). The minimum level to gain this ability is listed in parentheses. The save DC for any of a beast companion’s special abilities is 10 + half the beast companion’s HD + the beast companion’s [Constitution](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-) modifier.",
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Magical Beast Companions",
+              "locator": "magical-beast-companions"
+            }
+          ]
+        },
+        {
+          "id": "plant",
+          "name": "Plant Companions",
+          "requirements": {
+            "requiredFeatNames": [],
+            "requiredRaceIds": [
+              "ffd20:race:mandragora"
+            ],
+            "requiredArchetypeIds": [
+              "ffd20:archetype:beastmaster:tree-guardian"
+            ],
+            "masteryRequiredFeatNames": []
+          },
+          "rulesText": "**Prerequisite(s)** To gain a plant companion, the beastmaster must be an mandragora and possess the [tree guardian archetype](https://www.finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tree-guardian/).\n\nEach plant companion has different starting sizes, speed, attacks, ability scores, and special qualities. All plant attacks are made using the creature’s full [base attack bonus](https://www.d20pfsrd.com/gamemastering/combat#TOC-Attack-Bonus) unless otherwise noted. Plant attacks add the [plant’s](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Plant) [Strength](https://www.d20pfsrd.com/classes/core-classes/cleric/domains/paizo-domains/strength-domain) modifier on the damage roll, unless it has only one attack, in which case it adds 1-1/2 times its [Strength](https://www.d20pfsrd.com/classes/core-classes/cleric/domains/paizo-domains/strength-domain) modifier. Some plant companions have special abilities, such as [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent). Plant companions cannot gain armor or weapon proficiency feats, even as they advance in hit dice, and cannot use manufactured weapons at all unless their description says otherwise.\n\nAs you gain levels, your plant companion grows in power as well. It gains the same bonuses that are gained by [animal companions](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companions), noted on **Table: Animal Companion Base Statistics**. Each plant companion gains an additional bonus, usually at 4th or 7th level, as listed with each plant choice. Instead of taking the listed benefit at 4th level, you can instead choose to increase the companion’s [Strength](https://www.d20pfsrd.com/classes/core-classes/cleric/domains/paizo-domains/strength-domain) and [Constitution](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-) by 2.",
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Plant Companions",
+              "locator": "plant-companions"
+            }
+          ]
+        },
+        {
+          "id": "vermin",
+          "name": "Vermin Companions",
+          "requirements": {
+            "requiredFeatNames": [],
+            "requiredRaceIds": [],
+            "requiredArchetypeIds": [],
+            "masteryRequiredFeatNames": []
+          },
+          "rulesText": "Vermin companions follow the same rules as animal companions, advancing their [Hit Dice](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Hit-Dice-HD-) and other abilities per Table: Animal Companion Base Statistics. Vermin companions can be trained as if they were [animals](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Animal) using the [Handle Animal](https://www.d20pfsrd.com/skills/handle-animal) skill.\n\n**Mindless**: [Vermin](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Vermin) companions have no [Intelligence](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Intelligence-Int-) score and possess the mindless trait. In spite of this, vermin companions may learn one trick, plus additional bonus tricks as noted on Table: Animal Companion Base Statistics. If a [vermin](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Vermin) animal companion gains an ability score increase (at 4 [Hit Dice](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Hit-Dice-HD-), 8 [Hit Dice](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Hit-Dice-HD-), and so on), the [druid](https://www.d20pfsrd.com/classes/core-classes/druid) can apply this increase to the companion’s [Intelligence](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Intelligence-Int-), changing it from — to 1, at which point the companion loses the mindless quality and is able to know up to 3 tricks per point of [Intelligence](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Intelligence-Int-), plus the additional bonus tricks, as per [Handle Animal](https://www.d20pfsrd.com/skills/handle-animal). [Vermin](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Vermin) companions have no skill points or feats as long as they have the mindless quality.\n\n**Trip**: Because many vermin have multiple limbs, they are very difficult to [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip). As a result, a [CMD](https://www.d20pfsrd.com/gamemastering/combat#TOC-Combat-Maneuver-Defense) entry has been included for each, indicating the bonus to [CMD](https://www.d20pfsrd.com/gamemastering/combat#TOC-Combat-Maneuver-Defense) such vermin receive against [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) attacks.",
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Vermin Companions",
+              "locator": "vermin-companions"
+            }
+          ]
+        }
+      ],
+      "species": [
+        {
+          "id": "ffd20:class:beastmaster:companion:bat-cave-avian",
+          "name": "Bat, Cave (Avian)",
+          "groupId": "animal",
+          "sourceOrder": 1,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 20
+              },
+              {
+                "mode": "fly",
+                "feet": 40,
+                "maneuverability": "good"
+              }
+            ],
+            "naturalArmorBonus": null,
+            "attacksText": "bite (1d4)",
+            "scores": {
+              "str": 10,
+              "dex": 15,
+              "con": 8,
+              "int": 2,
+              "wis": 14,
+              "cha": 5
+            },
+            "mindless": false,
+            "sourceText": "**Size** Small; **Speed** 20 ft., fly 40 ft. (good); **Attack** bite (1d4); **Ability Scores** **Str** 10, **Dex** 15, **Con** 8, **Int** 2, **Wis** 14, **Cha** 5; **Special Attacks:** Critical Attack, Screech (1/day); **Special Qualities** [blindsense](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Blindsense-Ex-) 20 ft., low-light vision"
+          },
+          "startingRules": "**Size** Small; **Speed** 20 ft., fly 40 ft. (good); **Attack** bite (1d4); **Ability Scores** **Str** 10, **Dex** 15, **Con** 8, **Int** 2, **Wis** 14, **Cha** 5; **Special Attacks:** Critical Attack, Screech (1/day); **Special Qualities** [blindsense](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Blindsense-Ex-) 20 ft., low-light vision\n\n**Critical Attack ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the cave bat can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d4 x 1.5 for total damage.\n\n**Screech ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a cave bat can produce an ear-splitting screech that stuns non-bats in a 20-foot-radius burst. All creatures within the area must make a Fortitude save or be staggered for 1d3 rounds. Other bats are immune to this effect. This is a sonic mind-affecting effect. The save DC is Constitution-based.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Medium; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8); **Ability Scores** **Str** +4, **Dex** –2, **Con** +2. **Special Attacks:** Critical Attack (1d4 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Bat, Cave (Avian)",
+                  "locator": "bat-cave-avian-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Bat, Cave (Avian)",
+              "locator": "bat-cave-avian"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:bear",
+          "name": "Bear",
+          "groupId": "animal",
+          "sourceOrder": 2,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 40
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (1d4), 2 claws (1d3)",
+            "scores": {
+              "str": 15,
+              "dex": 15,
+              "con": 13,
+              "int": 2,
+              "wis": 12,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size** Small; **Speed** 40 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d4), 2 claws (1d3); **Ability Scores** **Str** 15, **Dex** 15, **Con** 13, **Int** 2, **Wis** 12, **Cha** 6; **Special Attacks:** Critical Attack; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Small; **Speed** 40 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d4), 2 claws (1d3); **Ability Scores** **Str** 15, **Dex** 15, **Con** 13, **Int** 2, **Wis** 12, **Cha** 6; **Special Attacks:** Critical Attack; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Critical Attack ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the bear can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d4 x 1.5 for total damage.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Medium; **Attack** bite (1d6), 2 claws (1d4); **Ability Scores** **Str** +4, **Dex** –2, **Con** +2. **Special Attacks:** Critical Attack (1d4 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Bear",
+                  "locator": "bear-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Bear",
+              "locator": "bear"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:bear-grizzly",
+          "name": "Bear, Grizzly",
+          "groupId": "animal",
+          "sourceOrder": 3,
+          "starterLevel": 2,
+          "entryPrerequisitesText": "",
+          "introduction": "The infamous grizzly [bear](https://www.d20pfsrd.com/bestiary/monster-listings/animals/bear) is a lumbering and quite impressive companion, particularly when it rises up on its hind feet to loom large. Grizzly [bears](https://www.d20pfsrd.com/bestiary/monster-listings/animals/bear) strike fear into the hearts of most who encounter them.",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 40
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "bite (1d6), 2 claws (1d4)",
+            "scores": {
+              "str": 17,
+              "dex": 13,
+              "con": 13,
+              "int": 2,
+              "wis": 13,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** 40 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6), 2 claws (1d4); **Ability Scores** **Str** 17, **Dex** 13, **Con** 13, **Int** 2, **Wis** 13, **Cha** 6; **Special Attacks:** Critical Attack; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Medium; **Speed** 40 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6), 2 claws (1d4); **Ability Scores** **Str** 17, **Dex** 13, **Con** 13, **Int** 2, **Wis** 13, **Cha** 6; **Special Attacks:** Critical Attack; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Critical Attack ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the grizzly bear can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d6 x 1.5 for total damage.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8), 2 claws (1d6 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** +4, **Dex** –2, **Con** +4. **Special Attacks:** Critical Attack (1d4 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Bear, Grizzly",
+                  "locator": "bear-grizzly-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Bear, Grizzly",
+              "locator": "bear-grizzly"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:chocobo-gray",
+          "name": "Chocobo, Gray",
+          "groupId": "animal",
+          "sourceOrder": 4,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 60
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (1d8), claw (1d6)",
+            "scores": {
+              "str": 15,
+              "dex": 14,
+              "con": 16,
+              "int": 2,
+              "wis": 12,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size:** Large; **Speed:** 60 ft.; **AC:** +2 natural armor; **Attack:** bite (1d8), claw (1d6); **Ability Scores:** Str 15, Dex 14, Con 16, Int 2, Wis 12, Cha 6; **Special Attacks:** Critical Attack; **Special Qualities:** darkvision 60 ft., scent."
+          },
+          "startingRules": "**Size:** Large; **Speed:** 60 ft.; **AC:** +2 natural armor; **Attack:** bite (1d8), claw (1d6); **Ability Scores:** Str 15, Dex 14, Con 16, Int 2, Wis 12, Cha 6; **Special Attacks:** Critical Attack; **Special Qualities:** darkvision 60 ft., scent.\n\n**Critical Attack ([Ex](https://web.archive.org/web/20220706224325/https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://web.archive.org/web/20220706224325/https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the gray chocobo can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d8 x 1.5 for total damage.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4TH-LEVEL ADVANCEMENT",
+              "description": "Check *Orange Chocobo* below.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Chocobo, Gray",
+                  "locator": "chocobo-gray-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Chocobo, Gray",
+              "locator": "chocobo-gray"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:chocobo-orange",
+          "name": "Chocobo, Orange",
+          "groupId": "animal",
+          "sourceOrder": 5,
+          "starterLevel": 4,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 60
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (1d8), claw (1d6)",
+            "scores": {
+              "str": 17,
+              "dex": 16,
+              "con": 16,
+              "int": 2,
+              "wis": 14,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size:** Large; **Speed:** 60 ft.; **AC:** +2 natural armor; **Attack:** bite (1d8), claw (1d6); **Ability Scores:** Str 17, Dex 16, Con 16, Int 2, Wis 14, Cha 6; **Special Attacks:** Critical Attack; **Special Qualities:** darkvision 60 ft., scent."
+          },
+          "startingRules": "**Size:** Large; **Speed:** 60 ft.; **AC:** +2 natural armor; **Attack:** bite (1d8), claw (1d6); **Ability Scores:** Str 17, Dex 16, Con 16, Int 2, Wis 14, Cha 6; **Special Attacks:** Critical Attack; **Special Qualities:** darkvision 60 ft., scent.\n\n**Critical Attack ([Ex](https://web.archive.org/web/20220706224325/https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce every 1d4 rounds, the orange chocobo can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d8 x 1.5 for total damage.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 8,
+              "sourceHeading": "8TH-LEVEL ADVANCEMENT",
+              "description": "Check *Bronze Chocobo* below.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Chocobo, Orange",
+                  "locator": "chocobo-orange-advancement-8"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Chocobo, Orange",
+              "locator": "chocobo-orange"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:chocobo-bronze",
+          "name": "Chocobo, Bronze",
+          "groupId": "animal",
+          "sourceOrder": 6,
+          "starterLevel": 8,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 60
+              }
+            ],
+            "naturalArmorBonus": 4,
+            "attacksText": "bite (1d8), claw (1d6)",
+            "scores": {
+              "str": 19,
+              "dex": 18,
+              "con": 16,
+              "int": 2,
+              "wis": 14,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size:** Large; **Speed:** 60 ft.; **AC:** +4 natural armor; **Attack:** bite (1d8), claw (1d6); **Ability Scores:** Str 19, Dex 18, Con 16, Int 2, Wis 14, Cha 6; **Special Attacks:** Critical Attack; **Special Qualities:** darkvision 60 ft., scent."
+          },
+          "startingRules": "**Size:** Large; **Speed:** 60 ft.; **AC:** +4 natural armor; **Attack:** bite (1d8), claw (1d6); **Ability Scores:** Str 19, Dex 18, Con 16, Int 2, Wis 14, Cha 6; **Special Attacks:** Critical Attack; **Special Qualities:** darkvision 60 ft., scent.\n\n**Critical Attack ([Ex](https://web.archive.org/web/20220706224325/https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce every 1d2 rounds, the bronze chocobo can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d8 x 1.5 for total damage.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 12,
+              "sourceHeading": "12TH-LEVEL ADVANCEMENT",
+              "description": "Check*Teal Chocobo* below.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Chocobo, Bronze",
+                  "locator": "chocobo-bronze-advancement-12"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Chocobo, Bronze",
+              "locator": "chocobo-bronze"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:chocobo-teal",
+          "name": "Chocobo, Teal",
+          "groupId": "animal",
+          "sourceOrder": 7,
+          "starterLevel": 12,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 60
+              }
+            ],
+            "naturalArmorBonus": 4,
+            "attacksText": "bite (1d8), claw (1d6)",
+            "scores": {
+              "str": 21,
+              "dex": 16,
+              "con": 16,
+              "int": 2,
+              "wis": 16,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size:** Large; **Speed:** 60 ft.; **AC:** +4 natural armor; **Attack:** bite (1d8), claw (1d6); **Ability Scores:** Str 21, Dex 16, Con 16, Int 2, Wis 16, Cha 6; **Special Attacks:** Critical Attack; **Special Qualities:** darkvision 60 ft., scent."
+          },
+          "startingRules": "**Size:** Large; **Speed:** 60 ft.; **AC:** +4 natural armor; **Attack:** bite (1d8), claw (1d6); **Ability Scores:** Str 21, Dex 16, Con 16, Int 2, Wis 16, Cha 6; **Special Attacks:** Critical Attack; **Special Qualities:** darkvision 60 ft., scent.\n\n**Critical Attack ([Ex](https://web.archive.org/web/20220706224325/https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nThe teal chocobo can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d8 x 1.5 for total damage.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 16,
+              "sourceHeading": "16TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +2 natural armor; **Ability Scores** Str +2, Dex +2, Con +2.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Chocobo, Teal",
+                  "locator": "chocobo-teal-advancement-16"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Chocobo, Teal",
+              "locator": "chocobo-teal"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:flying-killer",
+          "name": "Flying Killer",
+          "groupId": "animal",
+          "sourceOrder": 8,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 30
+              },
+              {
+                "mode": "fly",
+                "feet": 60,
+                "maneuverability": "good"
+              }
+            ],
+            "naturalArmorBonus": null,
+            "attacksText": "2 claws (1d4), bite (1d6)",
+            "scores": {
+              "str": 10,
+              "dex": 17,
+              "con": 12,
+              "int": 2,
+              "wis": 14,
+              "cha": 7
+            },
+            "mindless": false,
+            "sourceText": "**Size** Small; **Speed** 30 ft., Fly 60 ft. (good); **Attack** 2 claws (1d4), bite (1d6); **Ability Scores** **Str** 10, **Dex** 17, **Con** 12, **Int** 2, **Wis** 14, **Cha** 7; **Racial Modifiers** Climb +4, Fly +4; **Special Attacks:** Cat Scratch; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Small; **Speed** 30 ft., Fly 60 ft. (good); **Attack** 2 claws (1d4), bite (1d6); **Ability Scores** **Str** 10, **Dex** 17, **Con** 12, **Int** 2, **Wis** 14, **Cha** 7; **Racial Modifiers** Climb +4, Fly +4; **Special Attacks:** Cat Scratch; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n#### Cat Scratch ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a flying killer can claw twice in an arc hitting all enemies within a 15-ft.-cone doing 1d4+ Dexterity Modifier per claw if they hit.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Medium; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6), bite (1d8); **Ability Scores** **Str** +4, **Dex** –2, **Con** +2. **Special Attacks:** Cat Scratch (1d4 rounds); **Special Qualities** evasion;\n\n#### Improved Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nThis works like evasion, except that while the flying killer still takes no damage on a successful [Reflex](https://www.d20pfsrd.com/gamemastering/combat#TOC-Reflex) saving throw against attacks, she henceforth takes only half damage on a failed save. A [helpless](https://www.d20pfsrd.com/gamemastering/conditions#TOC-Helpless) flying killer does not gain the benefit of improved evasion.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Flying Killer",
+                  "locator": "flying-killer-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Flying Killer",
+              "locator": "flying-killer"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:guard-hound",
+          "name": "Guard Hound",
+          "groupId": "animal",
+          "sourceOrder": 9,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 40
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (1d6 plus trip), tentacle (1d4)",
+            "scores": {
+              "str": 14,
+              "dex": 15,
+              "con": 15,
+              "int": 2,
+              "wis": 12,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** 40 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6 plus trip), tentacle (1d4); **Ability Scores** **Str** 14, **Dex** 15, **Con** 15, **Int** 2, **Wis** 12, **Cha** 6; **Special Attacks** Whip Lash; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Medium; **Speed** 40 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6 plus trip), tentacle (1d4); **Ability Scores** **Str** 14, **Dex** 15, **Con** 15, **Int** 2, **Wis** 12, **Cha** 6; **Special Attacks** Whip Lash; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Whip Lash ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce every 1d4+1 rounds as part of a full attack, a guard hound can do a tentacle lash with a minor jolt. If he hits at a +2 bonus to hit, the target must make a Fortitude save (DC 10 + half of the guard hound’s hit dice + its Constitution modifier) to negate the stun status for 1 round.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8 plus trip), tentacle (1d6); **Ability Scores** **Str** +6, **Dex** -2; **Con** +4; **SQ** tentacle mastery.\n\n**Tentacle Mastery ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nGuard hounds are very skilled at using their tentacle and use it as it were a primary attack.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Guard Hound",
+                  "locator": "guard-hound-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Guard Hound",
+              "locator": "guard-hound"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:piranha-aquatic",
+          "name": "Piranha (Aquatic)",
+          "groupId": "animal",
+          "sourceOrder": 10,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "swim",
+                "feet": 60
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "bite (1d4 plus bleed)",
+            "scores": {
+              "str": 12,
+              "dex": 17,
+              "con": 13,
+              "int": 2,
+              "wis": 12,
+              "cha": 2
+            },
+            "mindless": false,
+            "sourceText": "**Size** Small; **Speed** swim 60 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d4 plus bleed); **Ability Scores** **Str** 12, **Dex** 17, **Con** 13, **Int** 2, **Wis** 12, **Cha** 2; **Special Attacks** Crunch (1/day), Blood Craze, Bleed (1d2); **Special Qualities** [aquatic](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Aquatic), blindsense 30 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), keen scent."
+          },
+          "startingRules": "**Size** Small; **Speed** swim 60 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d4 plus bleed); **Ability Scores** **Str** 12, **Dex** 17, **Con** 13, **Int** 2, **Wis** 12, **Cha** 2; **Special Attacks** Crunch (1/day), Blood Craze, Bleed (1d2); **Special Qualities** [aquatic](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Aquatic), blindsense 30 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), keen scent.\n\n#### **Crunch ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\n1/day as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the piranha can bite an additional time while tearing some flesh from their opponent. If they succeed at hitting with their bite attack, the damage is 1d6+1 plus 1d4 bleed per round for 2 rounds.\n\n#### **Blood Craze ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nWhenever a piranha confirms a critical hit, they gain +2 bonus to their Dexterity for 4 rounds. This bonus can stack (max +4). This can be refreshed.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6 plus bleed); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2; **Special Attacks** Crunch (1d4 rounds, Bleed (1d4); **Special Qualities** Iron Teeth.\n\n#### **Iron Teeth ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nA piranha increases their bite attack by 1 size and critical chance to 19-20.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Piranha (Aquatic)",
+                  "locator": "piranha-aquatic-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Piranha (Aquatic)",
+              "locator": "piranha-aquatic"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:rat-wild",
+          "name": "Rat, Wild",
+          "groupId": "animal",
+          "sourceOrder": 11,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 40
+              },
+              {
+                "mode": "climb",
+                "feet": 20
+              },
+              {
+                "mode": "swim",
+                "feet": 20
+              }
+            ],
+            "naturalArmorBonus": null,
+            "attacksText": "bite (1d4)",
+            "scores": {
+              "str": 12,
+              "dex": 17,
+              "con": 14,
+              "int": 2,
+              "wis": 14,
+              "cha": 4
+            },
+            "mindless": false,
+            "sourceText": "**Size** Small; **Speed** 40 ft., climb 20 ft., swim 20 ft.; **Attack** bite (1d4); **Ability Scores** **Str** 12, **Dex** 17, **Con** 14, **Int** 2, **Wis** 14, **Cha** 4; **Special Attacks:** Critical Attack; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Small; **Speed** 40 ft., climb 20 ft., swim 20 ft.; **Attack** bite (1d4); **Ability Scores** **Str** 12, **Dex** 17, **Con** 14, **Int** 2, **Wis** 14, **Cha** 4; **Special Attacks:** Critical Attack; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Critical Attack ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the wild rat can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d4 x 1.5 for total damage.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4TH-LEVEL ADVANCEMENT",
+              "description": "**Attack** bite (1d4 plus [disease](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Diseases) [*filth fever*: *onset* 1d3 days; *frequency* 1/day; *effect* 1d3 [Dex](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Dexterity-Dex-) damage and 1d3 [Con](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-) damage; *cure* 2 consecutive saves, Con-based DC]); **Ability Scores** **Str** +2, **Con** +2. **Special Attacks:** Critical Attack (1d4 rounds);",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Rat, Wild",
+                  "locator": "rat-wild-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Rat, Wild",
+              "locator": "rat-wild"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:sabertusk",
+          "name": "Sabertusk",
+          "groupId": "animal",
+          "sourceOrder": 12,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 40
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "2 claws (1d4 plus grab), gore (1d6 plus trip when charging)",
+            "scores": {
+              "str": 14,
+              "dex": 15,
+              "con": 13,
+              "int": 2,
+              "wis": 12,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** 40 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d4 plus grab), gore (1d6 plus trip when charging); **Ability Scores** **Str** 14, **Dex** 15, **Con** 13, **Int** 2, **Wis** 12, **Cha** 6; **Racial Modifiers** +4 Perception, +4 Survival when tracking by scent; **Special Attacks:** Powerful Charge, Rake (2 claws +attack bonus, 1d6+ str mod); **Special Qualities** darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Medium; **Speed** 40 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d4 plus grab), gore (1d6 plus trip when charging); **Ability Scores** **Str** 14, **Dex** 15, **Con** 13, **Int** 2, **Wis** 12, **Cha** 6; **Racial Modifiers** +4 Perception, +4 Survival when tracking by scent; **Special Attacks:** Powerful Charge, Rake (2 claws +attack bonus, 1d6+ str mod); **Special Qualities** darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n#### Powerful Charge ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA sabertusk, when it makes a charge attack, it deals double damage with its gore attack and gains a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) to do a trip combat maneuver. On a failed combat maneuver check, the sabertusk is not tripped in return. This ability works only on creatures of a size equal to or smaller than the sabertusk.\n\n#### Rake ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nSabertusk gains extra natural attacks under certain conditions, typically when it grapples its foe. In addition to the options available to all grapplers, sabertusk with the rake ability gains two free claw attacks that it can use only against a [grappled](https://www.d20pfsrd.com/gamemastering/conditions#TOC-Grappled) foe. The bonus and damage caused by these attacks is included in the creature’s description. A sabertusk’s rake ability must begin its turn already [grappling](https://www.d20pfsrd.com/gamemastering/combat#TOC-Grapple) to use its rake—it can’t begin a [grapple](https://www.d20pfsrd.com/gamemastering/combat#TOC-Grapple) and rake in the same turn.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6 plus grab), gore (1d8 plus trip when charging); **Ability Scores** **Str** +4, **Dex** –2, **Con** +2. **Special Attacks:** Pounce, Throat-Rip (1/day); **Special Qualities [blindsense](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Blindsight-and-Blindsense) 30 ft.**\n\n#### Pounce ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA sabertusk can make a full attack when it makes a charge attack.\n\n#### Throat-Rip ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\n1/day as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), a sabertusk can deliver a coup de grace against a helpless opponent. If the victim survives the attack, he must succeed on a Fortitude save (DC 10 + half of damage dealt from gore) or dies. Opponents killed in this manner cannot be raised, but Arise, Full-Life, or the like can restore the slain creature to life.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Sabertusk",
+                  "locator": "sabertusk-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Sabertusk",
+              "locator": "sabertusk"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:shark-aquatic",
+          "name": "Shark (Aquatic)",
+          "groupId": "animal",
+          "sourceOrder": 13,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "swim",
+                "feet": 60
+              }
+            ],
+            "naturalArmorBonus": 4,
+            "attacksText": "bite (1d6)",
+            "scores": {
+              "str": 17,
+              "dex": 13,
+              "con": 16,
+              "int": 2,
+              "wis": 12,
+              "cha": 2
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** swim 60 ft.; **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6); **Ability Scores** **Str** 17, **Dex** 13, **Con** 16, **Int** 2, **Wis** 12, **Cha** 2; **Special Attacks:** Crunch (1/day) and Reteeth; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Medium; **Speed** swim 60 ft.; **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6); **Ability Scores** **Str** 17, **Dex** 13, **Con** 16, **Int** 2, **Wis** 12, **Cha** 2; **Special Attacks:** Crunch (1/day) and Reteeth; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Crunch ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the shark can bite an additional time while tearing some flesh from their opponent. If they succeed at hitting with their bite attack, the damage is 1d6 plus 1d4 bleed per round for Con mod rounds.\n\n**Reteethe ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nWhenever a shark succeeds on a critical they gain +2 temporary strength bonus (max +4) for 4 rounds.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8); **Ability Scores** **Str** +8, **Dex** –2, **Con** +4. **Special Attacks:** Crunch (1d4 rounds); **Special Qualities [blindsense](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Blindsight-and-Blindsense) 30 ft.**",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Shark (Aquatic)",
+                  "locator": "shark-aquatic-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Shark (Aquatic)",
+              "locator": "shark-aquatic"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:vulture-avian",
+          "name": "Vulture (Avian)",
+          "groupId": "animal",
+          "sourceOrder": 14,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 10
+              },
+              {
+                "mode": "fly",
+                "feet": 50,
+                "maneuverability": "average"
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "bite (1d6)",
+            "scores": {
+              "str": 14,
+              "dex": 13,
+              "con": 14,
+              "int": 2,
+              "wis": 14,
+              "cha": 7
+            },
+            "mindless": false,
+            "sourceText": "**Size:** Small; **Speed:** 10 ft., Fly 50 ft. (average); **AC:** +1 natural armor; **Attack:** bite (1d6); **Ability Scores:** Str 14, Dex 13, Con 14, Int 2, Wis 14, Cha 7; **Special Attacks:** Blinder; **Special Qualities:** Low-light vision, +4 vs. disease"
+          },
+          "startingRules": "**Size:** Small; **Speed:** 10 ft., Fly 50 ft. (average); **AC:** +1 natural armor; **Attack:** bite (1d6); **Ability Scores:** Str 14, Dex 13, Con 14, Int 2, Wis 14, Cha 7; **Special Attacks:** Blinder; **Special Qualities:** Low-light vision, +4 vs. disease\n\n#### Blinder ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nOnce every 1d4 rounds, a vulture can make an attempt to blind an opponent with their bite, if he hits, their target must make a Fortitude save or be blind for 1d2 rounds.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4th-Level Advancement",
+              "description": "**Ability Scores** **Str** +2, **Con** +2. **Special Attacks:** Blinder (1d3 rounds);",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Vulture (Avian)",
+                  "locator": "vulture-avian-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Vulture (Avian)",
+              "locator": "vulture-avian"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:wolf",
+          "name": "Wolf",
+          "groupId": "animal",
+          "sourceOrder": 15,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 50
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (1d6 plus trip)",
+            "scores": {
+              "str": 13,
+              "dex": 15,
+              "con": 15,
+              "int": 2,
+              "wis": 12,
+              "cha": 6
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** 50 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6 plus [trip](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Trip-Ex-)); **Ability Scores** **Str** 13, **Dex** 15, **Con** 15, **Int** 2, **Wis** 12, **Cha** 6; **Special Attacks:** Crunch; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Medium; **Speed** 50 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6 plus [trip](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Trip-Ex-)); **Ability Scores** **Str** 13, **Dex** 15, **Con** 15, **Int** 2, **Wis** 12, **Cha** 6; **Special Attacks:** Crunch; **Special Qualities** [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Crunch ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce every 1d4 rounds as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the wolf can bite an additional time while tearing some flesh from their opponent. If they succeed at hitting with their bite attack, the damage is 1d6 plus 1d4 bleed per round for 2 rounds.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8 plus [trip](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Trip-Ex-)); **Ability Scores** **Str** +8, **Dex** –2, **Con** +4. **Special Attacks:** Crunch (1d4 rounds);",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Wolf",
+                  "locator": "wolf-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Wolf",
+              "locator": "wolf"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:bat-poison-avian",
+          "name": "Bat, Poison (Avian)",
+          "groupId": "magical-beast",
+          "sourceOrder": 16,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 20
+              },
+              {
+                "mode": "fly",
+                "feet": 40,
+                "maneuverability": "good"
+              }
+            ],
+            "naturalArmorBonus": null,
+            "attacksText": "bite (1d6 plus poison)",
+            "scores": {
+              "str": 14,
+              "dex": 16,
+              "con": 10,
+              "int": 2,
+              "wis": 16,
+              "cha": 5
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** 20 ft., fly 40 ft. (good); **Attack** bite (1d6 plus poison); **Ability Scores** **Str** 14, **Dex** 16, **Con** 10, **Int** 2, **Wis** 16, **Cha** 5; **Special Attacks:** Blood Drain (1/day), Critical Attack, Poison (frequency 1/round for 3 rounds; effect 1d4 non-elemental damage; cure 1 save. The save DC is Constitution-based), Screech (1/day); **Special Qualities** [blindsense](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Blindsense-Ex-) 30 ft., low-light vision."
+          },
+          "startingRules": "**Size** Medium; **Speed** 20 ft., fly 40 ft. (good); **Attack** bite (1d6 plus poison); **Ability Scores** **Str** 14, **Dex** 16, **Con** 10, **Int** 2, **Wis** 16, **Cha** 5; **Special Attacks:** Blood Drain (1/day), Critical Attack, Poison (frequency 1/round for 3 rounds; effect 1d4 non-elemental damage; cure 1 save. The save DC is Constitution-based), Screech (1/day); **Special Qualities** [blindsense](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Blindsense-Ex-) 30 ft., low-light vision.\n\n**Blood Drain ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\nOnce per day, a poison bat can drain the blood from a target within 30 feet. The target must make a Fortitude save or take 1d8 points of shadow damage and the poison bat is healed for that much. The save DC is Wisdom-based.\n\n**Critical Attack ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the poison bat can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d6 x 1.5 for total damage.\n\n**Screech ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a poison bat can produce an ear-splitting screech that stuns non-bats in a 20-foot-radius burst. All creatures within the area must make a Fortitude save or be staggered for 1d3 rounds. Other bats are immune to this effect. This is a sonic mind-affecting effect. The save DC is Constitution-based.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 9,
+              "sourceHeading": "9TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8); **Ability Scores** **Str** +4, **Dex** –2, **Con** +2. **Special Attacks:** Blood Drain (1d4 rounds), Critical Attack (1d4 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Bat, Poison (Avian)",
+                  "locator": "bat-poison-avian-advancement-9"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 11,
+              "sourceHeading": "Mastery (11TH-LEVEL)",
+              "description": "**Special Attacks:** Blood Drain (1d3 rounds), Critical Attack (1d3 rounds), Leech (1d4 rounds).\n\n#### **Leech ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\nOnce every 1d4 rounds, a poison bat can leech the blood from a target within 30 feet. The target must make a Fortitude save or take 2d6 points of shadow damage and the poison bat is healed for that much.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Bat, Poison (Avian)",
+                  "locator": "bat-poison-avian-mastery-11"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Bat, Poison (Avian)",
+              "locator": "bat-poison-avian"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:behemoth-young",
+          "name": "Behemoth, Young",
+          "groupId": "magical-beast",
+          "sourceOrder": 17,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "**Prerequisite(s):** [Beast Speaker](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/), Diplomacy or Intimidate 7 ranks, Knowledge (arcana) 7 ranks.",
+          "introduction": "**Prerequisite(s):** [Beast Speaker](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/), Diplomacy or Intimidate 7 ranks, Knowledge (arcana) 7 ranks.",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 30
+              }
+            ],
+            "naturalArmorBonus": 4,
+            "attacksText": "2 Claws (1d6), Gore (1d8)",
+            "scores": {
+              "str": 20,
+              "dex": 10,
+              "con": 18,
+              "int": 3,
+              "wis": 12,
+              "cha": 8
+            },
+            "mindless": false,
+            "sourceText": "**Size** Large; **Speed** 30 ft.; **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 Claws (1d6), Gore (1d8); **Ability Scores** **Str** 20, **Dex** 10, **Con** 18, **Int** 3, **Wis** 12, **Cha** 8; **Special Attacks:** Heave (1d4 rounds), Impale, Rock Throw. **Special Qualities** darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Large; **Speed** 30 ft.; **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 Claws (1d6), Gore (1d8); **Ability Scores** **Str** 20, **Dex** 10, **Con** 18, **Int** 3, **Wis** 12, **Cha** 8; **Special Attacks:** Heave (1d4 rounds), Impale, Rock Throw. **Special Qualities** darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Heave ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce every 1d4 rounds, the behemoth can throw a grabbed opponent of Medium or smaller size into the air by making a successful grapple check; once thrown, the opponent takes 2d6 points of falling damage, plus an additional 1d6 points of damage for each size category smaller than Large the opponent is (for example, a Medium-sized creature would be 1 category smaller than Large, & therefore would take 3d6 falling damage); this is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that does not provoke attacks of opportunity\n\n#### Impale ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nWhen charging, a behemoth deals double damage with horns.\n\n#### Rock Throw ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\nOnce every 1d4 rounds, the behemoth throws a huge boulder and hurls it at a foe. Behemoth makes a ranged touch attack roll against a target within 30 feet. If the attack hits, he deals 3d6+6 points of earth damage and the target must make a Fortitude save or be inflicted with Slow status for 1d4 rounds.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 11,
+              "sourceHeading": "11TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2; **Special Attacks** Heave (1d3 rounds)",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Behemoth, Young",
+                  "locator": "behemoth-young-advancement-11"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 13,
+              "sourceHeading": "Mastery (13TH-LEVEL)",
+              "description": "**Special Attacks** Beatdown (once per round), Heave (1d2 rounds).\n\n#### Beatdown ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nOnce per round, whenever struck by a melee attack as a counter-attack, the behemoth will return one claw strike.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Behemoth, Young",
+                  "locator": "behemoth-young-mastery-13"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Behemoth, Young",
+              "locator": "behemoth-young"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:blood-sucker-aquatic",
+          "name": "Blood Sucker (Aquatic)",
+          "groupId": "magical-beast",
+          "sourceOrder": 18,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "This squid-like creature will use their tentacles to suck the life from their foes when low or use ink cloud to escape from their opponents.",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "swim",
+                "feet": 40
+              },
+              {
+                "mode": "jet",
+                "feet": 90
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "bite (1d4), 2 tentacles (1d6 plus grab)",
+            "scores": {
+              "str": 19,
+              "dex": 15,
+              "con": 13,
+              "int": 2,
+              "wis": 12,
+              "cha": 2
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** swim 40 ft., [jet](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Jet-Ex-) 90 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d4), 2 tentacles (1d6 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** 19, **Dex** 15, **Con** 13, **Int** 2, **Wis** 12, **Cha** 2; **Special Attacks** Blood Drain (1/day), Constrict (1d6 plus drain), Water Gun (1/day); **Special Qualities** [aquatic](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Aquatic), [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), ink cloud (20-ft. radius)."
+          },
+          "startingRules": "**Size** Medium; **Speed** swim 40 ft., [jet](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Jet-Ex-) 90 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d4), 2 tentacles (1d6 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** 19, **Dex** 15, **Con** 13, **Int** 2, **Wis** 12, **Cha** 2; **Special Attacks** Blood Drain (1/day), Constrict (1d6 plus drain), Water Gun (1/day); **Special Qualities** [aquatic](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Aquatic), [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), ink cloud (20-ft. radius).\n\n**Blood Drain ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\n1/day, a blood sucker can drain the blood from a target within 30 feet. The target must make a Fortitude save or take 1d8 points of shadow damage and the squid is healed for that much.\n\n**Drain ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nDuring a constriction, the blood sucker can heal half of the damage done from constrict.\n\n**Ink Cloud ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nA blood sucker can emit a 10-foot-radius cloud of ink once per minute as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) while underwater. This cloud provides total concealment. The ink persists for 1 minute.\n\n**Jet ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nA blood sucker can jet in a straight line as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round). It does not provoke attacks of opportunity while jetting.\n\n**Water Gun ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\n1/day, A blood sucker can shoot water out of its mouth towards a single target with an water projectile. The blood sucker must make a ranged touch attack (+5), if it hits, the attack deals 1d6+2 water damage and must make a Fortitude save or be inflicted with the Drenched status effect.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 11,
+              "sourceHeading": "11TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6), 2 tentacles (1d8 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** +4, **Dex** –2, **Con** +4; **Special Attacks** Blood Drain (1d4 rounds), Constrict (1d8 plus drain), Water Gun (1d4 rounds); **Special Qualities** [ink](https://www.d20pfsrd.com/equipment/goods-and-services/books-paper-writing-supplies#TOC-Ink) cloud (20-ft. radius)",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Blood Sucker (Aquatic)",
+                  "locator": "blood-sucker-aquatic-advancement-11"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 13,
+              "sourceHeading": "Mastery (13TH-LEVEL)",
+              "description": "**Special Attacks** Blood Drain (1d2 rounds), Choco Water (1d4 rounds), Water Gun (1d2 rounds);\n\n#### Choco Water ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\nOnce every 1d4 rounds, a blood sucker can blast an opponent with pressured water within 30 ft. The blood sucker must make a ranged touch attack, if it hits, the attack deals 3d6+5 water damage and inflicts the Drenched status effect for 1d4 rounds (Fortitude save to negate).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Blood Sucker (Aquatic)",
+                  "locator": "blood-sucker-aquatic-mastery-13"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Blood Sucker (Aquatic)",
+              "locator": "blood-sucker-aquatic"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:coeurl",
+          "name": "Coeurl",
+          "groupId": "magical-beast",
+          "sourceOrder": 19,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "**Prerequisite(s):** [Beast Speaker](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/), Survival 7 ranks.",
+          "introduction": "**Prerequisite(s):** [Beast Speaker](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/), Survival 7 ranks.",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 40
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "2 claws (1d6 plus grab), bite (1d8 plus grab)",
+            "scores": {
+              "str": 20,
+              "dex": 15,
+              "con": 16,
+              "int": 8,
+              "wis": 12,
+              "cha": 8
+            },
+            "mindless": false,
+            "sourceText": "**Size** Large; **Speed** 40 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6 plus grab), bite (1d8 plus grab); **Ability Scores** **Str** 20, **Dex** 15, **Con** 16, **Int** 8, **Wis** 12, **Cha** 8; **Racial Modifiers** +4 Acrobatics, +4 Stealth (+8 in tall grass); **Special Attacks:** Blaster (1d4 rounds), Pounce, Rake (2 Claws +attack bonus, 1d8+ str mod); **Special Qualities** darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Large; **Speed** 40 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6 plus grab), bite (1d8 plus grab); **Ability Scores** **Str** 20, **Dex** 15, **Con** 16, **Int** 8, **Wis** 12, **Cha** 8; **Racial Modifiers** +4 Acrobatics, +4 Stealth (+8 in tall grass); **Special Attacks:** Blaster (1d4 rounds), Pounce, Rake (2 Claws +attack bonus, 1d8+ str mod); **Special Qualities** darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n#### Blaster ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\nOnce every 1d4 rounds as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a coeurl can send out a pulse of electricity through its whiskers at a single target within 30 ft. The coeurl must make a ranged touch attack, if it hits, the target takes 3d6 points of lightning damage and must make a Fortitude save or be inflicted with Immobilize status for 1d4 rounds.\n\n#### Pounce ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA coeurl can make a full attack when it makes a charge attack.\n\n#### Rake ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nCoeurl gains extra natural attacks under certain conditions, typically when it grapples its foe. In addition to the options available to all grapplers, coeurl with the rake ability gains two free claw attacks that it can use only against a [grappled](https://www.d20pfsrd.com/gamemastering/conditions#TOC-Grappled) foe. The bonus and damage caused by these attacks is included in the creature’s description. A coeurl’s rake ability must begin its turn already [grappling](https://www.d20pfsrd.com/gamemastering/combat#TOC-Grapple) to use its rake—it can’t begin a [grapple](https://www.d20pfsrd.com/gamemastering/combat#TOC-Grapple) and rake in the same turn.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 11,
+              "sourceHeading": "11TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2; **Special Attacks** Blaster (1d3 rounds);",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Coeurl",
+                  "locator": "coeurl-advancement-11"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 13,
+              "sourceHeading": "Mastery (13TH-LEVEL)",
+              "description": "**Special Attacks** Blaster (1d2 rounds), Hyper Blast (1/day).\n\n#### **Hyper Blaster ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\n1/day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a coeurl can send out a pulse of extreme electricity through its whiskers at a single target within 30 ft. The coeurl must make a ranged touch attack, if it hits, the target takes 5d6 points of lightning damage and must make a Fortitude save or be inflicted with Death.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Coeurl",
+                  "locator": "coeurl-mastery-13"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Coeurl",
+              "locator": "coeurl"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:corrosive-spider",
+          "name": "Corrosive Spider",
+          "groupId": "magical-beast",
+          "sourceOrder": 20,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 30
+              },
+              {
+                "mode": "climb",
+                "feet": 30
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (1d6 plus poison)",
+            "scores": {
+              "str": 12,
+              "dex": 18,
+              "con": 14,
+              "int": null,
+              "wis": 10,
+              "cha": 2
+            },
+            "mindless": true,
+            "sourceText": "**Size** Medium; **Speed** 30 ft., Climb 30 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** 12, **Dex** 18, **Con** 14, **Int** —, **Wis** 10, **Cha** 2; **Special Attacks** Corrosive Web, Critical Attack, [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) (frequency 1 round [4], effect 1d2 Strength damage, cure 1 save, **Con**-based DC), Web (+8 ranged, DC 14, hp 4); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision) 60 ft., [tremorsense](https://www.d20pfsrd.com/gamemastering/monsters-foes/#Tremorsense) 60 ft,; **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +12. **Racial Modifiers** +4 Perception (+8 in webs), +4 Stealth (+8 in web), +16 Climb"
+          },
+          "startingRules": "**Size** Medium; **Speed** 30 ft., Climb 30 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d6 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** 12, **Dex** 18, **Con** 14, **Int** —, **Wis** 10, **Cha** 2; **Special Attacks** Corrosive Web, Critical Attack, [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) (frequency 1 round [4], effect 1d2 Strength damage, cure 1 save, **Con**-based DC), Web (+8 ranged, DC 14, hp 4); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision) 60 ft., [tremorsense](https://www.d20pfsrd.com/gamemastering/monsters-foes/#Tremorsense) 60 ft,; **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +12. **Racial Modifiers** +4 Perception (+8 in webs), +4 Stealth (+8 in web), +16 Climb\n\n#### Corrosive Web ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\n1/day, a corrosive spider can throw a corrosive web on enemies in a 15-ft.-cone burst. All creatures caught within the cone must make a Reflex save (DC equal to 10 + 1/2 the creature’s [HD](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Hit-Dice-HD-) + the creature’s [Con](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-) modifier) or are entangled for 2d4 rounds, but can break loose by spending 1 round and making a DC 14 Strength check or Escape Artist check. The webbed victims take 1d6 points of non-elemental damage per round while in the web. The strands of the web are flammable. A magic flaming sword can slash them away as easily as a hand brushes away cobwebs. Any fire—a torch, burning oil, a flaming sword, and so forth—can set the webs alight and burn away in 1 round. All creatures within flaming webs take 2d4 points of fire damage from the flames. This save is Constitution-based.\n\n**Critical Attack ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce every 1d4 rounds as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the corrosive spider can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d6+1 x 1.5 for total damage.\n\n#### Web **([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nCreatures with the web ability can use webs to support themselves and up to one additional creature of the same size. In addition, such creatures can throw a web up to eight times per day. This is similar to an attack with a net but has a maximum range of 50 feet, with a range increment of 10 feet, and is effective against targets up to one size category larger than the web spinner. An [entangled](https://www.d20pfsrd.com/gamemastering/conditions#TOC-Entangled) creature can escape with a successful [Escape Artist](https://www.d20pfsrd.com/skills/escape-artist) check or burst the web with a [Strength](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Strength-Str-) check. Both are [standard actions](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) with a DC equal to 10 + 1/2 the creature’s [HD](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Hit-Dice-HD-) + the creature’s [Con](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-) modifier. Attempts to burst a web by those caught in it take a –4 penalty.\n\nWeb spinners can create sheets of sticky webbing up to three times their size. They usually position these sheets to snare flying creatures but can also try to trap prey on the ground. Approaching creatures must succeed on a DC 20 [Perception](https://www.d20pfsrd.com/skills/perception) check to notice a web; otherwise they stumble into it and become trapped as though by a successful web attack. Attempts to escape or burst the webbing gain a +5 bonus if the trapped creature has something to walk on or grab while pulling free. Each 5-foot-square section of web has a number of [hit points](https://www.d20pfsrd.com/gamemastering/combat#TOC-Hit-Points) equal to the [Hit Dice](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Hit-Dice-HD-) of the creature that created it and DR 5/—.\n\nA creature can move across its own web at its climb speed and can pinpoint the location of any creature touching its web.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 9,
+              "sourceHeading": "9TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** +8, **Dex** –2, **Con** +4; **Special Attacks** Corrosive Web (1d4 rounds), Critical Attack (1d3 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Corrosive Spider",
+                  "locator": "corrosive-spider-advancement-9"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 11,
+              "sourceHeading": "Mastery (11TH-LEVEL)",
+              "description": "**Special Attacks:** Corrosive Web (1d3 rounds), Critical Attack (1d2 rounds). **Special Qualities** Strong Webs.\n\n#### Strong Webs ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA corrosive spider’s webs gain a +4 bonus to the DC to break or escapes.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Corrosive Spider",
+                  "locator": "corrosive-spider-mastery-11"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Corrosive Spider",
+              "locator": "corrosive-spider"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:kuza-kit",
+          "name": "Kuza Kit",
+          "groupId": "magical-beast",
+          "sourceOrder": 21,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "**Prerequisite(s):** [Beast Speaker](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/), Diplomacy or Intimidate 7 ranks, Knowledge (arcana) 7 ranks.",
+          "introduction": "The lightning version of a young behemoth.\n\n**Prerequisite(s):** [Beast Speaker](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/), Diplomacy or Intimidate 7 ranks, Knowledge (arcana) 7 ranks.",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 30
+              }
+            ],
+            "naturalArmorBonus": 3,
+            "attacksText": "2 Claws (1d6), Gore (1d8)",
+            "scores": {
+              "str": 20,
+              "dex": 10,
+              "con": 18,
+              "int": 3,
+              "wis": 12,
+              "cha": 8
+            },
+            "mindless": false,
+            "sourceText": "**Size** Large; **Speed** 30 ft.; **AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 Claws (1d6), Gore (1d8); **Ability Scores** **Str** 20, **Dex** 10, **Con** 18, **Int** 3, **Wis** 12, **Cha** 8; **Special Attacks:** Blaster (1d4 rounds), Heave (1d4 rounds), Impale. **Special Qualities** darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent). **Resist** Lightning 10"
+          },
+          "startingRules": "**Size** Large; **Speed** 30 ft.; **AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 Claws (1d6), Gore (1d8); **Ability Scores** **Str** 20, **Dex** 10, **Con** 18, **Int** 3, **Wis** 12, **Cha** 8; **Special Attacks:** Blaster (1d4 rounds), Heave (1d4 rounds), Impale. **Special Qualities** darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent). **Resist** Lightning 10\n\n**Heave ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce every 1d4 rounds, the kuza kit can throw a grabbed opponent of Medium or smaller size into the air by making a successful grapple check; once thrown, the opponent takes 2d6 points of falling damage, plus an additional 1d6 points of damage for each size category smaller than Large the opponent is (for example, a Medium-sized creature would be 1 category smaller than Large, & therefore would take 3d6 falling damage); this is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that does not provoke attacks of opportunity\n\n#### Impale ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nWhen charging, a kuza kit deals double damage with horns.\n\n#### Blaster ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\nOnce every 1d4 rounds, a kuza kit can send out a pulse of electricity through its horns at a single target within 30 ft. The kuza kit must make a ranged touch attack, if it hits, the target takes 3d6 points of lightning damage and must make a Fortitude save or be inflicted with Immobilize status for 1d4 rounds.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 11,
+              "sourceHeading": "11TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2; **Special Attacks** Heave (1d3 rounds)",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Kuza Kit",
+                  "locator": "kuza-kit-advancement-11"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 13,
+              "sourceHeading": "Mastery (13TH-LEVEL)",
+              "description": "**Special Attacks** Beatdown (once per round), Heave (1d2 rounds).\n\n#### Beatdown ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nOnce per round, whenever struck by a melee attack as a counter-attack, the kuza kit will return one claw strike.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Kuza Kit",
+                  "locator": "kuza-kit-mastery-13"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Kuza Kit",
+              "locator": "kuza-kit"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:lenergia-avian",
+          "name": "Lenergia (Avian)",
+          "groupId": "magical-beast",
+          "sourceOrder": 22,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "A bird with green wings and a long tail. With its sharp talons and beak, it is known as quite the airborne hunter.",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 10
+              },
+              {
+                "mode": "fly",
+                "feet": 50,
+                "maneuverability": "average"
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (1d8), claw (1d3)",
+            "scores": {
+              "str": 14,
+              "dex": 14,
+              "con": 16,
+              "int": 2,
+              "wis": 16,
+              "cha": 7
+            },
+            "mindless": false,
+            "sourceText": "**Size:** Medium; **Speed:** 10 ft., Fly 50 ft. (average); **AC:** +2 natural armor; **Attack:** bite (1d8), claw (1d3); **Ability Scores:** Str 14, Dex 14, Con 16, Int 2, Wis 16, Cha 7; **Special Attacks:** Blinder (1d4 rounds), Engulfing Winds (1/day); **Special Qualities:** Low-light vision, +4 vs. disease"
+          },
+          "startingRules": "**Size:** Medium; **Speed:** 10 ft., Fly 50 ft. (average); **AC:** +2 natural armor; **Attack:** bite (1d8), claw (1d3); **Ability Scores:** Str 14, Dex 14, Con 16, Int 2, Wis 16, Cha 7; **Special Attacks:** Blinder (1d4 rounds), Engulfing Winds (1/day); **Special Qualities:** Low-light vision, +4 vs. disease\n\n#### Blinder ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nOnce every 1d4 turns, a lenergia can make an attempt to blind an opponent with their bite, if he hits, their target must make a Fortitude save or be blind for 1d4 rounds.\n\n**Engulfing Winds ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\n1/day, a lenergia can launch a gust of wind that engulfs their enemy within 30 feet for 4d4 points of wind damage and is inflicted with the Squalled status for 1d4 rounds. The target of this ability must make a Fortitude save to reduce the damage by half and negate the status effect.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 9,
+              "sourceHeading": "9th-Level Advancement",
+              "description": "**Size** Large; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (2d6), claw (1d4); **Ability** **Scores** **Str** +8, **Dex** –2, **Con** +4. **Special Attacks:** Blinder (1d3 rounds), Engulfing Winds (1d4 rounds);",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Lenergia (Avian)",
+                  "locator": "lenergia-avian-advancement-9"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 11,
+              "sourceHeading": "Mastery (11TH-LEVEL)",
+              "description": "**Special Attacks:** Blinder (1d2 rounds), Engulfing Winds (1d3 rounds) and choose either Black Cloud or Light Rays\n\n#### **Black Cloud** ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\n2/day, a lenergia can cause a black cloud of dark energy to erupt amongst its enemies within 60 feet. An rokh deals 5d4 points of shadow damage in a 15-ft.-radius spread. Those in the area of effect, in addition to the damage, must make a Fortitude save or be inflict with the Blind status effect for 1d6 rounds.\n\n#### Light Rays ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\n2/day, a lenergia fires 3 beams of holy energy at its foes, up to 30 feet away. Each ray requires a ranged touch attack to hit and deals 2d6 points of holy damage. The rays may be fired at the same or different targets, but all rays must be aimed at targets within 30 feet of each other and fired simultaneously.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Lenergia (Avian)",
+                  "locator": "lenergia-avian-mastery-11"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Lenergia (Avian)",
+              "locator": "lenergia-avian"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:winter-wolf",
+          "name": "Winter Wolf",
+          "groupId": "magical-beast",
+          "sourceOrder": 23,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "**Prerequisite(s):** [Beast Speaker](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/), Intimidate 4 ranks, Knowledge (arcana) 7 ranks.",
+          "introduction": "**Prerequisite(s):** [Beast Speaker](https://www.d20pfsrd.com/feats/general-feats/beast-speaker/), Intimidate 4 ranks, Knowledge (arcana) 7 ranks.",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 50
+              }
+            ],
+            "naturalArmorBonus": 4,
+            "attacksText": "bite (1d8 plus trip)",
+            "scores": {
+              "str": 20,
+              "dex": 16,
+              "con": 18,
+              "int": 6,
+              "wis": 15,
+              "cha": 10
+            },
+            "mindless": false,
+            "sourceText": "**Size** Large; **Speed** 50 ft.; **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8 plus [trip](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Trip-Ex-)); **Ability Scores** **Str** 20, **Dex** 16, **Con** 18, **Int** 6, **Wis** 15, **Cha** 10; **Special Attacks:** [breath weapon](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Breath-Weapon-Su-) (15-ft. cone, 4d6 ice damage, [Reflex](https://www.d20pfsrd.com/gamemastering/combat#TOC-Reflex) half, once per day), Crunch (1d4 rounds); **Special Qualities** ice resistance 10, darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Large; **Speed** 50 ft.; **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (1d8 plus [trip](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Trip-Ex-)); **Ability Scores** **Str** 20, **Dex** 16, **Con** 18, **Int** 6, **Wis** 15, **Cha** 10; **Special Attacks:** [breath weapon](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Breath-Weapon-Su-) (15-ft. cone, 4d6 ice damage, [Reflex](https://www.d20pfsrd.com/gamemastering/combat#TOC-Reflex) half, once per day), Crunch (1d4 rounds); **Special Qualities** ice resistance 10, darkvision 60 ft., [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Crunch ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce every 1d4 rounds as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the wolf can bite an additional time while tearing some flesh from their opponent. If they succeed at hitting with their bite attack, the damage is 1d6 plus 1d4 bleed per round for 2 rounds.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 9,
+              "sourceHeading": "9TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Ability Scores** **Str** +4, **Dex** –2, **Con** +2. **Attacks:** [breath weapon](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Breath-Weapon-Su-) (two times per day), Crunch (1d4 rounds); **Special Qualities** immunity to ice",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Winter Wolf",
+                  "locator": "winter-wolf-advancement-9"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 11,
+              "sourceHeading": "Mastery (11TH-LEVEL)",
+              "description": "**Attacks:** [breath weapon](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Breath-Weapon-Su-) (three times per day), Crunch (1d4 rounds), Greater Bestial Fang (3/day);\n\n#### Greater Bestial Fang ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\n3/day, a winter wolf enhances herself or an ally with great magical strength within 40 feet. A winter wolf gives one natural weapon or unarmed strike of the subject a +2 enhancement bonus on attack and damage rolls for 7 hours. The ability can affect a slam attack, fist, bite, or other natural weapon. This bonus does not allow a natural weapon or unarmed strike to bypass damage reduction aside from magic. Alternatively, you may imbue all of the creature’s natural weapons with a +1 enhancement bonus (regardless of your caster level).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Winter Wolf",
+                  "locator": "winter-wolf-mastery-11"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Winter Wolf",
+              "locator": "winter-wolf"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:zuu-avian",
+          "name": "Zuu (Avian)",
+          "groupId": "magical-beast",
+          "sourceOrder": 24,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 10
+              },
+              {
+                "mode": "fly",
+                "feet": 50,
+                "maneuverability": "average"
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (2d6 plus disease)",
+            "scores": {
+              "str": 20,
+              "dex": 15,
+              "con": 18,
+              "int": 2,
+              "wis": 15,
+              "cha": 7
+            },
+            "mindless": false,
+            "sourceText": "**Size:** Large; **Speed:** 10 ft., Fly 50 ft. (average); **AC:** +2 natural armor; **Attack:** bite (2d6 plus disease); **Ability Scores:** Str 20, Dex 15, Con 18, Int 2, Wis 15, Cha 7; **Special Attacks:** Helldive (once per round), Wingcutter (1/day); **Special Qualities:** Darkvision 60 ft., Disease, low-light vision, scent, +4 vs. disease;"
+          },
+          "startingRules": "**Size:** Large; **Speed:** 10 ft., Fly 50 ft. (average); **AC:** +2 natural armor; **Attack:** bite (2d6 plus disease); **Ability Scores:** Str 20, Dex 15, Con 18, Int 2, Wis 15, Cha 7; **Special Attacks:** Helldive (once per round), Wingcutter (1/day); **Special Qualities:** Darkvision 60 ft., Disease, low-light vision, scent, +4 vs. disease;\n\n#### **Diseased ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nDue to their filthy eating habits and constant exposure to decaying flesh, zuus are harbingers of disease much more so than the standard zuu. Any creature bitten by a zuu has a 10% chance of being exposed to filth fever, blinding sickness, or a similar disease. Once this check is made, a victim can no longer be infected by this particular zuu, though attacks by different zuus are resolved normally and may result in multiple illnesses. While zuu aren’t immune to all disease, they do gain a +4 racial bonus on all saving throws against such ailments.\n\n#### **Helldive ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per round, when at least 30 feet in the air, a zuu can dive at an opponent for massive damage. This attack grants a +2 circumstance bonus to this Attack roll. If this attack hits, it deals double Bite damage and the target must make a Fortitude save or be stunned for 1 round.\n\n#### **Wingcutter ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\n1/day, a zuu can cause the wind to slice the air in front of it in a 30-ft.-cone. Creatures within the area of effect take 4d6 points of wind damage, a Reflex save for half damage. The save DC is Constitution-based.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 11,
+              "sourceHeading": "11TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2; **Special Attacks** Wingcutter (1d4 rounds)",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Zuu (Avian)",
+                  "locator": "zuu-avian-advancement-11"
+                }
+              ]
+            },
+            {
+              "kind": "mastery",
+              "atClassLevel": 13,
+              "sourceHeading": "Mastery (13TH-LEVEL)",
+              "description": "**Special Attacks** Breath Wing (1/day), Wingcutter (1d3 rounds)\n\n#### **Breath Wing ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\n1/day, a zuu can use its wings to cause a breath-like attack to slice the air in front of it in a 30-ft.-cone. Creatures within the area of effect take 8d6 points of wind damage, Reflex save for half damage. The save DC is Constitution-based.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Zuu (Avian)",
+                  "locator": "zuu-avian-mastery-13"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Zuu (Avian)",
+              "locator": "zuu-avian"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:funguar",
+          "name": "Funguar",
+          "groupId": "plant",
+          "sourceOrder": 25,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 20
+              }
+            ],
+            "naturalArmorBonus": null,
+            "attacksText": "bite (1d6 plus poison), 2 slams (1d3 plus poison)",
+            "scores": {
+              "str": 10,
+              "dex": 20,
+              "con": 12,
+              "int": 4,
+              "wis": 12,
+              "cha": 1
+            },
+            "mindless": false,
+            "sourceText": "**Size** Small; **Speed** 20 ft.; **Attack** bite (1d6 plus poison), 2 slams (1d3 plus poison); **Ability Scores** **Str** 10, **Dex** 20, **Con** 12, **Int** 4, **Wis** 12, **Cha** 1; **Special Attacks** Dream Pollen (1/day), [poison](https://www.d20pfsrd.com/gamemastering/afflictions/poison) (frequency 1/round for 4 rounds; *effect* poisoned and fatigue; *cure* 1 save; [Con](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-)-based DC); **Special Qualities** darkvision 60 ft., low-light vision."
+          },
+          "startingRules": "**Size** Small; **Speed** 20 ft.; **Attack** bite (1d6 plus poison), 2 slams (1d3 plus poison); **Ability Scores** **Str** 10, **Dex** 20, **Con** 12, **Int** 4, **Wis** 12, **Cha** 1; **Special Attacks** Dream Pollen (1/day), [poison](https://www.d20pfsrd.com/gamemastering/afflictions/poison) (frequency 1/round for 4 rounds; *effect* poisoned and fatigue; *cure* 1 save; [Con](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-)-based DC); **Special Qualities** darkvision 60 ft., low-light vision.\n\n#### Dream Pollen ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\n1/day, a funguar can fill the air with drowsiness within a 15-ft.-radius. Creatures within the area of effect must make a Will save or be inflicted with sleep status for 1d4 rounds can only effect up to creature’s HD plus Wis mod worth in HD.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2. **Special Attacks:** Dream Pollen (1d4 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Funguar",
+                  "locator": "funguar-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Funguar",
+              "locator": "funguar"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:human-trap",
+          "name": "Human Trap",
+          "groupId": "plant",
+          "sourceOrder": 26,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 20
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "slam (1d6 plus grab)",
+            "scores": {
+              "str": 16,
+              "dex": 12,
+              "con": 14,
+              "int": 1,
+              "wis": 14,
+              "cha": 9
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** 20 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** slam (1d6 plus grab); **Ability Scores** **Str** 16, **Dex** 12, **Con** 14, **Int** 1, **Wis** 14, **Cha** 9; **Special Attacks** blood drain (1/day), [constrict](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Constrict-Ex-) (1d6); **Special Qualities** camouflage, [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent)."
+          },
+          "startingRules": "**Size** Medium; **Speed** 20 ft.; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** slam (1d6 plus grab); **Ability Scores** **Str** 16, **Dex** 12, **Con** 14, **Int** 1, **Wis** 14, **Cha** 9; **Special Attacks** blood drain (1/day), [constrict](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Constrict-Ex-) (1d6); **Special Qualities** camouflage, [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), [scent](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Scent).\n\n**Blood Drain ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\nOnce per day, a human trap can drain the blood from a target within 30 feet. The target must make a Fortitude save or take 1d8 points of shadow damage and the human trap is healed for that much. The save DC is Wisdom-based.\n\n**Camouflage ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nSince a human trap looks like a normal plant when at rest, a DC 20 Perception check is required to notice it before it attacks for the first time. Anyone with ranks in Survival or Knowledge (nature) can use either of those skills instead of Perception to notice the plant.\n\n**Entangle ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\nA human trap can, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), cause plants within 30 feet of it to animate and grasp at foes. This ability is otherwise similar to entangle (DC 13 Reflex). The save DC is Wisdom-based.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** slam (1d8 plus grab); **Ability Scores** **Str** +8, **Dex** –2, **Con** +4; **Special Attacks** blood drain (1d4 rounds), [constrict](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Constrict-Ex-) (1d8).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Human Trap",
+                  "locator": "human-trap-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Human Trap",
+              "locator": "human-trap"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:malboro-seedling",
+          "name": "Malboro Seedling",
+          "groupId": "plant",
+          "sourceOrder": 27,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 20
+              },
+              {
+                "mode": "climb",
+                "feet": 20
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "bite (1d6)",
+            "scores": {
+              "str": 18,
+              "dex": 14,
+              "con": 16,
+              "int": 2,
+              "wis": 13,
+              "cha": 14
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** 20 ft., climb 20 ft.; **AC:** +2 natural armor; **Attack** bite (1d6); **Ability Scores** **Str** 18, **Dex** 14, **Con** 16, **Int** 2, **Wis** 13, **Cha** 14; **Special Attacks:** Sickening Breath, Toxic Kiss; **Special Qualities** scent."
+          },
+          "startingRules": "**Size** Medium; **Speed** 20 ft., climb 20 ft.; **AC:** +2 natural armor; **Attack** bite (1d6); **Ability Scores** **Str** 18, **Dex** 14, **Con** 16, **Int** 2, **Wis** 13, **Cha** 14; **Special Attacks:** Sickening Breath, Toxic Kiss; **Special Qualities** scent.\n\n**Sickening Breath ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\nOnce every 1d4 rounds as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a malboro seedling can breathe out a foul breath in a 15-ft.-cone. Creatures within the area of effect must make a Fortitude save or suffer a -2 penalty to Attack rolls and skill checks for 1d4 rounds. This is wisdom based save.\n\n**Toxic Kiss ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\n1/day, a malboro seedling can blow a kiss out that inflicts all in a 30-ft.-cone. All creatures caught within the cone are affected by Sap for 1d4+1 rounds for 2d4 damage per round unless they make a Fortitude save.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (2d6); **Ability Scores** **Str** +6, **Dex** –2, **Con** +4. **Special Attacks:** Poison Breath (1/day), Toxic Kiss (1d4 rounds).\n\n#### Poison Breath ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\n1/day, a malboro sapling can emit a 30-ft.-cone of poison gas. All creatures caught within the cone are affected by Sap and Poison for 1d4+2 rounds for 2d4 and 1d6+2 points of damage per round unless they make a Fortitude save.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Malboro Seedling",
+                  "locator": "malboro-seedling-advancement-7"
+                }
+              ]
+            },
+            {
+              "kind": "advancement",
+              "atClassLevel": 12,
+              "sourceHeading": "12TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** bite (2d6); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2, **Wis** +2. **Special Attacks:** Bad Breath (1/day), Poison Breath (1d4 rounds), Toxic Kiss (1d2 rounds).\n\n#### Bad Breath ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\n1/day, a malboro can emit a 30-ft.-cone of foul gas. All creatures caught within the cone are affected by the following status effects for 1d4 rounds each: Berserk (Will save to negate), Blind (Fortitude save to negate), Confuse (Will save to negate), Silence (Fortitude save to negate), Poison (Fortitude save to resist), and Slow (Fortitude save to negate).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Malboro Seedling",
+                  "locator": "malboro-seedling-advancement-12"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Malboro Seedling",
+              "locator": "malboro-seedling"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:minituar",
+          "name": "Minituar",
+          "groupId": "plant",
+          "sourceOrder": 28,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 15
+              }
+            ],
+            "naturalArmorBonus": null,
+            "attacksText": "slam (1d3)",
+            "scores": {
+              "str": 10,
+              "dex": 20,
+              "con": 12,
+              "int": 8,
+              "wis": 12,
+              "cha": 1
+            },
+            "mindless": false,
+            "sourceText": "**Size** Small; **Speed** 15 ft.; **Attack** slam (1d3); **Ability Scores** **Str** 10, **Dex** 20, **Con** 12, **Int** 8, **Wis** 12, **Cha** 1; **Special Attacks:** Hundred Needles; **Special Qualities** evasion, low-light vision, thorns."
+          },
+          "startingRules": "**Size** Small; **Speed** 15 ft.; **Attack** slam (1d3); **Ability Scores** **Str** 10, **Dex** 20, **Con** 12, **Int** 8, **Wis** 12, **Cha** 1; **Special Attacks:** Hundred Needles; **Special Qualities** evasion, low-light vision, thorns.\n\n**Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nThe minituar can avoid even magical and unusual attacks with great agility. If the minituar makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, she instead takes no damage. A helpless minituar does not gain the benefit of evasion.\n\n**Thorns ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\nA minituar’s body is covered with sharp wooden thorns. Any creature attacking a minituar with a non-reach melee weapon or with natural attacks takes 1d3 points of piercing damage from the minituar’s sharp thorns. A creature that grapples with a minituar takes this same damage each round.\n\n**Hundred Needles ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**\n\n1/day, a minituar conjure up a spray of needles and fires at a target within 30 feet. The target takes 3d4 points of piercing damage (Reflex save for half damage).",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 4,
+              "sourceHeading": "4TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** slam (1d4); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2. **Special Attacks:** Hundred Needles (1d4 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Minituar",
+                  "locator": "minituar-advancement-4"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Minituar",
+              "locator": "minituar"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:ragora",
+          "name": "Ragora",
+          "groupId": "plant",
+          "sourceOrder": 29,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Small",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 10
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "2 seeds (1d4)",
+            "scores": {
+              "str": 12,
+              "dex": 16,
+              "con": 14,
+              "int": 2,
+              "wis": 14,
+              "cha": 8
+            },
+            "mindless": false,
+            "sourceText": "**Size** Small; **Speed** 10 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 seeds (1d4); **Ability Scores** **Str** 12, **Dex** 16, **Con** 14, **Int** 2, **Wis** 14, **Cha** 8; **Special Attacks:** Seed Cannon;"
+          },
+          "startingRules": "**Size** Small; **Speed** 10 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 seeds (1d4); **Ability Scores** **Str** 12, **Dex** 16, **Con** 14, **Int** 2, **Wis** 14, **Cha** 8; **Special Attacks:** Seed Cannon;\n\n#### Seeds ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA ragora shoots out 2 seeds towards one target within a 30-foot range. If they hit, the target takes does 1d4 piercing damage per seed. This ability does not provoke attacks of opportunity and is considered a thrown weapon for purposes of a strength bonus.\n\n#### Seed Cannon ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\n1/day, a ragora can shoot a massive burst of seeds towards a single target within 30 feet. By making a ranged touch attack and if it hits, the target takes 2d6 piercing damage.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 4 seeds (1d4); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2. **Special Attacks:** Seed Cannon (1d4 rounds)\n\n#### Seeds ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA ragora shoots out 4 seeds towards one target within a 45-foot range. If they hit, the target takes does 1d4 piercing damage per seed. This ability does not provoke attacks of opportunity and is considered a thrown weapon for purposes of a strength bonus.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Ragora",
+                  "locator": "ragora-advancement-7"
+                }
+              ]
+            },
+            {
+              "kind": "advancement",
+              "atClassLevel": 12,
+              "sourceHeading": "12TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 4 seeds (1d4); **Ability Scores** **Str** +2, **Dex** +2, **Con** +2. **Special Attacks:** Seed Burst (1d4 rounds, Seed Cannon (1d2 rounds)\n\n#### Seed Burst ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\nOnce per 1d4 rounds, a ragora can shoot multiple seeds at a single target within 30-ft. By making a ranged attack and if it hits, the target takes 14d6 piercing damage (1d6 per seed) and must make a Will save or be inflicted with the Confuse status for 1d4 rounds.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Ragora",
+                  "locator": "ragora-advancement-12"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Ragora",
+              "locator": "ragora"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:treant-sapling",
+          "name": "Treant, Sapling",
+          "groupId": "plant",
+          "sourceOrder": 30,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 30
+              },
+              {
+                "mode": "climb",
+                "feet": 30
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "2 slams (1d6)",
+            "scores": {
+              "str": 15,
+              "dex": 10,
+              "con": 12,
+              "int": 2,
+              "wis": 12,
+              "cha": 7
+            },
+            "mindless": false,
+            "sourceText": "**Size** Medium; **Speed** 30 ft., climb 30 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 slams (1d6); **Ability Scores** **Str** 15, **Dex** 10, **Con** 12, **Int** 2, **Wis** 12, **Cha** 7; **Special Attacks:** Arboreal Storm (1/day), Berserking Slam, Spring Breeze (1/day). **Special Qualities** double damage against objects, [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), treespeech."
+          },
+          "startingRules": "**Size** Medium; **Speed** 30 ft., climb 30 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 slams (1d6); **Ability Scores** **Str** 15, **Dex** 10, **Con** 12, **Int** 2, **Wis** 12, **Cha** 7; **Special Attacks:** Arboreal Storm (1/day), Berserking Slam, Spring Breeze (1/day). **Special Qualities** double damage against objects, [low-light vision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Low-Light-Vision), treespeech.\n\n#### Arboreal Storm ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\n1/day, A treant spins around in a circle in its full 5 foot reach hitting everything with its 4 arms dealing 2d6 + double str mod damage. This does not trigger a Berserking Slam save.\n\n#### Berserking Slam ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\nA treant is coated with an oil that most creatures fly into a rage continuously fighting without thinking until they run out of steam for 1d6 rounds. Successful Fort save negates this effect.\n\n#### Double Damage Against Objects ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA treant that makes a full attack against an object or structure deals double damage.\n\n#### Spring Breeze ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))\n\n1/day, A treant surrounds itself in a bluish-yellow breeze within a 30-ft.-radius. Creatures within the area of effect must make a Will save or be inflicted with Sleep status effect for 1d6 rounds.\n\n#### Treespeech ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA treant has the ability to converse with plants as if subject to a continual speak with plants spell, and most plants greet them with an attitude of friendly or helpful.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 slams (1d8); **Ability Scores** **Str** +8, **Dex** –2, **Con** +4. **Special Attacks:** Arboreal Storm (1d4 rounds), Berserking Slam, Spring Breeze (1d4 rounds).\n\n#### Arboreal Storm ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nOnce every 1d4 rounds, A treant spins around in a circle in its full 5 foot reach hitting everything with its 4 arms dealing 2d8 + double str mod damage. This does not trigger a Berserking Slam save.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Treant, Sapling",
+                  "locator": "treant-sapling-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Treant, Sapling",
+              "locator": "treant-sapling"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:crab-giant-aquatic",
+          "name": "Crab, Giant (Aquatic)",
+          "groupId": "vermin",
+          "sourceOrder": 31,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 30
+              },
+              {
+                "mode": "swim",
+                "feet": 20
+              }
+            ],
+            "naturalArmorBonus": 5,
+            "attacksText": "2 claws (1d4 plus grab)",
+            "scores": {
+              "str": 15,
+              "dex": 13,
+              "con": 16,
+              "int": null,
+              "wis": 11,
+              "cha": 4
+            },
+            "mindless": true,
+            "sourceText": "**Size** Medium; **Speed** 30 ft., swim 20 ft.; **AC** +5 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d4 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** 15, **Dex** 13, **Con** 16, **Int** —, **Wis** 11, **Cha** 4; **Special Attacks** [constrict](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Constrict-Ex-) (1d4), Pincers; **Special Qualities** aquatic, [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision), water dependency (survive out of water for 1 hour per point of **Con**, after which it begins to suffocate as if it were drowning); **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +12."
+          },
+          "startingRules": "**Size** Medium; **Speed** 30 ft., swim 20 ft.; **AC** +5 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d4 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** 15, **Dex** 13, **Con** 16, **Int** —, **Wis** 11, **Cha** 4; **Special Attacks** [constrict](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Constrict-Ex-) (1d4), Pincers; **Special Qualities** aquatic, [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision), water dependency (survive out of water for 1 hour per point of **Con**, after which it begins to suffocate as if it were drowning); **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +12.\n\n**Pincers ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nGiant Crab can use both claws as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) every 1d4 rounds while doing (base dmg up one dice and 1.5 times str mod) bludgeoning damage per claw.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** +4, **Dex** –2, **Con** +4; **Special Attacks** [constrict](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Constrict-Ex-) (1d6).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Crab, Giant (Aquatic)",
+                  "locator": "crab-giant-aquatic-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Crab, Giant (Aquatic)",
+              "locator": "crab-giant-aquatic"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:killer-mantis",
+          "name": "Killer Mantis",
+          "groupId": "vermin",
+          "sourceOrder": 32,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Large",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 30
+              },
+              {
+                "mode": "climb",
+                "feet": 30
+              },
+              {
+                "mode": "fly",
+                "feet": 40,
+                "maneuverability": "poor"
+              }
+            ],
+            "naturalArmorBonus": 4,
+            "attacksText": "2 claws (1d6 plus grab)",
+            "scores": {
+              "str": 16,
+              "dex": 13,
+              "con": 16,
+              "int": null,
+              "wis": 14,
+              "cha": 11
+            },
+            "mindless": true,
+            "sourceText": "**Size** Large; **Speed** 30 ft., climb 30 ft., fly 40 ft. (poor); **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** 16, **Dex** 13, **Con** 16, **Int** —, **Wis** 14, **Cha** 11; **Special Attacks** lunge, sudden strike (may take a full attack in the [surprise](https://www.d20pfsrd.com/gamemastering/combat#TOC-Surprise) round); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision); **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +8."
+          },
+          "startingRules": "**Size** Large; **Speed** 30 ft., climb 30 ft., fly 40 ft. (poor); **AC** +4 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6 plus [grab](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Grab-Ex-)); **Ability Scores** **Str** 16, **Dex** 13, **Con** 16, **Int** —, **Wis** 14, **Cha** 11; **Special Attacks** lunge, sudden strike (may take a full attack in the [surprise](https://www.d20pfsrd.com/gamemastering/combat#TOC-Surprise) round); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision); **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +8.\n\n#### Lunge ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA mantis’s limbs are capable of reaching much farther than normal for a creature of its size. As a full-attack action, it can make a single attack with its claws at double its normal reach. When a mantis attacks with a claw in this manner, it gains a +4 bonus on its attack roll. A mantis cannot make attacks of opportunity with its lunge.\n\n#### Sudden Strike ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA mantis is particularly adept at moving quickly when its foes are surprised. During a surprise round, a giant mantis may act as if it had a full round to act, rather than just one [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard).",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6); **Ability Scores** **Str** +4, **Dex** +2, **Con** +4; **Special Attacks** drainsickles (1d4 rounds), mandibles (1d6 secondary attack against a grabbed target).\n\n#### Drainsickles\n\nOnce every 1d4 rounds, a mantis can attack with both of its claw attacks. If any of the claw attacks hit, it receives half of the damage back as health.\n\n#### Mandibles ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA mantis that grabs a foe can make a bite attack against that foe as a secondary attack. The mantis’s bite is at a -5 from it’s primary attack that inflicts 1d8 plus 1/2 str mod points of damage on a hit.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Killer Mantis",
+                  "locator": "killer-mantis-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Killer Mantis",
+              "locator": "killer-mantis"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:scorpion",
+          "name": "Scorpion",
+          "groupId": "vermin",
+          "sourceOrder": 33,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 40
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "2 claws (1d4) and sting (1d4 plus poison)",
+            "scores": {
+              "str": 11,
+              "dex": 12,
+              "con": 13,
+              "int": null,
+              "wis": 10,
+              "cha": 2
+            },
+            "mindless": true,
+            "sourceText": "**Size** Medium; **Speed** 40 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d4) and sting (1d4 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** 11, **Dex** 12, **Con** 13, **Int** —, **Wis** 10, **Cha** 2; **Special Attacks** needles (1d4), [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) ( frequency 1 round [4], effect 1d4 non-elemental damage, cure 1 save, **Con**-based DC), Rend (2 claws, 2d4); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision), [tremorsense](https://www.d20pfsrd.com/gamemastering/monsters-foes/#Tremorsense) 30 ft; **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +12."
+          },
+          "startingRules": "**Size** Medium; **Speed** 40 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d4) and sting (1d4 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** 11, **Dex** 12, **Con** 13, **Int** —, **Wis** 10, **Cha** 2; **Special Attacks** needles (1d4), [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) ( frequency 1 round [4], effect 1d4 non-elemental damage, cure 1 save, **Con**-based DC), Rend (2 claws, 2d4); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision), [tremorsense](https://www.d20pfsrd.com/gamemastering/monsters-foes/#Tremorsense) 30 ft; **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +12.\n\n#### Needles ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nOnce every 1d4 rounds as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a scorpion can shoot out needles from it’s stinger. If the range attack succeeds, the needles reach up to 30 feet and do 1d4 piercing damage plus their poison.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** 2 claws (1d6) and sting (1d6 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** +8, **Dex** –2, **Con** +4; **Special Attacks** needles (1d3 rounds, 1d6 dmg), [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) ( frequency 1 round [4], effect 1d6 non-elemental damage, cure 1 save, **Con**-based DC), Rend (2 claws, 2d6); **Special Qualities** [tremorsense](https://www.d20pfsrd.com/gamemastering/monsters-foes/#Tremorsense) 60 ft.",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Scorpion",
+                  "locator": "scorpion-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Scorpion",
+              "locator": "scorpion"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:tarantula",
+          "name": "Tarantula",
+          "groupId": "vermin",
+          "sourceOrder": 34,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 30
+              },
+              {
+                "mode": "climb",
+                "feet": 30
+              }
+            ],
+            "naturalArmorBonus": 1,
+            "attacksText": "Bite (1d6 plus poison)",
+            "scores": {
+              "str": 11,
+              "dex": 17,
+              "con": 12,
+              "int": null,
+              "wis": 10,
+              "cha": 2
+            },
+            "mindless": true,
+            "sourceText": "**Size** Medium; **Speed** 30 ft., Climb 30 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** Bite (1d6 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** 11, **Dex** 17, **Con** 12, **Int** —, **Wis** 10, **Cha** 2; **Special Attacks** critical attack, [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) (frequency 1 round [4], effect 1d2 Strength damage, cure 1 save, **Con**-based DC), Web (+5 ranged, DC 12, hp 3); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision) 60 ft., [tremorsense](https://www.d20pfsrd.com/gamemastering/monsters-foes/#Tremorsense) 60 ft,; **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +12. **Racial Modifiers** +4 Perception (+8 in webs), +4 Stealth (+8 in web), +16 Climb"
+          },
+          "startingRules": "**Size** Medium; **Speed** 30 ft., Climb 30 ft.; **AC** +1 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** Bite (1d6 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** 11, **Dex** 17, **Con** 12, **Int** —, **Wis** 10, **Cha** 2; **Special Attacks** critical attack, [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) (frequency 1 round [4], effect 1d2 Strength damage, cure 1 save, **Con**-based DC), Web (+5 ranged, DC 12, hp 3); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision) 60 ft., [tremorsense](https://www.d20pfsrd.com/gamemastering/monsters-foes/#Tremorsense) 60 ft,; **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +12. **Racial Modifiers** +4 Perception (+8 in webs), +4 Stealth (+8 in web), +16 Climb\n\n**Critical Attack ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nOnce per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the tarantula can inflict more pain than normal. If they succeed at hitting with their bite attack, the damage is 1d6 x 1.5 for total damage.\n\n#### Web **([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**\n\nCreatures with the web ability can use webs to support themselves and up to one additional creature of the same size. In addition, such creatures can throw a web up to eight times per day. This is similar to an attack with a net but has a maximum range of 50 feet, with a range increment of 10 feet, and is effective against targets up to one size category larger than the web spinner. An [entangled](https://www.d20pfsrd.com/gamemastering/conditions#TOC-Entangled) creature can escape with a successful [Escape Artist](https://www.d20pfsrd.com/skills/escape-artist) check or burst the web with a [Strength](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Strength-Str-) check. Both are [standard actions](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) with a DC equal to 10 + 1/2 the creature’s [HD](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Hit-Dice-HD-) + the creature’s [Con](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Constitution-Con-) modifier. Attempts to burst a web by those caught in it take a –4 penalty.\n\nWeb spinners can create sheets of sticky webbing up to three times their size. They usually position these sheets to snare flying creatures but can also try to trap prey on the ground. Approaching creatures must succeed on a DC 20 [Perception](https://www.d20pfsrd.com/skills/perception) check to notice a web; otherwise they stumble into it and become trapped as though by a successful web attack. Attempts to escape or burst the webbing gain a +5 bonus if the trapped creature has something to walk on or grab while pulling free. Each 5-foot-square section of web has a number of [hit points](https://www.d20pfsrd.com/gamemastering/combat#TOC-Hit-Points) equal to the [Hit Dice](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Hit-Dice-HD-) of the creature that created it and DR 5/—.\n\nA creature can move across its own web at its climb speed and can pinpoint the location of any creature touching its web.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +3 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** Bite (1d8 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** +8, **Dex** –2, **Con** +4; **Special Attacks** Critical Attack (1d4 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Tarantula",
+                  "locator": "tarantula-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Tarantula",
+              "locator": "tarantula"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:class:beastmaster:companion:wasp-giant-avian",
+          "name": "Wasp, Giant (Avian)",
+          "groupId": "vermin",
+          "sourceOrder": 35,
+          "starterLevel": 1,
+          "entryPrerequisitesText": "",
+          "introduction": "",
+          "startingStatistics": {
+            "size": "Medium",
+            "speeds": [
+              {
+                "mode": "land",
+                "feet": 20
+              },
+              {
+                "mode": "fly",
+                "feet": 60,
+                "maneuverability": "good"
+              }
+            ],
+            "naturalArmorBonus": 2,
+            "attacksText": "sting (1d6 plus poison)",
+            "scores": {
+              "str": 12,
+              "dex": 16,
+              "con": 14,
+              "int": null,
+              "wis": 12,
+              "cha": 9
+            },
+            "mindless": true,
+            "sourceText": "**Size** Medium; **Speed** 20 ft., fly 60 ft. (good); **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** sting (1d6 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** 12, **Dex** 16, **Con** 14, **Int** —, **Wis** 12, **Cha** 9; **Special Attacks** impaled pounce, needles (1d4 rounds), [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) ( frequency 1 round [4], effect 1d4 non-elemental damage, cure 1 save, **Con**-based DC); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision); **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +8."
+          },
+          "startingRules": "**Size** Medium; **Speed** 20 ft., fly 60 ft. (good); **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** sting (1d6 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** 12, **Dex** 16, **Con** 14, **Int** —, **Wis** 12, **Cha** 9; **Special Attacks** impaled pounce, needles (1d4 rounds), [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison) ( frequency 1 round [4], effect 1d4 non-elemental damage, cure 1 save, **Con**-based DC); **Special Qualities** [darkvision](https://www.d20pfsrd.com/gamemastering/special-abilities#TOC-Darkvision); **CMD** [trip](https://www.d20pfsrd.com/gamemastering/combat#TOC-Trip) +8.\n\n#### Impaled Pounce ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nA wasp can make a full attack when it makes a charge attack, it also deals twice the dice and str mod in points of piercing damage.\n\n#### Needles ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))\n\nOnce every 1d4 rounds as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a wasp can shoot out needles from it’s stinger. If the range attack succeeds, the needles reach up to 30 feet and do 1d6 plus str mod piercing damage and their poison.",
+          "advancements": [
+            {
+              "kind": "advancement",
+              "atClassLevel": 7,
+              "sourceHeading": "7TH-LEVEL ADVANCEMENT",
+              "description": "**Size** Large; **AC** +2 [natural armor](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Natural-Armor-Bonus); **Attack** sting (1d8 plus [poison](https://www.d20pfsrd.com/gamemastering/afflictions#TOC-Poison)); **Ability Scores** **Str** +8, **Dex** –2, **Con** +4; **Special Attacks** needles (1d3 rounds).",
+              "sourceRefs": [
+                {
+                  "sourceId": "companions",
+                  "section": "Wasp, Giant (Avian)",
+                  "locator": "wasp-giant-avian-advancement-7"
+                }
+              ]
+            }
+          ],
+          "sourceRefs": [
+            {
+              "sourceId": "companions",
+              "section": "Wasp, Giant (Avian)",
+              "locator": "wasp-giant-avian"
+            }
+          ]
+        }
+      ],
+      "firstLevelOrdinaryCandidateIds": [
+        "ffd20:class:beastmaster:companion:bat-cave-avian",
+        "ffd20:class:beastmaster:companion:bear",
+        "ffd20:class:beastmaster:companion:chocobo-gray",
+        "ffd20:class:beastmaster:companion:flying-killer",
+        "ffd20:class:beastmaster:companion:guard-hound",
+        "ffd20:class:beastmaster:companion:piranha-aquatic",
+        "ffd20:class:beastmaster:companion:rat-wild",
+        "ffd20:class:beastmaster:companion:sabertusk",
+        "ffd20:class:beastmaster:companion:shark-aquatic",
+        "ffd20:class:beastmaster:companion:vulture-avian",
+        "ffd20:class:beastmaster:companion:wolf"
+      ]
     },
     "deferredFeatureSections": [
       {

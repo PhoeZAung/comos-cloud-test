@@ -12,7 +12,7 @@ Partial-live support, testing availability, source archiving and full completion
 | race | 63/63 | 63 | 63 | 57 | 5 | 0 | 0 |
 | archetype | 579/579 | 2 | 1 | 577 | 1 | 0 | 486 |
 
-Checkpoint revision: **21**. Active: **ffd20:class:beastmaster**. Next: **ffd20:class:beastmaster**.
+Checkpoint revision: **22**. Active: **ffd20:class:beastmaster**. Next: **ffd20:class:beastmaster**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -26,7 +26,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 2 | [Dancer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/) | existing live adapter · levels 1 | live_partial · partial-live-support | Level-1 creation, local save/reopen and public deployment verified.; Review later progression and required choices after the initial import pass. |
 | 3 | [Archer](https://finalfantasyd20.com/classes/core-classes/archer/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | existing live adapter · levels 1 | live_partial · deployed | Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.; After baseline imports, review level-2 talents and Versatile Performance, later progression, orchestration rolls and remaining 135 song pages. |
-| 5 | [Beastmaster](https://finalfantasyd20.com/classes/core-classes/beastmaster/) | not enabled · levels  | in_progress · companion-source-review | Main class source staged: both 20-row tables, six level-1 grants, twelve focus descriptions; later sections retained with explicit conflicts; Read archived companion species page, preserve starter-level eligibility, and design bounded companion persistence/choices before implementing level-1 Beastmaster adapter |
+| 5 | [Beastmaster](https://finalfantasyd20.com/classes/core-classes/beastmaster/) | not enabled · levels  | in_progress · companion-adapter-design | All 35 companion entries staged: 15 animals, 9 magical beasts, 6 plants, 5 vermin; normalized starting statistics, 46 deferred advancement blocks and 11 ordinary level-1 source candidates; Implement bounded first-level companion selection/persistence and explicit manual limits, then Beastmaster runtime adapter with creation/edit/save/reopen validation |
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |

@@ -2,6 +2,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {validateClassManifest,validateClassDefinition,classAtLevel} from '../src/features/characters/rules/class-contract.mjs';
 import {validateArchetypeManifest,validateArchetypeDefinition} from '../src/features/characters/rules/archetype-contract.mjs';
+import {validateBeastmasterCompanions} from './validate-beastmaster-companions.mjs';
 
 const root=new URL('../',import.meta.url);
 const target=new URL('src/features/characters/rules/class-catalog.mjs',root);
@@ -14,6 +15,7 @@ export async function buildClassCatalog(){
   const opts=entry.optionFile?JSON.parse(await readFile(fileURL(entry.optionFile),'utf8')):null;
   if(c.id!==entry.id)throw Error('Class manifest ID mismatch: '+entry.file);
   const report=validateClassDefinition(c,{optionCatalog:opts});
+  if(c.id==='ffd20:class:beastmaster')validateBeastmasterCompanions(c);
   const levelOne=['ffd20:class:chocobo-knight','ffd20:class:dancer'].includes(entry.id)&&entry.adapter==='martial-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
   const bardOne=entry.id==='ffd20:class:bard'&&entry.adapter==='bard-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
   if(entry.status==='live'&&entry.adapter!=='archer'&&!levelOne&&!bardOne)throw Error('Class has no verified runtime adapter: '+entry.id);
