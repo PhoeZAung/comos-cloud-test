@@ -21,6 +21,21 @@ export function occupiesSlot(item,slot){return !!item&&item.equipped!==false&&(i
 export function equippedInSlot(source,slot){if(!equipmentSlotIds.includes(slot))return null;return equipmentRows(source).find(r=>occupiesSlot(r.item,slot))||null;}
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+/** Compact, searchable item-only list for the chosen equipment slot. */
+export function renderEquipChoices(data={},query='',slot=''){
+ const search=String(query).trim().toLocaleLowerCase();
+ const selected=equippedInSlot(data,slot);
+ const choices=equipmentRows(data)
+  .filter(({item})=>item&&String(item.name||'').trim()&&Number(item.amount??1)>=1)
+  .filter(({item})=>String(item.name).toLocaleLowerCase().includes(search))
+  .sort((a,b)=>String(a.item.name).localeCompare(String(b.item.name)));
+ return choices.map(({item,index,collection})=>{
+  const active=selected?.collection===collection&&selected.index===index;
+  return '<button type="button" class="cs-equip-choice" data-equip-choice="'+collection+':'+index+'" aria-pressed="'+active+'"><span>'+e(item.name)+'</span>'+(active?'<span class="cs-equip-choice-check" aria-hidden="true">✓</span>':'')+'</button>';
+ }).join('')||'<p class="cs-equip-empty">No items found</p>';
+}
+
+
 // The visual grouping does not change persisted equipment slot IDs.
 const loadoutGroups=Object.freeze([
  {name:'Weapons',icon:'⚔︎',slots:['hands','hand2','ranged']},
