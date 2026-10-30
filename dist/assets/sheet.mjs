@@ -36,6 +36,25 @@ export function formatRoll(label,r){
  if(r.kind!=='weapon')return label+': '+receipt(r);
  return r.weaponName+' · '+attackTypes[r.attackType]+' · d20 '+r.rolls[0]+' '+(r.bonus>=0?'+':'−')+' '+Math.abs(r.bonus)+' = '+r.total+(r.rolls[0]===1?' · Natural 1':r.rolls[0]===20?' · Natural 20':'')+'\n'+(r.damage?'Damage: '+receipt(r.damage):'Damage: '+r.damageError)+(r.critical?.threat?'\nCritical threat · confirmation d20 '+r.critical.confirmation.rolls[0]+' '+(r.bonus>=0?'+':'−')+' '+Math.abs(r.bonus)+' = '+r.critical.confirmation.total+'\nCritical damage ×'+r.critical.multiplier+' (if confirmed): '+(r.critical.damage?receipt(r.critical.damage):r.critical.damageError)+'\nCompare attack and confirmation against target AC.':'');
 }
+
+/**
+ * Request a browser popup (minimal chrome, no normal tab strip) for a sheet.
+ * Keep the anchor's target=_blank as a fallback when popups are blocked.
+ */
+export function openCharacterSheetPopup(url,characterId,{display=window.screen,open=window.open.bind(window)}={}){
+ const availableWidth=Math.max(320,Math.floor(Number(display?.availWidth)||1280));
+ const availableHeight=Math.max(320,Math.floor(Number(display?.availHeight)||900));
+ const width=Math.max(320,availableWidth-24),height=Math.max(320,availableHeight-32);
+ const left=Math.floor((availableWidth-width)/2)+(Number(display?.availLeft)||0);
+ const top=Math.floor((availableHeight-height)/2)+(Number(display?.availTop)||0);
+ const features='popup=yes,width='+width+',height='+height+',left='+left+',top='+top+',resizable=yes,scrollbars=yes';
+ let popup;
+ try{popup=open(url,'comos-sheet-'+encodeURIComponent(characterId),features);}catch{return false;}
+ if(!popup)return false;
+ try{popup.opener=null;popup.focus();}catch{/* Window may have been closed immediately. */}
+ return true;
+}
+
 export function mountSheet(){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
  const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
@@ -133,6 +152,11 @@ export function mountSheet(){
  }
  async function useEntry(collection,index,spendUse){if(remainingInvalid){status('Enter valid remaining uses first.');return;}clearTimeout(remainingTimer);if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy||conflict)return;if(collection==='spells')return roll('Spell',null,undefined,index);return roll('Ability',null,undefined,undefined,{collection,index,spendUse});}
  root.addEventListener('click',event=>{
+   const popout=event.target.closest('[data-sheet-popout]');
+   if(popout){
+    if(!event.defaultPrevented&&event.button===0&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&openCharacterSheetPopup(popout.href,character.id))event.preventDefault();
+    return;
+   }
   const button=event.target.closest('button');if(!button)return;
   if(button.matches('[data-toggle-stars]')){showStars=!showStars;root.querySelector('[data-sheet]').classList.toggle('cs-star-controls-off',!showStars);button.setAttribute('aria-pressed',String(showStars));button.setAttribute('aria-label',(showStars?'Hide':'Show')+' favorite controls');return;}
   if(button.matches('[data-box-favorite]')){const key=button.dataset.boxFavorite,old=character.data.favorite_boxes||[];void save({action:'fields',fields:{favorite_boxes:old.includes(key)?old.filter(k=>k!==key):[...old,key]}});return;}
