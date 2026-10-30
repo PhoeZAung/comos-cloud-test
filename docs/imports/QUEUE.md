@@ -12,7 +12,7 @@ Partial-live support, testing availability, source archiving and full completion
 | race | 63/63 | 63 | 63 | 49 | 12 | 0 | 0 |
 | archetype | 579/579 | 4 | 2 | 575 | 2 | 0 | 453 |
 
-Checkpoint revision: **61**. Active: **ffd20:race:beastkin**. Next: **ffd20:race:beastkin**.
+Checkpoint revision: **62**. Active: **ffd20:race:beastkin**. Next: **ffd20:race:beastkin**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -112,7 +112,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 10 | [Al Bhed](https://finalfantasyd20.com/races/base-races/al-bhed/) | testing option; saving can be guarded | live_partial · deployment-verified | First-level standard traits and Mechanical Genius choice/rank deployed; six public assets verified; Later progression, alternate traits and remaining specialty/conditional mechanics require separate reviewed batches |
 | 11 | [Au Ra](https://finalfantasyd20.com/races/base-races/au-ra/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard Xaela traits, owned Scales AC, source languages and manual Ferocity tracking deployed; five public assets verified; Variants, alternates, favored rewards and conditional combat resolution require separate reviewed batches |
 | 12 | [Bangaa](https://finalfantasyd20.com/races/base-races/bangaa/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits, reptilian identity and owned natural armor deployed; five public assets verified; Check queued post-merge CI 41111289592; later variants/alternates and conditional combat/environmental mechanics need separate reviewed batches |
-| 13 | [Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/) | testing option; saving can be guarded | in_progress · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
+| 13 | [Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/) | testing option; saving can be guarded | in_progress · runtime-validated | Standard senses/Hunter skills, owned initiative/natural armor, Run card and languages validated across eight adapters and mobile Dancer/Bard save/reopen; Exact-head CI, merge and public asset verification; then Burmecian. Also check queued Bangaa post-merge CI 41111289592. |
 | 14 | [Burmecian](https://finalfantasyd20.com/races/base-races/burmecian/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 15 | [Dracobaltian](https://finalfantasyd20.com/races/base-races/dracobaltian/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 16 | [Garif](https://finalfantasyd20.com/races/base-races/garif/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |

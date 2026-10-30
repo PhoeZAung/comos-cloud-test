@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Beastkin",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 5,
+      "languages": "Common, Beastmen, Draconic",
+      "manualInitiativePreserved": true,
+      "manualNaturalArmorPreserved": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Beastkin",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 7,
+      "languages": "Common, Beastmen, Draconic",
+      "manualInitiativePreserved": true,
+      "manualNaturalArmorPreserved": true,
+      "pageErrors": []
+    }
+  ]
+}

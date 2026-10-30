@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 61,
+  "revision": 62,
   "schedule": [
     "class",
     "race",
@@ -398,15 +398,18 @@
     },
     "ffd20:race:beastkin": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Standard senses/Hunter skills, owned initiative/natural armor, Run card and languages validated across eight adapters and mobile Dancer/Bard save/reopen",
+      "nextAction": "Exact-head CI, merge and public asset verification; then Burmecian. Also check queued Bangaa post-merge CI 41111289592.",
+      "scope": "Standard creation/editing with source identity, skills/senses/languages and owned flat stats/manual Run; conditional movement, saves/immunity and feat resolution manual; alternates guarded",
+      "note": "372 tests, cloud build and phone fixtures pass; manual initiative/natural armor and Run notes preserved. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T19:00:40.111Z"
+      "evidence": [
+        "docs/extraction/beastkin-standard-creation.md",
+        "docs/extraction/beastkin-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T19:02:48.842Z"
     }
   },
   "history": [
@@ -949,6 +952,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T19:00:40.111Z"
+    },
+    {
+      "revision": 62,
+      "itemId": "ffd20:race:beastkin",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Standard senses/Hunter skills, owned initiative/natural armor, Run card and languages validated across eight adapters and mobile Dancer/Bard save/reopen",
+      "time": "2026-10-30T19:02:48.842Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
