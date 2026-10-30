@@ -80,8 +80,29 @@ export function itemCategorySymbol(value) {
 }
 
 const escape=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+/** Counts distinct inventory records for each category, rather than quantities in a stack. */
+export function inventoryCategoryCounts(items=[]){
+ const counts=Object.fromEntries(ITEM_TAG_OPTIONS.map(tag=>[tag,0]));
+ for(const item of Array.isArray(items)?items:[])counts[itemCategoryForItem(item)]++;
+ return counts;
+}
+
+/** An empty category or group should not remain selected after its last item is removed. */
+export function visibleInventoryCategory(counts={},selected='All'){
+ if(selected==='All')return 'All';
+ if(Object.hasOwn(SHOP_ITEM_CATEGORY_GROUPS,selected))
+  return SHOP_ITEM_CATEGORY_GROUPS[selected].some(tag=>Number(counts[tag]||0)>0)?selected:'All';
+ return Number(counts[selected]||0)>0?selected:'All';
+}
+
 export function renderCategoryTiles(counts={},selected='All',{attribute='data-item-tag',label='Item categories',groups=false}={}){
- const categories=[...ITEM_TAG_OPTIONS,...Object.keys(counts).filter(k=>!ITEM_TAG_OPTIONS.includes(k)&&k!=='All')];
- const total=Object.values(counts).reduce((n,v)=>n+Number(v||0),0);
- return (groups?'<nav class="item-group-buttons" aria-label="Item groups">'+Object.keys(SHOP_ITEM_CATEGORY_GROUPS).map(g=>'<button type="button" '+attribute+'="'+g+'" aria-pressed="'+(selected===g)+'">'+g+'</button>').join('')+'</nav>':'')+'<nav class="item-category-tiles" aria-label="'+escape(label)+'">'+categories.map(tag=>'<button type="button" '+attribute+'="'+escape(tag)+'" aria-pressed="'+(selected===tag)+'"><span aria-hidden="true">'+itemCategorySymbol(tag)+'</span><span>'+escape(tag)+'</span><small>'+Number(counts[tag]||0)+'</small></button>').join('')+'<button type="button" class="item-category-all" '+attribute+'="All" aria-pressed="'+(selected==='All')+'"><span aria-hidden="true">▦</span><strong>All</strong><small>'+total+'</small></button></nav>';
+ const total=Object.values(counts).reduce((sum,value)=>sum+Number(value||0),0);
+ if(total===0)return '';
+ const categories=[...ITEM_TAG_OPTIONS,...Object.keys(counts).filter(tag=>!ITEM_TAG_OPTIONS.includes(tag)&&tag!=='All')].filter(tag=>Number(counts[tag]||0)>0);
+ const visible=visibleInventoryCategory(counts,selected);
+ const groupsMarkup=groups?'<nav class="item-group-buttons" aria-label="Item groups">'+Object.entries(SHOP_ITEM_CATEGORY_GROUPS).filter(([,tags])=>tags.some(tag=>Number(counts[tag]||0)>0)).map(([name])=>'<button type="button" '+attribute+'="'+name+'" aria-pressed="'+(visible===name)+'">'+name+'</button>').join('')+'</nav>':'';
+ return groupsMarkup+'<nav class="item-category-tiles" aria-label="'+escape(label)+'">'
+  +'<button type="button" class="item-category-all" '+attribute+'="All" aria-pressed="'+(visible==='All')+'"><span aria-hidden="true">▦</span><strong>All</strong><small>'+total+'</small></button>'
+  +categories.map(tag=>'<button type="button" '+attribute+'="'+escape(tag)+'" aria-pressed="'+(visible===tag)+'"><span aria-hidden="true">'+itemCategorySymbol(tag)+'</span><span>'+escape(tag)+'</span><small>'+Number(counts[tag]||0)+'</small></button>').join('')
+  +'</nav>';
 }
