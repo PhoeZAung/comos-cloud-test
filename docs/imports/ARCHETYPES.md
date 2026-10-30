@@ -8,7 +8,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Antrider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/antrider/) | queued · source-review | Start of source review |
+| [Antrider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/antrider/) | in_progress · source-review | Start of source review |
 | [Beast Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/beast-rider/) | queued · source-review | Start of source review |
 | [Deadly Lancer](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/deadly-lancer/) | queued · source-review | Start of source review |
 | [Fell Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/fell-rider/) | queued · source-review | Start of source review |

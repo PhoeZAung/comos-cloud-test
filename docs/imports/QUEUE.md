@@ -9,10 +9,10 @@ Partial-live support, testing availability, source archiving and full completion
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | class | 73/73 | 5 | 5 | 68 | 5 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 58 | 5 | 0 | 0 |
-| archetype | 579/579 | 1 | 1 | 578 | 1 | 0 | 498 |
+| race | 63/63 | 63 | 63 | 57 | 5 | 0 | 0 |
+| archetype | 579/579 | 1 | 1 | 577 | 1 | 0 | 498 |
 
-Checkpoint revision: **11**. Active: **none**. Next: **ffd20:race:half-breed**.
+Checkpoint revision: **15**. Active: **ffd20:archetype:chocobo-knight:antrider**. Next: **ffd20:archetype:chocobo-knight:antrider**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -103,7 +103,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 1 | [Dwarf](https://finalfantasyd20.com/races/core-races/dwarf/) | testing option; saving can be guarded | live_partial · partial-live-support | Favored Class Options > White Mage (final entry).; Resolve remaining language/terrain choices and manual mappings. |
 | 2 | [Elvaan](https://finalfantasyd20.com/races/core-races/elvaan/) | testing option; saving can be guarded | live_partial · deployed | Standard Elvaan creation deployed; five asset hashes match tested build, 305 tests and both mobile save/reopen cases passed.; After baseline pass, review variant heritages, alternate replacements, broader proficient-weapon choices and favored rewards. |
 | 3 | [Galka](https://finalfantasyd20.com/races/core-races/galka/) | testing option; saving can be guarded | live_partial · deployed | Standard Galka milestone deployed; four asset hashes match tested build, 308 tests and phone-sized Dancer creation/reopen passed.; After baseline imports, review alternate traits, miner-specialty automation, conditional rules/Ferocity, favored rewards and independent full review. |
-| 4 | [Half-Breed](https://finalfantasyd20.com/races/core-races/half-breed/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
+| 4 | [Half-Breed](https://finalfantasyd20.com/races/core-races/half-breed/) | testing option; saving can be guarded | blocked · source-blocked | Complete source read; parent requirements and banned races recorded. Server guard prevents saving by disabling required traits.; Supply verified parent-trait IDs, category and RP cost citations, then implement the parent-pair identity and inheritance chooser. Continue other queue items meanwhile. |
 | 5 | [Hume](https://finalfantasyd20.com/races/core-races/hume/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 6 | [Mithra](https://finalfantasyd20.com/races/core-races/mithra/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 7 | [Moogle](https://finalfantasyd20.com/races/core-races/moogle/) | testing option; saving can be guarded | live_partial · partial-live-support | Baseline choices and local save/reopen verified; real user-account acceptance remains.; Review alternate/heritage and favored-class rules. |

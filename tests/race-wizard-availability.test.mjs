@@ -1,8 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {registry,newBuild,buildIssues} from '../src/features/characters/rules/build.mjs';
+import {registry,newBuild,buildIssues,compileBuild} from '../src/features/characters/rules/build.mjs';
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 const get=key=>registry.races.find(r=>r.id==='ffd20:race:'+key);
+test('Half-Breed parent and inherited-trait requirements cannot be bypassed by disabling every racial trait',()=>{
+ const b=newBuild();Object.assign(b,{name:'Incomplete Half-Breed',raceId:'ffd20:race:half-breed',classId:'ffd20:class:dancer',hpRolls:[8],reviewed:true});
+ for(const disabled of [[],get('half-breed').data.standardTraitIds]){
+  b.disabledTraits=[...disabled];
+  assert(buildIssues(b,{complete:false}).some(i=>/two legal parent races/.test(i.message)));
+  assert.throws(()=>compileBuild(b),/two legal parent races/);
+ }
+});
 test('all races have neutral names in the wizard while review metadata remains unchanged',()=>{
  assert.equal(registry.races.length,63);
  const b=newBuild();b.raceId=get('velkk').id;
