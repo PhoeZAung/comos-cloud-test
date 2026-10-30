@@ -27,7 +27,7 @@ test('portrait background setting, resource edits, and recovery menu are visible
  assert.match(frame,/data-open-rest/);
  assert.match(frame,/data-delete-character/);
  assert.match(frame,/data-level-up/);
- assert.match(frame,/aria-label="Open compact sheet in a new window"/);
+ assert.match(frame,/aria-label="Open standalone character sheet window"/);
  assert.match(frame,/data-sheet-tab="combat"[^>]+>[^<]*<svg[\s\S]*?<span>Combat<\/span>/);
  const combat=renderSection(char,'combat');
  assert.match(combat,/data-edit-stats="hp"/);
@@ -54,7 +54,7 @@ test('header avatar is always editable, compact uses a real external icon, and s
  assert.match(plain,/data-sheet-portrait/);
  assert.match(plain,/title="Change portrait"/);
  assert.doesNotMatch(renderSection(char,'overview'),/cs-identity-photo|data-sheet-portrait/);
- assert.match(plain,/aria-label="Open compact sheet in a new window"[^>]*><svg/);
+ assert.match(plain,/aria-label="Open standalone character sheet window"[^>]*><svg/);
  assert.doesNotMatch(plain,/\bundefined\b/);
  assert.match(plain,/data-recovery-menu[^>]*>[\s\S]*?<circle cx="12" cy="12" r="3"/);
  assert.match(plain,/class="cs-level-up-icon"/);
