@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-10-30T15:37:19.297777+00:00",
+  "mergeCommit": "6cc833a8d63b9a95b10a28ef91215af501d73541",
+  "baseURL": "https://feisty-freedom-production-304e.up.railway.app",
+  "assets": [
+    {
+      "path": "assets/rules-wizard.mjs",
+      "status": 200,
+      "expectedSha256": "51359ffc77403e23eaa39b9e9aef4656fe5d33bc48ab54d5d96c5aece3a60b4b",
+      "actualSha256": "51359ffc77403e23eaa39b9e9aef4656fe5d33bc48ab54d5d96c5aece3a60b4b",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/build.mjs",
+      "status": 200,
+      "expectedSha256": "2e7831ab4cd4c28c851ae30cda7718416e7e8115177d3670fd043a5e3c8e1b6d",
+      "actualSha256": "2e7831ab4cd4c28c851ae30cda7718416e7e8115177d3670fd043a5e3c8e1b6d",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/class-adapters.mjs",
+      "status": 200,
+      "expectedSha256": "24901072b0d100f7758220f8947967046c53f57f44f60a218928cd0a6d57fa1e",
+      "actualSha256": "24901072b0d100f7758220f8947967046c53f57f44f60a218928cd0a6d57fa1e",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/ability-library.mjs",
+      "status": 200,
+      "expectedSha256": "fb88e2ab0731b1371cc46e3fa373c343b6f4559166c6a70a9584cd996eeb3e11",
+      "actualSha256": "fb88e2ab0731b1371cc46e3fa373c343b6f4559166c6a70a9584cd996eeb3e11",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/racial-choices.mjs",
+      "status": 200,
+      "expectedSha256": "1338d1743a743ecefdce036d6ce85eca6e243a8e8bc3bba1dce20cb79415019a",
+      "actualSha256": "1338d1743a743ecefdce036d6ce85eca6e243a8e8bc3bba1dce20cb79415019a",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/racial-progress.mjs",
+      "status": 200,
+      "expectedSha256": "34919a37b9edc7c080887988dbc7a85f4907c2de12beaf3796d27ae32e601453",
+      "actualSha256": "34919a37b9edc7c080887988dbc7a85f4907c2de12beaf3796d27ae32e601453",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/races.mjs",
+      "status": 200,
+      "expectedSha256": "38580c891dee81a3c6446923b9f21cfd1a5505f7e80b72489fa623cab6e6bb45",
+      "actualSha256": "38580c891dee81a3c6446923b9f21cfd1a5505f7e80b72489fa623cab6e6bb45",
+      "matches": true
+    }
+  ],
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "apiVersion": 1,
+      "database": "ready",
+      "schemaVersion": 20,
+      "authentication": "configured"
+    }
+  },
+  "productionProviderLoginTested": false,
+  "pullRequest": "https://github.com/PhoeZAung/comos-cloud-test/pull/13",
+  "branchCIRun": 41081977101,
+  "mainCIRun": 41082225330,
+  "testsPassed": 334
+}

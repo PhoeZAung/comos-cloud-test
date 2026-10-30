@@ -2,7 +2,7 @@ import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classe
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
-import {HUME_ID,MITHRA_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
+import {HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
@@ -73,6 +73,7 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id===HUME_ID&&(b.heritageId||b.alternateIds.length))add(2,'Hume currently supports standard heritage and standard traits only. Variants and alternates require a separate verified batch.');
  if(race?.id===HUME_ID&&(b.level!==1||b.carry))add(3,'Hume currently supports first-level creation/editing only; progression and multiclassing require a separate verified batch.');
  if(race?.id===MITHRA_ID&&(b.heritageId||b.alternateIds.length))add(2,'Mithra currently supports standard traits only; variants and alternates need a separate verified batch.');
+ if(race?.id===TARUTARU_ID&&(b.heritageId||b.alternateIds.length))add(2,'Tarutaru currently supports standard traits only; variants and alternates need a separate verified batch.');
  if(race?.id==='ffd20:race:half-breed')add(2,'Half-Breed requires two legal parent races and verified inherited-trait choices. These choices are not available yet, so this race cannot be saved.');
  if(race?.id==='ffd20:race:galka'&&(b.heritageId||b.alternateIds.length))add(2,'Galka currently supports standard traits only. Alternate mechanics require a separate verified batch.');
  if(race?.id==='ffd20:race:elvaan'&&(b.heritageId||b.alternateIds.length))add(2,'Elvaan currently supports standard heritage and standard traits only. Variant heritage and alternate mechanics require a separate verified batch.');

@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/core-races/tarutaru/",
       "title": "Tarutaru — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "4fb180445ce5ac79a6774d4474f9698371beb5bb158c01487f1d75f3ba072b34"
     }
   ],
   "dependencies": [],
@@ -45,6 +46,11 @@
         "path": "/review",
         "reason": "Rule effects are mechanically paraphrased staging interpretations, not independently approved. No changes to live wizard or production manifest are authorized by structural validation.",
         "blocking": true
+      },
+      {
+        "path": "/data/standardTraitIds",
+        "blocking": true,
+        "reason": "Standard-trait testing: scores/Small identity, explicit size Stealth +4, Magic Expert skills, selected Talented specialty and source-listed optional languages are supported. Conditional saves/AC, spell resistance/dispel/concentration checks and at-will Detect Magic resolution remain manual; no spells or MP are added by the race. Variants, alternates, favored rewards and independent full review remain pending."
       }
     ],
     "sectionInventory": [
@@ -265,7 +271,8 @@
       "activation": "passive",
       "rulesType": "unknown",
       "sheetTargets": [
-        "identity"
+        "identity",
+        "skills"
       ],
       "automation": "manual",
       "requirements": null,
@@ -279,6 +286,27 @@
           "value": null,
           "textValue": "Small",
           "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "6028"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:trait:size:effect:stealth-size-bonus",
+          "kind": "skill_bonus",
+          "target": "skills.skill:stealth.bonus",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 4
+          },
+          "textValue": null,
+          "bonusType": "size",
           "condition": null,
           "automation": "automatic",
           "sourceRefs": [
@@ -383,7 +411,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -2907,6 +2937,150 @@
           "sourceId": "main",
           "section": "Variant Heritages",
           "locator": "6078"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages",
+      "name": "Tarutaru bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages:option:dwarven",
+          "name": "Dwarven",
+          "description": "Dwarven",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dwarven",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:tarutaru:pool:high-intelligence-bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Optional source list, bounded by positive Intelligence modifier.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
         }
       ]
     }
