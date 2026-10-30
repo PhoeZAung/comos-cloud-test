@@ -83,7 +83,9 @@
             "section": "Table: Gunbreaker",
             "locator": "level-1"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 3,
+        "infusedBonus": 1
       },
       {
         "level": 2,
@@ -101,7 +103,9 @@
             "section": "Table: Gunbreaker",
             "locator": "level-2"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 3,
+        "infusedBonus": 1
       },
       {
         "level": 3,
@@ -112,14 +116,16 @@
         "fort": 3,
         "ref": 3,
         "will": 1,
-        "special": "Technique, Jugular Rip, Heart of Stone",
+        "special": "Gun Arm Technique, Jugular Rip, Heart of Stone",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-3"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 3,
+        "infusedBonus": 2
       },
       {
         "level": 4,
@@ -130,14 +136,16 @@
         "fort": 4,
         "ref": 4,
         "will": 1,
-        "special": "Talent, Armor Training I",
+        "special": "Gunbreaker Talent, Armor Training I",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-4"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 4,
+        "infusedBonus": 2
       },
       {
         "level": 5,
@@ -148,14 +156,16 @@
         "fort": 4,
         "ref": 4,
         "will": 1,
-        "special": "Mastery I, Quick Cartridge",
+        "special": "Gun Arm Mastery I, Quick Cartridge",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-5"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 4,
+        "infusedBonus": 3
       },
       {
         "level": 6,
@@ -167,14 +177,16 @@
         "fort": 5,
         "ref": 5,
         "will": 2,
-        "special": "Talent, Technique, Modification",
+        "special": "Gunbreaker Talent, Gun Arm Technique, Gunsmith Modification",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-6"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 4,
+        "infusedBonus": 3
       },
       {
         "level": 7,
@@ -186,14 +198,16 @@
         "fort": 5,
         "ref": 5,
         "will": 2,
-        "special": "Improved Aurora, Resolve",
+        "special": "Improved Aurora, Gunbreaker's Resolve",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-7"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 5,
+        "infusedBonus": 4
       },
       {
         "level": 8,
@@ -205,14 +219,16 @@
         "fort": 6,
         "ref": 6,
         "will": 2,
-        "special": "Talent, Armor Training II",
+        "special": "Gunbreaker Talent, Armor Training II",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-8"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 5,
+        "infusedBonus": 4
       },
       {
         "level": 9,
@@ -224,14 +240,16 @@
         "fort": 6,
         "ref": 6,
         "will": 3,
-        "special": "Heart of Light, Technique",
+        "special": "Heart of Light, Gun Arm Technique",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-9"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 6,
+        "infusedBonus": 5
       },
       {
         "level": 10,
@@ -243,14 +261,16 @@
         "fort": 7,
         "ref": 7,
         "will": 3,
-        "special": "Talent, Continuation, Mastery II",
+        "special": "Gunbreaker Talent, Continuation, Gun Arm Mastery II",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-10"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 6,
+        "infusedBonus": 5
       },
       {
         "level": 11,
@@ -270,7 +290,9 @@
             "section": "Table: Gunbreaker",
             "locator": "level-11"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 7,
+        "infusedBonus": 6
       },
       {
         "level": 12,
@@ -283,14 +305,16 @@
         "fort": 8,
         "ref": 8,
         "will": 4,
-        "special": "Advanced Talent, Technique, Armor Training III, Modification",
+        "special": "Advanced Gunbreaker Talent, Gun Arm Technique, Armor Training III, Gunsmith Modification",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-12"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 7,
+        "infusedBonus": 6
       },
       {
         "level": 13,
@@ -310,7 +334,9 @@
             "section": "Table: Gunbreaker",
             "locator": "level-13"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 8,
+        "infusedBonus": 7
       },
       {
         "level": 14,
@@ -323,14 +349,16 @@
         "fort": 9,
         "ref": 9,
         "will": 4,
-        "special": "Advanced Talent, Gnashing Fang",
+        "special": "Advanced Gunbreaker Talent, Gnashing Fang",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-14"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 9,
+        "infusedBonus": 7
       },
       {
         "level": 15,
@@ -343,14 +371,16 @@
         "fort": 9,
         "ref": 9,
         "will": 5,
-        "special": "Royal Guard, Technique, Mastery III",
+        "special": "Royal Guard (10 ft.), Gun Arm Technique, Gun Arm Mastery III",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-15"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 11,
+        "infusedBonus": 8
       },
       {
         "level": 16,
@@ -364,14 +394,16 @@
         "fort": 10,
         "ref": 10,
         "will": 5,
-        "special": "Advanced Talent, Armor Training IV",
+        "special": "Advanced Gunbreaker Talent, Armor Training IV",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-16"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 13,
+        "infusedBonus": 8
       },
       {
         "level": 17,
@@ -385,14 +417,16 @@
         "fort": 10,
         "ref": 10,
         "will": 5,
-        "special": "Perfect Aurora, Resilience",
+        "special": "Perfect Aurora, Gunbreaker's Resilience",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-17"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 16,
+        "infusedBonus": 9
       },
       {
         "level": 18,
@@ -406,14 +440,16 @@
         "fort": 11,
         "ref": 11,
         "will": 6,
-        "special": "Advanced Talent, Technique, Modification",
+        "special": "Advanced Gunbreaker Talent, Gun Arm Technique, Gunsmith Modification",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-18"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": 19,
+        "infusedBonus": 9
       },
       {
         "level": 19,
@@ -434,7 +470,9 @@
             "section": "Table: Gunbreaker",
             "locator": "level-19"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": "capacity",
+        "infusedBonus": 10
       },
       {
         "level": 20,
@@ -448,14 +486,16 @@
         "fort": 12,
         "ref": 12,
         "will": 6,
-        "special": "Advanced Talent, Armor Training V, Mastery IV, Royal Guard, Lion Heart",
+        "special": "Advanced Gunbreaker Talent, Armor Training V, Gun Arm Mastery IV, Royal Guard (20 ft.), Lion Heart",
         "sourceRefs": [
           {
             "sourceId": "main",
             "section": "Table: Gunbreaker",
             "locator": "level-20"
           }
-        ]
+        ],
+        "magickedAmmoPerLoad": "capacity",
+        "infusedBonus": 10
       }
     ],
     "features": [
