@@ -12,3 +12,5 @@ High-Intelligence bonus languages use one free-text name per line rather than a 
 Variants, all alternate traits, favored rewards, multiclassing and progression above first level remain guarded for this milestone. Full source review, inheritance/RP mapping, conditional bonus stacking and language-learning progression remain separate work. This is partial testing support, not full race completion or independent rules approval.
 
 Validation: 331 tests and the cloud build pass. Five Hume regressions cover all six compilers, score/extra-rank/extra-feat entitlements, language count/duplicate/inactive rules, manual-row preservation, disabled traits, scope guards and database persistence. Mobile browser evidence is saved separately after creation/edit/save/reopen checks through real routes with fixture authentication. Production provider login is not claimed.
+
+Published in PR #12, merge `2fe9da7312e80219fc46ebb414f0fe57fe2ed006`. Branch CI 41080589016 and main CI 41080930728 passed. Six public runtime assets match the tested build, with health 200/database ready. See `hume-deployment-validation.json`.

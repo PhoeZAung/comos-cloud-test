@@ -9,10 +9,10 @@ Partial-live support, testing availability, source archiving and full completion
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | class | 73/73 | 6 | 6 | 67 | 6 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 56 | 5 | 0 | 0 |
+| race | 63/63 | 63 | 63 | 55 | 6 | 0 | 0 |
 | archetype | 579/579 | 2 | 1 | 577 | 1 | 0 | 486 |
 
-Checkpoint revision: **27**. Active: **ffd20:race:hume**. Next: **ffd20:race:hume**.
+Checkpoint revision: **29**. Active: **ffd20:race:mithra**. Next: **ffd20:race:mithra**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -104,8 +104,8 @@ The race count includes testing options whose mandatory choices can still preven
 | 2 | [Elvaan](https://finalfantasyd20.com/races/core-races/elvaan/) | testing option; saving can be guarded | live_partial · deployed | Standard Elvaan creation deployed; five asset hashes match tested build, 305 tests and both mobile save/reopen cases passed.; After baseline pass, review variant heritages, alternate replacements, broader proficient-weapon choices and favored rewards. |
 | 3 | [Galka](https://finalfantasyd20.com/races/core-races/galka/) | testing option; saving can be guarded | live_partial · deployed | Standard Galka milestone deployed; four asset hashes match tested build, 308 tests and phone-sized Dancer creation/reopen passed.; After baseline imports, review alternate traits, miner-specialty automation, conditional rules/Ferocity, favored rewards and independent full review. |
 | 4 | [Half-Breed](https://finalfantasyd20.com/races/core-races/half-breed/) | testing option; saving can be guarded | blocked · source-blocked | Source requirements reviewed and incomplete-save guard deployed; 313 tests, phone-sized wizard/API rejection and four public asset hashes verified.; Supply verified parent-trait IDs, category and RP cost citations, then implement the parent-pair identity and inheritance chooser. Continue other queue items meanwhile. |
-| 5 | [Hume](https://finalfantasyd20.com/races/core-races/hume/) | testing option; saving can be guarded | in_progress · runtime-validated | First-level standard-trait adapter validated across all six compilers; mobile Dancer and Black Mage created/edited/reopened with score, seven ranks, two languages and separate bonus-feat slot; Run exact-commit CI, merge checked Hume batch, verify deployed assets, record partial scope, and continue Mithra |
-| 6 | [Mithra](https://finalfantasyd20.com/races/core-races/mithra/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
+| 5 | [Hume](https://finalfantasyd20.com/races/core-races/hume/) | testing option; saving can be guarded | live_partial · deployed | First-level standard Hume adapter deployed; six public asset hashes match tested build; Later Hume milestones: conditional Curiosity/check stacking, variants/alternate replacements, progression/multiclass entitlements, favored rewards and independent full review |
+| 6 | [Mithra](https://finalfantasyd20.com/races/core-races/mithra/) | testing option; saving can be guarded | in_progress · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 7 | [Moogle](https://finalfantasyd20.com/races/core-races/moogle/) | testing option; saving can be guarded | live_partial · partial-live-support | Baseline choices and local save/reopen verified; real user-account acceptance remains.; Review alternate/heritage and favored-class rules. |
 | 8 | [Tarutaru](https://finalfantasyd20.com/races/core-races/tarutaru/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 9 | [Aegyl](https://finalfantasyd20.com/races/base-races/aegyl/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |

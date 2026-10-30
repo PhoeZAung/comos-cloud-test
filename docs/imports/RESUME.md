@@ -56,9 +56,11 @@ bounded first-level creation/editing scope is deployed: eleven ordinary starting
 companions or none, fixed starting selection, manual companion combat/training,
 Nature Sense and daily counters. All 35 source entries remain staged for later
 work. See `docs/extraction/beastmaster-level-one-import.md` for checks and limits.
-The active baseline item is now **Hume**. Its standard traits were compared with
-the archive; score choice, Skilled budget, separate bonus feat and language
-recording are next. See `docs/extraction/hume-standard-source-review.md`. Always read
+Hume standard first-level traits are deployed with score choice, Skilled budget,
+a separate manual bonus-feat slot and bounded language-name recording. See
+`docs/extraction/hume-standard-creation.md` for limits and evidence. The active
+baseline item is **Mithra**, starting with standard traits, bonus languages,
+Fleet-Footed and Cat's Luck. Always read
 the current queue instead of restarting these completed milestones. A blocked entry
 is skipped without deleting its last section or evidence.
 
