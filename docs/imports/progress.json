@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 42,
+  "revision": 43,
   "schedule": [
     "class",
     "race",
@@ -302,15 +302,18 @@
     },
     "ffd20:race:aegyl": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Standard identity, Perception, optional languages and Eternal Hope counter validated across seven adapters; phone Dancer/Bard create/edit/save/reopen passed",
+      "nextAction": "Publish checked batch through exact-head CI and verify public assets before advancing to Al Bhed",
+      "scope": "Standard traits; flight/clearance, resistances, conditional saves and Diplomacy remain manual; alternates and favored rewards guarded/pending",
+      "note": "354 tests and cloud build pass; phone fixtures preserve manual initiative and spent Hope. No production provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T18:25:52.854Z"
+      "evidence": [
+        "docs/extraction/aegyl-standard-creation.md",
+        "docs/extraction/aegyl-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T18:27:50.659Z"
     }
   },
   "history": [
@@ -682,6 +685,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T18:25:52.854Z"
+    },
+    {
+      "revision": 43,
+      "itemId": "ffd20:race:aegyl",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Standard identity, Perception, optional languages and Eternal Hope counter validated across seven adapters; phone Dancer/Bard create/edit/save/reopen passed",
+      "time": "2026-10-30T18:27:50.659Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
