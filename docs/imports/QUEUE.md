@@ -9,10 +9,10 @@ Partial-live support, testing availability, source archiving and full completion
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | class | 73/73 | 9 | 9 | 64 | 9 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 47 | 14 | 0 | 0 |
+| race | 63/63 | 63 | 63 | 47 | 15 | 0 | 0 |
 | archetype | 579/579 | 5 | 3 | 574 | 3 | 0 | 433 |
 
-Checkpoint revision: **75**. Active: **ffd20:race:dracobaltian**. Next: **ffd20:race:dracobaltian**.
+Checkpoint revision: **76**. Active: **none**. Next: **ffd20:race:garif**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -114,7 +114,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 12 | [Bangaa](https://finalfantasyd20.com/races/base-races/bangaa/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits, reptilian identity and owned natural armor deployed; five public assets verified; Later variants/alternates and conditional combat/environmental mechanics require separate reviewed batches |
 | 13 | [Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard senses/Hunter skills, source languages, owned flat stats and manual Run deployed; five public assets verified; Alternates and conditional movement, saves/immunity and feat automation require separate reviewed batches |
 | 14 | [Burmecian](https://finalfantasyd20.com/races/base-races/burmecian/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits/languages, owned CMD contribution and manual Improved Initiative deployed; five public assets verified; Core CMD/CMB migration and later variants/alternates/conditional effects need separate reviewed batches |
-| 15 | [Dracobaltian](https://finalfantasyd20.com/races/base-races/dracobaltian/) | testing option; saving can be guarded | in_progress · runtime-validated | Standard traits, explicit natural-blindness/Lesser Blindsight references, languages and owned natural armor validated across nine adapters and mobile save/reopen; Exact-head CI, merge and public asset verification; then Garif |
+| 15 | [Dracobaltian](https://finalfantasyd20.com/races/base-races/dracobaltian/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits, explicit sensory limits, source languages and owned natural armor deployed; five public assets verified. Paused here at user request.; Await user resume; then Garif terrain/Pastoralist choices. Source reviewed only; no Garif application changes applied. |
 | 16 | [Garif](https://finalfantasyd20.com/races/base-races/garif/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 17 | [Garlean](https://finalfantasyd20.com/races/base-races/garlean/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 18 | [Genome](https://finalfantasyd20.com/races/base-races/genome/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |

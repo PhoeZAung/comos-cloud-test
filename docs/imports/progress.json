@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 75,
+  "revision": 76,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 1,
+  "schedulePosition": 2,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -462,19 +462,20 @@
       "updatedAt": "2026-10-30T19:40:00.377Z"
     },
     "ffd20:race:dracobaltian": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "Standard traits, explicit natural-blindness/Lesser Blindsight references, languages and owned natural armor validated across nine adapters and mobile save/reopen",
-      "nextAction": "Exact-head CI, merge and public asset verification; then Garif",
-      "scope": "Standard identity/speed/Perception/languages and owned natural armor; sensory detection/targeting, conditional CMD/Diplomacy and claws manual; no ordinary sight or automatic detection inferred; alternates guarded",
-      "note": "384 tests/build/phone fixtures pass; sensory limits and manual armor retained. Later language entitlement history and core maneuver totals remain separate review work. No provider login test.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Standard traits, explicit sensory limits, source languages and owned natural armor deployed; five public assets verified. Paused here at user request.",
+      "nextAction": "Await user resume; then Garif terrain/Pastoralist choices. Source reviewed only; no Garif application changes applied.",
+      "scope": "Standard creation/editing with printed identity/speed/Perception/languages and owned natural armor; sensory detection/targeting, conditional CMD/Diplomacy and claws manual; alternates guarded",
+      "note": "PR #28 branch/main CI passed; 384 tests/build/phone fixtures passed; five public assets match/database ready. User requested pause at this checkpoint. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/dracobaltian-standard-creation.md",
-        "docs/extraction/dracobaltian-browser-validation.json"
+        "docs/extraction/dracobaltian-browser-validation.json",
+        "docs/extraction/dracobaltian-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T19:45:49.552Z"
+      "updatedAt": "2026-10-30T19:53:41.385Z"
     }
   },
   "history": [
@@ -1143,6 +1144,15 @@
       "stage": "runtime-validated",
       "cursor": "Standard traits, explicit natural-blindness/Lesser Blindsight references, languages and owned natural armor validated across nine adapters and mobile save/reopen",
       "time": "2026-10-30T19:45:49.552Z"
+    },
+    {
+      "revision": 76,
+      "itemId": "ffd20:race:dracobaltian",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Standard traits, explicit sensory limits, source languages and owned natural armor deployed; five public assets verified. Paused here at user request.",
+      "time": "2026-10-30T19:53:41.385Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

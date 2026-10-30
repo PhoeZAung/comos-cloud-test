@@ -1,4 +1,4 @@
-import {MONK_ID,KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
+import {MONK_ID,KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID,GUNBREAKER_ID} from './level-one-classes.mjs';
 import {registry} from './catalog.mjs';
 import {archer,archerAtLevel,archerChanges} from './archer-levels.mjs';
 import {fixedSkills} from '../../sheet/skills.mjs';
@@ -44,7 +44,7 @@ export const classHasSpells=b=>!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
  if(!isArcher(b)&&!isLevelOneClass(b)&&!isBard(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
- if(isLevelOneClass(b)||isBard(b)){const value=id.replace(/^skill:/,'');return classFor(b).data.classSkills.some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
+ if(isLevelOneClass(b)||isBard(b)){const value=id.replace(/^skill:/,'');return (levelOneArchetype(b)?.data.classSkills||classFor(b).data.classSkills).some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
  const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
  return skills.includes(value)||value.startsWith('knowledge-')&&skills.includes('knowledge:'+value.slice('knowledge-'.length))||['craft','profession'].includes(value)&&skills.includes(value+':*');
 }
@@ -130,7 +130,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  Object.assign(next,p.scores,{charName:b.name.trim(),alignment:b.alignment,bio:b.bio,portrait:b.portrait,
   source:'FFD20',race:p.race.name,class:name,classId:definition.id,
   level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,
-  classes:[{name,level:b.level,archetype:b.archetypeId===MOG_KNIGHT_ID?'Mog Knight':''}],archetype:b.archetypeId===MOG_KNIGHT_ID?'Mog Knight':'',archetypeId:b.archetypeId,
+  classes:[{name,level:b.level,archetype:levelOneArchetype(b)?.name||''}],archetype:levelOneArchetype(b)?.name||'',archetypeId:b.archetypeId,
   hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,
   mp:isBard(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isBard(b)?'cha':'dex'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition);
@@ -178,7 +178,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
- if([DANCER_ID,CHOCOBO_KNIGHT_ID,KNIGHT_ID,MONK_ID].includes(b.classId)){const feat=[DANCER_ID,MONK_ID].includes(b.classId)?'Improved Unarmed Strike':b.classId===KNIGHT_ID?'Antagonize':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id),desc='Granted by '+name+' at level 1. Check the feat conditions before applying its effects.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:feat,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:feat,rulesDescription:desc,sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
+ if([DANCER_ID,CHOCOBO_KNIGHT_ID,KNIGHT_ID,MONK_ID,GUNBREAKER_ID].includes(b.classId)){const feat=b.classId===GUNBREAKER_ID?'Gunsmithing':[DANCER_ID,MONK_ID].includes(b.classId)?'Improved Unarmed Strike':b.classId===KNIGHT_ID?'Antagonize':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id),desc='Granted by '+name+' at level 1. Check the feat conditions before applying its effects.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:feat,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:feat,rulesDescription:desc,sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let lv=1;lv<=b.level;lv+=2){const id='comos:feat-slot:'+lv,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+lv,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  for(const event of archerChoiceEvents(b).filter(e=>!eventPool(e).endsWith('archery-talents'))){

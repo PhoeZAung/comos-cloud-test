@@ -10,7 +10,7 @@ export function validateArchetypeManifest(manifest){
  for(const row of manifest.archetypes){
   if(!/^ffd20:archetype:[a-z][a-z0-9-]*:[a-z][a-z0-9-]*$/.test(row.id))invalid('manifest','invalid ID');
   if(!/^rules\/classes\/archetypes\/[a-z][a-z0-9-]*-[a-z][a-z0-9-]*\.archetype\.json$/.test(row.file))invalid('manifest','unsafe path');
-  const supported=row.status==='live'&&((row.id==='ffd20:archetype:chocobo-knight:mog-knight'&&row.adapter==='mog-knight-level-one')||(row.id==='ffd20:archetype:chocobo-knight:deadly-lancer'&&row.adapter==='deadly-lancer-level-one')||(row.id==='ffd20:archetype:chocobo-knight:fell-rider'&&row.adapter==='fell-rider-level-one'));
+  const supported=row.status==='live'&&((row.id==='ffd20:archetype:chocobo-knight:mog-knight'&&row.adapter==='mog-knight-level-one')||(row.id==='ffd20:archetype:chocobo-knight:deadly-lancer'&&row.adapter==='deadly-lancer-level-one')||(row.id==='ffd20:archetype:chocobo-knight:fell-rider'&&row.adapter==='fell-rider-level-one')||(row.id==='ffd20:archetype:gunbreaker:doom-slayer'&&row.adapter==='doom-slayer-level-one'));
   if(!supported&&(row.status!=='staged'||row.adapter!==null))invalid('manifest','no archetype can become live without its specialized validated adapter');
  }
  return manifest;

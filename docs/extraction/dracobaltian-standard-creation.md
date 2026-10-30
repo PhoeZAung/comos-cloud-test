@@ -12,3 +12,5 @@ The identity explicitly states natural blindness and Lesser Blindsight to 30 fee
 Alternates are guarded; favored rewards and independent full review remain pending. Each class retains its existing progression boundaries, and complete core maneuver totals require the separate documented manual verification.
 
 Validation: all 384 tests and the cloud build pass. Three regressions cover nine class adapters, exact identity/speed/sensory limits, conditional boundaries, natural-armor ownership/removal, post-penalty language count and alternate guards. Phone-sized Chromium fixtures created, edited, saved and reopened Dancer/Bard builds with Ignan, retained natural-blindness/Perception references and manual natural armor, and saw no page errors. See `dracobaltian-browser-validation.json`; fixture authentication is not production provider login.
+
+Published in PR #28, merge `92e0b92ccb58d355d18fddc5a565474aa282f454`. Branch CI 41117914754 and main CI 41118526299 passed. Five public assets match and health reports database ready. See `dracobaltian-deployment-validation.json`. Work paused at this verified checkpoint at the user’s request; Garif remains queued.

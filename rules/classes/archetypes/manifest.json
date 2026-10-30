@@ -33,6 +33,13 @@
       "status": "live",
       "adapter": "fell-rider-level-one",
       "coverage": "partial"
+    },
+    {
+      "id": "ffd20:archetype:gunbreaker:doom-slayer",
+      "file": "rules/classes/archetypes/gunbreaker-doom-slayer.archetype.json",
+      "status": "live",
+      "adapter": "doom-slayer-level-one",
+      "coverage": "partial"
     }
   ]
 }

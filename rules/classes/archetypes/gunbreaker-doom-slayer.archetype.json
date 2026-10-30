@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:gunbreaker:doom-slayer",
+  "parentClassId": "ffd20:class:gunbreaker",
+  "name": "Doom Slayer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/",
+      "title": "Official Doom Slayer rules",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-30",
+      "archiveSha256": "12216a0dc40ee697516be7d63c566927b983635459c227816110e622c8c32c1f"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "Higher-level archetype feature replacements and choices remain unsupported."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Equipment, situational bonuses, resources, and modes must be tracked manually. No unsupported permanent bonuses are applied."
+      }
+    ]
+  },
+  "data": {
+    "supportedLevels": [
+      1
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:praetor-sacrament",
+        "name": "Praetor Sacrament",
+        "description": "At first level, Praetor armor is scale mail. While wearing it, Doom Slayer gains +2 circumstance Intimidate, +10 feet land speed even when wearing heavy armor, and +2 circumstance damage against demons, devils, and undead. These are armor- and target-conditional effects tracked manually.",
+        "activation": "passive",
+        "atLevel": 1,
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Praetor Sacrament",
+            "locator": "praetor-sacrament"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:doom-gun-arm",
+        "name": "Doom Gun Arm",
+        "description": "Begins with a unique chainsaw-form gun arm and Gunsmithing bonus feat. The weapon can switch between pistol, shotgun, and chaingun forms at level 1 (move action); track the active form, rounds, reloads, ranges and attacks manually. Later forms have level prerequisites and are not available at level 1.",
+        "activation": "active",
+        "atLevel": 1,
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Doom Gun Arm",
+            "locator": "doom-gun-arm"
+          }
+        ]
+      }
+    ],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:aurora",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:aurora"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:praetor-sacrament"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "praetor sacrament",
+            "locator": "praetor-sacrament"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:gunsmith",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:gunsmith"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:doom-gun-arm"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "doom gun arm",
+            "locator": "doom-gun-arm"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:event:grant-praetor-sacrament",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:gunbreaker:doom-slayer:feature:praetor-sacrament"
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:event:grant-doom-gun-arm",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:gunbreaker:doom-slayer:feature:doom-gun-arm"
+      }
+    ],
+    "deferredProgression": [
+      {
+        "level": 2,
+        "name": "Ravenous Hatred",
+        "automation": "not_available_until_verified"
+      },
+      {
+        "level": 3,
+        "name": "Dark Vengeance",
+        "automation": "not_available_until_verified"
+      },
+      {
+        "level": 5,
+        "name": "Demonic Runes",
+        "automation": "not_available_until_verified"
+      },
+      {
+        "level": 7,
+        "name": "Hell Walker",
+        "automation": "not_available_until_verified"
+      },
+      {
+        "level": 9,
+        "name": "The Barbarous Dance",
+        "automation": "not_available_until_verified"
+      },
+      {
+        "level": 11,
+        "name": "Frightening",
+        "automation": "not_available_until_verified"
+      },
+      {
+        "level": 13,
+        "name": "Weapon of Doom",
+        "automation": "not_available_until_verified"
+      },
+      {
+        "level": 17,
+        "name": "Unshakable, Incorruptible",
+        "automation": "not_available_until_verified"
+      },
+      {
+        "level": 20,
+        "name": "Rip and Tear",
+        "automation": "not_available_until_verified"
+      }
+    ],
+    "classSkills": [
+      "acrobatics",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "intimidate",
+      "knowledge:technology",
+      "knowledge:planes",
+      "perception",
+      "profession:*",
+      "repair",
+      "ride",
+      "sense-motive",
+      "survival",
+      "swim"
+    ]
+  }
+}
