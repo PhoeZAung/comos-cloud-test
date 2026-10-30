@@ -49,8 +49,10 @@ The original Dwarf/Elvaan continuation is retained in
 `docs/extraction/CONTINUATION.json`. Existing Chocobo Knight, Dancer, Archer,
 Black Mage, Bard, Elvaan, Galka, Moogle, Immortal, Dwarf and Mog Knight support is recorded as partial
 milestones rather than full completion. Bard level 1 and the standard Elvaan
-and Galka traits have verified deployment milestones. The next baseline item is
-**Half-Breed**, followed by an eligible archetype and the next class. Always read
+and Galka traits have verified deployment milestones. Half-Breed is blocked on verified parent-trait RP costs and inheritance choices.
+Antrider has a staged source definition, but is blocked on maneuver-feat
+prerequisites, companion handling and later parent replacements. The next
+unblocked baseline item is **Beastmaster**. Always read
 the current queue instead of restarting these completed milestones. A blocked entry
 is skipped without deleting its last section or evidence.
 

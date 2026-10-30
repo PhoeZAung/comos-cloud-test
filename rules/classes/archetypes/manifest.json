@@ -6,6 +6,12 @@
       "file": "rules/classes/archetypes/chocobo-knight-mog-knight.archetype.json",
       "status": "live",
       "adapter": "mog-knight-level-one"
+    },
+    {
+      "id": "ffd20:archetype:chocobo-knight:antrider",
+      "file": "rules/classes/archetypes/chocobo-knight-antrider.archetype.json",
+      "status": "staged",
+      "adapter": null
     }
   ]
 }

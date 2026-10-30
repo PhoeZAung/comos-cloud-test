@@ -1,0 +1,10 @@
+{
+  "viewport": "390x844",
+  "raceNoticeVisible": true,
+  "wizardBlockedAtRaceStep": true,
+  "forgedApiBuildRejected": true,
+  "apiStatus": 400,
+  "createdCharacters": 0,
+  "pageErrors": [],
+  "authentication": "local fixture only"
+}

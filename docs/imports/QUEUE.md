@@ -10,9 +10,9 @@ Partial-live support, testing availability, source archiving and full completion
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | class | 73/73 | 5 | 5 | 68 | 5 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 57 | 5 | 0 | 0 |
-| archetype | 579/579 | 1 | 1 | 577 | 1 | 0 | 498 |
+| archetype | 579/579 | 2 | 1 | 577 | 1 | 0 | 498 |
 
-Checkpoint revision: **15**. Active: **ffd20:archetype:chocobo-knight:antrider**. Next: **ffd20:archetype:chocobo-knight:antrider**.
+Checkpoint revision: **17**. Active: **none**. Next: **ffd20:class:beastmaster**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 

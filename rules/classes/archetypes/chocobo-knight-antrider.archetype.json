@@ -1,0 +1,992 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:chocobo-knight:antrider",
+  "parentClassId": "ffd20:class:chocobo-knight",
+  "name": "Antrider",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/antrider/",
+      "title": "Antrider",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "b79280541ba25e2c77c4a668964ad6d0bd2a6dc19e3ac4d28bc62c57cbbe332f"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/choicePools",
+        "blocking": true,
+        "reason": "Maneuver Tactics requires an eligible maneuver feat and verified prerequisites at levels 1/9/17. The current archive has no imported verified maneuver-feat eligibility catalog or chooser."
+      },
+      {
+        "path": "/data/deferredReplacements",
+        "blocking": true,
+        "reason": "Five later parent-feature replacement targets are not yet staged in the first-level Chocobo Knight definition. Names and source locators are retained without inventing parent canonical IDs."
+      },
+      {
+        "path": "/data/mount/poison",
+        "blocking": true,
+        "reason": "Source prints Fort DC 17, but its formula 10 + half HD + CON with first-level mount HD 2 and CON 21 gives 16. Both are preserved for review; no poison DC is automated."
+      },
+      {
+        "path": "/data/mount/progression",
+        "blocking": true,
+        "reason": "Table lists conditional skill/feat/trick values; the prose distinguishes mindless companions and extra tricks. Hive Guard separately grants Coordinated Defense despite the no-feats language. Keep these conditions and exceptions manual pending independent review."
+      },
+      {
+        "path": "/data",
+        "blocking": true,
+        "reason": "Antica-only eligibility, the companion model, combat-feat choices, resource actions and specialized runtime adapter require verification before enabling. Structural validation is not gameplay approval."
+      }
+    ]
+  },
+  "data": {
+    "requiredRaceId": "ffd20:race:antica",
+    "features": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:feature:ant-steed",
+        "name": "Ant Steed",
+        "atLevel": 1,
+        "description": "Gain a six-legged knight ant mount. Use the source starting statistics and 20-row mount table. The companion has d8 Hit Dice, 3/4 BAB and good Fortitude. Mindlessness prevents ordinary skill points and feats until Intelligence becomes at least 1. Its printed poison DC and formula disagree at first level; do not silently resolve this. Replaces Chocobo Mount.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ant Steed",
+            "locator": "complete feature description"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:feature:maneuver-tactics",
+        "name": "Maneuver Tactics",
+        "atLevel": 1,
+        "description": "Choose an Improved combat maneuver feat for which you meet prerequisites. As a standard action, grant it to allies within 30 feet for 3 rounds + 1 per two Chocobo Knight levels, regardless of their hearing, sight or prerequisites. One use/day at level 1, +1 at levels 5, 10, 15 and 20. At level 9 choose a second Improved or Greater maneuver feat and activation becomes swift. At 17 choose a third Improved, Greater or Strike feat. You must meet each chosen feat’s prerequisites. Replaces Challenge. Feat selection and prerequisites are not implemented.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Tactics",
+            "locator": "complete feature description"
+          }
+        ],
+        "initialState": {
+          "startAction": "standard",
+          "featSlots": 1,
+          "allowedFeatTiers": "Improved"
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
+        "name": "Mindlink",
+        "atLevel": 4,
+        "description": "While conscious, allies within the Antica’s limited telepathy range (normally 30 feet) gain +2 morale on saves against charm/compulsion and +1 morale on attacks while flanking. Both increase by 1 at levels 8, 12, 16 and 20. Conditional effects remain manual. Replaces Expert Trainer and Master Feeder.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink",
+            "locator": "complete feature description"
+          }
+        ],
+        "initialState": {
+          "charmCompulsionSaveMorale": 2,
+          "flankingAttackMorale": 1
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:feature:acidic-bite",
+        "name": "Acidic Bite",
+        "atLevel": 7,
+        "description": "The ant mount’s bite deals an additional 1d6 earth damage, increasing to 2d6 at level 15. The source specifies earth despite the feature’s name. Replaces Improved Chocobo Mount and Superior Chocobo Mount.",
+        "featureKind": "class_feature",
+        "activation": "passive",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Acidic Bite",
+            "locator": "complete feature description"
+          }
+        ],
+        "initialState": {
+          "extraDamageDice": 1,
+          "extraDamageDieSides": 6,
+          "element": "earth"
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink-pulse",
+        "name": "Mindlink Pulse",
+        "atLevel": 15,
+        "description": "As a standard action, send a pulse to allies within limited telepathy range. In a surprise round, allies otherwise unable to act can act with initiative equal to the lower of their initiative roll or the Antrider’s initiative minus 1. The pulse removes flat-footedness from affected allies, including outside surprise rounds. Replaces Protect the Meek.",
+        "featureKind": "class_feature",
+        "activation": "active",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink Pulse",
+            "locator": "complete feature description"
+          }
+        ]
+      }
+    ],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:replacement:ant-steed",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:chocobo-mount"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:antrider:feature:ant-steed"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ant Steed",
+            "locator": "ant-steed-final-paragraph"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:replacement:maneuver-tactics",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:challenge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:antrider:feature:maneuver-tactics"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Tactics",
+            "locator": "maneuver-tactics-final-paragraph"
+          }
+        ]
+      }
+    ],
+    "deferredReplacements": [
+      {
+        "atClassLevel": 4,
+        "parentFeatureName": "Expert Trainer",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink",
+            "locator": "replaces expert trainer and master feeder"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 6,
+        "parentFeatureName": "Master Feeder",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink",
+            "locator": "replaces expert trainer and master feeder"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 7,
+        "parentFeatureName": "Improved Chocobo Mount",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:acidic-bite",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Acidic Bite",
+            "locator": "replaces improved chocobo mount and superior chocobo mount"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 15,
+        "parentFeatureName": "Superior Chocobo Mount",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:acidic-bite",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Acidic Bite",
+            "locator": "replaces improved chocobo mount and superior chocobo mount"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 15,
+        "parentFeatureName": "Protect the Meek",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink-pulse",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink Pulse",
+            "locator": "replaces protect the meek"
+          }
+        ]
+      }
+    ],
+    "upgrades": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:upgrade:mindlink:8",
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
+        "atClassLevel": 8,
+        "changes": {
+          "charmCompulsionSaveMorale": 3,
+          "flankingAttackMorale": 2
+        },
+        "description": "Replace both conditional morale bonuses with their values for this class level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink",
+            "locator": "level-8"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:upgrade:mindlink:12",
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
+        "atClassLevel": 12,
+        "changes": {
+          "charmCompulsionSaveMorale": 4,
+          "flankingAttackMorale": 3
+        },
+        "description": "Replace both conditional morale bonuses with their values for this class level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink",
+            "locator": "level-12"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:upgrade:mindlink:16",
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
+        "atClassLevel": 16,
+        "changes": {
+          "charmCompulsionSaveMorale": 5,
+          "flankingAttackMorale": 4
+        },
+        "description": "Replace both conditional morale bonuses with their values for this class level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink",
+            "locator": "level-16"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:upgrade:mindlink:20",
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
+        "atClassLevel": 20,
+        "changes": {
+          "charmCompulsionSaveMorale": 6,
+          "flankingAttackMorale": 5
+        },
+        "description": "Replace both conditional morale bonuses with their values for this class level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mindlink",
+            "locator": "level-20"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:upgrade:maneuver-tactics:9",
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:maneuver-tactics",
+        "atClassLevel": 9,
+        "changes": {
+          "featSlots": 2,
+          "allowedFeatTiers": "Improved or Greater",
+          "startAction": "swift"
+        },
+        "description": "Gain the second eligible feat and change activation to a swift action.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Tactics",
+            "locator": "level-9"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:upgrade:maneuver-tactics:17",
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:maneuver-tactics",
+        "atClassLevel": 17,
+        "changes": {
+          "featSlots": 3,
+          "allowedFeatTiers": "Improved, Greater or Strike"
+        },
+        "description": "Gain a third eligible feat; prerequisites still apply.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Tactics",
+            "locator": "level-17"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:upgrade:acidic-bite:15",
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:acidic-bite",
+        "atClassLevel": 15,
+        "changes": {
+          "extraDamageDice": 2
+        },
+        "description": "Replace the additional 1d6 earth damage with 2d6 earth damage.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Acidic Bite",
+            "locator": "level-15"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:grant:ant-steed",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:ant-steed"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:grant:maneuver-tactics",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:maneuver-tactics"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:grant:mindlink",
+        "type": "grant_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:grant:acidic-bite",
+        "type": "grant_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:acidic-bite"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:grant:mindlink-pulse",
+        "type": "grant_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink-pulse"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:upgrade:mindlink:8",
+        "type": "upgrade_feature",
+        "atClassLevel": 8,
+        "upgradeId": "ffd20:archetype:chocobo-knight:antrider:upgrade:mindlink:8"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:upgrade:mindlink:12",
+        "type": "upgrade_feature",
+        "atClassLevel": 12,
+        "upgradeId": "ffd20:archetype:chocobo-knight:antrider:upgrade:mindlink:12"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:upgrade:mindlink:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "upgradeId": "ffd20:archetype:chocobo-knight:antrider:upgrade:mindlink:16"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:upgrade:mindlink:20",
+        "type": "upgrade_feature",
+        "atClassLevel": 20,
+        "upgradeId": "ffd20:archetype:chocobo-knight:antrider:upgrade:mindlink:20"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:upgrade:maneuver-tactics:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "upgradeId": "ffd20:archetype:chocobo-knight:antrider:upgrade:maneuver-tactics:9"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:upgrade:maneuver-tactics:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "upgradeId": "ffd20:archetype:chocobo-knight:antrider:upgrade:maneuver-tactics:17"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:event:upgrade:acidic-bite:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "upgradeId": "ffd20:archetype:chocobo-knight:antrider:upgrade:acidic-bite:15"
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:pool:maneuver-feats",
+        "name": "Maneuver Tactics feats",
+        "options": [],
+        "implementation": "pending_verified_prerequisite_catalog",
+        "selectionLevels": [
+          1,
+          9,
+          17
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Tactics",
+            "locator": "bonus feats and prerequisites"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:antrider:resource:maneuver-tactics",
+        "name": "Maneuver Tactics",
+        "maximumByClassLevel": [
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4,
+          4,
+          5
+        ],
+        "durationRoundsFormula": "3 + floor(CLASS_LEVEL / 2)",
+        "recovery": "manual per-day reset",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Tactics",
+            "locator": "daily uses and duration"
+          }
+        ]
+      }
+    ],
+    "mount": {
+      "name": "Knight Ant",
+      "legs": 6,
+      "hitDie": 8,
+      "babProgression": "three-quarters",
+      "fortitudeProgression": "good",
+      "startingStatistics": {
+        "size": "Large",
+        "speedsFeet": {
+          "land": 50,
+          "burrow": 20,
+          "climb": 20
+        },
+        "naturalArmor": 8,
+        "attacks": [
+          {
+            "name": "bite",
+            "damage": "1d8"
+          },
+          {
+            "name": "sting",
+            "damage": "1d6 plus poison"
+          }
+        ],
+        "scores": {
+          "str": 20,
+          "dex": 10,
+          "con": 21,
+          "int": null,
+          "wis": 13,
+          "cha": 11
+        },
+        "specialQualities": [
+          "Hive Guard",
+          "mindless",
+          "darkvision 60 ft.",
+          "scent",
+          "tremorsense 30 ft."
+        ],
+        "tripCmdBonus": 8
+      },
+      "hiveGuard": "Grants Coordinated Defense as a bonus feat; same-colony Antica and giant ants gain it when adjacent or sharing space. As a standard action, provide total cover behind the ant or in its space as a tower shield. Conditions and feat effects remain manual.",
+      "mindless": "No Intelligence score, ordinary skill points or ordinary feats while mindless. The prose allows one trick plus bonus tricks. At an ability increase (4 HD, 8 HD, etc.), Intelligence may become 1, removing mindlessness and permitting 3 tricks per Intelligence point plus bonus tricks. The table labels its skill/feat/trick columns with 1+ INT; retain this source ambiguity for review.",
+      "poison": {
+        "delivery": "sting, injury",
+        "printedFortitudeDC": 17,
+        "saveDCFormula": "10 + floor(HD / 2) + CON_MOD",
+        "firstLevelFormulaDC": 16,
+        "frequency": "once per round for 6 rounds",
+        "effect": "1d4 Strength damage",
+        "cure": "1 successful save",
+        "automation": "manual"
+      },
+      "progression": [
+        {
+          "classLevel": 1,
+          "hitDice": 2,
+          "bab": 1,
+          "fort": 3,
+          "ref": 0,
+          "will": 0,
+          "skillsWhenIntelligent": 2,
+          "featsWhenIntelligent": 1,
+          "naturalArmorBonus": 0,
+          "strengthDexterityBonus": 0,
+          "bonusTricksColumn": 1,
+          "special": "Link, Endurance",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-1"
+            }
+          ]
+        },
+        {
+          "classLevel": 2,
+          "hitDice": 3,
+          "bab": 2,
+          "fort": 3,
+          "ref": 1,
+          "will": 1,
+          "skillsWhenIntelligent": 3,
+          "featsWhenIntelligent": 2,
+          "naturalArmorBonus": 0,
+          "strengthDexterityBonus": 0,
+          "bonusTricksColumn": 1,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-2"
+            }
+          ]
+        },
+        {
+          "classLevel": 3,
+          "hitDice": 3,
+          "bab": 2,
+          "fort": 3,
+          "ref": 1,
+          "will": 1,
+          "skillsWhenIntelligent": 3,
+          "featsWhenIntelligent": 2,
+          "naturalArmorBonus": 2,
+          "strengthDexterityBonus": 1,
+          "bonusTricksColumn": 2,
+          "special": "Evasion",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-3"
+            }
+          ]
+        },
+        {
+          "classLevel": 4,
+          "hitDice": 4,
+          "bab": 3,
+          "fort": 4,
+          "ref": 1,
+          "will": 1,
+          "skillsWhenIntelligent": 4,
+          "featsWhenIntelligent": 2,
+          "naturalArmorBonus": 2,
+          "strengthDexterityBonus": 1,
+          "bonusTricksColumn": 2,
+          "special": "Ability score increase",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-4"
+            }
+          ]
+        },
+        {
+          "classLevel": 5,
+          "hitDice": 5,
+          "bab": 3,
+          "fort": 4,
+          "ref": 1,
+          "will": 1,
+          "skillsWhenIntelligent": 5,
+          "featsWhenIntelligent": 3,
+          "naturalArmorBonus": 2,
+          "strengthDexterityBonus": 1,
+          "bonusTricksColumn": 2,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-5"
+            }
+          ]
+        },
+        {
+          "classLevel": 6,
+          "hitDice": 6,
+          "bab": 4,
+          "fort": 5,
+          "ref": 2,
+          "will": 2,
+          "skillsWhenIntelligent": 6,
+          "featsWhenIntelligent": 3,
+          "naturalArmorBonus": 4,
+          "strengthDexterityBonus": 2,
+          "bonusTricksColumn": 3,
+          "special": "Devotion",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-6"
+            }
+          ]
+        },
+        {
+          "classLevel": 7,
+          "hitDice": 6,
+          "bab": 4,
+          "fort": 5,
+          "ref": 2,
+          "will": 2,
+          "skillsWhenIntelligent": 6,
+          "featsWhenIntelligent": 3,
+          "naturalArmorBonus": 4,
+          "strengthDexterityBonus": 2,
+          "bonusTricksColumn": 3,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-7"
+            }
+          ]
+        },
+        {
+          "classLevel": 8,
+          "hitDice": 7,
+          "bab": 5,
+          "fort": 5,
+          "ref": 2,
+          "will": 2,
+          "skillsWhenIntelligent": 7,
+          "featsWhenIntelligent": 4,
+          "naturalArmorBonus": 4,
+          "strengthDexterityBonus": 2,
+          "bonusTricksColumn": 3,
+          "special": "Multiattack",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-8"
+            }
+          ]
+        },
+        {
+          "classLevel": 9,
+          "hitDice": 8,
+          "bab": 6,
+          "fort": 6,
+          "ref": 2,
+          "will": 2,
+          "skillsWhenIntelligent": 8,
+          "featsWhenIntelligent": 4,
+          "naturalArmorBonus": 6,
+          "strengthDexterityBonus": 3,
+          "bonusTricksColumn": 4,
+          "special": "Ability score increase",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-9"
+            }
+          ]
+        },
+        {
+          "classLevel": 10,
+          "hitDice": 9,
+          "bab": 6,
+          "fort": 6,
+          "ref": 3,
+          "will": 3,
+          "skillsWhenIntelligent": 9,
+          "featsWhenIntelligent": 5,
+          "naturalArmorBonus": 6,
+          "strengthDexterityBonus": 3,
+          "bonusTricksColumn": 4,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-10"
+            }
+          ]
+        },
+        {
+          "classLevel": 11,
+          "hitDice": 9,
+          "bab": 6,
+          "fort": 6,
+          "ref": 3,
+          "will": 3,
+          "skillsWhenIntelligent": 9,
+          "featsWhenIntelligent": 5,
+          "naturalArmorBonus": 6,
+          "strengthDexterityBonus": 3,
+          "bonusTricksColumn": 4,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-11"
+            }
+          ]
+        },
+        {
+          "classLevel": 12,
+          "hitDice": 10,
+          "bab": 7,
+          "fort": 7,
+          "ref": 3,
+          "will": 3,
+          "skillsWhenIntelligent": 10,
+          "featsWhenIntelligent": 5,
+          "naturalArmorBonus": 8,
+          "strengthDexterityBonus": 4,
+          "bonusTricksColumn": 5,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-12"
+            }
+          ]
+        },
+        {
+          "classLevel": 13,
+          "hitDice": 11,
+          "bab": 8,
+          "fort": 7,
+          "ref": 3,
+          "will": 3,
+          "skillsWhenIntelligent": 11,
+          "featsWhenIntelligent": 6,
+          "naturalArmorBonus": 8,
+          "strengthDexterityBonus": 4,
+          "bonusTricksColumn": 5,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-13"
+            }
+          ]
+        },
+        {
+          "classLevel": 14,
+          "hitDice": 12,
+          "bab": 9,
+          "fort": 8,
+          "ref": 4,
+          "will": 4,
+          "skillsWhenIntelligent": 12,
+          "featsWhenIntelligent": 6,
+          "naturalArmorBonus": 8,
+          "strengthDexterityBonus": 4,
+          "bonusTricksColumn": 5,
+          "special": "Ability score increase",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-14"
+            }
+          ]
+        },
+        {
+          "classLevel": 15,
+          "hitDice": 12,
+          "bab": 9,
+          "fort": 8,
+          "ref": 4,
+          "will": 4,
+          "skillsWhenIntelligent": 12,
+          "featsWhenIntelligent": 6,
+          "naturalArmorBonus": 10,
+          "strengthDexterityBonus": 5,
+          "bonusTricksColumn": 6,
+          "special": "Improved Evasion",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-15"
+            }
+          ]
+        },
+        {
+          "classLevel": 16,
+          "hitDice": 13,
+          "bab": 9,
+          "fort": 8,
+          "ref": 4,
+          "will": 4,
+          "skillsWhenIntelligent": 13,
+          "featsWhenIntelligent": 7,
+          "naturalArmorBonus": 10,
+          "strengthDexterityBonus": 5,
+          "bonusTricksColumn": 6,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-16"
+            }
+          ]
+        },
+        {
+          "classLevel": 17,
+          "hitDice": 14,
+          "bab": 10,
+          "fort": 9,
+          "ref": 4,
+          "will": 4,
+          "skillsWhenIntelligent": 14,
+          "featsWhenIntelligent": 7,
+          "naturalArmorBonus": 10,
+          "strengthDexterityBonus": 5,
+          "bonusTricksColumn": 6,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-17"
+            }
+          ]
+        },
+        {
+          "classLevel": 18,
+          "hitDice": 15,
+          "bab": 11,
+          "fort": 9,
+          "ref": 5,
+          "will": 5,
+          "skillsWhenIntelligent": 15,
+          "featsWhenIntelligent": 8,
+          "naturalArmorBonus": 12,
+          "strengthDexterityBonus": 6,
+          "bonusTricksColumn": 7,
+          "special": "Blood Bond",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-18"
+            }
+          ]
+        },
+        {
+          "classLevel": 19,
+          "hitDice": 15,
+          "bab": 11,
+          "fort": 9,
+          "ref": 5,
+          "will": 5,
+          "skillsWhenIntelligent": 15,
+          "featsWhenIntelligent": 8,
+          "naturalArmorBonus": 12,
+          "strengthDexterityBonus": 6,
+          "bonusTricksColumn": 7,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-19"
+            }
+          ]
+        },
+        {
+          "classLevel": 20,
+          "hitDice": 16,
+          "bab": 12,
+          "fort": 10,
+          "ref": 5,
+          "will": 5,
+          "skillsWhenIntelligent": 16,
+          "featsWhenIntelligent": 8,
+          "naturalArmorBonus": 12,
+          "strengthDexterityBonus": 6,
+          "bonusTricksColumn": 7,
+          "special": "Ability score increase",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Antrider Mount Base Statistics",
+              "locator": "class-level-20"
+            }
+          ]
+        }
+      ],
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Ant Steed; Starting Statistics; Table: Antrider Mount Base Statistics",
+          "locator": "complete mount statistics and all 20 progression rows"
+        }
+      ]
+    }
+  }
+}
