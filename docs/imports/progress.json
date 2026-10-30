@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 69,
+  "revision": 71,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 4,
+  "schedulePosition": 0,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -430,19 +430,32 @@
       "updatedAt": "2026-10-30T19:16:13.455Z"
     },
     "ffd20:archetype:chocobo-knight:fell-rider": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "First-level Brute Steed with retained yellow chocobo reference validated; rider scores/size unchanged; mobile Galka/Moogle save/reopen passed",
-      "nextAction": "Exact-head CI, merge and public asset verification; then Monk",
-      "scope": "First-level Chocobo Knight archetype only; existing mount reference and manual mount-only STR/DEX adjustments; parent resources/proficiencies retained; later replacements/actions/choices and multiclassing guarded",
-      "note": "378 tests/build/phone fixtures pass; manual mount notes and shared resources preserved with no inferred size increase. No provider login test.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Brute Steed mount-only adjustments and retained parent reference deployed; four public assets verified",
+      "nextAction": "Later parent targets, mounted actions/feat choices and fear tracking require separate reviewed batches",
+      "scope": "First-level Chocobo Knight archetype; parent mount/resources/proficiencies retained with manual mount STR/DEX changes, no rider/size changes; later progression and multiclassing guarded",
+      "note": "PR #26 branch/main CI passed; 378 tests/build/phone fixtures passed; four public assets match/database ready. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/fell-rider-level-one-import.md",
-        "docs/extraction/fell-rider-browser-validation.json"
+        "docs/extraction/fell-rider-browser-validation.json",
+        "docs/extraction/fell-rider-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T19:20:37.174Z"
+      "updatedAt": "2026-10-30T19:25:38.268Z"
+    },
+    "ffd20:class:monk": {
+      "state": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "nextAction": "Legal first-level creation first; later progression and choices in verified milestones.",
+      "scope": "",
+      "note": "",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [],
+      "updatedAt": "2026-10-30T19:25:38.455Z"
     }
   },
   "history": [
@@ -1057,6 +1070,24 @@
       "stage": "runtime-validated",
       "cursor": "First-level Brute Steed with retained yellow chocobo reference validated; rider scores/size unchanged; mobile Galka/Moogle save/reopen passed",
       "time": "2026-10-30T19:20:37.174Z"
+    },
+    {
+      "revision": 70,
+      "itemId": "ffd20:archetype:chocobo-knight:fell-rider",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Brute Steed mount-only adjustments and retained parent reference deployed; four public assets verified",
+      "time": "2026-10-30T19:25:38.268Z"
+    },
+    {
+      "revision": 71,
+      "itemId": "ffd20:class:monk",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T19:25:38.455Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
