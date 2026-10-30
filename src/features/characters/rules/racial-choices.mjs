@@ -1,5 +1,5 @@
 import {fixedSkills} from '../../sheet/skills.mjs';
-import {BEASTKIN_ID,BEASTKIN_LANGUAGES,BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
+import {BURMECIAN_ID,BURMECIAN_LANGUAGES,BEASTKIN_ID,BEASTKIN_LANGUAGES,BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
 
 const IMMORTAL='ffd20:race:immortal:pool:';
 const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
@@ -7,14 +7,14 @@ const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 
 // Some source definitions use older extraction target names. Keep the
 // source records intact and append only their verified unconditional sheet maps.
 export function mappedRaceTraits(race,traits){
- if(!['ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID].includes(race.id))return traits;
+ if(!['ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID,BURMECIAN_ID].includes(race.id))return traits;
  return traits.map(f=>{
   const mapped=[];
   const add=(e,target,value=e.value,textValue=e.textValue)=>mapped.push({...e,id:e.id+':sheet:'+mapped.length,target,value,textValue,automation:'automatic'});
@@ -33,7 +33,7 @@ export function mappedRaceTraits(race,traits){
     add(e,'identity.subtypes',null,race.id===BANGAA_ID?'reptilian':race.id.split(':').at(-1));
    }
    if(e.target==='languages.starting')for(const lang of (e.textValue||'').split(';').map(s=>s.trim()).filter(Boolean))add(e,'identity.languages.'+lang.toLowerCase(),null,lang);
-   if(race.id===AU_RA_ID&&e.target==='senses.darkvision')add(e,'identity.senses.darkvision',null,'Darkvision '+e.textValue);
+   if([AU_RA_ID,BURMECIAN_ID].includes(race.id)&&e.target==='senses.darkvision')add(e,'identity.senses.darkvision',null,'Darkvision '+e.textValue);
    if(e.target==='senses.low_light_vision')add(e,'identity.senses.low_light_vision');
   }
   return mapped.length?{...f,effects:[...f.effects,...mapped]}:f;
@@ -97,6 +97,10 @@ export function racialChoiceIssues(b,race,traits,scores){
 
 // A chosen bonus feat is a visible manual card, never a blanket attack bonus.
 export function racialChoiceFeats(b,race,traits,previous={}){
+ if(b.raceId===BURMECIAN_ID&&traits.some(f=>f.id===BURMECIAN_ID+':trait:quick-reactions')){
+  const id=BURMECIAN_ID+':bonus-feat:improved-initiative',old=previous.feats?.find(f=>f.sourceRuleId===id),name='Improved Initiative',desc='Granted by Burmecian Quick Reactions. Apply the official feat’s initiative benefits manually; this card does not change the initiative field.';
+  return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:name,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:name,rulesDescription:desc,sourceRuleId:id,sourceRace:'Burmecian',rulesOwned:true,pendingFeat:false,automation:'manual'}];
+ }
  if(b.raceId===AL_BHED_ID&&traits.some(f=>f.id===AL_BHED_ID+':trait:technologist')){
   const id=AL_BHED_ID+':bonus-feat:technologist',old=previous.feats?.find(f=>f.sourceRuleId===id),name='Technologist',desc='Granted by Al Bhed Technologist. Resolve technological skills and feat effects manually using the official feat rules.';
   return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:name,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:name,rulesDescription:desc,sourceRuleId:id,sourceRace:'Al Bhed',rulesOwned:true,pendingFeat:false,automation:'manual'}];

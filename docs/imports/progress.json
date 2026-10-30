@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 65,
+  "revision": 66,
   "schedule": [
     "class",
     "race",
@@ -414,15 +414,19 @@
     },
     "ffd20:race:burmecian": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Standard traits, source languages, owned +1 CMD and manual Improved Initiative validated across eight adapters and mobile Dancer/Bard save/reopen",
+      "nextAction": "Exact-head CI, merge and public asset verification; then Fell Rider. Core CMD/CMB migration is recorded separately.",
+      "scope": "Standard identity/skills/darkvision/languages and owned CMD contribution; full legacy CMD base requires manual verification; jumping/fear/claws and Improved Initiative effects manual; variants/alternates guarded",
+      "note": "375 tests/build/phone fixtures pass; CMD contribution and manual initiative/feat notes preserved. Existing CMD omits BAB; core maneuver migration documented separately, not certified here. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T19:08:47.136Z"
+      "evidence": [
+        "docs/extraction/burmecian-standard-creation.md",
+        "docs/extraction/burmecian-browser-validation.json",
+        "docs/review/combat-maneuver-formulas.md"
+      ],
+      "updatedAt": "2026-10-30T19:11:57.311Z"
     }
   },
   "history": [
@@ -1001,6 +1005,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T19:08:47.136Z"
+    },
+    {
+      "revision": 66,
+      "itemId": "ffd20:race:burmecian",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Standard traits, source languages, owned +1 CMD and manual Improved Initiative validated across eight adapters and mobile Dancer/Bard save/reopen",
+      "time": "2026-10-30T19:11:57.311Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
