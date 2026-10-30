@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Aegyl",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 5,
+      "languages": "Common, Aegyllan, Draconic",
+      "manualInitiativePreserved": true,
+      "spentHopePreserved": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Aegyl",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 7,
+      "languages": "Common, Aegyllan, Draconic",
+      "manualInitiativePreserved": true,
+      "spentHopePreserved": true,
+      "pageErrors": []
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-30T18:25:29.866621+00:00",
+  "mergeCommit": "f6eb22bf37ba2d8b5a7cf0f1e9d9f4449c82154d",
+  "baseURL": "https://feisty-freedom-production-304e.up.railway.app",
+  "assets": [
+    {
+      "path": "assets/rules-wizard.mjs",
+      "status": 200,
+      "expectedSha256": "30bc796f5727a9eda34a87c18f22a5a580c8ecda60f53fc51efff4704f3766f5",
+      "actualSha256": "30bc796f5727a9eda34a87c18f22a5a580c8ecda60f53fc51efff4704f3766f5",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/level-one-classes.mjs",
+      "status": 200,
+      "expectedSha256": "7ba75d8c6cb2b29c9c91bcad24eee3183cdfa9f3e8028f92a80bbac43a748471",
+      "actualSha256": "7ba75d8c6cb2b29c9c91bcad24eee3183cdfa9f3e8028f92a80bbac43a748471",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/class-catalog.mjs",
+      "status": 200,
+      "expectedSha256": "91e0521dcb4d689ff533531770f7440c50bfd0d18ba5072c901e0d97bbcff3b0",
+      "actualSha256": "91e0521dcb4d689ff533531770f7440c50bfd0d18ba5072c901e0d97bbcff3b0",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/build.mjs",
+      "status": 200,
+      "expectedSha256": "9ea3701d6aed63b165ed8008c09eaeb655838787bc2b7f921faa7de869ff46df",
+      "actualSha256": "9ea3701d6aed63b165ed8008c09eaeb655838787bc2b7f921faa7de869ff46df",
+      "matches": true
+    }
+  ],
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "apiVersion": 1,
+      "database": "ready",
+      "schemaVersion": 20,
+      "authentication": "configured"
+    }
+  },
+  "productionProviderLoginTested": false,
+  "pullRequest": "https://github.com/PhoeZAung/comos-cloud-test/pull/16",
+  "branchCI": 41085058727,
+  "mainCI": 41106665143,
+  "validation": "341 feature-head tests; combined main tests and cloud build pass after preserving concurrent sheet changes"
+}

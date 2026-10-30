@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 7 | 7 | 66 | 6 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 54 | 8 | 0 | 0 |
+| class | 73/73 | 7 | 7 | 66 | 7 | 0 | 0 |
+| race | 63/63 | 63 | 63 | 53 | 8 | 0 | 0 |
 | archetype | 579/579 | 3 | 1 | 576 | 1 | 0 | 473 |
 
-Checkpoint revision: **40**. Active: **ffd20:class:dragoon**. Next: **ffd20:class:dragoon**.
+Checkpoint revision: **43**. Active: **ffd20:race:aegyl**. Next: **ffd20:race:aegyl**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -28,7 +28,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | existing live adapter · levels 1 | live_partial · deployed | Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.; After baseline imports, review level-2 talents and Versatile Performance, later progression, orchestration rolls and remaining 135 song pages. |
 | 5 | [Beastmaster](https://finalfantasyd20.com/classes/core-classes/beastmaster/) | existing live adapter · levels 1 | live_partial · deployed | Bounded first-level Beastmaster adapter merged and live; seven public runtime assets match the tested cloud build; Later milestones: companion combat/training and replacement handling, source conflict resolution, higher-level feature and choice mappings, archetypes and independent full review |
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
-| 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | in_progress · runtime-validated | Bounded first-level Dragoon adapter and mobile Galka/Moogle create/edit/save/reopen validated; shared Limit Break expenditure and current HP preserved; Run exact-commit CI, merge checked Dragoon/Beast Rider batch, verify public assets, then continue Aegyl |
+| 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | live_partial · deployment-verified | Six first-level abilities, class stats and proficiencies deployed and verified; Later class talents, progression, archetypes and multiclassing require separate source-reviewed adapters |
 | 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
@@ -108,7 +108,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 6 | [Mithra](https://finalfantasyd20.com/races/core-races/mithra/) | testing option; saving can be guarded | live_partial · deployed | Standard Mithra traits deployed; seven runtime asset hashes match checked build; Later milestones: variants, alternate replacements, conditional combat and movement handling, favored rewards and independent full review |
 | 7 | [Moogle](https://finalfantasyd20.com/races/core-races/moogle/) | testing option; saving can be guarded | live_partial · partial-live-support | Baseline choices and local save/reopen verified; real user-account acceptance remains.; Review alternate/heritage and favored-class rules. |
 | 8 | [Tarutaru](https://finalfantasyd20.com/races/core-races/tarutaru/) | testing option; saving can be guarded | live_partial · deployed | Standard Tarutaru traits and specialty selection deployed; five public asset hashes match tested build; Later milestones: variant/alternate choices, conditional caster and defense checks, favored rewards and independent full review |
-| 9 | [Aegyl](https://finalfantasyd20.com/races/base-races/aegyl/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
+| 9 | [Aegyl](https://finalfantasyd20.com/races/base-races/aegyl/) | testing option; saving can be guarded | in_progress · runtime-validated | Standard identity, Perception, optional languages and Eternal Hope counter validated across seven adapters; phone Dancer/Bard create/edit/save/reopen passed; Publish checked batch through exact-head CI and verify public assets before advancing to Al Bhed |
 | 10 | [Al Bhed](https://finalfantasyd20.com/races/base-races/al-bhed/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 11 | [Au Ra](https://finalfantasyd20.com/races/base-races/au-ra/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 12 | [Bangaa](https://finalfantasyd20.com/races/base-races/bangaa/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |

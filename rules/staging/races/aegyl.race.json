@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/base-races/aegyl/",
       "title": "Aegyl — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "cc8f9dd0d8ddd491ced3923ae4323faa6afd312250d019b1d3486e3812e6f39e"
     }
   ],
   "dependencies": [],
@@ -40,6 +41,11 @@
         "path": "/review",
         "reason": "Independent source accuracy, safe effect ownership/conflict behavior, and production runtime integration have not been reviewed. Keep staging only; do not enable in manifest.",
         "blocking": true
+      },
+      {
+        "path": "/data/standardTraitIds",
+        "blocking": true,
+        "reason": "Standard-trait runtime testing supports score/land identity, low-light vision, Perception, seven source-listed bonus languages and a manual-reset Eternal Hope counter. Flight clearance/maneuverability, resistances, conditional saves and Diplomacy remain manual. Alternates, favored rewards and independent full review remain pending."
       }
     ],
     "sectionInventory": [
@@ -414,7 +420,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:aegyl:pool:high-intelligence-bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -1020,7 +1028,152 @@
       ]
     }
   ],
-  "choicePools": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:aegyl:pool:high-intelligence-bonus-languages",
+      "name": "Aegyl bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:aegyl:pool:high-intelligence-bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:pool:high-intelligence-bonus-languages:option:dwarven",
+          "name": "Dwarven",
+          "description": "Dwarven",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dwarven",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:pool:high-intelligence-bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:pool:high-intelligence-bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:pool:high-intelligence-bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:pool:high-intelligence-bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:aegyl:pool:high-intelligence-bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Optional source list, bounded by positive Intelligence modifier.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
+        }
+      ]
+    }
+  ],
   "levelBindings": [],
   "data": {
     "raceType": "base",
