@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 8,
+  "revision": 10,
   "schedule": [
     "class",
     "race",
@@ -147,6 +147,21 @@
         "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41024530574"
       ],
       "updatedAt": "2026-10-30T08:11:27.445Z"
+    },
+    "ffd20:race:galka": {
+      "state": "in_progress",
+      "stage": "validation",
+      "cursor": "All standard traits compared with archived source; language chooser implemented and Mining Servitude narrowed to manual miner-only benefit; 308 tests and mobile save/reopen passed.",
+      "nextAction": "Verify GitHub CI and public deployed asset hashes; record partial standard-trait milestone and continue Half-Breed.",
+      "scope": "Standard Galka traits within existing class support, Intelligence-bounded bonus languages; Profession (miner), conditional effects, Ferocity/recovery and reincarnation remain manual. Alternates and favored rewards require later review.",
+      "note": "Source hash matches archived catalog. No blanket Profession bonus or real-user production login claim.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/galka-standard-creation.md",
+        "docs/extraction/galka-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T08:16:04.885Z"
     }
   },
   "history": [
@@ -212,6 +227,24 @@
       "stage": "deployed",
       "cursor": "Standard Elvaan creation deployed; five asset hashes match tested build, 305 tests and both mobile save/reopen cases passed.",
       "time": "2026-10-30T08:11:27.445Z"
+    },
+    {
+      "revision": 9,
+      "itemId": "ffd20:race:galka",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T08:11:31.028Z"
+    },
+    {
+      "revision": 10,
+      "itemId": "ffd20:race:galka",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "validation",
+      "cursor": "All standard traits compared with archived source; language chooser implemented and Mining Servitude narrowed to manual miner-only benefit; 308 tests and mobile save/reopen passed.",
+      "time": "2026-10-30T08:16:04.885Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

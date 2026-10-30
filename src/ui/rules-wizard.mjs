@@ -24,6 +24,7 @@ const traitReview=(race,id)=>{
  const f=race.features.find(f=>f.id===id);
  if(!f)return 'This trait is unavailable.';
  if(race.data.alternateTraitIds.includes(id)){
+  if(race.id==='ffd20:race:galka')return 'Galka alternate traits need a separate verified batch; standard traits are supported for testing.';
   if(race.id==='ffd20:race:elvaan')return 'Elvaan alternate traits need a separate verified batch; standard traits are supported for testing.';
   const ops=replacementFor(race,id);
   if(!ops.length||ops.some(o=>o.resolution!=='resolved'||o.scope!=='whole_feature'||o.operation!=='replace'))

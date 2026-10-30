@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/core-races/galka/",
       "title": "Galka - Final Fantasy d20",
-      "retrievedOn": "2026-10-26",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "8bcc7b8b32131edd6716f1f76851085872971e1d84ea1fb85c8e02e013a1648e"
     }
   ],
   "dependencies": [],
@@ -23,7 +24,7 @@
     "issues": [
       {
         "path": "/choicePools",
-        "reason": "Bonus language pool is present as a discovery option; engine-dependent eligible selection count must be determined before auto-prompting.",
+        "reason": "The standard bonus-language chooser supports the six source options with a positive Intelligence-modifier limit. Full racial mechanics, alternate choices and independent review remain pending.",
         "blocking": true
       },
       {
@@ -35,6 +36,11 @@
         "path": "/features",
         "reason": "Conditional combat bonuses, grant-versus-feat operations, special racial recovery and some alternate trait effects remain manual until reviewed by a rules engine.",
         "blocking": true
+      },
+      {
+        "path": "/features",
+        "blocking": true,
+        "reason": "Standard-trait baseline only. Profession (miner), conditional combat/metalwork bonuses, Ferocity triggers and daily use, armor/encumbrance speed exception and reincarnation require manual handling. Bonus languages use an Intelligence-bounded source list. Alternate traits and favored rewards need a later verified batch."
       }
     ],
     "sectionInventory": [
@@ -471,7 +477,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:galka:pool:high-intelligence-bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -664,7 +672,7 @@
     {
       "id": "ffd20:race:galka:feature:mining-servitude",
       "name": "Mining Servitude",
-      "description": "+2 racial Profession (miner).",
+      "description": "Gain +2 racial on Profession (miner) checks. Apply this only to the miner specialty manually; other Profession specialties do not receive this bonus.",
       "featureKind": "racial_trait",
       "activation": "passive",
       "rulesType": "none",
@@ -694,7 +702,7 @@
           "textValue": null,
           "bonusType": "racial",
           "condition": null,
-          "automation": "automatic",
+          "automation": "manual",
           "sourceRefs": [
             {
               "sourceId": "main",

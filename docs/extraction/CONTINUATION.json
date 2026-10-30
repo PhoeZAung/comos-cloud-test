@@ -36,9 +36,15 @@
   "classFilePolicy": "One JSON per class family, with its base class and archetype definitions together.",
   "standardTraitMilestones": {
     "Elvaan": {
-      "state": "implemented_pending_deployment",
+      "state": "live_partial",
       "evidence": "docs/extraction/elvaan-standard-creation.md",
-      "remaining": "Alternate traits, variant heritage mechanics, favored rewards and independent full review."
+      "remaining": "Alternate traits, variant heritage mechanics, favored rewards and independent full review.",
+      "deploymentEvidence": "docs/extraction/elvaan-deployment-validation.json"
+    },
+    "Galka": {
+      "state": "implemented_pending_deployment",
+      "evidence": "docs/extraction/galka-standard-creation.md",
+      "remaining": "Alternate replacements, specialty automation, conditional mechanics, favored rewards and independent full review."
     }
   }
 }
