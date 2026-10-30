@@ -1,5 +1,5 @@
 import {isLimitBreak,limitBreakState} from './limit-breaks.mjs';
-import {renderCategoryTiles} from './item-categories.mjs';
+import {renderCategoryTiles,inventoryCategoryCounts,visibleInventoryCategory} from './item-categories.mjs';
 import {entryCalculations,damageExpression,diceTerms,maximumSpellLevel} from './calculations.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol} from './item-categories.mjs';
 import {skillBudget} from './skill-budget.mjs';
@@ -86,7 +86,7 @@ export function renderSection(character,section,{ability='activeAbilities',comba
  </section><div class="cs-grid cs-battle-bottom">${card('Saving throws','<div class="cs-metrics">'+metric('Fortitude',s.fort,{roll:true})+metric('Reflex',s.ref,{roll:true})+metric('Will',s.will,{roll:true})+'</div>',edit('saves','saving throws'))}${card('Resistances','<p class="cs-prose">'+e(d.resistances||'—')+'</p>',edit('resistances','resistances'))}</div>`;
  if(section==='skills')return `<div class="cs-section-tools"><h2>Skills</h2>${boxStar('skills',d)}</div>${search()}<div data-sheet-list>${renderSkillRows(d)}</div>`;
  if(section==='items')return itemView==='inventory'?
-  `<div class="cs-section-tools"><h2>Inventory</h2>${boxStar('inventory',d)}${edit('currency','currency & capacity')}</div><div class="cs-currency"><span>Gil <strong>${e(d.currency_gil??d.gil??0)}</strong></span><span>Moogle <strong>${e(d.currency_moogle??0)}</strong></span><span>Capacity <strong>${e(d.slot_cap??20)}</strong></span></div>${renderItemCategories(d,itemTag)}${search()}<div data-sheet-list>${collectionBlock('items',d,'',{category:itemTag})}</div>`:
+  `<div class="cs-section-tools"><h2>Inventory</h2>${boxStar('inventory',d)}${edit('currency','currency & capacity')}</div><div class="cs-currency"><span>Gil <strong>${e(d.currency_gil??d.gil??0)}</strong></span><span>Moogle <strong>${e(d.currency_moogle??0)}</strong></span><span>Capacity <strong>${e(d.slot_cap??20)}</strong></span></div>${renderItemCategories(d,itemTag)}${search()}<div data-sheet-list>${collectionBlock('items',d,'',{category:visibleInventoryCategory(inventoryCategoryCounts(d.items),itemTag)})}</div>`:
   '<div class="cs-section-tools"><h2>Equipment</h2>'+boxStar('equipment',d)+'</div>'+renderEquipment(d);
  if(section==='abilities')return `${renderLimits(d)}${search()}<div data-sheet-list>${collectionBlock(abilityTabs.includes(ability)?ability:'activeAbilities',d)}</div>`;
  if(section==='spells')return `<div class="cs-spell-resource">${resource('MP',s.mp,s.mpMax,'mp_curr',undefined,d.mp_favorite,{spellAbility:d.spell_dc_base||'int',showEdit:false})}</div>${renderSpellLevels(d,spellLevel)}${search()}<div data-sheet-list role="tabpanel" aria-label="${spellLevel==='all'?'All':'Level '+spellLevel} spells">${collectionBlock('spells',d,'',{level:spellLevel==='all'?null:spellLevel})}</div>`;
@@ -125,8 +125,7 @@ function calculationDetails(row,data,key){
 }
 
 export function renderItemCategories(data,selected='All'){
- const rows=Array.isArray(data.items)?data.items:[],counts=Object.fromEntries(ITEM_TAG_OPTIONS.map(k=>[k,0]));for(const row of rows)counts[itemCategoryForItem(row)]++;
- return renderCategoryTiles(counts,selected,{label:'Inventory categories',groups:true});
+ return renderCategoryTiles(inventoryCategoryCounts(data.items),selected,{label:'Inventory categories',groups:true});
 }
 export function renderSpellLevels(data,selected='all'){
  return '<nav class="cs-spell-levels" role="tablist" aria-label="Spell levels"><button type="button" role="tab" tabindex="'+(selected==='all'?'0':'-1')+'" aria-selected="'+(selected==='all')+'" data-spell-level="all"><strong>All spells</strong><span>'+(data.spells||[]).length+' spells</span><small>All levels</small></button>'+Array.from({length:10},(_,level)=>{const rows=(data.spells||[]).filter(r=>levelOf(r.lvl)===level),calc=entryCalculations({lvl:level},data,'spells');return '<button type="button" role="tab" tabindex="'+(selected===level?'0':'-1')+'" aria-selected="'+(selected===level)+'" data-spell-level="'+level+'"><strong>'+(level===0?'Cantrip':'Level '+level)+'</strong><span>'+rows.length+' · DC '+(calc.dc??'—')+'</span><small>'+level+' MP</small></button>';}).join('')+'</nav>';
