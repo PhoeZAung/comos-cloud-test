@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
-import {equipmentSlots,equipmentSlotIds,equipmentSlotLabel,equippedInSlot,renderEquipment,renderEquipChoices} from '../src/features/sheet/equipment.mjs';
+import {equipmentSlots,equipmentSlotIds,miscEquipmentSlotIds,isEquipmentSlot,equipmentSlotLabel,equippedInSlot,renderEquipment,renderEquipChoices} from '../src/features/sheet/equipment.mjs';
 import {renderSection,renderSheetFrame} from '../src/features/sheet/view.mjs';
 import {openDatabase} from '../backend/db/database.mjs';
 import {createUserRepository} from '../backend/repositories/users.mjs';
@@ -25,7 +25,10 @@ test('Equipment uses three bordered groups and all seventeen slots without extra
  ]);
  assert.equal(new Set(equipmentSlotIds).size,17);
  const html=renderEquipment(inventory);
- assert.equal((html.match(/data-equip-slot="/g)||[]).length,17);
+ assert.equal((html.match(/data-equip-slot="/g)||[]).length,18,'the 17 regular slots plus Misc add');
+ assert.match(html,/class="cs-loadout-group cs-loadout-misc"/);
+ assert.match(html,/data-equip-slot="misc-1"/);
+ assert.ok(html.indexOf('aria-label="Misc equipment"')>html.indexOf('aria-label="Accessories equipment"'));
  for(const name of ['Weapons','Armor','Accessories'])assert.match(html,new RegExp('class="cs-loadout-group" aria-label="'+name+' equipment"'));
  assert.match(html,/data-equip-slot="ring1"/);
  assert.match(html,/data-equip-slot="ring2"/);
@@ -37,6 +40,37 @@ test('Equipment uses three bordered groups and all seventeen slots without extra
  assert.doesNotMatch(escaped,/<img src=x|<script>/);
  assert.match(escaped,/&lt;img/);
  assert.match(escaped,/data-unequip-slot="head"/);
+});
+test('Misc accepts multiple equipment items without changing the 17 established slots',()=>{
+ assert.equal(equipmentSlotIds.length,17);
+ assert.equal(miscEquipmentSlotIds.length,20);
+ assert.equal(isEquipmentSlot('misc-1'),true);
+ assert.equal(isEquipmentSlot('misc-20'),true);
+ for(const slot of ['misc-0','misc-21','misc-01','misc-1-extra','misc-__proto__'])assert.equal(isEquipmentSlot(slot),false);
+ const source={items:[{name:'Torch',amount:1},{name:'Lucky Charm',amount:1},{name:'Water flask',amount:1}]};
+ const first=mergeSheetData(source,{action:'equip',slot:'misc-1',index:0});
+ assert.equal(equippedInSlot(first,'misc-1').item.name,'Torch');
+ assert.equal(first.items[0].equip_slot,'misc-1');
+ assert.deepEqual(source.items[0],{name:'Torch',amount:1},'equipment changes do not mutate the source');
+ assert.match(renderEquipment(first),/data-unequip-slot="misc-1"/);
+ assert.match(renderEquipment(first),/data-equip-slot="misc-2"/);
+ const second=mergeSheetData(first,{action:'equip',slot:'misc-2',index:1});
+ assert.equal(equippedInSlot(second,'misc-1').item.name,'Torch');
+ assert.equal(equippedInSlot(second,'misc-2').item.name,'Lucky Charm');
+ assert.match(renderEquipChoices(second,'torch','misc-1'),/data-equip-choice="items:0" aria-pressed="true"/);
+ const unequipped=mergeSheetData(second,{action:'equip',slot:'misc-1',index:null});
+ assert.equal(equippedInSlot(unequipped,'misc-1'),null);
+ assert.equal(equippedInSlot(unequipped,'misc-2').item.name,'Lucky Charm');
+ assert.equal(unequipped.items[0].name,'Torch');
+ assert.equal(unequipped.items[0].equipped,false);
+ assert.match(renderEquipment(unequipped),/data-equip-slot="misc-1"/);
+ const removed=mergeSheetData(second,{action:'entry',collection:'items',mode:'remove',index:1});
+ assert.equal(equippedInSlot(removed,'misc-2'),null);
+ for(const invalid of ['misc-0','misc-21','misc-01','misc-x'])assert.throws(()=>mergeSheetData(source,{action:'equip',slot:invalid,index:0}),/Invalid equipment slot/);
+ const full={items:Array.from({length:20},(_,i)=>({name:'Misc '+i,amount:1,equipped:true,equip_slot:miscEquipmentSlotIds[i]}))};
+ const fullHtml=renderEquipment(full);
+ assert.equal((fullHtml.match(/data-unequip-slot="misc-/g)||[]).length,20);
+ assert.doesNotMatch(fullHtml,/cs-loadout-misc-add/,'no add control once all Misc slots are occupied');
 });
 test('searchable equipment chooser shows item names only and preserves selected record indices',()=>{
  const gear={items:[
