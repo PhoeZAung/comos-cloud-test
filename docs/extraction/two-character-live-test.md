@@ -20,7 +20,10 @@ automation. Existing Black Mage and Archer progression is retained.
   rounds at level 1. Fleet and unarmored Charisma AC/CMD are manual conditional
   effects; the adapter does not permanently add them. No MP or level-2 ki pool.
 - Standard Moogle: +2 DEX, +2 CHA, -2 STR, Small, 20-foot land speed, starting
-  languages, low-light vision, Appraise/Perception bonuses. Handy requires one
+  Common/Moogle languages, optional bonus languages within the positive INT
+  modifier, low-light vision, Appraise/Perception bonuses. The bonus-language
+  options are Aklo, Auran, Banganese, Draconic, Goblin, Numish, Seeq and Sylvan.
+  Handy requires one
   actual Craft/Profession row and a named specialty, and bonuses apply to only
   that row. Limited flight and situational racial effects stay on manual cards.
 - Standard Immortal: Medium, 30-foot speed, Common, one chosen +2 ability,
@@ -44,6 +47,9 @@ remain blocked by the normal validation.
 - https://finalfantasyd20.com/classes/core-classes/bard/#bardic-performance
 
 Class and archetype JSONs include archived source hashes and retrieval dates.
+The Moogle and Immortal source records also include `contentSha256` values from
+their saved official HTML (both retrieved on 2026-10-29). These establish source
+identity; the race records remain `needs_review`.
 All 20 class progression table rows were transcribed from cached official HTML;
 runtime creation is capped at level 1 because later feature choices, scaling,
 companion advancement, and archetype replacements are not implemented here.
@@ -72,6 +78,12 @@ retains this discrepancy for review. No replacement of both Limit Breaks occurs.
 7. Editing or reloading must not duplicate abilities, reset spent rounds,
    grant MP on INT changes, or remove manual entries. Increasing CON changes
    maximum HP without healing. Later-level creation and multiclassing are blocked.
+8. For the Moogle high-INT choice, set base INT to 14 during creation. Choose up
+   to two listed bonus languages on the ability-score screen and allocate all
+   six skill ranks. Save/reopen:
+   Common and Moogle plus the selected languages must each appear once, with
+   MP still zero. Existing characters with no bonus-language selections remain
+   valid. A disabled Languages trait cannot grant bonus languages.
 
 Live provider login and real production persistence must be verified on the
 deployed site; a local fixture session is not a production login test.
@@ -87,3 +99,10 @@ saved them through the real character-library service backed by temporary
 SQLite. That harness used a local fixture session and made no production writes.
 `npm run build:cloud` validates the production build without starting Firebase or
 changing Railway settings.
+
+The class/race follow-up also exercised a Moogle/Mog Knight with base INT 14
+through the real wizard and authenticated route/service code in a local fixture
+session. Aklo and Auran persisted after reopening, six ranks were retained,
+HP stayed 10 and no MP was granted. The default Moogle/Mog Knight and
+Immortal/Dancer builds also saved and reopened with their expected totals.
+This remained a temporary local SQLite test, without production account writes.

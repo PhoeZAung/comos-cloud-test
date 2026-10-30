@@ -1,8 +1,9 @@
 import {fixedSkills} from '../../sheet/skills.mjs';
 
 const IMMORTAL='ffd20:race:immortal:pool:';
+const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
 const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
-const supported=new Set([HANDY,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([HANDY,MOOGLE_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 
@@ -56,7 +57,7 @@ export function racialChoiceEffects(b,race,traits){
     if(key)effects.push({...base,kind:'ability_score',target:'ability_scores.'+key,value:{kind:'constant',value:2}});
    }
    if(spec.id===IMMORTAL+'long-lived-knowledge')effects.push({...base,kind:'class_skill',target:'skills.'+option.value+'.class_skill',value:{kind:'constant',value:1}});
-   if(spec.id===IMMORTAL+'bonus-languages')effects.push({...base,kind:'language',target:'identity.languages.'+option.value,textValue:option.name});
+   if(spec.choiceType==='language')effects.push({...base,kind:'language',target:'identity.languages.'+option.value,textValue:option.name});
   }
  }
  return effects;
