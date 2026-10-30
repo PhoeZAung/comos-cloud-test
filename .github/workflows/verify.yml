@@ -16,6 +16,23 @@ jobs:
       - name: Install exact dependencies
         run: npm ci
       - name: Build and run complete tests
-        run: npm test
+        id: rules_tests
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee "$RUNNER_TEMP/comos-tests.log"
+      - name: Report test failure details
+        if: failure() && steps.rules_tests.outcome == 'failure'
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import os, re
+          log = Path(os.environ['RUNNER_TEMP'], 'comos-tests.log')
+          text = log.read_text(errors='replace') if log.exists() else 'No test output file was created.'
+          text = re.sub(r'\x1b\[[0-9;]*m', '', text)
+          start = text.rfind('failing tests:')
+          detail = (text[start:] if start >= 0 else '\n'.join(text.splitlines()[-100:]))[-16000:]
+          detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+          print('::error title=Node test failure details::' + detail)
+          PY
       - name: Verify cloud deployment build
         run: npm run build:cloud
