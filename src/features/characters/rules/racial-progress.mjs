@@ -25,7 +25,7 @@ export const DRACOBALTIAN_LANGUAGES=DRACOBALTIAN_ID+':pool:bonus-languages';
 const standardTraitActive=(b,race,slug)=>b?.raceId===race&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(race+':trait:'+slug);
 export const humeTraitActive=(b,slug)=>b?.raceId===HUME_ID&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(HUME_ID+':trait:'+slug);
 export const racialSkillRanks=(b,level)=>humeTraitActive(b,'skilled')?level:standardTraitActive(b,AL_BHED_ID,'mechanical-genius')&&level>=1?1:0;
-export const racialCounter=(b,feature)=>[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'eternal-hope'],[AU_RA_ID,'ferocity']].some(([race,slug])=>standardTraitActive(b,race,slug)&&feature.id===race+':trait:'+slug)?{maximum:1}:null;
+export const racialCounter=(b,feature)=>b?.raceId==='ffd20:race:galka'&&(b.alternateIds||[]).includes('ffd20:race:galka:feature:tenacious')&&feature.id==='ffd20:race:galka:feature:tenacious'?{maximum:1}:[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'eternal-hope'],[AU_RA_ID,'ferocity']].some(([race,slug])=>standardTraitActive(b,race,slug)&&feature.id===race+':trait:'+slug)?{maximum:1}:null;
 export function applyRacialFlatStats(next,previous,b){
  for(const [key,owner,bonus] of [
   ['init_temp','racialInitiativeBonus',(standardTraitActive(b,MITHRA_ID,'fleet-footed')||standardTraitActive(b,BEASTKIN_ID,'fleet-footed'))?2:0],
