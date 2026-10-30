@@ -8,14 +8,14 @@ import {sheetStats} from '../src/features/sheet/model.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {addRuleAbility} from '../src/features/characters/rules/ability-library.mjs';
 function fixture(cls='dancer'){
- const b=newBuild();Object.assign(b,{name:'Mithra '+cls,raceId:MITHRA_ID,classId:'ffd20:class:'+cls,hpRolls:[],reviewed:true});b.baseScores.int=12;b.hpRolls=[classHitDie(b)];
+ const b=newBuild();Object.assign(b,{alignment:'Lawful Good',name:'Mithra '+cls,raceId:MITHRA_ID,classId:'ffd20:class:'+cls,hpRolls:[],reviewed:true});b.baseScores.int=12;b.hpRolls=[classHitDie(b)];
  for(const e of choiceEvents(b))b.choices[e.id]=eligibleOptions(b,e).slice(0,calculated(e.count,b)).map(o=>o.id);
  if(hasSpellcasting(classFor(b))){const count=spellCounts(b),spells=spellsForBuild(b);b.spellIds=[...spells.filter(s=>s.level===0).slice(0,count.cantrips),...spells.filter(s=>s.level===1).slice(0,count.leveled)].map(s=>s.id);}
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
 const luck=d=>d.racialAbilities.find(f=>f.sourceRuleId===MITHRA_ID+':trait:cat-s-luck');
-test('Mithra standards map identically across seven compilers without unconditional conditional defenses or speed',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','bard','beastmaster']){
+test('Mithra standards map identically across eight compilers without unconditional conditional defenses or speed',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
   const d=compileBuild(fixture(cls));assert.deepEqual([d.str,d.dex,d.wis,d.cha],[10,12,8,12]);
   assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Mithran');assert.match(d.senses,/2x/);
   for(const name of ['Perception','Stealth','Survival'])assert.equal(d.skills.find(s=>s.name===name).rulesBonus,cls==='beastmaster'&&name==='Survival'?4:2);

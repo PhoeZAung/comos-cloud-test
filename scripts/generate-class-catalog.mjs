@@ -24,7 +24,7 @@ export async function buildClassCatalog(){
   if(c.id!==entry.id)throw Error('Class manifest ID mismatch: '+entry.file);
   const report=validateClassDefinition(c,{optionCatalog:opts});
   if(c.id==='ffd20:class:beastmaster')validateBeastmasterCompanions(c);
-  const levelOne=['ffd20:class:chocobo-knight','ffd20:class:dancer','ffd20:class:dragoon'].includes(entry.id)&&entry.adapter==='martial-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
+  const levelOne=['ffd20:class:chocobo-knight','ffd20:class:dancer','ffd20:class:dragoon','ffd20:class:knight'].includes(entry.id)&&entry.adapter==='martial-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
   const bardOne=entry.id==='ffd20:class:bard'&&entry.adapter==='bard-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
   const beastOne=entry.id==='ffd20:class:beastmaster'&&entry.adapter==='beastmaster-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
   if(entry.status==='live'&&!(entry.id==='ffd20:class:archer'&&entry.adapter==='archer')&&!levelOne&&!bardOne&&!beastOne)throw Error('Class has no verified runtime adapter: '+entry.id);

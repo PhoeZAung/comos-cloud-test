@@ -8,14 +8,14 @@ import {sheetStats} from '../src/features/sheet/model.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {addRuleAbility} from '../src/features/characters/rules/ability-library.mjs';
 function fixture(cls='dancer'){
- const b=newBuild();Object.assign(b,{name:'Au Ra '+cls,raceId:AU_RA_ID,classId:'ffd20:class:'+cls,hpRolls:[],reviewed:true});b.baseScores.int=12;b.baseScores.cha=14;b.hpRolls=[classHitDie(b)];
+ const b=newBuild();Object.assign(b,{alignment:'Lawful Good',name:'Au Ra '+cls,raceId:AU_RA_ID,classId:'ffd20:class:'+cls,hpRolls:[],reviewed:true});b.baseScores.int=12;b.baseScores.cha=14;b.hpRolls=[classHitDie(b)];
  for(const e of choiceEvents(b))b.choices[e.id]=eligibleOptions(b,e).slice(0,calculated(e.count,b)).map(o=>o.id);
  if(hasSpellcasting(classFor(b))){const count=spellCounts(b),spells=spellsForBuild(b);b.spellIds=[...spells.filter(s=>s.level===0).slice(0,count.cantrips),...spells.filter(s=>s.level===1).slice(0,count.leveled)].map(s=>s.id);}
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
 const ferocity=d=>d.racialAbilities.find(f=>f.sourceRuleId===AU_RA_ID+':trait:ferocity');
-test('Au Ra defaults to Xaela standards across seven adapters and leaves conditional defenses manual',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','bard','beastmaster']){
+test('Au Ra defaults to Xaela standards across eight adapters and leaves conditional defenses manual',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
   const d=compileBuild(fixture(cls));assert.deepEqual([d.str,d.wis,d.cha],[12,12,12]);assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Draconic');assert.match(d.senses,/Darkvision 60 feet/);
   assert.equal(d.skills.find(s=>s.name==='Intimidate').rulesBonus,2);assert.equal(d.skills.find(s=>s.name==='Survival').rulesBonus,cls==='beastmaster'?4:2);
   assert.equal(d.ac_natural,1);assert.equal(sheetStats(d).ac,11);assert.equal(sheetStats(d).touch,10);assert.equal(sheetStats(d).flat,11);

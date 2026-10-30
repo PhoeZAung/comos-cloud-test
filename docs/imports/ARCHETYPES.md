@@ -149,26 +149,26 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Aggressor](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/aggressor/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Choco Guardian](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/choco-guardian/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Commandant](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/commandant/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Commander](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/commander/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Enforcer](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/enforcer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Foebreaker](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/foebreaker/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Judge Magister](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/judge-magister/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Juggernaut](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/juggernaut/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Knave](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/knave/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Onion Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/onion-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Pluto Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/pluto-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Primal Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/primal-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Sentinel](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/sentinel/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Shell Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/shell-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Shield Guardian](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/shield-guardian/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Temporal Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/temporal-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Warlord](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/warlord/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Azure Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/azure-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Captain](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/captain/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Heavy Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/heavy-knight/) | queued · source-review | Start of source review · waiting for parent definition |
+| [Aggressor](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/aggressor/) | queued · source-review | Start of source review |
+| [Choco Guardian](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/choco-guardian/) | queued · source-review | Start of source review |
+| [Commandant](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/commandant/) | queued · source-review | Start of source review |
+| [Commander](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/commander/) | queued · source-review | Start of source review |
+| [Enforcer](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/enforcer/) | queued · source-review | Start of source review |
+| [Foebreaker](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/foebreaker/) | queued · source-review | Start of source review |
+| [Judge Magister](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/judge-magister/) | queued · source-review | Start of source review |
+| [Juggernaut](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/juggernaut/) | queued · source-review | Start of source review |
+| [Knave](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/knave/) | queued · source-review | Start of source review |
+| [Onion Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/onion-knight/) | queued · source-review | Start of source review |
+| [Pluto Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/pluto-knight/) | queued · source-review | Start of source review |
+| [Primal Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/primal-knight/) | queued · source-review | Start of source review |
+| [Sentinel](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/sentinel/) | queued · source-review | Start of source review |
+| [Shell Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/shell-knight/) | queued · source-review | Start of source review |
+| [Shield Guardian](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/shield-guardian/) | queued · source-review | Start of source review |
+| [Temporal Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/temporal-knight/) | queued · source-review | Start of source review |
+| [Warlord](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/warlord/) | queued · source-review | Start of source review |
+| [Azure Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/azure-knight/) | queued · source-review | Start of source review |
+| [Captain](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/captain/) | queued · source-review | Start of source review |
+| [Heavy Knight](https://finalfantasyd20.com/classes/core-classes/knight/archetypes/heavy-knight/) | queued · source-review | Start of source review |
 
 ## Monk (20)
 

@@ -6,15 +6,15 @@ import {AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS} from '../src/features/chara
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
 import {skillBudget} from '../src/features/sheet/skill-budget.mjs';
 function fixture(cls='dancer',selected=4){
- const b=newBuild();Object.assign(b,{name:'Al Bhed '+cls,raceId:AL_BHED_ID,classId:'ffd20:class:'+cls,hpRolls:[],reviewed:true});b.baseScores.cha=14;b.hpRolls=[classHitDie(b)];
+ const b=newBuild();Object.assign(b,{alignment:'Lawful Good',name:'Al Bhed '+cls,raceId:AL_BHED_ID,classId:'ffd20:class:'+cls,hpRolls:[],reviewed:true});b.baseScores.cha=14;b.hpRolls=[classHitDie(b)];
  b.racialChoices[AL_BHED_GENIUS]=['skill-row:'+selected];if([4,5,6].includes(selected))b.racialSpecialties[AL_BHED_GENIUS]='Woodworking';
  for(const e of choiceEvents(b))b.choices[e.id]=eligibleOptions(b,e).slice(0,calculated(e.count,b)).map(o=>o.id);
  if(hasSpellcasting(classFor(b))){const count=spellCounts(b),spells=spellsForBuild(b);b.spellIds=[...spells.filter(s=>s.level===0).slice(0,count.cantrips),...spells.filter(s=>s.level===1).slice(0,count.leveled)].map(s=>s.id);}
  b.skillRanks=fixedSkills.map(()=>0);b.skillRanks[selected]=1;let remaining=previewBuild(b).skillBudget-1;for(let i=0;remaining>0;i++)if(i!==selected){b.skillRanks[i]=1;remaining--;}
  return b;
 }
-test('Al Bhed standard first-level builds map identity, class skills, selected rank and manual feat through seven adapters',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','bard','beastmaster']){
+test('Al Bhed standard first-level builds map identity, class skills, selected rank and manual feat through eight adapters',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
   const b=fixture(cls),d=compileBuild(b);assert.deepEqual([d.dex,d.int,d.cha],[12,12,12]);assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Albhedian');assert.match(d.proficiencies,/Simple firearms/);
   for(const name of ['Repair','Drive','Pilot','Craft','Disable Device','Knw: Engineering','Use Magic Device'])assert.equal(d.skills.find(s=>s.name===name).cs,true,name+' '+cls);
   assert.equal(d.skills[4].rulesBonus,2);assert.equal(d.skills[4].subName,'Woodworking');assert.equal(d.skills[4].lvl,1);assert.equal(d.skills[5].rulesBonus,0);

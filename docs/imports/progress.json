@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 54,
+  "revision": 55,
   "schedule": [
     "class",
     "race",
@@ -366,15 +366,18 @@
     },
     "ffd20:class:knight": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Legal first-level creation first; later progression and choices in verified milestones.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Lawful first-level Knight, d12/proficiencies, stance capacity and manual Antagonize/reference abilities validated; mobile Galka/Moogle save/reopen passed",
+      "nextAction": "Exact-head CI, merge and public asset verification; then Bangaa",
+      "scope": "First-level lawful creation/editing only; permanent-CON stance counter, manual feat and seven source cards; stance/ally/Limit Break effects and code adjudication manual; later progression/archetypes/multiclassing guarded",
+      "note": "366 tests, cloud build and mobile fixtures pass; six race matrices now cover eight class adapters; spent counters, current HP and manual notes preserved. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T18:46:24.752Z"
+      "evidence": [
+        "docs/extraction/knight-level-one-import.md",
+        "docs/extraction/knight-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T18:48:27.568Z"
     }
   },
   "history": [
@@ -854,6 +857,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T18:46:24.752Z"
+    },
+    {
+      "revision": 55,
+      "itemId": "ffd20:class:knight",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Lawful first-level Knight, d12/proficiencies, stance capacity and manual Antagonize/reference abilities validated; mobile Galka/Moogle save/reopen passed",
+      "time": "2026-10-30T18:48:27.568Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

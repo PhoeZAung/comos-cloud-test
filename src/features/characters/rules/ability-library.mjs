@@ -1,5 +1,6 @@
 import {previewBuild,calculated,raceFor,classFor} from './build.mjs';
 import {isBeastmaster,beastmasterCounter} from './beastmaster-level-one.mjs';
+import {levelOneCounter} from './level-one-classes.mjs';
 import {classCatalog} from './class-catalog.mjs';
 import {racialCounter} from './racial-progress.mjs';
 import {isLimitBreak} from '../../sheet/limit-breaks.mjs';
@@ -13,7 +14,7 @@ export function availableRuleAbilities(data){
 export function addRuleAbility(data,id){
  const option=availableRuleAbilities(data).find(o=>o.id===id);if(!option)throw Error('This ability is not granted by the current race, class, level or choices.');if(option.added)throw Error('This ability is already on the sheet.');
  const {feature:f,definition,key}=option,b=data.rulesBuild.input,action=f.actions?.[0],cost=action?.costs?.[0],pool=definition.resources?.find(r=>r.id===cost?.resourceId||r.id===f.id.replace(':feature:',':resource:'));
- const counter=(isBeastmaster(b)?beastmasterCounter(f,previewBuild(b).scores):null)||racialCounter(b,f);
+ const counter=levelOneCounter(b,f,previewBuild(b).scores)||(isBeastmaster(b)?beastmasterCounter(f,previewBuild(b).scores):null)||racialCounter(b,f);
  const maximum=counter?.maximum??(pool?Math.max(0,calculated(pool.maximum,b)||0):0);
  const row={name:f.name,desc:f.description,rulesName:f.name,rulesDescription:f.description,sourceRuleId:f.id,sourceClass:definition.id===b.classId?definition.name:'',rulesOwned:true,u_max:maximum,u_curr:maximum,restoreOnLongRest:pool?.recovery?.automaticRecoveryAllowed===true};
  if(isBeastmaster(b)&&definition.id===b.classId){row.sourceClass=definition.name;if(counter)row.uses_formula=counter.formula;}
