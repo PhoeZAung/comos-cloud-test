@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 58,
+  "revision": 59,
   "schedule": [
     "class",
     "race",
@@ -382,15 +382,18 @@
     },
     "ffd20:race:bangaa": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Printed scores/reptilian identity, skills, languages and owned natural armor validated across eight adapters; phone Dancer/Bard save/reopen passed",
+      "nextAction": "Exact-head CI, merge and public asset verification; then Beastkin",
+      "scope": "Standard traits and six optional source languages; owned natural armor; natural attack/armed status/environmental checks, resistances and conditional CMD manual; variants/alternates guarded",
+      "note": "369 tests, cloud build and phone fixtures pass; post-penalty language limits and manual natural armor preservation verified. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T18:54:52.876Z"
+      "evidence": [
+        "docs/extraction/bangaa-standard-creation.md",
+        "docs/extraction/bangaa-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T18:55:59.360Z"
     }
   },
   "history": [
@@ -906,6 +909,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T18:54:52.876Z"
+    },
+    {
+      "revision": 59,
+      "itemId": "ffd20:race:bangaa",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Printed scores/reptilian identity, skills, languages and owned natural armor validated across eight adapters; phone Dancer/Bard save/reopen passed",
+      "time": "2026-10-30T18:55:59.360Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

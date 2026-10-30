@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/base-races/bangaa/",
       "title": "Bangaa — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "1386114bb75a56b9f597011b4822a6773081b03b00cd803404380052917b27bd"
     }
   ],
   "dependencies": [],
@@ -50,6 +51,11 @@
         "path": "/choicePools/bonus-languages",
         "reason": "Source race page names high-INT options but does not spell out count/reselection mechanics; formula max(0, INT_MOD) is a provisional standard-system interpretation only, not approved for auto-application.",
         "blocking": true
+      },
+      {
+        "path": "/data/standardTraitIds",
+        "blocking": true,
+        "reason": "Standard testing supports printed DEX/WIS/INT vector, humanoid/reptilian identity, Perception/Acrobatics, low-light vision, six optional languages and owned +1 natural armor. Grounded bull-rush/trip CMD, environmental checks/resistance, Endurance qualification, bite primary/secondary handling and Deft Pugilist remain manual. No general Endurance or Improved Unarmed Strike feat is inferred; variants, alternates and independent full review pending."
       }
     ],
     "sectionInventory": [
@@ -413,7 +419,7 @@
       ],
       "actions": [],
       "choicePoolIds": [
-        "ffd20:race:bangaa:pool:bonus-languages"
+        "ffd20:race:bangaa:pool:high-intelligence-bonus-languages"
       ],
       "scalingNotes": [],
       "sourceRefs": [
@@ -2082,6 +2088,132 @@
           "sourceId": "main",
           "section": "Standard Racial Traits",
           "locator": "5935"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:bangaa:pool:high-intelligence-bonus-languages",
+      "name": "Bangaa bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:bangaa:pool:high-intelligence-bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:high-intelligence-bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:high-intelligence-bonus-languages:option:ignan",
+          "name": "Ignan",
+          "description": "Ignan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "ignan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:high-intelligence-bonus-languages:option:numish",
+          "name": "Numish",
+          "description": "Numish",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "numish",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:high-intelligence-bonus-languages:option:seeq",
+          "name": "Seeq",
+          "description": "Seeq",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "seeq",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:bangaa:pool:high-intelligence-bonus-languages:option:terran",
+          "name": "Terran",
+          "description": "Terran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "terran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Optional source list, bounded by positive Intelligence modifier.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
         }
       ]
     }
