@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 5,
+  "revision": 7,
   "schedule": [
     "class",
     "race",
@@ -129,15 +129,20 @@
       "updatedAt": "2026-10-30T07:57:21.057Z"
     },
     "ffd20:race:elvaan": {
-      "state": "queued",
-      "stage": "source-review",
-      "cursor": "Standard Racial Traits",
-      "nextAction": "Resume the prior Elvaan checkpoint and compare archived source with the existing definition.",
-      "scope": "Standard traits and mandatory choices first.",
-      "note": "Preserves the prior continuation.",
+      "state": "in_progress",
+      "stage": "validation",
+      "cursor": "Standard traits compared with source; required Weapon Focus weapon and optional languages implemented; 305 tests and two mobile save/reopen cases passed.",
+      "nextAction": "Verify CI and deployed asset hashes, record partial-live standard-trait milestone, then continue Galka.",
+      "scope": "Standard heritage and standard traits; verified six-weapon Weapon Focus chooser and Intelligence-bounded bonus languages. Conditional effects/manual feat benefits, variants, alternates and favored rewards remain outside automatic support.",
+      "note": "Source hash recorded; full race review remains needs_review. No real-user production login claimed.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
-        "docs/extraction/CONTINUATION.json"
-      ]
+        "docs/extraction/CONTINUATION.json",
+        "docs/extraction/elvaan-standard-creation.md",
+        "docs/extraction/elvaan-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T08:06:44.048Z"
     }
   },
   "history": [
@@ -176,6 +181,24 @@
       "stage": "deployed",
       "cursor": "Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.",
       "time": "2026-10-30T07:57:21.057Z"
+    },
+    {
+      "revision": 6,
+      "itemId": "ffd20:race:elvaan",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Standard Racial Traits",
+      "time": "2026-10-30T07:57:24.617Z"
+    },
+    {
+      "revision": 7,
+      "itemId": "ffd20:race:elvaan",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "validation",
+      "cursor": "Standard traits compared with source; required Weapon Focus weapon and optional languages implemented; 305 tests and two mobile save/reopen cases passed.",
+      "time": "2026-10-30T08:06:44.048Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

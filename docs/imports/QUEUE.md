@@ -9,10 +9,10 @@ Partial-live support, testing availability, source archiving and full completion
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | class | 73/73 | 5 | 5 | 68 | 5 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 60 | 3 | 0 | 0 |
+| race | 63/63 | 63 | 63 | 59 | 3 | 0 | 0 |
 | archetype | 579/579 | 1 | 1 | 578 | 1 | 0 | 498 |
 
-Checkpoint revision: **5**. Active: **none**. Next: **ffd20:race:elvaan**.
+Checkpoint revision: **7**. Active: **ffd20:race:elvaan**. Next: **ffd20:race:elvaan**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -101,7 +101,7 @@ The race count includes testing options whose mandatory choices can still preven
 | Order | Entry | Repository state | Work state | Resume point / next action |
 | ---: | --- | --- | --- | --- |
 | 1 | [Dwarf](https://finalfantasyd20.com/races/core-races/dwarf/) | testing option; saving can be guarded | live_partial · partial-live-support | Favored Class Options > White Mage (final entry).; Resolve remaining language/terrain choices and manual mappings. |
-| 2 | [Elvaan](https://finalfantasyd20.com/races/core-races/elvaan/) | testing option; saving can be guarded | queued · source-review | Standard Racial Traits; Resume the prior Elvaan checkpoint and compare archived source with the existing definition. |
+| 2 | [Elvaan](https://finalfantasyd20.com/races/core-races/elvaan/) | testing option; saving can be guarded | in_progress · validation | Standard traits compared with source; required Weapon Focus weapon and optional languages implemented; 305 tests and two mobile save/reopen cases passed.; Verify CI and deployed asset hashes, record partial-live standard-trait milestone, then continue Galka. |
 | 3 | [Galka](https://finalfantasyd20.com/races/core-races/galka/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 4 | [Half-Breed](https://finalfantasyd20.com/races/core-races/half-breed/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 5 | [Hume](https://finalfantasyd20.com/races/core-races/hume/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
