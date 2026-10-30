@@ -6,16 +6,17 @@ import {cp} from 'node:fs/promises';
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { renderPage, routeView } from '../src/layouts/site.mjs';
 
+const args = process.argv.slice(2);
+if (args.length && !(args.length === 1 && args[0] === '--mode=preview')) {
+  throw new Error('Only --mode=preview is supported. Production identity and persistence are not implemented.');
+}
+
 await generateRaceCatalog();
 await generateArcherPreview();
 await generateClassCatalog();
 await generateBardCatalog();
 
 const root = new URL('../', import.meta.url);
-const args = process.argv.slice(2);
-if (args.length && !(args.length === 1 && args[0] === '--mode=preview')) {
-  throw new Error('Only --mode=preview is supported. Production identity and persistence are not implemented.');
-}
 const files = (await readdir(new URL('src/pages/', root))).filter(name => name.endsWith('.mjs')).sort();
 const pages = [];
 const ids = new Set();

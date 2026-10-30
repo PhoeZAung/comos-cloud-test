@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 55,
+  "revision": 56,
   "schedule": [
     "class",
     "race",
@@ -367,17 +367,17 @@
     "ffd20:class:knight": {
       "state": "in_progress",
       "stage": "runtime-validated",
-      "cursor": "Lawful first-level Knight, d12/proficiencies, stance capacity and manual Antagonize/reference abilities validated; mobile Galka/Moogle save/reopen passed",
-      "nextAction": "Exact-head CI, merge and public asset verification; then Bangaa",
+      "cursor": "Knight gameplay/browser checks passed; CI-exposed invalid-build module rewrite race reproduced and repaired",
+      "nextAction": "Run exact-head CI after build validation repair, merge and verify public assets; then Bangaa",
       "scope": "First-level lawful creation/editing only; permanent-CON stance counter, manual feat and seven source cards; stance/ally/Limit Break effects and code adjudication manual; later progression/archetypes/multiclassing guarded",
-      "note": "366 tests, cloud build and mobile fixtures pass; six race matrices now cover eight class adapters; spent counters, current HP and manual notes preserved. No provider login test.",
+      "note": "366 tests and cloud build pass after rejecting unsupported build arguments before generation. Existing preview regression failed before repair and passes after. Initial CI run 41110059141 rejected due to a module read during rewrite; new CI pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/knight-level-one-import.md",
         "docs/extraction/knight-browser-validation.json"
       ],
-      "updatedAt": "2026-10-30T18:48:27.568Z"
+      "updatedAt": "2026-10-30T18:51:45.577Z"
     }
   },
   "history": [
@@ -866,6 +866,15 @@
       "stage": "runtime-validated",
       "cursor": "Lawful first-level Knight, d12/proficiencies, stance capacity and manual Antagonize/reference abilities validated; mobile Galka/Moogle save/reopen passed",
       "time": "2026-10-30T18:48:27.568Z"
+    },
+    {
+      "revision": 56,
+      "itemId": "ffd20:class:knight",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Knight gameplay/browser checks passed; CI-exposed invalid-build module rewrite race reproduced and repaired",
+      "time": "2026-10-30T18:51:45.577Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

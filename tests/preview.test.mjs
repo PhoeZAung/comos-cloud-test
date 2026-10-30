@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, stat } from 'node:fs/promises';
 import { createPreviewContext } from '../src/preview/runtime.mjs';
 import { previewPolicy } from '../src/preview/policy.mjs';
 
@@ -57,10 +57,13 @@ test('real IDs, caller-selected IDs, and unknown collections are rejected', () =
 
 test('unsupported production build fails before touching the generated site', async () => {
   const before = await readFile(new URL('dist/index.html', root));
+  const projectionPaths=['races.mjs','archer-catalog.mjs','class-catalog.mjs','bard-songs.mjs'].map(name=>new URL('src/features/characters/rules/'+name,root));
+  const projectionTimes=await Promise.all(projectionPaths.map(async path=>(await stat(path)).mtimeMs));
   const result = spawnSync(process.execPath, ['scripts/build.mjs', '--mode=production'], { cwd: root, encoding: 'utf8' });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Only --mode=preview/);
   assert.deepEqual(await readFile(new URL('dist/index.html', root)), before);
+  assert.deepEqual(await Promise.all(projectionPaths.map(async path=>(await stat(path)).mtimeMs)),projectionTimes,'Rejected build arguments must not rewrite modules while parallel tests import them.');
 });
 
 test('every route and local asset resolves; all pages carry the preview policy', async () => {
