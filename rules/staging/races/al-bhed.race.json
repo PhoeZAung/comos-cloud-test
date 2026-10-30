@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/base-races/al-bhed/",
       "title": "Al Bhed — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "b7b55e22079ed42b156268eab190e711d5f9964c443df50ddbf40cb1c9aaf221"
     }
   ],
   "dependencies": [],
@@ -40,6 +41,11 @@
         "path": "/review",
         "reason": "Independent source accuracy, safe effect ownership/conflict behavior, and production runtime integration have not been reviewed. Keep staging only; do not enable in manifest.",
         "blocking": true
+      },
+      {
+        "path": "/data/standardTraitIds",
+        "blocking": true,
+        "reason": "Bounded first-level standard creation supports identity, five bonus languages, Mechanical Genius selected-row bonus/required rank, eligible nonspecialty class skills and selected Profession (engineering) row, Repair/Drive/Pilot class skills, Simple Firearms and a manual Technologist card. Other Profession engineering rows, conditional defenses, repair duration/tool handling and feat effects remain manual; later progression, alternates and independent full review pending."
       }
     ],
     "sectionInventory": [
@@ -384,7 +390,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:al-bhed:pool:high-intelligence-bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -586,6 +594,27 @@
               "locator": "6034"
             }
           ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:fixer-upper:runtime:skills-skill:repair-class_skill",
+          "kind": "class_skill",
+          "target": "skills.skill:repair.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6034"
+            }
+          ]
         }
       ],
       "actions": [],
@@ -635,6 +664,90 @@
           "bonusType": "racial",
           "condition": null,
           "automation": "manual",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:mechanical-genius:runtime:skills-skill:knowledge-engineering-class_skill",
+          "kind": "class_skill",
+          "target": "skills.skill:knowledge-engineering.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:mechanical-genius:runtime:skills-skill:craft-class_skill",
+          "kind": "class_skill",
+          "target": "skills.skill:craft.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:mechanical-genius:runtime:skills-skill:disable-device-class_skill",
+          "kind": "class_skill",
+          "target": "skills.skill:disable-device.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6035"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:mechanical-genius:runtime:skills-skill:use-magic-device-class_skill",
+          "kind": "class_skill",
+          "target": "skills.skill:use-magic-device.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
           "sourceRefs": [
             {
               "sourceId": "main",
@@ -738,6 +851,48 @@
               "locator": "6036"
             }
           ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:skill-training:runtime:skills-skill:drive-class_skill",
+          "kind": "class_skill",
+          "target": "skills.skill:drive.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:skill-training:runtime:skills-skill:pilot-class_skill",
+          "kind": "class_skill",
+          "target": "skills.skill:pilot.class_skill",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1
+          },
+          "textValue": null,
+          "bonusType": "racial",
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6036"
+            }
+          ]
         }
       ],
       "actions": [],
@@ -821,6 +976,27 @@
           "value": null,
           "textValue": "All simple firearms",
           "bonusType": null,
+          "condition": null,
+          "automation": "automatic",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits",
+              "locator": "6038"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:trait:weapon-familiarity:runtime:proficiencies-weapon-simple-firearms",
+          "kind": "proficiency",
+          "target": "proficiencies.weapon.simple-firearms",
+          "operation": "add",
+          "value": {
+            "kind": "constant",
+            "value": 1
+          },
+          "textValue": "Simple firearms",
+          "bonusType": "racial",
           "condition": null,
           "automation": "automatic",
           "sourceRefs": [
@@ -1797,6 +1973,114 @@
           "sourceId": "main",
           "section": "Alternate Racial Traits",
           "locator": "6042"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:al-bhed:pool:high-intelligence-bonus-languages",
+      "name": "Al Bhed bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:al-bhed:pool:high-intelligence-bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:high-intelligence-bonus-languages:option:loporrit",
+          "name": "Loporrit",
+          "description": "Loporrit",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "loporrit",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:high-intelligence-bonus-languages:option:moogle",
+          "name": "Moogle",
+          "description": "Moogle",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "moogle",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:high-intelligence-bonus-languages:option:pupon",
+          "name": "PuPon",
+          "description": "PuPon",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "pupon",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:al-bhed:pool:high-intelligence-bonus-languages:option:yagudo",
+          "name": "Yagudo",
+          "description": "Yagudo",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "yagudo",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Optional source list, bounded by positive Intelligence modifier.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
         }
       ]
     }

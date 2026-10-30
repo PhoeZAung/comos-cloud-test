@@ -1,0 +1,35 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Al Bhed",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 6,
+      "languages": "Common, Albhedian, Moogle",
+      "specialty": "Woodworking",
+      "manualSkillBonusPreserved": true,
+      "missingSelectedRankGuard": "exercised",
+      "pageErrors": []
+    },
+    {
+      "race": "Al Bhed",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 8,
+      "languages": "Common, Albhedian, Moogle",
+      "specialty": "Engineering",
+      "manualSkillBonusPreserved": true,
+      "missingSelectedRankGuard": "covered by model tests",
+      "pageErrors": []
+    }
+  ]
+}

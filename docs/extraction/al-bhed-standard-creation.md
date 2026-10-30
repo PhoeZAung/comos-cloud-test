@@ -1,0 +1,12 @@
+# Al Bhed standard first-level creation
+
+Source: https://finalfantasyd20.com/races/base-races/al-bhed/
+Archived HTML SHA-256: `b7b55e22079ed42b156268eab190e711d5f9964c443df50ddbf40cb1c9aaf221`.
+
+Standard creation maps +2 Dexterity, +2 Intelligence, −2 Charisma, Medium humanoid/al-bhed identity, land speed 30, Common/Albhedian and the five optional source languages (Goblin, Loporrit, Moogle, PuPon, Yagudo), bounded by positive Intelligence modifier. Repair, Drive, Pilot, Craft, Knowledge (engineering), Disable Device and Use Magic Device are class skills. Simple Firearms proficiency is recorded; no firearm item or free attack is generated.
+
+Mechanical Genius requires exactly one eligible skill row: Knowledge (engineering), one of three Craft rows, one of three Profession (engineering) rows, Disable Device or Use Magic Device. It adds one first-level rank to the budget and requires that rank in the selected row, whose level-1 cap is one. Only that row receives the +2 racial bonus. Craft requires a named specialty; selected Profession is explicitly Engineering and is a class skill. Extra nonselected Profession (engineering) rows remain manual rather than making every Profession specialty a class skill. Preview and saved-sheet budgets agree. Editing/removing the trait removes its owned bonuses without losing manual modifiers.
+
+Technologist is a separate granted manual feat card; edited notes survive recompilation. Missing-toolkit handling, 30-minute construct repair, technological skill restrictions and feat effects remain manual, as do Desert Nomad's situational CON/Fortitude bonuses and Trap Knowledge's mechanical-trap saves. No global defense bonuses are applied. First-level creation/editing only: later progression, multiclassing and alternates are guarded, and favored rewards/independent full review remain pending.
+
+Validation: all 357 tests and the cloud build pass. Three regressions exercise seven class adapters, all nine eligible row choices, selected-rank/specialty validation, class skills, feat-note and manual-bonus persistence, language limits and progression guards. Phone-sized Chromium fixtures created, edited, saved and reopened Dancer/Craft (woodworking) and Bard/Profession (engineering), preserving Moogle language and manual skill modifiers. The Dancer fixture also exercised the missing-selected-rank UI guard. No page errors. See `al-bhed-browser-validation.json`; fixture authentication is not production provider login.

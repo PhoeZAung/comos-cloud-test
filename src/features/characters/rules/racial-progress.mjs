@@ -9,9 +9,12 @@ export const TARUTARU_LANGUAGES=TARUTARU_ID+':pool:high-intelligence-bonus-langu
 export const TARUTARU_TALENTED=TARUTARU_ID+':pool:tarutaru-craft-profession-choice';
 export const AEGYL_ID='ffd20:race:aegyl';
 export const AEGYL_LANGUAGES=AEGYL_ID+':pool:high-intelligence-bonus-languages';
+export const AL_BHED_ID='ffd20:race:al-bhed';
+export const AL_BHED_LANGUAGES=AL_BHED_ID+':pool:high-intelligence-bonus-languages';
+export const AL_BHED_GENIUS=AL_BHED_ID+':pool:mechanical-genius-specialty';
 const standardTraitActive=(b,race,slug)=>b?.raceId===race&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(race+':trait:'+slug);
 export const humeTraitActive=(b,slug)=>b?.raceId===HUME_ID&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(HUME_ID+':trait:'+slug);
-export const racialSkillRanks=(b,level)=>humeTraitActive(b,'skilled')?level:0;
+export const racialSkillRanks=(b,level)=>humeTraitActive(b,'skilled')?level:standardTraitActive(b,AL_BHED_ID,'mechanical-genius')&&level>=1?1:0;
 export const racialCounter=(b,feature)=>[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'eternal-hope']].some(([race,slug])=>standardTraitActive(b,race,slug)&&feature.id===race+':trait:'+slug)?{maximum:1}:null;
 export function applyRacialFlatStats(next,previous,b){
  const bonus=standardTraitActive(b,MITHRA_ID,'fleet-footed')?2:0,old=Number(previous.rulesBuild?.racialInitiativeBonus||0);

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 45,
+  "revision": 46,
   "schedule": [
     "class",
     "race",
@@ -318,15 +318,18 @@
     },
     "ffd20:race:al-bhed": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Mechanical Genius choice, selected rank, specialty/class-skill ownership and standard traits validated across seven adapters and phone Dancer/Bard fixtures",
+      "nextAction": "Exact-head CI, merge and public asset verification; then continue Au Ra",
+      "scope": "First-level standard creation/editing; eligible skill choice, one restricted extra rank, source-listed languages, proficiencies and manual Technologist card; conditional defenses/repair/feat effects manual, later progression and alternates guarded",
+      "note": "357 tests, cloud build and phone create/edit/save/reopen pass; required rank guard exercised and manual skill modifiers preserved. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T18:30:32.123Z"
+      "evidence": [
+        "docs/extraction/al-bhed-standard-creation.md",
+        "docs/extraction/al-bhed-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T18:33:10.991Z"
     }
   },
   "history": [
@@ -725,6 +728,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T18:30:32.123Z"
+    },
+    {
+      "revision": 46,
+      "itemId": "ffd20:race:al-bhed",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Mechanical Genius choice, selected rank, specialty/class-skill ownership and standard traits validated across seven adapters and phone Dancer/Bard fixtures",
+      "time": "2026-10-30T18:33:10.991Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

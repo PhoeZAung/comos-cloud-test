@@ -2,7 +2,7 @@ import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classe
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
-import {AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
+import {AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
@@ -37,7 +37,7 @@ export function raceTraits(b){
  return {traits:effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:'Your chosen racial benefits.',sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits,replaced:[...consumed],errors};
 }
 export function effectiveScores(b){const result={...b.baseScores};for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=buildLevel(b)&&stats.includes(key))result[key]++;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}return result;}
-export function racialClassSkill(b,id){return raceTraits(b).traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&e.target===`skills.${id}.class_skill`));}
+export function racialClassSkill(b,id,index){return raceTraits(b).traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&(e.target===`skills.${id}.class_skill`||Number.isInteger(index)&&e.target===`skills.row.${index}.class_skill`)));}
 export function calculated(value,b,effective=effectiveScores(b)){
  if(!value)return null;if(value.kind==='constant')return value.value;
  if(value.kind==='level_table'){const level=value.levelBasis==='ability_score'?effective.int:b.level;return value.rows.filter(r=>r.from<=level).at(-1)?.value??value.belowFirst;}
@@ -72,6 +72,9 @@ export function buildIssues(b,{complete=true}={}){
  const race=raceFor(b);if(!race)add(2,'Choose a race.');
  if(race?.id===HUME_ID&&(b.heritageId||b.alternateIds.length))add(2,'Hume currently supports standard heritage and standard traits only. Variants and alternates require a separate verified batch.');
  if(race?.id===HUME_ID&&(b.level!==1||b.carry))add(3,'Hume currently supports first-level creation/editing only; progression and multiclassing require a separate verified batch.');
+ if(race?.id===AL_BHED_ID&&(b.heritageId||b.alternateIds.length))add(2,'Al Bhed currently supports standard traits only; alternates require a separate verified batch.');
+ if(race?.id===AL_BHED_ID&&(b.level!==1||b.carry))add(3,'Al Bhed currently supports first-level creation/editing only; later progression and multiclassing require a separate verified batch.');
+ if(race?.id===AL_BHED_ID&&b.skillRanks){const chosen=b.racialChoices?.[AL_BHED_GENIUS]?.[0],index=Number(chosen?.split(':').at(-1));if(chosen&&!(b.skillRanks[index]>=1))add(7,'Allocate the Mechanical Genius bonus rank to its selected skill.');}
  if(race?.id===AEGYL_ID&&(b.heritageId||b.alternateIds.length))add(2,'Aegyl currently supports standard traits only; variants and alternates need a separate verified batch.');
  if(race?.id===MITHRA_ID&&(b.heritageId||b.alternateIds.length))add(2,'Mithra currently supports standard traits only; variants and alternates need a separate verified batch.');
  if(race?.id===TARUTARU_ID&&(b.heritageId||b.alternateIds.length))add(2,'Tarutaru currently supports standard traits only; variants and alternates need a separate verified batch.');
@@ -240,7 +243,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  else if(next.mp===undefined&&next.mp_curr!==undefined){next.mp=next.mp_curr;next.mp_temp=0;}
  next.favoredClassBonuses=Object.fromEntries(b.favored.slice(0,b.level).map((v,i)=>[String(i+1),v]));
  const originalRows=previous.skills||fixedSkills.map(r=>({...r,lvl:0,temp:0,cs:false,subName:''}));
- next.skills=originalRows.map((row,index)=>{const r={...row};if(b.skillRanks&&index<fixedSkills.length)r.lvl=b.skillRanks[index];const id=skillId(r);const ownedClassSkill=registry.class.data.classSkills.some(s=>s.skillId===id)||racialClassSkill(b,id);r.cs=b.carry?.classSkills?.[index]===true||ownedClassSkill||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=ownedClassSkill;
+ next.skills=originalRows.map((row,index)=>{const r={...row};if(b.skillRanks&&index<fixedSkills.length)r.lvl=b.skillRanks[index];const id=skillId(r);const ownedClassSkill=registry.class.data.classSkills.some(s=>s.skillId===id)||racialClassSkill(b,id,index);r.cs=b.carry?.classSkills?.[index]===true||ownedClassSkill||(row.cs===true&&row.rulesClassSkill!==true);r.rulesClassSkill=ownedClassSkill;
   // Remove only the last source contribution, preserving manually entered misc bonuses.
   r.temp=Number(row.temp||0)-Number(row.rulesBonus||0);let bonus=0;
   if(b.carry)bonus=Number(b.carry.ruleBonuses?.[index]||0);
