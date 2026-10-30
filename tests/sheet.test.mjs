@@ -23,6 +23,13 @@ test('sheet rendering is minimal, escaped and only renders the selected section'
  const char={id:'sample',name:'<img onerror=x>',data:{...data,notesArea:'<script>bad</script>',items:[{name:'<svg onload=x>',desc:'private description'}]}};
  const html=renderSheetFrame(char,'overview');assert.match(html,/&lt;img onerror=x&gt;/);assert.doesNotMatch(html,/private description|<script>|<iframe|Shop|Calendar/);assert.match(html,/data-sheet-tab="combat"/);assert.doesNotMatch(renderSection(char,'items'),/private description/);assert.match(entryDetail(char.data.items[0]),/private description/);assert.match(renderSection(char,'notes'),/&lt;script&gt;bad/);
 });
+test('compact character sheet opens as its own browser tab',()=>{
+ const character={id:'sample',name:'Test Hero',data};
+ const normal=renderSheetFrame(character,'overview');
+ assert.match(normal,/aria-label="Open character sheet in a new tab"/);
+ assert.match(normal,/href="sheet.html\?characterId=sample&compact=1" target="_blank" rel="noopener noreferrer"/);
+ assert.doesNotMatch(renderSheetFrame(character,'overview',{compact:true}),/Open character sheet in a new tab/);
+});
 test('dice rolls use bounded parsed expressions without eval',()=>{
  assert.deepEqual(rollDice('2d6+3',()=>4),{expression:'2d6+3',rolls:[4,4],bonus:3,total:11});assert.equal(rollDice('1d20-2',()=>1).total,-1);for(const v of ['100d20','1d1','1d9999','alert(1)','1d20;evil()'])assert.throws(()=>rollDice(v));
 });
