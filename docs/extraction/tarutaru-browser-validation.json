@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Tarutaru",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 5,
+      "languages": "Common, Lalafellan, Draconic",
+      "specialty": "Woodworking",
+      "manualCraftBonusPreserved": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Tarutaru",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 7,
+      "languages": "Common, Lalafellan, Draconic",
+      "specialty": "Woodworking",
+      "manualCraftBonusPreserved": true,
+      "pageErrors": []
+    }
+  ]
+}

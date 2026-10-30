@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 32,
+  "revision": 33,
   "schedule": [
     "class",
     "race",
@@ -256,15 +256,18 @@
     },
     "ffd20:race:tarutaru": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Standard traits, Talented specialty and languages validated across six compilers; mobile Dancer/Bard creation/edit/save/reopen preserve choices and manual Craft bonus",
+      "nextAction": "Run exact-commit CI, merge and verify Tarutaru deployment, then continue Beast Rider",
+      "scope": "Standard traits: scores, Small identity/size math, explicit Stealth +4, Magic Expert, selected Talented specialty and source-listed languages supported. Conditional defense/caster checks and Detect Magic manual. Variants/alternates/favored rewards guarded or pending.",
+      "note": "336 tests and cloud build pass. Mobile fixtures preserved Woodworking, Draconic and manual misc without page errors; fixture authentication only. CI/deployment pending.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T15:38:49.715Z"
+      "evidence": [
+        "docs/extraction/tarutaru-standard-creation.md",
+        "docs/extraction/tarutaru-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T15:40:39.887Z"
     }
   },
   "history": [
@@ -546,6 +549,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T15:38:49.715Z"
+    },
+    {
+      "revision": 33,
+      "itemId": "ffd20:race:tarutaru",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Standard traits, Talented specialty and languages validated across six compilers; mobile Dancer/Bard creation/edit/save/reopen preserve choices and manual Craft bonus",
+      "time": "2026-10-30T15:40:39.887Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

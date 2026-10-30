@@ -12,7 +12,7 @@ Partial-live support, testing availability, source archiving and full completion
 | race | 63/63 | 63 | 63 | 54 | 7 | 0 | 0 |
 | archetype | 579/579 | 2 | 1 | 577 | 1 | 0 | 486 |
 
-Checkpoint revision: **32**. Active: **ffd20:race:tarutaru**. Next: **ffd20:race:tarutaru**.
+Checkpoint revision: **33**. Active: **ffd20:race:tarutaru**. Next: **ffd20:race:tarutaru**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -107,7 +107,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 5 | [Hume](https://finalfantasyd20.com/races/core-races/hume/) | testing option; saving can be guarded | live_partial · deployed | First-level standard Hume adapter deployed; six public asset hashes match tested build; Later Hume milestones: conditional Curiosity/check stacking, variants/alternate replacements, progression/multiclass entitlements, favored rewards and independent full review |
 | 6 | [Mithra](https://finalfantasyd20.com/races/core-races/mithra/) | testing option; saving can be guarded | live_partial · deployed | Standard Mithra traits deployed; seven runtime asset hashes match checked build; Later milestones: variants, alternate replacements, conditional combat and movement handling, favored rewards and independent full review |
 | 7 | [Moogle](https://finalfantasyd20.com/races/core-races/moogle/) | testing option; saving can be guarded | live_partial · partial-live-support | Baseline choices and local save/reopen verified; real user-account acceptance remains.; Review alternate/heritage and favored-class rules. |
-| 8 | [Tarutaru](https://finalfantasyd20.com/races/core-races/tarutaru/) | testing option; saving can be guarded | in_progress · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
+| 8 | [Tarutaru](https://finalfantasyd20.com/races/core-races/tarutaru/) | testing option; saving can be guarded | in_progress · runtime-validated | Standard traits, Talented specialty and languages validated across six compilers; mobile Dancer/Bard creation/edit/save/reopen preserve choices and manual Craft bonus; Run exact-commit CI, merge and verify Tarutaru deployment, then continue Beast Rider |
 | 9 | [Aegyl](https://finalfantasyd20.com/races/base-races/aegyl/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 10 | [Al Bhed](https://finalfantasyd20.com/races/base-races/al-bhed/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 11 | [Au Ra](https://finalfantasyd20.com/races/base-races/au-ra/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |

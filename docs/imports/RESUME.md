@@ -5,6 +5,11 @@ archive and keep unresolved Pathfinder-dependent mechanics manual or guarded.
 Bulk Pathfinder collection is paused. Do not wait for cloud publication to
 prepare definitions and adapters that can be validated from the saved sources.
 
+The standing user instruction is to continue through validated queue milestones
+without waiting for another "next", while the active run has capacity and the
+user has not stopped it. Push recoverable checkpoints as work progresses.
+Codex does not perform this reasoning unattended after a run or runtime stops.
+
 This queue tracks **73 classes, 63 races and 579 archetypes**. It schedules and
 records implementation work; it cannot perform AI reasoning while Codex is
 paused, out of usage, or not running. A new session can resume saved work.
@@ -58,7 +63,7 @@ Nature Sense and daily counters. All 35 source entries remain staged for later
 work. See `docs/extraction/beastmaster-level-one-import.md` for checks and limits.
 Hume standard first-level traits are deployed with score choice, Skilled budget,
 a separate manual bonus-feat slot and bounded language-name recording. See
-`docs/extraction/hume-standard-creation.md` for limits and evidence. The active
+`docs/extraction/hume-standard-creation.md` for limits and evidence.
 Mithra's standard traits, bonus languages, Fleet-Footed and Cat's Luck counter
 are also deployed; see `docs/extraction/mithra-standard-creation.md`. The active
 baseline item is **Tarutaru**, starting with standard traits, Talented's
