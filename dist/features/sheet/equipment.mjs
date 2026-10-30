@@ -1,9 +1,10 @@
-// Shared slot geometry and occupancy rules; old slot IDs stay valid.
+// Shared equipment slot IDs and occupancy rules; layouts can change without losing saved assignments.
 const accessories=['headband','eyes','shoulders','neck','belt','wrists','ring1','ring2'];
 export const equipmentSlots=Object.freeze([
  {id:'head',label:'Head',side:'left',y:50,target:[200,52]},
  {id:'headband',label:'Headband'},{id:'eyes',label:'Eyes'},{id:'shoulders',label:'Shoulders'},{id:'neck',label:'Necklace'},
- {id:'chest',label:'Chest',side:'left',y:145,target:[200,145]},
+ {id:'chest',label:'Chest',side:'left',y:135,target:[200,140]},
+ {id:'arms',label:'Arms',side:'left',y:195,target:[150,175]},
  {id:'body',label:'Body',side:'right',y:180,target:[220,193]},
  {id:'belt',label:'Belt'},{id:'wrists',label:'Wrists'},
  {id:'hands',label:'Hand 1',side:'left',y:245,target:[145,250]},
@@ -19,26 +20,50 @@ export function equipmentRows(source){return Array.isArray(source)?source.map((i
 export function occupiesSlot(item,slot){return !!item&&item.equipped!==false&&(item.equip_slot===slot||item.two_handed===true&&['hands','hand2'].includes(item.equip_slot)&&['hands','hand2'].includes(slot));}
 export function equippedInSlot(source,slot){if(!equipmentSlotIds.includes(slot))return null;return equipmentRows(source).find(r=>occupiesSlot(r.item,slot))||null;}
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const markers={
- body:'<path d="m172 106-12 102 16 41h48l16-41-12-102Z"/>',
- chest:'<path d="m172 111 28 10 28-10-3 70-25 16-25-16Z"/><path d="M200 123v62m-20-34h40"/>',
- head:'<path d="M177 51a23 23 0 0 1 46 0v16h-14V53h-18v14h-14Zm0-2h46"/>',
- headband:'<path d="M177 44h46v7h-46Zm46 3 13 8-5 7-9-12"/>',eyes:'<path d="M179 54h42m-40 0v9h15v-9m8 0v9h15v-9"/>',
- shoulders:'<path d="m169 101-16 11-6 23 28-7Zm62 0 16 11 6 23-28-7Z"/>',
- neck:'<path d="M184 94q16 30 32 0l-16 43Z"/><circle cx="200" cy="138" r="5"/>',belt:'<path d="M169 216h62v10h-62Z"/><rect x="194" y="214" width="12" height="14"/>',
- wrists:'<path d="m137 221 16 4-3 10-16-3Zm110 4 16-4 3 11-16 3Z"/>',
- hands:'<path d="m135 235 19 5-2 28-13 2-10-12Z"/>',hand2:'<path d="m246 240 19-5 6 23-10 12-13-2Z"/>',
- ranged:'<path d="M263 265q36 38 0 76l11-38Z"/><path d="m250 303 48 0m-5-5 5 5-5 5"/>',
- legs:'<path d="m177 286 20 0-5 118-19 0Zm26 0h20l4 118h-19Z"/>',
- feet:'<path d="M170 414h23v41l-2 13h-34v-14l13-4Zm37 0h23v36l13 4v14h-34l-2-13Z"/>',
- ring1:'<circle cx="142" cy="258" r="7"/><path d="m139 251 3-5 3 5"/>',ring2:'<circle cx="258" cy="258" r="7"/><path d="m255 251 3-5 3 5"/>'
-};
+
+const loadoutGroups=Object.freeze([
+ {name:'Weapons',icon:'⚔',slots:['hands','hand2','ranged']},
+ {name:'Armor',icon:'◇',slots:['head','chest','arms','body','legs','feet','shoulders']},
+ {name:'Accessories',icon:'✦',slots:['headband','eyes','neck','belt','wrists','ring1','ring2']}
+]);
+const slotInitials=Object.freeze({
+ hands:'H1',hand2:'H2',ranged:'RG',head:'HD',chest:'CH',arms:'AR',body:'BD',legs:'LG',feet:'FT',shoulders:'SH',
+ headband:'HB',eyes:'EY',neck:'NK',belt:'BT',wrists:'WR',ring1:'R1',ring2:'R2'
+});
 export function renderEquipment(data={}){
- const rows=equipmentRows(data),assigned=equipmentSlots.filter(s=>equippedInSlot(data,s.id)).length,legacy=rows.filter(({item})=>item?.equipped===true&&!equipmentSlotIds.includes(item.equip_slot)).length;
- const found=s=>equippedInSlot(data,s.id)?.item;
- const slotButton=s=>{const item=found(s);return '<button type="button" class="cs-gear-slot'+(item?' has-item':'')+'" '+(s.side?'style="'+s.side+':0;top:'+s.y/520*100+'%" ':'')+'data-equip-slot="'+s.id+'" aria-label="'+e(s.label+': '+(item?.name||'Empty')+'. Choose equipment')+'"><span class="cs-gear-slot-name">'+s.label+'</span><span class="cs-gear-slot-item">'+e(item?.name||'＋ Empty')+'</span></button>';};
- const main=equipmentSlots.filter(s=>s.side),accessoryCount=equipmentSlots.filter(s=>s.accessory&&found(s)).length;
- const connectors=main.map(s=>'<path data-slot-connector="'+s.id+'" d="M'+(s.side==='left'?108:292)+' '+s.y+' H'+(s.side==='left'?124:276)+' L'+s.target.join(' ')+'"/><circle cx="'+s.target[0]+'" cy="'+s.target[1]+'" r="3"/>').join('');
- const equipped=Object.entries(markers).filter(([id])=>equippedInSlot(data,id)).map(([id,path])=>'<g class="cs-equipped-region" data-equipped-region="'+id+'">'+(id==='hands'||id==='hand2'?(()=>{const r=equippedInSlot(data,id),weapon=r.collection==='weapons'||/weapon/i.test(String(r.item.sourceCategory||r.item.category||r.item.tags));if(weapon&&r.item.two_handed&&id==='hand2')return path;return weapon?'<path class="cs-equipped-weapon" d="M'+(id==='hands'?'140 258 125 194m-6 19 20-5':'260 258 275 194m-14 14 20 5')+'"/>':path;})():path)+'</g>').join('');
- return '<section class="cs-equipment" aria-label="Equipped items"><div class="cs-gear-heading"><h2>Equipment</h2><span class="cs-gear-count">'+assigned+' / '+equipmentSlots.length+' slots</span></div><div class="cs-body-board"><svg viewBox="0 0 400 520" class="cs-body-silhouette" role="img" aria-label="Character equipment silhouette"><g class="cs-body-base"><path d="m183 30 17-7 17 7 8 17-5 24-12 12h-16l-12-12-5-24Z"/><path d="M186 81v12l-28 9-16 17-6 40 3 29-11 42 1 27 12 15 15-6 5-26 4-31 10-32-3 40 10 48-10 28-6 113 6 43 22 1 7-118 5-30 5 30 7 118 22-1 6-43-6-113-10-28 10-48-3-40 10 32 4 31 5 26 15 6 12-15 1-27-11-42 3-29-6-40-16-17-28-9V81"/><path class="cs-body-detail" d="m157 112 19 7 24 9 24-9 19-7m-72 29 29 12 29-12m-52 31 23 10 23-10m-42 28 19 6 19-6m-37 21h36m-41 47 23 14 23-14M200 130v115m-60-83 19 7m82 0 19-7m-88 167 19 5m18 0 19-5m-52 68 18 1m14 0 18-1m-44 50-21 5v14h31l2-18m15 0 2 18h31v-14l-21-5"/></g>'+equipped+'<g class="cs-slot-connectors">'+connectors+'<path d="M292 88H272L220 100"/><circle cx="220" cy="100" r="3"/></g></svg>'+main.map(slotButton).join('')+'<button class="cs-gear-slot cs-accessory-button'+(accessoryCount?' has-item':'')+'" type="button" data-accessory-open aria-expanded="true" aria-label="Accessory slots"><span class="cs-gear-slot-name">Accessory</span><span class="cs-gear-slot-item">'+accessoryCount+' equipped</span></button></div><details class="cs-accessory-panel" open><summary>All accessory slots <span>'+accessoryCount+' / '+accessories.length+'</span></summary><div>'+equipmentSlots.filter(s=>s.accessory).map(slotButton).join('')+'</div></details>'+(legacy?'<p class="cs-gear-note">'+legacy+' previously equipped item'+(legacy===1?' has':'s have')+' no slot yet. Assign '+(legacy===1?'it':'them')+' above.</p>':'')+'</section>';
+ const rows=equipmentRows(data);
+ const occupied=new Set(equipmentSlotIds.map(slot=>equippedInSlot(data,slot)?.item).filter(Boolean));
+ const count=equipmentSlots.filter(slot=>equippedInSlot(data,slot)).length;
+ const section=group=>{
+  const assigned=group.slots.filter(slot=>equippedInSlot(data,slot)).length;
+  const items=group.slots.map(id=>{
+   const slot=equipmentSlots.find(s=>s.id===id),gear=equippedInSlot(data,id),item=gear?.item;
+   const itemName=item?.name||'Not equipped';
+   return '<div class="cs-loadout-row'+(item?' is-equipped':'')+'">'
+     +'<button type="button" class="cs-loadout-select" data-equip-slot="'+id+'" aria-label="'+e(slot.label+': '+itemName+'. Choose equipment')+'">'
+     +'<span class="cs-loadout-slot-icon" aria-hidden="true">'+slotInitials[id]+'</span>'
+     +'<span class="cs-loadout-row-details"><span class="cs-loadout-slot-label">'+e(slot.label)+'</span><span class="cs-loadout-item-name">'+e(itemName)+'</span></span>'
+     +'<span class="cs-loadout-chevron" aria-hidden="true">'+(item?'›':'+')+'</span></button>'
+     +(item?'<button type="button" class="cs-loadout-action" data-unequip-slot="'+id+'" aria-label="Unequip '+e(item.name||'item')+' from '+e(slot.label)+'">Unequip</button>':'')
+     +'</div>';
+  }).join('');
+  return '<section class="cs-loadout-group" aria-label="'+group.name+' equipment"><div class="cs-loadout-group-title"><span aria-hidden="true" class="cs-loadout-group-icon">'+group.icon+'</span><h3>'+group.name+'</h3><small>'+assigned+' / '+group.slots.length+'</small></div><div class="cs-loadout-rows">'+items+'</div></section>';
+ };
+ const carried=rows.filter(({item})=>item&&!occupied.has(item));
+ const carriedRows=carried.map(({item,index,collection})=>{
+  const amount=Number(item.amount??1),valid=amount>=1&&!!String(item.name||'').trim(),name=item.name||'Unnamed item';
+  const isUnassigned=item.equipped===true&&!equipmentSlotIds.includes(item.equip_slot);
+  return '<div class="cs-carried-row">'
+   +'<span class="cs-carried-icon" aria-hidden="true">'+(collection==='weapons'?'⚔':'◇')+'</span>'
+   +'<span class="cs-carried-details"><strong>'+e(name)+'</strong><small>'+e(collection==='weapons'?'Weapon':String(item.sourceCategory||item.category||'Item'))+' · Qty '+e(amount)+(isUnassigned?' · Previously equipped, no slot':'')+'</small></span>'
+   +'<span class="cs-carried-actions"><button type="button" class="cs-loadout-action" '+(collection==='weapons'?'data-assign-weapon':'data-assign-item')+'="'+index+'"'+(valid?'':' disabled')+' aria-label="Equip '+e(name)+'">Equip</button>'
+   +'<button type="button" class="cs-loadout-action cs-remove-gear" data-remove-gear="'+collection+':'+index+'" aria-label="Remove '+e(name)+' from inventory">Remove</button></span></div>';
+ }).join('');
+ return '<section class="cs-equipment cs-loadout" aria-label="Equipped items">'
+   +'<div class="cs-gear-heading"><h2>Loadout</h2><span class="cs-gear-count">'+count+' / '+equipmentSlots.length+' slots equipped</span></div>'
+   +'<div class="cs-loadout-groups">'+loadoutGroups.map(section).join('')+'</div>'
+   +'<section class="cs-carried" aria-label="Carried items not equipped"><div class="cs-loadout-group-title"><span aria-hidden="true" class="cs-loadout-group-icon">▤</span><h3>Carried / Not Equipped</h3><small>'+carried.length+'</small><button type="button" class="cs-loadout-add" data-add-entry="items">+ Add item</button></div>'
+   +'<p class="cs-loadout-help">These items are in your inventory, not attached to a worn or held equipment slot. Unequipped items appear here.</p>'
+   +'<div class="cs-carried-list">'+(carriedRows||'<p class="cs-caption">Nothing carried outside your equipped slots.</p>')+'</div></section>'
+   +'</section>';
 }
