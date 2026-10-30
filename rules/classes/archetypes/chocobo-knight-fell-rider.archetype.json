@@ -1,0 +1,341 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:chocobo-knight:fell-rider",
+  "parentClassId": "ffd20:class:chocobo-knight",
+  "name": "Fell Rider",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/fell-rider/",
+      "title": "Fell Rider — Final Fantasy d20",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "35b2eb09b5399eacf5a78d431ae8012fb3115d3650ba00e1f64bddd5d6504259"
+    },
+    {
+      "id": "parent",
+      "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/",
+      "title": "Chocobo Knight",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "fd7ec4dee855821e24be06bc3d01b31fade1e2e100ca941a33468b6a8e4c6484"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "First-level creation/editing only. Parent yellow chocobo operation and Brute Steed mount-only score adjustments are manual references, not rider bonuses or an inferred size increase."
+      },
+      {
+        "path": "/data/deferredReplacements",
+        "blocking": true,
+        "reason": "Six later parent targets require canonical progression IDs and action/choice handling. Trample fallback combat-feat choice, mounted overruns, enemy fear effects and immunity tracking need separate adapters."
+      },
+      {
+        "path": "/review",
+        "blocking": true,
+        "reason": "Independent full source/rules review remains pending."
+      }
+    ]
+  },
+  "data": {
+    "supportedLevels": [
+      1
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:feature:brute-steed",
+        "name": "Brute Steed",
+        "atLevel": 1,
+        "description": "A fell rider’s chocobo mount is unusually large and fierce. It gains a +2 bonus to Strength, but takes a –2 penalty to Dexterity.\n\nThis ability otherwise works like the chocobo knight’s chocobo mount ability.\n\nBase mount reference: Gain a loyal yellow chocobo companion using Chocobo Knight level as effective Beastmaster level. Use the mount progression table on the official class page; shared saves is excluded. Companion choices, attacks, and advancement are managed manually in this first-level integration. See https://finalfantasyd20.com/classes/base-classes/chocobo-knight/#chocobo-mount",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brute Steed",
+            "locator": "brute-steed"
+          },
+          {
+            "sourceId": "parent",
+            "section": "Chocobo Mount",
+            "locator": "chocobo-mount"
+          }
+        ],
+        "initialState": {
+          "mountStrengthAdjustment": 2,
+          "mountDexterityAdjustment": -2,
+          "changesRiderScores": false,
+          "changesMountSize": false,
+          "automation": "none"
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:feature:rampage",
+        "name": "Rampage",
+        "atLevel": 3,
+        "description": "At 3rd level, a fell rider gains [Trample](https://www.d20pfsrd.com/feats/combat-feats/trample-combat-final/) as a bonus feat. The fell rider receives a +2 bonus on overrun attempts made while mounted. In addition, his mount gains a +2 bonus on damage rolls when making hoof attacks or using the trample monster ability, even when not overrunning. If the fell rider already has this feat, he may pick another Combat feat for which he must meet the prerequisites for.\n\nThis ability replaces knight’s charge.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rampage",
+            "locator": "rampage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:feature:dread-rider",
+        "name": "Dread Rider",
+        "atLevel": 4,
+        "description": "At 4th level, a fell rider gains a bonus equal to half his chocobo knight level on Intimidate checks made while mounted. Once per round as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), he can make an Intimidate check to demoralize a foe he has trampled or charged while mounted.\n\nThis ability replaces expert trainer.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dread Rider",
+            "locator": "dread-rider"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:feature:fell-presence",
+        "name": "Fell Presence",
+        "atLevel": 5,
+        "description": "At 5th level, a fell rider inspires dread while mounted. As long as the fell rider is mounted, all enemies within 60 feet receive a –2 penalty on saving throws against fear. At 10th level and every 5 levels thereafter, this penalty increases by –1.\n\nThis ability replaces battlefield agility.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fell Presence",
+            "locator": "fell-presence"
+          }
+        ],
+        "initialState": {
+          "enemyFearSavePenalty": -2,
+          "rangeFeet": 60,
+          "requiresMounted": true
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:feature:deadly-rampage",
+        "name": "Deadly Rampage",
+        "atLevel": 11,
+        "description": "At 11th level, a mounted fell rider no longer provokes attacks of opportunity when he attempts to overrun a creature. He can make a single melee attack against the creature as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) if the overrun attempt succeeds.\n\nThis ability replaces greater charge.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deadly Rampage",
+            "locator": "deadly-rampage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:feature:terror",
+        "name": "Terror",
+        "atLevel": 15,
+        "description": "At 15th level, a fell rider can rear up his mount as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), spreading terror among his enemies. Enemies within 60 feet who can see the fell rider must succeed at a Will save (DC 10 + half of the chocobo knight’s level + his Charisma modifier) or be shaken for 1 round per level the fell rider possesses. Creatures with half or fewer Hit Dice than the fell rider become frightened instead. An opponent that succeeds at the saving throw is immune to that fell rider’s terror ability for 24 hours. This ability is a mind-affecting fear effect.\n\nThis ability replaces protect the meek.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Terror",
+            "locator": "terror"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:feature:unstoppable-rampage",
+        "name": "Unstoppable Rampage",
+        "atLevel": 20,
+        "description": "At 20th level, a mounted fell rider can overrun up to four creatures as part of a single overrun combat maneuver. Each attempt made against a creature after the first receives a cumulative –5 penalty (for example, the fourth overrun attempt would be at a –15 penalty). If any overrun attempt fails, the fell rider cannot make further overrun attempts that round. Attacks made by the fell rider or his mount as part of the overrun, such as those provided by the Trample feat or the deadly rampage ability, receive a +4 bonus to hit, and any critical threats from these attacks automatically confirm.\n\nThis ability replaces supreme charge.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unstoppable Rampage",
+            "locator": "unstoppable-rampage"
+          }
+        ]
+      }
+    ],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:replacement:brute-steed",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "partial",
+        "resolution": "resolved",
+        "componentKeys": [
+          "mount.abilityScores.str",
+          "mount.abilityScores.dex"
+        ],
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:chocobo-mount"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:fell-rider:feature:brute-steed"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brute Steed",
+            "locator": "brute-steed"
+          }
+        ]
+      }
+    ],
+    "upgrades": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:upgrade:fell-presence:10",
+        "featureId": "ffd20:archetype:chocobo-knight:fell-rider:feature:fell-presence",
+        "atClassLevel": 10,
+        "changes": {
+          "enemyFearSavePenalty": -3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fell Presence",
+            "locator": "fell-presence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:upgrade:fell-presence:15",
+        "featureId": "ffd20:archetype:chocobo-knight:fell-rider:feature:fell-presence",
+        "atClassLevel": 15,
+        "changes": {
+          "enemyFearSavePenalty": -4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fell Presence",
+            "locator": "fell-presence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:fell-rider:upgrade:fell-presence:20",
+        "featureId": "ffd20:archetype:chocobo-knight:fell-rider:feature:fell-presence",
+        "atClassLevel": 20,
+        "changes": {
+          "enemyFearSavePenalty": -5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fell Presence",
+            "locator": "fell-presence"
+          }
+        ]
+      }
+    ],
+    "parentMountReference": {
+      "featureId": "ffd20:class:chocobo-knight:feature:chocobo-mount",
+      "description": "Gain a loyal yellow chocobo companion using Chocobo Knight level as effective Beastmaster level. Use the mount progression table on the official class page; shared saves is excluded. Companion choices, attacks, and advancement are managed manually in this first-level integration.",
+      "sourceURL": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/#chocobo-mount",
+      "automation": "manual"
+    },
+    "deferredReplacements": [
+      {
+        "parentFeatureName": "Knight’s Charge",
+        "atClassLevel": 3,
+        "resolution": "needs_review",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rampage",
+            "locator": "rampage"
+          }
+        ],
+        "reason": "Parent later progression feature ID not yet extracted; no invented target."
+      },
+      {
+        "parentFeatureName": "Expert Trainer",
+        "atClassLevel": 4,
+        "resolution": "needs_review",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dread Rider",
+            "locator": "dread-rider"
+          }
+        ],
+        "reason": "Parent later progression feature ID not yet extracted; no invented target."
+      },
+      {
+        "parentFeatureName": "Battlefield Agility",
+        "atClassLevel": 5,
+        "resolution": "needs_review",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fell Presence",
+            "locator": "fell-presence"
+          }
+        ],
+        "reason": "Parent later progression feature ID not yet extracted; no invented target."
+      },
+      {
+        "parentFeatureName": "Greater Charge",
+        "atClassLevel": 11,
+        "resolution": "needs_review",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deadly Rampage",
+            "locator": "deadly-rampage"
+          }
+        ],
+        "reason": "Parent later progression feature ID not yet extracted; no invented target."
+      },
+      {
+        "parentFeatureName": "Protect the Meek",
+        "atClassLevel": 15,
+        "resolution": "needs_review",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Terror",
+            "locator": "terror"
+          }
+        ],
+        "reason": "Parent later progression feature ID not yet extracted; no invented target."
+      },
+      {
+        "parentFeatureName": "Supreme Charge",
+        "atClassLevel": 20,
+        "resolution": "needs_review",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unstoppable Rampage",
+            "locator": "unstoppable-rampage"
+          }
+        ],
+        "reason": "Parent later progression feature ID not yet extracted; no invented target."
+      }
+    ]
+  }
+}

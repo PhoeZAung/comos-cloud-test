@@ -10,9 +10,9 @@ Partial-live support, testing availability, source archiving and full completion
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | class | 73/73 | 8 | 8 | 65 | 8 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 48 | 14 | 0 | 0 |
-| archetype | 579/579 | 4 | 2 | 574 | 2 | 0 | 453 |
+| archetype | 579/579 | 5 | 3 | 574 | 2 | 0 | 453 |
 
-Checkpoint revision: **68**. Active: **ffd20:archetype:chocobo-knight:fell-rider**. Next: **ffd20:archetype:chocobo-knight:fell-rider**.
+Checkpoint revision: **69**. Active: **ffd20:archetype:chocobo-knight:fell-rider**. Next: **ffd20:archetype:chocobo-knight:fell-rider**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
