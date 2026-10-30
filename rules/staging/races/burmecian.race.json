@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/base-races/burmecian/",
       "title": "Burmecian — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "31bd6541447460f19f24c3a7421085e700754500dfdcc52848c3ff71cb2e8151"
     }
   ],
   "dependencies": [],
@@ -45,6 +46,11 @@
         "path": "/choicePools/bonus-languages",
         "reason": "Source race page names high-INT options but does not spell out count/reselection mechanics; formula max(0, INT_MOD) is a provisional standard-system interpretation only, not approved for auto-application.",
         "blocking": true
+      },
+      {
+        "path": "/data/standardTraitIds",
+        "blocking": true,
+        "reason": "Standard testing supports printed DEX/INT/CHA scores, identity, Perception, darkvision, seven optional languages and owned +1 CMD. Quick Reactions grants an Improved Initiative manual card; numeric feat effects await verified feat rules. Jump-only Acrobatics, fear saves and claw primary/secondary handling remain manual. Variants/alternates and independent full review pending."
       }
     ],
     "sectionInventory": [
@@ -408,7 +414,7 @@
       ],
       "actions": [],
       "choicePoolIds": [
-        "ffd20:race:burmecian:pool:bonus-languages"
+        "ffd20:race:burmecian:pool:high-intelligence-bonus-languages"
       ],
       "scalingNotes": [],
       "sourceRefs": [
@@ -1930,6 +1936,150 @@
           "sourceId": "main",
           "section": "Standard Racial Traits",
           "locator": "5927"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:burmecian:pool:high-intelligence-bonus-languages",
+      "name": "Burmecian bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:burmecian:pool:high-intelligence-bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:high-intelligence-bonus-languages:option:dwarven",
+          "name": "Dwarven",
+          "description": "Dwarven",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "dwarven",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:high-intelligence-bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:high-intelligence-bonus-languages:option:galkan",
+          "name": "Galkan",
+          "description": "Galkan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "galkan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:high-intelligence-bonus-languages:option:giant",
+          "name": "Giant",
+          "description": "Giant",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "giant",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:high-intelligence-bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:burmecian:pool:high-intelligence-bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Optional source list, bounded by positive Intelligence modifier.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
         }
       ]
     }

@@ -11,4 +11,4 @@ Desert Delver's environmental checks, temperature treatment and Endurance qualif
 
 Validation: all 369 tests and the cloud build pass. Three Bangaa regressions cover eight class adapters, exact scores/subtype and conditional boundaries, natural-armor ownership/removal, source language limits after the Intelligence penalty, and variant guards. Phone-sized Chromium fixtures created, edited, saved and reopened Dancer/Bard builds with Ignan and preserved a manual natural-armor adjustment without page errors. See `bangaa-browser-validation.json`; fixture authentication is not production provider login.
 
-Published in PR #23, merge `838006d1c8fc99d3adad595910bf1a0a9092b93b`. Exact feature-head CI 41111086653 passed. Five public assets match and health reports database ready. Post-merge CI 41111289592 was queued at this checkpoint; do not describe it as passed until verified. See `bangaa-deployment-validation.json`.
+Published in PR #23, merge `838006d1c8fc99d3adad595910bf1a0a9092b93b`. Exact feature-head CI 41111086653 passed. Five public assets match and health reports database ready. Post-merge CI 41111289592 also passed. See `bangaa-deployment-validation.json`.

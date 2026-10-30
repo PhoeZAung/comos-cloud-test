@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Burmecian",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 5,
+      "languages": "Common, Burmecian, Draconic",
+      "manualCmdPreserved": true,
+      "manualInitiativePreserved": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Burmecian",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 7,
+      "languages": "Common, Burmecian, Draconic",
+      "manualCmdPreserved": true,
+      "manualInitiativePreserved": true,
+      "pageErrors": []
+    }
+  ]
+}

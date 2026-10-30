@@ -10,3 +10,5 @@ Natural Armor contributes one owned point, and Fleet-Footed contributes two owne
 Alternate traits are guarded. Favored rewards and independent full review remain pending; each class retains its existing progression boundary.
 
 Validation: all 372 tests and the cloud build pass. Three Beastkin regressions cover eight class adapters, identity/skills/senses, owned initiative/armor and Run note persistence, trait disable/restore cycles, conditional boundaries, source languages and alternate guards. Phone-sized Chromium fixtures created, edited, saved and reopened Dancer/Bard builds with Draconic, retaining manual initiative/natural armor without page errors. See `beastkin-browser-validation.json`; fixture authentication is not production provider login.
+
+Published in PR #24, merge `475a8112d717c6c7bba37f613ec26cce973181de`. Branch CI 41111951665 and main CI 41112444137 passed. Five public assets match and health reports database ready. See `beastkin-deployment-validation.json`.
