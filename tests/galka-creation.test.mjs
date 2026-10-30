@@ -34,12 +34,13 @@ test('Galka mining and metalwork benefits never become bonuses to every Professi
   const saved=compileBuild(d.rulesBuild.input,d);assert.equal(saved.skills.find(s=>s.name==='Profession').temp,2);assert.equal(saved.hp_curr,2);
  }
 });
-test('Galka optional language selection is bounded and active; unsupported alternate scope stays guarded',()=>{
+test('Galka optional language selection and alternate traits are available with resolved replacements',()=>{
  const b=fixture();delete b.racialChoices[LANG];assert.equal(compileBuild(b).languages,'Common, Galkan');
  for(const values of [[option('dwarven'),option('goblin')],[option('dwarven'),option('dwarven')],[option('celestial')]]){const wrong=fixture();wrong.racialChoices[LANG]=values;assert.throws(()=>compileBuild(wrong));}
  const removed=fixture();removed.disabledTraits=['ffd20:race:galka:feature:languages'];assert.throws(()=>compileBuild(removed),/inactive/);
  const low=fixture();low.baseScores.int=10;assert(buildIssues(low).some(i=>/choose (?:up to )?0/.test(i.message)));
  const html=renderBuild(fixture(),2);assert.match(html,/Dwarven/);assert.match(html,/data-rw-racial-choice="ffd20:race:galka:pool:high-intelligence-bonus-languages"/);
- assert.match(html,/data-rw-alternate="ffd20:race:galka:feature:architectural-ingenuity" disabled/);
- const alternate=fixture();alternate.alternateIds=['ffd20:race:galka:feature:architectural-ingenuity'];assert.throws(()=>compileBuild(alternate),/standard traits/);
+ assert.match(html,/data-rw-alternate="ffd20:race:galka:feature:architectural-ingenuity"/);
+ assert.doesNotMatch(html,/data-rw-alternate="ffd20:race:galka:feature:architectural-ingenuity" disabled/);
+ const alternate=fixture();alternate.alternateIds=['ffd20:race:galka:feature:architectural-ingenuity'];const selected=compileBuild(alternate);assert(selected.alternateRacialTraits.some(t=>t.name==='Architectural Ingenuity'&&t.enabled));
 });
