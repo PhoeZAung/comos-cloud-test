@@ -42,8 +42,10 @@ Chocobo Knight and Dancer support new level-1 characters, including the
 Moogle-only Mog Knight archetype. Standard Moogle and Immortal choices are
 supported for those test builds; conditional effects remain manual. See
 `docs/extraction/two-character-live-test.md` for the exact bounds and checks.
-Bard is the next staged extraction and is **not** a selectable/savable class
-until its songs, talents, choice validation and class adapter are complete.
+Bard supports new level-1 characters and editing those builds, with two jingles,
+3 + CHA modifier first-level songs, CHA-based MP and manual performance cards.
+Later progression, talents, archetypes and maintained-effect automation remain
+disabled. See `docs/extraction/bard-level-one-import.md` for this batch.
 The pipeline validates, generates and inventories data; it does not certify or
 blindly activate gameplay rules.
 

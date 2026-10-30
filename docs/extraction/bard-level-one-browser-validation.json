@@ -1,0 +1,24 @@
+[
+  {
+    "case": "default Moogle Bard",
+    "created": true,
+    "reopened": true,
+    "hp": 8,
+    "mp": 3,
+    "songs": 4,
+    "jingles": 2,
+    "skillRanks": 6,
+    "pageErrors": []
+  },
+  {
+    "case": "high CHA/INT Moogle Bard",
+    "created": true,
+    "reopened": true,
+    "hp": 8,
+    "mp": 4,
+    "songs": 8,
+    "jingles": 2,
+    "skillRanks": 8,
+    "pageErrors": []
+  }
+]

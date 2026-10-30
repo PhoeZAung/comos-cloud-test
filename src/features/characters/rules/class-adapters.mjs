@@ -4,6 +4,7 @@ import {archer,archerAtLevel,archerChanges} from './archer-levels.mjs';
 import {fixedSkills} from '../../sheet/skills.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
+import {bardClass,isBard,bardSpellRows} from './bard-level-one.mjs';
 
 export const ARCHER_ID='ffd20:class:archer';
 export const BLACK_MAGE_ID='ffd20:class:black-mage';
@@ -30,7 +31,7 @@ function makeArcherClass(){
   data:{...archer.data,events},resources:[]};
 }
 export const archerClass=makeArcherClass();
-export const availableClasses=[registry.class,archerClass,...levelOneClasses];
+export const availableClasses=[registry.class,archerClass,...levelOneClasses,...(bardClass?[bardClass]:[])];
 export const classFor=b=>availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID))||null;
 export const isArcher=b=>(b?.classId===ARCHER_ID);
 export const className=b=>classFor(b)?.name||'Unknown class';
@@ -39,8 +40,8 @@ export const classDefaultHp=b=>Math.floor(classHitDie(b)/2)+1;
 export const classHasSpells=b=>!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
- if(!isArcher(b)&&!isLevelOneClass(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
- if(isLevelOneClass(b)){const value=id.replace(/^skill:/,'');return classFor(b).data.classSkills.some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
+ if(!isArcher(b)&&!isLevelOneClass(b)&&!isBard(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
+ if(isLevelOneClass(b)||isBard(b)){const value=id.replace(/^skill:/,'');return classFor(b).data.classSkills.some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
  const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
  return skills.includes(value)||value.startsWith('knowledge-')&&skills.includes('knowledge:'+value.slice('knowledge-'.length))||['craft','profession'].includes(value)&&skills.includes(value+':*');
 }
@@ -128,7 +129,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,
   classes:[{name,level:b.level,archetype:b.archetypeId===MOG_KNIGHT_ID?'Mog Knight':''}],archetype:b.archetypeId===MOG_KNIGHT_ID?'Mog Knight':'',archetypeId:b.archetypeId,
   hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,
-  mp:0,mp_class:0,mp_bonus:0,mp_max_spell_level:0,spell_dc_base:'dex'});
+  mp:isBard(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isBard(b)?'cha':'dex'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition);
  const langs=[],senses=[],profs=[];next.speed=0;next.size_category='Medium';
  for(const effect of effects){
@@ -143,7 +144,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  next.racialIdentity={type:effects.find(e=>e.target==='identity.type')?.textValue||'',subtypes:uniq(effects.filter(e=>e.target==='identity.subtypes').map(e=>e.textValue).filter(Boolean)),
   rules:p.racial.traits.filter(f=>f.sheetTargets?.includes('identity')&&f.effects.some(e=>e.target.startsWith('identity.'))).map(f=>({id:f.id,name:f.name,description:f.description}))};
  if(!Object.keys(previous).length){
-  next.hp_curr=p.hp;next.mp=next.mp_curr=0;next.mp_temp=0;
+  next.hp_curr=p.hp;next.mp=next.mp_curr=p.summary.mp;next.mp_temp=0;
   next.items=[{name:'Starting outfit',type:'Gear',amount:1,desc:'Starting outfit worth up to 10 gil.',value:10,sourceRuleId:definition.id+':starting-outfit'}];
   next.weapons=[];next.currency_gil=next.gil=definition.data.startingWealth??175;
  }
@@ -163,8 +164,9 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,
    desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:f.description,
    rulesName:f.name,rulesDescription:f.description,sourceRuleId:f.id,
-   sourceClass:name,rulesOwned:true,...(f.featureKind==='limit_break'||['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
+   sourceClass:name,rulesOwned:true,...(f.featureKind==='limit_break'||!isBard(b)&&['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
   if(isLevelOneClass(b)&&['Commander’s Aura','Battle Dance','Challenge'].includes(f.name)){const maximum=f.name==='Challenge'?1:Math.max(0,4+mod(p.scores.cha)),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;if(f.name!=='Challenge')row.uses_formula='4+{CHA}';}
+  if(isBard(b)&&f.id.endsWith(':bardic-performance')){const maximum=4+mod(p.scores.cha),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.uses_formula='4+{CHA}';row.restoreOnLongRest=false;}
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
@@ -178,6 +180,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
    rulesName:'Archer '+option.name,rulesDescription:'Archery Style bonus feat: '+option.name,
    sourceRuleId:event.id,sourceClass:'Archer',rulesOwned:true,pendingFeat:false});
  }
+ if(isBard(b))rows.spells=bardSpellRows(b,previous);
  for(const key of Object.keys(rows)){
   const owned=new Set(oldManaged?.ownedIds||[]);
   next[key]=[...(previous[key]||[]).filter(row=>!row.rulesOwned||!owned.has(row.sourceRuleId)&&!rows[key].some(f=>f.sourceRuleId===row.sourceRuleId)),...rows[key]];
@@ -185,7 +188,8 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  next.favoredClassBonuses={};next.favored_class_options=p.race.data.favoredRewards.filter(x=>x.classId===definition.id).map(x=>x.description).join('\n')+'\nFavored rewards require manual adjudication.';
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
- next.castingProfiles=[];next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);
+ next.castingProfiles=isBard(b)?[{className:'Bard',mode:'full',ability:'cha',casterLevel:1,highestSpellLevel:1}]:[];
+ if(!isBard(b))next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
  if(oldManaged)for(const key of ownedKeys){
   if(key==='mp_max_spell_level')continue;

@@ -8,14 +8,14 @@ import {newBuild,availableClasses} from '../src/features/characters/rules/build.
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 const read=async file=>JSON.parse(await readFile(new URL('../'+file,import.meta.url),'utf8'));
 const state=(c,level,name)=>classAtLevel(c,level).features.find(f=>f.name===name)?.state;
-test('Bard source stage has verified 20-level table, stable upgrade identities and is disabled',async()=>{
+test('Bard source stage has verified 20-level table, stable upgrade identities and bounded first-level support',async()=>{
  const c=await read('rules/classes/bard.class.json');const m=validateClassManifest(await read('rules/classes/manifest.json'));
  const report=validateClassDefinition(c);
  assert.equal(report.levels,20);assert(report.upgrades>30);
  assert.equal(c.data.levels[0].baseMp,2);assert.equal(c.data.levels[19].baseMp,79);
  assert.equal(c.data.levels[19].maxSpellLevel,6);assert.deepEqual(c.data.levels[19].iterativeAttacks,[15,10,5]);
- assert(m.classes.some(x=>x.id===c.id&&x.status==='staged'&&x.adapter===null));
- assert(!availableClasses.some(x=>x.id===c.id));
+ assert(m.classes.some(x=>x.id===c.id&&x.status==='live'&&x.adapter==='bard-level-one'));
+ assert.deepEqual(availableClasses.find(x=>x.id===c.id).supportedLevels,[1]);
  await generateClassCatalog({check:true});
  assert.deepEqual(await buildClassCatalog(),classCatalog);
 });
@@ -36,9 +36,9 @@ test('Bard upgrades replace, never accumulate, the original performance feature'
  assert.equal(state(c,20,'Wide Audience').radiusFeet,70);
  assert.equal(state(c,20,'Wide Audience').coneFeet,140);
 });
-test('staged Bard appears in selector but cannot be chosen and cannot pass save',()=>{
+test('Bard selector exposes the verified first-level adapter',()=>{
  const b=newBuild();b.raceId='ffd20:race:dwarf';
  const html=renderBuild(b,3,{mode:'create'});
- assert.match(html,/Bard · extraction in progress/);
- assert.match(html,/value="ffd20:class:bard"[^>]*disabled/);
+ assert.match(html,/Bard/);
+ assert.doesNotMatch(html,/value="ffd20:class:bard"[^>]*disabled/);
 });

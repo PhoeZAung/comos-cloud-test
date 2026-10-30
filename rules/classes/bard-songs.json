@@ -18,6 +18,12 @@
       "title": "Official FFd20 Bard class rules",
       "retrievedOn": "2026-10-28",
       "sourceKind": "official_web"
+    },
+    {
+      "id": "bard-level-one-pages",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-threnody/",
+      "title": "Elemental Threnody individual mechanics; maintained duration",
+      "archiveSha256": "32e4fc072fd424075995a2bc5244a98cc62ad0a65236704fe9b055148abf6cdf"
     }
   ],
   "review": {
@@ -386,8 +392,8 @@
       "name": "Elemental Threnody",
       "level": 1,
       "kind": "song",
-      "usageMode": "normal",
-      "summary": "Weakens foes' resistance and saves against an element.",
+      "usageMode": "maintained",
+      "summary": "Maintained song weakens enemies’ saves and resistance against a chosen element.",
       "automation": "manual",
       "reviewState": "needs_review",
       "sourceRefs": [
@@ -395,6 +401,11 @@
           "sourceId": "bard-songs",
           "section": "Table: 1st-Level Bard Songs",
           "locator": "row 8: Elemental Threnody"
+        },
+        {
+          "sourceId": "bard-level-one-pages",
+          "section": "Elemental Threnody — EFFECT",
+          "locator": "Duration: maintained; individual page supersedes index mode"
         }
       ]
     },

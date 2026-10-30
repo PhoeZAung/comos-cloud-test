@@ -15,14 +15,15 @@ export async function buildClassCatalog(){
   if(c.id!==entry.id)throw Error('Class manifest ID mismatch: '+entry.file);
   const report=validateClassDefinition(c,{optionCatalog:opts});
   const levelOne=['ffd20:class:chocobo-knight','ffd20:class:dancer'].includes(entry.id)&&entry.adapter==='martial-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
-  if(entry.status==='live'&&entry.adapter!=='archer'&&!levelOne)throw Error('Class has no verified runtime adapter: '+entry.id);
+  const bardOne=entry.id==='ffd20:class:bard'&&entry.adapter==='bard-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
+  if(entry.status==='live'&&entry.adapter!=='archer'&&!levelOne&&!bardOne)throw Error('Class has no verified runtime adapter: '+entry.id);
   if(entry.status==='live'&&c.review.state!=='needs_review'&&c.review.state!=='approved')throw Error('Review missing');
   classes.push({id:c.id,name:c.name,status:entry.status,adapter:entry.adapter,review:c.review.state,
    description:'See official source for class features, progression and limitations.',
    source:c.sources[0].url,summary:report,levels:c.data.levels,
    features:c.data.features,upgrades:c.data.upgrades,events:c.data.events,
    archetypes:c.data.archetypeIndex||[],optionCount:opts?.options.length||0,
-   options:opts?.options||[],...(levelOne?{data:c.data,sources:c.sources,supportedLevels:[1]}:{})});
+   options:opts?.options||[],...(levelOne||bardOne?{data:c.data,sources:c.sources,supportedLevels:[1]}:{})});
  }
  const archetypeManifest=validateArchetypeManifest(JSON.parse(await readFile(fileURL('rules/classes/archetypes/manifest.json'),'utf8')));
  const archetypeRecords=[];
