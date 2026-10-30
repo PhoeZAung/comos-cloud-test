@@ -44,3 +44,21 @@ test('portrait background setting, resource edits, and recovery menu are visible
  assert.equal(patched.spell_dc_base,'cha');
  assert.throws(()=>mergeSheetData(data,{action:'fields',fields:{sheet_background_enabled:'yes'}}),/Invalid sheet field/);
 });
+
+test('header avatar is always editable, compact uses a real external icon, and settings use a gear',()=>{
+ const char={id:'x',name:'Mage',data};
+ const plain=renderSheetFrame(char,'overview');
+ assert.match(plain,/cs-portrait-trigger/);
+ assert.match(plain,/cs-portrait-visual/);
+ assert.match(plain,/cs-portrait-change[^>]*>Change<\/span>/);
+ assert.match(plain,/data-sheet-portrait/);
+ assert.match(plain,/title="Change portrait"/);
+ assert.doesNotMatch(renderSection(char,'overview'),/cs-identity-photo|data-sheet-portrait/);
+ assert.match(plain,/aria-label="Open compact sheet in a new window"[^>]*><svg/);
+ assert.doesNotMatch(plain,/\bundefined\b/);
+ assert.match(plain,/data-recovery-menu[^>]*>[\s\S]*?<circle cx="12" cy="12" r="3"/);
+ assert.match(plain,/class="cs-level-up-icon"/);
+ const withImage=renderSheetFrame({...char,data:{...data,portrait:'data:image/png;base64,AAAA'}},'overview');
+ assert.match(withImage,/class="cs-portrait" src="data:image\/png;base64,AAAA"/);
+ assert.equal((withImage.match(/data-sheet-portrait/g)||[]).length,1);
+});
