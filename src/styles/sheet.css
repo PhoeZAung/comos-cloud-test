@@ -83,16 +83,31 @@
 .cs-spell-resource{max-width:310px;border-color:color-mix(in srgb,var(--cs-mp) 55%,var(--line));background:color-mix(in srgb,var(--cs-mp) 9%,var(--surface))}
 .cs-spell-resource>.cs-resource{background:transparent;border:0;width:100%;padding:16px}
 .cs-spell-ability-select{display:block;margin:8px auto 0;min-height:38px;min-width:115px;padding:7px 28px 7px 12px;border:1px solid color-mix(in srgb,var(--cs-mp) 52%,var(--line));border-radius:8px;background:var(--bg);color:var(--cs-mp);font:600 13px system-ui;text-align:center;cursor:pointer}
-.cs-identity-photo{display:flex;align-items:center;gap:12px;margin:4px 0 16px}
-.cs-identity-photo-preview{width:94px;height:106px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;overflow:hidden;color:var(--muted);background:var(--bg)}
-.cs-identity-photo-preview img{display:block;width:100%;height:100%;object-fit:cover}
-.cs-identity-photo-preview svg{width:48px;height:48px}
-.cs-portrait-upload{position:relative;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font-size:12px;cursor:pointer}
-.cs-portrait-upload:hover{border-color:var(--accent)}
-.cs-portrait-upload:focus-within{outline:2px solid var(--accent);outline-offset:3px}
 .cs-portrait-upload input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 @media(max-width:720px){.cs-titlebar{grid-template-columns:minmax(0,1fr) auto;gap:8px}.cs-titlebar>.cs-identity{grid-column:1;grid-row:1}.cs-titlebar>.cs-settings{grid-column:2;grid-row:1}.cs-titlebar>.cs-quick-tools{grid-column:1/-1;grid-row:2;justify-self:center}.cs-tabs[aria-label="Character sheet"] button{min-width:58px;padding:8px 5px}.cs-tabs[aria-label="Character sheet"] button span{font-size:10px}}
 @media(max-width:420px){.cs-tabs[aria-label="Character sheet"]{justify-content:flex-start}.cs-tabs[aria-label="Character sheet"] button{flex:0 0 58px;min-height:60px}.cs-battle-block>.cs-tabs[aria-label="Offense and defense"] button{gap:7px;min-height:60px}.cs-battle-block>.cs-tabs[aria-label="Offense and defense"] button svg{width:24px;height:24px}.cs-battle-block>.cs-tabs[aria-label="Offense and defense"] button span{font-size:12px}.cs-recovery-panel{right:-2px;min-width:245px}}
 
 /* Keep the settings popover above sticky sheet navigation, including with portrait backgrounds. */
 .cs-titlebar,.cs-sheet.cs-has-background>.cs-titlebar{z-index:20}
+
+/* Follow-up: only the live HP and MP amounts have resource colors. */
+.cs-resource-hp,.cs-resource-mp{border-color:var(--line);background:var(--surface)}
+.cs-resource-hp h2,.cs-resource-mp h2{color:var(--text)}
+.cs-resource-hp .cs-resource-controls button,.cs-resource-mp .cs-resource-controls button{color:var(--accent)}
+.cs-resource-hp .cs-resource-controls input{color:var(--cs-hp)}
+.cs-resource-mp .cs-resource-controls input{color:var(--cs-mp)}
+.cs-spell-resource{border-color:var(--line);background:var(--surface)}
+.cs-spell-ability-select{border-color:var(--line);color:var(--text)}
+/* The portrait always occupies the same position, even if the image is missing. */
+.cs-portrait-trigger{position:relative;display:grid;place-items:center;flex:none;width:60px;height:70px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface);color:var(--muted);cursor:pointer}
+.cs-portrait-visual{width:100%;height:100%;display:grid;place-items:center}
+.cs-portrait-visual .cs-portrait{width:100%;height:100%;object-fit:cover;border-radius:0}
+.cs-portrait-visual svg{width:42px;height:42px}
+.cs-portrait-change{position:absolute;bottom:0;left:0;right:0;display:block;padding:5px 1px;text-align:center;font:600 11px system-ui;color:#fff;background:#000b;opacity:0;transform:translateY(100%);transition:opacity .15s,transform .15s;pointer-events:none}
+.cs-portrait-trigger:is(:hover,:focus-within) .cs-portrait-change{opacity:1;transform:none}
+.cs-portrait-trigger>input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.cs-portrait-trigger:focus-within{outline:2px solid var(--accent);outline-offset:3px}
+.sheet-compact .cs-portrait-trigger{width:46px;height:56px}
+.cs-level-up-icon{display:inline-block;flex:none;width:22px;height:22px;background-color:currentColor;-webkit-mask:url("icons/level-up.png") center/contain no-repeat;mask:url("icons/level-up.png") center/contain no-repeat}
+.cs-settings-action .cs-level-up-icon{width:19px;height:19px}
+@media(prefers-reduced-motion:reduce){.cs-portrait-change{transition:none}}
