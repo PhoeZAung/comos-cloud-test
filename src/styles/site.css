@@ -109,3 +109,9 @@ body{background:var(--bg)}header{background:var(--shell-bg)}.empty,.auth-card,.a
 header .install-control{margin-right:0;margin-left:auto}header .install-control+.account{margin-left:0}.item-buyer-context{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);border-radius:9px}.character-controls{flex-wrap:wrap}
 
 [data-public-account]:not([hidden]){display:flex;align-items:center;gap:12px}
+
+/* Admin character actions: consistent, legible icons in equal touch targets. */
+[data-character-admin] .directory-character .character-controls .icon-button{display:grid;place-items:center;flex:none;width:42px;height:42px;min-width:42px;min-height:42px;padding:8px}
+[data-character-admin] .directory-character .character-controls .icon-button svg{display:block;width:22px;height:22px;stroke-linecap:round;stroke-linejoin:round}
+[data-character-admin] .directory-character .character-controls .icon-button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:480px){[data-character-admin] .directory-character .character-controls{flex-wrap:wrap;justify-content:flex-end}[data-character-admin] .directory-character .character-controls .icon-button{width:38px;height:38px;min-width:38px;min-height:38px;padding:7px}}
