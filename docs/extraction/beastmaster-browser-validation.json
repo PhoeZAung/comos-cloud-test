@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Galka",
+      "class": "Beastmaster",
+      "companion": "wolf",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "focusSpentPreserved": true,
+      "gatedSpeciesRejected": true,
+      "replacementRejected": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Galka",
+      "class": "Beastmaster",
+      "companion": "none",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "focusSpentPreserved": true,
+      "gatedSpeciesRejected": true,
+      "replacementRejected": true,
+      "pageErrors": []
+    }
+  ]
+}

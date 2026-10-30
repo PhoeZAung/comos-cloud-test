@@ -27,12 +27,13 @@ test('Beastmaster preserves the official full-BAB d10 companion progression rath
  assert.match(c.data.companion.rulesText,/Shared Senses/);
 });
 
-test('Beastmaster retains temporary focus rules, six first-level cards and unresolved later contradictions without granting effects',async()=>{
+test('Beastmaster retains temporary focus rules, source features and unresolved later contradictions without granting focus effects',async()=>{
  const c=await load(),one=classAtLevel(c,1);
- assert.equal(one.features.length,6);
+ assert.equal(one.features.length,7);
  assert.deepEqual(one.features.filter(f=>f.featureKind==='limit_break').map(f=>f.name),['Bestial Defense','Bestial Fury']);
  assert.equal(c.data.animalAspects.length,12);
- assert(c.data.features.every(f=>f.automation==='manual'&&!f.effects?.length));
+ assert(c.data.features.filter(f=>f.name!=='Nature Sense').every(f=>f.automation==='manual'&&!f.effects?.length));
+ assert.equal(c.data.features.find(f=>f.name==='Nature Sense').automation,'automatic');
  assert(c.data.animalAspects.every(f=>f.automation==='manual'&&!f.effects?.length));
  const focus=one.features.find(f=>f.name==='Animal Focus');
  assert.match(focus.description,/1-minute increments/);assert.match(focus.description,/companion is dead/);
@@ -44,11 +45,12 @@ test('Beastmaster retains temporary focus rules, six first-level cards and unres
  assert(c.review.issues.some(i=>i.blocking&&/disagree with prose/.test(i.reason)));
 });
 
-test('staged Beastmaster is visibly unavailable and cannot reach an existing class compiler',async()=>{
+test('Beastmaster runtime declares only first-level support and does not expose later or gated companion species',async()=>{
  const record=(await buildClassCatalog()).classes.find(c=>c.id===ID);
- assert.equal(record.status,'staged');assert.equal(record.adapter,null);assert.equal(record.data,undefined);
- assert(!availableClasses.some(c=>c.id===ID));
+ assert.equal(record.status,'live');assert.equal(record.adapter,'beastmaster-level-one');assert.deepEqual(record.supportedLevels,[1]);
+ assert(availableClasses.some(c=>c.id===ID));assert.equal(record.data.companion.species.length,11);
+ assert(record.data.companion.species.every(s=>!s.advancements));
  const b=newBuild();Object.assign(b,{classId:ID,name:'Unimplemented Beastmaster',hpRolls:[10],reviewed:true});
- assert.match(renderBuild(b,3,{mode:'create'}),/<option[^>]*value="ffd20:class:beastmaster"[^>]*disabled[^>]*>Beastmaster/);
- assert.throws(()=>compileBuild(b),/class.*not|unsupported|unavailable|Unknown class/i);
+ assert.match(renderBuild(b,3,{mode:'create'}),/<option[^>]*value="ffd20:class:beastmaster"[^>]*>Beastmaster/);
+ assert.throws(()=>compileBuild({...b,level:2}),/level-1 testing/);
 });

@@ -1,4 +1,5 @@
 import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classes.mjs';
+import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
@@ -56,8 +57,8 @@ export function calculated(value,b,effective=effectiveScores(b)){
  let v=sum();if(at!==tokens.length||!Number.isFinite(v)||Math.abs(v)>1000000)bad('Invalid formula result.');
  v=value.rounding==='ceil'?Math.ceil(v):value.rounding==='none'?v:Math.floor(v);if(value.minimum!==null)v=Math.max(v,value.minimum);if(value.maximum!==null)v=Math.min(v,value.maximum);return v;
 }
-export function choiceEvents(b){if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
-export function eligibleOptions(b,event){if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
+export function choiceEvents(b){if(isBeastmaster(b))return beastmasterChoiceEvents(b);if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
+export function eligibleOptions(b,event){if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
 export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?classHitDie(b):classDefaultHp(b)));}
 export function spellCounts(b){if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
@@ -203,6 +204,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
    b.initialChaMod=starting;
    const issues=bardIssues(b,p.scores);if(issues.length)bad(issues[0].message);
   }
+  if(isBeastmaster(b)&&previous.rulesBuild&&JSON.stringify(b.choices[COMPANION_EVENT])!==JSON.stringify(previous.rulesBuild.input.choices?.[COMPANION_EVENT]))bad('The starting companion cannot be replaced in this builder. The 24-hour companion ceremony and replacement are handled manually.');
   if(!allowRankReduction&&previous.rulesBuild&&b.skillRanks?.some((n,i)=>n<Number(previous.rulesBuild.rankFloor?.[i]??previous.rulesBuild.input.skillRanks?.[i]??0)))bad('Confirmed skill ranks cannot be reduced.');
   return compileNoncastingBuild(b,previous,{preview:p,raceTraits,calculated,rankFloor:previous.rulesBuild?.rankFloor});
  }

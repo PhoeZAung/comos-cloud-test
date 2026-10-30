@@ -130,7 +130,8 @@ test('admin creates a complete player-owned character without granting ordinary 
 test('class chooser exposes supported Black Mage and Archer while incomplete classes remain unavailable',()=>{
  const wizard=renderBuild(validBuild(1),3,{mode:'create'});
  assert.match(wizard,/Black Mage/);assert.match(wizard,/Archer/);assert.match(wizard,/Bard/);
- assert.match(wizard,/value="ffd20:class:beastmaster"[^>]*disabled>Beastmaster · extraction in progress/);
+ assert.match(wizard,/value="ffd20:class:beastmaster"[^>]*>Beastmaster/);
+ assert.doesNotMatch(wizard,/value="ffd20:class:beastmaster"[^>]*disabled/);
  assert.match(wizard,/value="unavailable:dragoon"[^>]*disabled/);
  assert.match(renderBuild(validBuild(1),0,{ownerName:'<Player>'}),/Creating a character for <strong>&lt;Player&gt;/);
  assert.doesNotMatch(renderBuild(validBuild(1),0,{ownerName:'<Player>'}),/<Player>/);

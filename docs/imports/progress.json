@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 22,
+  "revision": 23,
   "schedule": [
     "class",
     "race",
@@ -205,18 +205,20 @@
     },
     "ffd20:class:beastmaster": {
       "state": "in_progress",
-      "stage": "companion-adapter-design",
-      "cursor": "All 35 companion entries staged: 15 animals, 9 magical beasts, 6 plants, 5 vermin; normalized starting statistics, 46 deferred advancement blocks and 11 ordinary level-1 source candidates",
-      "nextAction": "Implement bounded first-level companion selection/persistence and explicit manual limits, then Beastmaster runtime adapter with creation/edit/save/reopen validation",
-      "scope": "Source staging only; no supported runtime levels. Group/feat/race/archetype prerequisites, mindlessness and later starters retained; later source conflicts manual.",
-      "note": "All 319 tests and cloud build pass. Companion candidate list is source metadata, not playable options. Beastmaster remains the active item; Hume follows its verified milestone.",
+      "stage": "runtime-validated",
+      "cursor": "Level-1 creation/editing with eleven ordinary companions or none; Nature Sense, daily counters and conditional Shared Senses validated in model and mobile browser",
+      "nextAction": "Run CI for this exact commit, merge checked Beastmaster batch, verify public deployment assets, then record partial milestone and continue Hume",
+      "scope": "New level-1 characters only. Companion HP/training/combat and focus effects manual; starting companion fixed on edit; later starters, gated groups, archetypes, multiclassing and progression guarded.",
+      "note": "All 326 tests and cloud build pass. Two local authenticated-route fixtures created, edited, saved and reopened Galka Beastmasters (Wolf/none), preserving spent focus and rejecting gated species/replacement. Production provider login not tested; CI/deployment pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/beastmaster-source-batch.md",
-        "docs/extraction/beastmaster-companions-source-batch.md"
+        "docs/extraction/beastmaster-companions-source-batch.md",
+        "docs/extraction/beastmaster-level-one-import.md",
+        "docs/extraction/beastmaster-browser-validation.json"
       ],
-      "updatedAt": "2026-10-30T14:45:26.248Z"
+      "updatedAt": "2026-10-30T15:08:55.103Z"
     }
   },
   "history": [
@@ -408,6 +410,15 @@
       "stage": "companion-adapter-design",
       "cursor": "All 35 companion entries staged: 15 animals, 9 magical beasts, 6 plants, 5 vermin; normalized starting statistics, 46 deferred advancement blocks and 11 ordinary level-1 source candidates",
       "time": "2026-10-30T14:45:26.248Z"
+    },
+    {
+      "revision": 23,
+      "itemId": "ffd20:class:beastmaster",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Level-1 creation/editing with eleven ordinary companions or none; Nature Sense, daily counters and conditional Shared Senses validated in model and mobile browser",
+      "time": "2026-10-30T15:08:55.103Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

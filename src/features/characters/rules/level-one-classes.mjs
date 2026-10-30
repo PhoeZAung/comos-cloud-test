@@ -1,15 +1,17 @@
 import {classCatalog} from './class-catalog.mjs';
+import {BEASTMASTER_ID,isBeastmaster,beastmasterClass,beastmasterFeatures,beastmasterIssues} from './beastmaster-level-one.mjs';
 
 export const CHOCOBO_KNIGHT_ID='ffd20:class:chocobo-knight';
 export const DANCER_ID='ffd20:class:dancer';
 export const MOG_KNIGHT_ID='ffd20:archetype:chocobo-knight:mog-knight';
-export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID].includes(b?.classId);
-export const levelOneClasses=classCatalog.classes.filter(c=>c.adapter==='martial-level-one').map(c=>({
+export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,BEASTMASTER_ID].includes(b?.classId);
+export const levelOneClasses=[...classCatalog.classes.filter(c=>c.adapter==='martial-level-one').map(c=>({
  ...c,resources:[],choicePools:[],sources:c.sources,data:c.data
-}));
+})),...(beastmasterClass?[beastmasterClass]:[])];
 export const mogKnight=classCatalog.archetypeRecords.find(a=>a.id===MOG_KNIGHT_ID&&a.adapter==='mog-knight-level-one');
 
 export function levelOneFeatures(b){
+ if(isBeastmaster(b))return beastmasterFeatures(b);
  const c=levelOneClasses.find(c=>c.id===b.classId);
  if(!c)return [];
  let features=c.features.filter(f=>f.atLevel<=Math.max(1,b.level));
@@ -29,6 +31,7 @@ export function levelOnePreview(b,{scores,race,racial,hpRolls}){
 }
 
 export function levelOneIssues(b,{complete=true}={}){
+ if(isBeastmaster(b))return beastmasterIssues(b,{complete});
  const issues=[],add=(step,message)=>issues.push({step,message});
  const c=levelOneClasses.find(c=>c.id===b.classId);
  if(b.level!==1)add(3,c.name+' currently supports level-1 testing only. Later-level choices and progression are not enabled.');

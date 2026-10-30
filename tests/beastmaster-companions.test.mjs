@@ -41,7 +41,7 @@ test('companion staging keeps absent Intelligence, aquatic movement and advancem
  assert.throws(()=>validateBeastmasterCompanions(enabled),/cannot claim runtime support/);
 });
 
-test('magical mastery, source discrepancies and staged status do not grant playable companion choices',async()=>{
+test('magical mastery, source discrepancies and later advancements remain outside the first-level runtime projection',async()=>{
  const c=await load(),blood=species(c,'Blood Sucker (Aquatic)');
  assert.match(blood.startingStatistics.sourceText,/20-ft\. radius/);
  assert.match(blood.startingRules,/10-foot-radius cloud/);
@@ -49,6 +49,8 @@ test('magical mastery, source discrepancies and staged status do not grant playa
  assert.doesNotMatch(blood.startingRules,/Choco Water/);
  assert.match(c.data.companion.speciesGroups.find(g=>g.id==='magical-beast').rulesText,/Beast Speaker Mastery/);
  const projected=(await buildClassCatalog()).classes.find(r=>r.id===c.id);
- assert.equal(projected.status,'staged');assert.equal(projected.adapter,null);assert.equal(projected.data,undefined);
- assert.equal(projected.features.length,6); // Companion source blocks are not player feature grants.
+ assert.equal(projected.status,'live');assert.equal(projected.adapter,'beastmaster-level-one');
+ assert.equal(projected.data.companion.species.length,11);
+ assert(!projected.data.companion.species.some(s=>s.id===blood.id));
+ assert.equal(projected.features.length,7); // Only Shared Senses adds a conditional first-level grant.
 });
