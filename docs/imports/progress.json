@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 40,
+  "revision": 42,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 0,
+  "schedulePosition": 1,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -285,19 +285,32 @@
       "updatedAt": "2026-10-30T15:47:08.262Z"
     },
     "ffd20:class:dragoon": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "Bounded first-level Dragoon adapter and mobile Galka/Moogle create/edit/save/reopen validated; shared Limit Break expenditure and current HP preserved",
-      "nextAction": "Run exact-commit CI, merge checked Dragoon/Beast Rider batch, verify public assets, then continue Aegyl",
-      "scope": "New first-level creation/editing only. Class stats/proficiencies and six source ability cards with shared Limit Break pool. All jump/altitude/grip/damage and temporary effects manual; later abilities/talents/progression/archetypes/multiclassing guarded.",
-      "note": "341 tests and cloud build pass; mobile Galka/Moogle fixtures preserve low-HP Limit Break expenditure and reject level-up with no page errors. Fixture authentication only; CI/deployment pending.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Six first-level abilities, class stats and proficiencies deployed and verified",
+      "nextAction": "Later class talents, progression, archetypes and multiclassing require separate source-reviewed adapters",
+      "scope": "First-level creation/editing. Shared Limit Break pool with manual jump, altitude, grip, damage and temporary effects; all later progression and archetypes guarded.",
+      "note": "PR #16 merged after exact-head CI; combined-main tests/build passed; four public assets match and database ready. Local fixture only, no production provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/dragoon-level-one-import.md",
-        "docs/extraction/dragoon-browser-validation.json"
+        "docs/extraction/dragoon-browser-validation.json",
+        "docs/extraction/dragoon-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T15:54:18.047Z"
+      "updatedAt": "2026-10-30T18:25:52.713Z"
+    },
+    "ffd20:race:aegyl": {
+      "state": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
+      "scope": "",
+      "note": "",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [],
+      "updatedAt": "2026-10-30T18:25:52.854Z"
     }
   },
   "history": [
@@ -651,6 +664,24 @@
       "stage": "runtime-validated",
       "cursor": "Bounded first-level Dragoon adapter and mobile Galka/Moogle create/edit/save/reopen validated; shared Limit Break expenditure and current HP preserved",
       "time": "2026-10-30T15:54:18.047Z"
+    },
+    {
+      "revision": 41,
+      "itemId": "ffd20:class:dragoon",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Six first-level abilities, class stats and proficiencies deployed and verified",
+      "time": "2026-10-30T18:25:52.713Z"
+    },
+    {
+      "revision": 42,
+      "itemId": "ffd20:race:aegyl",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T18:25:52.854Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
