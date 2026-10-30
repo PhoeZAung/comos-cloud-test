@@ -10,7 +10,7 @@ import {characterClasses,totalClassLevel} from '../../src/features/characters/ff
 import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
 import {equipmentSlotIds,equipmentRows,occupiesSlot} from '../../src/features/sheet/equipment.mjs';
 export const numericFields=[...abilities,'hp_curr','hp_temp','hp_max','hp_max_temp','mp','mp_curr','mp_temp','mp_class','mp_bonus','mp_max','mp_total_max','mp_max_temp','mp_max_spell_level','init_temp','bab','bab_temp','speed','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp','touch_temp','flat_temp','cmd_temp','ar_melee_temp','ar_ranged_temp','ar_touch_temp','ar_ranged_touch_temp','cmb_temp','fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp','currency_gil','currency_moogle','slot_cap'];
-const booleanFields=['hp_favorite','mp_favorite'];
+const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
 const textFields=['languages','senses','resistances','proficiencies','notesArea'];
 const enumFields={size_category:sizes,spell_dc_base:abilities,ar_melee_ability:['str','dex'],ar_ranged_ability:['str','dex'],ar_touch_ability:['str','dex'],ar_ranged_touch_ability:['str','dex']};
 export const collections=['items','weapons','spells','activeAbilities','passiveAbilities','racialAbilities','feats','skills'];
