@@ -42,9 +42,10 @@
       "deploymentEvidence": "docs/extraction/elvaan-deployment-validation.json"
     },
     "Galka": {
-      "state": "implemented_pending_deployment",
+      "state": "live_partial",
       "evidence": "docs/extraction/galka-standard-creation.md",
-      "remaining": "Alternate replacements, specialty automation, conditional mechanics, favored rewards and independent full review."
+      "remaining": "Alternate replacements, specialty automation, conditional mechanics, favored rewards and independent full review.",
+      "deploymentEvidence": "docs/extraction/galka-deployment-validation.json"
     }
   }
 }

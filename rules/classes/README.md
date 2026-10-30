@@ -39,7 +39,10 @@ A separate `upgrade_feature` event points at this ID. The importer validates bot
 ## Current compatibility boundary
 Black Mage's existing builder is legacy. Archer has a live class adapter.
 Chocobo Knight and Dancer support new level-1 characters, including the
-Moogle-only Mog Knight archetype. Standard Moogle and Immortal choices are
+Moogle-only Mog Knight archetype. Standard Elvaan and Galka creation has also
+been validated; conditional traits and unsupported variants remain guarded/manual.
+See `docs/extraction/elvaan-standard-creation.md` and `galka-standard-creation.md`.
+Standard Moogle and Immortal choices are
 supported for those test builds; conditional effects remain manual. See
 `docs/extraction/two-character-live-test.md` for the exact bounds and checks.
 Bard supports new level-1 characters and editing those builds, with two jingles,
