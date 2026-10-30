@@ -42,6 +42,25 @@ export function formatRoll(label,r){
  const attack=r.kind==='weapon'?r:r.attack;
  return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+(attack?'\nAttack Roll: '+receipt(attack):'')+(r.damage?'\nDice Roll: '+receipt(r.damage):'')+(r.critical?.threat?'\nCrit!\nAttack Roll: '+receipt(r.critical.confirmation)+(r.critical.damage?'\nDice Roll: '+receipt(r.critical.damage):''):'');
 }
+
+/**
+ * Request a browser popup (minimal chrome, no normal tab strip) for a sheet.
+ * Keep the anchor's target=_blank as a fallback when popups are blocked.
+ */
+export function openCharacterSheetPopup(url,characterId,{display=window.screen,open=window.open.bind(window)}={}){
+ const availableWidth=Math.max(320,Math.floor(Number(display?.availWidth)||1280));
+ const availableHeight=Math.max(320,Math.floor(Number(display?.availHeight)||900));
+ const width=Math.max(320,availableWidth-24),height=Math.max(320,availableHeight-32);
+ const left=Math.floor((availableWidth-width)/2)+(Number(display?.availLeft)||0);
+ const top=Math.floor((availableHeight-height)/2)+(Number(display?.availTop)||0);
+ const features='popup=yes,width='+width+',height='+height+',left='+left+',top='+top+',resizable=yes,scrollbars=yes';
+ let popup;
+ try{popup=open(url,'comos-sheet-'+encodeURIComponent(characterId),features);}catch{return false;}
+ if(!popup)return false;
+ try{popup.opener=null;popup.focus();}catch{/* Window may have been closed immediately. */}
+ return true;
+}
+
 export function mountSheet(){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
  const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
@@ -141,6 +160,11 @@ export function mountSheet(){
  }
  async function useEntry(collection,index,spendUse){if(remainingInvalid){status('Enter valid remaining uses first.');return;}clearTimeout(remainingTimer);if(remainingPromise&&!await remainingPromise)return;if((pendingRemaining||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return;if(busy||conflict)return;if(collection==='spells')return roll('Spell',null,undefined,index);return roll('Ability',null,undefined,undefined,{collection,index,spendUse});}
  root.addEventListener('click',event=>{
+   const popout=event.target.closest('[data-sheet-popout]');
+   if(popout){
+    if(!event.defaultPrevented&&event.button===0&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&openCharacterSheetPopup(popout.href,character.id))event.preventDefault();
+    return;
+   }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
    if(button.matches('[data-recovery-menu]')){settingsPanel.hidden=!settingsPanel.hidden;button.setAttribute('aria-expanded',String(!settingsPanel.hidden));return;}
