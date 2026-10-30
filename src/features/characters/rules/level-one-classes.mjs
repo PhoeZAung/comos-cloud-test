@@ -6,10 +6,12 @@ export const DANCER_ID='ffd20:class:dancer';
 export const MONK_ID='ffd20:class:monk';
 export const KNIGHT_ID='ffd20:class:knight';
 export const DRAGOON_ID='ffd20:class:dragoon';
+export const GUNBREAKER_ID='ffd20:class:gunbreaker';
+export const DOOM_SLAYER_ID='ffd20:archetype:gunbreaker:doom-slayer';
 export const FELL_RIDER_ID='ffd20:archetype:chocobo-knight:fell-rider';
 export const DEADLY_LANCER_ID='ffd20:archetype:chocobo-knight:deadly-lancer';
 export const MOG_KNIGHT_ID='ffd20:archetype:chocobo-knight:mog-knight';
-export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,KNIGHT_ID,MONK_ID,BEASTMASTER_ID].includes(b?.classId);
+export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,KNIGHT_ID,MONK_ID,GUNBREAKER_ID,BEASTMASTER_ID].includes(b?.classId);
 export const levelOneClasses=[...classCatalog.classes.filter(c=>c.adapter==='martial-level-one').map(c=>({
  ...c,resources:[],choicePools:[],sources:c.sources,data:c.data
 })),...(beastmasterClass?[beastmasterClass]:[])];
@@ -17,7 +19,8 @@ export const mogKnight=classCatalog.archetypeRecords.find(a=>a.id===MOG_KNIGHT_I
 
 export const deadlyLancer=classCatalog.archetypeRecords.find(a=>a.id===DEADLY_LANCER_ID&&a.adapter==='deadly-lancer-level-one');
 export const fellRider=classCatalog.archetypeRecords.find(a=>a.id===FELL_RIDER_ID&&a.adapter==='fell-rider-level-one');
-export const levelOneArchetype=b=>b.classId===CHOCOBO_KNIGHT_ID?[mogKnight,deadlyLancer,fellRider].find(a=>a?.id===b.archetypeId&&(!a.data.requiredRaceId||a.data.requiredRaceId===b.raceId)):null;
+export const doomSlayer=classCatalog.archetypeRecords.find(a=>a.id===DOOM_SLAYER_ID&&a.adapter==='doom-slayer-level-one');
+export const levelOneArchetype=b=>(b.classId===CHOCOBO_KNIGHT_ID?[mogKnight,deadlyLancer,fellRider]:b.classId===GUNBREAKER_ID?[doomSlayer]:[]).find(a=>a?.id===b.archetypeId&&(!a.data.requiredRaceId||a.data.requiredRaceId===b.raceId))||null;
 
 export function levelOneFeatures(b){
  if(isBeastmaster(b))return beastmasterFeatures(b);
@@ -42,7 +45,7 @@ export function levelOnePreview(b,{scores,race,racial,hpRolls}){
   hp:hpRolls.reduce((sum,n)=>sum+Math.max(1,n+mod(scores.con)),0)+levelOneExtraHp(b,scores),skillBudget:Math.max(1,4+mod(scores.int))*b.level};
 }
 
-export const levelOneCounter=(b,feature,scores)=>b.classId===KNIGHT_ID&&feature.id===KNIGHT_ID+':feature:defensive-stance'?{maximum:Math.max(0,4+Math.floor((scores.con-10)/2))}:null;
+export const levelOneCounter=(b,feature,scores)=>b.classId===KNIGHT_ID&&feature.id===KNIGHT_ID+':feature:defensive-stance'?{maximum:Math.max(0,4+Math.floor((scores.con-10)/2))}:b.classId===GUNBREAKER_ID&&feature.id===GUNBREAKER_ID+':feature:magicked-ammo'?{maximum:3}:b.classId===GUNBREAKER_ID&&feature.id===GUNBREAKER_ID+':feature:aurora'?{maximum:Math.max(0,3+Math.floor((scores.wis-10)/2))}:null;
 
 export function levelOneIssues(b,{complete=true}={}){
  if(isBeastmaster(b))return beastmasterIssues(b,{complete});
@@ -51,7 +54,7 @@ export function levelOneIssues(b,{complete=true}={}){
  if(b.level!==1)add(3,c.name+' currently supports level-1 testing only. Later-level choices and progression are not enabled.');
  if(b.classId===KNIGHT_ID&&!['Lawful Good','Lawful Neutral','Lawful Evil'].includes(b.alignment))add(3,'Knight requires a lawful alignment. Choose it under Identity.');
  if(b.carry)add(3,'Multiclassing is not implemented for '+c.name+'.');
- if(b.archetypeId&&!levelOneArchetype(b))add(3,'Mog Knight requires both the Moogle race and Chocobo Knight class. Other archetypes are not enabled.');
+ if(b.archetypeId&&!levelOneArchetype(b))add(3,'This archetype is not enabled or does not match the selected class and race.');
  if(b.spellIds?.length||b.initialIntMod!==null&&b.initialIntMod!==undefined)add(5,c.name+' does not learn Black Mage spells or obtain an MP pool.');
  if(Object.keys(b.choices||{}).length)add(4,'No class talent choices are granted at level 1 for '+c.name+'.');
  if(complete){
