@@ -35,7 +35,7 @@ test('portrait background setting, resource edits, and recovery menu are visible
  assert.match(combat,/cs-resource-hp/);
  assert.match(combat,/cs-resource-mp/);
  const spells=renderSection(char,'spells');
- const resource=spells.slice(0,spells.indexOf('</div>\x24{renderSpellLevels')<0?spells.indexOf('cs-spell-levels'):spells.length);
+ const resource=spells.split('</section>')[0];
  assert.match(resource,/data-spell-ability/);
  assert.match(resource,/<option value="wis" selected>WIS<\/option>/);
  assert.doesNotMatch(resource,/data-edit-stats="spell"|Max spell Lv/);
