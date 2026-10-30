@@ -14,3 +14,5 @@ Playable import is blocked on verified Maneuver Tactics feat prerequisites/selec
 Four regression tests cover source/catalog hashes, replacement targets/deferred targets, all mount progression rows, printed/formula poison discrepancy, persistent upgrades, resource progression, manual conditions and runtime exclusion. Full suite/build and deployed guard checks are recorded in the import checkpoint when verified.
 
 Validation for this batch: all 313 tests and npm run build:cloud pass. A 390 × 844 Chromium fixture showed the Half-Breed explanation, stayed at the race step, and received HTTP 400 for a forged all-traits-disabled build with valid allocated skill ranks. No character was created and no page errors occurred. This used local fixture authentication, not production provider login. Evidence: docs/extraction/half-breed-browser-validation.json.
+
+Published verification: GitHub main run 41056518085 passed; four public runtime asset hashes match the tested build. Half-Breed remains unavailable for saving, and Antrider remains staged. See `half-breed-antrider-deployment-validation.json`.

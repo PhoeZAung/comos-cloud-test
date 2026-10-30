@@ -5,6 +5,7 @@ import {fixedSkills} from '../../sheet/skills.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
 import {bardClass,isBard,bardSpellRows} from './bard-level-one.mjs';
+import {isBeastmaster,beastmasterSkillBonus,beastmasterCounter} from './beastmaster-level-one.mjs';
 import {racialChoiceFeats} from './racial-choices.mjs';
 
 export const ARCHER_ID='ffd20:class:archer';
@@ -156,6 +157,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   r.temp=Number(row.temp||0)-Number(row.rulesBonus||0);let bonus=0;
   for(const e of effects)if(e.target==='skills.'+sid+'.bonus'||e.target==='skills.row.'+i+'.bonus')bonus+=Number(calculated(e.value,b)||0);else if(e.target==='skills.'+sid+'.class_skill')r.cs=true;
   if(isArcher(b)&&sid==='skill:perception'&&b.level>=2)bonus+=archerAtLevel(b.level).features.find(f=>f.name==='Hawkeye')?.state.perceptionBonus||0;
+  bonus+=beastmasterSkillBonus(b,sid);
   for(const e of effects)if(e.target==='skills.row.'+i+'.bonus'&&e.specialty)r.subName=e.specialty;
   r.rulesBonus=bonus;r.temp+=bonus;return r;
  });
@@ -168,10 +170,11 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
    sourceClass:name,rulesOwned:true,...(f.featureKind==='limit_break'||!isBard(b)&&['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
   if(isLevelOneClass(b)&&['Commander’s Aura','Battle Dance','Challenge'].includes(f.name)){const maximum=f.name==='Challenge'?1:Math.max(0,4+mod(p.scores.cha)),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;if(f.name!=='Challenge')row.uses_formula='4+{CHA}';}
   if(isBard(b)&&f.id.endsWith(':bardic-performance')){const maximum=4+mod(p.scores.cha),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.uses_formula='4+{CHA}';row.restoreOnLongRest=false;}
+  if(isBeastmaster(b)){const counter=beastmasterCounter(f,p.scores);if(counter){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=counter.maximum;row.u_curr=Math.max(0,counter.maximum-spent);row.uses_formula=counter.formula;row.restoreOnLongRest=false;}}
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
- if(isLevelOneClass(b)){const feat=b.classId===DANCER_ID?'Improved Unarmed Strike':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat);rows.feats.push({...previous.feats?.find(r=>r.sourceRuleId===id),name:feat,desc:'Granted by '+name+' at level 1. Check the feat conditions before applying its effects.',sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false});}
+ if([DANCER_ID,CHOCOBO_KNIGHT_ID].includes(b.classId)){const feat=b.classId===DANCER_ID?'Improved Unarmed Strike':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat);rows.feats.push({...previous.feats?.find(r=>r.sourceRuleId===id),name:feat,desc:'Granted by '+name+' at level 1. Check the feat conditions before applying its effects.',sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false});}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let lv=1;lv<=b.level;lv+=2){const id='comos:feat-slot:'+lv,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+lv,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  for(const event of archerChoiceEvents(b).filter(e=>!eventPool(e).endsWith('archery-talents'))){

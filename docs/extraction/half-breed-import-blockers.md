@@ -14,3 +14,5 @@ The current wizard already guards individual unsupported choices. A server regre
 Resume with a source-backed parent-trait table containing parent ID, canonical feature ID, category, RP cost and cost citation. Then implement the parent exclusions, identity/movement/language rules, one eligible selection per nonempty category, ability choice and two favored classes; verify save/reopen and API rejection of invalid combinations before enabling this race.
 
 Validation for this batch: all 313 tests and npm run build:cloud pass. A 390 × 844 Chromium fixture showed the Half-Breed explanation, stayed at the race step, and received HTTP 400 for a forged all-traits-disabled build with valid allocated skill ranks. No character was created and no page errors occurred. This used local fixture authentication, not production provider login. Evidence: docs/extraction/half-breed-browser-validation.json.
+
+Published verification: GitHub main run 41056518085 passed; four public runtime asset hashes match the tested build. Half-Breed remains unavailable for saving, and Antrider remains staged. See `half-breed-antrider-deployment-validation.json`.

@@ -30,6 +30,13 @@
       "status": "live",
       "adapter": "martial-level-one",
       "coverage": "partial"
+    },
+    {
+      "id": "ffd20:class:beastmaster",
+      "file": "rules/classes/beastmaster.class.json",
+      "status": "live",
+      "adapter": "beastmaster-level-one",
+      "coverage": "partial"
     }
   ]
 }

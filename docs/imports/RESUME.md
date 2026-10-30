@@ -52,7 +52,12 @@ milestones rather than full completion. Bard level 1 and the standard Elvaan
 and Galka traits have verified deployment milestones. Half-Breed is blocked on verified parent-trait RP costs and inheritance choices.
 Antrider has a staged source definition, but is blocked on maneuver-feat
 prerequisites, companion handling and later parent replacements. The next
-unblocked baseline item is **Beastmaster**. Always read
+unblocked baseline item is **Beastmaster**, now active with a staged main-source
+checkpoint. Both 20-row tables, six first-level abilities, twelve focus
+descriptions and all 35 companion source entries are saved. Its bounded
+first-level adapter has local model/browser validation; CI and deployment
+evidence are recorded in the current checkpoint. See
+`docs/extraction/beastmaster-level-one-import.md`. Always read
 the current queue instead of restarting these completed milestones. A blocked entry
 is skipped without deleting its last section or evidence.
 
