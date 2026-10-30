@@ -1,6 +1,7 @@
 import {generateRaceCatalog} from './generate-races.mjs';
 import {generateArcherPreview} from './generate-archer.mjs';
 import {generateClassCatalog} from './generate-class-catalog.mjs';
+import {generateBardCatalog} from './generate-bard.mjs';
 import {cp} from 'node:fs/promises';
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import { renderPage, routeView } from '../src/layouts/site.mjs';
@@ -8,6 +9,7 @@ import { renderPage, routeView } from '../src/layouts/site.mjs';
 await generateRaceCatalog();
 await generateArcherPreview();
 await generateClassCatalog();
+await generateBardCatalog();
 
 const root = new URL('../', import.meta.url);
 const args = process.argv.slice(2);

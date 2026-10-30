@@ -13,7 +13,7 @@ test('Bard 44 verified song talents are importable but not live',async()=>{
  assert.equal(o.options.filter(o=>o.tier==='advanced').length,12);
  assert.equal(new Set(o.options.map(t=>t.id)).size,44);
  const imported=classCatalog.classes.find(x=>x.id===b.id);
- assert.equal(imported.status,'staged');assert.equal(imported.adapter,null);
+ assert.equal(imported.status,'live');assert.equal(imported.adapter,'bard-level-one');assert.deepEqual(imported.supportedLevels,[1]);
  assert.equal(imported.optionCount,44);assert.equal(imported.options.length,44);
  assert.deepEqual(await buildClassCatalog(),classCatalog);
 });

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 2,
+  "revision": 3,
   "schedule": [
     "class",
     "race",
@@ -107,18 +107,20 @@
     },
     "ffd20:class:bard": {
       "state": "in_progress",
-      "stage": "runtime-adapter",
-      "cursor": "Existing staged class, talents and songs; live Bard adapter absent.",
-      "nextAction": "Review song/choice blockers; implement and validate a bounded adapter before enabling it.",
-      "scope": "Legal first-level creation first; progression in later milestones.",
-      "note": "Keep staged until mandatory choices and resources are handled.",
+      "stage": "validation",
+      "cursor": "First-level adapter and all 30 first-level song pages implemented; 300 local tests and two mobile save/reopen cases passed.",
+      "nextAction": "Verify GitHub CI and deployment, then record a partial-live milestone and advance to Elvaan.",
+      "scope": "New level-1 Bard creation/editing only. Later progression, talents, archetypes, purchased songs and maintained-effect automation remain unsupported.",
+      "note": "Elemental Threnody maintained classification corrected from its individual page; source hashes verified. Real production login is not claimed.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "rules/classes/README.md",
-        "docs/extraction/bard-batch-02.md"
+        "docs/extraction/bard-batch-02.md",
+        "docs/extraction/bard-level-one-import.md",
+        "docs/extraction/bard-level-one-browser-validation.json"
       ],
-      "updatedAt": "2026-10-30T07:25:39.209Z"
+      "updatedAt": "2026-10-30T07:41:12.847Z"
     },
     "ffd20:race:elvaan": {
       "state": "queued",
@@ -141,6 +143,15 @@
       "stage": "runtime-adapter",
       "cursor": "Existing staged class, talents and songs; live Bard adapter absent.",
       "time": "2026-10-30T07:25:39.209Z"
+    },
+    {
+      "revision": 3,
+      "itemId": "ffd20:class:bard",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "validation",
+      "cursor": "First-level adapter and all 30 first-level song pages implemented; 300 local tests and two mobile save/reopen cases passed.",
+      "time": "2026-10-30T07:41:12.847Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

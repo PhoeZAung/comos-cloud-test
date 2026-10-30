@@ -12,8 +12,8 @@
     {
       "id": "ffd20:class:bard",
       "file": "rules/classes/bard.class.json",
-      "status": "staged",
-      "adapter": null,
+      "status": "live",
+      "adapter": "bard-level-one",
       "coverage": "partial",
       "optionFile": "rules/classes/bard-talents.json"
     },

@@ -10,7 +10,8 @@
       "url": "https://finalfantasyd20.com/classes/core-classes/bard/",
       "title": "Bard — Official Final Fantasy d20 class",
       "sourceKind": "official_web",
-      "retrievedOn": "2026-10-28"
+      "retrievedOn": "2026-10-28",
+      "archiveSha256": "58160c223af3db9e022f8c15a5b7dc9cd0da4a6886668e22d611d5e904546100"
     },
     {
       "id": "talents",
@@ -36,37 +37,42 @@
       {
         "path": "/data/spellcasting/jingleMechanicsFile",
         "blocking": true,
-        "reason": "The 11 Jingle individual casting/effect pages are extracted in a separate mechanics batch (zero MP, no Perform check, duration, saves, scaling). Effects are not runtime-automated. Song of Serenity suspends fatigue while maintained and does not cure it."
+        "reason": "The 11 individual jingle pages are imported as manual first-level cards. Duration, saves, scaling and conditional effects still require independent review and manual adjudication."
       },
       {
         "path": "/data/events",
         "blocking": true,
-        "reason": "All 176 Bard songs and jingles across levels 0–6 are now indexed with usage modes and source rows. Individual song mechanics, MP, actions, maintained effects, full source review, wizard choices and Bard save adapter are still incomplete."
+        "reason": "All 176 songs are indexed. The 30 first-level songs and 11 jingles have individual mechanics; the 135 level-2–6 songs, orchestration-roll learning and maintained-effect automation remain outside the supported first-level scope."
       },
       {
         "path": "/data/events",
         "blocking": true,
-        "reason": "The 32 standard and 12 advanced Song Talents are extracted with tier, repeat, class feature prerequisites and the Bardic Inspiration die upgrade. Wizard selection/validation and the Bard save adapter still require implementation; advanced talents consume existing even-level slots."
+        "reason": "The 32 standard and 12 advanced Song Talents are extracted. They start at level 2 and are not selectable by the first-level adapter; later wizard choices and prerequisites remain to implement."
       },
       {
         "path": "/data/features",
         "blocking": true,
-        "reason": "Performance actions, targets, ongoing effects, aura ranges, saving throws and resources remain manual descriptions; not permanent sheet bonuses."
+        "reason": "Performance actions, targets, ongoing effects, ranges and saves remain manual descriptions. A shared first-level rounds counter is provided; no conditional bonuses are permanent sheet modifiers."
       },
       {
         "path": "/data/features",
         "blocking": true,
-        "reason": "Versatile Performance has specialty-specific substitution and advanced options; choice UI and dependency checks are not implemented."
+        "reason": "Versatile Performance begins at level 2. Specialty substitutions and advanced options are not implemented or enabled."
       },
       {
         "path": "/data",
         "blocking": true,
-        "reason": "Bard runtime adapter for CHA song MP, casting, skill points and upgrades not yet written. Staged display only."
+        "reason": "The Bard runtime adapter supports only new level-1 characters and editing those builds, with CHA-based MP, bounded song selections, skill ranks and manual feature cards. Later progression and multiclassing are guarded."
       },
       {
         "path": "/data/archetypeIndex",
         "blocking": true,
-        "reason": "Bard archetypes are index-only; each must be extracted separately."
+        "reason": "Bard archetypes remain index-only and unavailable; each needs separate source-backed replacements."
+      },
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "Only level-1 creation and editing are supported. This does not constitute full mechanical review or approval of the 20-level class."
       }
     ]
   },
@@ -577,7 +583,7 @@
         "id": "ffd20:class:bard:feature:sirens-song",
         "name": "Siren's Song",
         "atLevel": 1,
-        "description": "Swift-action Limit Break; songs ignore sound-blocking and distorting effects for a level-scaled duration.",
+        "description": "Limit Break, swift action: for 1 round at level 1, songs ignore effects that block or distort sound. Duration scales by +1 round per four Bard levels after 1st in future progression. Apply the effect manually; use the shared Limit Break rules.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -596,7 +602,7 @@
         "id": "ffd20:class:bard:feature:soul-voice",
         "name": "Soul Voice",
         "atLevel": 1,
-        "description": "Swift-action Limit Break; one song started each round has its variables maximized and doubled for a level-scaled duration.",
+        "description": "Limit Break, swift action: for 1 round at level 1, choose one song started and performed that round to have all its variables and effects maximized and doubled. Duration scales by +1 round per four Bard levels after 1st in future progression. Apply the effect manually; use the shared Limit Break rules.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -615,7 +621,7 @@
         "id": "ffd20:class:bard:feature:songs",
         "name": "Songs",
         "atLevel": 1,
-        "description": "Charisma-based songcasting using MP; learn 3 + CHA modifier first-level songs at creation and two more per Bard level; maintained-song constraints apply.",
+        "description": "At level 1, choose 3 + CHA modifier first-level songs; CHA must be at least 11 to learn or perform them. Save DC is 10 + song level + CHA modifier; song MP cost equals song level. Light armor does not cause song failure. Normal songs behave as spells; starting a song provokes and requires concentration as applicable. One maintained song at a time: free-action upkeep each round; helplessness or inability to maintain ends it. Targets must remain in range (effects persist until their next turn after leaving); targeted creatures may be switched at the start of your turn. Repeat required saves each round until failed and spell-resistance checks until passed. You may perform normal songs and a bardic performance during upkeep, but concentration on a normal song prevents starting another song. Observe each song’s maximum duration. Orchestration rolls and extra purchased songs are not automated in this release.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -631,7 +637,7 @@
         "id": "ffd20:class:bard:feature:jingles",
         "name": "Jingles",
         "atLevel": 1,
-        "description": "Learn two 0-level songs at first level, +1 every four Bard levels thereafter; no MP cost.",
+        "description": "At level 1, select exactly two 0-level songs. Jingles cost 0 MP and can be repeated; they do not require Perform checks or consume learned song slots. Maintained jingles still share the one-maintained-song limit and have their own durations. Later jingle learning is not enabled in this first-level release.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -650,7 +656,7 @@
         "id": "ffd20:class:bard:feature:musical-power",
         "name": "Musical Power",
         "atLevel": 1,
-        "description": "Ranged touch performance attack, using Perform ranks in place of BAB, dealing 1d4 + CHA damage; 25 ft + 5 ft per two levels.",
+        "description": "As a standard action, make a ranged touch attack within 25 ft. + 5 ft. per two Bard levels, substituting ranks in the associated Perform skill for BAB. Damage is 1d4 + CHA modifier, non-elemental. Instrument enhancements may apply as ranged weapon enchantments; instrumentless performance gains no instrument bonuses. A natural 1 breaks a used instrument: −2 attacks and half its Perform skill bonus until repaired with one hour of work. Apply attacks and instrument conditions manually.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -666,7 +672,7 @@
         "id": "ffd20:class:bard:feature:bardic-performance",
         "name": "Bardic Performance",
         "atLevel": 1,
-        "description": "4 + CHA modifier rounds/day at level 1; +2 rounds per subsequent level. Start as standard action, becoming move at 7 and swift at 13.",
+        "description": "At level 1, spend from 4 + CHA modifier performance rounds per day. Start or switch performance as a standard action; maintain as a free action each round. Only one bardic performance is active at a time; it may coexist with a maintained song. Death, paralysis, stun, unconsciousness or inability to take the upkeep free action ends it. Audible performances require hearing and are language-dependent; a deaf Bard has 20% failure, still spending the round, and deaf targets are immune. Visual performances require line of sight; a blind Bard has 50% failure, still spending the round, and blind targets are immune. The shared rounds counter is manual; individual performance cards do not each grant another pool.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -685,7 +691,7 @@
         "id": "ffd20:class:bard:feature:countersong",
         "name": "Countersong",
         "atLevel": 1,
-        "description": "Maintain a performance against sonic and language-dependent effects, allowing an affected ally to substitute an appropriate Perform result.",
+        "description": "Audible performance. Each round roll Perform (keyboard, percussion, wind, string or sing). Creatures within 30 ft., including the Bard, may use that result instead of a lower rolled save against a sonic or language-dependent magical effect. A listener already affected by a non-instantaneous such effect gains a new save each round, using the Perform result. Does not stop spells merely for having verbal components and cannot counter effects with no save. Spend from the shared Bardic Performance round pool.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -701,7 +707,7 @@
         "id": "ffd20:class:bard:feature:distraction",
         "name": "Distraction",
         "atLevel": 1,
-        "description": "Maintain a performance that defends allies from illusion effects using an appropriate Perform result.",
+        "description": "Visual performance. Each round roll Perform (act, comedy, dance or oratory). Creatures within 30 ft., including the Bard, may use that result instead of a lower rolled save against an illusion magical attack. A viewer already affected by a non-instantaneous illusion gains a new save each round using the Perform result. Cannot counter effects with no save. Spend from the shared Bardic Performance round pool.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -717,7 +723,7 @@
         "id": "ffd20:class:bard:feature:fascinate",
         "name": "Fascinate",
         "atLevel": 1,
-        "description": "Maintain a performance against visible, hearing creatures, with level-based target count; Will save ends effect and blocks repeated attempts for 24 hours.",
+        "description": "Audible and visual, mind-affecting performance. At level 1, target one creature within 90 ft. that can see, hear and attend to you; you must also see it. Nearby combat or danger prevents use. Will DC 10 + half Bard level + CHA modifier negates; success prevents another attempt on that creature for 24 hours. Failure leaves it watching quietly with −4 on reactive skill checks while you maintain. Potential threats grant a new save; obvious threats break the effect. Spend from the shared Bardic Performance round pool.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -736,7 +742,7 @@
         "id": "ffd20:class:bard:feature:inspire-courage",
         "name": "Inspire Courage",
         "atLevel": 1,
-        "description": "Active performance buffs allies' attacks, weapon damage and saves against charm/fear; starts at +1 and scales to +4.",
+        "description": "At level 1, allies including the Bard who can perceive the performance gain +1 morale on saves against charm/fear and +1 competence on attack and weapon damage rolls. Choose audible or visual components when starting; this is mind-affecting. Spend from the shared Bardic Performance round pool. Benefits are conditional and must be applied manually.",
         "featureKind": "class_feature",
         "activation": "active",
         "automation": "manual",
@@ -3497,7 +3503,9 @@
       "songCatalogCoverage": "complete_index_pending_individual_mechanics",
       "jingleMechanicsFile": "rules/classes/bard-jingle-mechanics.json",
       "jingleMechanicsCoverage": "all_11_individual_pages_checked",
-      "maintainedSongRuleSource": "https://finalfantasyd20.com/classes/core-classes/bard/"
+      "maintainedSongRuleSource": "https://finalfantasyd20.com/classes/core-classes/bard/",
+      "firstLevelMechanicsFile": "rules/classes/bard-song-mechanics.json",
+      "firstLevelMechanicsCoverage": "all_30_individual_level_1_pages_checked"
     },
     "resources": [
       {
@@ -3526,6 +3534,9 @@
           }
         ]
       }
+    ],
+    "supportedLevels": [
+      1
     ]
   }
 }

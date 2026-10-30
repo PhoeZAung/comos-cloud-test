@@ -1,0 +1,1290 @@
+{
+  "schemaVersion": "comos.song-mechanics.v1",
+  "kind": "song_mechanics_batch",
+  "parentClassId": "ffd20:class:bard",
+  "catalogId": "ffd20:class:bard:songs",
+  "levels": [
+    1
+  ],
+  "review": {
+    "state": "needs_review",
+    "blocking": true,
+    "coverage": "all_30_individual_level_1_pages",
+    "issues": [
+      "First-level sheet cards retain manual effects. Maintained-state effects, target validation and conditional combat bonuses are not automatically applied.",
+      "Index and individual page disagree for Elemental Threnody; individual Duration field is used.",
+      "First-level data does not establish coverage of the 135 level-2–6 songs."
+    ]
+  },
+  "sources": [
+    {
+      "id": "mp-system",
+      "url": "https://finalfantasyd20.com/magic/mp-system/",
+      "archivePath": "pages/magic/mp-system",
+      "archiveSha256": "fc94ae28b825ac022b42f5a34c528c0dabd1d7edd4913a87c8b70aa6ea395d64",
+      "retrievedAt": "2026-10-29T22:39:15+00:00"
+    },
+    {
+      "id": "adoration",
+      "url": "https://finalfantasyd20.com/magic/spells/a/adoration/",
+      "archivePath": "pages/magic/spells/a/adoration",
+      "archiveSha256": "b700a859452da256d69429abfc916517b5d936c86a9a0d1225a41858ec648734",
+      "retrievedAt": "2026-10-29T16:41:04+00:00"
+    },
+    {
+      "id": "alter-musical-instrument",
+      "url": "https://finalfantasyd20.com/magic/spells/a/alter-musical-instrument/",
+      "archivePath": "pages/magic/spells/a/alter-musical-instrument",
+      "archiveSha256": "8556f200101aceb5007194c49262e916c47916ebf88cc68c3851f68e67ef0cb8",
+      "retrievedAt": "2026-10-29T16:41:22+00:00"
+    },
+    {
+      "id": "amplify",
+      "url": "https://finalfantasyd20.com/magic/spells/a/amplify/",
+      "archivePath": "pages/magic/spells/a/amplify",
+      "archiveSha256": "fd0c08c71cbba8024882a080e14c7c39dae3d5bb55d167b6ba4db7004ab0ab82",
+      "retrievedAt": "2026-10-29T16:41:27+00:00"
+    },
+    {
+      "id": "armys-paeon",
+      "url": "https://finalfantasyd20.com/magic/spells/a/armys-paeon/",
+      "archivePath": "pages/magic/spells/a/armys-paeon",
+      "archiveSha256": "d22c3c68c0eb49b934c1e7b5040aa8be72f2e54ebd1d1426e2c35f8a005dd87d",
+      "retrievedAt": "2026-10-29T16:41:41+00:00"
+    },
+    {
+      "id": "clarion-call",
+      "url": "https://finalfantasyd20.com/magic/spells/c/clarion-call/",
+      "archivePath": "pages/magic/spells/c/clarion-call",
+      "archiveSha256": "104a6f4923af512ac09679b4021ba9036cc66423d61258de12917668ad359dc4",
+      "retrievedAt": "2026-10-29T16:43:05+00:00"
+    },
+    {
+      "id": "distort-speech",
+      "url": "https://finalfantasyd20.com/magic/spells/d/distort-speech/",
+      "archivePath": "pages/magic/spells/d/distort-speech",
+      "archiveSha256": "e20414227908d294eae4cef9b46ed0339e1fc001033a9028bd6a437cbb5b2c2c",
+      "retrievedAt": "2026-10-29T16:43:38+00:00"
+    },
+    {
+      "id": "elemental-carol",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-carol/",
+      "archivePath": "pages/magic/spells/e/elemental-carol",
+      "archiveSha256": "dbf68701b3a9b53d3c502dd8525825eb6e1eb6d320d563d7ef7bb97569f0fcd9",
+      "retrievedAt": "2026-10-29T16:44:11+00:00"
+    },
+    {
+      "id": "elemental-threnody",
+      "url": "https://finalfantasyd20.com/magic/spells/e/elemental-threnody/",
+      "archivePath": "pages/magic/spells/e/elemental-threnody",
+      "archiveSha256": "32e4fc072fd424075995a2bc5244a98cc62ad0a65236704fe9b055148abf6cdf",
+      "retrievedAt": "2026-10-29T16:44:25+00:00"
+    },
+    {
+      "id": "fear-filled-tune",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fear-filled-tune/",
+      "archivePath": "pages/magic/spells/f/fear-filled-tune",
+      "archiveSha256": "67b0d67b1dad4bfa6926a7e3c32448c008473cbe1ef1e54b68563f932aa6e665",
+      "retrievedAt": "2026-10-29T16:44:48+00:00"
+    },
+    {
+      "id": "feather-bar",
+      "url": "https://finalfantasyd20.com/magic/spells/f/feather-bar/",
+      "archivePath": "pages/magic/spells/f/feather-bar",
+      "archiveSha256": "f153e9a05a2ea789934d687ceae4fd470369e75e00746d03d6155a78847a1560",
+      "retrievedAt": "2026-10-29T16:44:58+00:00"
+    },
+    {
+      "id": "focusing-chant",
+      "url": "https://finalfantasyd20.com/magic/spells/f/focusing-chant/",
+      "archivePath": "pages/magic/spells/f/focusing-chant",
+      "archiveSha256": "5c694746e7015809eb98ea64d8170d2ac26f5d6133fade7392c017629eda1116",
+      "retrievedAt": "2026-10-29T16:45:07+00:00"
+    },
+    {
+      "id": "foe-requiem",
+      "url": "https://finalfantasyd20.com/magic/spells/f/foe-requiem/",
+      "archivePath": "pages/magic/spells/f/foe-requiem",
+      "archiveSha256": "5a7d0c4fb62976e595e0976919735b25874e5176240ef4741240315a921b30c0",
+      "retrievedAt": "2026-10-29T16:45:35+00:00"
+    },
+    {
+      "id": "fortuitous-beat",
+      "url": "https://finalfantasyd20.com/magic/spells/f/fortuitous-beat/",
+      "archivePath": "pages/magic/spells/f/fortuitous-beat",
+      "archiveSha256": "e38fb59315fa9ab9a31b4f7171f502d648820dc8bb6543b7e82b08b0ab79c392",
+      "retrievedAt": "2026-10-29T16:45:54+00:00"
+    },
+    {
+      "id": "hideous-laughter",
+      "url": "https://finalfantasyd20.com/magic/spells/h/hideous-laughter/",
+      "archivePath": "pages/magic/spells/h/hideous-laughter",
+      "archiveSha256": "9ed517f21beffa95c331dae2fe4f775b28e9058e4b97c8f3dbd0c23b71d4dd90",
+      "retrievedAt": "2026-10-29T16:47:55+00:00"
+    },
+    {
+      "id": "insidious-rhythm",
+      "url": "https://finalfantasyd20.com/magic/spells/i/insidious-rhythm/",
+      "archivePath": "pages/magic/spells/i/insidious-rhythm",
+      "archiveSha256": "010e1e731bd4efdf3a66c0c3d6ed945957bf31aa9e3f53111471a80ccc4e7fe6",
+      "retrievedAt": "2026-10-29T16:48:18+00:00"
+    },
+    {
+      "id": "inspirational-boost",
+      "url": "https://finalfantasyd20.com/magic/spells/i/inspirational-boost/",
+      "archivePath": "pages/magic/spells/i/inspirational-boost",
+      "archiveSha256": "d13bc33ce2bd06dc643f831346a6fff9b0a89a37e0c37d0be415534e33bb48c6",
+      "retrievedAt": "2026-10-29T16:48:22+00:00"
+    },
+    {
+      "id": "joyful-noise",
+      "url": "https://finalfantasyd20.com/magic/spells/j/joyful-noise/",
+      "archivePath": "pages/magic/spells/j/joyful-noise",
+      "archiveSha256": "0f2373f9f11c4dd9bc69dee10ab409c20604bb62b414e96bb59d5023a930afd8",
+      "retrievedAt": "2026-10-29T16:48:32+00:00"
+    },
+    {
+      "id": "knights-minne",
+      "url": "https://finalfantasyd20.com/magic/spells/k/knights-minne/",
+      "archivePath": "pages/magic/spells/k/knights-minne",
+      "archiveSha256": "aa4b75428c8b890ee4ea9b3c98e58f1860e92736a500ce02d47405be814256b9",
+      "retrievedAt": "2026-10-29T16:48:46+00:00"
+    },
+    {
+      "id": "lions-song",
+      "url": "https://finalfantasyd20.com/magic/spells/l/lions-song/",
+      "archivePath": "pages/magic/spells/l/lions-song",
+      "archiveSha256": "d80c6720ceed04086541aabae984714ddeb26356c4ed10bc583b736e078d59c1",
+      "retrievedAt": "2026-10-29T16:49:09+00:00"
+    },
+    {
+      "id": "performers-wine",
+      "url": "https://finalfantasyd20.com/magic/spells/p/performers-wine/",
+      "archivePath": "pages/magic/spells/p/performers-wine",
+      "archiveSha256": "86fbf8d1205dd08fe2042dfa43ceba89f46e060885fe17e1dab6c3778b57ee0e",
+      "retrievedAt": "2026-10-29T16:49:42+00:00"
+    },
+    {
+      "id": "play-instrument",
+      "url": "https://finalfantasyd20.com/magic/spells/p/play-instrument/",
+      "archivePath": "pages/magic/spells/p/play-instrument",
+      "archiveSha256": "a9a73d8c13a341f1a88ce600f8b485ea326ab8878f084e49f0c71abd932bb7ab",
+      "retrievedAt": "2026-10-29T16:50:00+00:00"
+    },
+    {
+      "id": "quick-etude",
+      "url": "https://finalfantasyd20.com/magic/spells/q/quick-etude/",
+      "archivePath": "pages/magic/spells/q/quick-etude",
+      "archiveSha256": "51c0db45e5d784f15394d254bfe6754c4d3ce546535c0f3e0fe758b0cf823407",
+      "retrievedAt": "2026-10-29T16:50:19+00:00"
+    },
+    {
+      "id": "reflexive-strum",
+      "url": "https://finalfantasyd20.com/magic/spells/r/reflexive-strum/",
+      "archivePath": "pages/magic/spells/r/reflexive-strum",
+      "archiveSha256": "9654e8684e96c8d7eddf40562be244ac09970d2f616d0b5fc329d76904c5051c",
+      "retrievedAt": "2026-10-29T16:50:38+00:00"
+    },
+    {
+      "id": "resonance-armor",
+      "url": "https://finalfantasyd20.com/magic/spells/r/resonance-armor/",
+      "archivePath": "pages/magic/spells/r/resonance-armor",
+      "archiveSha256": "973af57973fc9b3028eb55f3e33f3d2816eff29d9522095aa6e7d21d539ead71",
+      "retrievedAt": "2026-10-29T16:50:42+00:00"
+    },
+    {
+      "id": "saving-finale",
+      "url": "https://finalfantasyd20.com/magic/spells/s/saving-finale/",
+      "archivePath": "pages/magic/spells/s/saving-finale",
+      "archiveSha256": "45ab9fea9b385fc8d9017a0c56742c1e5633a70a65d4ddddf4180c8abfd39bcd",
+      "retrievedAt": "2026-10-29T16:51:10+00:00"
+    },
+    {
+      "id": "sheepfoe-mambo",
+      "url": "https://finalfantasyd20.com/magic/spells/s/sheepfoe-mambo/",
+      "archivePath": "pages/magic/spells/s/sheepfoe-mambo",
+      "archiveSha256": "b465812ec284aea96d4526dae5d74c8f432d0710ff423571c4ac7d23a00336fc",
+      "retrievedAt": "2026-10-29T16:51:47+00:00"
+    },
+    {
+      "id": "solid-note",
+      "url": "https://finalfantasyd20.com/magic/spells/s/solid-note/",
+      "archivePath": "pages/magic/spells/s/solid-note",
+      "archiveSha256": "4a2d308a3378d5200f157e61a9672f804d0301d5fc99627b60448992af653e4a",
+      "retrievedAt": "2026-10-29T16:52:11+00:00"
+    },
+    {
+      "id": "suit-of-the-dancer",
+      "url": "https://finalfantasyd20.com/magic/spells/s/suit-of-the-dancer/",
+      "archivePath": "pages/magic/spells/s/suit-of-the-dancer",
+      "archiveSha256": "cdde5fd3f0fef86ed2070bec16bef959ca5fe55858bbdc89cf434e1ba7c47015",
+      "retrievedAt": "2026-10-29T16:52:57+00:00"
+    },
+    {
+      "id": "toilsome-chant",
+      "url": "https://finalfantasyd20.com/magic/spells/t/toilsome-chant/",
+      "archivePath": "pages/magic/spells/t/toilsome-chant",
+      "archiveSha256": "20b9f5769e6c0d2145b99f97cf0058dc7467aef0166431e565149d725b6cb344",
+      "retrievedAt": "2026-10-29T16:53:25+00:00"
+    },
+    {
+      "id": "willful-clash",
+      "url": "https://finalfantasyd20.com/magic/spells/w/willful-clash/",
+      "archivePath": "pages/magic/spells/w/willful-clash",
+      "archiveSha256": "fc657ea51f93063848eaf31a40016de2f9d7a212f5bec56ed94c70221a644b41",
+      "retrievedAt": "2026-10-29T16:54:35+00:00"
+    }
+  ],
+  "entries": [
+    {
+      "songId": "ffd20:song:bard:adoration",
+      "name": "Adoration",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing [ emotion , mind-affecting ]",
+      "castingTime": "1 standard action",
+      "range": "close (25 ft. + 5 ft./2 levels)",
+      "targeting": {
+        "target": "one creature"
+      },
+      "duration": "1 minute/level",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes",
+      "maintained": false,
+      "mechanicsSummary": "Outside combat, the target gains +2 morale on Diplomacy checks to influence creatures. In performance combat, it instead gains +2 morale on performance combat checks.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/a/adoration/",
+      "archivePath": "pages/magic/spells/a/adoration",
+      "archiveSha256": "b700a859452da256d69429abfc916517b5d936c86a9a0d1225a41858ec648734",
+      "retrievedAt": "2026-10-29T16:41:04+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "adoration",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:alter-musical-instrument",
+      "name": "Alter Musical Instrument",
+      "level": 1,
+      "mpCost": 1,
+      "school": "illusion (figment)",
+      "castingTime": "1 standard action",
+      "range": "close (25 ft. + 5 ft./2 levels)",
+      "targeting": {
+        "target": "one musical instrument"
+      },
+      "duration": "1 hour/level (D)",
+      "savingThrow": "Fortitude negates (object)",
+      "spellResistance": "yes (object)",
+      "maintained": false,
+      "mechanicsSummary": "Make a familiar instrument sound like another familiar instrument. Volume, pitch range, playing method and all other properties stay unchanged.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/a/alter-musical-instrument/",
+      "archivePath": "pages/magic/spells/a/alter-musical-instrument",
+      "archiveSha256": "8556f200101aceb5007194c49262e916c47916ebf88cc68c3851f68e67ef0cb8",
+      "retrievedAt": "2026-10-29T16:41:22+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "alter-musical-instrument",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:amplify",
+      "name": "Amplify",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "area": "20-ft.-radius emanation centered on a creature, object, or point in space"
+      },
+      "duration": "1 minute/level",
+      "savingThrow": "Will negates (see text)",
+      "spellResistance": "yes (see text)",
+      "maintained": false,
+      "mechanicsSummary": "Decrease hearing DCs for sounds within the emanation by 20. Creatures inside do not notice the amplification. The area can move with a creature; an unwilling creature receives a Will save and spell resistance. Attended objects use their owner’s defenses; unattended objects and points in space do not.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/a/amplify/",
+      "archivePath": "pages/magic/spells/a/amplify",
+      "archiveSha256": "fd0c08c71cbba8024882a080e14c7c39dae3d5bb55d167b6ba4db7004ab0ab82",
+      "retrievedAt": "2026-10-29T16:41:27+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "amplify",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:armys-paeon",
+      "name": "Army’s Paeon",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "allies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": true,
+      "mechanicsSummary": "Affected nearby allies gain fast healing 2 each round while the song is maintained, within its range and duration.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/a/armys-paeon/",
+      "archivePath": "pages/magic/spells/a/armys-paeon",
+      "archiveSha256": "d22c3c68c0eb49b934c1e7b5040aa8be72f2e54ebd1d1426e2c35f8a005dd87d",
+      "retrievedAt": "2026-10-29T16:41:41+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "armys-paeon",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:clarion-call",
+      "name": "Clarion Call",
+      "level": 1,
+      "mpCost": 1,
+      "school": "illusion",
+      "castingTime": "1 standard action",
+      "range": "touch",
+      "targeting": {
+        "target": "one creature"
+      },
+      "duration": "1 minute/level",
+      "savingThrow": "Fortitude negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": false,
+      "mechanicsSummary": "The touched creature can mime a horn or trumpet blast and speak with a booming voice. Decrease the DC to hear its speech by 15.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/c/clarion-call/",
+      "archivePath": "pages/magic/spells/c/clarion-call",
+      "archiveSha256": "104a6f4923af512ac09679b4021ba9036cc66423d61258de12917668ad359dc4",
+      "retrievedAt": "2026-10-29T16:43:05+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "clarion-call",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:distort-speech",
+      "name": "Distort Speech",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enfeebling",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "one creature"
+      },
+      "duration": "1 round/level",
+      "savingThrow": "Will negates",
+      "spellResistance": "yes",
+      "maintained": false,
+      "mechanicsSummary": "Warp the target’s voice into incomprehensible sounds. It suffers 50% spell failure when casting spells with a vocal component.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/d/distort-speech/",
+      "archivePath": "pages/magic/spells/d/distort-speech",
+      "archiveSha256": "e20414227908d294eae4cef9b46ed0339e1fc001033a9028bd6a437cbb5b2c2c",
+      "retrievedAt": "2026-10-29T16:43:38+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "distort-speech",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:elemental-carol",
+      "name": "Elemental Carol",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing/elemental (any)",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "allies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes",
+      "maintained": true,
+      "mechanicsSummary": "Choose dark, earth, fire, ice, light, lightning, water or wind. While maintained, allies in range gain +2 morale to saves against the chosen element’s spells and effects, and resistance 5 to that element.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/e/elemental-carol/",
+      "archivePath": "pages/magic/spells/e/elemental-carol",
+      "archiveSha256": "dbf68701b3a9b53d3c502dd8525825eb6e1eb6d320d563d7ef7bb97569f0fcd9",
+      "retrievedAt": "2026-10-29T16:44:11+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "elemental-carol",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:elemental-threnody",
+      "name": "Elemental Threnody",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enfeebling/elemental (any)",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "enemies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Fortitude negates",
+      "spellResistance": "yes",
+      "maintained": true,
+      "mechanicsSummary": "Choose dark, earth, fire, ice, light, lightning, water or wind. While maintained, enemies in range take a −2 penalty on saves against the chosen element’s spells and effects, and their resistance to that element is reduced by 5.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/e/elemental-threnody/",
+      "archivePath": "pages/magic/spells/e/elemental-threnody",
+      "archiveSha256": "32e4fc072fd424075995a2bc5244a98cc62ad0a65236704fe9b055148abf6cdf",
+      "retrievedAt": "2026-10-29T16:44:25+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "elemental-threnody",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:fear-filled-tune",
+      "name": "Fear Filled Tune",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enfeebling [ emotion , fear , mind-affecting ]",
+      "castingTime": "1 standard action",
+      "range": "close (25 ft. + 5 ft./2 levels)",
+      "targeting": {
+        "target": "one living creature with 5 or fewer HD"
+      },
+      "duration": "1d4 rounds or 1 round; see text",
+      "savingThrow": "Will partial",
+      "spellResistance": "yes",
+      "maintained": false,
+      "mechanicsSummary": "A living target with at most 5 HD becomes frightened for 1d4 rounds. A successful Will save instead leaves it shaken for 1 round. Frightened creatures flee if possible, use abilities needed to escape, and take −2 on attacks, saves, skills and ability checks; they may fight if unable to flee.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/f/fear-filled-tune/",
+      "archivePath": "pages/magic/spells/f/fear-filled-tune",
+      "archiveSha256": "67b0d67b1dad4bfa6926a7e3c32448c008473cbe1ef1e54b68563f932aa6e665",
+      "retrievedAt": "2026-10-29T16:44:48+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "fear-filled-tune",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:feather-bar",
+      "name": "Feather Bar",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "close (25 ft. + 5 ft./2 levels)",
+      "targeting": {
+        "target": "1 object of up to 1 cubic ft./level"
+      },
+      "duration": "1 minute/level",
+      "savingThrow": "Will negates (object)",
+      "spellResistance": "yes (object)",
+      "maintained": false,
+      "mechanicsSummary": "Halve the object’s weight. If the object is armor, reduce its armor check penalty by 1 without changing its light, medium or heavy category.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/f/feather-bar/",
+      "archivePath": "pages/magic/spells/f/feather-bar",
+      "archiveSha256": "f153e9a05a2ea789934d687ceae4fd470369e75e00746d03d6155a78847a1560",
+      "retrievedAt": "2026-10-29T16:44:58+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "feather-bar",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:focusing-chant",
+      "name": "Focusing Chant",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "personal",
+      "targeting": {
+        "target": "you"
+      },
+      "duration": "1 round/level",
+      "savingThrow": "none",
+      "spellResistance": "none",
+      "maintained": false,
+      "mechanicsSummary": "Gain +1 circumstance on attack rolls, skill checks and ability checks for the song’s duration.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/f/focusing-chant/",
+      "archivePath": "pages/magic/spells/f/focusing-chant",
+      "archiveSha256": "5c694746e7015809eb98ea64d8170d2ac26f5d6133fade7392c017629eda1116",
+      "retrievedAt": "2026-10-29T16:45:07+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "focusing-chant",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:foe-requiem",
+      "name": "Foe Requiem",
+      "level": 1,
+      "mpCost": 1,
+      "school": "non-elemental",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "one creature/round"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "maintained": true,
+      "mechanicsSummary": "Each round, one targeted creature takes non-elemental damage equal to the bard’s Charisma modifier. Only one Foe Requiem/Discord song may be in effect.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/f/foe-requiem/",
+      "archivePath": "pages/magic/spells/f/foe-requiem",
+      "archiveSha256": "5a7d0c4fb62976e595e0976919735b25874e5176240ef4741240315a921b30c0",
+      "retrievedAt": "2026-10-29T16:45:35+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "foe-requiem",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:fortuitous-beat",
+      "name": "Fortuitous Beat",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "allies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": true,
+      "mechanicsSummary": "Nearby allies gain +2 morale on Fortitude saves while the song is maintained.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/f/fortuitous-beat/",
+      "archivePath": "pages/magic/spells/f/fortuitous-beat",
+      "archiveSha256": "e38fb59315fa9ab9a31b4f7171f502d648820dc8bb6543b7e82b08b0ab79c392",
+      "retrievedAt": "2026-10-29T16:45:54+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "fortuitous-beat",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:hideous-laughter",
+      "name": "Hideous Laughter",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enfeebling ( compulsion ) [ mind-affecting ]",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "one creature"
+      },
+      "duration": "1 round/level",
+      "savingThrow": "Will negates",
+      "spellResistance": "yes",
+      "maintained": false,
+      "mechanicsSummary": "The target falls prone laughing and cannot act, but is not helpless. On its next turn it may spend a non-provoking full-round action for one additional save; success ends the effect, failure leaves it laughing for the remaining duration. Intelligence 2 or less is immune. A different creature type from the bard gains +4 on the save.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/h/hideous-laughter/",
+      "archivePath": "pages/magic/spells/h/hideous-laughter",
+      "archiveSha256": "9ed517f21beffa95c331dae2fe4f775b28e9058e4b97c8f3dbd0c23b71d4dd90",
+      "retrievedAt": "2026-10-29T16:47:55+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "hideous-laughter",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:insidious-rhythm",
+      "name": "Insidious Rhythm",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enfeebling",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "one creature"
+      },
+      "duration": "1 round/level",
+      "savingThrow": "Will negates",
+      "spellResistance": "yes",
+      "maintained": false,
+      "mechanicsSummary": "The target takes −4 on Intelligence-based skills and Concentration checks. Each attempt to cast, concentrate on or direct a spell requires a Concentration check against this song’s save DC plus that spell’s level, or the attempt fails.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/i/insidious-rhythm/",
+      "archivePath": "pages/magic/spells/i/insidious-rhythm",
+      "archiveSha256": "010e1e731bd4efdf3a66c0c3d6ed945957bf31aa9e3f53111471a80ccc4e7fe6",
+      "retrievedAt": "2026-10-29T16:48:18+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "insidious-rhythm",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:inspirational-boost",
+      "name": "Inspirational Boost",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 swift action",
+      "range": "see text",
+      "targeting": {
+        "target": "allies affected by your Inspire Courage bardic performance"
+      },
+      "duration": "1 round/level",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": false,
+      "mechanicsSummary": "Increase the bonuses of Inspire Courage by 1. End when the song or Inspire Courage ends, whichever happens first. If Inspire Courage is not begun before the start of the next turn, this song ends.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/i/inspirational-boost/",
+      "archivePath": "pages/magic/spells/i/inspirational-boost",
+      "archiveSha256": "d13bc33ce2bd06dc643f831346a6fff9b0a89a37e0c37d0be415534e33bb48c6",
+      "retrievedAt": "2026-10-29T16:48:22+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "inspirational-boost",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:joyful-noise",
+      "name": "Joyful Noise",
+      "level": 1,
+      "mpCost": 1,
+      "school": "elemental (earth)",
+      "castingTime": "1 standard action",
+      "range": "15 ft.",
+      "targeting": {
+        "area": "15-ft.-radius emanation centered on you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "maintained": true,
+      "mechanicsSummary": "Magical silencing effects within the emanation are suppressed, letting allies ignore Silenced while inside. Those effects keep counting down and resume outside the area; they are not dispelled.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/j/joyful-noise/",
+      "archivePath": "pages/magic/spells/j/joyful-noise",
+      "archiveSha256": "0f2373f9f11c4dd9bc69dee10ab409c20604bb62b414e96bb59d5023a930afd8",
+      "retrievedAt": "2026-10-29T16:48:32+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "joyful-noise",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:knights-minne",
+      "name": "Knight’s Minne",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "allies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": true,
+      "mechanicsSummary": "Nearby allies gain +2 deflection to AC while the song is maintained.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/k/knights-minne/",
+      "archivePath": "pages/magic/spells/k/knights-minne",
+      "archiveSha256": "aa4b75428c8b890ee4ea9b3c98e58f1860e92736a500ce02d47405be814256b9",
+      "retrievedAt": "2026-10-29T16:48:46+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "knights-minne",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:lions-song",
+      "name": "Lion’s Song",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "close (25 ft. + 5 ft./2 levels)",
+      "targeting": {
+        "targets": "one creature plus one additional creature per four levels, no two of which can be more than 30 ft. apart"
+      },
+      "duration": "10 minutes; see text",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": false,
+      "mechanicsSummary": "Grant targets +4 morale against fear for 10 minutes and suppress any fear effect already affecting them for that duration. Suppression does not remove the original fear effect.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/l/lions-song/",
+      "archivePath": "pages/magic/spells/l/lions-song",
+      "archiveSha256": "d80c6720ceed04086541aabae984714ddeb26356c4ed10bc583b736e078d59c1",
+      "retrievedAt": "2026-10-29T16:49:09+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "lions-song",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:performers-wine",
+      "name": "Performer's Wine",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "10 ft.",
+      "targeting": {
+        "target": "1 cu. ft./2 levels of liquid (see text)"
+      },
+      "duration": "5 minutes/level",
+      "savingThrow": "Will negates (object)",
+      "spellResistance": "yes (object)",
+      "maintained": false,
+      "mechanicsSummary": "Turn nonmagical liquids, even contaminated ones, into average mead or wine. Spoils unholy water and similar significant liquids, but does not affect creatures, magic potions or alchemical items, nor prevent later spoilage. Drinkers gain +2 enhancement on Intelligence- and Wisdom-based skill checks; this becomes +5 at caster level 9 and +10 at 15.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/p/performers-wine/",
+      "archivePath": "pages/magic/spells/p/performers-wine",
+      "archiveSha256": "86fbf8d1205dd08fe2042dfa43ceba89f46e060885fe17e1dab6c3778b57ee0e",
+      "retrievedAt": "2026-10-29T16:49:42+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "performers-wine",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:play-instrument",
+      "name": "Play Instrument",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "personal",
+      "targeting": {
+        "target": "you"
+      },
+      "duration": "1 minute/level",
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "maintained": false,
+      "mechanicsSummary": "Play one chosen instrument, including an improvised object, as if you had 1 rank in its associated Perform skill. This is temporary and does not grant a permanent skill rank.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/p/play-instrument/",
+      "archivePath": "pages/magic/spells/p/play-instrument",
+      "archiveSha256": "a9a73d8c13a341f1a88ce600f8b485ea326ab8878f084e49f0c71abd932bb7ab",
+      "retrievedAt": "2026-10-29T16:50:00+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "play-instrument",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:quick-etude",
+      "name": "Quick Etude",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "allies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": true,
+      "mechanicsSummary": "Nearby allies gain +2 dodge to AC against ranged attacks while the song is maintained.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/q/quick-etude/",
+      "archivePath": "pages/magic/spells/q/quick-etude",
+      "archiveSha256": "51c0db45e5d784f15394d254bfe6754c4d3ce546535c0f3e0fe758b0cf823407",
+      "retrievedAt": "2026-10-29T16:50:19+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "quick-etude",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:reflexive-strum",
+      "name": "Reflexive Strum",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "allies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": true,
+      "mechanicsSummary": "Nearby allies gain +2 morale on Reflex saves while the song is maintained.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/r/reflexive-strum/",
+      "archivePath": "pages/magic/spells/r/reflexive-strum",
+      "archiveSha256": "9654e8684e96c8d7eddf40562be244ac09970d2f616d0b5fc329d76904c5051c",
+      "retrievedAt": "2026-10-29T16:50:38+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "reflexive-strum",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:resonance-armor",
+      "name": "Resonance Armor",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "personal",
+      "targeting": {
+        "target": "you"
+      },
+      "duration": "1 hour/level (D)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "no",
+      "maintained": false,
+      "mechanicsSummary": "Gain +4 armor to AC without armor check penalty, spell failure or speed reduction. Sound-based attacks, including qualifying bells and Musical Power, do not bypass this AC bonus. Also gain +2 circumstance on saves against sonic effects.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/r/resonance-armor/",
+      "archivePath": "pages/magic/spells/r/resonance-armor",
+      "archiveSha256": "973af57973fc9b3028eb55f3e33f3d2816eff29d9522095aa6e7d21d539ead71",
+      "retrievedAt": "2026-10-29T16:50:42+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "resonance-armor",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:saving-finale",
+      "name": "Saving Finale",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 immediate action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "one creature"
+      },
+      "duration": "instantaneous",
+      "savingThrow": "with a bonus equal to the level of the song you ended – 1 (ex: ending a 2nd level song gives a saving throw bonus of +1).",
+      "spellResistance": "yes (harmless)",
+      "maintained": false,
+      "mechanicsSummary": "When a creature fails a save, immediately end one maintained song of level 1 or higher to let it reroll. Its reroll bonus equals the ended song’s level minus 1; ending a level-1 song gives +0. A jingle does not qualify.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/s/saving-finale/",
+      "archivePath": "pages/magic/spells/s/saving-finale",
+      "archiveSha256": "45ab9fea9b385fc8d9017a0c56742c1e5633a70a65d4ddddf4180c8abfd39bcd",
+      "retrievedAt": "2026-10-29T16:51:10+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "saving-finale",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:sheepfoe-mambo",
+      "name": "Sheepfoe Mambo",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "allies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": true,
+      "mechanicsSummary": "Nearby allies gain +1 morale on saving throws while the song is maintained.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/s/sheepfoe-mambo/",
+      "archivePath": "pages/magic/spells/s/sheepfoe-mambo",
+      "archiveSha256": "b465812ec284aea96d4526dae5d74c8f432d0710ff423571c4ac7d23a00336fc",
+      "retrievedAt": "2026-10-29T16:51:47+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "sheepfoe-mambo",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:solid-note",
+      "name": "Solid Note",
+      "level": 1,
+      "mpCost": 1,
+      "school": "summoning",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "effect": "one solidified musical note"
+      },
+      "duration": "1 minute/level",
+      "savingThrow": "none",
+      "spellResistance": "no",
+      "maintained": false,
+      "mechanicsSummary": "Create a hand-sized immovable musical note usable as a hook, pulley or obstruction. Strength is 10 + caster level; weight over its heavy load or a successful opposed Strength check makes it disappear. It deals no harm and vanishes on a successful attack (AC 10 + Charisma modifier) or combat maneuver (CMD 2 + BAB + Charisma modifier). Failing to move the note wastes that action.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/s/solid-note/",
+      "archivePath": "pages/magic/spells/s/solid-note",
+      "archiveSha256": "4a2d308a3378d5200f157e61a9672f804d0301d5fc99627b60448992af653e4a",
+      "retrievedAt": "2026-10-29T16:52:11+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "solid-note",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:suit-of-the-dancer",
+      "name": "Suit of the Dancer",
+      "level": 1,
+      "mpCost": 1,
+      "school": "summoning",
+      "castingTime": "1 round",
+      "range": "personal",
+      "targeting": {
+        "target": "you"
+      },
+      "duration": "instantaneous",
+      "savingThrow": "none",
+      "spellResistance": "yes (harmless, object)",
+      "maintained": false,
+      "mechanicsSummary": "Exchange worn clothing with one outfit in the bard’s Attire Space, or retrieve an outfit folded beside the bard. Storing each outfit costs a separate performance of the song. Capacity is 10 pounds per caster level. Armor and wondrous items are excluded unless counted as clothing. Stored or exchanged clothes are magically cleaned.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/s/suit-of-the-dancer/",
+      "archivePath": "pages/magic/spells/s/suit-of-the-dancer",
+      "archiveSha256": "cdde5fd3f0fef86ed2070bec16bef959ca5fe55858bbdc89cf434e1ba7c47015",
+      "retrievedAt": "2026-10-29T16:52:57+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "suit-of-the-dancer",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:toilsome-chant",
+      "name": "Toilsome Chant",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "one creature"
+      },
+      "duration": "instantaneous",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": false,
+      "mechanicsSummary": "Perform as part of starting Inspire Competence. Its benefit lasts through the target’s next check with the chosen skill, however long that task takes, even after the bardic performance ends. This does not grant Inspire Competence to a bard who lacks it.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/t/toilsome-chant/",
+      "archivePath": "pages/magic/spells/t/toilsome-chant",
+      "archiveSha256": "20b9f5769e6c0d2145b99f97cf0058dc7467aef0166431e565149d725b6cb344",
+      "retrievedAt": "2026-10-29T16:53:25+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "toilsome-chant",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    },
+    {
+      "songId": "ffd20:song:bard:willful-clash",
+      "name": "Willful Clash",
+      "level": 1,
+      "mpCost": 1,
+      "school": "enhancing",
+      "castingTime": "1 standard action",
+      "range": "30 ft.",
+      "targeting": {
+        "target": "allies within 30 ft. of you"
+      },
+      "duration": "up to 1 + Charisma modifier rounds (maintained)",
+      "savingThrow": "Will negates (harmless)",
+      "spellResistance": "yes (harmless)",
+      "maintained": true,
+      "mechanicsSummary": "Nearby allies gain +2 morale on Will saves while the song is maintained.",
+      "automation": "manual",
+      "reviewState": "needs_review",
+      "sourceURL": "https://finalfantasyd20.com/magic/spells/w/willful-clash/",
+      "archivePath": "pages/magic/spells/w/willful-clash",
+      "archiveSha256": "fc657ea51f93063848eaf31a40016de2f9d7a212f5bec56ed94c70221a644b41",
+      "retrievedAt": "2026-10-29T16:54:35+00:00",
+      "sourceRefs": [
+        {
+          "sourceId": "willful-clash",
+          "section": "CASTING; EFFECT; DESCRIPTION",
+          "locator": "complete individual page"
+        },
+        {
+          "sourceId": "mp-system",
+          "section": "MP System",
+          "locator": "Spell/Song level x 1 MP"
+        }
+      ]
+    }
+  ]
+}

@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 5 | 4 | 68 | 4 | 0 | 0 |
+| class | 73/73 | 5 | 5 | 68 | 4 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 60 | 3 | 0 | 0 |
 | archetype | 579/579 | 1 | 1 | 578 | 1 | 0 | 498 |
 
-Checkpoint revision: **2**. Active: **ffd20:class:bard**. Next: **ffd20:class:bard**.
+Checkpoint revision: **3**. Active: **ffd20:class:bard**. Next: **ffd20:class:bard**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -25,7 +25,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 1 | [Chocobo Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/) | existing live adapter · levels 1 | live_partial · partial-live-support | Level-1 creation, local save/reopen and public deployment verified.; Review later progression and required choices after the initial import pass. |
 | 2 | [Dancer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/) | existing live adapter · levels 1 | live_partial · partial-live-support | Level-1 creation, local save/reopen and public deployment verified.; Review later progression and required choices after the initial import pass. |
 | 3 | [Archer](https://finalfantasyd20.com/classes/core-classes/archer/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
-| 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | not enabled | in_progress · runtime-adapter | Existing staged class, talents and songs; live Bard adapter absent.; Review song/choice blockers; implement and validate a bounded adapter before enabling it. |
+| 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | existing live adapter · levels 1 | in_progress · validation | First-level adapter and all 30 first-level song pages implemented; 300 local tests and two mobile save/reopen cases passed.; Verify GitHub CI and deployment, then record a partial-live milestone and advance to Elvaan. |
 | 5 | [Beastmaster](https://finalfantasyd20.com/classes/core-classes/beastmaster/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
