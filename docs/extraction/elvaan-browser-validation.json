@@ -1,0 +1,26 @@
+[
+  {
+    "class": "dancer",
+    "race": "Elvaan",
+    "created": true,
+    "reopened": true,
+    "hp": 8,
+    "mp": 0,
+    "skillRanks": 5,
+    "weaponFocus": "Longsword",
+    "languages": "Common, Elvaan, Celestial",
+    "pageErrors": []
+  },
+  {
+    "class": "bard",
+    "race": "Elvaan",
+    "created": true,
+    "reopened": true,
+    "hp": 8,
+    "mp": 3,
+    "skillRanks": 7,
+    "weaponFocus": "Longsword",
+    "languages": "Common, Elvaan, Celestial",
+    "pageErrors": []
+  }
+]

@@ -3,7 +3,9 @@ import {fixedSkills} from '../../sheet/skills.mjs';
 const IMMORTAL='ffd20:race:immortal:pool:';
 const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
 const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
-const supported=new Set([HANDY,MOOGLE_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
+const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
+const supported=new Set([HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 
@@ -40,6 +42,7 @@ export function racialChoiceSpecs(race,traits){
  return race.choicePools.filter(p=>active.has(p.id)&&supported.has(p.id)).map(pool=>{
   if(pool.id===HANDY)return {...pool,minimum:1,maximum:1,specialty:true,options:fixedSkills.flatMap((row,i)=>['Craft','Profession'].includes(row.name)?[{id:'skill-row:'+i,name:row.name+' '+(fixedSkills.slice(0,i).filter(r=>r.name===row.name).length+1),value:i}]:[])};
   if(pool.id===IMMORTAL+'long-lived-knowledge')return {...pool,minimum:0,maximum:4,options:fixedSkills.filter(row=>row.name.startsWith('Knw: ')).map(row=>({id:skillId(row),name:row.name,value:skillId(row)}))};
+  if(pool.id===ELVAAN_WEAPON)return {...pool,minimum:1,maximum:1,options:pool.options.filter(o=>traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&e.target==='proficiencies.weapon.'+o.value)))};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
 }
@@ -71,12 +74,26 @@ export function racialChoiceIssues(b,race,traits,scores){
   if(new Set(values).size!==values.length||values.some(v=>!spec.options.some(o=>o.id===v)))errors.push('Invalid or duplicate '+spec.name+' selection.');
  }
  for(const spec of specs){
+  if(spec.id===ELVAAN_WEAPON&&!spec.options.length)errors.push('Martial Background requires a verified proficient weapon. Keep Elvaan Weapon Familiarity active for this limited integration.');
   const values=b.racialChoices?.[spec.id]||[],maximum=spec.maximum??Math.max(0,Math.floor((scores.int-10)/2));
   if(values.length<spec.minimum||values.length>maximum)errors.push(spec.name+': choose '+(spec.minimum===maximum?maximum:'up to '+maximum)+' option(s).');
   if(spec.specialty&&!(b.racialSpecialties?.[spec.id]||'').trim())errors.push('Name the Craft or Profession specialty for Moogle Handy.');
  }
  for(const [id,value] of Object.entries(b.racialSpecialties||{}))if(!byId.get(id)?.specialty||typeof value!=='string'||value.length>80||/[\u0000-\u001f]/.test(value))errors.push('Invalid racial skill specialty.');
  return errors;
+}
+
+// A chosen bonus feat is a visible manual card, never a blanket attack bonus.
+export function racialChoiceFeats(b,race,traits,previous={}){
+ const spec=racialChoiceSpecs(race,traits).find(s=>s.id===ELVAAN_WEAPON);
+ const option=spec?.options.find(o=>o.id===b.racialChoices?.[ELVAAN_WEAPON]?.[0]);
+ if(!option)return [];
+ const id='ffd20:race:elvaan:feature:martial-background:weapon-focus',name='Weapon Focus ('+option.name+')';
+ const desc='Granted by Elvaan Martial Background at level 1 for the selected proficient weapon: '+option.name+'. Apply its benefits manually to qualifying attacks with this weapon. See the official feat rules.';
+ const old=previous.feats?.find(f=>f.sourceRuleId===id);
+ return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:name,
+  desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:name,rulesDescription:desc,
+  sourceRuleId:id,sourceRace:'Elvaan',rulesOwned:true,pendingFeat:false,automation:'manual'}];
 }
 
 export function pruneRacialChoices(b,race,traits){

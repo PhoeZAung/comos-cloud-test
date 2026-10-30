@@ -1,6 +1,6 @@
 import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classes.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
-import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits} from './racial-choices.mjs';
+import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
@@ -68,6 +68,7 @@ export function buildIssues(b,{complete=true}={}){
  if(['array','rolled'].includes(b.abilityMethod)){const pool=b.abilityMethod==='array'?standardArray:b.scorePool;if(pool.length!==6||new Set(b.scoreAssignments).size!==6||b.scoreAssignments.some(i=>!Number.isInteger(i)||i<0||i>5)||stats.some((key,i)=>b.baseScores[key]!==pool[b.scoreAssignments[i]]))add(1,'Assign each generated score exactly once.');}
  if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>buildLevel(b)))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
  const race=raceFor(b);if(!race)add(2,'Choose a race.');
+ if(race?.id==='ffd20:race:elvaan'&&(b.heritageId||b.alternateIds.length))add(2,'Elvaan currently supports standard heritage and standard traits only. Variant heritage and alternate mechanics require a separate verified batch.');
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
  if(race){
   const mustChoose=f=>Boolean(f?.choicePoolIds?.some(id=>!supportsRacialPool(id)));
@@ -245,6 +246,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  for(const f of p.features){const target=f.featureKind==='limit_break'||f.activation==='active'||f.activation==='mixed'?'activeAbilities':'passiveAbilities';grant(f,target);}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let level=1;level<=buildLevel(b);level+=2){const id='comos:feat-slot:'+level,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+level,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
+ rows.feats.push(...racialChoiceFeats(b,p.race,p.racial.traits,previous));
  const dcBonus=choiceEvents(b).flatMap(event=>b.choices[event.id]||[]).filter(id=>id==='ffd20:class:black-mage:option:black-magery:spell-mastery').length;
  for(const id of b.spellIds){const spell=spells.find(s=>s.id===id),old=previous.spells?.find(s=>s.sourceRuleId===id);rows.spells.push({...old,sourceRuleId:id,rulesOwned:true,sourceClass:'Black Mage',name:spell.name,desc:spell.description,lvl:spell.level,mp_cost:spell.level,casting_ability:'int',school:spell.school,range:spell.range,duration:spell.duration,saving_throw:spell.save,target:spell.target,rulesDcBonus:spell.level>0?dcBonus:0,dc_misc:Number(old?.dc_misc||0)-Number(old?.rulesDcBonus||0)+(spell.level>0?dcBonus:0)});}
  for(const key of Object.keys(rows)){const owned=new Set(previousManaged?.ownedIds||[]);next[key]=[...(previous[key]||[]).filter(r=>!r.rulesOwned||!owned.has(r.sourceRuleId)&&!rows[key].some(n=>n.sourceRuleId===r.sourceRuleId)),...rows[key]];}

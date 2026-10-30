@@ -1,0 +1,27 @@
+[
+  {
+    "path": "assets/rules-wizard.mjs",
+    "matches": true,
+    "sha256": "d0aded2e730791079538adc7faf5f84fd9d56645db2be6a5518c2342e95af0fd"
+  },
+  {
+    "path": "features/characters/rules/build.mjs",
+    "matches": true,
+    "sha256": "1fc1f2f6fdca06b8357f67878a798507e738e48d1eba11600e84cfb2f3e32c0f"
+  },
+  {
+    "path": "features/characters/rules/bard-level-one.mjs",
+    "matches": true,
+    "sha256": "6519b1c4ffc5f558d13ddaa4a18efdfacc827ca93844f689f496aedd836c51e1"
+  },
+  {
+    "path": "features/characters/rules/bard-songs.mjs",
+    "matches": true,
+    "sha256": "a5e90ceffb63c9762394a3bfbccb731ef197af15bdecf77a73b8f793cf355d9f"
+  },
+  {
+    "path": "features/characters/managed-stats.mjs",
+    "matches": true,
+    "sha256": "e7fa3561d98ad4d4201b6b412e13a615bd7492557209c99df55806cdd76b53fd"
+  }
+]

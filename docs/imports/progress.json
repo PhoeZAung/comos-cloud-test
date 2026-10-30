@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 4,
+  "revision": 7,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 0,
+  "schedulePosition": 1,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -106,12 +106,12 @@
       ]
     },
     "ffd20:class:bard": {
-      "state": "in_progress",
-      "stage": "validation",
-      "cursor": "First-level Bard deployed; follow-up freezes starting CHA song entitlement and removes the generic Limit Break heading from runtime cards.",
-      "nextAction": "Verify follow-up CI and deployed asset hashes; record partial-live milestone, then continue Elvaan.",
-      "scope": "New level-1 Bard creation/editing only. Later progression, talents, archetypes, purchased songs and maintained-effect automation remain unsupported.",
-      "note": "First implementation passed CI and deployment. Follow-up tests cover entitlement changes, older-save migration and the two actionable Limit Break cards.",
+      "state": "live_partial",
+      "stage": "deployed",
+      "cursor": "Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.",
+      "nextAction": "After baseline imports, review level-2 talents and Versatile Performance, later progression, orchestration rolls and remaining 135 song pages.",
+      "scope": "New single-class level-1 Bard creation/editing. Starting song entitlement frozen at creation. Combat, maintained songs and performance effects are manual; higher levels and archetypes disabled.",
+      "note": "Source review remains needs_review. Public deployment verified without claiming real-user provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -120,20 +120,29 @@
         "docs/extraction/bard-level-one-import.md",
         "docs/extraction/bard-level-one-browser-validation.json",
         "https://github.com/PhoeZAung/comos-cloud-test/pull/5",
-        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41021739898"
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41021739898",
+        "docs/extraction/bard-level-one-deployment-validation.json",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/6",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41022762945",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41022907293"
       ],
-      "updatedAt": "2026-10-30T07:48:50.433Z"
+      "updatedAt": "2026-10-30T07:57:21.057Z"
     },
     "ffd20:race:elvaan": {
-      "state": "queued",
-      "stage": "source-review",
-      "cursor": "Standard Racial Traits",
-      "nextAction": "Resume the prior Elvaan checkpoint and compare archived source with the existing definition.",
-      "scope": "Standard traits and mandatory choices first.",
-      "note": "Preserves the prior continuation.",
+      "state": "in_progress",
+      "stage": "validation",
+      "cursor": "Standard traits compared with source; required Weapon Focus weapon and optional languages implemented; 305 tests and two mobile save/reopen cases passed.",
+      "nextAction": "Verify CI and deployed asset hashes, record partial-live standard-trait milestone, then continue Galka.",
+      "scope": "Standard heritage and standard traits; verified six-weapon Weapon Focus chooser and Intelligence-bounded bonus languages. Conditional effects/manual feat benefits, variants, alternates and favored rewards remain outside automatic support.",
+      "note": "Source hash recorded; full race review remains needs_review. No real-user production login claimed.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
-        "docs/extraction/CONTINUATION.json"
-      ]
+        "docs/extraction/CONTINUATION.json",
+        "docs/extraction/elvaan-standard-creation.md",
+        "docs/extraction/elvaan-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T08:06:44.048Z"
     }
   },
   "history": [
@@ -163,6 +172,33 @@
       "stage": "validation",
       "cursor": "First-level Bard deployed; follow-up freezes starting CHA song entitlement and removes the generic Limit Break heading from runtime cards.",
       "time": "2026-10-30T07:48:50.433Z"
+    },
+    {
+      "revision": 5,
+      "itemId": "ffd20:class:bard",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployed",
+      "cursor": "Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.",
+      "time": "2026-10-30T07:57:21.057Z"
+    },
+    {
+      "revision": 6,
+      "itemId": "ffd20:race:elvaan",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Standard Racial Traits",
+      "time": "2026-10-30T07:57:24.617Z"
+    },
+    {
+      "revision": 7,
+      "itemId": "ffd20:race:elvaan",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "validation",
+      "cursor": "Standard traits compared with source; required Weapon Focus weapon and optional languages implemented; 305 tests and two mobile save/reopen cases passed.",
+      "time": "2026-10-30T08:06:44.048Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

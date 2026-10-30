@@ -5,6 +5,7 @@ import {fixedSkills} from '../../sheet/skills.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
 import {bardClass,isBard,bardSpellRows} from './bard-level-one.mjs';
+import {racialChoiceFeats} from './racial-choices.mjs';
 
 export const ARCHER_ID='ffd20:class:archer';
 export const BLACK_MAGE_ID='ffd20:class:black-mage';
@@ -181,6 +182,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
    sourceRuleId:event.id,sourceClass:'Archer',rulesOwned:true,pendingFeat:false});
  }
  if(isBard(b))rows.spells=bardSpellRows(b,previous);
+ rows.feats.push(...racialChoiceFeats(b,p.race,p.racial.traits,previous));
  for(const key of Object.keys(rows)){
   const owned=new Set(oldManaged?.ownedIds||[]);
   next[key]=[...(previous[key]||[]).filter(row=>!row.rulesOwned||!owned.has(row.sourceRuleId)&&!rows[key].some(f=>f.sourceRuleId===row.sourceRuleId)),...rows[key]];

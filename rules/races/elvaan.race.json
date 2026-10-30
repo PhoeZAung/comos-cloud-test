@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/core-races/elvaan/",
       "title": "Elvaan - Final Fantasy d20",
-      "retrievedOn": "2026-10-26",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "5e4efa8292f54624cc2a44ff47e1bbf1b9e8e0f7395fefcf088946a33ea43611"
     }
   ],
   "dependencies": [],
@@ -23,7 +24,7 @@
     "issues": [
       {
         "path": "/choicePools",
-        "reason": "Bonus language pool is present as a discovery option; engine-dependent eligible selection count must be determined before auto-prompting.",
+        "reason": "Standard high-Intelligence bonus languages and one explicit Martial Background weapon choice are supported. The weapon list is limited to the six active Weapon Familiarity proficiencies. Other class-derived weapon options remain pending.",
         "blocking": true
       },
       {
@@ -39,6 +40,11 @@
       {
         "path": "/features",
         "reason": "Conditional combat bonuses, grant-versus-feat operations, special racial recovery and some alternate trait effects remain manual until reviewed by a rules engine.",
+        "blocking": true
+      },
+      {
+        "path": "/data",
+        "reason": "The current runtime test scope covers standard heritage and standard racial traits. Alternate traits, variant heritage mechanics, favored-class rewards and independent full rules review are not enabled by this batch. Conditional combat and Weapon Focus effects remain manual.",
         "blocking": true
       }
     ],
@@ -452,7 +458,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:elvaan:pool:high-intelligence-bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -2341,11 +2349,120 @@
       "id": "ffd20:race:elvaan:pool:martial-background-weapon",
       "name": "Martial Background weapon",
       "choiceType": "feat",
-      "options": [],
+      "options": [
+        {
+          "id": "ffd20:race:elvaan:pool:martial-background-weapon:option:longbow",
+          "name": "Longbow",
+          "description": "Select Longbow for the bonus Weapon Focus feat. Proficiency is verified from active Elvaan Weapon Familiarity.",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "longbow",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits; Offense Racial Traits",
+              "locator": "Martial Background; Weapon Familiarity"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:pool:martial-background-weapon:option:composite-longbow",
+          "name": "Composite longbow",
+          "description": "Select Composite longbow for the bonus Weapon Focus feat. Proficiency is verified from active Elvaan Weapon Familiarity.",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "composite-longbow",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits; Offense Racial Traits",
+              "locator": "Martial Background; Weapon Familiarity"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:pool:martial-background-weapon:option:longsword",
+          "name": "Longsword",
+          "description": "Select Longsword for the bonus Weapon Focus feat. Proficiency is verified from active Elvaan Weapon Familiarity.",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "longsword",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits; Offense Racial Traits",
+              "locator": "Martial Background; Weapon Familiarity"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:pool:martial-background-weapon:option:rapier",
+          "name": "Rapier",
+          "description": "Select Rapier for the bonus Weapon Focus feat. Proficiency is verified from active Elvaan Weapon Familiarity.",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "rapier",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits; Offense Racial Traits",
+              "locator": "Martial Background; Weapon Familiarity"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:pool:martial-background-weapon:option:shortbow",
+          "name": "Shortbow",
+          "description": "Select Shortbow for the bonus Weapon Focus feat. Proficiency is verified from active Elvaan Weapon Familiarity.",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "shortbow",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits; Offense Racial Traits",
+              "locator": "Martial Background; Weapon Familiarity"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:elvaan:pool:martial-background-weapon:option:composite-shortbow",
+          "name": "Composite shortbow",
+          "description": "Select Composite shortbow for the bonus Weapon Focus feat. Proficiency is verified from active Elvaan Weapon Familiarity.",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "composite-shortbow",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Feat and Skill Racial Traits; Offense Racial Traits",
+              "locator": "Martial Background; Weapon Familiarity"
+            }
+          ]
+        }
+      ],
       "catalogRefs": [],
       "filter": null,
       "duplicatePolicy": "forbid",
-      "notes": "Bonus Weapon Focus feat must be applied to exactly one weapon the character is proficient with.",
+      "notes": "Exactly one Weapon Focus weapon. This bounded integration offers the six weapons directly verified by active Elvaan Weapon Familiarity; broader class-derived weapon catalogs remain pending.",
       "sourceRefs": [
         {
           "sourceId": "main",

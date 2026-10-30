@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 5 | 5 | 68 | 4 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 60 | 3 | 0 | 0 |
+| class | 73/73 | 5 | 5 | 68 | 5 | 0 | 0 |
+| race | 63/63 | 63 | 63 | 59 | 3 | 0 | 0 |
 | archetype | 579/579 | 1 | 1 | 578 | 1 | 0 | 498 |
 
-Checkpoint revision: **4**. Active: **ffd20:class:bard**. Next: **ffd20:class:bard**.
+Checkpoint revision: **7**. Active: **ffd20:race:elvaan**. Next: **ffd20:race:elvaan**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -25,7 +25,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 1 | [Chocobo Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/) | existing live adapter · levels 1 | live_partial · partial-live-support | Level-1 creation, local save/reopen and public deployment verified.; Review later progression and required choices after the initial import pass. |
 | 2 | [Dancer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/) | existing live adapter · levels 1 | live_partial · partial-live-support | Level-1 creation, local save/reopen and public deployment verified.; Review later progression and required choices after the initial import pass. |
 | 3 | [Archer](https://finalfantasyd20.com/classes/core-classes/archer/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
-| 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | existing live adapter · levels 1 | in_progress · validation | First-level Bard deployed; follow-up freezes starting CHA song entitlement and removes the generic Limit Break heading from runtime cards.; Verify follow-up CI and deployed asset hashes; record partial-live milestone, then continue Elvaan. |
+| 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | existing live adapter · levels 1 | live_partial · deployed | Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.; After baseline imports, review level-2 talents and Versatile Performance, later progression, orchestration rolls and remaining 135 song pages. |
 | 5 | [Beastmaster](https://finalfantasyd20.com/classes/core-classes/beastmaster/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
@@ -101,7 +101,7 @@ The race count includes testing options whose mandatory choices can still preven
 | Order | Entry | Repository state | Work state | Resume point / next action |
 | ---: | --- | --- | --- | --- |
 | 1 | [Dwarf](https://finalfantasyd20.com/races/core-races/dwarf/) | testing option; saving can be guarded | live_partial · partial-live-support | Favored Class Options > White Mage (final entry).; Resolve remaining language/terrain choices and manual mappings. |
-| 2 | [Elvaan](https://finalfantasyd20.com/races/core-races/elvaan/) | testing option; saving can be guarded | queued · source-review | Standard Racial Traits; Resume the prior Elvaan checkpoint and compare archived source with the existing definition. |
+| 2 | [Elvaan](https://finalfantasyd20.com/races/core-races/elvaan/) | testing option; saving can be guarded | in_progress · validation | Standard traits compared with source; required Weapon Focus weapon and optional languages implemented; 305 tests and two mobile save/reopen cases passed.; Verify CI and deployed asset hashes, record partial-live standard-trait milestone, then continue Galka. |
 | 3 | [Galka](https://finalfantasyd20.com/races/core-races/galka/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 4 | [Half-Breed](https://finalfantasyd20.com/races/core-races/half-breed/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 5 | [Hume](https://finalfantasyd20.com/races/core-races/hume/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |

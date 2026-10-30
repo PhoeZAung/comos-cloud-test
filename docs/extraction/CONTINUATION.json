@@ -33,5 +33,12 @@
     "Class-page favored reward reconciliation",
     "Independent rules/full-text approval"
   ],
-  "classFilePolicy": "One JSON per class family, with its base class and archetype definitions together."
+  "classFilePolicy": "One JSON per class family, with its base class and archetype definitions together.",
+  "standardTraitMilestones": {
+    "Elvaan": {
+      "state": "implemented_pending_deployment",
+      "evidence": "docs/extraction/elvaan-standard-creation.md",
+      "remaining": "Alternate traits, variant heritage mechanics, favored rewards and independent full review."
+    }
+  }
 }
