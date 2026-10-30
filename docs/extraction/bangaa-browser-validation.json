@@ -1,0 +1,31 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Bangaa",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 5,
+      "languages": "Common, Banganese, Ignan",
+      "manualNaturalArmorPreserved": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Bangaa",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 7,
+      "languages": "Common, Banganese, Ignan",
+      "manualNaturalArmorPreserved": true,
+      "pageErrors": []
+    }
+  ]
+}
