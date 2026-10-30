@@ -1,4 +1,4 @@
-import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classes.mjs';
+import {isLevelOneClass,levelOnePreview,levelOneIssues,GUNBREAKER_ID,gunbreakerChoiceEvents,gunbreakerEligibleOptions} from './level-one-classes.mjs';
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
@@ -58,8 +58,8 @@ export function calculated(value,b,effective=effectiveScores(b)){
  let v=sum();if(at!==tokens.length||!Number.isFinite(v)||Math.abs(v)>1000000)bad('Invalid formula result.');
  v=value.rounding==='ceil'?Math.ceil(v):value.rounding==='none'?v:Math.floor(v);if(value.minimum!==null)v=Math.max(v,value.minimum);if(value.maximum!==null)v=Math.min(v,value.maximum);return v;
 }
-export function choiceEvents(b){if(isBeastmaster(b))return beastmasterChoiceEvents(b);if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
-export function eligibleOptions(b,event){if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
+export function choiceEvents(b){if(isBeastmaster(b))return beastmasterChoiceEvents(b);if(isLevelOneClass(b))return gunbreakerChoiceEvents(b);if(isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
+export function eligibleOptions(b,event){if(b.classId===GUNBREAKER_ID)return gunbreakerEligibleOptions(event);if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
 export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?classHitDie(b):classDefaultHp(b)));}
 export function spellCounts(b){if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
@@ -203,7 +203,7 @@ function classPreview(b){
  return {scores,summary,race,racial,features,hp:hp+carriedHp,skillBudget:Number(b.carry?.skillBudget||0)+carriedLevels(b)*(mod(scores.int)-mod(b.carry?.int??scores.int))+summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
 export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false}={}){
- if((isLevelOneClass(raw)||isBard(raw))&&raw.level!==1)bad('This class currently supports level-1 testing only.');
+ if((isLevelOneClass(raw)&&!(raw.classId===GUNBREAKER_ID&&raw.level===2)||isBard(raw))&&raw.level!==1)bad('This class does not support the requested level. Gunbreaker supports up to level 2.');
  if(isBard(raw)&&Array.isArray(raw.spellIds)&&new Set(raw.spellIds).size!==raw.spellIds.length)bad('Choose distinct Bard songs and jingles.');
  if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==(raw?.classId||BLACK_MAGE_ID))bad('A saved character cannot change classes.');
  if(isArcher(raw)||isLevelOneClass(raw)||isBard(raw)){
@@ -284,7 +284,21 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
 }
 export function levelUpBuild(raw,previous){
  if(isBard(raw)||isBard(previous.rulesBuild?.input))bad('Bard currently supports level-1 testing only; level-up is not enabled.');
- if(isLevelOneClass(raw)||isLevelOneClass(previous.rulesBuild?.input))bad('This class currently supports level-1 testing only; level-up is not enabled.');
+ if(raw.classId===GUNBREAKER_ID||previous.rulesBuild?.input?.classId===GUNBREAKER_ID){
+   const old=previous.rulesBuild?.input,same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+   if(!old||old.classId!==GUNBREAKER_ID||raw.classId!==GUNBREAKER_ID)bad('Level up must preserve the Gunbreaker class.');
+   if(old.level!==1||raw.level!==2||raw.carry)bad('Gunbreaker currently supports only the level 1 to level 2 progression.');
+   for(const k of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','classId','archetypeId','spellIds','initialIntMod','initialChaMod','abilityMethod','pointBudget','scorePool','scoreAssignments'])
+    if(!same(raw[k]??null,old[k]??null))bad('Level up cannot change '+k+'.');
+   for(const k of ['racialChoices','racialSpecialties'])if(!same(raw[k]??{},old[k]??{}))bad('Level up cannot change racial choices.');
+   if(!same(raw.abilityIncreases||{},old.abilityIncreases||{}))bad('No ability-score increase is gained at character level 2.');
+   if(!same(raw.hpRolls,[...hpHistory(old),classDefaultHp(raw)]))bad('Gunbreaker gains 6 base HP at level 2.');
+   if(!Array.isArray(raw.skillRanks)||raw.skillRanks.some((n,i)=>n<Number(previous.skills?.[i]?.lvl||0)))bad('Level up cannot remove existing skill ranks.');
+   for(const [id,values] of Object.entries(old.choices||{}))if(!same(raw.choices?.[id],values))bad('Level up cannot change earlier choices.');
+   if(!same(raw.favored,old.favored))bad('Favored rewards remain manual.');
+   const next=compileBuild(raw,previous),current=sheetStats(next);next.hp_curr=current.hpMax;next.mp=next.mp_curr=0;next.mp_temp=0;return next;
+  }
+  if(isLevelOneClass(raw)||isLevelOneClass(previous.rulesBuild?.input))bad('This class currently supports level-1 testing only; level-up is not enabled.');
  if(isArcher(raw)){
   const old=previous.rulesBuild?.input;if(!old||old.classId!==ARCHER_ID)bad('This is not an Archer build.');
   if(raw.level!==old.level+1||raw.level>20)bad('Archer level up adds exactly one level.');
@@ -320,7 +334,7 @@ export function levelUpBuild(raw,previous){
 
 export function classFeatureChanges(build,baseline){
  if(isBard(build))return previewBuild(build).features.filter(f=>!baseline||!previewBuild(baseline).features.some(old=>old.id===f.id)).map(feature=>({feature,kind:'new'}));
- if(isLevelOneClass(build))return previewBuild(build).features.map(feature=>({feature,kind:'new'}));
+ if(isLevelOneClass(build)){const oldIds=new Set(baseline?previewBuild(baseline).features.map(f=>f.id):[]);return previewBuild(build).features.filter(f=>!oldIds.has(f.id)).map(feature=>({feature,kind:'new'}));}
  if(isArcher(build))return archerFeatureChanges(build,baseline);
  const after=previewBuild(build).features,before=baseline?previewBuild(baseline).features:[],oldIds=new Set(before.map(f=>f.id));
  const signature=(f,b)=>JSON.stringify({selectionCount:Object.values(b.choices||{}).flat().filter(id=>registry.class.choicePools.some(pool=>pool.options.some(o=>o.id===id&&o.featureIds.includes(f.id)))).length,resources:registry.class.resources.filter(r=>r.id===f.id.replace(':feature:',':resource:')||f.actions?.some(a=>a.costs?.some(c=>c.resourceId===r.id))).map(r=>calculated(r.maximum,b)),effects:(f.effects||[]).map(e=>calculated(e.value,b)),notes:(f.scalingNotes||[]).filter(n=>n.fromClassLevel<=b.level)});
