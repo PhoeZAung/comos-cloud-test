@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
-import {equipmentSlots,equipmentSlotIds,equipmentSlotLabel,equippedInSlot,renderEquipment} from '../src/features/sheet/equipment.mjs';
+import {equipmentSlots,equipmentSlotIds,equipmentSlotLabel,equippedInSlot,renderEquipment,renderEquipChoices} from '../src/features/sheet/equipment.mjs';
 import {renderSection,renderSheetFrame} from '../src/features/sheet/view.mjs';
 import {openDatabase} from '../backend/db/database.mjs';
 import {createUserRepository} from '../backend/repositories/users.mjs';
@@ -37,6 +37,24 @@ test('Equipment uses three bordered groups and all seventeen slots without extra
  assert.doesNotMatch(escaped,/<img src=x|<script>/);
  assert.match(escaped,/&lt;img/);
  assert.match(escaped,/data-unequip-slot="head"/);
+});
+test('searchable equipment chooser shows item names only and preserves selected record indices',()=>{
+ const gear={items:[
+  {name:'Leather Boots',amount:1},
+  {name:'<img onerror=alert(1)>',amount:1},
+  {name:'Iron Helm',amount:1,equipped:true,equip_slot:'head'},
+  {name:'Broken Boots',amount:0}
+ ],weapons:[{name:'Iron Sword',amount:1}]};
+ const full=renderEquipChoices(gear,'','head');
+ assert.match(full,/data-equip-choice="items:2" aria-pressed="true"/);
+ assert.match(full,/data-equip-choice="weapons:0" aria-pressed="false"/);
+ assert.match(full,/&lt;img onerror=alert\(1\)&gt;/);
+ assert.doesNotMatch(full,/<img|Broken Boots|data-equip-slot-select|data-equip-item-select|Qty | · Weapon/);
+ const results=renderEquipChoices(gear,'iron','head');
+ assert.match(results,/Iron Helm|Iron Sword/);
+ assert.doesNotMatch(results,/Leather Boots/);
+ assert.equal((results.match(/data-equip-choice=/g)||[]).length,2);
+ assert.match(renderEquipChoices(gear,'never-matches','head'),/No items found/);
 });
 test('Unequipped gear stays in Inventory and can still be removed',()=>{
  const first=equip(inventory,'head',0);
@@ -99,13 +117,16 @@ test('Server refuses forged slots, empty inventory and malformed item selection'
  assert.match(html,/data-item-view="equip" aria-pressed="true"/);
  assert.match(html,/data-item-view="inventory" aria-pressed="false"/);
  assert.match(html,/data-equipment-dialog/);
- assert.match(html,/data-equip-item-select/);
- assert.match(html,/data-equip-preview/);
+ assert.match(html,/data-equip-search/);
+ assert.match(html,/data-equip-choices/);
+ assert.doesNotMatch(html,/data-equip-slot-select|data-equip-item-select|data-equip-preview|data-equipment-form|data-equipment-save|data-equip-hint/);
  assert.doesNotMatch(html,/Current sheet stats|Carried \/ Not Equipped/);
  const inventoryHTML=renderSection({id:randomUUID(),name:'Mage',data:inventory},'items',{itemView:'inventory'});
  assert.match(inventoryHTML,/data-add-entry="items"/);
- assert.match(inventoryHTML,/data-assign-item="0"/);
- assert.match(inventoryHTML,/Equipped \(unassigned\)/);
+ assert.doesNotMatch(inventoryHTML,/data-assign-item|data-assign-weapon|cs-item-equip-action|Choose equipment slot|Equipped \(unassigned\)|Change slot/);
+ assert.doesNotMatch(inventoryHTML,/ · Head| · Ring 1/);
+ assert.match(inventoryHTML,/data-edit-entry="items:0"/);
+ assert.match(inventoryHTML,/data-remove-entry="items:0"/);
  assert.doesNotMatch(inventoryHTML,/data-equipment=/);
  assert.doesNotMatch(renderSection({id:randomUUID(),name:'Mage',data:inventory},'items',{itemView:'equip'}),/data-sheet-list/);
  const combat=renderSection({id:'mage',name:'Mage',data:inventory},'combat',{combatView:'offense'});
