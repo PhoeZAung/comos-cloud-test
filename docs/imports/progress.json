@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 1,
+  "revision": 2,
   "schedule": [
     "class",
     "race",
@@ -106,16 +106,19 @@
       ]
     },
     "ffd20:class:bard": {
-      "state": "queued",
+      "state": "in_progress",
       "stage": "runtime-adapter",
       "cursor": "Existing staged class, talents and songs; live Bard adapter absent.",
       "nextAction": "Review song/choice blockers; implement and validate a bounded adapter before enabling it.",
       "scope": "Legal first-level creation first; progression in later milestones.",
       "note": "Keep staged until mandatory choices and resources are handled.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
         "rules/classes/README.md",
         "docs/extraction/bard-batch-02.md"
-      ]
+      ],
+      "updatedAt": "2026-10-30T07:25:39.209Z"
     },
     "ffd20:race:elvaan": {
       "state": "queued",
@@ -129,6 +132,16 @@
       ]
     }
   },
-  "history": [],
+  "history": [
+    {
+      "revision": 2,
+      "itemId": "ffd20:class:bard",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "runtime-adapter",
+      "cursor": "Existing staged class, talents and songs; live Bard adapter absent.",
+      "time": "2026-10-30T07:25:39.209Z"
+    }
+  ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
 }
