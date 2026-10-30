@@ -203,7 +203,8 @@ function classPreview(b){
  return {scores,summary,race,racial,features,hp:hp+carriedHp,skillBudget:Number(b.carry?.skillBudget||0)+carriedLevels(b)*(mod(scores.int)-mod(b.carry?.int??scores.int))+summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
 export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false}={}){
- if((isLevelOneClass(raw)&&!(raw.classId===GUNBREAKER_ID&&raw.level===2)||isBard(raw))&&raw.level!==1)bad('This class does not support the requested level. Gunbreaker supports up to level 2.');
+ if((isLevelOneClass(raw)&&raw.classId!==GUNBREAKER_ID||isBard(raw))&&raw.level!==1)bad('This class currently supports level-1 testing only.');
+ if(raw.classId===GUNBREAKER_ID&&![1,2].includes(raw.level))bad('Gunbreaker supports levels 1–2 only.');
  if(isBard(raw)&&Array.isArray(raw.spellIds)&&new Set(raw.spellIds).size!==raw.spellIds.length)bad('Choose distinct Bard songs and jingles.');
  if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==(raw?.classId||BLACK_MAGE_ID))bad('A saved character cannot change classes.');
  if(isArcher(raw)||isLevelOneClass(raw)||isBard(raw)){
