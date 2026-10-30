@@ -6,7 +6,7 @@ import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCateg
 import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
 import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
-import {isEquipmentSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
+import {isEquipmentSlot,equippedInSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','speed','languages','senses'],
  resources:['hp_curr','hp_temp','hp_max_temp','mp_curr','mp_temp','mp_max_temp'],hp:['hp_curr','hp_temp','hp_max_temp'],mp:['mp_curr','mp_temp','mp_max_temp'],
@@ -77,6 +77,7 @@ export function mountSheet(){
  const status=message=>{const node=root.querySelector('[data-sheet-status]');if(node)node.textContent=message;};
  const dialog=()=>root.querySelector('[data-sheet-dialog]');
  const equipmentDialog=()=>root.querySelector('[data-equipment-dialog]');let selectedEquipmentSlot=null;
+ const itemDescriptionDialog=()=>root.querySelector('[data-item-description-dialog]');
  const setBusy=value=>{busy=value;root.querySelector('[data-sheet]')?.classList.toggle('cs-saving',value);root.querySelectorAll('button,input,select,textarea').forEach(node=>{if(value){node.dataset.busyDisabled=String(node.disabled);node.disabled=true;}else if(node.dataset.busyDisabled!==undefined){node.disabled=node.dataset.busyDisabled==='true';delete node.dataset.busyDisabled;}});};
  async function request(body,revision){
   const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
@@ -94,10 +95,10 @@ export function mountSheet(){
   finally{if(!closed)setBusy(false);}
  }
  async function refresh(force=false){
-  if(closed||busy||polling||document.hidden||(!force&&(dirty||conflict||(dialog()?.open||equipmentDialog()?.open))))return;
-  if(force&&(dirty||dialog()?.open||equipmentDialog()?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
+  if(closed||busy||polling||document.hidden||(!force&&(dirty||conflict||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open))))return;
+  if(force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
   polling=true;const previousRevision=character?.revision;
-  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||dialog()?.open||equipmentDialog()?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
+  try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
   catch(err){if(!closed)status(err.message);}
   finally{polling=false;}
  }
@@ -117,8 +118,19 @@ export function mountSheet(){
   search.value='';
   picker.querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,'',slot);
   picker.querySelector('[data-equip-status]').textContent='';
+  picker.querySelector('[data-equip-unequip]').hidden=!equippedInSlot(character.data,slot);
   picker.showModal();
   search.focus();
+ }
+ function openItemDescription(ref){
+  const [collection,rawIndex]=String(ref||'').split(':'),index=Number(rawIndex);
+  if(!['items','weapons'].includes(collection)||!Number.isInteger(index)||index<0)return;
+  const item=character.data[collection]?.[index];
+  if(!item)return;
+  const popup=itemDescriptionDialog();if(!popup)return;
+  popup.querySelector('[data-item-description-title]').textContent=String(item.name||'Unnamed');
+  popup.querySelector('[data-item-description-text]').textContent=String(item.desc||item.description||'').trim()||'No description.';
+  popup.showModal();
  }
  async function openRuleAbilities(){try{const {availableRuleAbilities}=await import('../features/characters/rules/ability-library.mjs');const options=availableRuleAbilities(character.data);const modal=document.createElement('dialog');modal.className='cs-dialog';modal.setAttribute('aria-label','Race and class abilities');modal.innerHTML='<div class="cs-card-title"><h2>Add abilities</h2><button type="button" class="cs-icon" data-library-close aria-label="Close">×</button></div><label class="cs-search">Find an ability<input type="search" data-library-search></label><div data-library-list></div><p role="status" data-library-status></p>';const drawLibrary=()=>{const query=modal.querySelector('[data-library-search]').value.toLowerCase();modal.querySelector('[data-library-list]').innerHTML=options.filter(o=>o.name.toLowerCase().includes(query)).map(o=>'<details class="cs-card"><summary>'+e(o.name)+'</summary><p class="cs-prose">'+e(o.description)+'</p>'+(o.url?'<a href="'+e(o.url)+'" target="_blank" rel="noopener">Official source ↗</a>':'')+'<button class="button" type="button" data-library-add="'+e(o.id)+'" '+(o.added?'disabled':'')+'>'+(o.added?'Added':'Add')+'</button></details>').join('')||'<p>No available abilities.</p>';};modal.addEventListener('input',drawLibrary);modal.addEventListener('click',async event=>{if(event.target.closest('[data-library-close]'))modal.close();const add=event.target.closest('[data-library-add]');if(!add)return;add.disabled=true;try{if(await save({action:'addRuleAbility',ruleId:add.dataset.libraryAdd})){const option=options.find(o=>o.id===add.dataset.libraryAdd);option.added=true;drawLibrary();notify('Added');}else add.disabled=false;}catch(error){modal.querySelector('[data-library-status]').textContent=error.message;add.disabled=false;}});modal.addEventListener('close',()=>modal.remove(),{once:true});document.body.append(modal);drawLibrary();modal.showModal();}catch(error){status(error.message);}}
  function showFormula(label){
@@ -204,16 +216,19 @@ export function mountSheet(){
    itemView=button.dataset.itemView==='inventory'?'inventory':'equip';
    draw();const url=new URL(location.href);url.searchParams.set('itemView',itemView);history.replaceState(null,'',url);return;
   }
+  if(button.matches('[data-item-description]')){openItemDescription(button.dataset.itemDescription);return;}
+  if(button.matches('[data-item-description-close]')){itemDescriptionDialog()?.close();return;}
   if(button.matches('[data-equip-slot]')){openEquipmentPicker(button.dataset.equipSlot);return;}
+  if(button.matches('[data-equip-change]')){openEquipmentPicker(button.dataset.equipChange);return;}
+  if(button.matches('[data-equip-unequip]')){
+   if(!selectedEquipmentSlot||!equippedInSlot(character.data,selectedEquipmentSlot))return;
+   void save({action:'equip',slot:selectedEquipmentSlot,index:null});return;
+  }
   if(button.matches('[data-equip-choice]')){
    const slot=selectedEquipmentSlot,raw=button.dataset.equipChoice,[collection,rawIndex]=raw.split(':'),index=Number(rawIndex),item=character.data[collection]?.[index];
    if(!isEquipmentSlot(slot)||!['items','weapons'].includes(collection)||!Number.isInteger(index)||index<0||!item||!String(item.name||'').trim()||Number(item.amount??1)<1)return;
    if(button.getAttribute('aria-pressed')==='true'){equipmentDialog()?.close();return;}
    void save({action:'equip',slot,collection,index});return;
-  }
-  if(button.matches('[data-unequip-slot]')){
-   if(conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or refresh before unequipping gear.');return;}
-   void save({action:'equip',slot:button.dataset.unequipSlot,index:null});return;
   }
   if(button.matches('[data-equipment-close]')){equipmentDialog()?.close();return;}
   if(button.matches('[data-combat-view]')){if(dirty&&!confirm('Discard unsaved edits?'))return;combatView=button.dataset.combatView;draw();const url=new URL(location.href);url.searchParams.set('combatView',combatView);history.replaceState(null,'',url);return;}
