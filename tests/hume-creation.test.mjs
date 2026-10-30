@@ -18,8 +18,8 @@ function fixture(className='dancer',score='intelligence'){
  if(hasSpellcasting(classFor(b))){const counts=spellCounts(b),spells=spellsForBuild(b);b.spellIds=[...spells.filter(s=>s.level===0).slice(0,counts.cantrips),...spells.filter(s=>s.level===1).slice(0,counts.leveled)].map(s=>s.id);}
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
-const classes=['black-mage','archer','chocobo-knight','dancer','bard','beastmaster'];
-test('Hume score, Skilled budget and extra feat work consistently across all six current compiler paths',()=>{
+const classes=['black-mage','archer','chocobo-knight','dancer','dragoon','bard','beastmaster'];
+test('Hume score, Skilled budget and extra feat work consistently across all seven current compiler paths',()=>{
  for(const cls of classes){
   const b=fixture(cls);assert.deepEqual(buildIssues(b),[],cls);const d=compileBuild(b),budget=skillBudget(d);
   assert.equal(d.int,14);assert.equal(d.size_category,'Medium');assert.equal(d.speed,30);assert.equal(d.languages,'Common');

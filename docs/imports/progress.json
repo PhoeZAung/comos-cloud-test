@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 33,
+  "revision": 40,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 3,
+  "schedulePosition": 0,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -255,19 +255,49 @@
       "updatedAt": "2026-10-30T15:38:49.555Z"
     },
     "ffd20:race:tarutaru": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "Standard traits, Talented specialty and languages validated across six compilers; mobile Dancer/Bard creation/edit/save/reopen preserve choices and manual Craft bonus",
-      "nextAction": "Run exact-commit CI, merge and verify Tarutaru deployment, then continue Beast Rider",
-      "scope": "Standard traits: scores, Small identity/size math, explicit Stealth +4, Magic Expert, selected Talented specialty and source-listed languages supported. Conditional defense/caster checks and Detect Magic manual. Variants/alternates/favored rewards guarded or pending.",
-      "note": "336 tests and cloud build pass. Mobile fixtures preserved Woodworking, Draconic and manual misc without page errors; fixture authentication only. CI/deployment pending.",
+      "state": "live_partial",
+      "stage": "deployed",
+      "cursor": "Standard Tarutaru traits and specialty selection deployed; five public asset hashes match tested build",
+      "nextAction": "Later milestones: variant/alternate choices, conditional caster and defense checks, favored rewards and independent full review",
+      "scope": "Standard traits: scores, Small identity/size modifiers, explicit Stealth, Magic Expert, selected specialty and optional languages. Conditional defenses/caster checks and Detect Magic manual; variants/alternates/favored rewards not enabled.",
+      "note": "PR #14 merged as 3a8c0f4863a30f72404a8fb260e273a7957c5f12; branch CI 41082956812 and main CI 41083247740 passed. 336 tests/cloud build pass; five public assets match, health ready. Local browser fixture auth, not production provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/tarutaru-standard-creation.md",
-        "docs/extraction/tarutaru-browser-validation.json"
+        "docs/extraction/tarutaru-browser-validation.json",
+        "docs/extraction/tarutaru-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T15:40:39.887Z"
+      "updatedAt": "2026-10-30T15:47:07.755Z"
+    },
+    "ffd20:archetype:chocobo-knight:beast-rider": {
+      "state": "blocked",
+      "stage": "source-staged",
+      "cursor": "Ten feature descriptions, six stable upgrades, one resolved first-level replacement, nine deferred later targets and starting-mount restrictions staged",
+      "nextAction": "Verify mount sources and first-level selector; resolve later parent targets before those levels. Continue the next unblocked queue item meanwhile.",
+      "scope": "Source staging only. No runtime adapter; later parent replacement IDs and mount statistics unverified. FFd20 Beastmaster table must not be substituted.",
+      "note": "No verified canonical external druid-style starting mount statistics/progression or specialized eligibility/persistence adapter. Nine later parent replacement targets are not staged. Existing FFd20 Beastmaster full-BAB d10 statistics are a different ruleset and cannot be substituted.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/beast-rider-source-batch.md"
+      ],
+      "updatedAt": "2026-10-30T15:47:08.262Z"
+    },
+    "ffd20:class:dragoon": {
+      "state": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Bounded first-level Dragoon adapter and mobile Galka/Moogle create/edit/save/reopen validated; shared Limit Break expenditure and current HP preserved",
+      "nextAction": "Run exact-commit CI, merge checked Dragoon/Beast Rider batch, verify public assets, then continue Aegyl",
+      "scope": "New first-level creation/editing only. Class stats/proficiencies and six source ability cards with shared Limit Break pool. All jump/altitude/grip/damage and temporary effects manual; later abilities/talents/progression/archetypes/multiclassing guarded.",
+      "note": "341 tests and cloud build pass; mobile Galka/Moogle fixtures preserve low-HP Limit Break expenditure and reject level-up with no page errors. Fixture authentication only; CI/deployment pending.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/dragoon-level-one-import.md",
+        "docs/extraction/dragoon-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T15:54:18.047Z"
     }
   },
   "history": [
@@ -558,6 +588,69 @@
       "stage": "runtime-validated",
       "cursor": "Standard traits, Talented specialty and languages validated across six compilers; mobile Dancer/Bard creation/edit/save/reopen preserve choices and manual Craft bonus",
       "time": "2026-10-30T15:40:39.887Z"
+    },
+    {
+      "revision": 34,
+      "itemId": "ffd20:race:tarutaru",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployed",
+      "cursor": "Standard Tarutaru traits and specialty selection deployed; five public asset hashes match tested build",
+      "time": "2026-10-30T15:47:07.755Z"
+    },
+    {
+      "revision": 35,
+      "itemId": "ffd20:archetype:chocobo-knight:beast-rider",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T15:47:07.922Z"
+    },
+    {
+      "revision": 36,
+      "itemId": "ffd20:archetype:chocobo-knight:beast-rider",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "source-staged",
+      "cursor": "Ten feature descriptions, six stable upgrades, one resolved first-level replacement, nine deferred later targets and starting-mount restrictions staged",
+      "time": "2026-10-30T15:47:08.083Z"
+    },
+    {
+      "revision": 37,
+      "itemId": "ffd20:archetype:chocobo-knight:beast-rider",
+      "from": "in_progress",
+      "to": "blocked",
+      "stage": "source-staged",
+      "cursor": "Ten feature descriptions, six stable upgrades, one resolved first-level replacement, nine deferred later targets and starting-mount restrictions staged",
+      "time": "2026-10-30T15:47:08.262Z"
+    },
+    {
+      "revision": 38,
+      "itemId": "ffd20:class:dragoon",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T15:47:08.448Z"
+    },
+    {
+      "revision": 39,
+      "itemId": "ffd20:class:dragoon",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "source-staged",
+      "cursor": "All twenty class rows and six first-level abilities staged with official hash; later prose retained without activation",
+      "time": "2026-10-30T15:48:38.808Z"
+    },
+    {
+      "revision": 40,
+      "itemId": "ffd20:class:dragoon",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Bounded first-level Dragoon adapter and mobile Galka/Moogle create/edit/save/reopen validated; shared Limit Break expenditure and current HP preserved",
+      "time": "2026-10-30T15:54:18.047Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

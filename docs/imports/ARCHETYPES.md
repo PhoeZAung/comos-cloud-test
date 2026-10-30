@@ -9,7 +9,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
 | [Antrider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/antrider/) | blocked · source-staged-blocked | Five abilities, seven upgrades and 20 mount rows staged and validated. GitHub suite/build pass; public catalog remains staged and unavailable. |
-| [Beast Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/beast-rider/) | queued · source-review | Start of source review |
+| [Beast Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/beast-rider/) | blocked · source-staged | Ten feature descriptions, six stable upgrades, one resolved first-level replacement, nine deferred later targets and starting-mount restrictions staged |
 | [Deadly Lancer](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/deadly-lancer/) | queued · source-review | Start of source review |
 | [Fell Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/fell-rider/) | queued · source-review | Start of source review |
 | [Ghost Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/ghost-rider/) | queued · source-review | Start of source review |
@@ -131,19 +131,19 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Azure Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/azure-dragoon/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Dark Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dark-dragoon/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Dragon Knight](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dragon-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Dragon Slayer](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dragon-slayer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Drigagoonie](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/drigagoonie/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Elemental Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/elemental-dragoon/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Farstriker](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/farstriker/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Holy Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/holy-dragoon/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Lancer](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/lancer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Lunar Vanguard](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/lunar-vanguard/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Spear Warden](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/spear-warden/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Spearmaster](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/spearmaster/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Valkyrie](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/valkyrie/) | queued · source-review | Start of source review · waiting for parent definition |
+| [Azure Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/azure-dragoon/) | queued · source-review | Start of source review |
+| [Dark Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dark-dragoon/) | queued · source-review | Start of source review |
+| [Dragon Knight](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dragon-knight/) | queued · source-review | Start of source review |
+| [Dragon Slayer](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/dragon-slayer/) | queued · source-review | Start of source review |
+| [Drigagoonie](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/drigagoonie/) | queued · source-review | Start of source review |
+| [Elemental Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/elemental-dragoon/) | queued · source-review | Start of source review |
+| [Farstriker](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/farstriker/) | queued · source-review | Start of source review |
+| [Holy Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/holy-dragoon/) | queued · source-review | Start of source review |
+| [Lancer](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/lancer/) | queued · source-review | Start of source review |
+| [Lunar Vanguard](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/lunar-vanguard/) | queued · source-review | Start of source review |
+| [Spear Warden](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/spear-warden/) | queued · source-review | Start of source review |
+| [Spearmaster](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/spearmaster/) | queued · source-review | Start of source review |
+| [Valkyrie](https://finalfantasyd20.com/classes/core-classes/dragoon/archetypes/valkyrie/) | queued · source-review | Start of source review |
 
 ## Knight (20)
 

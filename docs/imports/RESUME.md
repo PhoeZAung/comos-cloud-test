@@ -65,9 +65,13 @@ Hume standard first-level traits are deployed with score choice, Skilled budget,
 a separate manual bonus-feat slot and bounded language-name recording. See
 `docs/extraction/hume-standard-creation.md` for limits and evidence.
 Mithra's standard traits, bonus languages, Fleet-Footed and Cat's Luck counter
-are also deployed; see `docs/extraction/mithra-standard-creation.md`. The active
-baseline item is **Tarutaru**, starting with standard traits, Talented's
-specialty choice and bonus languages. Always read
+are also deployed; see `docs/extraction/mithra-standard-creation.md`.
+Tarutaru standard traits, Talented's specialty and bonus languages are deployed;
+see `docs/extraction/tarutaru-standard-creation.md`. Beast Rider source data is
+staged/blocked on verified druid-style mount rules and its specialized adapter;
+do not substitute the different FFd20 Beastmaster table. The active baseline item
+is **Dragoon**, beginning with its six first-level reference abilities and
+twenty-row source table. Always read
 the current queue instead of restarting these completed milestones. A blocked entry
 is skipped without deleting its last section or evidence.
 

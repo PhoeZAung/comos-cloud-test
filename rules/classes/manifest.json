@@ -37,6 +37,13 @@
       "status": "live",
       "adapter": "beastmaster-level-one",
       "coverage": "partial"
+    },
+    {
+      "id": "ffd20:class:dragoon",
+      "file": "rules/classes/dragoon.class.json",
+      "status": "live",
+      "adapter": "martial-level-one",
+      "coverage": "partial"
     }
   ]
 }

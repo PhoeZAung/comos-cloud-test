@@ -1,0 +1,499 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:chocobo-knight:beast-rider",
+  "name": "Beast Rider",
+  "parentClassId": "ffd20:class:chocobo-knight",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/beast-rider/",
+      "title": "Beast Rider — Official Final Fantasy d20",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "fa3e6db034bd488117716c599c3666323881de60f65c6724f6dd4cecb67a6aa4"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/mount",
+        "blocking": true,
+        "reason": "Starting mounts refer to external druid-style companion rules. The archive has no verified canonical pony/wolf/camel/horse selection and progression for this archetype. Do not substitute FFd20 Beastmaster’s different full-BAB d10 companion table. A mount/eligibility/persistence adapter is required before activation."
+      },
+      {
+        "path": "/data/deferredReplacements",
+        "blocking": true,
+        "reason": "Nine later parent targets are not yet canonical features in the current first-level Chocobo Knight definition. Source names and timing are retained without invented IDs; later replacement graphs must be resolved before those levels can be enabled."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Mount weight capacity, four-legged/no-fly restrictions, conditional combat effects, size changes, Endurance and combat training remain manual source rules. Structural staging is not independent approval or runtime support."
+      }
+    ]
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:able-rider",
+        "name": "Able Rider",
+        "atLevel": 1,
+        "description": "At 1st level, a beast rider ignores the penalty to Ride checks for riding ill-suited mounts.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Able Rider",
+            "locator": "able-rider"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:steed",
+        "name": "Steed",
+        "atLevel": 1,
+        "description": "At 1st level, a beast rider forms a bond with a strong, loyal companion that permits him to ride it as a mount. The animal chosen as a mount must be large enough to carry the beast rider (Medium or Large for a Small character; Large or Huge for a Medium character). The beast rider does not take an armor check penalty on [Ride](http://www.d20pfsrd.com/skills/ride) checks while riding his mount. The mount is always considered [combat trained](http://www.d20pfsrd.com/skills/handle-animal#TOC-Combat-Training-DC-20-), and begins play with [Endurance](http://www.d20pfsrd.com/feats/general-feats/endurance-final) as a bonus feat.\n\nEach time the beast rider increases in level, he can choose to select a new, more impressive mount better suited to his increased power.\n\nSmall-sized beast riders can choose a [pony](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#pony) or [wolf](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#wolf) mount at 1st level. At 4th level, a Small beast rider can also choose an [allosaurus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Allosaurus), [ankylosaurus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Ankylosaurus), [arsinoitherium](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Arsinoitherium), [aurochs](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Aurochs-Bison-), [bison](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Aurochs-Bison-), [boar](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#boar), [brachiosaurus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Brachiosaurus), [elephant](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#elephant), [glyptodon](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Gylptodon), [hippopotamus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Hippopotamus), [mastodon](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#elephant), [megaloceros](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Megaloceros), [riding dog](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#dog), [giant snapping turtle](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Snapping-Turtle), [triceratops](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Triceratops), or [tyrannosaurus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Tyrannosaurus). At 7th level, he can also choose a dinosaur ([deinonychus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#deinonychus-velociraptor) or [velociraptor](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#deinonychus-velociraptor)).\n\nMedium beast riders can choose a camel or horse mount at 1st level. At 4th level, a Medium beast rider can also choose an [allosaurus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Allosaurus), [ankylosaurus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Ankylosaurus), [arsinoitherium](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Arsinoitherium), [aurochs](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Aurochs-Bison-), [bison](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Aurochs-Bison-), [brachiosaurus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Brachiosaurus), [elephant](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#elephant), [glyptodon](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Gylptodon), [hippopotamus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Hippopotamus), [lion](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#cat-big-lion-tiger), [mastodon](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#elephant), [megaloceros](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Megaloceros), [giant snapping turtle](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Snapping-Turtle), [rhinoceros](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Rhinoceros), [tiger](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#cat-big-lion-tiger), [triceratops](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Triceratops), or [tyrannosaurus](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Tyrannosaurus) as his mount. Additional mounts might be available with GM approval.\n\nIn addition, a 7th-level or higher Medium beast rider can select any creature whose natural size is Large or Huge, provided that creature is normally available as a Medium-sized animal companion at 7th level (like a bear). To generate statistics for such a mount, apply the following modifications:\n\n* **Size** Large\n* **Ability** **Scores** Str +2, Dex –2, Con +2;\n* Increase the damage of each of the mount’s [natural attacks](http://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules#TOC-Natural-Attacks) by one die size.\n\nA beast rider cannot choose a mount that is not capable of bearing his weight, that has fewer than four legs, or that has a fly speed (although the GM may allow mounts with a swim speed in certain environments). Anytime a feat or ability allows a mount to make a hoof attack, it can make a claw, slam, or other analogous attack instead.\n\nThis ability replaces chocobo mount.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Steed",
+            "locator": "steed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:rugged-steed",
+        "name": "Rugged Steed",
+        "atLevel": 2,
+        "description": "At 2nd level and every four levels thereafter, the natural armor bonus of a beast rider’s steed increases by +1.\n\nThis ability replaces steadfast mount.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rugged Steed",
+            "locator": "rugged-steed"
+          }
+        ],
+        "initialState": {
+          "naturalArmorIncrease": 1
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:colossus-hunter",
+        "name": "Colossus Hunter",
+        "atLevel": 3,
+        "description": "At 3rd level, a beast rider gains a +1 bonus on weapon attack and damage rolls against Large and Huge creatures and a +2 bonus on weapon attack and damage rolls against Gargantuan and Colossal creatures.\n\nThis ability replaces knight’s charge.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Colossus Hunter",
+            "locator": "colossus-hunter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:rapid-straddle",
+        "name": "Rapid Straddle",
+        "atLevel": 4,
+        "description": "At 4th level, a beast rider can make Ride checks to fast mount or fast dismount her steed even if it’s more than one size category larger than her, provided she still has a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) available that round.\n\nThis ability replaces expert trainer and master feeder.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rapid Straddle",
+            "locator": "rapid-straddle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:undaunted",
+        "name": "Undaunted",
+        "atLevel": 7,
+        "description": "At 7th level, a beast rider adds her Strength bonus to the DC of Intimidate checks made against her. Additionally, creatures attempting to intimidate a beast rider don’t gain a bonus for being larger than her.\n\nThis ability replaces improved chocobo mount.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Undaunted",
+            "locator": "undaunted"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:combined-might",
+        "name": "Combined Might",
+        "atLevel": 11,
+        "description": "At 11th level, a mounted beast rider strikes with the combined power of herself and her steed. Once per round, when the beast rider hits with a melee attack from astride her steed during a charge, she adds half her steed’s Strength modifier to the damage roll in addition to her own, provided her steed is currently capable of taking a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free).\n\nThis ability replaces greater charge.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combined Might",
+            "locator": "combined-might"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:gigantic-steed",
+        "name": "Gigantic Steed",
+        "atLevel": 15,
+        "description": "At 15th level, a beast rider’s steed increases to Huge size. The creature receives a –1 penalty on attack rolls and to AC, and a –2 penalty to Dexterity (to a minimum of 1); its base damage increases by one size category; and its reach increases to 10 feet. It also gains a +2 size bonus to its Strength and Constitution. At 17th level and 19th level, the Strength and Constitution bonuses increases by an additional +2.\n\nThis ability replaces superior chocobo mount.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gigantic Steed",
+            "locator": "gigantic-steed"
+          }
+        ],
+        "initialState": {
+          "size": "Huge",
+          "strengthSizeBonus": 2,
+          "constitutionSizeBonus": 2,
+          "dexterityPenalty": -2,
+          "minimumDexterity": 1,
+          "attackPenalty": -1,
+          "armorClassPenalty": -1,
+          "naturalDamageSizeIncreases": 1,
+          "reachFeet": 10
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:pulverizing-assault",
+        "name": "Pulverizing Assault",
+        "atLevel": 17,
+        "description": "At 17th level, if a beast rider is mounted on her steed and directs it to charge or use a constrict, powerful charge, or trample attack, then the first time that her steed deals damage with this attack this round, the target must make successful a Fortitude save (DC 10 + half of the steed’s Hit Dice + the steed’s Strength modifier) or be staggered for 1d4 rounds.\n\nThis ability replaces erratic charge.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Pulverizing Assault",
+            "locator": "pulverizing-assault"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:feature:lord-of-beasts",
+        "name": "Lord of Beasts",
+        "atLevel": 20,
+        "description": "At 20th level, a beast rider is unaffected by the dazed, fatigued, shaken, sickened, staggered, and stunned conditions. If she succeeds at a Fortitude or Will save against an attack that has a reduced effect on a successful save, she instead avoids the effect entirely. If a beast rider and her steed both successfully hit an opponent on the same initiative count, the foe must succeed at a Fortitude save (DC 10 + half of the steed’s Hit Dice + the steed’s Strength modifier) or be stunned for 1 round. Whether or not the save is successful, an affected creature is immune to this ability for 24 hours thereafter.\n\nThis ability replaces supreme charge.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lord of Beasts",
+            "locator": "lord-of-beasts"
+          }
+        ]
+      }
+    ],
+    "upgrades": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:upgrade:rugged-steed:6",
+        "featureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rugged-steed",
+        "atClassLevel": 6,
+        "changes": {
+          "naturalArmorIncrease": 2
+        },
+        "description": "Set total steed natural-armor improvement from this feature; do not accumulate previous tiers.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rugged Steed",
+            "locator": "level-6"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:upgrade:rugged-steed:10",
+        "featureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rugged-steed",
+        "atClassLevel": 10,
+        "changes": {
+          "naturalArmorIncrease": 3
+        },
+        "description": "Set total steed natural-armor improvement from this feature; do not accumulate previous tiers.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rugged Steed",
+            "locator": "level-10"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:upgrade:rugged-steed:14",
+        "featureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rugged-steed",
+        "atClassLevel": 14,
+        "changes": {
+          "naturalArmorIncrease": 4
+        },
+        "description": "Set total steed natural-armor improvement from this feature; do not accumulate previous tiers.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rugged Steed",
+            "locator": "level-14"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:upgrade:rugged-steed:18",
+        "featureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rugged-steed",
+        "atClassLevel": 18,
+        "changes": {
+          "naturalArmorIncrease": 5
+        },
+        "description": "Set total steed natural-armor improvement from this feature; do not accumulate previous tiers.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rugged Steed",
+            "locator": "level-18"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:upgrade:gigantic-steed:17",
+        "featureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:gigantic-steed",
+        "atClassLevel": 17,
+        "changes": {
+          "strengthSizeBonus": 4,
+          "constitutionSizeBonus": 4
+        },
+        "description": "Set both size bonuses to this tier; other size effects remain as originally gained.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gigantic Steed",
+            "locator": "level-17"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:upgrade:gigantic-steed:19",
+        "featureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:gigantic-steed",
+        "atClassLevel": 19,
+        "changes": {
+          "strengthSizeBonus": 6,
+          "constitutionSizeBonus": 6
+        },
+        "description": "Set both size bonuses to this tier; other size effects remain as originally gained.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gigantic Steed",
+            "locator": "level-19"
+          }
+        ]
+      }
+    ],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:beast-rider:replacement:steed",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:chocobo-mount"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:beast-rider:feature:steed"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Steed",
+            "locator": "steed-final-paragraph"
+          }
+        ]
+      }
+    ],
+    "deferredReplacements": [
+      {
+        "atClassLevel": 2,
+        "parentFeatureName": "Steadfast Mount",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rugged-steed",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rugged Steed",
+            "locator": "rugged-steed-final-paragraph"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 3,
+        "parentFeatureName": "Knight’s Charge",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:colossus-hunter",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Colossus Hunter",
+            "locator": "colossus-hunter-final-paragraph"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 4,
+        "parentFeatureName": "Expert Trainer",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rapid-straddle",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rapid Straddle",
+            "locator": "rapid-straddle-final-paragraph"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 6,
+        "parentFeatureName": "Master Feeder",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rapid-straddle",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rapid Straddle",
+            "locator": "rapid-straddle-final-paragraph"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 7,
+        "parentFeatureName": "Improved Chocobo Mount",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:undaunted",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Undaunted",
+            "locator": "undaunted-final-paragraph"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 11,
+        "parentFeatureName": "Greater Charge",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:combined-might",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combined Might",
+            "locator": "combined-might-final-paragraph"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 15,
+        "parentFeatureName": "Superior Chocobo Mount",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:gigantic-steed",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gigantic Steed",
+            "locator": "gigantic-steed-final-paragraph"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 17,
+        "parentFeatureName": "Erratic Charge",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:pulverizing-assault",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Pulverizing Assault",
+            "locator": "pulverizing-assault-final-paragraph"
+          }
+        ]
+      },
+      {
+        "atClassLevel": 20,
+        "parentFeatureName": "Supreme Charge",
+        "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:lord-of-beasts",
+        "resolution": "parent_feature_not_staged",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lord of Beasts",
+            "locator": "lord-of-beasts-final-paragraph"
+          }
+        ]
+      }
+    ],
+    "mount": {
+      "rulesSystem": "external-druid-animal-companion",
+      "firstLevelChoicesByRiderSize": {
+        "Small": [
+          "pony",
+          "wolf"
+        ],
+        "Medium": [
+          "camel",
+          "horse"
+        ]
+      },
+      "minimumLegs": 4,
+      "flySpeedAllowed": false,
+      "mustCarryRiderWeight": true,
+      "allowedMountSizesByRiderSize": {
+        "Small": [
+          "Medium",
+          "Large"
+        ],
+        "Medium": [
+          "Large",
+          "Huge"
+        ]
+      },
+      "swimMountsRequireGMApproval": true,
+      "combatTrained": true,
+      "bonusFeatName": "Endurance",
+      "canonicalStatisticsStatus": "not-verified",
+      "automation": "none",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Steed",
+          "locator": "steed"
+        }
+      ]
+    },
+    "mainAbilityScores": [
+      "str",
+      "cha"
+    ]
+  }
+}
