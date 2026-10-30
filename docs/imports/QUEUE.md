@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 9 | 9 | 64 | 8 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 48 | 14 | 0 | 0 |
+| class | 73/73 | 9 | 9 | 64 | 9 | 0 | 0 |
+| race | 63/63 | 63 | 63 | 47 | 14 | 0 | 0 |
 | archetype | 579/579 | 5 | 3 | 574 | 3 | 0 | 433 |
 
-Checkpoint revision: **72**. Active: **ffd20:class:monk**. Next: **ffd20:class:monk**.
+Checkpoint revision: **74**. Active: **ffd20:race:dracobaltian**. Next: **ffd20:race:dracobaltian**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -30,7 +30,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | live_partial · deployment-verified | Six first-level abilities, class stats and proficiencies deployed and verified; Later class talents, progression, archetypes and multiclassing require separate source-reviewed adapters |
 | 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | existing live adapter · levels 1 | live_partial · deployment-verified | Lawful first-level Knight, stance counter and manual defensive references deployed; five public assets verified; Later talents/progression/archetypes, code adjudication and defensive effect/recovery automation require separate reviewed batches |
-| 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | existing live adapter · levels 1 | in_progress · runtime-validated | Printed any-alignment d12/full-BAB Monk, positive-CON Bodybuilding HP and manual martial references validated; mobile Galka/Moogle CON edits and save/reopen passed; Exact-head CI, merge and public asset verification; then Dracobaltian |
+| 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | existing live adapter · levels 1 | live_partial · deployment-verified | First-level FFd20 Monk, Bodybuilding HP and manual martial references deployed; five public assets verified; Later Ki/talents/blitz/progression/archetypes, conditional martial effects and feat interactions require separate reviewed batches |
 | 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 11 | [Thief](https://finalfantasyd20.com/classes/core-classes/thief/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 12 | [Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
@@ -114,7 +114,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 12 | [Bangaa](https://finalfantasyd20.com/races/base-races/bangaa/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits, reptilian identity and owned natural armor deployed; five public assets verified; Later variants/alternates and conditional combat/environmental mechanics require separate reviewed batches |
 | 13 | [Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard senses/Hunter skills, source languages, owned flat stats and manual Run deployed; five public assets verified; Alternates and conditional movement, saves/immunity and feat automation require separate reviewed batches |
 | 14 | [Burmecian](https://finalfantasyd20.com/races/base-races/burmecian/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits/languages, owned CMD contribution and manual Improved Initiative deployed; five public assets verified; Core CMD/CMB migration and later variants/alternates/conditional effects need separate reviewed batches |
-| 15 | [Dracobaltian](https://finalfantasyd20.com/races/base-races/dracobaltian/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
+| 15 | [Dracobaltian](https://finalfantasyd20.com/races/base-races/dracobaltian/) | testing option; saving can be guarded | in_progress · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 16 | [Garif](https://finalfantasyd20.com/races/base-races/garif/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 17 | [Garlean](https://finalfantasyd20.com/races/base-races/garlean/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 18 | [Genome](https://finalfantasyd20.com/races/base-races/genome/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
