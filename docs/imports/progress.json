@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 39,
+  "revision": 40,
   "schedule": [
     "class",
     "race",
@@ -286,17 +286,18 @@
     },
     "ffd20:class:dragoon": {
       "state": "in_progress",
-      "stage": "source-staged",
-      "cursor": "All twenty class rows and six first-level abilities staged with official hash; later prose retained without activation",
-      "nextAction": "Enable and validate bounded first-level martial adapter, preserve all jump/combat conditions as manual, then browser save/reopen and CI/deployment",
-      "scope": "Source staging; no playable Dragoon adapter claimed yet. Later talents, blood abilities, progression, archetypes and multiclassing remain outside initial scope.",
-      "note": "Class and archetype structural checks pass; Beast Rider is source-staged/blocked and next work remains Dragoon. Existing Tarutaru runtime deployment verified separately.",
+      "stage": "runtime-validated",
+      "cursor": "Bounded first-level Dragoon adapter and mobile Galka/Moogle create/edit/save/reopen validated; shared Limit Break expenditure and current HP preserved",
+      "nextAction": "Run exact-commit CI, merge checked Dragoon/Beast Rider batch, verify public assets, then continue Aegyl",
+      "scope": "New first-level creation/editing only. Class stats/proficiencies and six source ability cards with shared Limit Break pool. All jump/altitude/grip/damage and temporary effects manual; later abilities/talents/progression/archetypes/multiclassing guarded.",
+      "note": "341 tests and cloud build pass; mobile Galka/Moogle fixtures preserve low-HP Limit Break expenditure and reject level-up with no page errors. Fixture authentication only; CI/deployment pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
-        "docs/extraction/dragoon-level-one-import.md"
+        "docs/extraction/dragoon-level-one-import.md",
+        "docs/extraction/dragoon-browser-validation.json"
       ],
-      "updatedAt": "2026-10-30T15:48:38.808Z"
+      "updatedAt": "2026-10-30T15:54:18.047Z"
     }
   },
   "history": [
@@ -641,6 +642,15 @@
       "stage": "source-staged",
       "cursor": "All twenty class rows and six first-level abilities staged with official hash; later prose retained without activation",
       "time": "2026-10-30T15:48:38.808Z"
+    },
+    {
+      "revision": 40,
+      "itemId": "ffd20:class:dragoon",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Bounded first-level Dragoon adapter and mobile Galka/Moogle create/edit/save/reopen validated; shared Limit Break expenditure and current HP preserved",
+      "time": "2026-10-30T15:54:18.047Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

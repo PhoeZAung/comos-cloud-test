@@ -10,3 +10,5 @@ The source restricts first-level Small riders to pony/wolf and Medium riders to 
 Playable integration is blocked on verified druid-style companion progression and the canonical starting-mount statistics/eligibility/persistence adapter. The source links external druid companion rules; FFd20 Beastmaster's full-BAB d10 table is a different baseline and cannot be substituted just because a wolf appears in both lists. Later parent mappings additionally block their respective later levels. Bulk Pathfinder collection stays paused; these dependencies do not stop the next queue item.
 
 The manifest remains staged with no adapter. The current wizard and compiler cannot select Beast Rider. This is source staging with unresolved mechanics, not a playable or independently approved archetype.
+
+Three source regression tests cover the canonical/deferred parent graph, upgrade totals, druid-style mount distinction and restrictions, and runtime exclusion. They pass within the 341-test Dragoon batch.

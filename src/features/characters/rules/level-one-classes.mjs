@@ -3,8 +3,9 @@ import {BEASTMASTER_ID,isBeastmaster,beastmasterClass,beastmasterFeatures,beastm
 
 export const CHOCOBO_KNIGHT_ID='ffd20:class:chocobo-knight';
 export const DANCER_ID='ffd20:class:dancer';
+export const DRAGOON_ID='ffd20:class:dragoon';
 export const MOG_KNIGHT_ID='ffd20:archetype:chocobo-knight:mog-knight';
-export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,BEASTMASTER_ID].includes(b?.classId);
+export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,BEASTMASTER_ID].includes(b?.classId);
 export const levelOneClasses=[...classCatalog.classes.filter(c=>c.adapter==='martial-level-one').map(c=>({
  ...c,resources:[],choicePools:[],sources:c.sources,data:c.data
 })),...(beastmasterClass?[beastmasterClass]:[])];

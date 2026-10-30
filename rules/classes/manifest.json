@@ -41,8 +41,8 @@
     {
       "id": "ffd20:class:dragoon",
       "file": "rules/classes/dragoon.class.json",
-      "status": "staged",
-      "adapter": null,
+      "status": "live",
+      "adapter": "martial-level-one",
       "coverage": "partial"
     }
   ]

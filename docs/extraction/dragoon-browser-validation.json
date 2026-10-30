@@ -1,0 +1,31 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "galka",
+      "class": "Dragoon",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "sharedLimitBreakSpentPreserved": true,
+      "hpNotHealed": true,
+      "levelUpRejected": true,
+      "pageErrors": []
+    },
+    {
+      "race": "moogle",
+      "class": "Dragoon",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "sharedLimitBreakSpentPreserved": true,
+      "hpNotHealed": true,
+      "levelUpRejected": true,
+      "pageErrors": []
+    }
+  ]
+}

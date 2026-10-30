@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 7 | 6 | 66 | 6 | 0 | 0 |
+| class | 73/73 | 7 | 7 | 66 | 6 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 54 | 8 | 0 | 0 |
 | archetype | 579/579 | 3 | 1 | 576 | 1 | 0 | 473 |
 
-Checkpoint revision: **39**. Active: **ffd20:class:dragoon**. Next: **ffd20:class:dragoon**.
+Checkpoint revision: **40**. Active: **ffd20:class:dragoon**. Next: **ffd20:class:dragoon**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -28,7 +28,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | existing live adapter · levels 1 | live_partial · deployed | Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.; After baseline imports, review level-2 talents and Versatile Performance, later progression, orchestration rolls and remaining 135 song pages. |
 | 5 | [Beastmaster](https://finalfantasyd20.com/classes/core-classes/beastmaster/) | existing live adapter · levels 1 | live_partial · deployed | Bounded first-level Beastmaster adapter merged and live; seven public runtime assets match the tested cloud build; Later milestones: companion combat/training and replacement handling, source conflict resolution, higher-level feature and choice mappings, archetypes and independent full review |
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
-| 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | not enabled · levels 1 | in_progress · source-staged | All twenty class rows and six first-level abilities staged with official hash; later prose retained without activation; Enable and validate bounded first-level martial adapter, preserve all jump/combat conditions as manual, then browser save/reopen and CI/deployment |
+| 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | in_progress · runtime-validated | Bounded first-level Dragoon adapter and mobile Galka/Moogle create/edit/save/reopen validated; shared Limit Break expenditure and current HP preserved; Run exact-commit CI, merge checked Dragoon/Beast Rider batch, verify public assets, then continue Aegyl |
 | 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
