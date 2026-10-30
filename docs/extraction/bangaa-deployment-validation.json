@@ -53,6 +53,7 @@
   "pullRequest": "https://github.com/PhoeZAung/comos-cloud-test/pull/23",
   "branchCI": 41111086653,
   "mainCI": 41111289592,
-  "mainCIStatus": "queued",
-  "testsPassed": 369
+  "mainCIStatus": "success",
+  "testsPassed": 369,
+  "mainCIVerifiedAt": "2026-10-30T19:08:46.606891+00:00"
 }

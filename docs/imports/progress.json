@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 62,
+  "revision": 65,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 2,
+  "schedulePosition": 3,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -384,9 +384,9 @@
       "state": "live_partial",
       "stage": "deployment-verified",
       "cursor": "Standard traits, reptilian identity and owned natural armor deployed; five public assets verified",
-      "nextAction": "Check queued post-merge CI 41111289592; later variants/alternates and conditional combat/environmental mechanics need separate reviewed batches",
+      "nextAction": "Later variants/alternates and conditional combat/environmental mechanics require separate reviewed batches",
       "scope": "Standard creation/editing with source scores/skills/identity/languages and owned natural armor; conditional CMD/defenses, natural attacks and armed status manual; variants/alternates guarded",
-      "note": "PR #23 exact-head CI passed; 369 tests/build/phone fixtures passed; five public assets match/database ready. Post-merge CI still queued at this checkpoint; no provider login test.",
+      "note": "PR #23 exact-head and post-merge CI 41111289592 passed; 369 tests/build/phone fixtures passed; five public assets matched/database ready. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -394,22 +394,35 @@
         "docs/extraction/bangaa-browser-validation.json",
         "docs/extraction/bangaa-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T19:00:39.956Z"
+      "updatedAt": "2026-10-30T19:08:46.758Z"
     },
     "ffd20:race:beastkin": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "Standard senses/Hunter skills, owned initiative/natural armor, Run card and languages validated across eight adapters and mobile Dancer/Bard save/reopen",
-      "nextAction": "Exact-head CI, merge and public asset verification; then Burmecian. Also check queued Bangaa post-merge CI 41111289592.",
-      "scope": "Standard creation/editing with source identity, skills/senses/languages and owned flat stats/manual Run; conditional movement, saves/immunity and feat resolution manual; alternates guarded",
-      "note": "372 tests, cloud build and phone fixtures pass; manual initiative/natural armor and Run notes preserved. No provider login test.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Standard senses/Hunter skills, source languages, owned flat stats and manual Run deployed; five public assets verified",
+      "nextAction": "Alternates and conditional movement, saves/immunity and feat automation require separate reviewed batches",
+      "scope": "Standard creation/editing with source identity/skills/senses/languages, owned initiative/natural armor and manual Run; conditional movement, saves/immunity and feat effects manual; alternates guarded",
+      "note": "PR #24 branch/main CI passed; 372 tests/build/phone fixtures passed; five public assets match/database ready. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/beastkin-standard-creation.md",
-        "docs/extraction/beastkin-browser-validation.json"
+        "docs/extraction/beastkin-browser-validation.json",
+        "docs/extraction/beastkin-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T19:02:48.842Z"
+      "updatedAt": "2026-10-30T19:08:46.965Z"
+    },
+    "ffd20:race:burmecian": {
+      "state": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
+      "scope": "",
+      "note": "",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [],
+      "updatedAt": "2026-10-30T19:08:47.136Z"
     }
   },
   "history": [
@@ -961,6 +974,33 @@
       "stage": "runtime-validated",
       "cursor": "Standard senses/Hunter skills, owned initiative/natural armor, Run card and languages validated across eight adapters and mobile Dancer/Bard save/reopen",
       "time": "2026-10-30T19:02:48.842Z"
+    },
+    {
+      "revision": 63,
+      "itemId": "ffd20:race:bangaa",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Standard traits, reptilian identity and owned natural armor deployed; five public assets verified",
+      "time": "2026-10-30T19:08:46.758Z"
+    },
+    {
+      "revision": 64,
+      "itemId": "ffd20:race:beastkin",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Standard senses/Hunter skills, source languages, owned flat stats and manual Run deployed; five public assets verified",
+      "time": "2026-10-30T19:08:46.965Z"
+    },
+    {
+      "revision": 65,
+      "itemId": "ffd20:race:burmecian",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T19:08:47.136Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
