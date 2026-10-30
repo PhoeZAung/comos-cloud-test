@@ -49,9 +49,14 @@ export function validateProgress(catalog,progress){
 }
 
 export async function observeRepository(root,catalog){
- const classes=await readJSON(path.join(root,'rules/classes/manifest.json'));
- const archetypes=await readJSON(path.join(root,'rules/classes/archetypes/manifest.json'));
- const races=await readJSON(path.join(root,'rules/manifest.json'));
+ const warnings=[];
+ async function manifest(file,key){
+  try{const value=await readJSON(path.join(root,file));if(!Array.isArray(value[key]))throw Error('missing '+key+' list');return value;}
+  catch(error){warnings.push(file+': '+error.message);return {[key]:[]};}
+ }
+ const classes=await manifest('rules/classes/manifest.json','classes');
+ const archetypes=await manifest('rules/classes/archetypes/manifest.json','archetypes');
+ const races=await manifest('rules/manifest.json','races');
  const classEntries=new Map(classes.classes.map(c=>[c.id,c]));
  const archetypeEntries=new Map(archetypes.archetypes.map(a=>[a.id,a]));
  const result=new Map();
@@ -62,11 +67,13 @@ export async function observeRepository(root,catalog){
   if(present&&!item.legacy){try{definition=await readJSON(path.join(root,file));}catch(error){parseError=error.message;}}
   const registered=item.legacy||item.kind==='race'&&races.races.includes(file.replace(/^rules\//,''))||Boolean(entry);
   const available=Boolean(item.legacy||item.kind==='race'&&registered||entry?.status==='live'&&entry?.adapter);
+  const levels=definition?.data?.supportedLevels;
   result.set(item.id,{definitionFile:file,definitionPresent:present,registered,available,
    reviewState:definition?.review?.state||'not-recorded',parseError,
    availability:item.kind==='race'&&available?'testing option; saving can be guarded':available?'existing live adapter':'not enabled',
-   supportedLevels:definition?.data?.supportedLevels||null,maximumLevel:definition?.data?.maximumLevel||definition?.data?.levels?.length||null,adapter:entry?.adapter||(item.legacy?'legacy-black-mage':null)});
+   supportedLevels:Array.isArray(levels)&&levels.every(Number.isInteger)?levels:null,maximumLevel:definition?.data?.maximumLevel||definition?.data?.levels?.length||null,adapter:entry?.adapter||(item.legacy?'legacy-black-mage':null)});
  }
+ result.warnings=warnings;
  return result;
 }
 
@@ -146,7 +153,7 @@ export async function checkpoint(root,id,patch,options={}){
   const catalog=await readJSON(path.join(dir,'catalog.json')),progress=await readJSON(path.join(dir,'progress.json'));
   if(patch.state==='complete'){
    const observations=await observeRepository(root,catalog),item=catalog.items.find(i=>i.id===id),observed=observations.get(id);
-   if(!observed?.available||observed.parseError||observed.reviewState!=='approved')fail('The definition is not fully reviewed/enabled. Record a partial milestone instead of full completion.');
+   if(observations.warnings.length||!observed?.available||observed.parseError||observed.reviewState!=='approved')fail('The definition is not fully reviewed/enabled. Record a partial milestone instead of full completion.');
    const maximum=observed.maximumLevel||observations.get(item?.parentId)?.maximumLevel;
    if(observed.supportedLevels&&maximum&&observed.supportedLevels.length<maximum)fail('The adapter only supports part of the progression. Record a partial milestone.');
   }
@@ -160,13 +167,14 @@ const md=value=>String(value??'').replaceAll('|','\\|').replaceAll('\n',' ').rep
 export function summarize(catalog,progress,observations){
  const groups=Object.fromEntries(KINDS.map(kind=>[kind,{total:0,archived:0,definitions:0,available:0,queued:0,in_progress:0,blocked:0,live_partial:0,complete:0,waitingForParent:0}]));
  for(const item of catalog.items){const group=groups[item.kind],p=progressFor(progress,item),o=observations.get(item.id);group.total++;group.archived++;if(o?.definitionPresent&&o.registered)group.definitions++;if(o?.available)group.available++;group[p.state]++;if(p.state==='queued'&&!parentReady(item,observations))group.waitingForParent++;}
- return {revision:progress.revision,groups,active:catalog.items.find(i=>progressFor(progress,i).state==='in_progress')?.id||null,next:chooseNext(catalog,progress,observations)?.id||null};
+ return {revision:progress.revision,groups,repositoryWarnings:observations.warnings||[],active:catalog.items.find(i=>progressFor(progress,i).state==='in_progress')?.id||null,next:chooseNext(catalog,progress,observations)?.id||null};
 }
 
 export async function renderReports(root,catalog,progress,observations){
  const summary=summarize(catalog,progress,observations);
  const lines=['# Class and race import queue','','This is a resumable work queue. It does not execute AI work or activate rules. A Codex pause pauses implementation; the committed checkpoint remains.','','Authoritative state: [progress.json](progress.json). Source inventory: [catalog.json](catalog.json). [Resume instructions](RESUME.md).','','Partial-live support, testing availability, source archiving and full completion are separate. Conditional rules remain manual or guarded until implemented and reviewed.','','| Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |','| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |'];
  for(const kind of KINDS){const s=summary.groups[kind];lines.push(`| ${kind} | ${s.archived}/${s.total} | ${s.definitions} | ${s.available} | ${s.queued} | ${s.live_partial} | ${s.complete} | ${s.waitingForParent} |`);}
+ if(summary.repositoryWarnings.length)lines.push('','Repository observations are incomplete; repair these files before validating/enabling rules:',...summary.repositoryWarnings.map(w=>'- '+md(w)));
  lines.push('',`Checkpoint revision: **${progress.revision}**. Active: **${summary.active||'none'}**. Next: **${summary.next||'no unblocked baseline item'}**.`,'','Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.','','The race count includes testing options whose mandatory choices can still prevent saving. Full completion requires explicit full coverage and review evidence; existing limited integrations are not counted as complete.');
  for(const kind of ['class','race']){
   lines.push('',`## ${kind==='class'?'Classes':'Races'}`,'','| Order | Entry | Repository state | Work state | Resume point / next action |','| ---: | --- | --- | --- | --- |');
@@ -219,6 +227,6 @@ async function main(argv){
  }
  if(!['status','render'].includes(args.command))fail('Use status, next, plan, start, checkpoint, block or render.');
  const summary=args.command==='render'?await renderReports(ROOT,catalog,progress,observations):summarize(catalog,progress,observations);
- if(args.flags.json)console.log(JSON.stringify(summary,null,2));else{for(const kind of KINDS){const s=summary.groups[kind];console.log(`${kind}: ${s.total} entries; ${s.queued} queued; ${s.live_partial} partial; ${s.complete} fully complete; ${s.blocked} blocked.`);}console.log('Active:',summary.active||'none');console.log('Next:',summary.next||'none');console.log('Checkpoint revision:',summary.revision);}
+ if(args.flags.json)console.log(JSON.stringify(summary,null,2));else{for(const kind of KINDS){const s=summary.groups[kind];console.log(`${kind}: ${s.total} entries; ${s.queued} queued; ${s.live_partial} partial; ${s.complete} fully complete; ${s.blocked} blocked.`);}for(const warning of summary.repositoryWarnings)console.log('Repository warning:',warning);console.log('Active:',summary.active||'none');console.log('Next:',summary.next||'none');console.log('Checkpoint revision:',summary.revision);}
 }
 if(process.argv[1]===fileURLToPath(import.meta.url))main(process.argv.slice(2)).catch(error=>{console.error(error.message);process.exitCode=1;});

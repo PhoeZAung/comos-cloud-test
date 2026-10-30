@@ -18,6 +18,8 @@ paused, out of usage, or not running. A new session can resume saved work.
   stage, section/cursor, next action, evidence and support limits.
 - `QUEUE.md` and `ARCHETYPES.md` are generated human-readable views. If a process
   stops between checkpoint and report generation, regenerate them from JSON.
+  Work-in-progress application manifest errors are reported as warnings; they
+  do not erase the cursor or prevent saving a repair checkpoint.
 - Commit and push checkpoint changes together with the corresponding work.
   GitHub preserves pushed progress if the current cloud machine stops.
 - The raw HTML/Markdown archive and SQLite inventory live separately in the

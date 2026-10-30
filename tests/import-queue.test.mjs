@@ -106,6 +106,20 @@ test('writer locks protect active writers and recover only a dead same-host owne
  }finally{await rm(f.root,{recursive:true,force:true});}
 });
 
+test('an interrupted application manifest does not prevent resuming or checkpointing work',async()=>{
+ const f=await diskFixture();
+ try{
+  await mkdir(path.join(f.root,'rules/classes'),{recursive:true});
+  const manifest=path.join(f.root,'rules/classes/manifest.json');await writeFile(manifest,'{"classes":[');
+  let p=await checkpoint(f.root,'ffd20:class:bard',{state:'in_progress',cursor:'Adapter work interrupted'});
+  const observed=await observeRepository(f.root,f.catalog);
+  assert(observed.warnings.some(w=>w.startsWith('rules/classes/manifest.json:')));
+  assert.equal(chooseNext(f.catalog,p,observed).id,'ffd20:class:bard');
+  p=await checkpoint(f.root,'ffd20:class:bard',{cursor:'Repair the interrupted manifest first'});
+  assert.equal(p.revision,3);assert.equal(await readFile(manifest,'utf8'),'{"classes":[');
+ }finally{await rm(f.root,{recursive:true,force:true});}
+});
+
 test('real checkpoint completion refuses an unreviewed or level-limited live definition',async()=>{
  const f=await diskFixture();
  try{
