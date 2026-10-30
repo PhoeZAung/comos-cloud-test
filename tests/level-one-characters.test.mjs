@@ -15,6 +15,7 @@ const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
 const SCORE='ffd20:race:immortal:pool:flexible-score';
 const KNOWLEDGE='ffd20:race:immortal:pool:long-lived-knowledge';
 const LANGUAGES='ffd20:race:immortal:pool:bonus-languages';
+const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
 function fixture(mog=false){
  const b=newBuild();Object.assign(b,{name:mog?'Moogle Mog Knight':'Immortal Dancer',
   classId:mog?CHOCOBO_KNIGHT_ID:DANCER_ID,raceId:'ffd20:race:'+(mog?'moogle':'immortal'),
@@ -90,6 +91,33 @@ test('Immortal high-Intelligence language choices are bounded and saved once',()
  b.racialChoices[LANGUAGES].push(LANGUAGES+':option:draconic');assert.throws(()=>compileBuild(b),/up to 1/);
 });
 
+test('Moogle starting language choices use the source list and Intelligence allowance',()=>{
+ const b=fixture(true);b.baseScores.int=14;b.skillRanks[4]=1;b.skillRanks[5]=1;
+ b.racialChoices[MOOGLE_LANGUAGES]=[MOOGLE_LANGUAGES+':option:aklo',MOOGLE_LANGUAGES+':option:auran'];
+ const d=compileBuild(b);assert.equal(d.languages,'Common, Moogle, Aklo, Auran');
+ const again=compileBuild(d.rulesBuild.input,d);assert.equal(again.languages,d.languages);
+ assert.equal(again.skills.reduce((n,s)=>n+s.lvl,0),6);
+ const race=renderBuild(b,2);assert.match(race,/Bonus languages/);assert.match(race,/choose up to 2/i);
+ assert.match(race,/data-rw-racial-option="ffd20:race:moogle:pool:bonus-languages"/);
+ const scores=renderBuild(b,1,{mode:'create'});assert.match(scores,/data-rw-bonus-languages/);
+ assert.match(scores,/data-rw-racial-option="ffd20:race:moogle:pool:bonus-languages"/);
+ b.racialChoices[MOOGLE_LANGUAGES].push(MOOGLE_LANGUAGES+':option:draconic');
+ assert.throws(()=>compileBuild(b),/up to 2/);
+ b.racialChoices[MOOGLE_LANGUAGES]=[MOOGLE_LANGUAGES+':option:celestial'];
+ assert.throws(()=>compileBuild(b),/Invalid or duplicate/);
+});
+
+test('Moogle bonus languages stay optional, require an active trait, and do not leak between races',()=>{
+ const b=fixture(true);assert.equal(compileBuild(b).languages,'Common, Moogle');
+ b.racialChoices[MOOGLE_LANGUAGES]=[MOOGLE_LANGUAGES+':option:aklo'];
+ assert.throws(()=>compileBuild(b),/choose 0/);
+ b.baseScores.int=12;b.skillRanks[4]=1;
+ b.disabledTraits.push('ffd20:race:moogle:trait:languages');
+ assert.throws(()=>compileBuild(b),/inactive/);
+ const other=fixture();other.racialChoices[MOOGLE_LANGUAGES]=[MOOGLE_LANGUAGES+':option:aklo'];
+ assert.throws(()=>compileBuild(other),/inactive/);
+});
+
 test('Mog Knight race/class restrictions and first-level boundaries are enforced on the server model',()=>{
  const b=fixture();b.archetypeId=MOG_KNIGHT_ID;assert.throws(()=>compileBuild(b),/Mog Knight requires/);
  const wrongRace=fixture(true);wrongRace.raceId='ffd20:race:dwarf';wrongRace.racialChoices={};wrongRace.racialSpecialties={};assert.throws(()=>compileBuild(wrongRace),/Mog Knight requires/);
@@ -144,15 +172,18 @@ test('character library persists both level-1 builds and idempotently reloads th
  const db=await openDatabase(':memory:');
  try{
   const owner=createUserRepository(db).create({displayName:'Character test owner'}),service=createCharacterLibraryService(db);
-  for(const mog of [false,true]){
-   const request={build:fixture(mog),requestId:randomUUID()};
+  const highInt=fixture(true);highInt.name='Moogle linguist';highInt.baseScores.int=12;highInt.skillRanks[4]=1;
+  highInt.racialChoices[MOOGLE_LANGUAGES]=[MOOGLE_LANGUAGES+':option:draconic'];
+  for(const build of [fixture(false),fixture(true),highInt]){
+   const mog=build.classId===CHOCOBO_KNIGHT_ID,request={build,requestId:randomUUID()};
    const first=service.createBuild(owner.id,request),again=service.createBuild(owner.id,request);
    assert.equal(first.id,again.id);assert.equal(first.data.rulesBuild.input.classId,mog?CHOCOBO_KNIGHT_ID:DANCER_ID);
    const stored=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(first.id).data_json);
    assert.deepEqual(stored.rulesBuild.input.racialChoices,request.build.racialChoices);
+   if(build===highInt)assert.equal(stored.languages,'Common, Moogle, Draconic');
    assert.equal(stored.mp_class,0);
    assert.throws(()=>service.createBuild(owner.id,{build:{...request.build,hpRolls:[6]},requestId:randomUUID()}),/maximum d/);
   }
-  assert.equal(service.list(owner.id).characters.length,2);
+  assert.equal(service.list(owner.id).characters.length,3);
  }finally{db.close();}
 });

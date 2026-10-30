@@ -34,7 +34,15 @@ Purpose: make every new FFd20 class (and its many archetypes) extractable as rev
 A separate `upgrade_feature` event points at this ID. The importer validates both links.
 
 ## Current compatibility boundary
-Black Mage's existing builder is legacy. Archer has a live class adapter. Bard is the next staged extraction and is **not** a selectable/savable class until its songs, talents, choice validation and class adapter are complete. The pipeline validates, generates and inventories data; it does not certify or blindly activate gameplay rules.
+Black Mage's existing builder is legacy. Archer has a live class adapter.
+Chocobo Knight and Dancer support new level-1 characters, including the
+Moogle-only Mog Knight archetype. Standard Moogle and Immortal choices are
+supported for those test builds; conditional effects remain manual. See
+`docs/extraction/two-character-live-test.md` for the exact bounds and checks.
+Bard is the next staged extraction and is **not** a selectable/savable class
+until its songs, talents, choice validation and class adapter are complete.
+The pipeline validates, generates and inventories data; it does not certify or
+blindly activate gameplay rules.
 
 ## Commands
 - `npm run rules:class:new -- <slug>` — generate safe unregistered template.

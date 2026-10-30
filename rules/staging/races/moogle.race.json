@@ -3,15 +3,15 @@
   "kind": "race",
   "id": "ffd20:race:moogle",
   "name": "Moogle",
-  "revision": 1,
+  "revision": 2,
   "sources": [
     {
       "id": "main",
       "url": "https://finalfantasyd20.com/races/core-races/moogle/",
       "title": "Moogle — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": "e8e555b6dfe297f308ce29393cd8cba5a8760c8724cfbdca9edca2d060ad7950"
     }
   ],
   "dependencies": [],
@@ -43,7 +43,7 @@
       },
       {
         "path": "/choicePools",
-        "reason": "Moogle Magic depends on external canonical spell definitions; selected Craft/Profession/Knowledge specialties and high-INT bonus-language counts require sheet/catalog review.",
+        "reason": "Moogle Handy now binds one actual Craft/Profession row and specialty, and standard bonus languages have a bounded starting choice. Alternate Knowledge selections and Moogle Magic spell choices still require their own adapters; independent rule review remains pending.",
         "blocking": true
       }
     ],
@@ -390,7 +390,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:moogle:pool:bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -399,8 +401,22 @@
           "locator": "6035"
         }
       ],
-      "choiceCount": null,
-      "selectionTiming": "none"
+      "choiceCount": {
+        "kind": "formula",
+        "expression": "max(0, INT_MOD)",
+        "classId": null,
+        "rounding": "floor",
+        "minimum": 0,
+        "maximum": null,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Standard Racial Traits",
+            "locator": "languages"
+          }
+        ]
+      },
+      "selectionTiming": "on_gain"
     },
     {
       "id": "ffd20:race:moogle:trait:defensive-training",
@@ -4407,6 +4423,168 @@
           "sourceId": "main",
           "section": "Variant Heritages",
           "locator": "6089"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:moogle:pool:bonus-languages",
+      "name": "Bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:moogle:pool:bonus-languages:option:aklo",
+          "name": "Aklo",
+          "description": "Aklo",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "aklo",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:bonus-languages:option:auran",
+          "name": "Auran",
+          "description": "Auran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "auran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:bonus-languages:option:banganese",
+          "name": "Banganese",
+          "description": "Banganese",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "banganese",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:bonus-languages:option:draconic",
+          "name": "Draconic",
+          "description": "Draconic",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "draconic",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:bonus-languages:option:numish",
+          "name": "Numish",
+          "description": "Numish",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "numish",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:bonus-languages:option:seeq",
+          "name": "Seeq",
+          "description": "Seeq",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "seeq",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:moogle:pool:bonus-languages:option:sylvan",
+          "name": "Sylvan",
+          "description": "Sylvan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "sylvan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Optional starting languages from the official Moogle list, bounded by the positive Intelligence modifier. These do not grant Linguistics ranks.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
         }
       ]
     }
