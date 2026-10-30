@@ -6,7 +6,7 @@ import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCateg
 import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
 import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
-import {equipmentSlotIds,renderEquipChoices} from '../features/sheet/equipment.mjs';
+import {isEquipmentSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','speed','languages','senses'],
  resources:['hp_curr','hp_temp','hp_max_temp','mp_curr','mp_temp','mp_max_temp'],hp:['hp_curr','hp_temp','hp_max_temp'],mp:['mp_curr','mp_temp','mp_max_temp'],
@@ -107,7 +107,7 @@ export function mountSheet(){
  }
  function openEquipmentPicker(slot){
   if(busy||conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or refresh before changing equipment.');return;}
-  if(!equipmentSlotIds.includes(slot))return;
+  if(!isEquipmentSlot(slot))return;
   const picker=equipmentDialog();if(!picker)return;
   selectedEquipmentSlot=slot;
   const search=picker.querySelector('[data-equip-search]');
@@ -204,7 +204,7 @@ export function mountSheet(){
   if(button.matches('[data-equip-slot]')){openEquipmentPicker(button.dataset.equipSlot);return;}
   if(button.matches('[data-equip-choice]')){
    const slot=selectedEquipmentSlot,raw=button.dataset.equipChoice,[collection,rawIndex]=raw.split(':'),index=Number(rawIndex),item=character.data[collection]?.[index];
-   if(!equipmentSlotIds.includes(slot)||!['items','weapons'].includes(collection)||!Number.isInteger(index)||index<0||!item||!String(item.name||'').trim()||Number(item.amount??1)<1)return;
+   if(!isEquipmentSlot(slot)||!['items','weapons'].includes(collection)||!Number.isInteger(index)||index<0||!item||!String(item.name||'').trim()||Number(item.amount??1)<1)return;
    if(button.getAttribute('aria-pressed')==='true'){equipmentDialog()?.close();return;}
    void save({action:'equip',slot,collection,index});return;
   }
