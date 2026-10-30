@@ -3,7 +3,7 @@ import {isBeastmaster,beastmasterSkillBonus} from '../features/characters/rules/
 import {isLevelOneClass,MOG_KNIGHT_ID,CHOCOBO_KNIGHT_ID} from '../features/characters/rules/level-one-classes.mjs';
 import {classHitDie,classDefaultHp} from '../features/characters/rules/class-adapters.mjs';
 import {supportsRacialPool,racialChoiceSpecs,pruneRacialChoices} from '../features/characters/rules/racial-choices.mjs';
-import {HUME_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
+import {HUME_ID,MITHRA_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {registry,spellsForBuild,availableClasses,classFor,className,classSkill,newBuild,steps,stats,raceFor,raceTraits,replacementFor,racialClassSkill,effectiveScores,choiceEvents,eligibleOptions,calculated,spellCounts,buildIssues,previewBuild,hpHistory,classFeatureChanges,hasSpellcasting,buildLevel,carryCharacter} from '../features/characters/rules/build.mjs';
 import {pointSpend,standardArray,rollScores,moveScoreToken} from '../features/characters/ability-generation.mjs';
 import {fixedSkills} from '../features/sheet/skills.mjs';
@@ -27,6 +27,7 @@ const traitReview=(race,id)=>{
  if(!f)return 'This trait is unavailable.';
  if(race.data.alternateTraitIds.includes(id)){
   if(race.id===HUME_ID)return 'Hume alternate traits need a separate verified batch; standard traits are supported for testing.';
+  if(race.id===MITHRA_ID)return 'Mithra alternate traits need a separate verified batch; standard traits are supported for testing.';
   if(race.id==='ffd20:race:galka')return 'Galka alternate traits need a separate verified batch; standard traits are supported for testing.';
   if(race.id==='ffd20:race:elvaan')return 'Elvaan alternate traits need a separate verified batch; standard traits are supported for testing.';
   const ops=replacementFor(race,id);
@@ -36,7 +37,7 @@ const traitReview=(race,id)=>{
  if(f.choicePoolIds?.some(id=>!supportsRacialPool(id)))return 'This trait requires a choice the wizard cannot yet record.';
  return manualReviewTraits.get(id)||'';
 };
-const heritageReview=(h,race)=>race?.id===HUME_ID?'Hume variant heritages need a separate verified batch.':race?.id==='ffd20:race:elvaan'?'Elvaan variant heritages need a separate verified batch.':(h.replacements||[]).some(o=>o.resolution!=='resolved'||o.scope!=='whole_feature')?'Heritage replacements need review.':(h.choicePoolIds?.length?'A heritage choice is not supported.':'');
+const heritageReview=(h,race)=>race?.id===MITHRA_ID?'Mithra variant heritages need a separate verified batch.':race?.id===HUME_ID?'Hume variant heritages need a separate verified batch.':race?.id==='ffd20:race:elvaan'?'Elvaan variant heritages need a separate verified batch.':(h.replacements||[]).some(o=>o.resolution!=='resolved'||o.scope!=='whole_feature')?'Heritage replacements need review.':(h.choicePoolIds?.length?'A heritage choice is not supported.':'');
 const choiceSource=(event,b)=>{if(isBeastmaster(b))return classFor(b).sources.find(s=>s.id==='companions')?.url;const talent=event?.poolIds?.some(id=>/talent/.test(id));return classFor(b).sources.find(s=>s.id===(talent?'talents':'main'))?.url||classFor(b).sources[0]?.url;};
 const panel=(title,html)=>`<section class="rw-panel"><h2>${e(title)}</h2>${html}</section>`;
 const field=(label,html)=>`<label class="rw-field"><span>${e(label)}</span>${html}</label>`;

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 27,
+  "revision": 30,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 1,
+  "schedulePosition": 2,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -222,20 +222,36 @@
       "updatedAt": "2026-10-30T15:12:58.286Z"
     },
     "ffd20:race:hume": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "First-level standard-trait adapter validated across all six compilers; mobile Dancer and Black Mage created/edited/reopened with score, seven ranks, two languages and separate bonus-feat slot",
-      "nextAction": "Run exact-commit CI, merge checked Hume batch, verify deployed assets, record partial scope, and continue Mithra",
-      "scope": "First-level standard traits only: score choice, Skilled rank, extra manual feat slot, identity, Integrated and Curiosity class skills supported. Curiosity conditional checks, Sociable and feat effects manual. Variants/alternates/progression/multiclassing guarded.",
-      "note": "331 tests and cloud build pass. Two mobile real-route fixtures preserved Al Bhed/Ancient Elvaan, seven ranks and manual feat name; excess language rejected. Fixture auth only; CI/deployment pending.",
+      "state": "live_partial",
+      "stage": "deployed",
+      "cursor": "First-level standard Hume adapter deployed; six public asset hashes match tested build",
+      "nextAction": "Later Hume milestones: conditional Curiosity/check stacking, variants/alternate replacements, progression/multiclass entitlements, favored rewards and independent full review",
+      "scope": "First-level standard traits only; score, Skilled rank, separate manual feat slot, bounded language names, identity, Integrated and Curiosity class skills supported. Conditional checks and feat effects manual; variants/alternates/progression/multiclass guarded.",
+      "note": "PR #12 merged as 2fe9da7312e80219fc46ebb414f0fe57fe2ed006; branch CI 41080589016 and main CI 41080930728 passed. 331 tests/cloud build pass; six deployed assets match and health is ready. Browser auth was local fixture, not production provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/hume-standard-source-review.md",
         "docs/extraction/hume-standard-creation.md",
-        "docs/extraction/hume-browser-validation.json"
+        "docs/extraction/hume-browser-validation.json",
+        "docs/extraction/hume-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T15:25:16.717Z"
+      "updatedAt": "2026-10-30T15:30:47.975Z"
+    },
+    "ffd20:race:mithra": {
+      "state": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Standard Mithra traits validated across six compilers and mobile Dancer/Bard creation/edit/save/reopen; initiative overrides and spent Cat Luck preserved",
+      "nextAction": "Run exact-commit CI, merge and verify deployed Mithra assets, then continue Tarutaru standard traits",
+      "scope": "Standard traits: scores, identity, Natural Hunter, optional six-language list, Fleet-Footed initiative, manual Run feat and daily Cat Luck counter. Reroll/conditional AC/trip/falling/Sprinter manual; variants/alternates/favored rewards unimplemented.",
+      "note": "334 tests and cloud build pass. Mobile real-route Dancer/Bard fixtures preserved manual initiative and spent Cat Luck without page errors; authentication is a fixture, not production provider login.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/mithra-standard-creation.md",
+        "docs/extraction/mithra-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T15:34:16.481Z"
     }
   },
   "history": [
@@ -472,6 +488,33 @@
       "stage": "runtime-validated",
       "cursor": "First-level standard-trait adapter validated across all six compilers; mobile Dancer and Black Mage created/edited/reopened with score, seven ranks, two languages and separate bonus-feat slot",
       "time": "2026-10-30T15:25:16.717Z"
+    },
+    {
+      "revision": 28,
+      "itemId": "ffd20:race:hume",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployed",
+      "cursor": "First-level standard Hume adapter deployed; six public asset hashes match tested build",
+      "time": "2026-10-30T15:30:47.975Z"
+    },
+    {
+      "revision": 29,
+      "itemId": "ffd20:race:mithra",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T15:30:48.124Z"
+    },
+    {
+      "revision": 30,
+      "itemId": "ffd20:race:mithra",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Standard Mithra traits validated across six compilers and mobile Dancer/Bard creation/edit/save/reopen; initiative overrides and spent Cat Luck preserved",
+      "time": "2026-10-30T15:34:16.481Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Mithra",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 5,
+      "languages": "Common, Mithran, Lupin",
+      "manualInitiativePreserved": true,
+      "spentLuckPreserved": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Mithra",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 7,
+      "languages": "Common, Mithran, Lupin",
+      "manualInitiativePreserved": true,
+      "spentLuckPreserved": true,
+      "pageErrors": []
+    }
+  ]
+}
