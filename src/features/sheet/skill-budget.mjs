@@ -1,5 +1,6 @@
 import {classSkillBases} from './skill-bases.mjs';
 import {number,modifier} from './model.mjs';
+import {racialSkillRanks} from '../characters/rules/racial-progress.mjs';
 const normalize=v=>String(v||'').trim().toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const bases=new Map(Object.entries(classSkillBases).map(([k,v])=>[normalize(k),v]));
 export function skillBudget(data={}){
@@ -12,6 +13,7 @@ export function skillBudget(data={}){
   if(!map||typeof map!=='object'||Array.isArray(map))continue;
   for(const [key,value] of Object.entries(map)){if(!/^\d+$/.test(key))continue;const level=Number(key),choice=String(value||'').trim().toLowerCase();if(level<1||level>totalLevel||seen.has(level))continue;if(['skill','+1 skill','+1 skill point','hp','+1 hp'].includes(choice)){seen.add(level);if(choice.includes('skill'))favoredSkill++;}}
  }
- const ranks=(Array.isArray(data.skills)?data.skills:[]).reduce((s,r)=>s+Math.max(0,Math.trunc(number(r.lvl??r.ranks??r.rank))),0),known=rows.length>0&&rows.every(c=>c.total!==null),classBudget=known?rows.reduce((s,c)=>s+c.total,0):null,totalBudget=known?classBudget+favoredSkill:null;
- return {known,classBudget,favoredSkill,totalBudget,ranks,unused:known?totalBudget-ranks:null,totalLevel,rows};
+ const racialSkill=racialSkillRanks(data.rulesBuild?.input,totalLevel);
+ const ranks=(Array.isArray(data.skills)?data.skills:[]).reduce((s,r)=>s+Math.max(0,Math.trunc(number(r.lvl??r.ranks??r.rank))),0),known=rows.length>0&&rows.every(c=>c.total!==null),classBudget=known?rows.reduce((s,c)=>s+c.total,0):null,totalBudget=known?classBudget+favoredSkill+racialSkill:null;
+ return {known,classBudget,favoredSkill,racialSkill,totalBudget,ranks,unused:known?totalBudget-ranks:null,totalLevel,rows};
 }

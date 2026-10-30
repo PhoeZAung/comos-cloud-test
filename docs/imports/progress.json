@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 23,
+  "revision": 27,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 0,
+  "schedulePosition": 1,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -204,21 +204,38 @@
       "updatedAt": "2026-10-30T12:37:41.714Z"
     },
     "ffd20:class:beastmaster": {
-      "state": "in_progress",
-      "stage": "runtime-validated",
-      "cursor": "Level-1 creation/editing with eleven ordinary companions or none; Nature Sense, daily counters and conditional Shared Senses validated in model and mobile browser",
-      "nextAction": "Run CI for this exact commit, merge checked Beastmaster batch, verify public deployment assets, then record partial milestone and continue Hume",
-      "scope": "New level-1 characters only. Companion HP/training/combat and focus effects manual; starting companion fixed on edit; later starters, gated groups, archetypes, multiclassing and progression guarded.",
-      "note": "All 326 tests and cloud build pass. Two local authenticated-route fixtures created, edited, saved and reopened Galka Beastmasters (Wolf/none), preserving spent focus and rejecting gated species/replacement. Production provider login not tested; CI/deployment pending.",
+      "state": "live_partial",
+      "stage": "deployed",
+      "cursor": "Bounded first-level Beastmaster adapter merged and live; seven public runtime assets match the tested cloud build",
+      "nextAction": "Later milestones: companion combat/training and replacement handling, source conflict resolution, higher-level feature and choice mappings, archetypes and independent full review",
+      "scope": "New level-1 creation/editing with eleven ordinary starter companions or none. Basic class stats, Nature Sense and daily counters supported. Companion HP/training/combat and focus effects manual; later starters/gated species, replacement in wizard, progression, multiclassing and archetypes guarded.",
+      "note": "PR #11 merged as 9b418395e5dce710f71705d2fd271c6c0fa80ac6. Branch CI 41078098996 and main CI 41078217137 passed; all 326 tests and cloud build pass. Seven deployed asset hashes match, health 200/database ready. Browser QA used fixture authentication; real-user provider acceptance remains.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/beastmaster-source-batch.md",
         "docs/extraction/beastmaster-companions-source-batch.md",
         "docs/extraction/beastmaster-level-one-import.md",
-        "docs/extraction/beastmaster-browser-validation.json"
+        "docs/extraction/beastmaster-browser-validation.json",
+        "docs/extraction/beastmaster-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-30T15:08:55.103Z"
+      "updatedAt": "2026-10-30T15:12:58.286Z"
+    },
+    "ffd20:race:hume": {
+      "state": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "First-level standard-trait adapter validated across all six compilers; mobile Dancer and Black Mage created/edited/reopened with score, seven ranks, two languages and separate bonus-feat slot",
+      "nextAction": "Run exact-commit CI, merge checked Hume batch, verify deployed assets, record partial scope, and continue Mithra",
+      "scope": "First-level standard traits only: score choice, Skilled rank, extra manual feat slot, identity, Integrated and Curiosity class skills supported. Curiosity conditional checks, Sociable and feat effects manual. Variants/alternates/progression/multiclassing guarded.",
+      "note": "331 tests and cloud build pass. Two mobile real-route fixtures preserved Al Bhed/Ancient Elvaan, seven ranks and manual feat name; excess language rejected. Fixture auth only; CI/deployment pending.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/hume-standard-source-review.md",
+        "docs/extraction/hume-standard-creation.md",
+        "docs/extraction/hume-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T15:25:16.717Z"
     }
   },
   "history": [
@@ -419,6 +436,42 @@
       "stage": "runtime-validated",
       "cursor": "Level-1 creation/editing with eleven ordinary companions or none; Nature Sense, daily counters and conditional Shared Senses validated in model and mobile browser",
       "time": "2026-10-30T15:08:55.103Z"
+    },
+    {
+      "revision": 24,
+      "itemId": "ffd20:class:beastmaster",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployed",
+      "cursor": "Bounded first-level Beastmaster adapter merged and live; seven public runtime assets match the tested cloud build",
+      "time": "2026-10-30T15:12:58.286Z"
+    },
+    {
+      "revision": 25,
+      "itemId": "ffd20:race:hume",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T15:12:58.569Z"
+    },
+    {
+      "revision": 26,
+      "itemId": "ffd20:race:hume",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "standard-trait-adapter",
+      "cursor": "Standard trait source compared with staged definition; source hash and RP summary verified; score/Skilled/bonus-feat/language integration gaps recorded",
+      "time": "2026-10-30T15:14:22.683Z"
+    },
+    {
+      "revision": 27,
+      "itemId": "ffd20:race:hume",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "First-level standard-trait adapter validated across all six compilers; mobile Dancer and Black Mage created/edited/reopened with score, seven ranks, two languages and separate bonus-feat slot",
+      "time": "2026-10-30T15:25:16.717Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

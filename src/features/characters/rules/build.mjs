@@ -2,6 +2,7 @@ import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classe
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
+import {HUME_ID,racialSkillRanks} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
@@ -69,6 +70,8 @@ export function buildIssues(b,{complete=true}={}){
  if(['array','rolled'].includes(b.abilityMethod)){const pool=b.abilityMethod==='array'?standardArray:b.scorePool;if(pool.length!==6||new Set(b.scoreAssignments).size!==6||b.scoreAssignments.some(i=>!Number.isInteger(i)||i<0||i>5)||stats.some((key,i)=>b.baseScores[key]!==pool[b.scoreAssignments[i]]))add(1,'Assign each generated score exactly once.');}
  if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>buildLevel(b)))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
  const race=raceFor(b);if(!race)add(2,'Choose a race.');
+ if(race?.id===HUME_ID&&(b.heritageId||b.alternateIds.length))add(2,'Hume currently supports standard heritage and standard traits only. Variants and alternates require a separate verified batch.');
+ if(race?.id===HUME_ID&&(b.level!==1||b.carry))add(3,'Hume currently supports first-level creation/editing only; progression and multiclassing require a separate verified batch.');
  if(race?.id==='ffd20:race:half-breed')add(2,'Half-Breed requires two legal parent races and verified inherited-trait choices. These choices are not available yet, so this race cannot be saved.');
  if(race?.id==='ffd20:race:galka'&&(b.heritageId||b.alternateIds.length))add(2,'Galka currently supports standard traits only. Alternate mechanics require a separate verified batch.');
  if(race?.id==='ffd20:race:elvaan'&&(b.heritageId||b.alternateIds.length))add(2,'Elvaan currently supports standard heritage and standard traits only. Variant heritage and alternate mechanics require a separate verified batch.');
@@ -156,7 +159,7 @@ export function sanitizeBuild(raw){
  for(const k of ['disabledTraits','alternateIds','spellIds']){if(!Array.isArray(raw[k])||raw[k].length>400||raw[k].some(v=>typeof v!=='string'||v.length>250))bad('Invalid '+k+'.');b[k]=uniq(raw[k]);}
  if(raw.spellSelections!==undefined&&raw.spellSelections!==null){const groups=raw.spellSelections;if(!groups||typeof groups!=='object'||Array.isArray(groups)||Object.keys(groups).some(k=>!['cantrips','leveled'].includes(k)))bad('Invalid spell slots.');for(const k of ['cantrips','leveled'])if(!Array.isArray(groups[k])||groups[k].length>200||groups[k].some(v=>v!==null&&(typeof v!=='string'||v.length>250)))bad('Invalid spell slots.');if(JSON.stringify([...groups.cantrips,...groups.leveled].filter(Boolean))!==JSON.stringify(b.spellIds))bad('Spell slots do not match learned spells.');b.spellSelections=structuredClone(groups);}
  if(raw.skillRanks!==undefined&&raw.skillRanks!==null){if(!Array.isArray(raw.skillRanks)||raw.skillRanks.length!==fixedSkills.length||raw.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>20))bad('Invalid skill ranks.');b.skillRanks=[...raw.skillRanks];}
- for(const k of ['racialChoices','racialSpecialties']){const value=raw[k]??{};if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length>10)bad('Invalid '+k+'.');for(const [id,v] of Object.entries(value)){if(id.length>250||(k==='racialChoices'?(!Array.isArray(v)||v.length>10||v.some(x=>typeof x!=='string'||x.length>250)):(typeof v!=='string'||v.length>80)))bad('Invalid '+k+'.');}b[k]=structuredClone(value);}
+ for(const k of ['racialChoices','racialSpecialties']){const value=raw[k]??{};if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length>10)bad('Invalid '+k+'.');for(const [id,v] of Object.entries(value)){if(id.length>250||(k==='racialChoices'?(!Array.isArray(v)||v.length>20||v.some(x=>typeof x!=='string'||x.length>250)):(typeof v!=='string'||v.length>80)))bad('Invalid '+k+'.');}b[k]=structuredClone(value);}
  for(const k of ['hpRolls','favored']){if(!Array.isArray(raw[k])||raw[k].length>20)bad('Invalid level selections.');b[k]=raw[k].slice();}
  if(raw.abilityMethod!==undefined){if(!['manual','point-buy','array','rolled'].includes(raw.abilityMethod))bad('Unknown score method.');b.abilityMethod=raw.abilityMethod;}
  if(raw.pointBudget!==undefined){if(![10,15,20,25].includes(raw.pointBudget))bad('Invalid point budget.');b.pointBudget=raw.pointBudget;}
@@ -174,6 +177,9 @@ export function sanitizeBuild(raw){
 }
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 export function previewBuild(b){
+ const preview=classPreview(b);return {...preview,skillBudget:preview.skillBudget+racialSkillRanks(b,b.level)};
+}
+function classPreview(b){
  if(isBard(b))return bardPreview(b,{scores:effectiveScores(b),race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b)});
  if(isLevelOneClass(b)){const scores=effectiveScores(b);return levelOnePreview(b,{scores,race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b)});}
  if(isArcher(b)){const scores=effectiveScores(b);return archerPreview(b,{scores,race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b),carriedLevels:carriedLevels(b)});}
