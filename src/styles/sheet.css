@@ -200,3 +200,18 @@
 .cs-loadout-misc-add{display:grid;place-items:center;margin-left:auto;width:34px;height:34px;border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--text);font:22px system-ui;cursor:pointer}
 .cs-loadout-misc-add:hover{background:var(--bg);color:var(--accent);border-color:var(--accent)}
 .cs-loadout-misc-add:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Full-width Misc card and only nonempty Inventory category tiles. */
+.cs-loadout-groups>.cs-loadout-misc{grid-column:1/-1;width:100%;min-width:0}
+@media(min-width:1100px){
+ .cs-loadout-misc .cs-loadout-rows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:18px}
+ .cs-loadout-misc .cs-loadout-row{min-width:0}
+}
+@media(min-width:851px) and (max-width:1099px){
+ .cs-loadout-misc .cs-loadout-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px}
+}
+/* When only a few categories exist, avoid the previous oversized All tile leaving gaps. */
+.sheet .item-category-tiles{grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px}
+.sheet .item-category-tiles .item-category-all{grid-column:auto;grid-row:auto;aspect-ratio:1;font-size:13px;background:var(--surface)}
+.sheet .item-category-tiles .item-category-all>span:first-child{font-size:22px!important}
+@media(max-width:480px){.sheet .item-category-tiles{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}}
