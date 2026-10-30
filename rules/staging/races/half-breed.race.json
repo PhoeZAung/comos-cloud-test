@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/core-races/half-breed/",
       "title": "Half-Breed — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "308eac04a2886842ac0eedffd3a246a3f5a24f0bfefb2e1911137d301d49ee77"
     }
   ],
   "dependencies": [
@@ -48,6 +49,11 @@
         "path": "/review",
         "reason": "Rule effects are mechanically paraphrased staging interpretations, not independently approved. No changes to live wizard or production manifest are authorized by structural validation.",
         "blocking": true
+      },
+      {
+        "path": "/choicePools",
+        "blocking": true,
+        "reason": "Source rechecked: the current FFd20 race archive has no verified per-trait RP metadata for filtering inherited selections. Full parent identity/movement/language and selection validation are required. The server now blocks Half-Breed creation even if all standard traits are disabled."
       }
     ],
     "sectionInventory": [
