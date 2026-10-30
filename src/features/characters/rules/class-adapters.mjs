@@ -44,7 +44,7 @@ export const classHasSpells=b=>!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
  if(!isArcher(b)&&!isLevelOneClass(b)&&!isBard(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
- if(isLevelOneClass(b)||isBard(b)){const value=id.replace(/^skill:/,'');return classFor(b).data.classSkills.some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
+ if(isLevelOneClass(b)||isBard(b)){const value=id.replace(/^skill:/,'');return (levelOneArchetype(b)?.data.classSkills||classFor(b).data.classSkills).some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
  const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
  return skills.includes(value)||value.startsWith('knowledge-')&&skills.includes('knowledge:'+value.slice('knowledge-'.length))||['craft','profession'].includes(value)&&skills.includes(value+':*');
 }
