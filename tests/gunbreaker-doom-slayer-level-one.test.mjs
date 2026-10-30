@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {newBuild,compileBuild,previewBuild,buildIssues} from '../src/features/characters/rules/build.mjs';
+import {newBuild,compileBuild,previewBuild,buildIssues,classSkill} from '../src/features/characters/rules/build.mjs';
 import {GUNBREAKER_ID,DOOM_SLAYER_ID} from '../src/features/characters/rules/level-one-classes.mjs';
 import {validateClassDefinition} from '../src/features/characters/rules/class-contract.mjs';
 import {validateArchetypeDefinition} from '../src/features/characters/rules/archetype-contract.mjs';
@@ -35,4 +35,16 @@ test('Unsupported later-level progression and incompatible archetypes are guarde
  assert(buildIssues({...b,level:2,hpRolls:[10,6]}).some(x=>/level-1/.test(x.message)));
  assert(buildIssues({...b,archetypeId:'other'}).some(x=>/not enabled/.test(x.message)));
  assert.throws(()=>compileBuild({...b,level:2,hpRolls:[10,6]}),/level-1/);
+});
+
+test('Doom Slayer replaces base class skills without changing Galka traits',()=>{
+ const base=make(),doom=make(DOOM_SLAYER_ID);
+ assert.equal(classSkill(base,'skill:heal'),true);
+ assert.equal(classSkill(base,'skill:knowledge-nobility'),true);
+ assert.equal(classSkill(base,'skill:survival'),false);
+ assert.equal(classSkill(doom,'skill:heal'),false);
+ assert.equal(classSkill(doom,'skill:knowledge-nobility'),false);
+ assert.equal(classSkill(doom,'skill:survival'),true);
+ assert.equal(classSkill(doom,'skill:knowledge-planes'),true);
+ assert.equal(compileBuild(doom).str,12);
 });
