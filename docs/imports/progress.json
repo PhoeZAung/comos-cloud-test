@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 19,
+  "revision": 21,
   "schedule": [
     "class",
     "race",
@@ -202,6 +202,20 @@
         "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41056267547"
       ],
       "updatedAt": "2026-10-30T12:37:41.714Z"
+    },
+    "ffd20:class:beastmaster": {
+      "state": "in_progress",
+      "stage": "companion-source-review",
+      "cursor": "Main class source staged: both 20-row tables, six level-1 grants, twelve focus descriptions; later sections retained with explicit conflicts",
+      "nextAction": "Read archived companion species page, preserve starter-level eligibility, and design bounded companion persistence/choices before implementing level-1 Beastmaster adapter",
+      "scope": "Staged source only; not selectable; no supported runtime levels. Later Natural Savagery/focus conflicts retained; bulk Pathfinder collection paused.",
+      "note": "Full suite 316 passing and cloud build pass. Next work is companion-source review; this remains the active item rather than an import-complete milestone.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/beastmaster-source-batch.md"
+      ],
+      "updatedAt": "2026-10-30T14:23:02.846Z"
     }
   },
   "history": [
@@ -366,6 +380,24 @@
       "stage": "source-staged-blocked",
       "cursor": "Five abilities, seven upgrades and 20 mount rows staged and validated. GitHub suite/build pass; public catalog remains staged and unavailable.",
       "time": "2026-10-30T12:37:41.714Z"
+    },
+    {
+      "revision": 20,
+      "itemId": "ffd20:class:beastmaster",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-30T14:19:40.898Z"
+    },
+    {
+      "revision": 21,
+      "itemId": "ffd20:class:beastmaster",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "companion-source-review",
+      "cursor": "Main class source staged: both 20-row tables, six level-1 grants, twelve focus descriptions; later sections retained with explicit conflicts",
+      "time": "2026-10-30T14:23:02.846Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

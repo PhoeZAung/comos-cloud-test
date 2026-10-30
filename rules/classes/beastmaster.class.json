@@ -1,0 +1,1631 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:beastmaster",
+  "name": "Beastmaster",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/beastmaster/",
+      "title": "Beastmaster — Official Final Fantasy d20 class",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "cae85922095326db7aadf59e8d7cebb9dd73b6a9d90748017ae3b1fa5bb3980c"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "notes": "Source staging only. First-level feature grants and both 20-row tables transcribed; no runtime adapter or independent mechanics approval.",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "No Beastmaster runtime adapter is implemented. This staged source batch is not selectable, playable or approved."
+      },
+      {
+        "path": "/data/companion",
+        "blocking": true,
+        "reason": "Species eligibility/stat blocks, companion skill/feat/trick choices, persistence and a verified companion adapter are the next implementation batch. Do not substitute the druid companion progression: the FFd20 source explicitly uses d10 Hit Dice and full BAB."
+      },
+      {
+        "path": "/data/animalAspects",
+        "blocking": true,
+        "reason": "Animal focuses are changeable temporary effects, not permanent creation bonuses. Self duration, companion/dead-companion focus, stacking and active effects need a bounded runtime design. External feat effects such as Improved Trip remain manual/unverified."
+      },
+      {
+        "path": "/data/deferredFeatureSections",
+        "blocking": true,
+        "reason": "Only the six actionable first-level features have canonical grant events. Later feature/upgrade identities, choices, tricks, favored rewards and archetypes remain deferred and must not be inferred from table text."
+      },
+      {
+        "path": "/data/sourceConflicts",
+        "blocking": true,
+        "reason": "Natural Savagery table upgrades at levels 8, 11, 14, 17 and 20 disagree with prose stating every four levels after 5 (9, 13 and 17). Both are preserved; no rule is silently chosen."
+      },
+      {
+        "path": "/data/sourceConflicts",
+        "blocking": true,
+        "reason": "Animal Focus describes a permanent daily focus at 20 while Master of the Pack provides a related daily choice at 17. Their interaction is not reconciled. These later-level issues do not themselves block a separately verified level-1 scope."
+      },
+      {
+        "path": "/data/companion/rulesText",
+        "blocking": true,
+        "reason": "Companion table labels share senses and prose Shared Senses are retained as printed. Shared Senses uses Wisdom-modifier daily uses without an explicit minimum; no minimum is invented. Conditional companion effects remain manual."
+      }
+    ]
+  },
+  "data": {
+    "category": "core",
+    "maximumLevel": 20,
+    "supportedLevels": [],
+    "alignment": "Any",
+    "hitDie": 10,
+    "skillRanksPerLevel": 4,
+    "classSkills": [
+      "acrobatics",
+      "climb",
+      "craft:*",
+      "handle-animal",
+      "heal",
+      "intimidate",
+      "knowledge:nature",
+      "perception",
+      "profession:*",
+      "ride",
+      "stealth",
+      "survival",
+      "swim"
+    ],
+    "startingWealth": 105,
+    "startingWealthRule": {
+      "dice": 3,
+      "sides": 6,
+      "multiplier": 10,
+      "currency": "gil",
+      "average": 105,
+      "outfitCapGil": 10
+    },
+    "proficiencies": [
+      "Simple weapons",
+      "Martial weapons",
+      "Whips",
+      "Scorpion whips",
+      "Light armor",
+      "Medium armor"
+    ],
+    "proficiencyDescription": "A beastmaster is proficient with all simple and martial weapons, including whips and scorpion whips. A beastmaster is also proficient with light and medium armor but not with any shields.",
+    "spellcasting": {
+      "learningMode": "none"
+    },
+    "levels": [
+      {
+        "level": 1,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 2,
+        "ref": 2,
+        "will": 0,
+        "special": "Animal Companion, Animal Focus, Nature Sense, Wild Empathy, Limit Breaks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-1"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 0,
+        "special": "Empathic Link, Flanking Companion, Beastmaster Tricks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-2"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 1,
+        "special": "Beastmaster Tactics, Teamwork Feat",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-3"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Alertness, Track, Beastmaster Tricks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-4"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Woodland Stride, Natural Savagery (+1)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-5"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Speak with Animals, Beastmaster Tricks, Teamwork Feat",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-6"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Second Animal Focus, Trackless Step, Bonus Trick",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-7"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 2,
+        "special": "Quarry, Scent, Beastmaster Tricks, Natural Savagery (+2)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-8"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 3,
+        "special": "Improved Empathic Link, Teamwork Feat",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-9"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Beast Shape, Beastmaster Tricks, Raise Animal Compaion",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-10"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Swift Tracker, Natural Savagery (+3)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-11"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Beastmaster Tricks, Teamwork Feat",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-12"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Third Animal Focus, Bonus Trick",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-13"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 4,
+        "special": "Greater Empathic Link, Beastmaster Tricks, Natural Savagery (+4)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-14"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 5,
+        "special": "Improved Quarry, Teamwork Feat",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-15"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 16,
+        "iterativeAttacks": [
+          16,
+          11,
+          6,
+          1
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "One with the Wild, Beastmaster Tricks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-16"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 17,
+        "iterativeAttacks": [
+          17,
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Master of the Pack, Natural Savagery (+5)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-17"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 18,
+        "iterativeAttacks": [
+          18,
+          13,
+          8,
+          3
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Beastmaster Tricks, Teamwork Feat",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-18"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 19,
+        "iterativeAttacks": [
+          19,
+          14,
+          9,
+          4
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Bonus Trick, Beast of Legend",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-19"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 20,
+        "iterativeAttacks": [
+          20,
+          15,
+          10,
+          5
+        ],
+        "fort": 12,
+        "ref": 12,
+        "will": 6,
+        "special": "Mastery of Beasts, Beastmaster Tricks, Natural Savagery (+6)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class progression table",
+            "locator": "level-20"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:beastmaster:feature:animal-companion",
+        "name": "Animal Companion",
+        "atLevel": 1,
+        "description": "A beastmaster may begin play with any of the animals listed [here](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions#TOC-Animal-Choices) or [here](https://www.finalfantasyd20.com/classes/core-classes/beastmaster/animal-companions/). This animal is a loyal companion that accompanies the beastmaster on his adventures. (Details on how animal companions work can found be [here](http://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/)).\n\nUnlike normal animals of its kind, an animal companion’s Hit Dice, abilities, skills, and feats advance as the beastmaster advances in level. If a character receives an animal companion from more than one source, his effective beastmaster levels stack for the purposes of determining the statistics and abilities of the companion. Most animal companions increase in size when their beastmaster reaches 4th or 7th level, depending on the companion. If a beastmaster releases his companion from service, he may gain a new one by performing a ceremony requiring 24 uninterrupted hours of prayer in the environment where the new companion typically lives. This ceremony can also replace an animal companion that has perished.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Companion",
+            "locator": "animal-companion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:feature:wild-empathy",
+        "name": "Wild Empathy",
+        "atLevel": 1,
+        "description": "A beastmaster can use body language, vocalizations and demeanor to improve the attitude of any creature of the animal, magical beast or vermin types. This ability functions just like a Diplomacy check made to improve a humanoid’s attitude towards a character. Typically, domesticated creatures have a starting attitude of indifferent and wild creatures begin as unfriendly. Magical beasts may only be influenced by a beastmaster’s wild empathy if the creature’s Intelligence score is 5 or less, and the beastmaster suffers a –4 penalty on any attempts to do so. The beastmaster rolls 1d20 + his beastmaster level + his Charisma modifier to determine the wild empathy check result.\n\nTo use wild empathy, the beastmaster and the creature must be able to study each other, which mean they must be within 30 feet of one another. A standard attempt to make a wild empathy check requires 1 minute, but as with influencing people, circumstances may require that the process take more or less time.",
+        "activation": "special",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Wild Empathy",
+            "locator": "wild-empathy"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:feature:animal-focus",
+        "name": "Animal Focus",
+        "atLevel": 1,
+        "description": "At 1st level, a beastmaster can take on the aspect of an animal as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). He must select one type of animal to emulate, gaining a bonus or special ability based on the type of animal emulated and his beastmaster level. The beastmaster can use this ability for a number of minutes per day equal to his beastmaster level. This duration does not need to be consecutive, but must be spent in 1-minute increments. The beastmaster can emulate only one animal at a time.\n\nThe beastmaster can also apply one of these aspects to his animal companion. Unlike with the beastmaster himself, there is no duration on the animal aspect applied to his animal companion. An aspect applied in this way does not count against the beastmaster’s minutes of duration per day—it remains in effect until the beastmaster changes it. The companion’s aspect can be the same aspect the beastmaster has taken on or a different one. The beastmaster can select or change the animal foci on both himself and his animal companion as part of the same [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nIf the beastmaster’s animal companion is dead, the beastmaster can apply his companion’s animal focus to himself instead of his animal companion. This is in addition to the normal one he can choose, and (as with a companion’s focus) remains in effect until the beastmaster changes it instead of counting against his minutes per day.\n\nAt 20th level, each day when the beastmaster rests, he chooses one animal focus to be active on himself for the entire day. This focus is in addition to using his animal focus class ability (including the additional focus ability he is able to use on himself if his animal companion is dead).\n\n* **Bat:** The creature gains darkvision to a range of 60 feet. At 8th level, the range increases by 30 feet. At 15th level, the creature also gains blindsense to a range of 10 feet.\n* **Bear:** The creature gains a +2 morale bonus to Constitution. This bonus increases to +4 at 8th level and +6 at 15th level.\n* **Bull:** The creature gains a +2 morale bonus to Strength. This bonus increases to +4 at 8th level and +6 at 15th level.\n* **Chocobo:** The creature gains a 5-foot morale bonus to its base land speed. This bonus increases to 10 feet at 8th level and 20 feet at 15th level.\n* **Falcon:** The creature gains a +4 competence bonus on Perception checks. This bonus increases to +6 at 8th level and +8 at 15th level.\n* **Frog:** The creature gains a +4 competence bonus on Swim checks and on Acrobatics checks to jump. These bonuses increase to +6 at 8th level and +8 at 15th level.\n* **Monkey:** The creature gains a +4 competence bonus on Climb checks. This bonus increases to +6 at 8th level and +8 at 15th level.\n* **Mouse:** The creature gains [evasion](https://www.finalfantasyd20.com/classes/core-classes/thief/#evasion), as the thief class feature. At 12th level, this increases to improved evasion, as the [thief advanced talent](https://www.finalfantasyd20.com/classes/core-classes/thief/thief-talents/#thief-advanced-talents).\n* **Owl:** The creature gains a +4 competence bonus on Stealth checks. This bonus increases to +6 at 8th level and +8 at 15th level.\n* **Snake:** The creature gains a +2 bonus on attack rolls when making attacks of opportunity and a +2 dodge bonus to AC against attacks of opportunity. These bonuses increase to +4 at 8th level and +6 at 15th level.\n* **Tiger:** The creature gains a +2 morale bonus to Dexterity. This bonus increases to +4 at 8th level and +6 at 15th level.\n* **Wolf:** The creature gains [Improved Trip](https://www.d20pfsrd.com/feats/combat-feats/improved-trip-combat) feat. At 12th level, the creature also gains [Greater Trip](https://www.d20pfsrd.com/feats/combat-feats/greater-trip-combat/) feat.",
+        "activation": "swift",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "animal-focus"
+          }
+        ],
+        "initialState": {
+          "selfFocusSlots": 1,
+          "companionFocusSlots": 1,
+          "minutesPerClassLevel": 1,
+          "minimumSpendMinutes": 1
+        }
+      },
+      {
+        "id": "ffd20:class:beastmaster:feature:nature-sense",
+        "name": "Nature Sense",
+        "atLevel": 1,
+        "description": "Also, at 1st level, a beastmaster gains a +2 bonus on Knowledge (nature) and Survival checks.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Nature Sense",
+            "locator": "nature-sense"
+          }
+        ],
+        "initialState": {
+          "knowledgeNatureBonus": 2,
+          "survivalBonus": 2
+        }
+      },
+      {
+        "id": "ffd20:class:beastmaster:feature:bestial-defense",
+        "name": "Bestial Defense",
+        "atLevel": 1,
+        "description": "This Limit Break throws the beastmaster and his animal companions to go into a bestial defense. For the duration of 1 round + 1 round per four beastmaster levels after 1st, the beastmaster and his animal companion are granted a +2 dodge bonus to AC and damage reduction of 2/- plus an additional 2 per four beastmaster levels after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "swift",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "initialState": {
+          "durationRounds": 1,
+          "acDodgeBonus": 2,
+          "damageReduction": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "bestial-defense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:feature:bestial-fury",
+        "name": "Bestial Fury",
+        "atLevel": 1,
+        "description": "This Limit Break causes the beastmaster and his animal companions to go into a bestial fury. For the duration of 1 round + 1 round per four beastmaster levels after 1st, the beastmaster and his companion are granted a +2 circumstance bonus to Strength and Constitution plus an additional +2 circumstance bonus to Strength and Constitution per four beastmaster levels after 1st. In addition, the beastmaster and his companion are also granted an extra attack at their highest base attack bonus if they make a full attack. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "swift",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "initialState": {
+          "durationRounds": 1,
+          "strengthCircumstanceBonus": 2,
+          "constitutionCircumstanceBonus": 2,
+          "extraFullAttackAttacks": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "bestial-fury"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:class:beastmaster:event:grant-animal-companion",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:beastmaster:feature:animal-companion"
+      },
+      {
+        "id": "ffd20:class:beastmaster:event:grant-wild-empathy",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:beastmaster:feature:wild-empathy"
+      },
+      {
+        "id": "ffd20:class:beastmaster:event:grant-animal-focus",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:beastmaster:feature:animal-focus"
+      },
+      {
+        "id": "ffd20:class:beastmaster:event:grant-nature-sense",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:beastmaster:feature:nature-sense"
+      },
+      {
+        "id": "ffd20:class:beastmaster:event:grant-bestial-defense",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:beastmaster:feature:bestial-defense"
+      },
+      {
+        "id": "ffd20:class:beastmaster:event:grant-bestial-fury",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:beastmaster:feature:bestial-fury"
+      }
+    ],
+    "animalAspects": [
+      {
+        "id": "ffd20:class:beastmaster:aspect:bat",
+        "name": "Bat",
+        "description": "The creature gains darkvision to a range of 60 feet. At 8th level, the range increases by 30 feet. At 15th level, the creature also gains blindsense to a range of 10 feet.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "bat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:bear",
+        "name": "Bear",
+        "description": "The creature gains a +2 morale bonus to Constitution. This bonus increases to +4 at 8th level and +6 at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "bear"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:bull",
+        "name": "Bull",
+        "description": "The creature gains a +2 morale bonus to Strength. This bonus increases to +4 at 8th level and +6 at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "bull"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:chocobo",
+        "name": "Chocobo",
+        "description": "The creature gains a 5-foot morale bonus to its base land speed. This bonus increases to 10 feet at 8th level and 20 feet at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "chocobo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:falcon",
+        "name": "Falcon",
+        "description": "The creature gains a +4 competence bonus on Perception checks. This bonus increases to +6 at 8th level and +8 at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "falcon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:frog",
+        "name": "Frog",
+        "description": "The creature gains a +4 competence bonus on Swim checks and on Acrobatics checks to jump. These bonuses increase to +6 at 8th level and +8 at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "frog"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:monkey",
+        "name": "Monkey",
+        "description": "The creature gains a +4 competence bonus on Climb checks. This bonus increases to +6 at 8th level and +8 at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "monkey"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:mouse",
+        "name": "Mouse",
+        "description": "The creature gains [evasion](https://www.finalfantasyd20.com/classes/core-classes/thief/#evasion), as the thief class feature. At 12th level, this increases to improved evasion, as the [thief advanced talent](https://www.finalfantasyd20.com/classes/core-classes/thief/thief-talents/#thief-advanced-talents).",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "mouse"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:owl",
+        "name": "Owl",
+        "description": "The creature gains a +4 competence bonus on Stealth checks. This bonus increases to +6 at 8th level and +8 at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "owl"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:snake",
+        "name": "Snake",
+        "description": "The creature gains a +2 bonus on attack rolls when making attacks of opportunity and a +2 dodge bonus to AC against attacks of opportunity. These bonuses increase to +4 at 8th level and +6 at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "snake"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:tiger",
+        "name": "Tiger",
+        "description": "The creature gains a +2 morale bonus to Dexterity. This bonus increases to +4 at 8th level and +6 at 15th level.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "tiger"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:beastmaster:aspect:wolf",
+        "name": "Wolf",
+        "description": "The creature gains [Improved Trip](https://www.d20pfsrd.com/feats/combat-feats/improved-trip-combat) feat. At 12th level, the creature also gains [Greater Trip](https://www.d20pfsrd.com/feats/combat-feats/greater-trip-combat/) feat.",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Focus",
+            "locator": "wolf"
+          }
+        ]
+      }
+    ],
+    "companion": {
+      "hitDie": 10,
+      "baseAttackProgression": "full",
+      "progression": [
+        {
+          "classLevel": 1,
+          "hitDice": 2,
+          "bab": 2,
+          "fort": 3,
+          "ref": 3,
+          "will": 0,
+          "skillRanks": 2,
+          "feats": 1,
+          "naturalArmorBonus": 0,
+          "strengthDexterityBonus": 0,
+          "bonusTricks": 1,
+          "special": "Link, share senses",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-1"
+            }
+          ]
+        },
+        {
+          "classLevel": 2,
+          "hitDice": 3,
+          "bab": 3,
+          "fort": 3,
+          "ref": 3,
+          "will": 1,
+          "skillRanks": 3,
+          "feats": 2,
+          "naturalArmorBonus": 0,
+          "strengthDexterityBonus": 0,
+          "bonusTricks": 1,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-2"
+            }
+          ]
+        },
+        {
+          "classLevel": 3,
+          "hitDice": 3,
+          "bab": 3,
+          "fort": 3,
+          "ref": 3,
+          "will": 1,
+          "skillRanks": 3,
+          "feats": 2,
+          "naturalArmorBonus": 2,
+          "strengthDexterityBonus": 1,
+          "bonusTricks": 2,
+          "special": "Evasion",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-3"
+            }
+          ]
+        },
+        {
+          "classLevel": 4,
+          "hitDice": 4,
+          "bab": 4,
+          "fort": 4,
+          "ref": 4,
+          "will": 1,
+          "skillRanks": 4,
+          "feats": 2,
+          "naturalArmorBonus": 2,
+          "strengthDexterityBonus": 1,
+          "bonusTricks": 2,
+          "special": "Ability score increase",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-4"
+            }
+          ]
+        },
+        {
+          "classLevel": 5,
+          "hitDice": 5,
+          "bab": 5,
+          "fort": 4,
+          "ref": 4,
+          "will": 1,
+          "skillRanks": 5,
+          "feats": 3,
+          "naturalArmorBonus": 2,
+          "strengthDexterityBonus": 1,
+          "bonusTricks": 2,
+          "special": "Magic Attacks",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-5"
+            }
+          ]
+        },
+        {
+          "classLevel": 6,
+          "hitDice": 6,
+          "bab": 6,
+          "fort": 5,
+          "ref": 5,
+          "will": 2,
+          "skillRanks": 6,
+          "feats": 3,
+          "naturalArmorBonus": 4,
+          "strengthDexterityBonus": 2,
+          "bonusTricks": 3,
+          "special": "Devotion",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-6"
+            }
+          ]
+        },
+        {
+          "classLevel": 7,
+          "hitDice": 6,
+          "bab": 6,
+          "fort": 5,
+          "ref": 5,
+          "will": 2,
+          "skillRanks": 6,
+          "feats": 3,
+          "naturalArmorBonus": 4,
+          "strengthDexterityBonus": 2,
+          "bonusTricks": 3,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-7"
+            }
+          ]
+        },
+        {
+          "classLevel": 8,
+          "hitDice": 7,
+          "bab": 7,
+          "fort": 5,
+          "ref": 5,
+          "will": 2,
+          "skillRanks": 7,
+          "feats": 4,
+          "naturalArmorBonus": 4,
+          "strengthDexterityBonus": 2,
+          "bonusTricks": 3,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-8"
+            }
+          ]
+        },
+        {
+          "classLevel": 9,
+          "hitDice": 8,
+          "bab": 8,
+          "fort": 6,
+          "ref": 6,
+          "will": 2,
+          "skillRanks": 8,
+          "feats": 4,
+          "naturalArmorBonus": 6,
+          "strengthDexterityBonus": 3,
+          "bonusTricks": 4,
+          "special": "Ability score increase, Multiattack",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-9"
+            }
+          ]
+        },
+        {
+          "classLevel": 10,
+          "hitDice": 9,
+          "bab": 9,
+          "fort": 6,
+          "ref": 6,
+          "will": 3,
+          "skillRanks": 9,
+          "feats": 5,
+          "naturalArmorBonus": 6,
+          "strengthDexterityBonus": 3,
+          "bonusTricks": 4,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-10"
+            }
+          ]
+        },
+        {
+          "classLevel": 11,
+          "hitDice": 9,
+          "bab": 9,
+          "fort": 6,
+          "ref": 6,
+          "will": 3,
+          "skillRanks": 9,
+          "feats": 5,
+          "naturalArmorBonus": 6,
+          "strengthDexterityBonus": 3,
+          "bonusTricks": 4,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-11"
+            }
+          ]
+        },
+        {
+          "classLevel": 12,
+          "hitDice": 10,
+          "bab": 10,
+          "fort": 7,
+          "ref": 7,
+          "will": 3,
+          "skillRanks": 10,
+          "feats": 5,
+          "naturalArmorBonus": 8,
+          "strengthDexterityBonus": 4,
+          "bonusTricks": 5,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-12"
+            }
+          ]
+        },
+        {
+          "classLevel": 13,
+          "hitDice": 11,
+          "bab": 11,
+          "fort": 7,
+          "ref": 7,
+          "will": 3,
+          "skillRanks": 11,
+          "feats": 6,
+          "naturalArmorBonus": 8,
+          "strengthDexterityBonus": 4,
+          "bonusTricks": 5,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-13"
+            }
+          ]
+        },
+        {
+          "classLevel": 14,
+          "hitDice": 12,
+          "bab": 12,
+          "fort": 8,
+          "ref": 8,
+          "will": 4,
+          "skillRanks": 12,
+          "feats": 6,
+          "naturalArmorBonus": 8,
+          "strengthDexterityBonus": 4,
+          "bonusTricks": 5,
+          "special": "Ability score increase",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-14"
+            }
+          ]
+        },
+        {
+          "classLevel": 15,
+          "hitDice": 12,
+          "bab": 12,
+          "fort": 8,
+          "ref": 8,
+          "will": 4,
+          "skillRanks": 12,
+          "feats": 6,
+          "naturalArmorBonus": 10,
+          "strengthDexterityBonus": 5,
+          "bonusTricks": 6,
+          "special": "Improved evasion",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-15"
+            }
+          ]
+        },
+        {
+          "classLevel": 16,
+          "hitDice": 13,
+          "bab": 13,
+          "fort": 8,
+          "ref": 8,
+          "will": 4,
+          "skillRanks": 13,
+          "feats": 7,
+          "naturalArmorBonus": 10,
+          "strengthDexterityBonus": 5,
+          "bonusTricks": 6,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-16"
+            }
+          ]
+        },
+        {
+          "classLevel": 17,
+          "hitDice": 14,
+          "bab": 14,
+          "fort": 9,
+          "ref": 9,
+          "will": 4,
+          "skillRanks": 14,
+          "feats": 7,
+          "naturalArmorBonus": 10,
+          "strengthDexterityBonus": 5,
+          "bonusTricks": 6,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-17"
+            }
+          ]
+        },
+        {
+          "classLevel": 18,
+          "hitDice": 15,
+          "bab": 15,
+          "fort": 9,
+          "ref": 9,
+          "will": 5,
+          "skillRanks": 15,
+          "feats": 8,
+          "naturalArmorBonus": 12,
+          "strengthDexterityBonus": 6,
+          "bonusTricks": 7,
+          "special": "Blood Bond",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-18"
+            }
+          ]
+        },
+        {
+          "classLevel": 19,
+          "hitDice": 15,
+          "bab": 15,
+          "fort": 9,
+          "ref": 9,
+          "will": 5,
+          "skillRanks": 15,
+          "feats": 8,
+          "naturalArmorBonus": 12,
+          "strengthDexterityBonus": 6,
+          "bonusTricks": 7,
+          "special": "—",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-19"
+            }
+          ]
+        },
+        {
+          "classLevel": 20,
+          "hitDice": 16,
+          "bab": 16,
+          "fort": 10,
+          "ref": 10,
+          "will": 5,
+          "skillRanks": 16,
+          "feats": 8,
+          "naturalArmorBonus": 12,
+          "strengthDexterityBonus": 6,
+          "bonusTricks": 7,
+          "special": "Ability score increase",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Animal Companion Base Statistics",
+              "locator": "class-level-20"
+            }
+          ]
+        }
+      ],
+      "rulesText": "* *Class Level:*The character’s beastmaster level. The beastmaster’s class levels stack with levels of any other classes that are entitled to an animal companion for the purpose of determining the companion’s statistics.\n* *HD:* This is the total number of ten-sided (d10) Hit Dice the animal companion possesses, each of which gains a Constitution modifier, as normal. A beastmaster’s animal companion is stronger than most animals.\n* *BAB:* This is the animal companion’s base attack bonus. Animal companions do not gain additional attacks using their natural weapons for a high base attack bonus.\n* *Fort/Ref/Will:* These are the animal companion’s base saving throw bonuses. An animal companion has good Fortitude and Reflex saves.\n* *Skills:* This lists the total skill ranks for the animal companion. Animal companions can assign skill ranks to any skill listed below. If an animal companion increases its Intelligence to 10 or higher, it gains bonus skill ranks as normal. Animal companions with an Intelligence of 3 or higher can purchase ranks in any skill. An animal companion cannot have more ranks in a skill than it has Hit Dice.\n  + Animal companions can have ranks in any of the following skills: Acrobatics\\* (Dex), Climb\\* (Str), Escape Artist (Dex), Fly\\* (Dex), Intimidate (Cha), Perception\\* (Wis), Stealth\\* (Dex), Survival (Wis), and Swim\\* (Str). All of the skills marked with an (\\*) are class skills for animal companions. Animal companions with an Intelligence of 3 or higher can put ranks into any skill.\n* *Feats:* This is the total number of feats possessed by an animal companion. Animal companions should select their feats from those listed below. Animal companions can select other feats, although they are unable to utilize some feats (such as Martial Weapon Proficiency).\n  + Animal companions can select from the following feats: Acrobatic, Agile Maneuvers, Armor Proficiency (light, medium, and heavy), Athletic, Blind-Fight, Combat Reflexes, Diehard, Dodge, Endurance, Great Fortitude, Improved Bull Rush, Improved Initiative, Improved Natural Armor, Improved Natural Attack, Improved Overrun, Intimidating Prowess, Iron Will, Lightning Reflexes, Mobility, Power Attack, Run, Skill Focus, Spring Attack, Stealthy, Toughness, Weapon Finesse, and Weapon Focus. Animal companions with an Intelligence of 3 or higher can select any feat they are physically capable of using. GMs might expand this list to include feats from other sources.\n* *Natural Armor Bonus:* The number noted here is an improvement to the animal companion’s existing natural armor bonus.\n* *Str/Dex Bonus:* Add this value to the animal companion’s Strength and Dexterity scores.\n* *Bonus Tricks:* The value given in this column is the total number of “bonus” tricks that the animal knows in addition to any that the beastmaster might choose to teach it (see the Handle Animal skill). These bonus tricks don’t require any training time or Handle Animal checks, and they don’t count against the normal limit of tricks known by the animal. The beastmaster selects these bonus tricks, and once selected, they can’t be changed.\n\n*Special:* This includes a number of abilities gained by all animal companions as they increase in power. Each of these bonuses is described below.\n\n* *Link ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A beastmaster can handle his companion as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), or push it as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), even if he doesn’t have any ranks in the Handle Animal skill. The beastmaster gains a +4 competence bonus on all wild empathy checks and Handle Animal checks made regarding the animal companion.\n* *Magic Attacks ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The animal companion treats its natural attacks as if they were magic for the purposes of overcoming damage reduction. If the beastmaster is 10th level or higher, all of the animal companion’s natural weapons are treated as the alignment of the beastmaster for the purpose of overcoming damage reduction.\n* *Shared Senses ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* When within 30 feet of their animal companion, the beastmaster can select one of its senses as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to gain for 1 minute. If the beastmaster already has the same sense, he increases his by half of what his companion has. The beastmaster can share its companion’s senses a number of times per day equal to his Wisdom modifier.\n* *Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* If the animal companion is subjected to an attack that normally allows a Reflex saving throw for half damage, it takes no damage if it makes a successful saving throw.\n* *Devotion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The animal companion gains a +4 morale bonus on Will saves against enfeebling spells and effects.\n* *Ability Score Increase ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The animal companion adds +1 to any one of its ability scores.\n* *Multiattack:* The animal companion gains Multiattack as a bonus feat if it has three or more natural attacks and does not already have this feat. If it does not have the requisite three or more attacks, the companion instead gains a second attack with its primary natural weapon, albeit at a –5 penalty.\n* *Improved Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* When subjected to an attack that normally allows a Reflex saving throw for half damage, the animal companion takes no damage if it makes a successful saving throw and half damage if the saving throw fails.\n* *Blood Bond ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* After a beastmaster has achieved 18th level, the bond between him and his companion grows so strong that the companion gains a +2 bonus on all attack rolls, checks and saves if it witnesses the beastmaster being threatened or harmed. This bonus lasts as long as the threat is immediate and apparent.\n\nThe [ambusher](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/ambusher-companion-archetype/), [bully](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/bully-companion-archetype/), [daredevil](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/daredevil-companion-archetype/), [precocious companion](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/precocious-companion-archetype/), [tracker](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/tracker-companion-archetype/), [verdant companion](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/verdant-companion-archetype/), and [wrecker archetypes](https://www.d20pfsrd.com/classes/core-classes/druid/animal-companions/animal-companion-archetypes/wrecker-companion-archetype/) are all particularly appropriate for the beastmaster’s animal companion. These archetypes replace shared senses, if applicable, instead of shared spells.",
+      "speciesSourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/animal-companions/",
+      "speciesStatus": "pending-source-review",
+      "automation": "none"
+    },
+    "deferredFeatureSections": [
+      {
+        "name": "Flanking Companion",
+        "description": "At 2nd level, a beastmaster chooses either [Back to Back](https://www.d20pfsrd.com/feats/combat-feats/back-to-back-teamwork/) or [Outflank](https://www.d20pfsrd.com/feats/combat-feats/outflank-combat-teamwork/) as a bonus feat. He does not need to meet the prerequisites for this feat. He automatically grants this feat to his animal companion as well.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Flanking Companion",
+            "locator": "flanking-companion"
+          }
+        ]
+      },
+      {
+        "name": "Empathic Link",
+        "description": "At 2nd level, the beastmaster forms an empathic link with his companion out to a distance of up to 1 mile. At 6th level, the beastmaster extends his link to include not only his companion but also any animals he has befriended. The link allows the beastmaster and the animals to communicate their general emotional state (fear, hunger, happiness, curiosity) to one another. Note that the Intelligence of animals may limit what the creatures can communicate or understand.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Empathic Link",
+            "locator": "empathic-link"
+          }
+        ]
+      },
+      {
+        "name": "Beastmaster Tricks",
+        "description": "A beastmaster learns the use of beastmaster tricks, which typically grant a boon or bonus to the beastmaster, his animal companion, or a nearby ally. At 2nd level, the beastmaster learns one trick, selected from the list below. At 4th level, and every two levels thereafter, he learns another trick. Tricks marked an asterisk (\\*), only one of these talents can be used once per round.\n\n* A complete list of beastmaster tricks can be found here: [Beastmaster Tricks](https://www.finalfantasyd20.com/classes/core-classes/beastmaster/beastmaster-tricks)",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Beastmaster Tricks",
+            "locator": "beastmaster-tricks"
+          }
+        ]
+      },
+      {
+        "name": "Beastmaster Tactics",
+        "description": "At 3rd level, the beastmaster automatically grants his teamwork feats to his animal companion. The companion doesn’t need to meet the prerequisites of these teamwork feats.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Beastmaster Tactics",
+            "locator": "beastmaster-tactics"
+          }
+        ]
+      },
+      {
+        "name": "Teamwork Feat",
+        "description": "At 3rd level and every three beastmaster levels thereafter, the beastmaster gains a bonus teamwork feat. The beastmaster must meet the prerequisites of the selected bonus teamwork feat.\n\nAs a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the beastmaster can choose to learn a new bonus teamwork feat in place of the most recent bonus teamwork feat he has already learned. In effect, the beastmaster loses the bonus feat in exchange for the new one. He can change only the most recent teamwork feat gained, and must meet the prerequisites for the newly selected feat. A beastmaster can change his most recent teamwork feat a number of times per day equal to his Charisma modifier (minimum 1). Whenever he gains a new teamwork feat, his previous teamwork feats become permanent.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Teamwork Feat",
+            "locator": "teamwork-feat"
+          }
+        ]
+      },
+      {
+        "name": "Alertness",
+        "description": "A beastmaster’s senses grow keen as he learns some of the tricks of the animal kingdom. Accordingly, he gains [Alertness](https://www.d20pfsrd.com/feats/general-feats/alertness-final/) as a bonus feat at 4th level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Alertness",
+            "locator": "alertness"
+          }
+        ]
+      },
+      {
+        "name": "Track",
+        "description": "At 4th level, a beastmaster adds half his beastmaster level to Survival skill checks made to follow or identify tracks.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Track",
+            "locator": "track"
+          }
+        ]
+      },
+      {
+        "name": "Woodland Stride",
+        "description": "Starting at 5th level, a beastmaster and his animal companion may move through any sort of undergrowth (such as natural thorns, briars, overgrown areas, and similar terrain) at their normal speed and without taking damage or suffering any other impairment. Thorns, briars, and overgrown areas that are enchanted or magically manipulated to impede motion will still affect the hunter and her animal companion.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Woodland Stride",
+            "locator": "woodland-stride"
+          }
+        ]
+      },
+      {
+        "name": "Natural Savagery",
+        "description": "Also, at 5th level, a beastmaster’s animal companion becomes more proficient and deadlier with their natural weapons. The animal companion gains a +1 bonus on attack and damage rolls with natural weapons, plus an additional +1 per four beastmaster levels after 5th.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Natural Savagery",
+            "locator": "natural-savagery"
+          }
+        ]
+      },
+      {
+        "name": "Speak with Animals",
+        "description": "At 6th level, the beastmaster may comprehend and communicate at will with all animals, magical beasts and vermin.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Speak with Animals",
+            "locator": "speak-with-animals"
+          }
+        ]
+      },
+      {
+        "name": "Trackless Step",
+        "description": "At 7th level, a beastmaster leaves no trail in natural surroundings and cannot be tracked. He may choose to leave a trail if so desired.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trackless Step",
+            "locator": "trackless-step"
+          }
+        ]
+      },
+      {
+        "name": "Second Animal Focus",
+        "description": "At 7th level, whenever a beastmaster uses his animal focus ability, he selects two different animal aspects for himself instead of one, and can assign two aspects to his companion instead of one. As with the companion’s previous aspect, the second one does not count against the minutes per day a beastmaster can take on an aspect.\n\nIf the beastmaster’s animal companion is dead and the beastmaster has applied the companion’s animal aspect to himself, that aspect does not count toward his maximum of two aspects at once. The beastmaster can still apply only one of his dead companion’s aspects to himself, not both.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Second Animal Focus",
+            "locator": "second-animal-focus"
+          }
+        ]
+      },
+      {
+        "name": "Bonus Trick",
+        "description": "At 7th level and every six beastmaster levels thereafter, a beastmaster’s animal companion learns a bonus trick.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bonus Trick",
+            "locator": "bonus-trick"
+          }
+        ]
+      },
+      {
+        "name": "Scent",
+        "description": "At 8th level, a beastmaster gains the [scent](https://www.d20pfsrd.com/gamemastering/special-abilities/#TOC-Scent) ability.\n\nThis ability allows the beastmaster to detect approaching enemies, sniff out hidden foes, and track by sense of smell. A beastmaster can identify familiar odors just as humes do familiar sights. The beastmaster can detect opponents within 30 feet by sense of smell. If the opponent is upwind, the range increases to 60 feet; if downwind, it drops to 15 feet. Strong scents, such as smoke or rotting garbage, can be detected at twice the ranges noted above.\n\nWhen the beastmaster detects a scent, the exact location of the source is not revealed—only its presence somewhere within range. The beastmaster can take a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) to note the direction of the scent. Whenever a beastmaster comes within 5 feet of the source, the beastmaster pinpoints the source’s location.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Scent",
+            "locator": "scent"
+          }
+        ]
+      },
+      {
+        "name": "Quarry",
+        "description": "At 8th level, a beastmaster can, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), denote one target within his line of sight as his quarry.\n\nWhenever he is following the tracks of his quarry, a beastmaster can take 10 on his Survival skill checks while moving at normal speed, without penalty. In addition, he receives a +2 insight bonus on attack rolls made against his quarry, and all critical threats are automatically confirmed.\n\nA beastmaster can have no more than one quarry at a time. He can dismiss this effect at any time as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), but he cannot select a new quarry for 24 hours. If the beastmaster sees proof that his quarry is dead, he can select a new quarry after waiting 1 hour.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quarry",
+            "locator": "quarry"
+          }
+        ]
+      },
+      {
+        "name": "Improved Empathic Link",
+        "description": "At 9th level, the beastmaster gains an improved empathic link with his animal companion. The beastmaster can see through a companion’s eyes as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), maintaining this connection as long as he likes (as long as the companion is within 1 mile) and ending it as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). The beastmaster is blinded while maintaining this connection.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Empathic Link",
+            "locator": "improved-empathic-link"
+          }
+        ]
+      },
+      {
+        "name": "Beast Shape",
+        "description": "At 10th level, the beastmaster gains the ability to turn himself into the same form as his animal companion at will. The beastmaster gains all the natural attacks of his animal companion. If the beastmaster has better natural attacks, he uses the higher of the natural attacks. The beastmaster loses his ability to speak while in animal form because he is limited to the sounds that a normal, untrained animal can make, but he can communicate normally with other animals of the same general grouping as his new form. Changing form (to animal or back) is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) and doesn’t provoke an attack of opportunity.\n\n* If the form the beastmaster assumes has any of the following abilities, he gains the listed ability: climb 60 feet, fly 60 feet (good maneuverability), swim 60 feet, darkvision 60 feet, low-light vision, scent, grab, pounce, and trip.\n* Medium animal: If the form he takes is that of a Medium animal, he gains a +2 size bonus to his Strength and a +2 natural armor bonus.\n* Large animal: If the form he takes is that of a Large animal, he gains a +4 size bonus to his Strength, a –2 penalty to his Dexterity, and a +4 natural armor bonus.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Beast Shape",
+            "locator": "beast-shape"
+          }
+        ]
+      },
+      {
+        "name": "Raise Animal Companion",
+        "description": "At 10th level, once per day, a beastmaster gains [*raise*](https://www.finalfantasyd20.com/magic/spells/r/raise) as a spell-like ability, which only can be used on an animal companion; this is not restricted to raising only his own animal companion. Using this spell-like ability gives the beastmaster a permanent negative level. This negative level cannot be overcome in any way (including by [*restora*](https://www.finalfantasyd20.com/magic/spells/r/restora) or [*restoraga*](https://www.finalfantasyd20.com/magic/spells/r/restoraga)), but automatically ends after 24 hours. At 16th level, this functions as [*arise*](https://www.finalfantasyd20.com/magic/spells/a/arise) instead (that can still only be used on animal companions) of *raise*, but otherwise functions as normal.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Raise Animal Companion",
+            "locator": "raise-animal-companion"
+          }
+        ]
+      },
+      {
+        "name": "Swift Tracker",
+        "description": "Beginning at 11th level, a beastmaster can move at his normal speed while using Survival to follow tracks without taking the normal –5 penalty. He takes only a –10 penalty (instead of the normal –20) when moving at up to twice normal speed while tracking.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Tracker",
+            "locator": "swift-tracker"
+          }
+        ]
+      },
+      {
+        "name": "Third Animal Focus",
+        "description": "At 13th level, whenever a beastmaster uses his animal focus ability, he selects three different animal aspects for himself instead of two, and can assign three aspects to his companion instead of two. As with the companion’s previous aspect, the third one does not count against the minutes per day a beastmaster can take on an aspect.\n\nIf the beastmaster’s animal companion is dead and the beastmaster has applied the companion’s animal aspect to himself, that aspect does not count toward his maximum of three aspects at once. The beastmaster can still apply only one of his dead companion’s aspects to himself, not all three.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Third Animal Focus",
+            "locator": "third-animal-focus"
+          }
+        ]
+      },
+      {
+        "name": "Greater Empathic Link",
+        "description": "At 14th level, the range of the beastmaster’s empathic link with his animal companion increases to 10 miles. If the animal companion is within 1 mile, the beastmaster can communicate with it telepathically.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Empathic Link",
+            "locator": "greater-empathic-link"
+          }
+        ]
+      },
+      {
+        "name": "Improved Quarry",
+        "description": "At 15th level, the beastmaster’s ability to hunt his quarry improves. He can now select a quarry as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), and can now take 20 while using Survival to track his quarry, while moving at normal speed without penalty. His insight bonus to attack his quarry increases to +4. If his quarry is killed or dismissed, he can select a new one after 10 minutes have passed.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Quarry",
+            "locator": "improved-quarry"
+          }
+        ]
+      },
+      {
+        "name": "One with the Wild",
+        "description": "At 16th level, the beastmaster and his animal companion are respected or even feared by other animals, so long as the animals are approximately of the same type as any of the beastmaster’s current animal foci: bat for bats, tiger with felines, falcon for birds, snake for reptiles, and so on. No animal in this category (including dire varieties) willingly attacks the beastmaster or his companion unless magically compelled to or if the beastmaster or companion attacks it first.\n\nThe beastmaster and his companion can attempt to demoralize animals in the appropriate category as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), rolling 1d20 and adding the beastmaster’s level and his Charisma modifier to determine the Intimidate check result.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "One with the Wild",
+            "locator": "one-with-the-wild"
+          }
+        ]
+      },
+      {
+        "name": "Master of the Pack",
+        "description": "At 17th level, each day when a beastmaster rests for the day, he chooses one animal focus to be active on himself or his animal companion for the entire day (if his animal companion is dead, he instead chooses two animal foci to be active on himself for the entire day).",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master of the Pack",
+            "locator": "master-of-the-pack"
+          }
+        ]
+      },
+      {
+        "name": "Beast of Legend",
+        "description": "At 19th level, a single animal companion of the beastmaster gains the [Advanced Template](https://www.d20pfsrd.com/bestiary/monster-listings/templates/advanced-creature-cr-1/). Should the animal companion with this template die, the beastmaster may apply it to a new animal companion in an 8-hour long ritual costing 100 gil per beastmaster level.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Beast of Legend",
+            "locator": "beast-of-legend"
+          }
+        ]
+      },
+      {
+        "name": "Mastery of Beasts",
+        "description": "At 20th level, the beastmaster learns to control all manner of beasts. The beastmaster gains a second animal companion. His level is considered four lower for the purposes of his second animal companion. The beastmaster can use his animal focus feature to grant each animal companion a different animal aspect.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mastery of Beasts",
+            "locator": "mastery-of-beasts"
+          }
+        ]
+      }
+    ],
+    "favoredClassBonusesText": "Instead of receiving an additional skill rank or hit point whenever they gain a level in a favored class, some races have the option of choosing from a number of other bonuses, depending upon their favored classes. The following options are available to the listed race who have beastmaster as their favored class, and unless otherwise stated, the bonus applies each time you select the listed favored class reward.\n\n* **[Aegyl](https://www.finalfantasyd20.com/races/base-races/aegyl/):** Add +1 to an animal companion’s CMD when adjacent to the beastmaster. If the beastmaster ever replaces his animal companion, the new animal companion gains this bonus.\n* **[Bangaa](https://www.finalfantasyd20.com/races/base-races/bangaa/):** Add +1/2 on critical hit confirmation rolls for attacks made with unarmed strikes or natural weapons (maximum bonus of +4). This bonus does not stack with Critical Focus.\n* **[Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/):** Add +1/2 to the damage dealt by the beastmaster’s animal companion’s natural attacks.\n* **[Burmecian](https://www.finalfantasyd20.com/races/base-races/burmecian/):** Add +1 to an animal companion’s CMD when adjacent to the beastmaster. If the beastmaster ever replaces his animal companion, the new animal companion gains this bonus.\n* **[Dracobaltian](https://www.finalfantasyd20.com/races/base-races/dracobaltian/):** Add +1/2 on critical hit confirmation rolls for attacks made with unarmed strikes or natural weapons (maximum bonus of +4). This bonus does not stack with Critical Focus.\n* **[Dwarf](https://www.finalfantasyd20.com/races/core-races/dwarf/):** Add +1 to an animal companion’s CMD when adjacent to the beastmaster. If the beastmaster ever replaces his animal companion, the new animal companion gains this bonus.\n* **[Elvaan](https://www.finalfantasyd20.com/races/core-races/elvaan/):** Add +1 to the beastmaster’s base speed. In combat this option has no effect unless the beastmaster has selected it five times (or another increment of five). This bonus stacks with the beastmaster’s movement increases.\n* **[Forgiven](https://www.finalfantasyd20.com/races/beastman-tribes/forgiven/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Galka](https://www.finalfantasyd20.com/races/core-races/galka/):** Add +1 to an animal companion’s CMD when adjacent to the beastmaster. If the beastmaster ever replaces his animal companion, the new animal companion gains this bonus.\n* **[Garif](https://www.finalfantasyd20.com/races/base-races/garif/):** Add +1 to an animal companion’s CMD when adjacent to the beastmaster. If the beastmaster ever replaces his animal companion, the new animal companion gains this bonus.\n* **[Gria](https://www.finalfantasyd20.com/races/base-races/gria/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Guado](https://www.finalfantasyd20.com/races/base-races/guado/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Half-Breed](https://www.finalfantasyd20.com/races/core-races/half-breed/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Hume](https://www.finalfantasyd20.com/races/core-races/hume/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Immortal](https://www.finalfantasyd20.com/races/base-races/immortal/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Ixal](https://www.finalfantasyd20.com/races/beastman-tribes/ixal/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Kojin](https://www.finalfantasyd20.com/races/beastman-tribes/kojin/):** Add +1 hit point or +1 skill rank to the beastmaster’s aquatic animal companion. If the beastmaster ever replaces his aquatic companion, the new aquatic companion gains these bonus hit points or skill ranks.\n* **[Mandragora](https://www.finalfantasyd20.com/races/base-races/mandragora/):** Add +1/2 to the damage dealt by the beastmaster’s animal companion’s natural attacks.\n* **[Matanga](https://www.finalfantasyd20.com/races/beastman-tribes/matanga/)**: Add +1/2 to the damage dealt by the beastmaster’s animal companion’s natural attacks.\n* **[Mithra](https://www.finalfantasyd20.com/races/core-races/mithra/):** Add +2.5 feet to the distance the beastmaster can charge or run through rough terrain. This option has no effect unless the beastmaster has selected it twice (or another increment of two); a distance of 12.5 feet is effectively the same as a distance of 10 feet, for example.\n* **[Moogle](https://www.finalfantasyd20.com/races/core-races/moogle/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Moomba](https://www.finalfantasyd20.com/races/base-races/moomba/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Nu Mou](https://www.finalfantasyd20.com/races/base-races/nu-mou/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Orc](https://www.finalfantasyd20.com/races/beastman-tribes/orc/):** Add +1/2 to the damage dealt by the beastmaster’s animal companion’s natural attacks.\n* [**Quadav**](https://www.finalfantasyd20.com/races/beastman-tribes/quadav/): Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Roegadyn](https://www.finalfantasyd20.com/races/base-races/roegadyn/):** Add +1/2 to the damage dealt by the beastmaster’s animal companion’s natural attacks.\n* **[Ronso](https://www.finalfantasyd20.com/races/base-races/ronso/):** Add +1/2 on critical hit confirmation rolls for attacks made with unarmed strikes or natural weapons (maximum bonus of +4). This bonus does not stack with Critical Focus.\n* **[Sahagin](https://www.finalfantasyd20.com/races/beastman-tribes/sahagin/):** Add +1 hit point or +1 skill rank to the beastmaster’s aquatic animal companion. If the beastmaster ever replaces his aquatic companion, the new aquatic companion gains these bonus hit points or skill ranks.\n* **[Seeq](https://www.finalfantasyd20.com/races/base-races/seeq/):** Add +1 to an animal companion’s CMD when adjacent to the beastmaster. If the beastmaster ever replaces his animal companion, the new animal companion gains this bonus.\n* **[Seto Lion](https://www.finalfantasyd20.com/races/base-races/seto-lion/):** Add +2.5 feet to the distance the beastmaster can charge or run through rough terrain. This option has no effect unless the beastmaster has selected it twice possesses increments evenly divisible by 5); a distance of 12.5 feet is effectively the same as a distance of 10 feet, for example.\n* **[Tarutaru](https://www.finalfantasyd20.com/races/core-races/tarutaru/):** Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* [**Vanu Vanu**](https://www.finalfantasyd20.com/races/beastman-tribes/vanu-vanu/): Add +1 hit point or +1 skill rank to the beastmaster’s animal companion. If the beastmaster ever replaces his companion, the new companion gains these bonus hit points or skill ranks.\n* **[Varg](https://www.finalfantasyd20.com/races/base-races/varg/):** Add +1/2 to the damage dealt by the beastmaster’s animal companion’s natural attacks.\n* **[Viera](https://www.finalfantasyd20.com/races/base-races/viera/):** Add +1 to the beastmaster’s base speed. In combat this option has no effect unless the beastmaster has selected it five times (or another increment of five).",
+    "sourceConflicts": [
+      {
+        "name": "Natural Savagery",
+        "proseIncrementLevels": [
+          5,
+          9,
+          13,
+          17
+        ],
+        "tableIncrementLevels": [
+          5,
+          8,
+          11,
+          14,
+          17,
+          20
+        ],
+        "resolution": "unresolved",
+        "automation": "none"
+      },
+      {
+        "name": "All-day focus",
+        "animalFocusLevel": 20,
+        "masterOfThePackLevel": 17,
+        "resolution": "interaction unresolved",
+        "automation": "none"
+      }
+    ],
+    "archetypeIndex": [
+      {
+        "id": "ffd20:archetype:beastmaster:feral-gnasher",
+        "name": "Feral Gnasher",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/feral-gnasher/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:fiend-trainer",
+        "name": "Fiend Trainer",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/fiend-trainer/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:keeper-of-the-grove",
+        "name": "Keeper of the Grove",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/keeper-of-the-grove/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:mimic-warrior",
+        "name": "Mimic Warrior",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/mimic-warrior/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:natural-striker",
+        "name": "Natural Striker",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/natural-striker/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:pack-bonded-hunter",
+        "name": "Pack-Bonded Hunter",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/pack-bonded-hunter/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:primal-hunter",
+        "name": "Primal Hunter",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/primal-hunter/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:ranger",
+        "name": "Ranger",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/ranger/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:slayer",
+        "name": "Slayer",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/slayer/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:tamer",
+        "name": "Tamer",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tamer/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:tree-guardian",
+        "name": "Tree Guardian",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tree-guardian/",
+        "status": "not-integrated"
+      },
+      {
+        "id": "ffd20:archetype:beastmaster:wild-shadow",
+        "name": "Wild Shadow",
+        "sourceURL": "https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/wild-shadow/",
+        "status": "not-integrated"
+      }
+    ]
+  }
+}

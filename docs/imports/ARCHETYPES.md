@@ -89,18 +89,18 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Feral Gnasher](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/feral-gnasher/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Fiend Trainer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/fiend-trainer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Keeper of the Grove](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/keeper-of-the-grove/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Mimic Warrior](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/mimic-warrior/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Natural Striker](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/natural-striker/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Pack-Bonded Hunter](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/pack-bonded-hunter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Primal Hunter](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/primal-hunter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Ranger](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/ranger/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Slayer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/slayer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Tamer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tamer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Tree Guardian](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tree-guardian/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Wild Shadow](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/wild-shadow/) | queued · source-review | Start of source review · waiting for parent definition |
+| [Feral Gnasher](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/feral-gnasher/) | queued · source-review | Start of source review |
+| [Fiend Trainer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/fiend-trainer/) | queued · source-review | Start of source review |
+| [Keeper of the Grove](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/keeper-of-the-grove/) | queued · source-review | Start of source review |
+| [Mimic Warrior](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/mimic-warrior/) | queued · source-review | Start of source review |
+| [Natural Striker](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/natural-striker/) | queued · source-review | Start of source review |
+| [Pack-Bonded Hunter](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/pack-bonded-hunter/) | queued · source-review | Start of source review |
+| [Primal Hunter](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/primal-hunter/) | queued · source-review | Start of source review |
+| [Ranger](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/ranger/) | queued · source-review | Start of source review |
+| [Slayer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/slayer/) | queued · source-review | Start of source review |
+| [Tamer](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tamer/) | queued · source-review | Start of source review |
+| [Tree Guardian](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/tree-guardian/) | queued · source-review | Start of source review |
+| [Wild Shadow](https://finalfantasyd20.com/classes/core-classes/beastmaster/archetypes/wild-shadow/) | queued · source-review | Start of source review |
 
 ## Black Mage (20)
 
