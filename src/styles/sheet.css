@@ -111,3 +111,10 @@
 .cs-level-up-icon{display:inline-block;flex:none;width:22px;height:22px;background-color:currentColor;-webkit-mask:url("icons/level-up.png") center/contain no-repeat;mask:url("icons/level-up.png") center/contain no-repeat}
 .cs-settings-action .cs-level-up-icon{width:19px;height:19px}
 @media(prefers-reduced-motion:reduce){.cs-portrait-change{transition:none}}
+
+/* Roll20-style pop-out: use the full browser tab, not the regular sheet width cap. */
+.sheet-compact{min-height:100dvh}
+.sheet-compact main{width:100%;max-width:none;min-height:100dvh;margin:0;padding:12px clamp(12px,2vw,36px) 40px}
+.sheet-compact .cs-sheet{width:100%;max-width:none}
+@media(min-width:1600px){.sheet-compact .cs-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.sheet-compact main{padding:8px 12px 24px}.sheet-compact .cs-grid{grid-template-columns:1fr}}
