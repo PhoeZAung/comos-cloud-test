@@ -1,0 +1,953 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:chocobo-knight:deadly-lancer",
+  "parentClassId": "ffd20:class:chocobo-knight",
+  "name": "Deadly Lancer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/deadly-lancer/",
+      "title": "Deadly Lancer — Final Fantasy d20",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "9f24820ff5d2b3370e957120555178641a7d9d7b98b25586620f6ab1d87cbfa1"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "Only first-level creation/editing is in scope. Mounted charge geometry, extra damage and nonmultiplication remain manual; no automatic mount, charge roll or damage is granted."
+      },
+      {
+        "path": "/data/deferredReplacements",
+        "blocking": true,
+        "reason": "Nine later targets/optional replacement relationships require canonical parent progression IDs and verified choice handling."
+      },
+      {
+        "path": "/data/joustingTricks",
+        "blocking": true,
+        "reason": "Nineteen source tricks are retained for later review. Level gates, repeat policies, bonus feats/prerequisites, mounted actions and conditional effects have no runtime choice adapter yet."
+      },
+      {
+        "path": "/review",
+        "blocking": true,
+        "reason": "Independent full source/rules review remains pending; staging alone does not approve gameplay automation."
+      }
+    ]
+  },
+  "data": {
+    "supportedLevels": [
+      1
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "A deadly lancer is proficient with simple weapons, as well as all weapons from the polearm and spear weapon group. They are also proficient with all armor (light, medium, and heavy) but not with any shields.\n\nThis ability modifies the starting chocobo knight’s weapon and armor proficiencies.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "name": "Charging Lancer",
+        "atLevel": 1,
+        "description": "At 1st level, the deadly lancer gains the following:\n\n*Mounted Charge:*Whenever the deadly lancer charges while on a mount at least 10 feet from his opponent and strikes his foe using a spear, lance, or polearm, the deadly lancer deals an extra 1d6 points of damage on his attack, increasing by an additional 1d6 for every two chocobo knight levels after 1st. This additional damage is not multiplied on a critical hit or any class feature that multiplies damage.\n\nThis ability replaces commander’s aura, commander’s shout, and dual aura.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ],
+        "initialState": {
+          "damageDice": 1,
+          "dieSize": 6,
+          "mountedRequired": true,
+          "minimumChargeFeet": 10,
+          "qualifyingWeapons": [
+            "spear",
+            "lance",
+            "polearm"
+          ],
+          "multiplyOnCritical": false,
+          "multiplyByClassFeature": false
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:jousting-tricks",
+        "name": "Jousting Tricks",
+        "atLevel": 2,
+        "description": "At 2nd level and every two chocobo knight levels thereafter, a deadly lancer learns a wide variety of tricks for using his lance to mow down his opponents, especially when facing off against other mounted deadly lancers in a formal joust. Unless otherwise noted, he can take each jousting trick only once.\n\n*Agile Finish (Ex):* A deadly lancer with this talent gains a +1 dodge bonus to his AC for every three dice of Charging Lancer damage he inflicts. This effect lasts for 1 round.\n\n*Caparisoned Steed (Ex):* A deadly lancer’s mount reduces the armor check penalty for any armor it wears by an amount equal to half the chocobo knight’s level, and in addition his mount can move at normal speed in medium armor or when carrying a medium load and can sleep in medium armor without becoming fatigued. This ability can be selected twice. If taken a second time, the deadly lancer’s mount takes no armor check penalty for any armor it wears, and in addition his mount can move at normal speed in heavy armor or when carrying a heavy load and can sleep in heavy armor without becoming fatigued.\n\n*Charge Breaker (Ex):* When the deadly lancer is wielding a weapon with the brace property, he can ready it against a charge as an immediate action. In addition, if he is wielding a light or heavy shield and is attacked by a creature using the charge action, he can make a shield bash attack against his attacker as an attack of opportunity or as an immediate action. This attack is resolved before the charging creature’s attack. If the deadly lancer does not threaten his attacker, he can still make this attack against the creature (if it attacks him with a natural weapon) or as a sunder combat maneuver targeting the attacker’s weapon (if it attacks him with a manufactured weapon). If the attack hits or the sunder maneuver succeeds (regardless of the damage dealt), the charging creature’s attack is partly deflected and it takes a penalty equal to half the chocobo knight’s level on any attack and damage rolls it makes against the deadly lancer as part of its charge action.\n\n*Combined Charger (Ex):* When the deadly lancer uses the charge action while mounted and his mount does not attack, he can combine the creature’s power and momentum with his own. He adds his mount’s size modifier to all combat maneuver checks he makes when mounted. He also adds an additional bonus on combat maneuver checks equal to half his chocobo knight’s level or the mount’s Strength modifier, whichever is less, and he adds the same bonus to any hit point damage dealt by a successful attack made as part of a mounted charge.\n\n*Crooked Courser (Ex):* When the deadly lancer uses the charge action while mounted, or when his mount uses the run action, his mount can turn up to 90 degrees during its movement. This can be a single 90-degree turn or two 45-degree turns.\n\n*Lancer’s Charge (Ex):* The deadly lancer no longer takes a penalty to his AC when using the charge action, and he increases his attack roll bonus when charging to +4.\n\n*Mounted Combat Master (Ex):* The deadly lancer may select any one of the following as a bonus feat: Animal Affinity, Skill Focus (Ride), Unseat, or any feat for which the Mounted Combat feat or ranks in the Ride skill is a prerequisite. He may take this jousting trick more than once, and he must meet all prerequisites for the feat in question.\n\n*Nimble Charger (Ex):* When the deadly lancer uses the charge action while mounted, he can charge even if his mount must move through difficult terrain or squares occupied by friendly creatures.\n\n*Performance Combat (Ex):* The deadly lancer’s style is flamboyant and flashy, ideally suited for playing to the crowd and currying the favor of onlookers. He treats the lance as if it had the performance weapon quality, gaining a +2 bonus on combat performance checks prompted by an attack or combat maneuver with the lance. In addition, he gains one performance combat feat as a bonus feat. He may take this jousting trick more than once, gaining a different bonus feat and increasing the bonus he gains on combat performance checks with a lance by 1 each time.\n\n*Predatory Pounce (Ex):* A deadly lancer with this talent that uses his Charging Lancer class feature on a target that is flat-footed, he uses d8s instead of d6s.\n\n*Shatter Shield (Ex):* The deadly lancer can attempt a combat maneuver check to sunder the shield of his target, adding a bonus equal to half his chocobo knight level to his attack and damage roll for the purpose of this sunder maneuver. If the target’s shield gains the broken condition but is not destroyed, the target takes damage equal to half his chocobo knight level. If the target’s shield is destroyed, any damage dealt to the shield over and above that required to destroy the shield is dealt to the target.\n\n*Shellbreaker (Ex):* After charge attacking a creature, its DR of all types is reduced by an amount equal to half the number of Charging Lancer dice inflicted for one round (minimum 1). **Prerequisite:** The deadly lancer must be at least 6th level to select this talent.\n\n*Shield Mount (Ex):* When the deadly lancer is mounted and wielding a shield, his mount also adds his shield bonus (including any enhancement bonus) to its AC. This AC bonus does not apply if the deadly lancer is unaware of the attack or is denied his Dexterity bonus to AC.\n\n*Springing Charge (Ex):* When the deadly lancer charges a distance of 10 or more feet, he may move after the attack, but the deadly lancer’s total distance that he can move cannot be greater than his mount’s speed. The deadly lancer uses Ride skill checks to move through threatened squares in this manner at full speed without the imposed +10 DC modifier. **Prerequisite:** The deadly lancer must be at least 6th level to select this talent.\n\n*Stay in the Saddle (Ex):* When a deadly lancer would be forced off his mount as the result of a combat maneuver check, as an immediate action he can attempt his own combat maneuver check, adding half his chocobo knight level as a bonus. If the result of this check equals or exceeds the attacker’s combat maneuver check, the deadly lancer remains mounted (though any other effects of the attack apply normally). If the deadly lancer would be removed from his mount by a magical effect, as an immediate action he can attempt a Reflex save against the effect’s DC, adding half his chocobo knight level as a bonus on the save. If this second save against the effect succeeds, the deadly lancer stays in the saddle (even if killed, knocked unconscious, or otherwise unable to take actions) for a number of rounds equal to half his chocobo knight level. If he remains helpless at the end of this time, he may fall from the saddle (GM’s discretion).\n\n*Tactical Drop (Ex):* A deadly lancer with this talent may choose to not deal extra damage from Charging Lancer on his charge attack, allowing him to make a free trip, bull rush, sunder, or disarm combat maneuver check upon a successful hit. This combat maneuver does not provoke attacks of opportunity, with it receiving the circumstance attack bonus gained from any differences of distance. The deadly lancer still deals his normal damage on this attack.\n\n*Terrifying Onset (Ex):* When using the charge action, the deadly lancer can make an Intimidate check as a free action to demoralize the target of his charge. This check is made immediately prior to resolving the attack, and if the check succeeds the deadly lancer may choose not to attack but keeping the result of the Intimidate check.\n\n*Trip Mount (Ex):* Although a violation of traditional jousting etiquette in formal matches, deadly lancers are nonetheless skilled in the art of tripping up the mounts of their enemies, a tactic which is fair game against the ignoble and villainous. Whenever he attempts a combat maneuver check to trip a creature carrying a rider, he adds half his chocobo knight level to his CMB for the purpose of the roll. If the mount is tripped, he adds his chocobo knight level to the DC of any Ride check made by that creature’s rider to avoid damage or falling prone after its mount is tripped. If the deadly lancer exceeds the DC to trip the target mount by 5 or more, he may choose to injure the mount’s legs as well, reducing its speed by half as if it had stepped on caltrops.\n\n*Weaving Point (Ex):* When using the charge action, the deadly lancer can catch his foe off-guard with a sudden shift in the point and angle of his lance. Treat this as a Bluff check to feint, but it is a free action made as part of the charge, and the deadly lancer may use his bonus on Intimidate rather than Bluff for the purpose of this feint. If the deadly lancer exceeds the DC of the Bluff check by 5 or more, the target is denied its shield bonus to AC as well as its Dexterity bonus to AC.\n\nThese abilities may replace mounted talents.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks",
+            "locator": "jousting-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:lance-training",
+        "name": "Lance Training",
+        "atLevel": 5,
+        "description": "At 5th level, a deadly lancer gains the benefits of a warrior’s chosen weapon class feature with lances. He begins with a +1 bonus on attack and damage rolls, and this bonus increases by 1 at 10th level and every five chocobo knight levels thereafter. If the deadly lancer already has chosen weapon (polearms), this bonus stacks with that bonus. This functions as the warrior’s chosen weapon ability for all purposes, including feats, items, or other effects that enhance that ability.\n\nThis ability replaces mounted mettle.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lance Training",
+            "locator": "lance-training"
+          }
+        ],
+        "initialState": {
+          "attackDamageBonus": 1
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:save-mount",
+        "name": "Save Mount",
+        "atLevel": 8,
+        "description": "At 8th level, a deadly lancer can use Mounted Combat to protect his mount one additional time per round, increasing to two additional times per round at 15th level. This stacks with the Trick Riding feat. In addition, whenever a deadly lancer’s mount fails a saving throw while the deadly lancer is within 30 feet, the deadly lancer can expend one use of Mounted Combat for that round as an immediate action to allow his mount to reroll the save, with a morale bonus on the saving throw equal to half his chocobo knight level. If the deadly lancer is riding his mount, this reroll uses the mount’s immediate action rather than his action.\n\nThis ability replaces chivalry’s call.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Save Mount",
+            "locator": "save-mount"
+          }
+        ],
+        "initialState": {
+          "additionalMountedCombatUsesPerRound": 1
+        }
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:lance-mastery",
+        "name": "Lance Mastery",
+        "atLevel": 15,
+        "description": "At 15th level, a deadly lancer gains Weapon Specialization (lance) as a bonus feat. In addition, he may treat his base attack bonus as his warrior level to meet prerequisites for Greater Weapon Focus (lance) and Greater Weapon Specialization (lance).\n\nThis ability replaces victor’s rally.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lance Mastery",
+            "locator": "lance-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:flawless-lancer",
+        "name": "Flawless Lancer",
+        "atLevel": 17,
+        "description": "At 17th level, a deadly lancer doesn’t automatically miss when he rolls a natural 1 on an attack roll while utilizing his Charging Lancer class feature.\n\nThis ability replaces general’s awe.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Flawless Lancer",
+            "locator": "flawless-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:piercing-critical",
+        "name": "Piercing Critical",
+        "atLevel": 19,
+        "description": "At 19th level, a deadly lancer increases his critical threat range by 1 while using a polearm or spear. This amount increases to 2 for attacks that would utilize his Charging Lancer class feature. These increases are applied after any effects that multiply the critical threat range of a weapon (ex: the Improved Critical feat).\n\nThis ability replaces indomitable steed.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Piercing Critical",
+            "locator": "piercing-critical"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:master-lancer",
+        "name": "Master Lancer",
+        "atLevel": 20,
+        "description": "At 20th level, the deadly lancer deals double weapon damage for attacks that utilize his Charging Lancer class feature. This is not the same as a critical hit. In addition, if the deadly lancer confirms a critical hit on an attack that utilizes his Charging Lancer class feature, the target is stunned for 1d4 rounds. A Fortitude save reduces this to staggered for 1d4 rounds. The DC is equal to 10 + the number of Charging Lancer dice inflicted.\n\nThis ability replaces supreme charge.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Lancer",
+            "locator": "master-lancer"
+          }
+        ]
+      }
+    ],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:replacement:proficiencies",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "partial",
+        "resolution": "resolved",
+        "componentKeys": [
+          "proficiencies.weapons",
+          "proficiencies.armor",
+          "proficiencies.shields"
+        ],
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:proficiencies"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:deadly-lancer:feature:weapon-and-armor-proficiency"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:replacement:commanders-aura",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:commanders-aura"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      }
+    ],
+    "deferredReplacements": [
+      {
+        "parentFeatureName": "Commander’s Shout",
+        "atClassLevel": 3,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "parentFeatureName": "Dual Aura",
+        "atClassLevel": 11,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "parentFeatureName": "Mounted Talents",
+        "atClassLevel": 2,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks",
+            "locator": "jousting-tricks"
+          }
+        ]
+      },
+      {
+        "parentFeatureName": "Mounted Mettle",
+        "atClassLevel": 5,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lance Training",
+            "locator": "lance-training"
+          }
+        ]
+      },
+      {
+        "parentFeatureName": "Chivalry’s Call",
+        "atClassLevel": 8,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Save Mount",
+            "locator": "save-mount"
+          }
+        ]
+      },
+      {
+        "parentFeatureName": "Victor’s Rally",
+        "atClassLevel": 15,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lance Mastery",
+            "locator": "lance-mastery"
+          }
+        ]
+      },
+      {
+        "parentFeatureName": "General’s Awe",
+        "atClassLevel": 17,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Flawless Lancer",
+            "locator": "flawless-lancer"
+          }
+        ]
+      },
+      {
+        "parentFeatureName": "Indomitable Steed",
+        "atClassLevel": 19,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Piercing Critical",
+            "locator": "piercing-critical"
+          }
+        ]
+      },
+      {
+        "parentFeatureName": "Supreme Charge",
+        "atClassLevel": 20,
+        "resolution": "needs_review",
+        "reason": "Exact canonical parent progression target and optional trick choice handling require later-level integration; no invented parent ID.",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Lancer",
+            "locator": "master-lancer"
+          }
+        ]
+      }
+    ],
+    "upgrades": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:3",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 3,
+        "changes": {
+          "damageDice": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:5",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 5,
+        "changes": {
+          "damageDice": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:7",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 7,
+        "changes": {
+          "damageDice": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:9",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 9,
+        "changes": {
+          "damageDice": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:11",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 11,
+        "changes": {
+          "damageDice": 6
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:13",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 13,
+        "changes": {
+          "damageDice": 7
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:15",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 15,
+        "changes": {
+          "damageDice": 8
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:17",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 17,
+        "changes": {
+          "damageDice": 9
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:charging-lancer:19",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:charging-lancer",
+        "atClassLevel": 19,
+        "changes": {
+          "damageDice": 10
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charging Lancer",
+            "locator": "charging-lancer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:lance-training:10",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:lance-training",
+        "atClassLevel": 10,
+        "changes": {
+          "attackDamageBonus": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lance Training",
+            "locator": "lance-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:lance-training:15",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:lance-training",
+        "atClassLevel": 15,
+        "changes": {
+          "attackDamageBonus": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lance Training",
+            "locator": "lance-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:lance-training:20",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:lance-training",
+        "atClassLevel": 20,
+        "changes": {
+          "attackDamageBonus": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lance Training",
+            "locator": "lance-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:upgrade:save-mount:15",
+        "featureId": "ffd20:archetype:chocobo-knight:deadly-lancer:feature:save-mount",
+        "atClassLevel": 15,
+        "changes": {
+          "additionalMountedCombatUsesPerRound": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Save Mount",
+            "locator": "save-mount"
+          }
+        ]
+      }
+    ],
+    "proficiencies": [
+      "Simple weapons",
+      "Polearm weapon group",
+      "Spear weapon group",
+      "Light armor",
+      "Medium armor",
+      "Heavy armor"
+    ],
+    "joustingTricks": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:agile-finish",
+        "name": "Agile Finish",
+        "description": "A deadly lancer with this talent gains a +1 dodge bonus to his AC for every three dice of Charging Lancer damage he inflicts. This effect lasts for 1 round.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Agile Finish",
+            "locator": "jousting-tricks-agile-finish"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:caparisoned-steed",
+        "name": "Caparisoned Steed",
+        "description": "A deadly lancer’s mount reduces the armor check penalty for any armor it wears by an amount equal to half the chocobo knight’s level, and in addition his mount can move at normal speed in medium armor or when carrying a medium load and can sleep in medium armor without becoming fatigued. This ability can be selected twice. If taken a second time, the deadly lancer’s mount takes no armor check penalty for any armor it wears, and in addition his mount can move at normal speed in heavy armor or when carrying a heavy load and can sleep in heavy armor without becoming fatigued.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 2,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Caparisoned Steed",
+            "locator": "jousting-tricks-caparisoned-steed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:charge-breaker",
+        "name": "Charge Breaker",
+        "description": "When the deadly lancer is wielding a weapon with the brace property, he can ready it against a charge as an immediate action. In addition, if he is wielding a light or heavy shield and is attacked by a creature using the charge action, he can make a shield bash attack against his attacker as an attack of opportunity or as an immediate action. This attack is resolved before the charging creature’s attack. If the deadly lancer does not threaten his attacker, he can still make this attack against the creature (if it attacks him with a natural weapon) or as a sunder combat maneuver targeting the attacker’s weapon (if it attacks him with a manufactured weapon). If the attack hits or the sunder maneuver succeeds (regardless of the damage dealt), the charging creature’s attack is partly deflected and it takes a penalty equal to half the chocobo knight’s level on any attack and damage rolls it makes against the deadly lancer as part of its charge action.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Charge Breaker",
+            "locator": "jousting-tricks-charge-breaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:combined-charger",
+        "name": "Combined Charger",
+        "description": "When the deadly lancer uses the charge action while mounted and his mount does not attack, he can combine the creature’s power and momentum with his own. He adds his mount’s size modifier to all combat maneuver checks he makes when mounted. He also adds an additional bonus on combat maneuver checks equal to half his chocobo knight’s level or the mount’s Strength modifier, whichever is less, and he adds the same bonus to any hit point damage dealt by a successful attack made as part of a mounted charge.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Combined Charger",
+            "locator": "jousting-tricks-combined-charger"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:crooked-courser",
+        "name": "Crooked Courser",
+        "description": "When the deadly lancer uses the charge action while mounted, or when his mount uses the run action, his mount can turn up to 90 degrees during its movement. This can be a single 90-degree turn or two 45-degree turns.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Crooked Courser",
+            "locator": "jousting-tricks-crooked-courser"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:lancers-charge",
+        "name": "Lancer’s Charge",
+        "description": "The deadly lancer no longer takes a penalty to his AC when using the charge action, and he increases his attack roll bonus when charging to +4.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Lancer’s Charge",
+            "locator": "jousting-tricks-lancers-charge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:mounted-combat-master",
+        "name": "Mounted Combat Master",
+        "description": "The deadly lancer may select any one of the following as a bonus feat: Animal Affinity, Skill Focus (Ride), Unseat, or any feat for which the Mounted Combat feat or ranks in the Ride skill is a prerequisite. He may take this jousting trick more than once, and he must meet all prerequisites for the feat in question.",
+        "minimumClassLevel": 2,
+        "repeatLimit": null,
+        "requiresManualPrerequisiteVerification": true,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Mounted Combat Master",
+            "locator": "jousting-tricks-mounted-combat-master"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:nimble-charger",
+        "name": "Nimble Charger",
+        "description": "When the deadly lancer uses the charge action while mounted, he can charge even if his mount must move through difficult terrain or squares occupied by friendly creatures.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Nimble Charger",
+            "locator": "jousting-tricks-nimble-charger"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:performance-combat",
+        "name": "Performance Combat",
+        "description": "The deadly lancer’s style is flamboyant and flashy, ideally suited for playing to the crowd and currying the favor of onlookers. He treats the lance as if it had the performance weapon quality, gaining a +2 bonus on combat performance checks prompted by an attack or combat maneuver with the lance. In addition, he gains one performance combat feat as a bonus feat. He may take this jousting trick more than once, gaining a different bonus feat and increasing the bonus he gains on combat performance checks with a lance by 1 each time.",
+        "minimumClassLevel": 2,
+        "repeatLimit": null,
+        "requiresManualPrerequisiteVerification": true,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Performance Combat",
+            "locator": "jousting-tricks-performance-combat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:predatory-pounce",
+        "name": "Predatory Pounce",
+        "description": "A deadly lancer with this talent that uses his Charging Lancer class feature on a target that is flat-footed, he uses d8s instead of d6s.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Predatory Pounce",
+            "locator": "jousting-tricks-predatory-pounce"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:shatter-shield",
+        "name": "Shatter Shield",
+        "description": "The deadly lancer can attempt a combat maneuver check to sunder the shield of his target, adding a bonus equal to half his chocobo knight level to his attack and damage roll for the purpose of this sunder maneuver. If the target’s shield gains the broken condition but is not destroyed, the target takes damage equal to half his chocobo knight level. If the target’s shield is destroyed, any damage dealt to the shield over and above that required to destroy the shield is dealt to the target.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Shatter Shield",
+            "locator": "jousting-tricks-shatter-shield"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:shellbreaker",
+        "name": "Shellbreaker",
+        "description": "After charge attacking a creature, its DR of all types is reduced by an amount equal to half the number of Charging Lancer dice inflicted for one round (minimum 1). **Prerequisite:** The deadly lancer must be at least 6th level to select this talent.",
+        "minimumClassLevel": 6,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Shellbreaker",
+            "locator": "jousting-tricks-shellbreaker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:shield-mount",
+        "name": "Shield Mount",
+        "description": "When the deadly lancer is mounted and wielding a shield, his mount also adds his shield bonus (including any enhancement bonus) to its AC. This AC bonus does not apply if the deadly lancer is unaware of the attack or is denied his Dexterity bonus to AC.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Shield Mount",
+            "locator": "jousting-tricks-shield-mount"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:springing-charge",
+        "name": "Springing Charge",
+        "description": "When the deadly lancer charges a distance of 10 or more feet, he may move after the attack, but the deadly lancer’s total distance that he can move cannot be greater than his mount’s speed. The deadly lancer uses Ride skill checks to move through threatened squares in this manner at full speed without the imposed +10 DC modifier. **Prerequisite:** The deadly lancer must be at least 6th level to select this talent.",
+        "minimumClassLevel": 6,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Springing Charge",
+            "locator": "jousting-tricks-springing-charge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:stay-in-the-saddle",
+        "name": "Stay in the Saddle",
+        "description": "When a deadly lancer would be forced off his mount as the result of a combat maneuver check, as an immediate action he can attempt his own combat maneuver check, adding half his chocobo knight level as a bonus. If the result of this check equals or exceeds the attacker’s combat maneuver check, the deadly lancer remains mounted (though any other effects of the attack apply normally). If the deadly lancer would be removed from his mount by a magical effect, as an immediate action he can attempt a Reflex save against the effect’s DC, adding half his chocobo knight level as a bonus on the save. If this second save against the effect succeeds, the deadly lancer stays in the saddle (even if killed, knocked unconscious, or otherwise unable to take actions) for a number of rounds equal to half his chocobo knight level. If he remains helpless at the end of this time, he may fall from the saddle (GM’s discretion).",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Stay in the Saddle",
+            "locator": "jousting-tricks-stay-in-the-saddle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:tactical-drop",
+        "name": "Tactical Drop",
+        "description": "A deadly lancer with this talent may choose to not deal extra damage from Charging Lancer on his charge attack, allowing him to make a free trip, bull rush, sunder, or disarm combat maneuver check upon a successful hit. This combat maneuver does not provoke attacks of opportunity, with it receiving the circumstance attack bonus gained from any differences of distance. The deadly lancer still deals his normal damage on this attack.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Tactical Drop",
+            "locator": "jousting-tricks-tactical-drop"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:terrifying-onset",
+        "name": "Terrifying Onset",
+        "description": "When using the charge action, the deadly lancer can make an Intimidate check as a free action to demoralize the target of his charge. This check is made immediately prior to resolving the attack, and if the check succeeds the deadly lancer may choose not to attack but keeping the result of the Intimidate check.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Terrifying Onset",
+            "locator": "jousting-tricks-terrifying-onset"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:trip-mount",
+        "name": "Trip Mount",
+        "description": "Although a violation of traditional jousting etiquette in formal matches, deadly lancers are nonetheless skilled in the art of tripping up the mounts of their enemies, a tactic which is fair game against the ignoble and villainous. Whenever he attempts a combat maneuver check to trip a creature carrying a rider, he adds half his chocobo knight level to his CMB for the purpose of the roll. If the mount is tripped, he adds his chocobo knight level to the DC of any Ride check made by that creature’s rider to avoid damage or falling prone after its mount is tripped. If the deadly lancer exceeds the DC to trip the target mount by 5 or more, he may choose to injure the mount’s legs as well, reducing its speed by half as if it had stepped on caltrops.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Trip Mount",
+            "locator": "jousting-tricks-trip-mount"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:trick:weaving-point",
+        "name": "Weaving Point",
+        "description": "When using the charge action, the deadly lancer can catch his foe off-guard with a sudden shift in the point and angle of his lance. Treat this as a Bluff check to feint, but it is a free action made as part of the charge, and the deadly lancer may use his bonus on Intimidate rather than Bluff for the purpose of this feint. If the deadly lancer exceeds the DC of the Bluff check by 5 or more, the target is denied its shield bonus to AC as well as its Dexterity bonus to AC.",
+        "minimumClassLevel": 2,
+        "repeatLimit": 1,
+        "requiresManualPrerequisiteVerification": false,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jousting Tricks · Weaving Point",
+            "locator": "jousting-tricks-weaving-point"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:2",
+        "atClassLevel": 2,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:4",
+        "atClassLevel": 4,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:6",
+        "atClassLevel": 6,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:8",
+        "atClassLevel": 8,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:10",
+        "atClassLevel": 10,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:12",
+        "atClassLevel": 12,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:14",
+        "atClassLevel": 14,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:16",
+        "atClassLevel": 16,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:18",
+        "atClassLevel": 18,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:deadly-lancer:event:trick:20",
+        "atClassLevel": 20,
+        "type": "choose",
+        "count": 1,
+        "catalog": "joustingTricks",
+        "automation": "none"
+      }
+    ]
+  }
+}

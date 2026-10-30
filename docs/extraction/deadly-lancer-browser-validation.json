@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "galka",
+      "class": "Chocobo Knight",
+      "archetype": "Deadly Lancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "sharedLimitBreakSpentPreserved": true,
+      "hpNotHealed": true,
+      "levelUpRejected": true,
+      "pageErrors": []
+    },
+    {
+      "race": "moogle",
+      "class": "Chocobo Knight",
+      "archetype": "Deadly Lancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "sharedLimitBreakSpentPreserved": true,
+      "hpNotHealed": true,
+      "levelUpRejected": true,
+      "pageErrors": []
+    }
+  ]
+}

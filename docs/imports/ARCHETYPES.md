@@ -10,7 +10,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 | --- | --- | --- |
 | [Antrider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/antrider/) | blocked · source-staged-blocked | Five abilities, seven upgrades and 20 mount rows staged and validated. GitHub suite/build pass; public catalog remains staged and unavailable. |
 | [Beast Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/beast-rider/) | blocked · source-staged | Ten feature descriptions, six stable upgrades, one resolved first-level replacement, nine deferred later targets and starting-mount restrictions staged |
-| [Deadly Lancer](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/deadly-lancer/) | queued · source-review | Start of source review |
+| [Deadly Lancer](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/deadly-lancer/) | in_progress · runtime-validated | Two exact first-level replacements and manual Charging Lancer validated; 19 later tricks/13 upgrades retained; mobile Galka/Moogle save/reopen passed |
 | [Fell Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/fell-rider/) | queued · source-review | Start of source review |
 | [Ghost Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/ghost-rider/) | queued · source-review | Start of source review |
 | [Magitek Pilot](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/magitek-pilot/) | queued · source-review | Start of source review |
