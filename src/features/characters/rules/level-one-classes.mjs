@@ -5,6 +5,7 @@ export const CHOCOBO_KNIGHT_ID='ffd20:class:chocobo-knight';
 export const DANCER_ID='ffd20:class:dancer';
 export const KNIGHT_ID='ffd20:class:knight';
 export const DRAGOON_ID='ffd20:class:dragoon';
+export const FELL_RIDER_ID='ffd20:archetype:chocobo-knight:fell-rider';
 export const DEADLY_LANCER_ID='ffd20:archetype:chocobo-knight:deadly-lancer';
 export const MOG_KNIGHT_ID='ffd20:archetype:chocobo-knight:mog-knight';
 export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,KNIGHT_ID,BEASTMASTER_ID].includes(b?.classId);
@@ -14,7 +15,8 @@ export const levelOneClasses=[...classCatalog.classes.filter(c=>c.adapter==='mar
 export const mogKnight=classCatalog.archetypeRecords.find(a=>a.id===MOG_KNIGHT_ID&&a.adapter==='mog-knight-level-one');
 
 export const deadlyLancer=classCatalog.archetypeRecords.find(a=>a.id===DEADLY_LANCER_ID&&a.adapter==='deadly-lancer-level-one');
-export const levelOneArchetype=b=>b.classId===CHOCOBO_KNIGHT_ID?[mogKnight,deadlyLancer].find(a=>a?.id===b.archetypeId&&(!a.data.requiredRaceId||a.data.requiredRaceId===b.raceId)):null;
+export const fellRider=classCatalog.archetypeRecords.find(a=>a.id===FELL_RIDER_ID&&a.adapter==='fell-rider-level-one');
+export const levelOneArchetype=b=>b.classId===CHOCOBO_KNIGHT_ID?[mogKnight,deadlyLancer,fellRider].find(a=>a?.id===b.archetypeId&&(!a.data.requiredRaceId||a.data.requiredRaceId===b.raceId)):null;
 
 export function levelOneFeatures(b){
  if(isBeastmaster(b))return beastmasterFeatures(b);

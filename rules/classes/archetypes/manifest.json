@@ -26,6 +26,13 @@
       "status": "live",
       "adapter": "deadly-lancer-level-one",
       "coverage": "partial"
+    },
+    {
+      "id": "ffd20:archetype:chocobo-knight:fell-rider",
+      "file": "rules/classes/archetypes/chocobo-knight-fell-rider.archetype.json",
+      "status": "live",
+      "adapter": "fell-rider-level-one",
+      "coverage": "partial"
     }
   ]
 }
