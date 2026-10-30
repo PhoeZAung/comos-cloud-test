@@ -20,6 +20,8 @@ export const BEASTKIN_ID='ffd20:race:beastkin';
 export const BEASTKIN_LANGUAGES=BEASTKIN_ID+':pool:high-intelligence-bonus-languages';
 export const BURMECIAN_ID='ffd20:race:burmecian';
 export const BURMECIAN_LANGUAGES=BURMECIAN_ID+':pool:high-intelligence-bonus-languages';
+export const DRACOBALTIAN_ID='ffd20:race:dracobaltian';
+export const DRACOBALTIAN_LANGUAGES=DRACOBALTIAN_ID+':pool:bonus-languages';
 const standardTraitActive=(b,race,slug)=>b?.raceId===race&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(race+':trait:'+slug);
 export const humeTraitActive=(b,slug)=>b?.raceId===HUME_ID&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(HUME_ID+':trait:'+slug);
 export const racialSkillRanks=(b,level)=>humeTraitActive(b,'skilled')?level:standardTraitActive(b,AL_BHED_ID,'mechanical-genius')&&level>=1?1:0;
@@ -27,7 +29,7 @@ export const racialCounter=(b,feature)=>[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'ete
 export function applyRacialFlatStats(next,previous,b){
  for(const [key,owner,bonus] of [
   ['init_temp','racialInitiativeBonus',(standardTraitActive(b,MITHRA_ID,'fleet-footed')||standardTraitActive(b,BEASTKIN_ID,'fleet-footed'))?2:0],
-  ['ac_natural','racialNaturalArmorBonus',(standardTraitActive(b,AU_RA_ID,'scales')||standardTraitActive(b,BANGAA_ID,'thick-skinned')||standardTraitActive(b,BEASTKIN_ID,'natural-armor'))?1:0],
+  ['ac_natural','racialNaturalArmorBonus',(standardTraitActive(b,AU_RA_ID,'scales')||standardTraitActive(b,BANGAA_ID,'thick-skinned')||standardTraitActive(b,BEASTKIN_ID,'natural-armor')||standardTraitActive(b,DRACOBALTIAN_ID,'leathery-skinned'))?1:0],
   ['cmd_temp','racialCmdBonus',standardTraitActive(b,BURMECIAN_ID,'battle-hardened')?1:0]
  ]){
   const old=Number(previous.rulesBuild?.[owner]||0);if(!bonus&&!old)continue;

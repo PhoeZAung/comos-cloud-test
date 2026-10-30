@@ -2,7 +2,7 @@ import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classe
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
-import {BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
+import {DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
@@ -75,6 +75,7 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id===AL_BHED_ID&&(b.heritageId||b.alternateIds.length))add(2,'Al Bhed currently supports standard traits only; alternates require a separate verified batch.');
  if(race?.id===AL_BHED_ID&&(b.level!==1||b.carry))add(3,'Al Bhed currently supports first-level creation/editing only; later progression and multiclassing require a separate verified batch.');
  if(race?.id===AL_BHED_ID&&b.skillRanks){const chosen=b.racialChoices?.[AL_BHED_GENIUS]?.[0],index=Number(chosen?.split(':').at(-1));if(chosen&&!(b.skillRanks[index]>=1))add(7,'Allocate the Mechanical Genius bonus rank to its selected skill.');}
+ if(race?.id===DRACOBALTIAN_ID&&(b.heritageId||b.alternateIds.length))add(2,'Dracobaltian currently supports standard traits only; alternate traits require a separate verified batch.');
  if(race?.id===BURMECIAN_ID&&(b.heritageId||b.alternateIds.length))add(2,'Burmecian currently supports standard traits only; Cleyran and other variants/alternates require a separate verified batch.');
  if(race?.id===BEASTKIN_ID&&(b.heritageId||b.alternateIds.length))add(2,'Beastkin currently supports standard traits only; alternate traits require a separate verified batch.');
  if(race?.id===BANGAA_ID&&(b.heritageId||b.alternateIds.length))add(2,'Bangaa currently supports standard traits only; variant heritages and alternates require a separate verified batch.');
