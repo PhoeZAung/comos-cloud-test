@@ -1,0 +1,27 @@
+[
+  {
+    "path": "assets/rules-wizard.mjs",
+    "matches": true,
+    "sha256": "255747e78875011785666f811f873efb0b7e47e3370a52327b1f038cc8398844"
+  },
+  {
+    "path": "features/characters/rules/build.mjs",
+    "matches": true,
+    "sha256": "a307808c9e4b430ddc3f0120430ec85f2c710aa22202317b3fb6bbea380b4b12"
+  },
+  {
+    "path": "features/characters/rules/class-adapters.mjs",
+    "matches": true,
+    "sha256": "e1673867452b5cc938aec406d383df3d854239cb3ad090b114eef2a0b2a43c42"
+  },
+  {
+    "path": "features/characters/rules/racial-choices.mjs",
+    "matches": true,
+    "sha256": "c93d1e80cba9acad870d823ec942b1de3692e828ec6777a1f5afb20e821db828"
+  },
+  {
+    "path": "features/characters/rules/races.mjs",
+    "matches": true,
+    "sha256": "6380c01fcdae823d44fadf1672aa5924ef85e20fddbe8ccc7df0556236bb1787"
+  }
+]

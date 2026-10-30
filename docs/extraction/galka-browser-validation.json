@@ -1,0 +1,13 @@
+[
+  {
+    "class": "dancer",
+    "race": "Galka",
+    "created": true,
+    "reopened": true,
+    "hp": 8,
+    "mp": 0,
+    "skillRanks": 5,
+    "languages": "Common, Galkan, Dwarven",
+    "pageErrors": []
+  }
+]
