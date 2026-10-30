@@ -29,6 +29,8 @@ for (const file of files) {
 }
 const styles = await Promise.all(['tokens.css', 'themes.css', 'site.css', 'character-carousel.css', 'character-wizard.css', 'rules-wizard.css', 'feed-lore.css', 'feed-additions.css', 'thread.css', 'item-categories.css', 'item-control.css'].map(file => readFile(new URL(`src/styles/${file}`, root), 'utf8')));
 await mkdir(new URL('dist/assets/', root), { recursive: true });
+await mkdir(new URL('dist/assets/icons/',root),{recursive:true});
+await cp(new URL('src/assets/icons/level-up.png',root),new URL('dist/assets/icons/level-up.png',root));
 await mkdir(new URL('dist/preview/', root), { recursive: true });
 for (const file of ['runtime.mjs', 'store.mjs', 'fixtures.mjs']) {
   await writeFile(new URL(`dist/preview/${file}`, root), await readFile(new URL(`src/preview/${file}`, root)));
