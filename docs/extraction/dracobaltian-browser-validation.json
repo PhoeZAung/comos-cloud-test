@@ -1,0 +1,31 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Dracobaltian",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 5,
+      "languages": "Common, Draconese, Ignan",
+      "manualNaturalArmorPreserved": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Dracobaltian",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 7,
+      "languages": "Common, Draconese, Ignan",
+      "manualNaturalArmorPreserved": true,
+      "pageErrors": []
+    }
+  ]
+}

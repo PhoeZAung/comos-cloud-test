@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 74,
+  "revision": 75,
   "schedule": [
     "class",
     "race",
@@ -463,15 +463,18 @@
     },
     "ffd20:race:dracobaltian": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Standard traits, explicit natural-blindness/Lesser Blindsight references, languages and owned natural armor validated across nine adapters and mobile save/reopen",
+      "nextAction": "Exact-head CI, merge and public asset verification; then Garif",
+      "scope": "Standard identity/speed/Perception/languages and owned natural armor; sensory detection/targeting, conditional CMD/Diplomacy and claws manual; no ordinary sight or automatic detection inferred; alternates guarded",
+      "note": "384 tests/build/phone fixtures pass; sensory limits and manual armor retained. Later language entitlement history and core maneuver totals remain separate review work. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T19:40:00.537Z"
+      "evidence": [
+        "docs/extraction/dracobaltian-standard-creation.md",
+        "docs/extraction/dracobaltian-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T19:45:49.552Z"
     }
   },
   "history": [
@@ -1131,6 +1134,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T19:40:00.537Z"
+    },
+    {
+      "revision": 75,
+      "itemId": "ffd20:race:dracobaltian",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Standard traits, explicit natural-blindness/Lesser Blindsight references, languages and owned natural armor validated across nine adapters and mobile save/reopen",
+      "time": "2026-10-30T19:45:49.552Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
