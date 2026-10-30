@@ -1,5 +1,8 @@
 {
   "phase": "races",
+  "schedulingQueue": "docs/imports/progress.json",
+  "resumeGuide": "docs/imports/RESUME.md",
+  "continuationNote": "This file preserves the earlier Dwarf/Elvaan mechanical-review cursor. The import queue now schedules class, race and archetype work and records newer partial-live milestones.",
   "lastCompletedPage": "https://finalfantasyd20.com/races/core-races/dwarf/",
   "lastCompletedSection": "Favored Class Options > White Mage (final entry)",
   "completedMechanicalPass": [

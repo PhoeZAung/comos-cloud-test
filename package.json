@@ -18,7 +18,10 @@
     "rules:class:check": "node scripts/generate-class-catalog.mjs --check",
     "rules:archetype:new": "node scripts/new-archetype.mjs",
     "rules:class:stage": "node scripts/stage-class.mjs",
-    "rules:class:review": "node scripts/review-class.mjs"
+    "rules:class:review": "node scripts/review-class.mjs",
+    "imports:status": "node scripts/import-queue.mjs status",
+    "imports:next": "node scripts/import-queue.mjs next",
+    "imports:plan": "node scripts/import-queue.mjs plan"
   },
   "engines": {
     "node": ">=24.0.0"
