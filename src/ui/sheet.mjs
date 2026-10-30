@@ -6,7 +6,7 @@ import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCateg
 import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
 import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
-import {equipmentSlots,equipmentSlotIds,equipmentSlotLabel,equippedInSlot,equipmentRows} from '../features/sheet/equipment.mjs';
+import {equipmentSlotIds,renderEquipChoices} from '../features/sheet/equipment.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','speed','languages','senses'],
  resources:['hp_curr','hp_temp','hp_max_temp','mp_curr','mp_temp','mp_max_temp'],hp:['hp_curr','hp_temp','hp_max_temp'],mp:['mp_curr','mp_temp','mp_max_temp'],
@@ -76,7 +76,7 @@ export function mountSheet(){
  const endpoint='/api/v1/character-records/'+encodeURIComponent(id);
  const status=message=>{const node=root.querySelector('[data-sheet-status]');if(node)node.textContent=message;};
  const dialog=()=>root.querySelector('[data-sheet-dialog]');
- const equipmentDialog=()=>root.querySelector('[data-equipment-dialog]');
+ const equipmentDialog=()=>root.querySelector('[data-equipment-dialog]');let selectedEquipmentSlot=null;
  const setBusy=value=>{busy=value;root.querySelector('[data-sheet]')?.classList.toggle('cs-saving',value);root.querySelectorAll('button,input,select,textarea').forEach(node=>{if(value){node.dataset.busyDisabled=String(node.disabled);node.disabled=true;}else if(node.dataset.busyDisabled!==undefined){node.disabled=node.dataset.busyDisabled==='true';delete node.dataset.busyDisabled;}});};
  async function request(body,revision){
   const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
@@ -105,24 +105,17 @@ export function mountSheet(){
   root.querySelector('[data-dialog-fields]').innerHTML=(help?'<p class="cs-caption">'+e(help)+'</p>':'')+'<div class="cs-form-grid">'+keys.map(k=>field(k,values[k],{weapon:change.collection==='weapons'})).join('')+'</div>';
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
  }
- function openEquipmentPicker({slot=null,index=null,collection='items'}={}){
-  if(busy||conflict){status(conflict?'Load latest before editing equipment.':'Saving…');return;}
-  const picker=equipmentDialog(),itemMode=index!==null,selected=character.data[collection]?.[index];if(!picker||itemMode&&!selected)return;
-  const chosenSlot=equipmentSlotIds.includes(slot)?slot:equipmentSlotIds.includes(selected?.equip_slot)?selected.equip_slot:'head';
-  const slotSelect=picker.querySelector('[data-equip-slot-select]'),itemSelect=picker.querySelector('[data-equip-item-select]');slotSelect.replaceChildren();itemSelect.replaceChildren();
-  for(const s of equipmentSlots){const o=document.createElement('option');o.value=s.id;o.textContent=s.label;slotSelect.append(o);}
-  const empty=document.createElement('option');empty.value='';empty.textContent='Empty — unequip this slot';itemSelect.append(empty);
-  for(const r of equipmentRows(character.data)){if(!r.item?.name||Number(r.item.amount??1)<1)continue;const o=document.createElement('option');o.value=r.collection+':'+r.index;o.textContent=r.item.name+(r.collection==='weapons'?' · Weapon':'')+(r.item.two_handed?' · 2 hands':'')+(r.item.equip_slot?' · '+equipmentSlotLabel(r.item.equip_slot):'');itemSelect.append(o);}
-  slotSelect.value=chosenSlot;slotSelect.disabled=!itemMode;const occupant=equippedInSlot(character.data,chosenSlot);itemSelect.value=itemMode?collection+':'+index:occupant?occupant.collection+':'+occupant.index:'';itemSelect.disabled=itemMode;
-  picker.querySelector('#cs-equipment-title').textContent=itemMode?'Equip '+selected.name:'Equip '+equipmentSlotLabel(chosenSlot);picker.querySelector('[data-equip-status]').textContent='';picker.querySelector('[data-equip-hint]').textContent='Two-handed weapons reserve both hands. Replaced equipment returns to carried inventory. Combat stats are managed separately.';updateEquipmentPreview();picker.showModal();
- }
- function updateEquipmentPreview(){
-  const picker=equipmentDialog(),slot=picker?.querySelector('[data-equip-slot-select]')?.value,choice=picker?.querySelector('[data-equip-item-select]')?.value||'';
-  if(!picker||!slot)return;
-  const current=equippedInSlot(character.data,slot)?.item,parts=choice.split(':'),collection=parts[0],index=Number(parts[1]);
-  const replacement=choice&&['items','weapons'].includes(collection)&&Number.isInteger(index)?character.data[collection]?.[index]:null;
-  picker.querySelector('[data-equip-current]').textContent=current?.name||'Empty';
-  picker.querySelector('[data-equip-next]').textContent=replacement?.name||'Empty';
+ function openEquipmentPicker(slot){
+  if(busy||conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or refresh before changing equipment.');return;}
+  if(!equipmentSlotIds.includes(slot))return;
+  const picker=equipmentDialog();if(!picker)return;
+  selectedEquipmentSlot=slot;
+  const search=picker.querySelector('[data-equip-search]');
+  search.value='';
+  picker.querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,'',slot);
+  picker.querySelector('[data-equip-status]').textContent='';
+  picker.showModal();
+  search.focus();
  }
  async function openRuleAbilities(){try{const {availableRuleAbilities}=await import('../features/characters/rules/ability-library.mjs');const options=availableRuleAbilities(character.data);const modal=document.createElement('dialog');modal.className='cs-dialog';modal.setAttribute('aria-label','Race and class abilities');modal.innerHTML='<div class="cs-card-title"><h2>Add abilities</h2><button type="button" class="cs-icon" data-library-close aria-label="Close">×</button></div><label class="cs-search">Find an ability<input type="search" data-library-search></label><div data-library-list></div><p role="status" data-library-status></p>';const drawLibrary=()=>{const query=modal.querySelector('[data-library-search]').value.toLowerCase();modal.querySelector('[data-library-list]').innerHTML=options.filter(o=>o.name.toLowerCase().includes(query)).map(o=>'<details class="cs-card"><summary>'+e(o.name)+'</summary><p class="cs-prose">'+e(o.description)+'</p>'+(o.url?'<a href="'+e(o.url)+'" target="_blank" rel="noopener">Official source ↗</a>':'')+'<button class="button" type="button" data-library-add="'+e(o.id)+'" '+(o.added?'disabled':'')+'>'+(o.added?'Added':'Add')+'</button></details>').join('')||'<p>No available abilities.</p>';};modal.addEventListener('input',drawLibrary);modal.addEventListener('click',async event=>{if(event.target.closest('[data-library-close]'))modal.close();const add=event.target.closest('[data-library-add]');if(!add)return;add.disabled=true;try{if(await save({action:'addRuleAbility',ruleId:add.dataset.libraryAdd})){const option=options.find(o=>o.id===add.dataset.libraryAdd);option.added=true;drawLibrary();notify('Added');}else add.disabled=false;}catch(error){modal.querySelector('[data-library-status]').textContent=error.message;add.disabled=false;}});modal.addEventListener('close',()=>modal.remove(),{once:true});document.body.append(modal);drawLibrary();modal.showModal();}catch(error){status(error.message);}}
  function showFormula(label){
@@ -208,19 +201,16 @@ export function mountSheet(){
    itemView=button.dataset.itemView==='inventory'?'inventory':'equip';
    draw();const url=new URL(location.href);url.searchParams.set('itemView',itemView);history.replaceState(null,'',url);return;
   }
-  if(button.matches('[data-equip-slot]')){openEquipmentPicker({slot:button.dataset.equipSlot});return;}
+  if(button.matches('[data-equip-slot]')){openEquipmentPicker(button.dataset.equipSlot);return;}
+  if(button.matches('[data-equip-choice]')){
+   const slot=selectedEquipmentSlot,raw=button.dataset.equipChoice,[collection,rawIndex]=raw.split(':'),index=Number(rawIndex),item=character.data[collection]?.[index];
+   if(!equipmentSlotIds.includes(slot)||!['items','weapons'].includes(collection)||!Number.isInteger(index)||index<0||!item||!String(item.name||'').trim()||Number(item.amount??1)<1)return;
+   if(button.getAttribute('aria-pressed')==='true'){equipmentDialog()?.close();return;}
+   void save({action:'equip',slot,collection,index});return;
+  }
   if(button.matches('[data-unequip-slot]')){
    if(conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or refresh before unequipping gear.');return;}
    void save({action:'equip',slot:button.dataset.unequipSlot,index:null});return;
-  }
-  if(button.matches('[data-assign-item]')){openEquipmentPicker({index:Number(button.dataset.assignItem)});return;}
-  if(button.matches('[data-assign-weapon]')){openEquipmentPicker({index:Number(button.dataset.assignWeapon),collection:'weapons'});return;}
-  if(button.matches('[data-remove-gear]')){
-   if(conflict||dirty||pendingRemaining||remainingPromise||remainingInvalid||Object.keys(pendingResourceFields).length){status('Save or refresh before removing inventory items.');return;}
-   const [collection,rawIndex]=button.dataset.removeGear.split(':'),index=Number(rawIndex);
-   if(!['items','weapons'].includes(collection)||!Number.isInteger(index)||index<0||index>=(character.data[collection]||[]).length)return;
-   const item=character.data[collection][index];
-   if(confirm('Remove "'+(item.name||'this item')+'" from inventory? This cannot be undone.'))void save({action:'entry',collection,index,mode:'remove'});return;
   }
   if(button.matches('[data-equipment-close]')){equipmentDialog()?.close();return;}
   if(button.matches('[data-combat-view]')){if(dirty&&!confirm('Discard unsaved edits?'))return;combatView=button.dataset.combatView;draw();const url=new URL(location.href);url.searchParams.set('combatView',combatView);history.replaceState(null,'',url);return;}
@@ -255,34 +245,24 @@ export function mountSheet(){
   if(button.matches('[data-spend-mp]')){openDialog('Spend MP',['amount'],{amount:1},{action:'spendMp'},{help:'Enter the MP cost for this cast.'});return;}
  },{signal:control.signal});
  root.addEventListener('submit',event=>{
-  if(!event.target.matches('[data-sheet-form],[data-notes],[data-equipment-form]'))return;event.preventDefault();
-  if(event.target.matches('[data-equipment-form]')){
-    const form=event.target;
-    const slot=form.elements.slot.value;
-    const raw=form.elements.itemIndex.value;
-    const [collection,rawIndex]=raw.includes(':')?raw.split(':'):['items',raw];const index=raw===''?null:Number(rawIndex);
-    if(!equipmentSlotIds.includes(slot)||index!==null&&(!Number.isInteger(index)||index<0||index>=(character.data[collection]||[]).length)){
-      form.querySelector('[data-equip-status]').textContent='Choose a valid slot and inventory item.';return;
-    }
-    const occupied=equippedInSlot(character.data,slot);
-    if(occupied&&(index!==occupied.index||collection!==occupied.collection)&&index!==null&&!confirm('Replace '+(occupied.item.name||'the equipped item')+' in '+equipmentSlotLabel(slot)+'?'))return;
-    void save({action:'equip',slot,index,collection});
-    return;
-  }
+  if(!event.target.matches('[data-sheet-form],[data-notes]'))return;event.preventDefault();
   if(event.target.matches('[data-notes]')){void save({action:'fields',fields:{notesArea:event.target.elements.notesArea.value}});return;}
   const fields={};for(const key of dialogState.keys){const node=event.target.elements[key];if(['caster_level','mp_cost'].includes(key)&&node.value===''){fields[key]='';continue;}fields[key]=boolKeys.has(key)?node.checked:textKeys.has(key)||node.tagName==='SELECT'?node.value:Number(node.value);}
   if(dialogState.change.action==='spendMp'){void save({action:dialogState.change.action,amount:fields.amount});return;}
   void save({...dialogState.change,fields});
  },{signal:control.signal});
  root.addEventListener('input',event=>{
+  if(event.target.matches('[data-equip-search]')){
+   equipmentDialog().querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,event.target.value,selectedEquipmentSlot);
+   return;
+  }
   if(event.target.matches('[data-ability-remaining]')){clearTimeout(remainingTimer);const [collection,index]=event.target.dataset.abilityRemaining.split(':'),value=Number(event.target.value);dirty=true;status('Unsaved uses');if(event.target.value!==''&&Number.isInteger(value)&&value>=0&&value<=Number(event.target.max)){remainingInvalid=false;pendingRemaining={collection,index:Number(index),value};remainingTimer=setTimeout(()=>void persistRemaining(),650);}else{remainingInvalid=true;pendingRemaining=null;status('Enter whole uses between 0 and maximum.');}return;}
 
   if(event.target.matches('[data-sheet-search]')){const d=character.data,q=event.target.value;root.querySelector('[data-sheet-list]').innerHTML=section==='skills'?renderSkillRows(d,q):section==='items'?collectionBlock('items',d,q,{category:itemTag}):section==='spells'?collectionBlock('spells',d,q,{level:spellFilter==='all'?null:spellFilter}):collectionBlock(ability,d,q);return;}
-  if((event.target.closest('form')||event.target.matches('[data-resource-input]'))&&!event.target.closest('[data-equipment-form]')){dirty=true;status('Unsaved changes');}
+  if((event.target.closest('form')||event.target.matches('[data-resource-input]'))){dirty=true;status('Unsaved changes');}
   if(event.target.matches('[data-resource-input]')){clearTimeout(resourceTimer);const key=event.target.dataset.resourceInput,value=Number(event.target.value);if(event.target.value!==''&&Number.isFinite(value)&&(key!=='hp_temp'||value>=0)){pendingResourceFields[key]=value;resourceTimer=setTimeout(()=>{if(Object.keys(pendingResourceFields).length)void save({action:'fields',fields:{...pendingResourceFields}});},650);}}
  },{signal:control.signal});
  root.addEventListener('change',event=>{
-   if(event.target.matches('[data-equip-slot-select],[data-equip-item-select]')){updateEquipmentPreview();return;}
   if(event.target.matches('[data-sheet-portrait]')){const file=event.target.files?.[0];if(!file)return;if(busy||conflict){status('Save or refresh before changing the portrait.');return;}status('Preparing portrait…');void processPicture(file).then(portrait=>save({op:'wizard',step:'identity',fields:{charName:character.name,alignment:character.data.alignment||'',bio:character.data.bio||'',portrait}})).catch(err=>status(err.message));return;}
   if(event.target.matches('[data-sheet-background]')){void save({action:'fields',fields:{sheet_background_enabled:event.target.checked}});return;}
   if(event.target.matches('[data-spell-ability]')){void save({action:'fields',fields:{spell_dc_base:event.target.value}});return;}
