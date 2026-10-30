@@ -17,7 +17,7 @@ export const stats=['str','dex','con','int','wis','cha'];
 export const steps=['Identity','Base scores','Race','Class','Choices','Spells','Review'];
 const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
-export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
+export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
 export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id));}
 export function raceTraits(b){
@@ -59,7 +59,7 @@ export function calculated(value,b,effective=effectiveScores(b)){
 export function choiceEvents(b){if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
 export function eligibleOptions(b,event){if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
 export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?classHitDie(b):classDefaultHp(b)));}
-export function spellCounts(b){if(isBard(b))return bardSpellCounts(effectiveScores(b));if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
+export function spellCounts(b){if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
  const errors=[];const add=(step,message)=>errors.push({step,message});
  if(!b.name.trim())add(0,'Enter a character name.');
@@ -159,6 +159,7 @@ export function sanitizeBuild(raw){
  if(raw.scorePool!==undefined){if(!Array.isArray(raw.scorePool)||raw.scorePool.length>6||raw.scorePool.some(n=>!Number.isInteger(n)||n<3||n>18))bad('Invalid score pool.');b.scorePool=[...raw.scorePool];}
  if(raw.scoreAssignments!==undefined){if(!Array.isArray(raw.scoreAssignments)||raw.scoreAssignments.length!==6)bad('Invalid score assignments.');b.scoreAssignments=[...raw.scoreAssignments];}
  if(raw.initialIntMod!==undefined&&raw.initialIntMod!==null){if(!Number.isInteger(raw.initialIntMod)||raw.initialIntMod< -5||raw.initialIntMod>20)bad('Invalid initial INT.');b.initialIntMod=raw.initialIntMod;}
+ if(raw.initialChaMod!==undefined&&raw.initialChaMod!==null){if(!Number.isInteger(raw.initialChaMod)||raw.initialChaMod<0||raw.initialChaMod>17)bad('Invalid starting Charisma modifier.');b.initialChaMod=raw.initialChaMod;}
  if(raw.abilityIncreases!==undefined){if(!raw.abilityIncreases||typeof raw.abilityIncreases!=='object'||Array.isArray(raw.abilityIncreases)||Object.keys(raw.abilityIncreases).length>5)bad('Invalid level ability increases.');for(const [level,key] of Object.entries(raw.abilityIncreases)){if(!['4','8','12','16','20'].includes(level)||Number(level)>buildLevel({...b,level:raw.level})||!stats.includes(key))bad('Invalid level ability increase.');b.abilityIncreases[level]=key;}}
  if(!raw.choices||typeof raw.choices!=='object'||Array.isArray(raw.choices)||Object.keys(raw.choices).length>100)bad('Invalid choices.');
  const validIds=new Set(choiceEvents({...b,level:20}).map(e=>e.id));b.choices={};for(const [k,v] of Object.entries(raw.choices)){if(!validIds.has(k)||!Array.isArray(v)||v.length>10||v.some(id=>typeof id!=='string'||id.length>250))bad('Invalid choice.');b.choices[k]=v;}
@@ -188,7 +189,17 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
   if((isLevelOneClass(raw)||isBard(raw))&&Object.keys(previous).length&&!previous.rulesBuild)bad('Create a new first-level character; adopting an existing manual character is not supported for this class.');
   if(append||raw.carry)bad('Archer multiclassing is not yet supported.');
   if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==raw.classId)bad('A saved character cannot change its class.');
-  const b=sanitizeBuild(raw),p=previewBuild(b);
+  const priorBard=isBard(raw)?previous.rulesBuild?.input:null;
+  const startingCha=priorBard?(priorBard.initialChaMod??priorBard.spellIds.filter(id=>spellsForBuild(priorBard).some(s=>s.id===id&&s.level===1)).length-3):null;
+  const b=sanitizeBuild(priorBard&&raw.initialChaMod==null?{...raw,initialChaMod:startingCha}:raw),p=previewBuild(b);
+  if(isBard(b)){
+   const prior=previous.rulesBuild?.input;
+   // Migrate the first bounded Bard version from its actual learned song count.
+   const starting=prior?startingCha:mod(p.scores.cha);
+   if(b.initialChaMod!==null&&b.initialChaMod!==starting)bad('The Bard starting song allowance cannot be changed.');
+   b.initialChaMod=starting;
+   const issues=bardIssues(b,p.scores);if(issues.length)bad(issues[0].message);
+  }
   if(!allowRankReduction&&previous.rulesBuild&&b.skillRanks?.some((n,i)=>n<Number(previous.rulesBuild.rankFloor?.[i]??previous.rulesBuild.input.skillRanks?.[i]??0)))bad('Confirmed skill ranks cannot be reduced.');
   return compileNoncastingBuild(b,previous,{preview:p,raceTraits,calculated,rankFloor:previous.rulesBuild?.rankFloor});
  }

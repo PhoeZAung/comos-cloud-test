@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 3,
+  "revision": 4,
   "schedule": [
     "class",
     "race",
@@ -108,19 +108,21 @@
     "ffd20:class:bard": {
       "state": "in_progress",
       "stage": "validation",
-      "cursor": "First-level adapter and all 30 first-level song pages implemented; 300 local tests and two mobile save/reopen cases passed.",
-      "nextAction": "Verify GitHub CI and deployment, then record a partial-live milestone and advance to Elvaan.",
+      "cursor": "First-level Bard deployed; follow-up freezes starting CHA song entitlement and removes the generic Limit Break heading from runtime cards.",
+      "nextAction": "Verify follow-up CI and deployed asset hashes; record partial-live milestone, then continue Elvaan.",
       "scope": "New level-1 Bard creation/editing only. Later progression, talents, archetypes, purchased songs and maintained-effect automation remain unsupported.",
-      "note": "Elemental Threnody maintained classification corrected from its individual page; source hashes verified. Real production login is not claimed.",
+      "note": "First implementation passed CI and deployment. Follow-up tests cover entitlement changes, older-save migration and the two actionable Limit Break cards.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "rules/classes/README.md",
         "docs/extraction/bard-batch-02.md",
         "docs/extraction/bard-level-one-import.md",
-        "docs/extraction/bard-level-one-browser-validation.json"
+        "docs/extraction/bard-level-one-browser-validation.json",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/5",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41021739898"
       ],
-      "updatedAt": "2026-10-30T07:41:12.847Z"
+      "updatedAt": "2026-10-30T07:48:50.433Z"
     },
     "ffd20:race:elvaan": {
       "state": "queued",
@@ -152,6 +154,15 @@
       "stage": "validation",
       "cursor": "First-level adapter and all 30 first-level song pages implemented; 300 local tests and two mobile save/reopen cases passed.",
       "time": "2026-10-30T07:41:12.847Z"
+    },
+    {
+      "revision": 4,
+      "itemId": "ffd20:class:bard",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "validation",
+      "cursor": "First-level Bard deployed; follow-up freezes starting CHA song entitlement and removes the generic Limit Break heading from runtime cards.",
+      "time": "2026-10-30T07:48:50.433Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
