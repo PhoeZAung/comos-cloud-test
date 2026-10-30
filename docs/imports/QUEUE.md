@@ -9,10 +9,10 @@ Partial-live support, testing availability, source archiving and full completion
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | class | 73/73 | 7 | 7 | 66 | 7 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 53 | 8 | 0 | 0 |
+| race | 63/63 | 63 | 63 | 52 | 9 | 0 | 0 |
 | archetype | 579/579 | 3 | 1 | 576 | 1 | 0 | 473 |
 
-Checkpoint revision: **43**. Active: **ffd20:race:aegyl**. Next: **ffd20:race:aegyl**.
+Checkpoint revision: **45**. Active: **ffd20:race:al-bhed**. Next: **ffd20:race:al-bhed**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -108,8 +108,8 @@ The race count includes testing options whose mandatory choices can still preven
 | 6 | [Mithra](https://finalfantasyd20.com/races/core-races/mithra/) | testing option; saving can be guarded | live_partial · deployed | Standard Mithra traits deployed; seven runtime asset hashes match checked build; Later milestones: variants, alternate replacements, conditional combat and movement handling, favored rewards and independent full review |
 | 7 | [Moogle](https://finalfantasyd20.com/races/core-races/moogle/) | testing option; saving can be guarded | live_partial · partial-live-support | Baseline choices and local save/reopen verified; real user-account acceptance remains.; Review alternate/heritage and favored-class rules. |
 | 8 | [Tarutaru](https://finalfantasyd20.com/races/core-races/tarutaru/) | testing option; saving can be guarded | live_partial · deployed | Standard Tarutaru traits and specialty selection deployed; five public asset hashes match tested build; Later milestones: variant/alternate choices, conditional caster and defense checks, favored rewards and independent full review |
-| 9 | [Aegyl](https://finalfantasyd20.com/races/base-races/aegyl/) | testing option; saving can be guarded | in_progress · runtime-validated | Standard identity, Perception, optional languages and Eternal Hope counter validated across seven adapters; phone Dancer/Bard create/edit/save/reopen passed; Publish checked batch through exact-head CI and verify public assets before advancing to Al Bhed |
-| 10 | [Al Bhed](https://finalfantasyd20.com/races/base-races/al-bhed/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
+| 9 | [Aegyl](https://finalfantasyd20.com/races/base-races/aegyl/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits, source-listed languages and daily Hope counter deployed; five public assets verified; Alternates, favored rewards and conditional-effect automation require separate source-reviewed batches |
+| 10 | [Al Bhed](https://finalfantasyd20.com/races/base-races/al-bhed/) | testing option; saving can be guarded | in_progress · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 11 | [Au Ra](https://finalfantasyd20.com/races/base-races/au-ra/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 12 | [Bangaa](https://finalfantasyd20.com/races/base-races/bangaa/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 13 | [Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
