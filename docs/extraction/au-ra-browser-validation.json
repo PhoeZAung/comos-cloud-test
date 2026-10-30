@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Au Ra",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 5,
+      "languages": "Common, Draconic, Kojin",
+      "manualNaturalArmorPreserved": true,
+      "spentFerocityPreserved": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Au Ra",
+      "class": "bard",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "skillRanks": 7,
+      "languages": "Common, Draconic, Kojin",
+      "manualNaturalArmorPreserved": true,
+      "spentFerocityPreserved": true,
+      "pageErrors": []
+    }
+  ]
+}

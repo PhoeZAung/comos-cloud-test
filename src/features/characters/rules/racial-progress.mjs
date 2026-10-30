@@ -12,15 +12,20 @@ export const AEGYL_LANGUAGES=AEGYL_ID+':pool:high-intelligence-bonus-languages';
 export const AL_BHED_ID='ffd20:race:al-bhed';
 export const AL_BHED_LANGUAGES=AL_BHED_ID+':pool:high-intelligence-bonus-languages';
 export const AL_BHED_GENIUS=AL_BHED_ID+':pool:mechanical-genius-specialty';
+export const AU_RA_ID='ffd20:race:au-ra';
+export const AU_RA_LANGUAGES=AU_RA_ID+':pool:high-intelligence-bonus-languages';
 const standardTraitActive=(b,race,slug)=>b?.raceId===race&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(race+':trait:'+slug);
 export const humeTraitActive=(b,slug)=>b?.raceId===HUME_ID&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(HUME_ID+':trait:'+slug);
 export const racialSkillRanks=(b,level)=>humeTraitActive(b,'skilled')?level:standardTraitActive(b,AL_BHED_ID,'mechanical-genius')&&level>=1?1:0;
-export const racialCounter=(b,feature)=>[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'eternal-hope']].some(([race,slug])=>standardTraitActive(b,race,slug)&&feature.id===race+':trait:'+slug)?{maximum:1}:null;
+export const racialCounter=(b,feature)=>[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'eternal-hope'],[AU_RA_ID,'ferocity']].some(([race,slug])=>standardTraitActive(b,race,slug)&&feature.id===race+':trait:'+slug)?{maximum:1}:null;
 export function applyRacialFlatStats(next,previous,b){
- const bonus=standardTraitActive(b,MITHRA_ID,'fleet-footed')?2:0,old=Number(previous.rulesBuild?.racialInitiativeBonus||0);
- if(!bonus&&!old)return;
- next.init_temp=Number(previous.init_temp||0)-old+bonus;
- next.rulesBuild.racialInitiativeBonus=bonus;
+ for(const [key,owner,bonus] of [
+  ['init_temp','racialInitiativeBonus',standardTraitActive(b,MITHRA_ID,'fleet-footed')?2:0],
+  ['ac_natural','racialNaturalArmorBonus',standardTraitActive(b,AU_RA_ID,'scales')?1:0]
+ ]){
+  const old=Number(previous.rulesBuild?.[owner]||0);if(!bonus&&!old)continue;
+  next[key]=Number(previous[key]||0)-old+bonus;next.rulesBuild[owner]=bonus;
+ }
 }
 export const languageChoice=name=>'language:'+String(name).normalize('NFC').trim().replace(/\s+/g,' ');
 export const languageName=id=>typeof id==='string'&&id.startsWith('language:')?id.slice(9):'';

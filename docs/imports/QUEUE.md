@@ -12,7 +12,7 @@ Partial-live support, testing availability, source archiving and full completion
 | race | 63/63 | 63 | 63 | 51 | 10 | 0 | 0 |
 | archetype | 579/579 | 3 | 1 | 576 | 1 | 0 | 473 |
 
-Checkpoint revision: **48**. Active: **ffd20:race:au-ra**. Next: **ffd20:race:au-ra**.
+Checkpoint revision: **49**. Active: **ffd20:race:au-ra**. Next: **ffd20:race:au-ra**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -110,7 +110,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 8 | [Tarutaru](https://finalfantasyd20.com/races/core-races/tarutaru/) | testing option; saving can be guarded | live_partial · deployed | Standard Tarutaru traits and specialty selection deployed; five public asset hashes match tested build; Later milestones: variant/alternate choices, conditional caster and defense checks, favored rewards and independent full review |
 | 9 | [Aegyl](https://finalfantasyd20.com/races/base-races/aegyl/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits, source-listed languages and daily Hope counter deployed; five public assets verified; Alternates, favored rewards and conditional-effect automation require separate source-reviewed batches |
 | 10 | [Al Bhed](https://finalfantasyd20.com/races/base-races/al-bhed/) | testing option; saving can be guarded | live_partial · deployment-verified | First-level standard traits and Mechanical Genius choice/rank deployed; six public assets verified; Later progression, alternate traits and remaining specialty/conditional mechanics require separate reviewed batches |
-| 11 | [Au Ra](https://finalfantasyd20.com/races/base-races/au-ra/) | testing option; saving can be guarded | in_progress · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
+| 11 | [Au Ra](https://finalfantasyd20.com/races/base-races/au-ra/) | testing option; saving can be guarded | in_progress · runtime-validated | Standard Xaela traits, owned Scales AC and Ferocity counter validated across seven adapters and mobile Dancer/Bard save/reopen; Exact-head CI, merge and public asset verification; then Deadly Lancer |
 | 12 | [Bangaa](https://finalfantasyd20.com/races/base-races/bangaa/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 13 | [Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 14 | [Burmecian](https://finalfantasyd20.com/races/base-races/burmecian/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
