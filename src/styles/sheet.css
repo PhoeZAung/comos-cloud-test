@@ -93,3 +93,6 @@
 .cs-portrait-upload input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 @media(max-width:720px){.cs-titlebar{grid-template-columns:minmax(0,1fr) auto;gap:8px}.cs-titlebar>.cs-identity{grid-column:1;grid-row:1}.cs-titlebar>.cs-settings{grid-column:2;grid-row:1}.cs-titlebar>.cs-quick-tools{grid-column:1/-1;grid-row:2;justify-self:center}.cs-tabs[aria-label="Character sheet"] button{min-width:58px;padding:8px 5px}.cs-tabs[aria-label="Character sheet"] button span{font-size:10px}}
 @media(max-width:420px){.cs-tabs[aria-label="Character sheet"]{justify-content:flex-start}.cs-tabs[aria-label="Character sheet"] button{flex:0 0 58px;min-height:60px}.cs-battle-block>.cs-tabs[aria-label="Offense and defense"] button{gap:7px;min-height:60px}.cs-battle-block>.cs-tabs[aria-label="Offense and defense"] button svg{width:24px;height:24px}.cs-battle-block>.cs-tabs[aria-label="Offense and defense"] button span{font-size:12px}.cs-recovery-panel{right:-2px;min-width:245px}}
+
+/* Keep the settings popover above sticky sheet navigation, including with portrait backgrounds. */
+.cs-titlebar,.cs-sheet.cs-has-background>.cs-titlebar{z-index:20}
