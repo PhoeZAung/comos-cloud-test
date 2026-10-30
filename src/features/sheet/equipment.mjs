@@ -19,7 +19,7 @@ export const equipmentSlotIds=Object.freeze(equipmentSlots.map(s=>s.id));
 export const miscEquipmentSlotIds=Object.freeze(Array.from({length:20},(_,i)=>'misc-'+(i+1)));
 export const isEquipmentSlot=id=>equipmentSlotIds.includes(id)||miscEquipmentSlotIds.includes(id);
 
-export const equipmentSlotLabel=id=>equipmentSlots.find(s=>s.id===id)?.label||'Unassigned';
+export const equipmentSlotLabel=id=>miscEquipmentSlotIds.includes(id)?'Misc':equipmentSlots.find(s=>s.id===id)?.label||'Unassigned';
 export function equipmentRows(source){return Array.isArray(source)?source.map((item,index)=>({item,index,collection:'items'})):['items','weapons'].flatMap(collection=>(source?.[collection]||[]).map((item,index)=>({item,index,collection})));}
 export function occupiesSlot(item,slot){return !!item&&item.equipped!==false&&(item.equip_slot===slot||item.two_handed===true&&['hands','hand2'].includes(item.equip_slot)&&['hands','hand2'].includes(slot));}
 export function equippedInSlot(source,slot){if(!isEquipmentSlot(slot))return null;return equipmentRows(source).find(r=>occupiesSlot(r.item,slot))||null;}
