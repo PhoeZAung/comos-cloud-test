@@ -1,0 +1,22 @@
+[
+  {
+    "path": "assets/rules-wizard.mjs",
+    "matches": true,
+    "sha256": "0968fbb472c889581e6966ef868bbcb0af370214210368ebbbb1445f937e94cd"
+  },
+  {
+    "path": "features/characters/rules/build.mjs",
+    "matches": true,
+    "sha256": "226214d75b3dc922d86bc0cfb26f084174ba3794cefa6f06c3f051bbd1597f1b"
+  },
+  {
+    "path": "features/characters/rules/racial-choices.mjs",
+    "matches": true,
+    "sha256": "50990642db388075ba633041951d0264664e250614b49d63c46336b8703b235e"
+  },
+  {
+    "path": "features/characters/rules/races.mjs",
+    "matches": true,
+    "sha256": "d4f77867fdbc1d68e3be37ca6d0f7d302a5611a20b40f6c3e8419ebb39772ba9"
+  }
+]

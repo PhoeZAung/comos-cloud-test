@@ -28,3 +28,5 @@ Maintained songs have manual upkeep, range, duration, repeated-save/resistance a
 - Local Chromium at 390 × 844 with the real HTTP route/service and temporary SQLite storage: both default Moogle Bard and high-CHA/INT Moogle Bard created and reopened successfully with no page errors. Default: HP 8, MP 3, 4 songs, 2 jingles, 6 ranks. High scores: HP 8, MP 4, 8 songs, 2 jingles, 8 ranks.
 - Browser session is a local authentication fixture. Real production provider login and user-account acceptance were not tested.
 - CI and deployment verification are recorded in the import checkpoint after completion.
+
+Deployment verified: public runtime asset hashes match the tested build. See the corresponding deployment-validation JSON and import checkpoint. GitHub checks: https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41022762945.

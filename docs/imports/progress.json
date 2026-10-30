@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 10,
+  "revision": 11,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 2,
+  "schedulePosition": 3,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -149,19 +149,23 @@
       "updatedAt": "2026-10-30T08:11:27.445Z"
     },
     "ffd20:race:galka": {
-      "state": "in_progress",
-      "stage": "validation",
-      "cursor": "All standard traits compared with archived source; language chooser implemented and Mining Servitude narrowed to manual miner-only benefit; 308 tests and mobile save/reopen passed.",
-      "nextAction": "Verify GitHub CI and public deployed asset hashes; record partial standard-trait milestone and continue Half-Breed.",
+      "state": "live_partial",
+      "stage": "deployed",
+      "cursor": "Standard Galka milestone deployed; four asset hashes match tested build, 308 tests and phone-sized Dancer creation/reopen passed.",
+      "nextAction": "After baseline imports, review alternate traits, miner-specialty automation, conditional rules/Ferocity, favored rewards and independent full review.",
       "scope": "Standard Galka traits within existing class support, Intelligence-bounded bonus languages; Profession (miner), conditional effects, Ferocity/recovery and reincarnation remain manual. Alternates and favored rewards require later review.",
-      "note": "Source hash matches archived catalog. No blanket Profession bonus or real-user production login claim.",
+      "note": "Mining Servitude no longer grants every Profession row a bonus. Source review remains needs_review; no real-user provider login claim.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/galka-standard-creation.md",
-        "docs/extraction/galka-browser-validation.json"
+        "docs/extraction/galka-browser-validation.json",
+        "docs/extraction/galka-deployment-validation.json",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/8",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41025317270",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41025475504"
       ],
-      "updatedAt": "2026-10-30T08:16:04.885Z"
+      "updatedAt": "2026-10-30T08:20:30.875Z"
     }
   },
   "history": [
@@ -245,6 +249,15 @@
       "stage": "validation",
       "cursor": "All standard traits compared with archived source; language chooser implemented and Mining Servitude narrowed to manual miner-only benefit; 308 tests and mobile save/reopen passed.",
       "time": "2026-10-30T08:16:04.885Z"
+    },
+    {
+      "revision": 11,
+      "itemId": "ffd20:race:galka",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "deployed",
+      "cursor": "Standard Galka milestone deployed; four asset hashes match tested build, 308 tests and phone-sized Dancer creation/reopen passed.",
+      "time": "2026-10-30T08:20:30.875Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

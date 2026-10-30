@@ -47,10 +47,11 @@ so a new session has one known branch to find unfinished work:
 
 The original Dwarf/Elvaan continuation is retained in
 `docs/extraction/CONTINUATION.json`. Existing Chocobo Knight, Dancer, Archer,
-Black Mage, Bard, Moogle, Immortal, Dwarf and Mog Knight support is recorded as partial
-milestones rather than full completion. After the Bard first-level milestone,
-the next baseline items are **Elvaan, Galka and Half-Breed**, then an eligible
-archetype. Always read the current queue instead of restarting Bard. A blocked entry
+Black Mage, Bard, Elvaan, Galka, Moogle, Immortal, Dwarf and Mog Knight support is recorded as partial
+milestones rather than full completion. Bard level 1 and the standard Elvaan
+and Galka traits have verified deployment milestones. The next baseline item is
+**Half-Breed**, followed by an eligible archetype and the next class. Always read
+the current queue instead of restarting these completed milestones. A blocked entry
 is skipped without deleting its last section or evidence.
 
 ## Commands
