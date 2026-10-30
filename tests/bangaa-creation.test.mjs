@@ -13,8 +13,8 @@ function fixture(cls='dancer'){
  if(hasSpellcasting(classFor(b))){const count=spellCounts(b),spells=spellsForBuild(b);b.spellIds=[...spells.filter(s=>s.level===0).slice(0,count.cantrips),...spells.filter(s=>s.level===1).slice(0,count.leveled)].map(s=>s.id);}
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
-test('Bangaa maps its printed scores and reptilian subtype across eight class adapters without inventing strength or unconditional stability',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
+test('Bangaa maps its printed scores and reptilian subtype across nine class adapters without inventing strength or unconditional stability',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','monk','bard','beastmaster']){
   const d=compileBuild(fixture(cls));assert.deepEqual([d.str,d.dex,d.int,d.wis,d.cha],[10,12,12,12,14]);assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.deepEqual(d.racialIdentity.subtypes,['reptilian']);assert.equal(d.languages,'Common, Banganese');assert(d.senses);
   for(const name of ['Perception','Acrobatics'])assert.equal(d.skills.find(s=>s.name===name).rulesBonus,2);
   assert.equal(d.ac_natural,1);assert.equal(sheetStats(d).ac,12);assert.equal(sheetStats(d).touch,11);assert.equal(d.cmd_temp,undefined);assert.equal(d.fort_temp,undefined);

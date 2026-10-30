@@ -1,0 +1,14 @@
+# Monk first-level integration
+
+Source: https://finalfantasyd20.com/classes/core-classes/monk/
+Archived HTML SHA-256: `67962e3628cc238458a7a19711023eb9c654a9bd4f57a8e9864bbaf99a259f56`.
+
+The printed FFd20 Monk supports any alignment, d12 HP, full BAB, Fortitude/Reflex +2 and Will +0 at first level, 4 + Intelligence skill ranks and 35 gil. Its specific weapon list and monk-quality weapons are recorded, with no armor/shield proficiency inferred. Eight first-level source cards retain proficiencies, Bodybuilding, Flurry of Blows, Flying Kick, Martial Arts, Martial Wisdom and both Limit Breaks. Martial Arts grants a separate manual Improved Unarmed Strike feat card; no first-level Stunning Fist, Ki, talents, blitz choices or MP is granted.
+
+Bodybuilding adds Monk level × positive build Constitution bonus to the ordinary HP calculation. Constitution penalties are not applied twice. At first level CON 14 produces 12 + 2 ordinary + 2 Bodybuilding = 16 HP. The shared calculation is used by creation/preview and live sheet Constitution updates: CON 16 gives 18 HP, with current HP and manual HP adjustments preserved. The card states that this bonus is already included, so it should not be entered again. Toughness's replacement benefit remains manual. The same managed-stat update also corrects Knight stance capacity after permanent sheet Constitution edits while retaining the usual spent-round accounting.
+
+Unarmed damage is recorded for Small/Medium/Large (first-level 1d4/1d6/1d8), with all six source progression rows retained. No weapon entry or automatic extra attack is created. Flurry/Flying Kick movement/actions/targeting, armor/shield/load restrictions, Martial Wisdom's limited +3 feat-prerequisite qualification and Limit Break effects remain manual. Martial Wisdom does not increase actual Wisdom or grant AC. Generic Wisdom-to-AC is not inferred from a different rules system. Complete core CMD/CMB totals retain the separate manual-verification limitation in `docs/review/combat-maneuver-formulas.md`.
+
+All twenty class rows and later source sections remain staged for separate progression, talent, blitz, Ki, archetype and multiclass adapters. Favored rewards and independent full review remain pending.
+
+Validation: all 381 tests and the cloud build pass. Three Monk regressions cover source/hash/stats/alignment/unarmed table, positive/zero/negative Constitution and live HP changes, manual fields and feat notes, spent shared Limit Breaks and forged later/spell/archetype choices. A Knight regression covers permanent sheet CON/stance capacity; nine race matrices now cover nine class adapters. Phone-sized Chromium fixtures created, edited, saved and reopened chaotic-good Galka/Moogle Monks, verified HP 16→18 after a real sheet CON edit, preserved spent Limit Breaks/current HP, rejected level-up and saw no page errors. See `monk-browser-validation.json`; fixture authentication is not production provider login.

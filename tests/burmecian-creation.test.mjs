@@ -13,8 +13,8 @@ function fixture(cls='dancer'){
  if(hasSpellcasting(classFor(b))){const count=spellCounts(b),spells=spellsForBuild(b);b.spellIds=[...spells.filter(s=>s.level===0).slice(0,count.cantrips),...spells.filter(s=>s.level===1).slice(0,count.leveled)].map(s=>s.id);}
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
-test('Burmecian standards map across eight adapters without a global jump, fear-save or feat-derived initiative bonus',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
+test('Burmecian standards map across nine adapters without a global jump, fear-save or feat-derived initiative bonus',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','monk','bard','beastmaster']){
   const d=compileBuild(fixture(cls));assert.deepEqual([d.dex,d.int,d.cha],[12,12,12]);assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Burmecian');assert.match(d.senses,/Darkvision.*60/);
   assert.equal(d.skills.find(s=>s.name==='Perception').rulesBonus,2);assert.equal(d.skills.find(s=>s.name==='Acrobatics').rulesBonus,0);
   assert.equal(d.cmd_temp,1);const without=compileBuild({...fixture(cls),disabledTraits:[BURMECIAN_ID+':trait:battle-hardened']});assert.equal(sheetStats(d).cmd-sheetStats(without).cmd,1);assert.equal(d.init_temp,undefined);assert.equal(d.ac_natural,undefined);assert.equal(d.will_temp,undefined);

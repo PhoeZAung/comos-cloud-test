@@ -11,7 +11,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 | [Antrider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/antrider/) | blocked · source-staged-blocked | Five abilities, seven upgrades and 20 mount rows staged and validated. GitHub suite/build pass; public catalog remains staged and unavailable. |
 | [Beast Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/beast-rider/) | blocked · source-staged | Ten feature descriptions, six stable upgrades, one resolved first-level replacement, nine deferred later targets and starting-mount restrictions staged |
 | [Deadly Lancer](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/deadly-lancer/) | live_partial · deployment-verified | First-level proficiencies/aura replacements and manual qualifying charge deployed; six public assets verified |
-| [Fell Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/fell-rider/) | in_progress · runtime-validated | First-level Brute Steed with retained yellow chocobo reference validated; rider scores/size unchanged; mobile Galka/Moogle save/reopen passed |
+| [Fell Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/fell-rider/) | live_partial · deployment-verified | Brute Steed mount-only adjustments and retained parent reference deployed; four public assets verified |
 | [Ghost Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/ghost-rider/) | queued · source-review | Start of source review |
 | [Magitek Pilot](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/magitek-pilot/) | queued · source-review | Start of source review |
 | [Mikoshi Leader](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/mikoshi-leader/) | queued · source-review | Start of source review |
@@ -174,26 +174,26 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Diminutive Adept](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/diminutive-adept/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Elemental Fist Disciple](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/elemental-fist-disciple/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Featherweight](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/featherweight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Fist of Rhalgr](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Heavyweight](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/heavyweight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Ironskin Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ironskin-monk/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Ki Master](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Life Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/life-monk/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Master of Many Styles](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/master-of-many-styles/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Meowfist](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/meowfist/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Monk of the Wild](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/monk-of-the-wild/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Nimble Guardian](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/nimble-guardian/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Peacekeeper](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/peacekeeper/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Scaled Fist](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/scaled-fist/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Streak](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/streak/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Student of the Stone](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/student-of-the-stone/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Treetop Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/treetop-monk/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Wanderer](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/wanderer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Weapon Adept](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/weapon-adept/) | queued · source-review | Start of source review · waiting for parent definition |
-| [White Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/white-monk/) | queued · source-review | Start of source review · waiting for parent definition |
+| [Diminutive Adept](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/diminutive-adept/) | queued · source-review | Start of source review |
+| [Elemental Fist Disciple](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/elemental-fist-disciple/) | queued · source-review | Start of source review |
+| [Featherweight](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/featherweight/) | queued · source-review | Start of source review |
+| [Fist of Rhalgr](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/) | queued · source-review | Start of source review |
+| [Heavyweight](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/heavyweight/) | queued · source-review | Start of source review |
+| [Ironskin Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ironskin-monk/) | queued · source-review | Start of source review |
+| [Ki Master](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/) | queued · source-review | Start of source review |
+| [Life Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/life-monk/) | queued · source-review | Start of source review |
+| [Master of Many Styles](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/master-of-many-styles/) | queued · source-review | Start of source review |
+| [Meowfist](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/meowfist/) | queued · source-review | Start of source review |
+| [Monk of the Wild](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/monk-of-the-wild/) | queued · source-review | Start of source review |
+| [Nimble Guardian](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/nimble-guardian/) | queued · source-review | Start of source review |
+| [Peacekeeper](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/peacekeeper/) | queued · source-review | Start of source review |
+| [Scaled Fist](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/scaled-fist/) | queued · source-review | Start of source review |
+| [Streak](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/streak/) | queued · source-review | Start of source review |
+| [Student of the Stone](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/student-of-the-stone/) | queued · source-review | Start of source review |
+| [Treetop Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/treetop-monk/) | queued · source-review | Start of source review |
+| [Wanderer](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/wanderer/) | queued · source-review | Start of source review |
+| [Weapon Adept](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/weapon-adept/) | queued · source-review | Start of source review |
+| [White Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/white-monk/) | queued · source-review | Start of source review |
 
 ## Red Mage (18)
 

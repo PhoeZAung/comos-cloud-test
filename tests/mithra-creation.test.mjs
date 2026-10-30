@@ -14,8 +14,8 @@ function fixture(cls='dancer'){
  b.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(b).skillBudget?1:0);return b;
 }
 const luck=d=>d.racialAbilities.find(f=>f.sourceRuleId===MITHRA_ID+':trait:cat-s-luck');
-test('Mithra standards map identically across eight compilers without unconditional conditional defenses or speed',()=>{
- for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','bard','beastmaster']){
+test('Mithra standards map identically across nine compilers without unconditional conditional defenses or speed',()=>{
+ for(const cls of ['black-mage','archer','chocobo-knight','dancer','dragoon','knight','monk','bard','beastmaster']){
   const d=compileBuild(fixture(cls));assert.deepEqual([d.str,d.dex,d.wis,d.cha],[10,12,8,12]);
   assert.equal(d.speed,30);assert.equal(d.size_category,'Medium');assert.equal(d.languages,'Common, Mithran');assert.match(d.senses,/2x/);
   for(const name of ['Perception','Stealth','Survival'])assert.equal(d.skills.find(s=>s.name===name).rulesBonus,cls==='beastmaster'&&name==='Survival'?4:2);

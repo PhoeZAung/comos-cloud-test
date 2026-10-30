@@ -1,0 +1,35 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "galka",
+      "class": "Monk",
+      "bodybuildingInitialHp": 16,
+      "bodybuildingHpAfterConEdit": 18,
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "sharedLimitBreakSpentPreserved": true,
+      "hpNotHealed": true,
+      "levelUpRejected": true,
+      "pageErrors": []
+    },
+    {
+      "race": "moogle",
+      "class": "Monk",
+      "bodybuildingInitialHp": 16,
+      "bodybuildingHpAfterConEdit": 18,
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "sharedLimitBreakSpentPreserved": true,
+      "hpNotHealed": true,
+      "levelUpRejected": true,
+      "pageErrors": []
+    }
+  ]
+}
