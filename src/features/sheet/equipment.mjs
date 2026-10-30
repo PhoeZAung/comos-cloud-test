@@ -21,49 +21,28 @@ export function occupiesSlot(item,slot){return !!item&&item.equipped!==false&&(i
 export function equippedInSlot(source,slot){if(!equipmentSlotIds.includes(slot))return null;return equipmentRows(source).find(r=>occupiesSlot(r.item,slot))||null;}
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+// The visual grouping does not change persisted equipment slot IDs.
 const loadoutGroups=Object.freeze([
- {name:'Weapons',icon:'⚔',slots:['hands','hand2','ranged']},
- {name:'Armor',icon:'◇',slots:['head','chest','arms','body','legs','feet','shoulders']},
- {name:'Accessories',icon:'✦',slots:['headband','eyes','neck','belt','wrists','ring1','ring2']}
+ {name:'Weapons',icon:'⚔︎',slots:['hands','hand2','ranged']},
+ {name:'Armor',icon:'◇',slots:['head','shoulders','chest','arms','body','legs','feet']},
+ {name:'Accessories',icon:'✧',slots:['headband','eyes','neck','belt','wrists','ring1','ring2']}
 ]);
-const slotInitials=Object.freeze({
- hands:'H1',hand2:'H2',ranged:'RG',head:'HD',chest:'CH',arms:'AR',body:'BD',legs:'LG',feet:'FT',shoulders:'SH',
- headband:'HB',eyes:'EY',neck:'NK',belt:'BT',wrists:'WR',ring1:'R1',ring2:'R2'
-});
 export function renderEquipment(data={}){
- const rows=equipmentRows(data);
- const occupied=new Set(equipmentSlotIds.map(slot=>equippedInSlot(data,slot)?.item).filter(Boolean));
- const count=equipmentSlots.filter(slot=>equippedInSlot(data,slot)).length;
  const section=group=>{
   const assigned=group.slots.filter(slot=>equippedInSlot(data,slot)).length;
   const items=group.slots.map(id=>{
-   const slot=equipmentSlots.find(s=>s.id===id),gear=equippedInSlot(data,id),item=gear?.item;
+   const slot=equipmentSlots.find(s=>s.id===id),item=equippedInSlot(data,id)?.item;
    const itemName=item?.name||'Not equipped';
    return '<div class="cs-loadout-row'+(item?' is-equipped':'')+'">'
-     +'<button type="button" class="cs-loadout-select" data-equip-slot="'+id+'" aria-label="'+e(slot.label+': '+itemName+'. Choose equipment')+'">'
-     +'<span class="cs-loadout-slot-icon" aria-hidden="true">'+slotInitials[id]+'</span>'
-     +'<span class="cs-loadout-row-details"><span class="cs-loadout-slot-label">'+e(slot.label)+'</span><span class="cs-loadout-item-name">'+e(itemName)+'</span></span>'
-     +'<span class="cs-loadout-chevron" aria-hidden="true">'+(item?'›':'+')+'</span></button>'
-     +(item?'<button type="button" class="cs-loadout-action" data-unequip-slot="'+id+'" aria-label="Unequip '+e(item.name||'item')+' from '+e(slot.label)+'">Unequip</button>':'')
-     +'</div>';
+    +'<button type="button" class="cs-loadout-select" data-equip-slot="'+id+'" aria-label="'+e(slot.label+': '+itemName+'. Choose equipment')+'">'
+    +'<span class="cs-loadout-row-details"><span class="cs-loadout-slot-label">'+e(slot.label)+'</span><span class="cs-loadout-item-name">'+e(itemName)+'</span></span>'
+    +'<span class="cs-loadout-chevron" aria-hidden="true">'+(item?'›':'+')+'</span></button>'
+    +(item?'<button type="button" class="cs-loadout-action" data-unequip-slot="'+id+'" aria-label="Unequip '+e(item.name||'item')+' from '+e(slot.label)+'">Unequip</button>':'')
+    +'</div>';
   }).join('');
-  return '<section class="cs-loadout-group" aria-label="'+group.name+' equipment"><div class="cs-loadout-group-title"><span aria-hidden="true" class="cs-loadout-group-icon">'+group.icon+'</span><h3>'+group.name+'</h3><small>'+assigned+' / '+group.slots.length+'</small></div><div class="cs-loadout-rows">'+items+'</div></section>';
+  return '<section class="cs-loadout-group" aria-label="'+group.name+' equipment">'
+   +'<div class="cs-loadout-group-title"><span aria-hidden="true" class="cs-loadout-group-icon">'+group.icon+'</span><h3>'+group.name+'</h3><small>'+assigned+' / '+group.slots.length+'</small></div>'
+   +'<div class="cs-loadout-rows">'+items+'</div></section>';
  };
- const carried=rows.filter(({item})=>item&&!occupied.has(item));
- const carriedRows=carried.map(({item,index,collection})=>{
-  const amount=Number(item.amount??1),valid=amount>=1&&!!String(item.name||'').trim(),name=item.name||'Unnamed item';
-  const isUnassigned=item.equipped===true&&!equipmentSlotIds.includes(item.equip_slot);
-  return '<div class="cs-carried-row">'
-   +'<span class="cs-carried-icon" aria-hidden="true">'+(collection==='weapons'?'⚔':'◇')+'</span>'
-   +'<span class="cs-carried-details"><strong>'+e(name)+'</strong><small>'+e(collection==='weapons'?'Weapon':String(item.sourceCategory||item.category||'Item'))+' · Qty '+e(amount)+(isUnassigned?' · Previously equipped, no slot':'')+'</small></span>'
-   +'<span class="cs-carried-actions"><button type="button" class="cs-loadout-action" '+(collection==='weapons'?'data-assign-weapon':'data-assign-item')+'="'+index+'"'+(valid?'':' disabled')+' aria-label="Equip '+e(name)+'">Equip</button>'
-   +'<button type="button" class="cs-loadout-action cs-remove-gear" data-remove-gear="'+collection+':'+index+'" aria-label="Remove '+e(name)+' from inventory">Remove</button></span></div>';
- }).join('');
- return '<section class="cs-equipment cs-loadout" aria-label="Equipped items">'
-   +'<div class="cs-gear-heading"><h2>Loadout</h2><span class="cs-gear-count">'+count+' / '+equipmentSlots.length+' slots equipped</span></div>'
-   +'<div class="cs-loadout-groups">'+loadoutGroups.map(section).join('')+'</div>'
-   +'<section class="cs-carried" aria-label="Carried items not equipped"><div class="cs-loadout-group-title"><span aria-hidden="true" class="cs-loadout-group-icon">▤</span><h3>Carried / Not Equipped</h3><small>'+carried.length+'</small><button type="button" class="cs-loadout-add" data-add-entry="items">+ Add item</button></div>'
-   +'<p class="cs-loadout-help">These items are in your inventory, not attached to a worn or held equipment slot. Unequipped items appear here.</p>'
-   +'<div class="cs-carried-list">'+(carriedRows||'<p class="cs-caption">Nothing carried outside your equipped slots.</p>')+'</div></section>'
-   +'</section>';
+ return '<section class="cs-equipment cs-loadout" aria-label="Equipped items"><div class="cs-loadout-groups">'+loadoutGroups.map(section).join('')+'</div></section>';
 }
