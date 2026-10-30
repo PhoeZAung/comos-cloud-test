@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/core-races/mithra/",
       "title": "Mithra — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "974e77d66d29c199bbf7efa3142bfd492809ddffdbc3d55d30fb5bfcf661b360"
     }
   ],
   "dependencies": [],
@@ -40,6 +41,11 @@
         "path": "/review",
         "reason": "Rule effects are mechanically paraphrased staging interpretations, not independently approved. No changes to live wizard or production manifest are authorized by structural validation.",
         "blocking": true
+      },
+      {
+        "path": "/data/standardTraitIds",
+        "blocking": true,
+        "reason": "Standard-trait testing only: identity, listed bonus languages, Natural Hunter, Fleet-Footed initiative and a manual Run card are supported. Cat’s Luck has a manually reset daily counter; reroll resolution is manual. Conditional AC, trip defense, falling and Sprinter remain manual; variants, alternates, favored rewards and independent review remain pending."
       }
     ],
     "sectionInventory": [
@@ -383,7 +389,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:mithra:pool:high-intelligence-bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -400,7 +408,7 @@
       "name": "Cat’s Luck",
       "description": "Once daily, before attempting a Reflex saving throw, elect to roll twice and keep the superior result.",
       "featureKind": "racial_trait",
-      "activation": "passive",
+      "activation": "active",
       "rulesType": "unknown",
       "sheetTargets": [
         "racialAbilities"
@@ -1718,7 +1726,134 @@
     }
   ],
   "resources": [],
-  "choicePools": [],
+  "choicePools": [
+    {
+      "id": "ffd20:race:mithra:pool:high-intelligence-bonus-languages",
+      "name": "Mithra bonus languages",
+      "choiceType": "language",
+      "options": [
+        {
+          "id": "ffd20:race:mithra:pool:high-intelligence-bonus-languages:option:elvaan",
+          "name": "Elvaan",
+          "description": "Elvaan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "elvaan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:pool:high-intelligence-bonus-languages:option:lupin",
+          "name": "Lupin",
+          "description": "Lupin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lupin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:pool:high-intelligence-bonus-languages:option:goblin",
+          "name": "Goblin",
+          "description": "Goblin",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "goblin",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:pool:high-intelligence-bonus-languages:option:lalafellan",
+          "name": "Lalafellan",
+          "description": "Lalafellan",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "lalafellan",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:pool:high-intelligence-bonus-languages:option:orc",
+          "name": "Orc",
+          "description": "Orc",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "orc",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        },
+        {
+          "id": "ffd20:race:mithra:pool:high-intelligence-bonus-languages:option:vieran",
+          "name": "Vieran",
+          "description": "Vieran",
+          "featureIds": [],
+          "spellIds": [],
+          "value": "vieran",
+          "requirements": null,
+          "repeatLimit": 1,
+          "exclusionGroup": null,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Standard Racial Traits",
+              "locator": "languages"
+            }
+          ]
+        }
+      ],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Optional source-listed languages, bounded by positive Intelligence modifier.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
+        }
+      ]
+    }
+  ],
   "levelBindings": [],
   "data": {
     "raceType": "core",

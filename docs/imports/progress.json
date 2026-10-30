@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 29,
+  "revision": 30,
   "schedule": [
     "class",
     "race",
@@ -240,15 +240,18 @@
     },
     "ffd20:race:mithra": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Standard Mithra traits validated across six compilers and mobile Dancer/Bard creation/edit/save/reopen; initiative overrides and spent Cat Luck preserved",
+      "nextAction": "Run exact-commit CI, merge and verify deployed Mithra assets, then continue Tarutaru standard traits",
+      "scope": "Standard traits: scores, identity, Natural Hunter, optional six-language list, Fleet-Footed initiative, manual Run feat and daily Cat Luck counter. Reroll/conditional AC/trip/falling/Sprinter manual; variants/alternates/favored rewards unimplemented.",
+      "note": "334 tests and cloud build pass. Mobile real-route Dancer/Bard fixtures preserved manual initiative and spent Cat Luck without page errors; authentication is a fixture, not production provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T15:30:48.124Z"
+      "evidence": [
+        "docs/extraction/mithra-standard-creation.md",
+        "docs/extraction/mithra-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T15:34:16.481Z"
     }
   },
   "history": [
@@ -503,6 +506,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T15:30:48.124Z"
+    },
+    {
+      "revision": 30,
+      "itemId": "ffd20:race:mithra",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Standard Mithra traits validated across six compilers and mobile Dancer/Bard creation/edit/save/reopen; initiative overrides and spent Cat Luck preserved",
+      "time": "2026-10-30T15:34:16.481Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

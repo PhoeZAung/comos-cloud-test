@@ -1,5 +1,5 @@
 import {fixedSkills} from '../../sheet/skills.mjs';
-import {HUME_ID,HUME_SCORE,HUME_LANGUAGES,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
+import {HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
 
 const IMMORTAL='ffd20:race:immortal:pool:';
 const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
@@ -7,14 +7,14 @@ const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 
 // The two reviewed-for-testing races use older extraction target names. Keep the
 // source records intact and append only their verified unconditional sheet maps.
 export function mappedRaceTraits(race,traits){
- if(!['ffd20:race:moogle','ffd20:race:immortal',HUME_ID].includes(race.id))return traits;
+ if(!['ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID].includes(race.id))return traits;
  return traits.map(f=>{
   const mapped=[];
   const add=(e,target,value=e.value,textValue=e.textValue)=>mapped.push({...e,id:e.id+':sheet:'+mapped.length,target,value,textValue,automation:'automatic'});
@@ -90,6 +90,10 @@ export function racialChoiceIssues(b,race,traits,scores){
 
 // A chosen bonus feat is a visible manual card, never a blanket attack bonus.
 export function racialChoiceFeats(b,race,traits,previous={}){
+ if(b.raceId===MITHRA_ID&&traits.some(f=>f.id===MITHRA_ID+':trait:fleet-footed')){
+  const id=MITHRA_ID+':bonus-feat:run',old=previous.feats?.find(f=>f.sourceRuleId===id);
+  return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:'Run',desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:'Granted by Mithra Fleet-Footed. Apply the Run feat’s movement benefits manually; Sprinter is a separate conditional rule.',rulesName:'Run',rulesDescription:'Granted by Mithra Fleet-Footed. Apply the Run feat’s movement benefits manually; Sprinter is a separate conditional rule.',sourceRuleId:id,sourceRace:'Mithra',rulesOwned:true,pendingFeat:false,automation:'manual'}];
+ }
  if(humeTraitActive(b,'bonus-feat')){
   const id=HUME_ID+':bonus-feat:level-1',old=previous.feats?.find(f=>f.sourceRuleId===id);
   return [{...old,name:old?.name||'Hume bonus feat · level 1',desc:old?.desc||'One extra feat at first level from Hume Bonus Feat. Choose a feat and check its prerequisites manually.',sourceRuleId:id,sourceRace:'Hume',rulesOwned:true,pendingFeat:old?.pendingFeat??true,automation:'manual'}];

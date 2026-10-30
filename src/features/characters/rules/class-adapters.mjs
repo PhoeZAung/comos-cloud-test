@@ -7,6 +7,7 @@ import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
 import {bardClass,isBard,bardSpellRows} from './bard-level-one.mjs';
 import {isBeastmaster,beastmasterSkillBonus,beastmasterCounter} from './beastmaster-level-one.mjs';
 import {racialChoiceFeats} from './racial-choices.mjs';
+import {racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 
 export const ARCHER_ID='ffd20:class:archer';
 export const BLACK_MAGE_ID='ffd20:class:black-mage';
@@ -171,6 +172,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   if(isLevelOneClass(b)&&['Commander’s Aura','Battle Dance','Challenge'].includes(f.name)){const maximum=f.name==='Challenge'?1:Math.max(0,4+mod(p.scores.cha)),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;if(f.name!=='Challenge')row.uses_formula='4+{CHA}';}
   if(isBard(b)&&f.id.endsWith(':bardic-performance')){const maximum=4+mod(p.scores.cha),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.uses_formula='4+{CHA}';row.restoreOnLongRest=false;}
   if(isBeastmaster(b)){const counter=beastmasterCounter(f,p.scores);if(counter){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=counter.maximum;row.u_curr=Math.max(0,counter.maximum-spent);row.uses_formula=counter.formula;row.restoreOnLongRest=false;}}
+  const racial=racialCounter(b,f);if(racial){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=racial.maximum;row.u_curr=Math.max(0,racial.maximum-spent);row.restoreOnLongRest=false;}
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
@@ -204,5 +206,5 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  }
  next.rulesBuild={rankFloor:b.skillRanks?[...b.skillRanks]:rankFloor,version:b.version,input:b,
   ownedIds:Object.values(rows).flat().map(x=>x.sourceRuleId),lastValues,rollback};
- syncLimitBreaks(next);return next;
+ applyRacialFlatStats(next,previous,b);syncLimitBreaks(next);return next;
 }
