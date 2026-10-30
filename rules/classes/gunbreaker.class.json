@@ -1,0 +1,628 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:gunbreaker",
+  "name": "Gunbreaker",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/",
+      "title": "Official Gunbreaker rules",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-30",
+      "archiveSha256": "16d7e17c9f9163fee94b56bed1ba293745d3f4eb6f81413914fa3330207134f9"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "Only first-level creation is currently supported. Later choices and progression need verified implementation."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Equipment, conditional effects, mode selection, recovery and temporary benefits remain manual."
+      }
+    ]
+  },
+  "data": {
+    "category": "hybrid",
+    "maximumLevel": 20,
+    "supportedLevels": [
+      1
+    ],
+    "alignment": "Any",
+    "hitDie": 10,
+    "skillRanksPerLevel": 4,
+    "classSkills": [
+      "acrobatics",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "heal",
+      "intimidate",
+      "knowledge:nobility",
+      "knowledge:technology",
+      "perception",
+      "profession:*",
+      "repair",
+      "ride",
+      "sense-motive",
+      "swim"
+    ],
+    "startingWealth": 175,
+    "proficiencies": [
+      "Simple weapons",
+      "Class equipment (manual)",
+      "Light armor",
+      "Medium armor",
+      "Heavy armor",
+      "Shields (except tower shields)"
+    ],
+    "spellcasting": {
+      "learningMode": "none"
+    },
+    "levels": [
+      {
+        "level": 1,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 2,
+        "ref": 2,
+        "will": 0,
+        "special": "Aurora, Gunsmith, Magicked Ammo, Limit Breaks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-1"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 0,
+        "special": "Gunbreaker Talent, Keen Edge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-2"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 3,
+        "ref": 3,
+        "will": 1,
+        "special": "Technique, Jugular Rip, Heart of Stone",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-3"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Talent, Armor Training I",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-4"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 4,
+        "ref": 4,
+        "will": 1,
+        "special": "Mastery I, Quick Cartridge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-5"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Talent, Technique, Modification",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-6"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 5,
+        "ref": 5,
+        "will": 2,
+        "special": "Improved Aurora, Resolve",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-7"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 2,
+        "special": "Talent, Armor Training II",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-8"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 6,
+        "ref": 6,
+        "will": 3,
+        "special": "Heart of Light, Technique",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-9"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Talent, Continuation, Mastery II",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-10"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 7,
+        "ref": 7,
+        "will": 3,
+        "special": "Royal Guard, Suppressing Menace",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-11"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Advanced Talent, Technique, Armor Training III, Modification",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-12"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 8,
+        "ref": 8,
+        "will": 4,
+        "special": "Greater Aurora, Bullet Deflection",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-13"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 4,
+        "special": "Advanced Talent, Gnashing Fang",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-14"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 9,
+        "ref": 9,
+        "will": 5,
+        "special": "Royal Guard, Technique, Mastery III",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-15"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 16,
+        "iterativeAttacks": [
+          16,
+          11,
+          6,
+          1
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Advanced Talent, Armor Training IV",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-16"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 17,
+        "iterativeAttacks": [
+          17,
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 10,
+        "will": 5,
+        "special": "Perfect Aurora, Resilience",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-17"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 18,
+        "iterativeAttacks": [
+          18,
+          13,
+          8,
+          3
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Advanced Talent, Technique, Modification",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-18"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 19,
+        "iterativeAttacks": [
+          19,
+          14,
+          9,
+          4
+        ],
+        "fort": 11,
+        "ref": 11,
+        "will": 6,
+        "special": "Solid Barrel, Die by the Gunblade",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-19"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 20,
+        "iterativeAttacks": [
+          20,
+          15,
+          10,
+          5
+        ],
+        "fort": 12,
+        "ref": 12,
+        "will": 6,
+        "special": "Advanced Talent, Armor Training V, Mastery IV, Royal Guard, Lion Heart",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Gunbreaker",
+            "locator": "level-20"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:gunbreaker:feature:aurora",
+        "name": "Aurora",
+        "atLevel": 1,
+        "description": "Active protective class feature requiring a temporary effect tracker.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aurora",
+            "locator": "aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:gunsmith",
+        "name": "Gunsmith",
+        "atLevel": 1,
+        "description": "Starting class equipment and a bonus feat. Equipment selection remains manual.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gunsmith",
+            "locator": "gunsmith"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "name": "Magicked Ammo",
+        "atLevel": 1,
+        "description": "Class-specific charged resource; track loading and expenditure manually.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:blast-shield",
+        "name": "Blast Shield",
+        "atLevel": 1,
+        "description": "Temporary protection effect. Track the target and resource expenditure manually.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blast Shield",
+            "locator": "blast-shield"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:brutal-shell",
+        "name": "Brutal Shell",
+        "atLevel": 1,
+        "description": "Temporary protection effect. Record the recipient's temporary HP manually.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brutal Shell",
+            "locator": "brutal-shell"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:no-mercy",
+        "name": "No Mercy",
+        "atLevel": 1,
+        "description": "Active Limit Break; manually apply its temporary benefits.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "No Mercy",
+            "locator": "no-mercy"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:superbolide",
+        "name": "Superbolide",
+        "atLevel": 1,
+        "description": "Active Limit Break with a temporary protective barrier. Track it separately.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superbolide",
+            "locator": "superbolide"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:class:gunbreaker:event:grant-aurora",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:gunbreaker:feature:aurora"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:grant-gunsmith",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:gunbreaker:feature:gunsmith"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:grant-magicked-ammo",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:grant-blast-shield",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:gunbreaker:feature:blast-shield"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:grant-brutal-shell",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:gunbreaker:feature:brutal-shell"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:grant-no-mercy",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:grant-superbolide",
+        "atClassLevel": 1,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide"
+      }
+    ],
+    "archetypeIndex": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer",
+        "name": "Doom Slayer",
+        "source": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/"
+      }
+    ]
+  }
+}
