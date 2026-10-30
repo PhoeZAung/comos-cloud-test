@@ -21,7 +21,7 @@
       {
         "path": "/data/supportedLevels",
         "blocking": true,
-        "reason": "Higher-level archetype feature replacements and choices remain unsupported."
+        "reason": "Doom Slayer supports creation and verified level-up through level 2. Level 3+ replacements, weapon modes and runes remain unavailable pending specialized rules."
       },
       {
         "path": "/data/features",
@@ -32,7 +32,8 @@
   },
   "data": {
     "supportedLevels": [
-      1
+      1,
+      2
     ],
     "features": [
       {
@@ -64,6 +65,22 @@
             "sourceId": "main",
             "section": "Doom Gun Arm",
             "locator": "doom-gun-arm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:ravenous-hatred",
+        "name": "Ravenous Hatred",
+        "atLevel": 2,
+        "description": "When a chainsaw hit leaves a foe at 10 or fewer HP, that foe must make a Fortitude save (DC 10 + half Gunbreaker level + Wisdom modifier). Failure reduces the foe to -1 HP and bleeding. This ability replaces Keen Edge. The target HP, save, and damage are adjudicated manually.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ravenous Hatred",
+            "locator": "ravenous-hatred"
           }
         ]
       }
@@ -108,6 +125,26 @@
             "locator": "doom-gun-arm"
           }
         ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:keen-edge",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:keen-edge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:ravenous-hatred"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ravenous Hatred",
+            "locator": "ravenous-hatred"
+          }
+        ]
       }
     ],
     "upgrades": [],
@@ -123,6 +160,12 @@
         "atClassLevel": 1,
         "type": "grant_feature",
         "featureId": "ffd20:archetype:gunbreaker:doom-slayer:feature:doom-gun-arm"
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:event:grant-ravenous-hatred",
+        "atClassLevel": 2,
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:gunbreaker:doom-slayer:feature:ravenous-hatred"
       }
     ],
     "deferredProgression": [
