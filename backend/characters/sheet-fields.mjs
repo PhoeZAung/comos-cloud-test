@@ -8,7 +8,7 @@ import {sheetSkills} from '../../src/features/sheet/skills.mjs';
 import {entryCalculations} from '../../src/features/sheet/calculations.mjs';
 import {characterClasses,totalClassLevel} from '../../src/features/characters/ffd20.mjs';
 import {sheetStats,abilities,sizes,number} from '../../src/features/sheet/model.mjs';
-import {equipmentSlotIds,equipmentRows,occupiesSlot} from '../../src/features/sheet/equipment.mjs';
+import {isEquipmentSlot,equipmentRows,occupiesSlot} from '../../src/features/sheet/equipment.mjs';
 export const numericFields=[...abilities,'hp_curr','hp_temp','hp_max','hp_max_temp','mp','mp_curr','mp_temp','mp_class','mp_bonus','mp_max','mp_total_max','mp_max_temp','mp_max_spell_level','init_temp','bab','bab_temp','speed','ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp','touch_temp','flat_temp','cmd_temp','ar_melee_temp','ar_ranged_temp','ar_touch_temp','ar_ranged_touch_temp','cmb_temp','fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp','currency_gil','currency_moogle','slot_cap'];
 const booleanFields=['hp_favorite','mp_favorite','sheet_background_enabled'];
 const textFields=['languages','senses','resistances','proficiencies','notesArea'];
@@ -81,7 +81,7 @@ export function mergeSheetData(original,change){
   if(change.mode==='update'&&['items','weapons'].includes(change.collection)&&change.fields?.two_handed===true){const selected=rows[change.index];if(selected.equipped!==false&&['hands','hand2'].includes(selected.equip_slot)){for(const {item} of equipmentRows(data))if(item!==selected&&['hands','hand2'].some(slot=>occupiesSlot(item,slot))){item.equip_slot='';item.equipped=false;}selected.equip_slot='hands';}}
 
  }else if(change.action==='equip'){
-  if(typeof change.slot!=='string'||!equipmentSlotIds.includes(change.slot))bad('Invalid equipment slot.');
+  if(typeof change.slot!=='string'||!isEquipmentSlot(change.slot))bad('Invalid equipment slot.');
   const collection=change.collection??'items';if(!['items','weapons'].includes(collection))bad('Invalid equipment source.');
   const rows=Array.isArray(data[collection])?data[collection]:[];
   if(change.index!==null&&(!Number.isInteger(change.index)||change.index<0||change.index>=rows.length))bad('Choose an item from your inventory.');
