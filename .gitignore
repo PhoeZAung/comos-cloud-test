@@ -7,3 +7,7 @@ dist-live/
 *service-account*.json
 
 .openai/
+
+# Transient import-checkpoint writes; progress.json itself is versioned.
+docs/imports/.import-queue.lock
+docs/imports/*.tmp

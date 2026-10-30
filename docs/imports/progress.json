@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "comos.import-progress.v1",
+  "revision": 1,
+  "schedule": [
+    "class",
+    "race",
+    "race",
+    "race",
+    "archetype"
+  ],
+  "schedulePosition": 0,
+  "phase": "baseline-then-progression",
+  "items": {
+    "ffd20:class:chocobo-knight": {
+      "state": "live_partial",
+      "stage": "partial-live-support",
+      "cursor": "Level-1 creation, local save/reopen and public deployment verified.",
+      "nextAction": "Review later progression and required choices after the initial import pass.",
+      "scope": "New level-1 characters; conditional mechanics manual; later progression unsupported.",
+      "note": "A partial milestone, not full import completion or independent approval.",
+      "evidence": [
+        "docs/extraction/two-character-live-test.md",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
+      ]
+    },
+    "ffd20:class:dancer": {
+      "state": "live_partial",
+      "stage": "partial-live-support",
+      "cursor": "Level-1 creation, local save/reopen and public deployment verified.",
+      "nextAction": "Review later progression and required choices after the initial import pass.",
+      "scope": "New level-1 characters; conditional mechanics manual; later progression unsupported.",
+      "note": "A partial milestone, not full import completion or independent approval.",
+      "evidence": [
+        "docs/extraction/two-character-live-test.md",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
+      ]
+    },
+    "ffd20:class:archer": {
+      "state": "live_partial",
+      "stage": "partial-live-support",
+      "cursor": "Existing live adapter retained.",
+      "nextAction": "Reconcile remaining source coverage and manual mechanics.",
+      "scope": "Existing live class path; choice/conditional limits and full source review remain.",
+      "note": "A partial milestone, not full import completion or independent approval.",
+      "evidence": [
+        "rules/classes/README.md"
+      ]
+    },
+    "ffd20:class:black-mage": {
+      "state": "live_partial",
+      "stage": "partial-live-support",
+      "cursor": "Existing live adapter retained.",
+      "nextAction": "Reconcile remaining source coverage and manual mechanics.",
+      "scope": "Existing live class path; choice/conditional limits and full source review remain.",
+      "note": "A partial milestone, not full import completion or independent approval.",
+      "evidence": [
+        "rules/classes/README.md"
+      ]
+    },
+    "ffd20:race:moogle": {
+      "state": "live_partial",
+      "stage": "partial-live-support",
+      "cursor": "Baseline choices and local save/reopen verified; real user-account acceptance remains.",
+      "nextAction": "Review alternate/heritage and favored-class rules.",
+      "scope": "Standard test builds; unsupported alternates, heritages and favored rewards guarded/manual.",
+      "note": "A partial milestone, not full import completion or independent approval.",
+      "evidence": [
+        "docs/extraction/two-character-live-test.md",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
+      ]
+    },
+    "ffd20:race:immortal": {
+      "state": "live_partial",
+      "stage": "partial-live-support",
+      "cursor": "Baseline choices and local save/reopen verified; real user-account acceptance remains.",
+      "nextAction": "Review alternate/heritage and favored-class rules.",
+      "scope": "Standard test builds; unsupported alternates, heritages and favored rewards guarded/manual.",
+      "note": "A partial milestone, not full import completion or independent approval.",
+      "evidence": [
+        "docs/extraction/two-character-live-test.md",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
+      ]
+    },
+    "ffd20:race:dwarf": {
+      "state": "live_partial",
+      "stage": "partial-live-support",
+      "cursor": "Favored Class Options > White Mage (final entry).",
+      "nextAction": "Resolve remaining language/terrain choices and manual mappings.",
+      "scope": "Existing baseline projection; independent/full-text review pending.",
+      "note": "A partial milestone, not full import completion or independent approval.",
+      "evidence": [
+        "docs/extraction/dwarf-coverage.md",
+        "docs/extraction/CONTINUATION.json"
+      ]
+    },
+    "ffd20:archetype:chocobo-knight:mog-knight": {
+      "state": "live_partial",
+      "stage": "partial-live-support",
+      "cursor": "Source-backed feature replacements and first-level creation verified.",
+      "nextAction": "Review later-level replacements and scaling; preserve source discrepancy notes.",
+      "scope": "Moogle/Chocobo Knight at level 1 only.",
+      "note": "A partial milestone, not full import completion or independent approval.",
+      "evidence": [
+        "docs/extraction/two-character-live-test.md",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
+      ]
+    },
+    "ffd20:class:bard": {
+      "state": "queued",
+      "stage": "runtime-adapter",
+      "cursor": "Existing staged class, talents and songs; live Bard adapter absent.",
+      "nextAction": "Review song/choice blockers; implement and validate a bounded adapter before enabling it.",
+      "scope": "Legal first-level creation first; progression in later milestones.",
+      "note": "Keep staged until mandatory choices and resources are handled.",
+      "evidence": [
+        "rules/classes/README.md",
+        "docs/extraction/bard-batch-02.md"
+      ]
+    },
+    "ffd20:race:elvaan": {
+      "state": "queued",
+      "stage": "source-review",
+      "cursor": "Standard Racial Traits",
+      "nextAction": "Resume the prior Elvaan checkpoint and compare archived source with the existing definition.",
+      "scope": "Standard traits and mandatory choices first.",
+      "note": "Preserves the prior continuation.",
+      "evidence": [
+        "docs/extraction/CONTINUATION.json"
+      ]
+    }
+  },
+  "history": [],
+  "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
+}

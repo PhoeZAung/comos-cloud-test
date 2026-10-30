@@ -2,6 +2,9 @@
 
 Purpose: make every new FFd20 class (and its many archetypes) extractable as reviewed source data, without rewriting the wizard manually.
 
+The resumable class/race/archetype work list is in [docs/imports/QUEUE.md](../../docs/imports/QUEUE.md).
+Read [RESUME.md](../../docs/imports/RESUME.md) before continuing interrupted import work.
+
 ## Fast workflow
 1. Run `npm run rules:class:new -- bard` for a **new** class. Does not overwrite existing files.
 2. Replace all placeholder rows in `rules/classes/<slug>.class.json` with actual official 1–20 table values and source locators. Extract class fundamentals (Hit Die, BAB, saves, skills, armor, MP, spells/songs, resources).
