@@ -2,7 +2,7 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {sheetStats,modifier,skillTotal,weaponAttack} from '../src/features/sheet/model.mjs';
 import {mergeSheetData} from '../backend/characters/sheet-fields.mjs';
 import {renderSheetFrame,renderSection,entryDetail} from '../src/features/sheet/view.mjs';
-import {rollDice} from '../src/ui/sheet.mjs';
+import {rollDice,openCharacterSheetPopup} from '../src/ui/sheet.mjs';
 import {openDatabase} from '../backend/db/database.mjs';import {createUserRepository} from '../backend/repositories/users.mjs';import {createCharactersService} from '../backend/characters/service.mjs';import {createDirectoryRoutes} from '../backend/characters/directory.mjs';import {createApiServer} from '../backend/http/app.mjs';import {randomUUID} from 'node:crypto';
 const data={str:'18',dex:'14',con:'12',int:'16',wis:'10',cha:'8',size_category:'Small',bab:'4',bab_temp:'1',ac_armor:'5',ac_natural:'1',ac_deflect:'1',ac_dodge:'1',ac_temp:'2',touch_temp:'1',flat_temp:'2',cmd_temp:'1',cmb_temp:'2',ar_melee_temp:'1',ar_ranged_temp:'2',fort_base:'3',fort_enhance:'1',ref_base:'2',will_base:'1',hp_curr:'9',hp_temp:'3',hp_max:'20',hp_max_temp:'2',mp:'5',mp_temp:'2',mp_class:'8',mp_bonus:'3',mp_max_temp:'1',classes:[{name:'Black Mage',level:4}],group_tags:['Keep'],secretLegacy:{keep:true},items:[{name:'Staff',amount:'1',sourceItemId:'original',desc:'Text'}],activeAbilities:[{name:'Power',u_curr:0,u_max:2},{name:'Once',u_curr:0,u_max:1,restoreOnLongRest:false}]};
 test('sheet formulas match legacy components, score modifiers and fallback totals',()=>{
@@ -23,12 +23,24 @@ test('sheet rendering is minimal, escaped and only renders the selected section'
  const char={id:'sample',name:'<img onerror=x>',data:{...data,notesArea:'<script>bad</script>',items:[{name:'<svg onload=x>',desc:'private description'}]}};
  const html=renderSheetFrame(char,'overview');assert.match(html,/&lt;img onerror=x&gt;/);assert.doesNotMatch(html,/private description|<script>|<iframe|Shop|Calendar/);assert.match(html,/data-sheet-tab="combat"/);assert.doesNotMatch(renderSection(char,'items'),/private description/);assert.match(entryDetail(char.data.items[0]),/private description/);assert.match(renderSection(char,'notes'),/&lt;script&gt;bad/);
 });
-test('compact character sheet opens as its own browser tab',()=>{
- const character={id:'sample',name:'Test Hero',data};
- const normal=renderSheetFrame(character,'overview');
- assert.match(normal,/aria-label="Open character sheet in a new tab"/);
- assert.match(normal,/href="sheet.html\?characterId=sample&compact=1" target="_blank" rel="noopener noreferrer"/);
- assert.doesNotMatch(renderSheetFrame(character,'overview',{compact:true}),/Open character sheet in a new tab/);
+test('compact character sheet opens in a standalone browser popup',()=>{
+ const character={id:'sample',name:'Test Hero',data},html=renderSheetFrame(character,'overview');
+ assert.match(html,/data-sheet-popout aria-label="Open standalone character sheet window"/);
+ assert.match(html,/href="sheet.html\?characterId=sample&compact=1" target="_blank" rel="noopener noreferrer"/);
+ assert.doesNotMatch(renderSheetFrame(character,'overview',{compact:true}),/data-sheet-popout/);
+ let request;
+ const popup={opener:{},focused:false,focus(){this.focused=true;}};
+ const opened=openCharacterSheetPopup('https://comos.example/sheet.html?characterId=sample&compact=1','sample',{
+  display:{availWidth:1366,availHeight:768,availLeft:0,availTop:0},
+  open:(...args)=>{request=args;return popup;}
+ });
+ assert.equal(opened,true);
+ assert.equal(request[1],'comos-sheet-sample');
+ assert.match(request[2],/popup=yes/);
+ assert.match(request[2],/width=1342,height=736/);
+ assert.equal(popup.opener,null);
+ assert.equal(popup.focused,true);
+ assert.equal(openCharacterSheetPopup('/sheet.html','sample',{display:{availWidth:900,availHeight:700},open:()=>null}),false);
 });
 test('dice rolls use bounded parsed expressions without eval',()=>{
  assert.deepEqual(rollDice('2d6+3',()=>4),{expression:'2d6+3',rolls:[4,4],bonus:3,total:11});assert.equal(rollDice('1d20-2',()=>1).total,-1);for(const v of ['100d20','1d1','1d9999','alert(1)','1d20;evil()'])assert.throws(()=>rollDice(v));
