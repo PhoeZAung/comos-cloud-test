@@ -29,8 +29,12 @@ jobs:
           log = Path(os.environ['RUNNER_TEMP'], 'comos-tests.log')
           text = log.read_text(errors='replace') if log.exists() else 'No test output file was created.'
           text = re.sub(r'\x1b\[[0-9;]*m', '', text)
-          start = text.rfind('failing tests:')
-          detail = (text[start:] if start >= 0 else '\n'.join(text.splitlines()[-100:]))[-16000:]
+          lines = text.splitlines()
+          selected = set(range(max(0, len(lines) - 35), len(lines)))
+          for i, line in enumerate(lines):
+              if re.search(r'^✖|^not ok|^node:|Error|FATAL|failureType|signal|exitCode|pthread', line):
+                  selected.update(range(max(0, i - 5), min(len(lines), i + 16)))
+          detail = '\n'.join(lines[i][:600] for i in sorted(selected))[:16000]
           detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
           print('::error title=Node test failure details::' + detail)
           PY
