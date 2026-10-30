@@ -13,16 +13,15 @@ test('equipping one item from a stack preserves quantity and metadata without du
  const next=mergeSheetData(d,{action:'equip',slot:'ring1',index:1});assert.equal(next.items[1].amount,1);assert.equal(next.items[2].amount,2);assert.equal(next.items[2].equipped,false);assert.deepEqual(next.items[2].custom,{keep:true});assert.equal(next.items.slice(1).reduce((n,r)=>n+r.amount,0),3);
  const both=mergeSheetData(next,{action:'equip',slot:'ring2',index:2});assert.equal(both.items[2].amount,1);assert.equal(both.items[3].amount,1);assert.equal(equippedInSlot(both,'ring1').index,1);assert.equal(equippedInSlot(both,'ring2').index,2);assert.equal(d.items.length,2);
 });
-test('Grouped equipment renders all slots and removes body geometry',()=>{
+test('Grouped equipment preserves existing slot IDs without carrying inventory onto Equip',()=>{
  const next=mergeSheetData(d,{action:'equip',slot:'legs',index:0});
  const html=renderEquipment(next);
  assert.equal(equipmentSlots.length,17);
- for(const label of ['Hand 2','Ranged','Legs','Accessories','Carried / Not Equipped'])assert.match(html,new RegExp(label.replace('/','\\/')));
+ for(const label of ['Hand 2','Ranged','Legs','Accessories'])assert.match(html,new RegExp(label));
  assert.match(html,/data-unequip-slot="legs"/);
  assert.match(html,/data-equip-slot="headband"/);
  assert.match(html,/data-equip-slot="ring1"/);
- assert.match(html,/data-assign-weapon="0"/);
- assert.match(html,/data-remove-gear="weapons:0"/);
+ assert.doesNotMatch(html,/Carried \/ Not Equipped|data-remove-gear|data-assign-weapon/);
  assert.doesNotMatch(html,/cs-body-board|data-slot-connector|data-accessory-open|cs-gear-slot/);
 });
 test('All spells, spell favorites, dice actions and calculated usage counters retain original record indices',()=>{
