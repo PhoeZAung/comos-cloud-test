@@ -38,7 +38,7 @@
       {
         "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:praetor-sacrament",
         "name": "Praetor Sacrament",
-        "description": "A distinctive protective equipment feature with situational benefits. Record worn equipment and all conditional effects manually.",
+        "description": "At first level, Praetor armor is scale mail. While wearing it, Doom Slayer gains +2 circumstance Intimidate, +10 feet land speed even when wearing heavy armor, and +2 circumstance damage against demons, devils, and undead. These are armor- and target-conditional effects tracked manually.",
         "activation": "passive",
         "atLevel": 1,
         "featureKind": "class_feature",
@@ -54,7 +54,7 @@
       {
         "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:doom-gun-arm",
         "name": "Doom Gun Arm",
-        "description": "Starting archetype equipment with selectable modes and a starting bonus feat. Modes, uses, and equipment effects remain manual.",
+        "description": "Begins with a unique chainsaw-form gun arm and Gunsmithing bonus feat. The weapon can switch between pistol, shotgun, and chaingun forms at level 1 (move action); track the active form, rounds, reloads, ranges and attacks manually. Later forms have level prerequisites and are not available at level 1.",
         "activation": "active",
         "atLevel": 1,
         "featureKind": "class_feature",
@@ -171,6 +171,22 @@
         "name": "Rip and Tear",
         "automation": "not_available_until_verified"
       }
+    ],
+    "classSkills": [
+      "acrobatics",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "intimidate",
+      "knowledge:technology",
+      "knowledge:planes",
+      "perception",
+      "profession:*",
+      "repair",
+      "ride",
+      "sense-motive",
+      "survival",
+      "swim"
     ]
   }
 }
