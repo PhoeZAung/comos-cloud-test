@@ -104,3 +104,23 @@
   width:100%;
   justify-content:safe center;
 }
+
+/* Search-only equipment picker: click a name to equip it. */
+.cs-equipment-dialog{width:min(460px,calc(100vw - 24px));padding:16px}
+.cs-equip-picker-toolbar{display:flex;align-items:center;gap:8px}
+.cs-equip-picker-toolbar input{
+  flex:1;min-width:0;min-height:44px;padding:9px 12px;
+  background:var(--bg);border:1px solid var(--line);border-radius:9px;
+  color:var(--text);font:14px system-ui;
+}
+.cs-equip-picker-toolbar input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cs-equip-picker-toolbar .cs-icon{width:44px;height:44px}
+.cs-equip-choices{max-height:min(60dvh,500px);overflow-y:auto;overscroll-behavior:contain;margin-top:12px}
+.cs-equip-choice{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:50px;padding:11px 12px;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--text);font:500 14px system-ui;text-align:left;cursor:pointer;overflow-wrap:anywhere}
+.cs-equip-choice:last-child{border-bottom:0}
+.cs-equip-choice:hover,.cs-equip-choice[aria-pressed=true]{background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
+.cs-equip-choice:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:6px}
+.cs-equip-choice-check{color:var(--accent);font:600 18px system-ui}
+.cs-equip-empty{color:var(--muted);padding:20px 8px;font:13px system-ui;text-align:center}
+.cs-equip-error{margin:12px 0 0;color:var(--text);font:12px system-ui}
+.cs-equip-error:empty{display:none}
