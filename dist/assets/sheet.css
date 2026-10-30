@@ -146,3 +146,17 @@
 .sheet .item-category-tiles .item-category-all{grid-column:auto;grid-row:auto;aspect-ratio:1;font-size:13px;background:var(--surface)}
 .sheet .item-category-tiles .item-category-all>span:first-child{font-size:22px!important}
 @media(max-width:480px){.sheet .item-category-tiles{grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}}
+/* Item detail dialogs and Change-based equipment interaction. */
+.cs-loadout-groups>.cs-loadout-misc{margin-top:10px}
+.cs-loadout-row.is-equipped .cs-loadout-select:hover .cs-loadout-item-name{text-decoration:underline;text-underline-offset:3px}
+.cs-equip-picker-toolbar [data-equip-unequip][hidden]{display:none!important}
+.cs-equip-picker-toolbar [data-equip-unequip]{flex:none;color:var(--muted)}
+.cs-equip-picker-toolbar [data-equip-unequip]:hover{color:var(--accent)}
+.cs-item-description-dialog{width:min(480px,calc(100vw - 24px));max-height:80dvh}
+.cs-item-description-dialog .cs-card-title{border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:14px}
+.cs-item-description-dialog [data-item-description-text]{max-height:55dvh;overflow-y:auto;margin:0;white-space:pre-wrap}
+.cs-entry-item-preview{flex:1;min-width:0;min-height:44px;display:block;text-align:left;padding:9px 0;border:0;background:transparent;color:var(--text);font:inherit;cursor:pointer;overflow-wrap:anywhere}
+.cs-entry-item-preview strong{font-weight:600}
+.cs-entry-item-preview small{display:block;font-size:11px;color:var(--muted);margin:4px 0 0 14px}
+.cs-entry-item-preview:hover strong{color:var(--accent)}
+.cs-entry-item-preview:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
