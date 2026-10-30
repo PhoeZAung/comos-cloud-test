@@ -2,7 +2,7 @@ import {notify,showDice,clearFeedback} from './feedback.mjs';
 import {processPicture} from './character-view.mjs';
 import {preferences} from './preferences.mjs';
 import {recordId} from './record-id.mjs';
-import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol} from '../features/sheet/item-categories.mjs';
+import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
 import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
@@ -82,7 +82,10 @@ export function mountSheet(){
   const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:control.signal,credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
- function draw(){if(closed)return;clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,showStars,discordEnabled});root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}document.title=character.name+' · Comos';dirty=false;}
+ function draw(){if(closed)return;if(section==='items'&&itemView==='inventory'){
+  const visible=visibleInventoryCategory(inventoryCategoryCounts(character.data.items),itemTag);
+  if(visible!==itemTag){itemTag=visible;const url=new URL(location.href);url.searchParams.set('itemTag',visible);history.replaceState(null,'',url);}
+ }clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,showStars,discordEnabled});root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}document.title=character.name+' · Comos';dirty=false;}
  async function save(change,skipPending=false){
   if(!skipPending){if(change.action==='fields')for(const key of Object.keys(change.fields||{}))delete pendingResourceFields[key];if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return false;}
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
