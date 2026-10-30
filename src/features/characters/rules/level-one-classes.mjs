@@ -54,7 +54,7 @@ export function levelOneIssues(b,{complete=true}={}){
  if(b.level!==1)add(3,c.name+' currently supports level-1 testing only. Later-level choices and progression are not enabled.');
  if(b.classId===KNIGHT_ID&&!['Lawful Good','Lawful Neutral','Lawful Evil'].includes(b.alignment))add(3,'Knight requires a lawful alignment. Choose it under Identity.');
  if(b.carry)add(3,'Multiclassing is not implemented for '+c.name+'.');
- if(b.archetypeId&&!levelOneArchetype(b))add(3,'This archetype is not enabled or does not match the selected class and race.');
+ if(b.archetypeId&&!levelOneArchetype(b))add(3,b.classId===GUNBREAKER_ID?'This archetype is not enabled or does not match Gunbreaker.':'Mog Knight requires both the Moogle race and Chocobo Knight class. Other archetypes are not enabled.');
  if(b.spellIds?.length||b.initialIntMod!==null&&b.initialIntMod!==undefined)add(5,c.name+' does not learn Black Mage spells or obtain an MP pool.');
  if(Object.keys(b.choices||{}).length)add(4,'No class talent choices are granted at level 1 for '+c.name+'.');
  if(complete){
