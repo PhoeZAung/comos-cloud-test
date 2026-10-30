@@ -1,4 +1,4 @@
-import {levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
+import {levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
 import {registry} from './catalog.mjs';
 import {archer,archerAtLevel,archerChanges} from './archer-levels.mjs';
 import {fixedSkills} from '../../sheet/skills.mjs';
@@ -143,7 +143,8 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   if(effect.target.startsWith('proficiencies.weapon.'))profs.push(effect.textValue||effect.target.split('.').at(-1).replaceAll('-',' '));
  }
  next.size=next.size_category;next.languages=uniq(langs).join(', ');next.senses=uniq(senses).join('; ');
- next.proficiencies=uniq([...profs,...(Array.isArray(definition.data.proficiencies)?definition.data.proficiencies:['Simple weapons','Bows','Crossbows','Light armor'])]).join(', ');
+ const classProficiencies=levelOneArchetype(b)?.data.proficiencies||definition.data.proficiencies;
+ next.proficiencies=uniq([...profs,...(Array.isArray(classProficiencies)?classProficiencies:['Simple weapons','Bows','Crossbows','Light armor'])]).join(', ');
  next.racialIdentity={type:effects.find(e=>e.target==='identity.type')?.textValue||'',subtypes:uniq(effects.filter(e=>e.target==='identity.subtypes').map(e=>e.textValue).filter(Boolean)),
   rules:p.racial.traits.filter(f=>f.sheetTargets?.includes('identity')&&f.effects.some(e=>e.target.startsWith('identity.'))).map(f=>({id:f.id,name:f.name,description:f.description}))};
  if(!Object.keys(previous).length){

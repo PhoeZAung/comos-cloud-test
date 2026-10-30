@@ -19,6 +19,13 @@
       "status": "staged",
       "adapter": null,
       "coverage": "partial"
+    },
+    {
+      "id": "ffd20:archetype:chocobo-knight:deadly-lancer",
+      "file": "rules/classes/archetypes/chocobo-knight-deadly-lancer.archetype.json",
+      "status": "live",
+      "adapter": "deadly-lancer-level-one",
+      "coverage": "partial"
     }
   ]
 }

@@ -10,9 +10,9 @@ Partial-live support, testing availability, source archiving and full completion
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | class | 73/73 | 7 | 7 | 66 | 7 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 51 | 11 | 0 | 0 |
-| archetype | 579/579 | 3 | 1 | 575 | 1 | 0 | 473 |
+| archetype | 579/579 | 4 | 2 | 575 | 1 | 0 | 473 |
 
-Checkpoint revision: **51**. Active: **ffd20:archetype:chocobo-knight:deadly-lancer**. Next: **ffd20:archetype:chocobo-knight:deadly-lancer**.
+Checkpoint revision: **52**. Active: **ffd20:archetype:chocobo-knight:deadly-lancer**. Next: **ffd20:archetype:chocobo-knight:deadly-lancer**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 

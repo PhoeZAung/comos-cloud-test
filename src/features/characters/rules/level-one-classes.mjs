@@ -4,6 +4,7 @@ import {BEASTMASTER_ID,isBeastmaster,beastmasterClass,beastmasterFeatures,beastm
 export const CHOCOBO_KNIGHT_ID='ffd20:class:chocobo-knight';
 export const DANCER_ID='ffd20:class:dancer';
 export const DRAGOON_ID='ffd20:class:dragoon';
+export const DEADLY_LANCER_ID='ffd20:archetype:chocobo-knight:deadly-lancer';
 export const MOG_KNIGHT_ID='ffd20:archetype:chocobo-knight:mog-knight';
 export const isLevelOneClass=b=>[CHOCOBO_KNIGHT_ID,DANCER_ID,DRAGOON_ID,BEASTMASTER_ID].includes(b?.classId);
 export const levelOneClasses=[...classCatalog.classes.filter(c=>c.adapter==='martial-level-one').map(c=>({
@@ -11,14 +12,18 @@ export const levelOneClasses=[...classCatalog.classes.filter(c=>c.adapter==='mar
 })),...(beastmasterClass?[beastmasterClass]:[])];
 export const mogKnight=classCatalog.archetypeRecords.find(a=>a.id===MOG_KNIGHT_ID&&a.adapter==='mog-knight-level-one');
 
+export const deadlyLancer=classCatalog.archetypeRecords.find(a=>a.id===DEADLY_LANCER_ID&&a.adapter==='deadly-lancer-level-one');
+export const levelOneArchetype=b=>b.classId===CHOCOBO_KNIGHT_ID?[mogKnight,deadlyLancer].find(a=>a?.id===b.archetypeId&&(!a.data.requiredRaceId||a.data.requiredRaceId===b.raceId)):null;
+
 export function levelOneFeatures(b){
  if(isBeastmaster(b))return beastmasterFeatures(b);
  const c=levelOneClasses.find(c=>c.id===b.classId);
  if(!c)return [];
  let features=c.features.filter(f=>f.atLevel<=Math.max(1,b.level));
- if(b.classId===CHOCOBO_KNIGHT_ID&&b.archetypeId===MOG_KNIGHT_ID&&b.raceId==='ffd20:race:moogle'){
-  const removed=new Set(mogKnight.data.replacements.filter(r=>r.atClassLevel<=b.level).flatMap(r=>r.targetFeatureIds));
-  features=[...features.filter(f=>!removed.has(f.id)),...mogKnight.data.features.filter(f=>f.atLevel<=b.level)];
+ const archetype=levelOneArchetype(b);
+ if(archetype){
+  const removed=new Set(archetype.data.replacements.filter(r=>r.atClassLevel<=b.level&&r.resolution==='resolved').flatMap(r=>r.targetFeatureIds));
+  features=[...features.filter(f=>!removed.has(f.id)),...archetype.data.features.filter(f=>f.atLevel<=b.level)];
  }
  return features;
 }
@@ -37,7 +42,7 @@ export function levelOneIssues(b,{complete=true}={}){
  const c=levelOneClasses.find(c=>c.id===b.classId);
  if(b.level!==1)add(3,c.name+' currently supports level-1 testing only. Later-level choices and progression are not enabled.');
  if(b.carry)add(3,'Multiclassing is not implemented for '+c.name+'.');
- if(b.archetypeId&&(b.classId!==CHOCOBO_KNIGHT_ID||b.archetypeId!==MOG_KNIGHT_ID||b.raceId!=='ffd20:race:moogle'))add(3,'Mog Knight requires both the Moogle race and Chocobo Knight class. Other archetypes are not enabled.');
+ if(b.archetypeId&&!levelOneArchetype(b))add(3,'Mog Knight requires both the Moogle race and Chocobo Knight class. Other archetypes are not enabled.');
  if(b.spellIds?.length||b.initialIntMod!==null&&b.initialIntMod!==undefined)add(5,c.name+' does not learn Black Mage spells or obtain an MP pool.');
  if(Object.keys(b.choices||{}).length)add(4,'No class talent choices are granted at level 1 for '+c.name+'.');
  if(complete){

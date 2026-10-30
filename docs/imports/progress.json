@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 51,
+  "revision": 52,
   "schedule": [
     "class",
     "race",
@@ -350,15 +350,18 @@
     },
     "ffd20:archetype:chocobo-knight:deadly-lancer": {
       "state": "in_progress",
-      "stage": "source-review",
-      "cursor": "Start of source review",
-      "nextAction": "Map replacements to exact parent feature IDs; activate only when both adapters support the declared scope.",
-      "scope": "",
-      "note": "",
+      "stage": "runtime-validated",
+      "cursor": "Two exact first-level replacements and manual Charging Lancer validated; 19 later tricks/13 upgrades retained; mobile Galka/Moogle save/reopen passed",
+      "nextAction": "Exact-head CI, merge and public asset verification; then Knight",
+      "scope": "First-level Chocobo Knight archetype only: modified proficiencies and aura replacement, qualifying mounted damage manual; later tricks/progression, multiclassing and unverified parent replacements guarded",
+      "note": "363 tests, cloud build and phone fixtures pass; parent resources/features retained, correct source restoration verified and later choices rejected. No provider login test.",
       "coverage": "partial",
       "reviewEvidence": "",
-      "evidence": [],
-      "updatedAt": "2026-10-30T18:41:40.680Z"
+      "evidence": [
+        "docs/extraction/deadly-lancer-level-one-import.md",
+        "docs/extraction/deadly-lancer-browser-validation.json"
+      ],
+      "updatedAt": "2026-10-30T18:43:25.411Z"
     }
   },
   "history": [
@@ -811,6 +814,15 @@
       "stage": "source-review",
       "cursor": "Start of source review",
       "time": "2026-10-30T18:41:40.680Z"
+    },
+    {
+      "revision": 52,
+      "itemId": "ffd20:archetype:chocobo-knight:deadly-lancer",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "Two exact first-level replacements and manual Charging Lancer validated; 19 later tricks/13 upgrades retained; mobile Galka/Moogle save/reopen passed",
+      "time": "2026-10-30T18:43:25.411Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
