@@ -13,3 +13,34 @@ test('character sheet exposes a separately labeled, confirmable deletion action'
  assert.match(html,/title="Delete character \(archive\)"/);
  assert.match(html,/data-level-up=/);
 });
+
+test('portrait background setting, resource edits, and recovery menu are visible and safe',()=>{
+ const portrait='data:image/png;base64,AAAA';
+ const char={id:'portrait-test',name:'Portrait Mage',data:{...data,portrait,sheet_background_enabled:true,spell_dc_base:'wis'}};
+ const frame=renderSheetFrame(char,'overview');
+ assert.match(frame,/cs-has-background/);
+ assert.match(frame,/data-sheet-portrait/);
+ assert.match(frame,/data-recovery-menu/);
+ assert.match(frame,/data-sheet-background/);
+ assert.match(frame,/data-discord-rolls/);
+ assert.match(frame,/data-toggle-stars/);
+ assert.match(frame,/data-open-rest/);
+ assert.match(frame,/data-delete-character/);
+ assert.match(frame,/data-level-up/);
+ assert.match(frame,/aria-label="Open compact sheet in a new window"/);
+ assert.match(frame,/data-sheet-tab="combat"[^>]+>[^<]*<svg[\s\S]*?<span>Combat<\/span>/);
+ const combat=renderSection(char,'combat');
+ assert.match(combat,/data-edit-stats="hp"/);
+ assert.match(combat,/data-edit-stats="mp"/);
+ assert.match(combat,/cs-resource-hp/);
+ assert.match(combat,/cs-resource-mp/);
+ const spells=renderSection(char,'spells');
+ const resource=spells.split('</section>')[0];
+ assert.match(resource,/data-spell-ability/);
+ assert.match(resource,/<option value="wis" selected>WIS<\/option>/);
+ assert.doesNotMatch(resource,/data-edit-stats="spell"|Max spell Lv/);
+ const patched=mergeSheetData(data,{action:'fields',fields:{sheet_background_enabled:true,spell_dc_base:'cha'}});
+ assert.equal(patched.sheet_background_enabled,true);
+ assert.equal(patched.spell_dc_base,'cha');
+ assert.throws(()=>mergeSheetData(data,{action:'fields',fields:{sheet_background_enabled:'yes'}}),/Invalid sheet field/);
+});
