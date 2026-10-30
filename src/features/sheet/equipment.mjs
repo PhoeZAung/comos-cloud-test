@@ -15,10 +15,14 @@ export const equipmentSlots=Object.freeze([
  {id:'feet',label:'Feet',side:'right',y:465,target:[218,452]}
 ].map(s=>Object.freeze({...s,accessory:accessories.includes(s.id)})));
 export const equipmentSlotIds=Object.freeze(equipmentSlots.map(s=>s.id));
+/* Extra equipment lives in independent, numbered Misc slots. The original 17 slot IDs stay unchanged. */
+export const miscEquipmentSlotIds=Object.freeze(Array.from({length:20},(_,i)=>'misc-'+(i+1)));
+export const isEquipmentSlot=id=>equipmentSlotIds.includes(id)||miscEquipmentSlotIds.includes(id);
+
 export const equipmentSlotLabel=id=>equipmentSlots.find(s=>s.id===id)?.label||'Unassigned';
 export function equipmentRows(source){return Array.isArray(source)?source.map((item,index)=>({item,index,collection:'items'})):['items','weapons'].flatMap(collection=>(source?.[collection]||[]).map((item,index)=>({item,index,collection})));}
 export function occupiesSlot(item,slot){return !!item&&item.equipped!==false&&(item.equip_slot===slot||item.two_handed===true&&['hands','hand2'].includes(item.equip_slot)&&['hands','hand2'].includes(slot));}
-export function equippedInSlot(source,slot){if(!equipmentSlotIds.includes(slot))return null;return equipmentRows(source).find(r=>occupiesSlot(r.item,slot))||null;}
+export function equippedInSlot(source,slot){if(!isEquipmentSlot(slot))return null;return equipmentRows(source).find(r=>occupiesSlot(r.item,slot))||null;}
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 /** Compact, searchable item-only list for the chosen equipment slot. */
@@ -59,5 +63,17 @@ export function renderEquipment(data={}){
    +'<div class="cs-loadout-group-title"><span aria-hidden="true" class="cs-loadout-group-icon">'+group.icon+'</span><h3>'+group.name+'</h3><small>'+assigned+' / '+group.slots.length+'</small></div>'
    +'<div class="cs-loadout-rows">'+items+'</div></section>';
  };
- return '<section class="cs-equipment cs-loadout" aria-label="Equipped items"><div class="cs-loadout-groups">'+loadoutGroups.map(section).join('')+'</div></section>';
+ const miscEntries=miscEquipmentSlotIds.map(id=>({id,entry:equippedInSlot(data,id)})).filter(({entry})=>entry);
+ const nextMiscSlot=miscEquipmentSlotIds.find(id=>!equippedInSlot(data,id));
+ const miscRows=miscEntries.map(({id,entry})=>{
+  const name=e(entry.item.name||'Unnamed item');
+  return '<div class="cs-loadout-row is-equipped">'
+   +'<button type="button" class="cs-loadout-select" data-equip-slot="'+id+'" aria-label="Change '+name+'"><span class="cs-loadout-row-details"><span class="cs-loadout-item-name">'+name+'</span></span><span class="cs-loadout-chevron" aria-hidden="true">›</span></button>'
+   +'<button type="button" class="cs-loadout-action" data-unequip-slot="'+id+'" aria-label="Unequip '+name+'">Unequip</button></div>';
+ }).join('');
+ const misc='<section class="cs-loadout-group cs-loadout-misc" aria-label="Misc equipment">'
+  +'<div class="cs-loadout-group-title"><span aria-hidden="true" class="cs-loadout-group-icon">✧</span><h3>Misc</h3>'
+  +(nextMiscSlot?'<button type="button" class="cs-loadout-misc-add" data-equip-slot="'+nextMiscSlot+'" aria-label="Add miscellaneous equipment" title="Add miscellaneous equipment">+</button>':'')
+  +'</div><div class="cs-loadout-rows">'+miscRows+'</div></section>';
+ return '<section class="cs-equipment cs-loadout" aria-label="Equipped items"><div class="cs-loadout-groups">'+loadoutGroups.map(section).join('')+misc+'</div></section>';
 }
