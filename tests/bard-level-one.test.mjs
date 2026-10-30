@@ -49,6 +49,7 @@ test('first-level Bard uses racial CHA for songs, performance, DC and MP; INT on
   assert.equal(d.skills.reduce((n,s)=>n+s.lvl,0),skills);assert.equal(d.spells.length,2+songs);
   assert.equal(d.activeAbilities.find(a=>a.name==='Bardic Performance').u_max,4+Math.floor((cha+2-10)/2));
   assert(d.activeAbilities.find(a=>a.name==="Siren's Song").limitBreak);assert(d.activeAbilities.find(a=>a.name==='Soul Voice').limitBreak);
+  assert.equal(['activeAbilities','passiveAbilities'].flatMap(k=>d[k]).filter(a=>a.limitBreak).length,2);
   assert(!d.activeAbilities.some(a=>a.name==='Inspiration'));assert(!d.feats.some(f=>f.name==='Mounted Combat'));
   const spell=d.spells.find(s=>s.lvl===1);assert.equal(entryCalculations(spell,d,'spells').dc,11+Math.floor((cha+2-10)/2));
   assert.equal(entryCalculations(d.spells.find(s=>s.lvl===0),d,'spells').mp,0);
@@ -100,6 +101,23 @@ test('wizard uses Bard-only song slots and retains them in the real character li
   const created=service.createBuild(user.id,request);assert.equal(service.createBuild(user.id,request).id,created.id);
   const stored=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(created.id).data_json);
   assert.deepEqual(stored.rulesBuild.input.spellSelections,b.spellSelections);assert.equal(stored.class,'Bard');assert.equal(stored.spells.length,6);
-  assert.deepEqual(compileBuild(stored.rulesBuild.input,stored).rulesBuild.input,b);
+  assert.equal(stored.rulesBuild.input.initialChaMod,1);
+  assert.deepEqual(compileBuild(stored.rulesBuild.input,stored).rulesBuild.input,{...b,initialChaMod:1});
  }finally{db.close();}
+});
+
+
+test('Bard starting song allowance survives sheet CHA edits and rejects forged entitlements',()=>{
+ const created=compileBuild(fixture());assert.equal(created.rulesBuild.input.initialChaMod,1);
+ const changed=mergeSheetData(created,{action:'fields',fields:{cha:20}});
+ assert.deepEqual(spellCounts(changed.rulesBuild.input),{cantrips:2,leveled:4});
+ const edited=compileBuild(changed.rulesBuild.input,changed);assert.equal(edited.mp_bonus,2);assert.equal(edited.spells.length,6);
+ const forged=structuredClone(edited.rulesBuild.input);forged.initialChaMod=5;forged.spellSelections=null;
+ forged.spellIds=[...bardSongs.filter(s=>s.level===0).slice(0,2),...bardSongs.filter(s=>s.level===1).slice(0,8)].map(s=>s.id);
+ assert.throws(()=>compileBuild(forged,edited),/allowance cannot be changed/);
+ const fakeCreation=fixture();fakeCreation.initialChaMod=5;fakeCreation.spellSelections=null;fakeCreation.spellIds=forged.spellIds;
+ assert.throws(()=>compileBuild(fakeCreation),/allowance cannot be changed/);
+ const oldVersion=structuredClone(created);delete oldVersion.rulesBuild.input.initialChaMod;
+ const migrated=compileBuild(oldVersion.rulesBuild.input,oldVersion);assert.equal(migrated.rulesBuild.input.initialChaMod,1);
+ const oldChanged=mergeSheetData(oldVersion,{action:'fields',fields:{cha:20}});assert.equal(compileBuild(oldChanged.rulesBuild.input,oldChanged).rulesBuild.input.initialChaMod,1);
 });
