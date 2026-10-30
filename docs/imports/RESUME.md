@@ -69,7 +69,7 @@ are also deployed; see `docs/extraction/mithra-standard-creation.md`.
 Tarutaru standard traits, Talented's specialty and bonus languages are deployed;
 see `docs/extraction/tarutaru-standard-creation.md`. Beast Rider source data is
 staged/blocked on verified druid-style mount rules and its specialized adapter;
-do not substitute the different FFd20 Beastmaster table. Dragoon first-level creation/editing is deployed with six source reference abilities, shared Limit Break expenditure and manual jump mechanics. See `docs/extraction/dragoon-level-one-import.md`. Aegyl standard traits, source-listed languages and the manual Eternal Hope counter are deployed; see `docs/extraction/aegyl-standard-creation.md`. The active baseline item is **Al Bhed**, beginning with Mechanical Genius skill selection. Always read
+do not substitute the different FFd20 Beastmaster table. Dragoon first-level creation/editing is deployed with six source reference abilities, shared Limit Break expenditure and manual jump mechanics. See `docs/extraction/dragoon-level-one-import.md`. Aegyl standard traits, source-listed languages and the manual Eternal Hope counter are deployed; see `docs/extraction/aegyl-standard-creation.md`. Al Bhed first-level standard traits and required Mechanical Genius selection are deployed; see `docs/extraction/al-bhed-standard-creation.md`. The active baseline item is **Au Ra**, beginning with standard Xaela traits, owned natural armor and Ferocity tracking. Always read
 the current queue instead of restarting these completed milestones. A blocked entry
 is skipped without deleting its last section or evidence.
 
