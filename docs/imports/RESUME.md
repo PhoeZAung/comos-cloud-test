@@ -51,13 +51,14 @@ Black Mage, Bard, Elvaan, Galka, Moogle, Immortal, Dwarf and Mog Knight support 
 milestones rather than full completion. Bard level 1 and the standard Elvaan
 and Galka traits have verified deployment milestones. Half-Breed is blocked on verified parent-trait RP costs and inheritance choices.
 Antrider has a staged source definition, but is blocked on maneuver-feat
-prerequisites, companion handling and later parent replacements. The next
-unblocked baseline item is **Beastmaster**, now active with a staged main-source
-checkpoint. Both 20-row tables, six first-level abilities, twelve focus
-descriptions and all 35 companion source entries are saved. Its bounded
-first-level adapter has local model/browser validation; CI and deployment
-evidence are recorded in the current checkpoint. See
-`docs/extraction/beastmaster-level-one-import.md`. Always read
+prerequisites, companion handling and later parent replacements. Beastmaster's
+bounded first-level creation/editing scope is deployed: eleven ordinary starting
+companions or none, fixed starting selection, manual companion combat/training,
+Nature Sense and daily counters. All 35 source entries remain staged for later
+work. See `docs/extraction/beastmaster-level-one-import.md` for checks and limits.
+The active baseline item is now **Hume**. Its standard traits were compared with
+the archive; score choice, Skilled budget, separate bonus feat and language
+recording are next. See `docs/extraction/hume-standard-source-review.md`. Always read
 the current queue instead of restarting these completed milestones. A blocked entry
 is skipped without deleting its last section or evidence.
 
