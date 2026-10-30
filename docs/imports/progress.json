@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 17,
+  "revision": 19,
   "schedule": [
     "class",
     "race",
@@ -170,31 +170,38 @@
     "ffd20:race:half-breed": {
       "state": "blocked",
       "stage": "source-blocked",
-      "cursor": "Complete source read; parent requirements and banned races recorded. Server guard prevents saving by disabling required traits.",
+      "cursor": "Source requirements reviewed and incomplete-save guard deployed; 313 tests, phone-sized wizard/API rejection and four public asset hashes verified.",
       "nextAction": "Supply verified parent-trait IDs, category and RP cost citations, then implement the parent-pair identity and inheritance chooser. Continue other queue items meanwhile.",
       "scope": "",
-      "note": "Verified per-trait RP costs and parent eligibility are absent from the 63-race metadata inventory; parent/inheritance adapter also pending.",
+      "note": "Missing verified per-trait RP costs and parent/inheritance choices still block playable Half-Breed construction. The deployed guard prevents bypass by disabling required traits.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
-        "docs/extraction/half-breed-import-blockers.md"
+        "docs/extraction/half-breed-import-blockers.md",
+        "docs/extraction/half-breed-antrider-deployment-validation.json",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/10",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41056267547",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41056518085"
       ],
-      "updatedAt": "2026-10-30T12:26:01.302Z"
+      "updatedAt": "2026-10-30T12:37:41.516Z"
     },
     "ffd20:archetype:chocobo-knight:antrider": {
       "state": "blocked",
       "stage": "source-staged-blocked",
-      "cursor": "Source staging validated: five features, seven upgrades, 20 mount rows, two resolved first-level and five deferred later replacements. Full suite 313 passed.",
-      "nextAction": "Import verified maneuver-feat prerequisites and companion rules, review the source poison DC discrepancy, then implement/validate the specialized Antica-only adapter and resolve later parent IDs.",
+      "cursor": "Five abilities, seven upgrades and 20 mount rows staged and validated. GitHub suite/build pass; public catalog remains staged and unavailable.",
+      "nextAction": "For a first-level release, verify maneuver-feat prerequisites, Antica eligibility and companion handling, then implement and test a bounded adapter. Resolve later parent replacements before enabling their respective levels.",
       "scope": "Source-backed staged definition only; no playable archetype adapter. Two first-level replacements resolved; five later parent targets deferred.",
-      "note": "Playable import blocked on verified combat-feat choices, companion/runtime support and unresolved later parent features; source poison DC discrepancy also retained for review.",
+      "note": "First-level play remains blocked on verified feat choices and the specialized Antica/companion adapter. Later progression additionally needs five parent-feature mappings; poison DC discrepancy remains a manual review issue.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/antrider-source-batch.md",
-        "docs/extraction/half-breed-browser-validation.json"
+        "docs/extraction/half-breed-browser-validation.json",
+        "docs/extraction/half-breed-antrider-deployment-validation.json",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/10",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41056267547"
       ],
-      "updatedAt": "2026-10-30T12:33:32.462Z"
+      "updatedAt": "2026-10-30T12:37:41.714Z"
     }
   },
   "history": [
@@ -341,6 +348,24 @@
       "stage": "source-staged-blocked",
       "cursor": "Source staging validated: five features, seven upgrades, 20 mount rows, two resolved first-level and five deferred later replacements. Full suite 313 passed.",
       "time": "2026-10-30T12:33:32.462Z"
+    },
+    {
+      "revision": 18,
+      "itemId": "ffd20:race:half-breed",
+      "from": "blocked",
+      "to": "blocked",
+      "stage": "source-blocked",
+      "cursor": "Source requirements reviewed and incomplete-save guard deployed; 313 tests, phone-sized wizard/API rejection and four public asset hashes verified.",
+      "time": "2026-10-30T12:37:41.516Z"
+    },
+    {
+      "revision": 19,
+      "itemId": "ffd20:archetype:chocobo-knight:antrider",
+      "from": "blocked",
+      "to": "blocked",
+      "stage": "source-staged-blocked",
+      "cursor": "Five abilities, seven upgrades and 20 mount rows staged and validated. GitHub suite/build pass; public catalog remains staged and unavailable.",
+      "time": "2026-10-30T12:37:41.714Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

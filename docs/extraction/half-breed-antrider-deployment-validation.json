@@ -1,0 +1,22 @@
+[
+  {
+    "path": "assets/rules-wizard.mjs",
+    "matches": true,
+    "sha256": "da78aab7feab0e6f2e0557e5b250c67c3c8eb5d5f1a89fd89e512a0325ac94d8"
+  },
+  {
+    "path": "features/characters/rules/build.mjs",
+    "matches": true,
+    "sha256": "4e4b059c29b71388e9d005169829bc7dae5873c4ef28c5153d1b0fd2114f62e1"
+  },
+  {
+    "path": "features/characters/rules/class-catalog.mjs",
+    "matches": true,
+    "sha256": "cddb7297fbafb5e251cf35bec6fdf1165707fc104bdf576e9cfb48f29c6d3fe6"
+  },
+  {
+    "path": "features/characters/rules/races.mjs",
+    "matches": true,
+    "sha256": "ef55d99965a08cef1c664a636562ee67552604a250945ce200d45a2acc576c18"
+  }
+]
