@@ -11,6 +11,13 @@
       "sourceKind": "official_web",
       "retrievedOn": "2026-10-30",
       "archiveSha256": "16d7e17c9f9163fee94b56bed1ba293745d3f4eb6f81413914fa3330207134f9"
+    },
+    {
+      "id": "talents",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/",
+      "title": "Gunbreaker Talents — Official FFd20",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-30"
     }
   ],
   "review": {
@@ -20,12 +27,17 @@
       {
         "path": "/data/supportedLevels",
         "blocking": true,
-        "reason": "Only first-level creation is currently supported. Later choices and progression need verified implementation."
+        "reason": "Supports creation/editing at level 1 and verified level-up to level 2, with 14 low-prerequisite source talents. Levels 3-20 need techniques, feature scaling and advanced choices and remain guarded."
       },
       {
         "path": "/data/features",
         "blocking": true,
         "reason": "Equipment, conditional effects, mode selection, recovery and temporary benefits remain manual."
+      },
+      {
+        "path": "/data/levelTwoTalents",
+        "blocking": true,
+        "reason": "Level-2 choice pool includes source-backed un-gated talents. Talent prerequisites requiring additional feats, level gates, or complex choices remain deferred; conditional effects and bonus feat selection are manual."
       }
     ]
   },
@@ -33,7 +45,8 @@
     "category": "hybrid",
     "maximumLevel": 20,
     "supportedLevels": [
-      1
+      1,
+      2
     ],
     "alignment": "Any",
     "hitDie": 10,
@@ -610,6 +623,22 @@
             "locator": "superbolide"
           }
         ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:keen-edge",
+        "name": "Keen Edge",
+        "atLevel": 2,
+        "description": "While wielding a gun arm, gain +1 shield AC; stacks with other shield bonuses. This is weapon-conditional and is not a permanent sheet AC bonus.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Keen Edge",
+            "locator": "keen-edge"
+          }
+        ]
       }
     ],
     "upgrades": [],
@@ -655,6 +684,32 @@
         "atClassLevel": 1,
         "type": "grant_feature",
         "featureId": "ffd20:class:gunbreaker:feature:superbolide"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:grant-keen-edge",
+        "atClassLevel": 2,
+        "type": "grant_feature",
+        "featureId": "ffd20:class:gunbreaker:feature:keen-edge"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:2",
+        "atClassLevel": 2,
+        "type": "choose",
+        "poolId": "ffd20:class:gunbreaker:pool:talents",
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gunbreaker Talents",
+            "locator": "gunbreaker-talents"
+          }
+        ]
       }
     ],
     "archetypeIndex": [
@@ -662,6 +717,218 @@
         "id": "ffd20:archetype:gunbreaker:doom-slayer",
         "name": "Doom Slayer",
         "source": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/"
+      }
+    ],
+    "levelTwoTalents": [
+      {
+        "id": "ffd20:class:gunbreaker:talent:athletic-physique",
+        "name": "Athletic Physique",
+        "description": "Use Strength in place of Dexterity when qualifying for feats.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "athletic-physique"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:baring-fangs",
+        "name": "Baring Fangs",
+        "description": "Add your Wisdom modifier to Intimidate checks in addition to Charisma.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "baring-fangs"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:beat-fang",
+        "name": "Beat Fang",
+        "description": "With a gun arm that supports trigger attacks, make a melee touch attack with its firearm portion instead of a normal melee attack.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "beat-fang"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:elemental-infuse",
+        "name": "Elemental Infuse",
+        "description": "Choose an element for infused ammunition while loading; handle any elemental conversion manually.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "elemental-infuse"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:flourishing-assault",
+        "name": "Flourishing Assault",
+        "description": "When using a one-handed gun arm and a free off-hand or light shield, spend three magicked rounds to gain one extra full-attack strike. Restrictions apply.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "flourishing-assault"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:flurry-of-swings",
+        "name": "Flurry of Swings",
+        "description": "When using a two-handed gun arm, spend three magicked rounds for an extra strike during a full attack, subject to weapon and haste restrictions.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "flurry-of-swings"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:light-armor-training",
+        "name": "Light Armor Training",
+        "description": "Gain +5 feet movement speed only while wearing light or medium armor; do not modify base racial speed automatically.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "light-armor-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:nebula",
+        "name": "Nebula",
+        "description": "Activate Blast Shield with a move or standard action.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "nebula"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:ready-to-rip",
+        "name": "Ready to Rip",
+        "description": "Gain +2 on confirmation rolls for gun-arm critical hits.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "ready-to-rip"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:swift-infuse",
+        "name": "Swift Infuse",
+        "description": "Improve the action required to infuse magicked ammo, with rules depending on your current reload speed.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "swift-infuse"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:uncanny-dodge",
+        "name": "Uncanny Dodge",
+        "description": "Keep Dexterity bonus to AC when flat-footed or attacked by invisible creatures, with the standard immobilization and feint exceptions.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "uncanny-dodge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:wicked-talons",
+        "name": "Wicked Talons",
+        "description": "Reroll damage dice showing 1 for both parts of a gun arm.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "wicked-talons"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:ranged-combat-training",
+        "name": "Ranged Combat Training",
+        "description": "Gain Precise Shot as a bonus feat without meeting its prerequisites. Manage feat on the sheet manually.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "ranged-combat-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:talent:threat-control",
+        "name": "Threat Control",
+        "description": "Gain Antagonize as a bonus feat and retry a failed Intimidate use of that feat against the same creature. Manage feat manually.",
+        "minimumLevel": 2,
+        "repeatLimit": 1,
+        "featureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "talents",
+            "section": "Table: Gunbreaker Talents",
+            "locator": "threat-control"
+          }
+        ]
       }
     ]
   }
