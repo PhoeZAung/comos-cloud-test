@@ -1,0 +1,33 @@
+{
+  "authentication": "Local fixture, not production provider login",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "results": [
+    {
+      "race": "Hume",
+      "class": "dancer",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "languages": "Common, Al Bhed, Ancient Elvaan",
+      "skillRanks": 7,
+      "manualBonusFeatPreserved": true,
+      "extraLanguageRejected": true,
+      "pageErrors": []
+    },
+    {
+      "race": "Hume",
+      "class": "black-mage",
+      "created": true,
+      "edited": true,
+      "reopened": true,
+      "languages": "Common, Al Bhed, Ancient Elvaan",
+      "skillRanks": 7,
+      "manualBonusFeatPreserved": true,
+      "extraLanguageRejected": true,
+      "pageErrors": []
+    }
+  ]
+}

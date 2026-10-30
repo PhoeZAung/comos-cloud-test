@@ -1,4 +1,5 @@
 import {fixedSkills} from '../../sheet/skills.mjs';
+import {HUME_ID,HUME_SCORE,HUME_LANGUAGES,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
 
 const IMMORTAL='ffd20:race:immortal:pool:';
 const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
@@ -6,20 +7,21 @@ const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 
 // The two reviewed-for-testing races use older extraction target names. Keep the
 // source records intact and append only their verified unconditional sheet maps.
 export function mappedRaceTraits(race,traits){
- if(!['ffd20:race:moogle','ffd20:race:immortal'].includes(race.id))return traits;
+ if(!['ffd20:race:moogle','ffd20:race:immortal',HUME_ID].includes(race.id))return traits;
  return traits.map(f=>{
   const mapped=[];
   const add=(e,target,value=e.value,textValue=e.textValue)=>mapped.push({...e,id:e.id+':sheet:'+mapped.length,target,value,textValue,automation:'automatic'});
   for(const e of f.effects||[]){
    if(e.condition)continue;
-   if(e.automation==='automatic'&&e.kind==='skill_bonus'&&/^skills\.[a-z_]+$/.test(e.target))add(e,'skills.skill:'+e.target.slice(7).replaceAll('_','-')+'.bonus');
+   if(e.automation==='automatic'&&e.kind==='skill_bonus'&&/^skills\.[a-z_-]+$/.test(e.target))add(e,'skills.skill:'+e.target.slice(7).replaceAll('_','-')+'.bonus');
+   if(race.id===HUME_ID&&f.id.endsWith(':curiosity')&&e.kind==='class_skill')add(e,'skills.skill:'+e.target.slice(7)+'.class_skill',{kind:'constant',value:1});
    if(!race.data.standardTraitIds.includes(f.id))continue;
    if(e.target==='size_category')add(e,'identity.size_category');
    if(e.target==='speed.land'){
@@ -44,6 +46,7 @@ export function racialChoiceSpecs(race,traits){
   if(pool.id===HANDY)return {...pool,minimum:1,maximum:1,specialty:true,options:fixedSkills.flatMap((row,i)=>['Craft','Profession'].includes(row.name)?[{id:'skill-row:'+i,name:row.name+' '+(fixedSkills.slice(0,i).filter(r=>r.name===row.name).length+1),value:i}]:[])};
   if(pool.id===IMMORTAL+'long-lived-knowledge')return {...pool,minimum:0,maximum:4,options:fixedSkills.filter(row=>row.name.startsWith('Knw: ')).map(row=>({id:skillId(row),name:row.name,value:skillId(row)}))};
   if(pool.id===ELVAAN_WEAPON)return {...pool,minimum:1,maximum:1,options:pool.options.filter(o=>traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&e.target==='proficiencies.weapon.'+o.value)))};
+  if(pool.id===HUME_LANGUAGES)return {...pool,minimum:0,maximum:null,freeText:true};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
 }
@@ -52,11 +55,11 @@ export function racialChoiceEffects(b,race,traits){
  const effects=[];
  for(const spec of racialChoiceSpecs(race,traits)){
   const selected=b.racialChoices?.[spec.id]||[];
-  const options=selected.map(id=>spec.options.find(o=>o.id===id)).filter(Boolean);
+  const options=spec.freeText?selected.filter(validLanguageChoice).map(id=>({id,name:languageName(id),value:languageName(id).toLowerCase().replace(/\s+/g,'-')})):selected.map(id=>spec.options.find(o=>o.id===id)).filter(Boolean);
   for(const option of options){
    const base={id:spec.id+':selected:'+option.id,operation:'add',automation:'automatic',condition:null,bonusType:'racial'};
    if(spec.id===HANDY)effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2},specialty:b.racialSpecialties?.[spec.id]||''});
-   if(spec.id===IMMORTAL+'flexible-score'){
+   if([IMMORTAL+'flexible-score',HUME_SCORE].includes(spec.id)){
     const key={strength:'str',dexterity:'dex',constitution:'con',intelligence:'int',wisdom:'wis',charisma:'cha'}[option.value];
     if(key)effects.push({...base,kind:'ability_score',target:'ability_scores.'+key,value:{kind:'constant',value:2}});
    }
@@ -72,7 +75,8 @@ export function racialChoiceIssues(b,race,traits,scores){
  for(const [id,values] of Object.entries(b.racialChoices||{})){
   const spec=byId.get(id);
   if(!spec||!Array.isArray(values)){errors.push('Unknown or inactive racial choice.');continue;}
-  if(new Set(values).size!==values.length||values.some(v=>!spec.options.some(o=>o.id===v)))errors.push('Invalid or duplicate '+spec.name+' selection.');
+  const identities=spec.freeText?values.map(v=>languageName(v).toLowerCase()):values;
+  if(new Set(identities).size!==values.length||values.some(v=>spec.freeText?!validLanguageChoice(v):!spec.options.some(o=>o.id===v)))errors.push('Invalid or duplicate '+spec.name+' selection.');
  }
  for(const spec of specs){
   if(spec.id===ELVAAN_WEAPON&&!spec.options.length)errors.push('Martial Background requires a verified proficient weapon. Keep Elvaan Weapon Familiarity active for this limited integration.');
@@ -86,6 +90,10 @@ export function racialChoiceIssues(b,race,traits,scores){
 
 // A chosen bonus feat is a visible manual card, never a blanket attack bonus.
 export function racialChoiceFeats(b,race,traits,previous={}){
+ if(humeTraitActive(b,'bonus-feat')){
+  const id=HUME_ID+':bonus-feat:level-1',old=previous.feats?.find(f=>f.sourceRuleId===id);
+  return [{...old,name:old?.name||'Hume bonus feat · level 1',desc:old?.desc||'One extra feat at first level from Hume Bonus Feat. Choose a feat and check its prerequisites manually.',sourceRuleId:id,sourceRace:'Hume',rulesOwned:true,pendingFeat:old?.pendingFeat??true,automation:'manual'}];
+ }
  const spec=racialChoiceSpecs(race,traits).find(s=>s.id===ELVAAN_WEAPON);
  const option=spec?.options.find(o=>o.id===b.racialChoices?.[ELVAAN_WEAPON]?.[0]);
  if(!option)return [];

@@ -9,9 +9,10 @@
       "id": "main",
       "url": "https://finalfantasyd20.com/races/core-races/hume/",
       "title": "Hume — Final Fantasy d20",
-      "retrievedOn": "2026-10-27",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "contentSha256": null
+      "contentSha256": null,
+      "archiveSha256": "4e3d6bff3b8aae3c990fd985984b8abd504fba5130f7376bacbf5aad7ad5d276"
     }
   ],
   "dependencies": [],
@@ -45,6 +46,11 @@
         "path": "/choicePools",
         "reason": "All unrestricted feat/language choices, training/cultural options, and companion skill/ability choices require explicit availability rules before automation.",
         "blocking": true
+      },
+      {
+        "path": "/data/standardTraitIds",
+        "blocking": true,
+        "reason": "First-level standard-trait testing only. Score choice, skill-rank entitlement, manual extra-feat slot, identity, Integrated and Curiosity class skills are supported. Bonus-language text is bounded by Intelligence. Curiosity conditional check bonuses, Sociable, variants, alternates, favored rewards, later progression and independent full review remain manual or guarded."
       }
     ],
     "sectionInventory": [
@@ -316,7 +322,9 @@
         }
       ],
       "actions": [],
-      "choicePoolIds": [],
+      "choicePoolIds": [
+        "ffd20:race:hume:pool:high-intelligence-bonus-languages"
+      ],
       "scalingNotes": [],
       "sourceRefs": [
         {
@@ -3770,6 +3778,23 @@
           "sourceId": "main",
           "section": "Variant Heritages",
           "locator": "6080"
+        }
+      ]
+    },
+    {
+      "id": "ffd20:race:hume:pool:high-intelligence-bonus-languages",
+      "name": "Hume bonus languages",
+      "choiceType": "language",
+      "options": [],
+      "catalogRefs": [],
+      "filter": null,
+      "duplicatePolicy": "forbid",
+      "notes": "Free-text language names, limited to positive Intelligence modifier. Common is already granted. This records the source unrestricted language choice without inventing a complete catalog.",
+      "sourceRefs": [
+        {
+          "sourceId": "main",
+          "section": "Standard Racial Traits",
+          "locator": "languages"
         }
       ]
     }

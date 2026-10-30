@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 26,
+  "revision": 27,
   "schedule": [
     "class",
     "race",
@@ -223,17 +223,19 @@
     },
     "ffd20:race:hume": {
       "state": "in_progress",
-      "stage": "standard-trait-adapter",
-      "cursor": "Standard trait source compared with staged definition; source hash and RP summary verified; score/Skilled/bonus-feat/language integration gaps recorded",
-      "nextAction": "Implement score choice, Skilled rank entitlement and extra feat slot across supported compilers; define unrestricted bonus-language recording, preserve conditional Curiosity and guard variants/alternates; then browser validation",
-      "scope": "Standard-trait integration pending. No new Hume runtime support claimed. Source RP table recorded for later ancestry review; alternates/heritages/favored rewards remain separate.",
-      "note": "Beastmaster first-level partial milestone deployed and queue advanced automatically. Hume source review is saved; implementation is the next active task.",
+      "stage": "runtime-validated",
+      "cursor": "First-level standard-trait adapter validated across all six compilers; mobile Dancer and Black Mage created/edited/reopened with score, seven ranks, two languages and separate bonus-feat slot",
+      "nextAction": "Run exact-commit CI, merge checked Hume batch, verify deployed assets, record partial scope, and continue Mithra",
+      "scope": "First-level standard traits only: score choice, Skilled rank, extra manual feat slot, identity, Integrated and Curiosity class skills supported. Curiosity conditional checks, Sociable and feat effects manual. Variants/alternates/progression/multiclassing guarded.",
+      "note": "331 tests and cloud build pass. Two mobile real-route fixtures preserved Al Bhed/Ancient Elvaan, seven ranks and manual feat name; excess language rejected. Fixture auth only; CI/deployment pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
-        "docs/extraction/hume-standard-source-review.md"
+        "docs/extraction/hume-standard-source-review.md",
+        "docs/extraction/hume-standard-creation.md",
+        "docs/extraction/hume-browser-validation.json"
       ],
-      "updatedAt": "2026-10-30T15:14:22.683Z"
+      "updatedAt": "2026-10-30T15:25:16.717Z"
     }
   },
   "history": [
@@ -461,6 +463,15 @@
       "stage": "standard-trait-adapter",
       "cursor": "Standard trait source compared with staged definition; source hash and RP summary verified; score/Skilled/bonus-feat/language integration gaps recorded",
       "time": "2026-10-30T15:14:22.683Z"
+    },
+    {
+      "revision": 27,
+      "itemId": "ffd20:race:hume",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "runtime-validated",
+      "cursor": "First-level standard-trait adapter validated across all six compilers; mobile Dancer and Black Mage created/edited/reopened with score, seven ranks, two languages and separate bonus-feat slot",
+      "time": "2026-10-30T15:25:16.717Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
