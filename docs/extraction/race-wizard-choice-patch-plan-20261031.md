@@ -18,7 +18,8 @@ Any racial trait that asks the player to **choose an ability score** belongs in 
 | 05B · Trollkin healing ambiguity | **Trollkin** Acid or Fire weakness and Faster Healing. | Implemented safety/UI handling: prominent contradictory source notice, sheet descriptions for Fast Healing 1 / 2 and suppression, no fabricated selection or automatic HP ticks. Element adjudication still needs GM/source clarification. |
 | 06 · Yagudo rank-based choices | **Yagudo** Valiant Linguist (two chosen languages per Linguistics rank) and Zealot Devotee (+2 Religion plus +1 per five ranks). | Implemented in Patch 06, with dynamic Skills-step language picks at creation and level-up, persistent locks, scaling skill bonuses and exact alternate replacement semantics. |
 | 07 · Magic choices | **Kindred** Fiendish Magery; **Sylph** Fey Magic. | Implemented for verified Black Mage casting and standard Sylph spell-like abilities: casting-only Kindred INT +2, source-bound Sylph illusion spell DC +1, independent daily/weekly SLA counters. Other mage chassis and variant Sylph heritages remain separately guarded. |
-| 08 · Alternate replacements | **Tarutaru** Explorer (source replacement of Talented/Magick Focus, verify exact IDs and preserved traits), and **Garlean** Xenophobia Extremis score/language modification. | Garlean partial modifier **already** source-guarded in main; audit its wizard interactions. Tarutaru needs verified replacement and choice behavior. |
+| 08A · Garlean Xenophobia Extremis | Exact component modifier: +2 CON/+2 INT/−2 CHA instead of normal −2 WIS; keep Common, suppress INT bonus languages. | **Verified already implemented** in main, with new 08A audit tests, explicit Race-wizard guidance and preservation/reopen checks. No blanket trait replacement. |
+| 08B · Tarutaru Explorer source conflict | Source grants +2 Climb and one chosen Knowledge skill but says replaces Talented and **Spell Focus**. Standard racial list has **Magick Focus**, not Spell Focus. | **Blocked pending source/GM adjudication.** Existing invalid-operation guard is preserved; named replacement is NOT silently changed. UI now explains why Explorer is unavailable. Knowledge selector is not enabled until both replaced traits can be verified. |
 | 09 · Shindroid simulations | **Shindroid** Hologram Simulation and Race Simulation. | Queue separately; whole/partial replacements, shape/type/size, incompatible alternates and cross-race effects. No silent borrowing of other races' unsupported mechanics. |
 | 10 · Mutant variable systems | **Mutant** Variable Mutant Abilities (d100 result table and chained rolls), random/variable ability advancement, interaction with normal ability gains and Variable Defenses. | Queue; must not unblock Mutant saving until deterministic validation and progression are complete. |
 | 11 · Half-Breed (**LAST**) | Two parent races, inherited trait eligibility and RP/slot limits, replacement conflicts, saved ancestry and level-up behavior. | Deliberately last. Keep creation guard enabled until all prerequisite parent/race choice adapters are stable. |
@@ -91,3 +92,18 @@ Official source: https://finalfantasyd20.com/races/beastman-tribes/yagudo/
 - Remaining limitations: magic effects from other INT-mage class adapters, other class spellbooks and source-dependent manual spell-like ability DC adjudication require separate integration; do not apply this casting-only adjustment to skill points or every mage type indiscriminately.
 
 Official sources: https://finalfantasyd20.com/races/beastman-tribes/kindred/ and https://finalfantasyd20.com/races/beastman-tribes/sylph/
+
+## Patch 08A · Garlean Xenophobia Extremis audit
+
+Official extracted Garlean source already has a reviewed component modifier, applied only when the Xenophobia Extremis alternate is explicitly selected:
+- Base remains **+2 CON and +2 INT**.
+- The standard **−2 WIS** component becomes **−2 CHA**, never an additional −2 penalty.
+- **Common remains a starting language**, and **high-Intelligence bonus languages are disallowed**. Language learned normally from Linguistics is not taken away.
+- All unrelated Garlean traits, including Magic Ineptitude, technical Craft, weapons and other standard racial rules, retain their original behavior. Inactive previously chosen high-INT language selections are invalid on save and pruned in the wizard.
+- The Race wizard now clearly displays which rules apply when the alternate is selected. Tests verify saved/edited scores, language behavior, untouched traits and tamper-proof alternate permanence. This is a confirmation of the existing implementation, not a new interpretation of the source.
+
+## Patch 08B · Tarutaru Explorer is pending
+
+The official Tarutaru source says Explorer grants **+2 racial Climb** and **+2 on one Knowledge skill of the player's choice**, replacing **Talented and "spell focus"**. The Tarutaru standard trait list contains **Magick Focus** (+2 concentration when casting defensively), **not** a trait called Spell Focus. The staged extracted operation targets nonexistent `ffd20:race:tarutaru:trait:spell-focus` and has manual resolution. Comos will **not** silently rewrite this source target to `magick-focus`, remove unrelated benefits, or enable an incomplete Knowledge selector. The wizard explains the conflict and the existing guard blocks saving an ambiguous Explorer build until an authorized source/GM clarification resolves both exact replacement targets.
+
+Official references: https://finalfantasyd20.com/races/base-races/garlean/ and https://finalfantasyd20.com/races/core-races/tarutaru/
