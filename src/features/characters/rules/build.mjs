@@ -14,6 +14,7 @@ import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mj
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
 import {registry} from './catalog.mjs';
+import {mutantEmptyRolls,mutantRollIssues} from './mutant-progression.mjs';
 import {spells} from './spells.mjs';
 import {blackMageSummary} from '../rules-summary.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
@@ -28,7 +29,7 @@ export const stats=['str','dex','con','int','wis','cha'];
 export const steps=['Identity','Base scores','Race','Class','Choices','Spells','Review'];
 const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
-export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
+export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},mutantRolls:mutantEmptyRolls(),initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
 import {replacementFor} from './race-replacement-resolvers.mjs';
 export {replacementFor};
@@ -209,6 +210,9 @@ export function buildIssues(b,{complete=true}={}){
   if(heritage&&!isSupportedRaceHeritage(race,heritage))add(2,'Selected heritage needs a verified replacement and automatic ability-score vector or a required choice control.');
  }
 
+ if(race?.id==='ffd20:race:mutant'){
+  for(const issue of mutantRollIssues(b,{requireComplete:complete}))add(2,issue);
+ }
  if(race?.id==='ffd20:race:mutant')add(3,'Mutant requires random level-based ability increases and replaces standard fourth-level ability increases. The current wizard cannot safely calculate this progression, so automated character saving is disabled until its progression is implemented.');
  if(b.archetypeId==='ffd20:archetype:red-mage:ishgardian-heretic'&&!raceTraits(b).traits.some(f=>f.name.toLowerCase()==='elemental resistance'))add(3,'Ishgardian Heretic requires the Elemental Resistance racial trait.');
  if(classHasSpells(b)&&race?.id==='ffd20:race:immortal')add(3,'Immortal Magic Ineptitude forbids obtaining an MP pool; this casting class is not currently supported for this race. You can explore its rules, but cannot save this incompatible automated build.');
@@ -267,6 +271,12 @@ export function sanitizeBuild(raw){
  if(raw.scoreAssignments!==undefined){if(!Array.isArray(raw.scoreAssignments)||raw.scoreAssignments.length!==6)bad('Invalid score assignments.');b.scoreAssignments=[...raw.scoreAssignments];}
  if(raw.initialIntMod!==undefined&&raw.initialIntMod!==null){if(!Number.isInteger(raw.initialIntMod)||raw.initialIntMod< -5||raw.initialIntMod>20)bad('Invalid initial INT.');b.initialIntMod=raw.initialIntMod;}
  if(raw.initialChaMod!==undefined&&raw.initialChaMod!==null){if(!Number.isInteger(raw.initialChaMod)||raw.initialChaMod<0||raw.initialChaMod>17)bad('Invalid starting Charisma modifier.');b.initialChaMod=raw.initialChaMod;}
+ if(raw.mutantRolls!==undefined){
+  if(!raw.mutantRolls||typeof raw.mutantRolls!=='object'||Array.isArray(raw.mutantRolls)||
+    JSON.stringify(raw.mutantRolls).length>8000)bad('Invalid Mutant roll records.');
+  b.mutantRolls=structuredClone(raw.mutantRolls);
+  const error=mutantRollIssues(b)[0];if(error)bad(error);
+ }
  if(raw.abilityIncreases!==undefined){if(!raw.abilityIncreases||typeof raw.abilityIncreases!=='object'||Array.isArray(raw.abilityIncreases)||Object.keys(raw.abilityIncreases).length>5)bad('Invalid level ability increases.');for(const [level,key] of Object.entries(raw.abilityIncreases)){if(!['4','8','12','16','20'].includes(level)||Number(level)>buildLevel({...b,level:raw.level})||!stats.includes(key))bad('Invalid level ability increase.');b.abilityIncreases[level]=key;}}
  if(!raw.choices||typeof raw.choices!=='object'||Array.isArray(raw.choices)||Object.keys(raw.choices).length>100)bad('Invalid choices.');
  for(const values of Object.values(raw.choices))if(!Array.isArray(values)||values.length>10||values.some(id=>typeof id!=='string'||id.length>250))bad('Invalid choice.');
