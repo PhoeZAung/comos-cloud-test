@@ -6,10 +6,15 @@ const POLYGLOT=TARUTARU_ID+':trait:polyglot';
 export const TARUTARU_POLYGLOT_LANGUAGE=TARUTARU_ID+':pool:polyglot-starting-language';
 const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
 const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
+const SYRICTA='ffd20:race:syricta';
+export const SYRICTA_ELEMENT=SYRICTA+':pool:elemental-resistance-selection';
+export const SYRICTA_BREATH=SYRICTA+':pool:breath-weapon-selection';
+const HALF='ffd20:race:half-breed';
+export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -32,7 +37,7 @@ const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-')
 // Some source definitions use older extraction target names. Keep the
 // source records intact and append only their verified unconditional sheet maps.
 export function mappedRaceTraits(race,traits){
- if(!['ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID,BURMECIAN_ID,DRACOBALTIAN_ID,GARIF_ID,GARLEAN_ID].includes(race.id))return traits;
+ if(![SYRICTA,'ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID,BURMECIAN_ID,DRACOBALTIAN_ID,GARIF_ID,GARLEAN_ID].includes(race.id))return traits;
  return traits.map(f=>{
   const mapped=[];
   const add=(e,target,value=e.value,textValue=e.textValue)=>mapped.push({...e,id:e.id+':sheet:'+mapped.length,target,value,textValue,automation:'automatic'});
@@ -54,6 +59,10 @@ export function mappedRaceTraits(race,traits){
    if([AU_RA_ID,BURMECIAN_ID].includes(race.id)&&e.target==='senses.darkvision')add(e,'identity.senses.darkvision',null,'Darkvision '+e.textValue);
    if(e.target==='senses.low_light_vision')add(e,'identity.senses.low_light_vision');
   }
+  if(race.id===SYRICTA&&f.id===SYRICTA+':trait:wing-clipped')
+   for(const skill of ['bluff','climb','diplomacy'])mapped.push({
+    id:f.id+':sheet:'+skill,kind:'skill_bonus',target:'skills.skill:'+skill+'.bonus',operation:'add',
+    value:{kind:'constant',value:2},bonusType:'racial',condition:null,automation:'automatic'});
   if(race.id===TARUTARU_ID&&f.id===POLYGLOT)
    mapped.push({id:f.id+':sheet:linguistics-class-skill',kind:'class_skill',target:'skills.skill:linguistics.class_skill',operation:'add',value:{kind:'constant',value:1},bonusType:'racial',condition:null,automation:'automatic'});
   if(race.id===GARLEAN_ID&&f.id===GARLEAN_ID+':trait:noble-upbringing')for(const [row,label] of [[20,'history'],[23,'nobility']])mapped.push({id:f.id+':sheet:class-skill:'+label,kind:'class_skill',target:'skills.row.'+row+'.class_skill',operation:'add',value:{kind:'constant',value:1},bonusType:null,condition:null,automation:'automatic'});
@@ -69,6 +78,10 @@ export function racialChoiceSpecs(race,traits){
  // canonical source unchanged; expose its existing list only while trait active.
  if(race.id===DWARF_ID&&traits.some(f=>f.id===DWARF_ID+':feature:languages'))active.add(DWARF_LANGUAGES);
  const specs=race.choicePools.filter(p=>active.has(p.id)&&supported.has(p.id)).map(pool=>{
+  if(pool.id===HALF_ANCESTRAL_SLOT)return {...pool,minimum:1,maximum:1,options:[
+    {id:pool.id+':option:feat-and-skill',name:'Replace inherited Feat and Skill slot',value:'feat-and-skill'},
+    {id:pool.id+':option:offense',name:'Replace inherited Offense slot',value:'offense'}]};
+  if([SYRICTA_ELEMENT,SYRICTA_BREATH].includes(pool.id))return {...pool,minimum:1,maximum:1};
   if(pool.id===GARLEAN_WEAPON)return {...pool,minimum:1,maximum:1,options:pool.options.filter(o=>o.value==='firearms-simple')};
   if(pool.id===GARLEAN_CRAFT)return {...pool,minimum:1,maximum:1,specialty:true,options:fixedSkills.flatMap((row,i)=>row.name==='Craft'?[{id:'skill-row:'+i,name:'Craft '+(i-3),value:i}]:[])};
   if(pool.id===GARIF_PASTORALIST)return {...pool,minimum:1,maximum:1,specialty:true,specialtyRequiredFor:[4,5,6,34,35,36].map(i=>'skill-row:'+i),options:fixedSkills.flatMap((row,i)=>[4,5,6,22,34,35,36,43].includes(i)?[{id:'skill-row:'+i,name:['Craft','Profession'].includes(row.name)?row.name+' '+(fixedSkills.slice(0,i).filter(r=>r.name===row.name).length+1):row.name,value:i}]:[])};
@@ -94,6 +107,14 @@ export function racialChoiceEffects(b,race,traits){
   const options=spec.freeText?selected.filter(validLanguageChoice).map(id=>({id,name:languageName(id),value:languageName(id).toLowerCase().replace(/\s+/g,'-')})):selected.map(id=>spec.options.find(o=>o.id===id)).filter(Boolean);
   for(const option of options){
    const base={id:spec.id+':selected:'+option.id,operation:'add',automation:'automatic',condition:null,bonusType:'racial'};
+   if([SYRICTA_ELEMENT,SYRICTA_BREATH].includes(spec.id))
+    effects.push({...base,kind:'custom',target:'race.syricta.'+(spec.id===SYRICTA_ELEMENT?'elemental-resistance':'breath-shape'),
+     textValue:spec.id===SYRICTA_ELEMENT?'Chosen resistance '+option.name+': 5 (manual application)':
+      'Chosen breath weapon shape: '+option.name+'; 3/day, scales by character level (manual damage/uses)',
+     automation:'manual'});
+   if(spec.id===HALF_ANCESTRAL_SLOT)effects.push({...base,kind:'custom',target:'race.half-breed.ancestral-arms-slot',
+    textValue:'Ancestral Arms replaces '+(option.value==='offense'?'Offense':'Feat and Skill')+' slot only. Weapon proficiency type and weapon must still be chosen with verified parent race rules.',
+    automation:'manual'});
    if(spec.id===GARLEAN_WEAPON&&option.value==='firearms-simple')effects.push({...base,kind:'proficiency',target:'proficiencies.weapon.firearms-simple',textValue:'Firearms (Simple)'});
    if(spec.id===GARLEAN_CRAFT)effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2},specialty:b.racialSpecialties?.[spec.id]||''});
    if(spec.id===GARIF_PASTORALIST){
