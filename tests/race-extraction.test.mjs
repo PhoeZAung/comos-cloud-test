@@ -275,8 +275,8 @@ test('batch 19 Half-Gigas, Lizardman and Syricta are standard-list monstrous rac
  let b=newBuild();b.raceId='ffd20:race:half-gigas';assert.deepEqual([effectiveScores(b).str,effectiveScores(b).con,effectiveScores(b).int,effectiveScores(b).wis,effectiveScores(b).cha],[14,12,8,8,8]);
  const half=registry.races.find(x=>x.id===b.raceId);assert.deepEqual(half.data.heritages.map(x=>x.name),['Fire Gigas','Ice Gigas','Thunder Gigas']);
  const lizard=registry.races.find(x=>x.id==='ffd20:race:lizardman');b=newBuild();b.raceId=lizard.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).dex,effectiveScores(b).cha],[12,12,8]);assert(lizard.features.find(f=>f.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===60));
- const syricta=registry.races.find(x=>x.id==='ffd20:race:syricta');b=newBuild();b.raceId=syricta.id;assert.deepEqual(syricta.choicePools.map(x=>x.options.length),[6,2]);assert(buildIssues(b).some(x=>/Elemental Resistance.*racial choice/.test(x.message)));assert(buildIssues(b).some(x=>/Breath Weapon.*racial choice/.test(x.message)));assert(syricta.features.find(f=>f.name==='Base Speed').effects.some(x=>x.target==='identity.speed.fly'&&x.value.value===40));
- b.alternateIds=[syricta.id+':trait:wing-clipped'];assert(raceTraits(b).errors.length>0);
+ const syricta=registry.races.find(x=>x.id==='ffd20:race:syricta');b=newBuild();b.raceId=syricta.id;assert.deepEqual(syricta.choicePools.map(x=>x.options.length),[6,2]);assert(buildIssues(b).some(x=>/Elemental Resistance selection/.test(x.message)));assert(buildIssues(b).some(x=>/Breath Weapon selection/.test(x.message)));assert(syricta.features.find(f=>f.name==='Base Speed').effects.some(x=>x.target==='identity.speed.fly'&&x.value.value===40));
+ b.alternateIds=[syricta.id+':trait:wing-clipped'];assert.deepEqual(raceTraits(b).errors,[]);assert.equal(effectiveScores(b).dex,10);
 });
 
 test('Beastkin saved official page has complete traits and unavailable partial alternates',()=>{
