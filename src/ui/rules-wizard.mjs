@@ -30,8 +30,6 @@ const opt=(id,label,current,disabled=false)=>`<option value="${e(id)}" ${id===cu
 // Source review state remains unchanged. Availability applies only to individual wizard controls.
 const manualReviewTraits=new Map([
  ['ffd20:race:trollkin:trait:acid-or-fire','The source disagrees about which element suppresses healing.'],
- ['ffd20:race:kindred:trait:fiendish-magery','The Intelligence bonus applies to mage abilities only.'],
- ['ffd20:race:sylph:trait:fey-magic','Daily and weekly spell-like ability uses require tracking.']
 ]);
 const traitReview=(race,id)=>{
  const f=race.features.find(f=>f.id===id);
@@ -137,6 +135,8 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
   if(race?.id==='ffd20:race:garlean')body+='<p class="field-help">Garlean standard level 1: choose Firearms (Simple) proficiency, a named technology-related Craft specialty, and eligible bonus languages. One specific exotic Gun Arm requires a verified equipment catalog, so it is not enabled. Magic Ineptitude forbids MP pools; third-eye magic, item exceptions, and situational AC/saving throws remain manual. Heritages and alternate traits require another review.</p>';
   if(race?.id==='ffd20:race:garif')body+='<p class="field-help">Garif standard level-1 creation: permanently choose desert or plains and one Pastoralist skill. Assign one of your skill ranks to that skill. The selected terrain AC bonus, Masked saving throw bonus and conditional combat effects remain manual; source-listed weapon proficiencies appear on the sheet. Higher levels and alternate traits are not yet supported.</p>';
   if(race?.id===HUME_ID)body+='<p class="field-help">Hume standard traits support first-level testing. Curiosity’s situational check bonuses and Sociable are manual. Your extra racial feat has its own slot on the sheet.</p>';
+  if(race?.id==='ffd20:race:kindred')body+='<p class="field-help">Fiendish Magery treats INT as +2 higher for mage spells and class features only. Comos calculates this for Black Mage spell MP, learning and DC, but does not raise your displayed INT, Intelligence skill ranks or other class features. Other mage-class compatibility still needs verification.</p>';
+  if(race?.id==='ffd20:race:sylph')body+='<p class="field-help">Fey Magic: illusion spells gain +1 DC. Hidden Presence has 1 use/day; Charm, Lesser Confusion and Sleep each have 3 uses/week. Separate ability counters appear on your sheet, with manual daily/weekly resets; these are spell-like abilities, not learned spells. Variant heritages remain under review.</p>';
   if(race?.id==='ffd20:race:yagudo')body+='<p class="field-help">Valiant Linguist: +4 Linguistics and two selectable languages per Linguistics rank, recorded in Skills. Zealot Devotee: +2 Knowledge (Religion) and another +1 per five ranks, calculated automatically. Replacing these traits removes their benefits.</p>';
   if(race?.id==='ffd20:race:trollkin')body+='<p class="rw-notice" role="status">Trollkin healing weakness is a source conflict, not an Acid/Fire picker: the official heading says Acid or Fire, while its detailed text says FIRE or EARTH damage suppresses fast healing for 1 minute. Ask the GM to decide which element applies. HP recovery and suppression remain manual; Faster Healing replaces rather than stacks with normal Fast Healing.</p>';
   if(race?.id==='ffd20:race:half-breed')body+='<p class="rw-notice" role="status">Half-Breed needs two parent races and eligible inherited traits. These choices are not available yet; choose another race to create a character.</p>';

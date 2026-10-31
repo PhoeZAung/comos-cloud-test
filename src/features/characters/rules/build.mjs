@@ -104,9 +104,29 @@ export function raceTraits(b){
  const note=r.id==='ffd20:race:syricta'?syrictaChoices:
   r.id==='ffd20:race:half-breed'?'Ancestral Arms replaces the selected inherited '+(b.racialChoices?.[HALF_ANCESTRAL_SLOT]?.[0]?.endsWith(':option:offense')?'Offense':'Feat and Skill')+' slot, not both; inherited parent choices remain unverified.':
   'Your chosen racial benefits.';
- return {traits:effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:note,sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits,replaced:[...consumed],errors};
+ // Four source-defined Sylph Fey Magic spell-like abilities have separate
+ // usage pools: one daily and three independently tracked weekly. These are
+ // not learned class spells, and their recharge must not be guessed.
+ const sylphUses=r.id==='ffd20:race:sylph'&&traits.some(f=>f.id===r.id+':trait:fey-magic')?
+  [['hidden-presence','Hidden Presence',1,'day'],['charm','Charm',3,'week'],
+   ['lesser-confusion','Lesser Confusion',3,'week'],['sleep','Sleep',3,'week']]
+    .map(([slug,name,uses,period])=>({
+     id:r.id+':trait:fey-magic:uses:'+slug,
+     name:'Fey Magic · '+name+' ('+uses+'/'+period+')',
+     description:name+' spell-like ability '+uses+'/'+period+'. Caster level equals character level; save DC uses Charisma. Track uses manually; reset at the source-defined '+period+' boundary. No class spell known or MP cost is added.',
+     choicePoolIds:[],effects:[]
+    })): [];
+ const selected=effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:note,sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits;
+ return {traits:[...selected,...sylphUses],replaced:[...consumed],errors};
 }
 export function effectiveScores(b){const result={...b.baseScores};for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=buildLevel(b)&&stats.includes(key))result[key]++;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}if(b.archetypeId===DOOM_SLAYER_ID&&b.classId==='ffd20:class:gunbreaker'&&b.level===20)for(const key of ['str','dex','wis'])result[key]+=2;return result;}
+// Kindred's +2 applies only to mage-class spells and features, never to the
+// displayed Intelligence score, ability checks, skill points or other classes.
+// Black Mage is currently the verified INT-based casting chassis.
+export function mageCastingInt(b){
+ const int=effectiveScores(b).int;
+ return b.classId===BLACK_MAGE_ID&&raceTraits(b).traits.some(f=>f.id==='ffd20:race:kindred:trait:fiendish-magery')?int+2:int;
+}
 export function racialClassSkill(b,id,index){return raceTraits(b).traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&(e.target===`skills.${id}.class_skill`||Number.isInteger(index)&&e.target===`skills.row.${index}.class_skill`)));}
 export function calculated(value,b,effective=effectiveScores(b)){
  if(!value)return null;if(value.kind==='constant')return value.value;
@@ -131,7 +151,7 @@ export function calculated(value,b,effective=effectiveScores(b)){
 export function choiceEvents(b){if(isSheetFamily(b))return sheetFamilyEvents(b);if(isRedMage(b))return redMageChoiceEvents(b);if(supportsMartialProgression(b))return martialChoiceEvents(b);if(isBeastmaster(b))return beastmasterChoiceEvents(b);if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
 export function eligibleOptions(b,event){if(isSheetFamily(b))return sheetFamilyOptions(b,event,effectiveScores(b));if(isRedMage(b))return redMageChoiceEvents(b).some(e=>e.id===event.id)?redMageOptions(b,event,effectiveScores(b)):[];if(supportsMartialProgression(b))return martialEligibleOptions(b,event);if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
 export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?classHitDie(b):classDefaultHp(b)));}
-export function spellCounts(b){if(isRedMage(b))return redMageSpellCounts(effectiveScores(b),b.initialChaMod,b.level,b);if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
+export function spellCounts(b){if(isRedMage(b))return redMageSpellCounts(effectiveScores(b),b.initialChaMod,b.level,b);if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(mageCastingInt(b));return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
  const errors=[];const add=(step,message)=>errors.push({step,message});
  if(!b.name.trim())add(0,'Enter a character name.');
@@ -209,11 +229,11 @@ export function buildIssues(b,{complete=true}={}){
   if(hpHistory(b).some(n=>!Number.isInteger(n)||n<1||n>6))add(4,'Invalid recorded class HP. Review this character’s HP history.');
   if(b.favored.slice(0,b.level).some(v=>!['','hp','skill','racial'].includes(v)))add(4,'Invalid favored class reward.');
   const seen=new Map();for(const event of choiceEvents(b)){const options=eligibleOptions(b,event),chosen=b.choices[event.id]||[],count=calculated(event.count,b);if(chosen.length!==count||chosen.some(id=>!options.some(o=>o.id===id)))add(4,`Level ${event.atClassLevel}: choose ${count} for ${registry.class.choicePools.find(p=>event.poolIds.includes(p.id))?.name}.`);for(const id of chosen){const o=options.find(o=>o.id===id);seen.set(id,(seen.get(id)||0)+1);if(o&&seen.get(id)>(o.repeatLimit||1))add(4,'Repeat limit exceeded for '+o.name+'.');}}
-  const s=blackMageSummary(Math.min(20,Math.max(1,b.level)),Math.min(45,effective.int)),chosen=b.spellIds.map(id=>spells.find(s=>s.id===id));
+  const s=blackMageSummary(Math.min(20,Math.max(1,b.level)),Math.min(45,mageCastingInt(b))),chosen=b.spellIds.map(id=>spells.find(s=>s.id===id));
   if(chosen.some(x=>!x)||new Set(b.spellIds).size!==b.spellIds.length)add(5,'Invalid or duplicate learned spell.');
   if(chosen.some(x=>x&&x.level>s.spellLevel))add(5,'A learned spell exceeds the level or Intelligence requirement.');
   const counts=spellCounts(b);if(chosen.filter(x=>x?.level===0).length!==counts.cantrips||chosen.filter(x=>x?.level>0).length!==counts.leveled)add(5,`Choose ${counts.cantrips} cantrips and ${counts.leveled} other spells.`);
-  const limits=[];for(let level=1;level<=b.level;level++){const count=level===1?Math.max(3,3+(b.initialIntMod??mod(effective.int))):2;for(let i=0;i<count+([7,12,17].includes(level)?1:0);i++)limits.push(Math.min(9,Math.ceil(level/2)));}
+  const limits=[];for(let level=1;level<=b.level;level++){const count=level===1?Math.max(3,3+(b.initialIntMod??mod(mageCastingInt(b)))):2;for(let i=0;i<count+([7,12,17].includes(level)?1:0);i++)limits.push(Math.min(9,Math.ceil(level/2)));}
   const levels=chosen.filter(x=>x?.level>0).map(x=>x.level).sort((a,b)=>a-b);if(levels.some((level,i)=>limits[i]!==undefined&&level>limits[i]))add(5,'Some spells were not available at the level their learning opportunity was gained. Choose more lower-level spells.');
   if(!b.reviewed)add(6,'Confirm you have reviewed the character preview.');
  }
@@ -253,7 +273,8 @@ function classPreview(b){
  if(isBard(b))return bardPreview(b,{scores:effectiveScores(b),race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b)});
  if(isLevelOneClass(b)){const scores=effectiveScores(b);return levelOnePreview(b,{scores,race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b)});}
  if(isArcher(b)){const scores=effectiveScores(b);return archerPreview(b,{scores,race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b),carriedLevels:carriedLevels(b)});}
- const scores=effectiveScores(b),ownSummary=blackMageSummary(b.level,scores.int),summary={...ownSummary,bab:ownSummary.bab+Number(b.carry?.bab||0),fort:ownSummary.fort+Number(b.carry?.fort||0),ref:ownSummary.ref+Number(b.carry?.ref||0),will:ownSummary.will+Number(b.carry?.will||0),baseMp:ownSummary.baseMp+Number(b.carry?.mpClass||0),bonusMp:ownSummary.bonusMp+Number(b.carry?.mpBonus||0),mp:ownSummary.mp+Number(b.carry?.mpClass||0)+Number(b.carry?.mpBonus||0)},race=raceFor(b),racial=raceTraits(b);
+ const scores=effectiveScores(b),ownSummary=blackMageSummary(b.level,mageCastingInt(b)),summary={...ownSummary,
+ skillPerLevel:Math.max(1,4+mod(scores.int)),bab:ownSummary.bab+Number(b.carry?.bab||0),fort:ownSummary.fort+Number(b.carry?.fort||0),ref:ownSummary.ref+Number(b.carry?.ref||0),will:ownSummary.will+Number(b.carry?.will||0),baseMp:ownSummary.baseMp+Number(b.carry?.mpClass||0),bonusMp:ownSummary.bonusMp+Number(b.carry?.mpBonus||0),mp:ownSummary.mp+Number(b.carry?.mpClass||0)+Number(b.carry?.mpBonus||0)},race=raceFor(b),racial=raceTraits(b);
  const featureIds=new Set(registry.class.data.events.filter(e=>e.type==='grant_feature'&&e.atClassLevel<=b.level).flatMap(e=>e.featureIds));
  for(const event of choiceEvents(b))for(const id of b.choices[event.id]||[]){const opt=eligibleOptions(b,event).find(o=>o.id===id);for(const f of opt?.featureIds||[])featureIds.add(f);}
  const features=registry.class.features.filter(f=>featureIds.has(f.id));
@@ -390,7 +411,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  const candidate=previousManaged?.input?.initialIntMod!==undefined?{...normalized,initialIntMod:previousManaged.input.initialIntMod}:normalized;
  const b=sanitizeBuild(candidate),p=previewBuild(b),next=structuredClone(previous);
  if(!allowRankReduction&&previousManaged&&b.skillRanks?.some((n,i)=>n<Number(previousManaged.rankFloor?.[i]??previousManaged.input.skillRanks?.[i]??0)))bad('Confirmed skill ranks cannot be reduced.');
- if(!previousManaged)b.initialIntMod=mod(p.scores.int);
+ if(!previousManaged)b.initialIntMod=mod(mageCastingInt(b));
  const ownedKeys=['hp_max','bab','fort_base','ref_base','will_base','mp_class','mp_bonus','mp_max_spell_level','speed','size_category','languages','senses','proficiencies'];
  // Explicit first adoption retains a rollback snapshot; unknown/manual entries are preserved.
  const rollback=previous.rulesBuild?.rollback||structuredClone(previous);
@@ -402,7 +423,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  next.languages=uniq(lang).join(', ');next.senses=uniq(senses).join('; ');next.proficiencies=uniq([...(b.carry?.proficiencies||'').split(/,\s*/).filter(Boolean),...profs,'Dagger','Sling','Power rod','Power staff','Animated dolls','Quarterstaff','Buckler','Light shields']).join(', ');next.size=next.size_category;
  next.racialIdentity=b.carry&&previous.racialIdentity?structuredClone(previous.racialIdentity):{type:effects.find(e=>e.target==='identity.type')?.textValue||'',subtypes:uniq(effects.filter(e=>e.target==='identity.subtypes').map(e=>e.textValue).filter(Boolean)),rules:p.racial.traits.filter(f=>f.sheetTargets.includes('identity')&&f.effects.some(e=>e.target.startsWith('identity.'))).map(f=>({id:f.id,name:f.name,description:f.description}))};
  const initial=!Object.keys(previous).length;
- if(initial){next.hp_curr=p.hp;next.mp=p.summary.mp;next.mp_curr=p.summary.mp;next.mp_temp=0;next.items=[{name:'Starting outfit',type:'Gear',amount:1,desc:'Starting outfit worth up to 10 gil, granted in addition to starting wealth.',value:10,sourceRuleId:'ffd20:class:black-mage:starting-outfit'}];next.weapons=[];next.currency_gil=70;next.gil=70;b.initialIntMod=mod(p.scores.int);}
+ if(initial){next.hp_curr=p.hp;next.mp=p.summary.mp;next.mp_curr=p.summary.mp;next.mp_temp=0;next.items=[{name:'Starting outfit',type:'Gear',amount:1,desc:'Starting outfit worth up to 10 gil, granted in addition to starting wealth.',value:10,sourceRuleId:'ffd20:class:black-mage:starting-outfit'}];next.weapons=[];next.currency_gil=70;next.gil=70;b.initialIntMod=mod(mageCastingInt(b));}
  else if(next.mp===undefined&&next.mp_curr!==undefined){next.mp=next.mp_curr;next.mp_temp=0;}
  next.favoredClassBonuses=Object.fromEntries(b.favored.slice(0,b.level).map((v,i)=>[String(i+1),v]));
  const originalRows=previous.skills||fixedSkills.map(r=>({...r,lvl:0,temp:0,cs:false,subName:''}));
@@ -427,8 +448,13 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let level=1;level<=buildLevel(b);level+=2){const id='comos:feat-slot:'+level,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+level,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  rows.feats.push(...racialChoiceFeats(b,p.race,p.racial.traits,previous));
- const dcBonus=choiceEvents(b).flatMap(event=>b.choices[event.id]||[]).filter(id=>id==='ffd20:class:black-mage:option:black-magery:spell-mastery').length;
- for(const id of b.spellIds){const spell=spells.find(s=>s.id===id),old=previous.spells?.find(s=>s.sourceRuleId===id);rows.spells.push({...old,sourceRuleId:id,rulesOwned:true,sourceClass:'Black Mage',name:spell.name,desc:spell.description,lvl:spell.level,mp_cost:spell.level,casting_ability:'int',school:spell.school,range:spell.range,duration:spell.duration,saving_throw:spell.save,target:spell.target,rulesDcBonus:spell.level>0?dcBonus:0,dc_misc:Number(old?.dc_misc||0)-Number(old?.rulesDcBonus||0)+(spell.level>0?dcBonus:0)});}
+ const spellMasteryBonus=choiceEvents(b).flatMap(event=>b.choices[event.id]||[]).filter(id=>id==='ffd20:class:black-mage:option:black-magery:spell-mastery').length;
+ const scopedMageIntBonus=mageCastingInt(b)>p.scores.int?1:0;
+ const sylphIllusion=p.racial.traits.some(f=>f.id==='ffd20:race:sylph:trait:fey-magic');
+ for(const id of b.spellIds){const spell=spells.find(s=>s.id===id),old=previous.spells?.find(s=>s.sourceRuleId===id);
+  const illusionBonus=sylphIllusion&&/(?:^|[^a-z])illusion(?:$|[^a-z])/i.test(spell.school||'')?1:0;
+  const rulesDc=(spell.level>0?spellMasteryBonus:0)+scopedMageIntBonus+illusionBonus;
+  rows.spells.push({...old,sourceRuleId:id,rulesOwned:true,sourceClass:'Black Mage',name:spell.name,desc:spell.description,lvl:spell.level,mp_cost:spell.level,casting_ability:'int',school:spell.school,range:spell.range,duration:spell.duration,saving_throw:spell.save,target:spell.target,rulesDcBonus:rulesDc,dc_misc:Number(old?.dc_misc||0)-Number(old?.rulesDcBonus||0)+rulesDc});}
  for(const key of Object.keys(rows)){const owned=new Set(previousManaged?.ownedIds||[]);next[key]=[...(previous[key]||[]).filter(r=>!r.rulesOwned||!owned.has(r.sourceRuleId)&&!rows[key].some(n=>n.sourceRuleId===r.sourceRuleId)),...rows[key]];}
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
