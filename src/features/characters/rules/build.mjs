@@ -6,6 +6,7 @@ import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceE
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
+import {isSupportedRaceOperation,applyRaceModification} from './race-replacement-operations.mjs';
 import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
@@ -29,16 +30,24 @@ export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
 export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id));}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
- const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),errors=[];
+ const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
  const heritage=r.data.heritages.find(h=>h.id===b.heritageId);
  const operations=[...(heritage?.replacements||[]),...b.alternateIds.flatMap(id=>replacementFor(r,id))];
  for(const op of operations){
-  if(op.resolution!=='resolved'||op.operation!=='replace'||op.scope!=='whole_feature'){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
+  if(!isSupportedRaceOperation(r,op)){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
+  if(op.operation==='modify'){
+   for(const id of op.targetFeatureIds){
+    if(modified.has(id)||consumed.has(id)||disabled.has(id))errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
+    modified.set(id,op);
+   }
+   continue;
+  }
   for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
   // A user-disabled score/trait stays disabled when a heritage replaces its vector.
   if(!op.targetFeatureIds.some(id=>disabled.has(id)))for(const id of op.addsFeatureIds)active.add(id);
  }
- const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id))).map(f=>{
+ for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
+ const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?applyRaceModification(r,f,modified.get(f.id)):f)).map(f=>{
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
@@ -111,7 +120,7 @@ export function buildIssues(b,{complete=true}={}){
   for(const id of b.alternateIds){
    const f=race.features.find(f=>f.id===id),ops=replacementFor(race,id);
    if(replacementRequiresWizard(race,f))add(2,(f.name||'Alternate trait')+' requires a structured choice affecting automatic ability scores.');
-   if(!ops.length||ops.some(op=>op.resolution!=='resolved'||op.scope!=='whole_feature'||op.operation!=='replace'))
+   if(!ops.length||ops.some(op=>!isSupportedRaceOperation(race,op)))
     add(2,(f?.name||'Alternate trait')+' has an unresolved replacement rule.');
   }
   const heritage=race.data.heritages.find(h=>h.id===b.heritageId);
