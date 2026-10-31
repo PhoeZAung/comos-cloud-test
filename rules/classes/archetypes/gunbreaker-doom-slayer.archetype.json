@@ -12,6 +12,30 @@
       "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
       "archiveSha256": "12216a0dc40ee697516be7d63c566927b983635459c227816110e622c8c32c1f"
+    },
+    {
+      "id": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/",
+      "title": "Gunbreaker talent",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "fb31d124627dc73c99569ca773bf6ff58fffc2d401da41fcf30d914384d57e6a"
+    },
+    {
+      "id": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/",
+      "title": "Gun arm technique",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "d61fb7f704cacc15f32b5a8246ade3e7a84f951f4d4872e08324a46c6144757f"
+    },
+    {
+      "id": "equipment-weapons-gun-arms",
+      "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+      "title": "Starting gun arm",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "80e10037ca384cbf896f0d6b421a48494fe0d4bd1f99839e8890b93f4e5eb33d"
     }
   ],
   "review": {
@@ -24,9 +48,9 @@
         "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:praetor-sacrament",
         "name": "Praetor Sacrament",
         "atLevel": 1,
-        "description": "The armor of the doom slayer is tempered by the fires of Damnation. At 1st level, the doom slayer’s praetor armor is considered a set of scale mail. At 3rd level, the doom slayer’s praetor armor is upgraded to a set of half plate. And finally, at 5th level, the doom slayer’s praetor armor is upgraded to a set of full plate. A doom slayer’s praetor armor can be enchanted as normal and all enhancements are transferred while upgrading. In addition, the doom slayer gets the following features while wearing his praetor armor:\n\n The doom slayer gains a +2 circumstance bonus on Intimidate skill checks, this bonus increases by 2 every four gunbreaker levels after 1st.\n The doom slayer’s movement speed increases by 10 feet. This bonus increases by 10 feet for every four gunbreaker levels after 1st. In addition, his movement speed is unhindered by heavy armor.\n The doom slayer gains a +2 circumstance bonus on damage rolls versus demons, devils, and undead creatures, this bonus increases by 2 every four gunbreaker levels after 1st.\n\nThis ability replaces aurora.",
+        "description": "At first level, Praetor armor is scale mail. While wearing it, Doom Slayer gains +2 circumstance Intimidate, +10 feet land speed even when wearing heavy armor, and +2 circumstance damage against demons, devils, and undead. These are armor- and target-conditional effects tracked manually.",
         "progressionDescription": "The armor of the doom slayer is tempered by the fires of Damnation. At 1st level, the doom slayer’s praetor armor is considered a set of scale mail. At 3rd level, the doom slayer’s praetor armor is upgraded to a set of half plate. And finally, at 5th level, the doom slayer’s praetor armor is upgraded to a set of full plate. A doom slayer’s praetor armor can be enchanted as normal and all enhancements are transferred while upgrading. In addition, the doom slayer gets the following features while wearing his praetor armor:\n\n The doom slayer gains a +2 circumstance bonus on Intimidate skill checks, this bonus increases by 2 every four gunbreaker levels after 1st.\n The doom slayer’s movement speed increases by 10 feet. This bonus increases by 10 feet for every four gunbreaker levels after 1st. In addition, his movement speed is unhindered by heavy armor.\n The doom slayer gains a +2 circumstance bonus on damage rolls versus demons, devils, and undead creatures, this bonus increases by 2 every four gunbreaker levels after 1st.\n\nThis ability replaces aurora.",
-        "activation": "mixed",
+        "activation": "passive",
         "featureKind": "class_feature",
         "automation": "manual",
         "sourceRefs": [
@@ -41,9 +65,9 @@
         "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:doom-gun-arm",
         "name": "Doom Gun Arm",
         "atLevel": 1,
-        "description": "Also, starting at 1st level, a doom slayer begins play with a unique gun arm, a doom gun arm. It is essentially a chainsaw that deals 2d6 points of damage (18-20/x2), with a switchable device attached to it. All other creatures treat his gun arm as if it had the broken condition. If the weapon already has the broken condition, it does not work at all for anyone else trying to use it. This starting weapon can only be sold for scrap (it’s worth 4d10 gil when sold). The doom slayer also gains Gunsmithing as a bonus feat. And while the doom slayer has at least 1 magicked ammo, he doesn’t need to fuel it (see chainsaw on rules of fueling). As a move action, he can switch to the following modes (all modes begin play with enough ammo for 1 reload):\n\n Pistol: The doom slayer, in Pistol mode, can fire pistol rounds that deal 2d4 points of damage (20/x3). It has an ammo capacity of 6, with a range of 45 feet, before needing to reload.\n Shotgun: The doom slayer, in Shotgun mode, can fire a spray of shotgun ammo in a 15-ft.-cone that deals 3d4 points of damage (20/x3). It has an ammo capacity of 6, with a range of 15 feet, before needing to reload. All creatures within the radius require a ranged touch attack to hit them.\n Chaingun: The doom slayer, in Chaingun mode, can fire a mass load of ammo in a 10-ft.-wide, 30-ft.-line that deals 2d6 points of damage (19-20/x3). It has an ammo capacity of 30, with a range of 30 feet, before needing to reload. All creatures within the radius require a ranged touch attack to hit them.\n Plasma Rifle: The doom slayer, in Plasma Rifle mode, can only activate this mode once every 2 hours which lasts for 1 round plus 1 round per two gunbreaker levels after 1st before it needs to cool down and recharge. It deals 2d6 points of non-elemental damage (20/x2) and has a range of 50 feet. It uses whatever ammo the doom slayer supplies it, converting the ammo into plasma, and it has an ammo capacity of 10 before needing to reload. Prerequisite: The doom slayer must be at least 5th level to activate this mode.\n Rocket Launcher: The doom slayer, in Rocket Launcher mode, can fire a rocket, with a range of 150 feet and a minimum range of 30 feet. It deals 1d6 points of fire damage per gunbreaker level in a 10-ft.-radius (a Reflex save of DC 10 + half of the gunbreaker’s level + his Wisdom’s modifier for half damage) and has an ammo capacity of 1. To buy rockets for this mode, the doom slayer will need to pay 100 gil per rocket. The doom slayer has 1 rocket to start with. Prerequisite: The doom slayer must be at least 10th level to activate this mode.\n BFG: The doom slayer, in BFG mode, can launch a great green ball of death at his enemies. It has a range of 100 feet and explodes on impact in a 20-ft.-radius. Usable once per day before needing to cool down and recharge, BFG mode uses up whatever ammo it has in its chambers from the other modes and causes enemies to die unless they make a Fortitude save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) to negate. If they make the save, they are dealt 1d6 points of non-elemental damage per gunbreaker level instead. Prerequisite: The doom slayer must be at least 15th level to activate this mode.\n\nAt 7th level, the doom slayer may change modes as a swift action instead.\n\nThis ability replaces gunsmith.",
+        "description": "Begins with a unique chainsaw-form gun arm and Gunsmithing bonus feat. The weapon can switch between pistol, shotgun, and chaingun forms at level 1 (move action); track the active form, rounds, reloads, ranges and attacks manually. Later forms have level prerequisites and are not available at level 1.",
         "progressionDescription": "Also, starting at 1st level, a doom slayer begins play with a unique gun arm, a doom gun arm. It is essentially a chainsaw that deals 2d6 points of damage (18-20/x2), with a switchable device attached to it. All other creatures treat his gun arm as if it had the broken condition. If the weapon already has the broken condition, it does not work at all for anyone else trying to use it. This starting weapon can only be sold for scrap (it’s worth 4d10 gil when sold). The doom slayer also gains Gunsmithing as a bonus feat. And while the doom slayer has at least 1 magicked ammo, he doesn’t need to fuel it (see chainsaw on rules of fueling). As a move action, he can switch to the following modes (all modes begin play with enough ammo for 1 reload):\n\n Pistol: The doom slayer, in Pistol mode, can fire pistol rounds that deal 2d4 points of damage (20/x3). It has an ammo capacity of 6, with a range of 45 feet, before needing to reload.\n Shotgun: The doom slayer, in Shotgun mode, can fire a spray of shotgun ammo in a 15-ft.-cone that deals 3d4 points of damage (20/x3). It has an ammo capacity of 6, with a range of 15 feet, before needing to reload. All creatures within the radius require a ranged touch attack to hit them.\n Chaingun: The doom slayer, in Chaingun mode, can fire a mass load of ammo in a 10-ft.-wide, 30-ft.-line that deals 2d6 points of damage (19-20/x3). It has an ammo capacity of 30, with a range of 30 feet, before needing to reload. All creatures within the radius require a ranged touch attack to hit them.\n Plasma Rifle: The doom slayer, in Plasma Rifle mode, can only activate this mode once every 2 hours which lasts for 1 round plus 1 round per two gunbreaker levels after 1st before it needs to cool down and recharge. It deals 2d6 points of non-elemental damage (20/x2) and has a range of 50 feet. It uses whatever ammo the doom slayer supplies it, converting the ammo into plasma, and it has an ammo capacity of 10 before needing to reload. Prerequisite: The doom slayer must be at least 5th level to activate this mode.\n Rocket Launcher: The doom slayer, in Rocket Launcher mode, can fire a rocket, with a range of 150 feet and a minimum range of 30 feet. It deals 1d6 points of fire damage per gunbreaker level in a 10-ft.-radius (a Reflex save of DC 10 + half of the gunbreaker’s level + his Wisdom’s modifier for half damage) and has an ammo capacity of 1. To buy rockets for this mode, the doom slayer will need to pay 100 gil per rocket. The doom slayer has 1 rocket to start with. Prerequisite: The doom slayer must be at least 10th level to activate this mode.\n BFG: The doom slayer, in BFG mode, can launch a great green ball of death at his enemies. It has a range of 100 feet and explodes on impact in a 20-ft.-radius. Usable once per day before needing to cool down and recharge, BFG mode uses up whatever ammo it has in its chambers from the other modes and causes enemies to die unless they make a Fortitude save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) to negate. If they make the save, they are dealt 1d6 points of non-elemental damage per gunbreaker level instead. Prerequisite: The doom slayer must be at least 15th level to activate this mode.\n\nAt 7th level, the doom slayer may change modes as a swift action instead.\n\nThis ability replaces gunsmith.",
-        "activation": "mixed",
+        "activation": "active",
         "featureKind": "class_feature",
         "automation": "manual",
         "sourceRefs": [
@@ -58,9 +82,9 @@
         "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:ravenous-hatred",
         "name": "Ravenous Hatred",
         "atLevel": 2,
-        "description": "Starting at 2nd level, the doom slayer gains the ability to execute his enemies. When the doom slayer hits an enemy with his chainsaw and reduces their hit points to 10 or less, the doom slayer can make the target make Fortitude save (DC 10 + half his gunbreaker level + his Wisdom modifier). On a failed save, he executes the target, reducing their hp to -1 and bleeding. At 10th level, this threshold increases to 20 or less hit points and at 18th level, it increases to 30 or less hit points.\n\nThis ability replaces keen edge.",
+        "description": "When a chainsaw hit leaves a foe at 10 or fewer HP, that foe must make a Fortitude save (DC 10 + half Gunbreaker level + Wisdom modifier). Failure reduces the foe to -1 HP and bleeding. This ability replaces Keen Edge. The target HP, save, and damage are adjudicated manually.",
         "progressionDescription": "Starting at 2nd level, the doom slayer gains the ability to execute his enemies. When the doom slayer hits an enemy with his chainsaw and reduces their hit points to 10 or less, the doom slayer can make the target make Fortitude save (DC 10 + half his gunbreaker level + his Wisdom modifier). On a failed save, he executes the target, reducing their hp to -1 and bleeding. At 10th level, this threshold increases to 20 or less hit points and at 18th level, it increases to 30 or less hit points.\n\nThis ability replaces keen edge.",
-        "activation": "mixed",
+        "activation": "active",
         "featureKind": "class_feature",
         "automation": "manual",
         "sourceRefs": [

@@ -5,10 +5,17 @@ archive and keep unresolved Pathfinder-dependent mechanics manual or guarded.
 Bulk Pathfinder collection is paused. Do not wait for cloud publication to
 prepare definitions and adapters that can be validated from the saved sources.
 
-The latest user instruction (2026-10-30) is **pause at the next checkpoint**.
-Work is paused after Dracobaltian deployment verification. Garif remains queued;
-do not start the next entry until the user asks to resume. Its source was read,
-but no Garif application changes have been made.
+The latest user request (2026-10-30, local Codex) prioritizes Moogle, Chocobo
+Knight, Mog Knight, Galka, Gunbreaker, Doom Slayer, Immortal, Dancer and Akimbo,
+including progression through level 20. That named batch is now locally validated:
+403 tests and build:cloud pass. See
+`docs/extraction/requested-martial-progression.md` for scope, source limits and
+compatibility. Newer origin/main through 46f63ee was preserved and merged.
+No deployment or real provider login was performed. Prior queue deployment states
+are retained; local validation does not certify full rule coverage.
+
+The old Garif-first handoff is background context, not a request to run additional
+queue entries after this named batch. Garif remains the next general queue entry.
 
 Before this pause, the standing user instruction was to continue through validated queue milestones
 without waiting for another "next", while the active run has capacity and the

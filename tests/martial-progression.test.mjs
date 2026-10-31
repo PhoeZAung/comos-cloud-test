@@ -86,3 +86,27 @@ test('SQLite creation, authenticated route leveling, real database close/reopen 
   for(const id of ids){const data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id).data_json);assert.equal(data.level,20);assert.deepEqual(buildIssues(data.rulesBuild.input),[]);assert.equal(compileBuild(data.rulesBuild.input,data).level,20);}
  }finally{db.close();await rm(dir,{recursive:true,force:true});}
 });
+
+test('level-20 source values, milestone bonuses and requested racial compatibility are independent of preview totals',()=>{
+ for(const combo of combinations){
+  const first=compileBuild(fixture(combo));let d=first;for(let l=2;l<=20;l++)d=levelUpBuild(advance(d),d);
+  assert.deepEqual([d.bab,d.fort_base,d.ref_base,d.will_base],combo[0]===DANCER?[15,12,12,6]:combo[0]===CK?[20,12,6,6]:[20,12,12,6]);
+  assert.equal(d.hp_max,combo[0]===DANCER?103:124);
+  assert.equal(d.str,first.str+5+(combo[1]===DOOM_SLAYER_ID?2:0));
+  assert.equal(d.dex,first.dex+(combo[1]===DOOM_SLAYER_ID?2:0));
+  const resource=abilities(d).find(f=>['Commander’s Aura','Battle Dance','Flair'].includes(f.name));
+  if(resource)assert.equal(resource.u_max,combo[1]===AKIMBO_ID?20:42+Math.floor((d.cha-10)/2));
+  if(combo[1]===DOOM_SLAYER_ID)assert.equal(d.wis,first.wis+2);
+ }
+ for(const race of ['moogle','galka','immortal'])for(const [cls,arch] of [[CK,''],[DANCER,''],[DANCER,AKIMBO_ID],[GUNBREAKER_ID,''],[GUNBREAKER_ID,DOOM_SLAYER_ID]]){
+  let d=compileBuild(fixture([cls,arch,race]));for(let level=2;level<=20;level++)d=levelUpBuild(advance(d),d);assert.equal(d.race,race==='moogle'?'Moogle':race==='galka'?'Galka':'Immortal');
+ }
+});
+
+test('old Gunbreaker talent IDs and manually recorded starting equipment remain editable and levelable',()=>{
+ const b=fixture(combinations[4]);delete b.choices[GUNBREAKER_ID+':event:starting-gun-arm:1'];
+ let d=compileBuild(b);const next=advance(d),event=choiceEvents(next).find(e=>e.atClassLevel===2);
+ assert.equal(event.id,GUNBREAKER_ID+':event:talent:2');next.choices[event.id]=[GUNBREAKER_ID+':talent:ranged-combat-training'];
+ d=levelUpBuild(next,d);assert(d.feats.some(f=>f.name==='Precise Shot'));assert.equal(compileBuild(d.rulesBuild.input,d).level,2);
+ const forged=structuredClone(d.rulesBuild.input);forged.archetypeId=DOOM_SLAYER_ID;assert.throws(()=>compileBuild(forged,d),/archetypes/);
+});

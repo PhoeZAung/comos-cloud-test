@@ -46,7 +46,7 @@ export function martialSelectedFeatures(b){
  for(const event of martialChoiceEvents(b))for(const id of b.choices?.[event.id]||[]){
   const option=martialChoicePools(b).flatMap(p=>p.options).find(o=>o.id===id);if(!option)continue;
   const old=rows.get(id),count=(old?.selectionCount||0)+1;
-  rows.set(id,{id,name:option.name,atLevel:event.atClassLevel,description:option.description+(count>1?'\nSelected '+count+' times.':''),selectionCount:count,activation:'mixed',featureKind:'class_feature',automation:'manual',sourceRefs:option.sourceRefs||[]});
+  rows.set(id,{id,name:option.name,atLevel:event.atClassLevel,description:option.description+(count>1?'\nSelected '+count+' times.':''),selectionCount:count,activation:/action|once per|activate/i.test(option.description)?'mixed':'passive',featureKind:'class_feature',automation:'manual',sourceRefs:option.sourceRefs||[]});
  }
  return [...rows.values()];
 }
@@ -61,7 +61,8 @@ export function martialProgressionIssues(b,{complete=true}={}){
  const events=martialChoiceEvents(b),allowed=new Set(events.map(e=>e.id));
  if(Object.keys(b.choices||{}).some(id=>!allowed.has(id)))add(4,'Unknown or premature martial choice.');
  for(const event of events){const ids=b.choices?.[event.id]||[],eligible=martialEligibleOptions(b,event);
-  if(ids.length!==event.count.value||new Set(ids).size!==ids.length||ids.some(id=>!eligible.some(o=>o.id===id)))add(4,'Choose a valid '+martialChoicePools(b).find(p=>event.poolIds.includes(p.id)).name+' for level '+event.atClassLevel+'.');
+  if(event.optional&&!ids.length)continue;
+  if(ids.length!==event.count.value||new Set(ids).size!==ids.length||ids.some(id=>!eligible.some(o=>o.id===id)))add(4,'Choose exactly one valid '+martialChoicePools(b).find(p=>event.poolIds.includes(p.id)).name+' for level '+event.atClassLevel+'.');
  }
  if(b.favored?.length)add(9,'Favored-class rewards remain manual.');
  if(!b.reviewed)add(6,'Review the character and its conditional rules before saving.');
@@ -73,6 +74,7 @@ export function martialCounter(b,f,scores){
  if(id==='ffd20:class:chocobo-knight:feature:commanders-aura'||id==='ffd20:class:dancer:feature:battle-dance')return {maximum:Math.max(0,4+mod('cha')+2*(lv-1)),formula:(4+2*(lv-1))+'+{CHA}'};
  if(id==='ffd20:class:dancer:feature:ki-pool')return {maximum:Math.max(0,Math.floor(lv/2)+mod('cha')),formula:Math.floor(lv/2)+'+{CHA}'};
  if(id===AKIMBO_ID+':feature:flair')return {maximum:Math.max(1,mod('cha'))+lv-1};
+ if(id===GUNBREAKER_ID+':feature:magicked-ammo'){const maximum=martialDefinition(b)?.data.levels[lv-1]?.magickedAmmoPerLoad;return Number.isInteger(maximum)?{maximum}:null;}
  if(id===GUNBREAKER_ID+':feature:aurora')return {maximum:Math.max(0,3+mod('wis')),formula:'3+{WIS}'};
  return null;
 }

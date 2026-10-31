@@ -85,7 +85,7 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id===MITHRA_ID&&(b.heritageId||b.alternateIds.length))add(2,'Mithra currently supports standard traits only; variants and alternates need a separate verified batch.');
  if(race?.id===TARUTARU_ID&&(b.heritageId||b.alternateIds.length))add(2,'Tarutaru currently supports standard traits only; variants and alternates need a separate verified batch.');
  if(race?.id==='ffd20:race:half-breed')add(2,'Half-Breed requires two legal parent races and verified inherited-trait choices. These choices are not available yet, so this race cannot be saved.');
- if(race?.id==='ffd20:race:galka'&&(b.heritageId||b.alternateIds.length))add(2,'Galka currently supports standard traits only. Alternate mechanics require a separate verified batch.');
+ if(race?.id==='ffd20:race:galka'&&b.heritageId)add(2,'Galka variant heritage is not yet supported; standard heritage with reviewed alternate racial traits is available.');
  if(race?.id==='ffd20:race:elvaan'&&(b.heritageId||b.alternateIds.length))add(2,'Elvaan currently supports standard heritage and standard traits only. Variant heritage and alternate mechanics require a separate verified batch.');
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
  if(race){
@@ -205,6 +205,7 @@ function classPreview(b){
 }
 export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false,levelTransition=false}={}){
  if((isLevelOneClass(raw)&&!supportsMartialProgression(raw)||isBard(raw))&&raw.level!==1)bad('This class currently supports level-1 testing only.');
+ if(previous.rulesBuild?.input&&supportsMartialProgression(previous.rulesBuild.input)&&raw.archetypeId!==previous.rulesBuild.input.archetypeId)bad('A saved character cannot change archetypes.');
  if(supportsMartialProgression(raw)&&previous.rulesBuild&&!levelTransition&&raw.level!==previous.rulesBuild.input.level)bad('Use Level up to change the saved character level.');
  if(isBard(raw)&&Array.isArray(raw.spellIds)&&new Set(raw.spellIds).size!==raw.spellIds.length)bad('Choose distinct Bard songs and jingles.');
  if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==(raw?.classId||BLACK_MAGE_ID))bad('A saved character cannot change classes.');
@@ -292,7 +293,7 @@ export function levelUpBuild(raw,previous){
   const raceLimits=buildIssues(raw,{complete:false}).filter(i=>i.step===3);if(raceLimits.length)bad(raceLimits[0].message);
   const old=previous.rulesBuild?.input,same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
   if(!old||!supportsMartialProgression(old)||raw.level!==old.level+1||raw.level>20)bad('Level up adds exactly one level, up to level 20.');
-  for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId','carry','favored'])if(!same(raw[key],old[key]))bad('Level up cannot change '+key+'.');
+  for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId','carry','favored','initialChaMod','abilityMethod','pointBudget','scorePool','scoreAssignments'])if(!same(raw[key],old[key]))bad('Level up cannot change '+key+'.');
   for(const key of ['racialChoices','racialSpecialties'])if(!same(raw[key]??{},old[key]??{}))bad('Level up cannot change racial choices.');
   const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose a +1 ability increase.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
   if(!same(raw.abilityIncreases||{},boosts))bad('Only the current milestone grants a boost.');

@@ -1,3 +1,4 @@
+import {validateMartialProgression} from '../src/features/characters/rules/martial-contract.mjs';
 import {readFile,writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {validateClassManifest,validateClassDefinition,classAtLevel} from '../src/features/characters/rules/class-contract.mjs';
@@ -28,6 +29,7 @@ export async function buildClassCatalog(){
   const martialProgression=['ffd20:class:chocobo-knight','ffd20:class:dancer','ffd20:class:gunbreaker'].includes(entry.id)&&entry.adapter==='martial-progression'&&JSON.stringify(c.data.supportedLevels)===JSON.stringify(Array.from({length:20},(_,i)=>i+1));
   const bardOne=entry.id==='ffd20:class:bard'&&entry.adapter==='bard-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
   const beastOne=entry.id==='ffd20:class:beastmaster'&&entry.adapter==='beastmaster-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
+  if(martialProgression)validateMartialProgression(c);
   if(entry.status==='live'&&!(entry.id==='ffd20:class:archer'&&entry.adapter==='archer')&&!levelOne&&!martialProgression&&!bardOne&&!beastOne)throw Error('Class has no verified runtime adapter: '+entry.id);
   if(entry.status==='live'&&c.review.state!=='needs_review'&&c.review.state!=='approved')throw Error('Review missing');
   classes.push({id:c.id,name:c.name,status:entry.status,adapter:entry.adapter,review:c.review.state,
@@ -46,6 +48,7 @@ export async function buildClassCatalog(){
   const archetype=JSON.parse(await readFile(fileURL(entry.file),'utf8'));
   if(archetype.id!==entry.id)throw Error('Archetype manifest ID mismatch');
   const summary=validateArchetypeDefinition(archetype,parent);
+  if(entry.adapter==='martial-progression')validateMartialProgression(archetype,{archetype:true});
   archetypeRecords.push({...summary,status:entry.status,adapter:entry.adapter,source:archetype.sources[0].url,review:archetype.review.state,
    ...(entry.status==='live'?{data:archetype.data,sources:archetype.sources}:{})});
  }

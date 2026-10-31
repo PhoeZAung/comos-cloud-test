@@ -180,7 +180,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
  if([DANCER_ID,CHOCOBO_KNIGHT_ID,KNIGHT_ID,MONK_ID].includes(b.classId)&&b.archetypeId!==AKIMBO_ID){const feat=[DANCER_ID,MONK_ID].includes(b.classId)?'Improved Unarmed Strike':b.classId===KNIGHT_ID?'Antagonize':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id),desc='Granted by '+name+' at level 1. Check the feat conditions before applying its effects.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:feat,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:feat,rulesDescription:desc,sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
- for(const feat of [...(b.classId===GUNBREAKER_ID||b.archetypeId===AKIMBO_ID?['Gunsmithing']:[]),...(b.archetypeId===AKIMBO_ID?['Precise Shot',...(b.level>=3?['Two-Weapon Fighting']:[])]:[])]){const id=(b.archetypeId||b.classId)+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id);rows.feats.push({...old,name:old?.name||feat,desc:old?.desc||'Granted by '+(levelOneArchetype(b)?.name||name)+'. Apply source conditions manually.',sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
+ for(const feat of [...(b.classId===GUNBREAKER_ID||b.archetypeId===AKIMBO_ID?['Gunsmithing']:[]),...(b.archetypeId===AKIMBO_ID?['Precise Shot',...(b.level>=3?['Two-Weapon Fighting']:[])]:[])]){const id=(b.classId===GUNBREAKER_ID?b.classId:b.archetypeId||b.classId)+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id);rows.feats.push({...old,name:old?.name||feat,desc:old?.desc||'Granted by '+(levelOneArchetype(b)?.name||name)+'. Apply source conditions manually.',sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let lv=1;lv<=b.level;lv+=2){const id='comos:feat-slot:'+lv,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+lv,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  for(const event of archerChoiceEvents(b).filter(e=>!eventPool(e).endsWith('archery-talents'))){
@@ -189,6 +189,10 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
    desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:'Archery Style bonus feat: '+option.name,
    rulesName:'Archer '+option.name,rulesDescription:'Archery Style bonus feat: '+option.name,
    sourceRuleId:event.id,sourceClass:'Archer',rulesOwned:true,pendingFeat:false});
+ }
+ if(b.classId===GUNBREAKER_ID)for(const picked of new Set(Object.values(b.choices||{}).flat())){
+  const bonus=picked.endsWith(':ranged-combat-training')?'Precise Shot':picked.endsWith(':threat-control')?'Antagonize':null;
+  if(bonus){const id=picked+':bonus-feat',old=previous.feats?.find(f=>f.sourceRuleId===id),desc='Bonus feat from Gunbreaker talent; apply feat-specific rules manually.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:bonus,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:bonus,rulesDescription:desc,sourceRuleId:id,rulesOwned:true,sourceClass:'Gunbreaker',pendingFeat:false});}
  }
  if(isBard(b))rows.spells=bardSpellRows(b,previous);
  rows.feats.push(...racialChoiceFeats(b,p.race,p.racial.traits,previous));
