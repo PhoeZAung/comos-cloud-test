@@ -49,8 +49,8 @@ test('Elvaan saved feats retain manual edits and vanish when their source trait 
 test('Elvaan wizard exposes required weapon and optional languages while guarding variant scope',()=>{
  const b=fixture(),html=renderBuild(b,2);assert.match(html,/data-rw-racial-choice="ffd20:race:elvaan:pool:martial-background-weapon"/);
   assert.match(html,/Longsword/);assert.doesNotMatch(html,/data-rw-language-slot/);const abilities=renderBuild(b,1,{mode:'create'});assert.match(abilities,/Celestial/);assert.match(abilities,/up to 1 additional language/i);
- assert.match(html,/data-rw-alternate="ffd20:race:elvaan:feature:arcane-focus" disabled/);
+ assert.match(html,/data-rw-alternate="ffd20:race:elvaan:feature:arcane-focus"/);assert.doesNotMatch(html,/data-rw-alternate="ffd20:race:elvaan:feature:arcane-focus" disabled/);
  assert.match(html,/value="ffd20:race:elvaan:heritage:duskwight"[^>]*disabled/);
  b.heritageId='ffd20:race:elvaan:heritage:duskwight';assert(buildIssues(b).some(i=>/standard heritage/.test(i.message)));assert.throws(()=>compileBuild(b));
- b.heritageId='';b.alternateIds=['ffd20:race:elvaan:feature:fleet-footed'];assert(buildIssues(b).some(i=>/standard heritage/.test(i.message)));assert.throws(()=>compileBuild(b));
+ b.heritageId='';b.alternateIds=['ffd20:race:elvaan:feature:fleet-footed'];assert(buildIssues(b).some(i=>/inactive|Unknown/.test(i.message)),'stale starting weapon is invalid when Martial Background is replaced');assert.throws(()=>compileBuild(b));
 });

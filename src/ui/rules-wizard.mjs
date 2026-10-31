@@ -3,7 +3,7 @@ import {isBard} from '../features/characters/rules/bard-level-one.mjs';
 import {isBeastmaster,beastmasterSkillBonus} from '../features/characters/rules/beastmaster-level-one.mjs';
 import {isLevelOneClass,FELL_RIDER_ID,DEADLY_LANCER_ID,MOG_KNIGHT_ID,CHOCOBO_KNIGHT_ID} from '../features/characters/rules/level-one-classes.mjs';
 import {classHitDie,classDefaultHp} from '../features/characters/rules/class-adapters.mjs';
-import {supportsRacialPool,racialChoiceSpecs,pruneRacialChoices} from '../features/characters/rules/racial-choices.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices} from '../features/characters/rules/racial-choices.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
 import {registry,spellsForBuild,availableClasses,classFor,className,classSkill,newBuild,steps,stats,raceFor,raceTraits,replacementFor,racialClassSkill,effectiveScores,choiceEvents,eligibleOptions,calculated,spellCounts,buildIssues,previewBuild,hpHistory,classFeatureChanges,hasSpellcasting,buildLevel,carryCharacter} from '../features/characters/rules/build.mjs';
@@ -28,15 +28,13 @@ const traitReview=(race,id)=>{
  const f=race.features.find(f=>f.id===id);
  if(!f)return 'This trait is unavailable.';
  if(race.data.alternateTraitIds.includes(id)){
-  if(race.id===HUME_ID)return 'Hume alternate traits need a separate verified batch; standard traits are supported for testing.';
-  if(race.id===MITHRA_ID)return 'Mithra alternate traits need a separate verified batch; standard traits are supported for testing.';
-  if(race.id===TARUTARU_ID)return 'Tarutaru alternate traits need a separate verified batch; standard traits are supported for testing.';
-  if(race.id==='ffd20:race:elvaan')return 'Elvaan alternate traits need a separate verified batch; standard traits are supported for testing.';
   const ops=replacementFor(race,id);
   if(!ops.length||ops.some(o=>o.resolution!=='resolved'||o.scope!=='whole_feature'||o.operation!=='replace'))
    return 'This alternative needs a precise replacement mapping.';
  }
- if(f.choicePoolIds?.some(id=>!supportsRacialPool(id)))return 'This trait requires a choice the wizard cannot yet record.';
+ if(race.data.alternateTraitIds.includes(id)){
+  if(replacementRequiresWizard(race,f))return 'This trait changes automatic ability scores and needs a verified choice control.';
+ }else if(f.choicePoolIds?.some(id=>!supportsRacialPool(id)))return 'This trait requires a choice the wizard cannot yet record.';
  return manualReviewTraits.get(id)||'';
 };
 const HUME_SCORE_HERITAGES=new Set([HUME_ID+':heritage:highlander',HUME_ID+':heritage:lunarian']);
@@ -114,7 +112,7 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
   if(race){body+='<p><a href="'+e(race.sources[0].url)+'" target="_blank" rel="noopener">Official '+e(race.name)+' rules ↗</a></p>';body+=field('Heritage',`<select data-rw-field="heritageId">${opt('','Standard heritage',b.heritageId)}${race.data.heritages.map(h=>opt(h.id,h.name+(heritageReview(h,race)?' · Needs review':''),b.heritageId,Boolean(heritageReview(h,race)))).join('')}</select>`);const h=race.data.heritages.find(h=>h.id===b.heritageId);if(h)body+='<p class="field-help">'+e(h.description)+'</p><p class="field-help">Effective racial ability adjustments: '+stats.map(key=>key.toUpperCase()+' '+(racialAdjust(b,key)>=0?'+':'')+racialAdjust(b,key)).join(' · ')+'. These carry into the saved character sheet.</p>';
    body+=racialGroup('Standard racial traits',race.data.standardTraitIds.map(id=>{const f=race.features.find(f=>f.id===id),replaced=racial.replaced.includes(id),reason=traitReview(race,id);return `<div class="rw-trait rw-trait-compact ${reason?'rw-trait--review':''}"><input type="checkbox" aria-label="${e(f.name)}" data-rw-trait="${e(id)}" ${replaced||reason?'disabled':''} ${!b.disabledTraits.includes(id)?'checked':''}><details><summary>${e(f.name)}${reason?'<small class="rw-trait-status">Needs review</small>':''}</summary><p>${e(f.description)}</p>${reason?'<p class="rw-trait-reason">'+e(reason)+'</p>':''}</details></div>`;}).join(''));
    body+=racialSelections(b,racialChoiceSpecs(race,racial.traits).filter(spec=>spec.choiceType!=='language'),scores);
-   body+=racialGroup('Alternate racial traits',race.data.alternateTraitIds.map(id=>{const f=race.features.find(f=>f.id===id),ops=replacementFor(race,id),reason=traitReview(race,id);return `<div class="rw-trait rw-trait-compact ${reason?'rw-trait--review':''}"><input type="checkbox" aria-label="${e(f.name)}" data-rw-alternate="${e(id)}" ${reason?'disabled':''} ${b.alternateIds.includes(id)?'checked':''}><details><summary>${e(f.name)}${reason?'<small class="rw-trait-status">Needs review</small>':''}</summary><p>${e(f.description)}</p><p>${e(ops.map(o=>o.description).join(' '))}</p>${reason?'<p class="rw-trait-reason">'+e(reason)+'</p>':''}</details></div>`;}).join(''));
+   body+=racialGroup('Alternate racial traits',race.data.alternateTraitIds.map(id=>{const f=race.features.find(f=>f.id===id),ops=replacementFor(race,id),reason=traitReview(race,id),manualChoices=(f.choicePoolIds||[]).filter(pool=>!supportsRacialPool(pool)).map(pool=>race.choicePools.find(p=>p.id===pool)).filter(Boolean);return `<div class="rw-trait rw-trait-compact ${reason?'rw-trait--review':''}"><input type="checkbox" aria-label="${e(f.name)}" data-rw-alternate="${e(id)}" ${reason?'disabled':''} ${b.alternateIds.includes(id)?'checked':''}><details><summary>${e(f.name)}${reason?'<small class="rw-trait-status">Needs review</small>':''}</summary><p>${e(f.description)}</p><p>${e(ops.map(o=>o.description).join(' '))}</p>${manualChoices.length&&!reason?'<p class="field-help">Record this choice on your sheet: '+e(manualChoices.map(p=>p.name+(p.options.length?' ('+p.options.map(o=>o.name).join(' / ')+')':'')).join('; '))+'. No extra wizard step is needed for this manual effect.</p>':''}${reason?'<p class="rw-trait-reason">'+e(reason)+'</p>':''}</details></div>`;}).join(''));
   }
  }
  if(step===3){const current=classFor(b);

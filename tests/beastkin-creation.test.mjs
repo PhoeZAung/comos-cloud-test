@@ -31,5 +31,5 @@ test('Beastkin owns its initiative/natural armor and Run card while preserving m
 });
 test('Beastkin optional languages use Intelligence after its penalty and alternate traits stay guarded',()=>{
  const b=fixture();b.racialChoices[BEASTKIN_LANGUAGES]=[BEASTKIN_LANGUAGES+':option:draconic'];const d=compileBuild(b);assert.equal(d.languages,'Common, Beastmen, Draconic');assert.equal(compileBuild(d.rulesBuild.input,d).languages,d.languages);
- for(const change of [b=>b.baseScores.int=12,b=>b.racialChoices[BEASTKIN_LANGUAGES].push(BEASTKIN_LANGUAGES+':option:orc'),b=>b.racialChoices[BEASTKIN_LANGUAGES]=[BEASTKIN_LANGUAGES+':option:celestial'],b=>b.alternateIds=[BEASTKIN_ID+':trait:civilized']]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
+ for(const change of [b=>b.baseScores.int=12,b=>b.racialChoices[BEASTKIN_LANGUAGES].push(BEASTKIN_LANGUAGES+':option:orc'),b=>b.racialChoices[BEASTKIN_LANGUAGES]=[BEASTKIN_LANGUAGES+':option:celestial'],]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
 });

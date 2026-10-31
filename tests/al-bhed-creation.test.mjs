@@ -34,7 +34,7 @@ test('Mechanical Genius supports exactly its printed skills, requires the select
 test('Al Bhed editing preserves manual rows, bonus feat notes and source-bounded languages; unsupported progression stays guarded',()=>{
  const b=fixture();b.racialChoices[AL_BHED_LANGUAGES]=[AL_BHED_LANGUAGES+':option:pupon'];const d=compileBuild(b);d.skills[4].temp+=5;d.hp_curr=1;d.feats.find(f=>f.name==='Technologist').desc='My manually recorded feat notes';
  const twice=compileBuild(d.rulesBuild.input,d);assert.equal(twice.skills[4].temp,7);assert.equal(twice.skills[4].subName,'Woodworking');assert.equal(twice.hp_curr,1);assert.equal(twice.languages,'Common, Albhedian, PuPon');assert.equal(twice.feats.find(f=>f.name==='Technologist').desc,'My manually recorded feat notes');
- for(const change of [b=>b.level=2,b=>b.alternateIds=[AL_BHED_ID+':trait:academician'],b=>b.racialChoices[AL_BHED_LANGUAGES].push(AL_BHED_LANGUAGES+':option:goblin'),b=>b.racialChoices[AL_BHED_LANGUAGES]=[AL_BHED_LANGUAGES+':option:draconic']]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
+ for(const change of [b=>b.level=2,b=>b.racialChoices[AL_BHED_LANGUAGES].push(AL_BHED_LANGUAGES+':option:goblin'),b=>b.racialChoices[AL_BHED_LANGUAGES]=[AL_BHED_LANGUAGES+':option:draconic']]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
  const off=structuredClone(b);off.disabledTraits=[AL_BHED_ID+':trait:mechanical-genius'];delete off.racialChoices[AL_BHED_GENIUS];delete off.racialSpecialties[AL_BHED_GENIUS];off.skillRanks[4]=0;
  const removed=compileBuild(off,twice,{allowRankReduction:true});assert.equal(removed.skills[4].temp,5);assert.equal(skillBudget(removed).racialSkill,0);
 });

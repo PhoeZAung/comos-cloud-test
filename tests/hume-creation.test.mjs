@@ -53,8 +53,8 @@ test('Hume disabled standard entitlements are removed without duplicating or del
  const off=fixture();off.disabledTraits=[HUME_ID+':trait:skilled',HUME_ID+':trait:bonus-feat'];off.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(off).skillBudget?1:0);
  const removed=compileBuild(off,again,{allowRankReduction:true});assert.equal(skillBudget(removed).racialSkill,0);assert(!removed.feats.some(f=>f.sourceRace==='Hume'));assert(removed.feats.some(f=>f.sourceRuleId==='comos:feat-slot:1'));
 });
-test('Hume rejects missing/extra score choices, variants, alternates, level progression and missing Skilled allocation',()=>{
- for(const change of [b=>b.racialChoices={},b=>b.racialChoices[HUME_SCORE].push(HUME_SCORE+':option:strength'),b=>b.heritageId='ffd20:race:hume:heritage:cetra',b=>b.alternateIds=[HUME_ID+':trait:awareness'],b=>b.skillRanks[0]=0,b=>b.level=2]){
+test('Hume rejects invalid score choices, unsupported heritages, progression and missing Skilled allocation',()=>{
+ for(const change of [b=>b.racialChoices={},b=>b.racialChoices[HUME_SCORE].push(HUME_SCORE+':option:strength'),b=>b.heritageId='ffd20:race:hume:heritage:cetra',b=>b.skillRanks[0]=0,b=>b.level=2]){
   const b=fixture();change(b);assert.throws(()=>compileBuild(b));
  }
  const d=compileBuild(fixture());assert.throws(()=>levelUpBuild({...d.rulesBuild.input,level:2},d),/first-level|level-1/);

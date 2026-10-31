@@ -17,3 +17,7 @@ Half-Breed remains source-blocked until parent race feature/RP evidence is estab
 - Shared prerequisites published via PR #36 (`e3307f0`) and Railway SUCCESS; race audit restarted with **Dwarf → Elvaan → Galka**, not Genome.
 
 **Dwarf current batch:** The four source-resolved heritage ability score vectors already exist. Review and integration tests now verify they replace, not stack, the standard bonuses and persist on reapplication. Existing high-INT Dwarf language options are activated only when Languages is active, and appear solely on the ability-score step. Other unreviewed alternate/conditional mechanics remain manual.
+
+## Race replacement policy · 2026-10-31
+
+This conversation now fixes **replacement behavior first** across every race in the runtime registry. Source-resolved *whole-feature* alternate mappings remove only the named original traits and install the alternate; descriptive choices such as Dwarf Mountain Familarity's terrain remain **on the ability card**, without extra wizard controls or false permanent AC. Unresolved/component-only replacements (including Saltbeard), incompatible MP restrictions, and unsupported choices determining automatic ability scores remain guarded. Starting heritage and alternate **selections** are permanent after save; descriptive subchoices can be recorded by the player on the sheet. No class or archetype rules modified. The unused `race/dwarf-mountain-familarity-20261031` experimental picker branch must not be merged.
