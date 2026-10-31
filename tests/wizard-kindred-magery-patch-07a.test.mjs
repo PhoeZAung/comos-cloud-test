@@ -47,7 +47,7 @@ test('Black Mage selected spells carry the source-scoped DC bonus while sheet IN
  selectedSpells(b);
  const compiled=compileBuild(b);
  assert.equal(Number(compiled.int),18);
- assert.equal(compiled.mp_bonus,blackMageSummary(1,18).bonusMp);
+ assert.equal(compiled.mp_bonus,blackMageSummary(1,20).bonusMp);
  const spell=compiled.spells.find(s=>s.sourceClass==='Black Mage');
  assert(spell);assert.equal(spell.rulesDcBonus,1);
  const reopened=compileBuild(compiled.rulesBuild.input,compiled);
