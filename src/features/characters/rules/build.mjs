@@ -28,7 +28,33 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
+export function replacementFor(r,id){
+ const ops=r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));
+ const moomba='ffd20:race:moomba',namazu='ffd20:race:namazu',seto='ffd20:race:seto-lion';
+ const pair=(slug,targets,split)=>{
+  const prefix=r.id+':trait:',fid=prefix+slug;
+  const source=ops.find(x=>x.id===fid+':replacement'&&x.operation==='replace'&&
+   x.scope===split.scope&&x.resolution===split.resolution&&
+   JSON.stringify(x.targetFeatureIds)===JSON.stringify(targets.map(t=>prefix+t))&&
+   x.addsFeatureIds?.length===1&&x.addsFeatureIds[0]===fid&&
+   !(x.targetEventIds||[]).length&&!(x.addsEventIds||[]).length&&!(x.removesComponents||[]).length);
+  if(!source||ops.length!==1)return ops;
+  const whole=split.replaced.map(t=>({...source,id:fid+':whole-'+t,operation:'replace',scope:'whole_feature',
+   resolution:'manual',targetFeatureIds:[prefix+t],description:slug+' replaces '+t+'.'}));
+  return [...whole,{...source,id:fid+':speed-modifier',operation:'modify',scope:'part_of_feature',
+   resolution:'manual',targetFeatureIds:[prefix+split.speed],addsFeatureIds:split.adds?[fid]:[],
+   description:slug+' modifies only '+split.speed+' land movement; retain other components.'}];
+ };
+ if(r.id===moomba&&id===moomba+':trait:climb')
+  return pair('climb',[],{scope:'whole_feature',resolution:'manual',replaced:[],speed:'base-speed',adds:true});
+ if(r.id===namazu&&id===namazu+':trait:fast')
+  return pair('fast',['skilled-traders','base-speed'],{scope:'partial_feature',resolution:'unresolved',replaced:['skilled-traders'],speed:'base-speed',adds:true});
+ if(r.id===seto&&id===seto+':trait:faster')
+  return pair('faster',['claws'],{scope:'partial_feature',resolution:'unresolved',replaced:['claws'],speed:'base-speed',adds:true});
+ if(r.id===seto&&id===seto+':trait:nimble-attacks')
+  return pair('nimble-attacks',['bite','fast'],{scope:'partial_feature',resolution:'unresolved',replaced:['bite','fast'],speed:'base-speed',adds:true});
+ return ops;
+}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
@@ -39,8 +65,13 @@ export function raceTraits(b){
   if(!isSupportedRaceOperation(r,op)){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
   if(op.operation==='modify'){
    for(const id of op.targetFeatureIds){
-    if(modified.has(id)||consumed.has(id)||disabled.has(id))errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
-    modified.set(id,op);
+    const prior=modified.get(id)||[];
+    const seto='ffd20:race:seto-lion',twoSpeeds=r.id===seto&&id===seto+':trait:base-speed'&&prior.length===1&&
+     [seto+':trait:faster:speed-modifier',seto+':trait:nimble-attacks:speed-modifier'].includes(prior[0].id)&&
+     [seto+':trait:faster:speed-modifier',seto+':trait:nimble-attacks:speed-modifier'].includes(op.id)&&prior[0].id!==op.id;
+    if(prior.length&&!twoSpeeds||consumed.has(id)||disabled.has(id))
+     errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
+    modified.set(id,[...prior,op]);
    }
    // Approved partial modifications may also introduce a named alternate
    // without deleting unaffected portions of the standard racial trait.
@@ -53,7 +84,7 @@ export function raceTraits(b){
   if(!op.targetFeatureIds.some(id=>disabled.has(id)))for(const id of op.addsFeatureIds)active.add(id);
  }
  for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
- const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?applyRaceModification(r,f,modified.get(f.id)):f)).map(f=>{
+ const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?modified.get(f.id).reduce((current,op)=>applyRaceModification(r,current,op),f):f)).map(f=>{
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
