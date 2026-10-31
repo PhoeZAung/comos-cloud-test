@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {registry,newBuild,raceTraits,buildIssues,compileBuild,effectiveScores,previewBuild} from '../src/features/characters/rules/build.mjs';
+import {registry,newBuild,raceTraits,replacementFor,buildIssues,compileBuild,effectiveScores,previewBuild} from '../src/features/characters/rules/build.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../src/features/characters/rules/race-replacement-operations.mjs';
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
@@ -11,7 +11,7 @@ test('All 63 races: structurally sound manual whole-feature replacements remove 
  assert.equal(registry.races.length,63);
  let count=0;const distinct=new Set();
  for(const r of registry.races)for(const id of r.data.alternateTraitIds){
-  const ops=r.data.alternateReplacements.filter(o=>o.addsFeatureIds.includes(id));
+  const ops=replacementFor(r,id);
   if(!ops.length||!ops.some(o=>o.resolution==='manual'&&o.scope==='whole_feature'&&o.operation==='replace')||!ops.every(o=>isSupportedRaceOperation(r,o)))continue;
   count++;distinct.add(r.id);
   const b={...newBuild(),raceId:r.id,alternateIds:[id]},racial=raceTraits(b);

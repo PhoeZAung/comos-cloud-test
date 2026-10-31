@@ -15,6 +15,16 @@ const isWholeTraitReplacement=(race,op)=>{
  if(!targets.length||!adds.length||new Set(targets).size!==targets.length)return false;
  if(!targets.every(id=>std.has(id)&&features.has(id))||!adds.every(id=>features.has(id)))return false;
  if((op.targetEventIds||[]).length||(op.addsEventIds||[]).length||(op.removesComponents||[]).length)return false;
+ // Replacing only identity-language or type records without an automatic
+ // replacement would silently erase the character's actual race/languages.
+ const prior= race.features.filter(f=>targets.includes(f.id)).flatMap(f=>f.effects||[]);
+ const identityTargets=prior.filter(e=>e.automation==='automatic'&&e.kind==='identity'&&
+   /(?:^identity\.(?:type|subtypes|languages)|^languages\.starting)/.test(e.target)).map(e=>e.target);
+ if(identityTargets.length){
+   const after=race.features.filter(f=>adds.includes(f.id)).flatMap(f=>f.effects||[]);
+   if(!identityTargets.every(target=>after.some(e=>e.automation==='automatic'&&e.kind==='identity'&&
+      e.target===target)))return false;
+ }
  return true;
 };
 export const isSupportedRaceOperation=(race,op)=>

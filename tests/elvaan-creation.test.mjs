@@ -51,6 +51,6 @@ test('Elvaan wizard exposes required weapon and optional languages while guardin
   assert.match(html,/Longsword/);assert.doesNotMatch(html,/data-rw-language-slot/);const abilities=renderBuild(b,1,{mode:'create'});assert.match(abilities,/Celestial/);assert.match(abilities,/up to 1 additional language/i);
  assert.match(html,/data-rw-alternate="ffd20:race:elvaan:feature:arcane-focus"/);assert.doesNotMatch(html,/data-rw-alternate="ffd20:race:elvaan:feature:arcane-focus" disabled/);
   assert.match(html,/value=\"ffd20:race:elvaan:heritage:duskwight\"/);assert.doesNotMatch(html,/value=\"ffd20:race:elvaan:heritage:duskwight\"[^>]*disabled/);
-  b.heritageId='ffd20:race:elvaan:heritage:duskwight';assert.equal(buildIssues(b).length,0);assert.equal(compileBuild(b).cha,10);
+  b.heritageId='ffd20:race:elvaan:heritage:duskwight';b.skillRanks=null;assert.equal(buildIssues(b).length,0);assert.equal(compileBuild(b).cha,10);
  b.heritageId='';b.alternateIds=['ffd20:race:elvaan:feature:fleet-footed'];assert(buildIssues(b).some(i=>/inactive|Unknown/.test(i.message)),'stale starting weapon is invalid when Martial Background is replaced');assert.throws(()=>compileBuild(b));
 });

@@ -18,6 +18,8 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Aegyl | Wing-Clipped | Replaces Emotionless but modifies only flight speed/maneuverability; retain land speed |
 | Beastkin | Alluring, Feral, Light Build, Loper | Partial ability/armor vectors; Feral has no explicit target |
 | Garlean | Xenophobia Extremis | Modifies score adjustment and Languages, rather than replacing the entire traits |
+| Al Bhed | Xenophobic | Replaces starting languages without a complete automatic language effect; must remove Common, disallow INT bonus languages and handle Linguistics progression |
+| Forgiven | Scion of Mortality | Changes language and dual-race identity/subtype rather than replacing Type/Languages as entirely removed fields |
 | Lambkin | Polyglot | Modifies Magic Expert and Languages |
 | Moogle | Grounded | Partial Base Speed/flight modification |
 | Moomba | Climb | Climb speed 20 ft and land 30 ft but no formal old-trait replacement target |
