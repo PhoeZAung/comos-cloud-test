@@ -42,6 +42,10 @@ export function raceTraits(b){
     if(modified.has(id)||consumed.has(id)||disabled.has(id))errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
     modified.set(id,op);
    }
+   // Approved partial modifications may also introduce a named alternate
+   // without deleting unaffected portions of the standard racial trait.
+   if(!op.targetFeatureIds.some(id=>disabled.has(id)||consumed.has(id)))
+    for(const id of op.addsFeatureIds||[])active.add(id);
    continue;
   }
   for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
