@@ -27,6 +27,7 @@ export function mutantD100State(rolls,physical=false){
    initial=false;
    if(physical&&roll>=99){pending=roll===99?2:3;continue;}
    if(!physical&&roll===100){pending=2;continue;}
+   pending--;
   }else if(physical&&roll>=99||!physical&&roll===100)continue; // ignore these on further rolls
   else pending--;
   outcomes.push(...(mutantRollOutcome(roll,physical)?[mutantRollOutcome(roll,physical)]:[]));
