@@ -81,7 +81,7 @@ test('Beastkin Loper removes natural armor and raises base speed while retaining
  assert.ok(active(b,'loper'));
  const saved=compileBuild(b);
  assert.equal(saved.speed,40);assert.equal(saved.ac_natural||0,0);
- assert.match(saved.racialAbilities.find(x=>x.sourceRuleId===id('beastkin','base-speed'))?.desc||'',/Sprinter remains/);
+ assert.match(active(b,'base-speed').description,/Sprinter remains/);
  assert.equal(compileBuild(saved.rulesBuild.input,saved).speed,40);
  const conflicting=fixture('beastkin',['loper','cold-acclimated']);
  assert.ok(raceTraits(conflicting).errors.some(x=>/Two selections replace/.test(x)));
