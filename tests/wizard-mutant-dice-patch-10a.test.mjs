@@ -57,10 +57,11 @@ test('Mutant resistance d6 is exactly one result and Dual Minded eliminates it',
  b.mutantRolls.resistance=null;assert(!mutantRollIssues(b).some(x=>/resistance/.test(x)));
 });
 test('Variable Stats d6 caps at six per ability and demands valid rerolls',()=>{
- const rolls=Object.fromEntries(Array.from({length:19},(_,i)=>[String(i+2),[i<=5?1:i<=11?2:3]]));
+ const rolls=Object.fromEntries(Array.from({length:19},(_,i)=>[String(i+2),i===18?[3,4]:[i<=5?1:i<=11?2:3]]));
  const progress=mutantD6State(rolls);
  assert.deepEqual(progress.issues,[]);
- assert.deepEqual(progress.counts,{str:6,dex:6,con:7,int:0,wis:0,cha:0}); // cap guard should reject last
+ assert.deepEqual(progress.counts,{str:6,dex:6,con:6,int:1,wis:0,cha:0});
+ assert.equal(progress.earned.find(x=>x.level===20).benefit,'int');
 });
 test('Variable Defenses uses five-result caps and +3 HP, +1 MP ordering, not ability boosts',()=>{
  const b=m();b.alternateIds=[MUTANT_ID+':trait:variable-defenses'];
