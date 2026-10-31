@@ -79,10 +79,14 @@ export function raceTraits(b){
    const terrain=r.choicePools.find(p=>p.id===pool)?.options.find(o=>o.id===b.racialChoices?.[pool]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. Apply its +2 dodge AC only in that terrain.':'')};
   }
+  if(r.id==='ffd20:race:trollkin'&&f.id==='ffd20:race:trollkin:trait:acid-or-fire')
+   return {...f,description:'Source contradiction: the weakness is headed “Acid or Fire”, but the detailed effect says FIRE or EARTH damage suppresses Fast Healing for 1 minute. This is NOT a player choice. The GM must adjudicate the triggering element; no automatic healing or suppression is applied.'};
+  if(r.id==='ffd20:race:trollkin'&&f.id==='ffd20:race:trollkin:trait:fast-healing')
+   return {...f,description:f.description+' Restore 1 HP per round only when the feature is active. The Acid or Fire heading conflicts with the detailed FIRE or EARTH suppression trigger for 1 minute; use the GM adjudication. No automatic HP tick or suppression.'};
   if(r.id==='ffd20:race:trollkin'&&f.id==='ffd20:race:trollkin:trait:faster-healing'&&
    b.alternateIds.includes(f.id)&&consumed.has('ffd20:race:trollkin:trait:fast-healing')&&
    consumed.has('ffd20:race:trollkin:trait:thick-skin'))
-   return {...f,description:'Fast Healing 2 HP each round replaces Fast Healing 1 and Thick Skin. Continues below 0 HP until death; cannot restore lost limbs, starvation, thirst or suffocation HP. Suppressed 1 minute by fire or earth damage as written in the detailed racial rule (element heading conflicts; adjudicate manually). No automatic HP ticking.'};
+   return {...f,description:'Fast Healing 2 HP each round replaces Fast Healing 1 and Thick Skin. Continues below 0 HP until death; cannot restore lost limbs, starvation, thirst or suffocation HP. Source contradiction: heading Acid or Fire, detailed trigger fire or earth damage suppresses healing for 1 minute. Ask the GM to adjudicate the element. This is not a player-selected trait and cannot automatically tick HP or suppress healing.'};
   if(r.id==='ffd20:race:sylph'&&f.id==='ffd20:race:sylph:trait:improved-flight'&&b.alternateIds.includes(f.id))
    return {...f,description:'Improved Flight: land speed becomes 10 ft, flight speed 60 ft (good maneuverability; two steps above poor). Replaces Camouflage and Beguiling Liar; all other traits remain.'};
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
