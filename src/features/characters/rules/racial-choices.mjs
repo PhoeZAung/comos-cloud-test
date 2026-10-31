@@ -28,12 +28,15 @@ const MUTANT='ffd20:race:mutant';
 const MUTANT_PHYSICAL=MUTANT+':pool:physical-2',MUTANT_MENTAL=MUTANT+':pool:mental-2',MUTANT_PENALTY=MUTANT+':pool:penalty-2';
 const mutantScorePools=new Set([MUTANT_PHYSICAL,MUTANT_MENTAL,MUTANT_PENALTY]);
 
+const ORC_SKILL='ffd20:race:orc:pool:skill-bonus-selection';
+const MATANGA_ACADEMIC='ffd20:race:matanga:pool:academic-selection';
+const LOPORRIT_HANDY='ffd20:race:loporrit:pool:handy-selection';
 const HALF='ffd20:race:half-breed';
 export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -108,6 +111,12 @@ export function racialChoiceSpecs(race,traits){
  // canonical source unchanged; expose its existing list only while trait active.
  if(race.id===DWARF_ID&&traits.some(f=>f.id===DWARF_ID+':feature:languages'))active.add(DWARF_LANGUAGES);
  const specs=race.choicePools.filter(p=>active.has(p.id)&&supported.has(p.id)).map(pool=>{
+  if(pool.id===ORC_SKILL)return {...pool,minimum:1,maximum:1};
+  if(pool.id===MATANGA_ACADEMIC)return {...pool,minimum:1,maximum:1,
+   options:fixedSkills.flatMap((row,i)=>row.name.startsWith('Knw: ')?[{id:'skill-row:'+i,name:row.name,value:i}]:[])};
+  if(pool.id===LOPORRIT_HANDY)return {...pool,minimum:1,maximum:1,specialty:true,
+   options:fixedSkills.flatMap((row,i)=>['Craft','Profession'].includes(row.name)?
+    [{id:'skill-row:'+i,name:row.name+' '+(fixedSkills.slice(0,i).filter(x=>x.name===row.name).length+1),value:i}]:[])};
   if(pool.id===GENOME+':pool:bonus-languages')return {...pool,minimum:0,maximum:null,freeText:true};
    if([PALICO_START,KINDRED_START].includes(pool.id))return {...pool,choiceType:'language',minimum:1,maximum:1};
    if(pool.id===HALF_ANCESTRAL_SLOT)return {...pool,minimum:1,maximum:1,options:[
@@ -164,6 +173,22 @@ export function racialChoiceEffects(b,race,traits){
     if(spec.id===HALF_ANCESTRAL_SLOT)effects.push({...base,kind:'custom',target:'race.half-breed.ancestral-arms-slot',
     textValue:'Ancestral Arms replaces '+(option.value==='offense'?'Offense':'Feat and Skill')+' slot only. Weapon proficiency type and weapon must still be chosen with verified parent race rules.',
     automation:'manual'});
+   if(spec.id===ORC_SKILL){
+    if(option.value==='2-acrobatics')
+     effects.push({...base,kind:'skill_bonus',target:'skills.row.0.bonus',value:{kind:'constant',value:2}});
+    if(option.value==='1-climb-and-jump'){
+     effects.push({...base,kind:'skill_bonus',target:'skills.row.3.bonus',value:{kind:'constant',value:1}});
+     effects.push({...base,id:base.id+':jump',kind:'custom',target:'race.orc.jump',
+      textValue:'+1 to Acrobatics checks made to jump only; do not add to all Acrobatics checks.',automation:'manual'});
+    }
+   }
+   if(spec.id===MATANGA_ACADEMIC&&Number.isInteger(option.value)){
+    effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2}});
+    effects.push({...base,id:base.id+':class-skill',kind:'class_skill',target:'skills.row.'+option.value+'.class_skill',value:{kind:'constant',value:1}});
+   }
+   if(spec.id===LOPORRIT_HANDY&&Number.isInteger(option.value))
+    effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2},
+     specialty:b.racialSpecialties?.[spec.id]||''});
    if(spec.id===GARLEAN_WEAPON&&option.value==='firearms-simple')effects.push({...base,kind:'proficiency',target:'proficiencies.weapon.firearms-simple',textValue:'Firearms (Simple)'});
    if(spec.id===GARLEAN_CRAFT)effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2},specialty:b.racialSpecialties?.[spec.id]||''});
    if(spec.id===GARIF_PASTORALIST){
