@@ -275,6 +275,7 @@ export function sanitizeBuild(raw){
   if(!raw.mutantRolls||typeof raw.mutantRolls!=='object'||Array.isArray(raw.mutantRolls)||
     JSON.stringify(raw.mutantRolls).length>8000)bad('Invalid Mutant roll records.');
   b.mutantRolls=structuredClone(raw.mutantRolls);
+  if(b.raceId!=='ffd20:race:mutant'&&JSON.stringify(b.mutantRolls)!==JSON.stringify(mutantEmptyRolls()))bad('Mutant dice history is not valid for this race.');
   const error=mutantRollIssues(b)[0];if(error)bad(error);
  }
  if(raw.abilityIncreases!==undefined){if(!raw.abilityIncreases||typeof raw.abilityIncreases!=='object'||Array.isArray(raw.abilityIncreases)||Object.keys(raw.abilityIncreases).length>5)bad('Invalid level ability increases.');for(const [level,key] of Object.entries(raw.abilityIncreases)){if(!['4','8','12','16','20'].includes(level)||Number(level)>buildLevel({...b,level:raw.level})||!stats.includes(key))bad('Invalid level ability increase.');b.abilityIncreases[level]=key;}}
