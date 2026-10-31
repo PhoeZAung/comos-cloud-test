@@ -5,6 +5,7 @@ import {isBeastmaster,beastmasterSkillBonus} from '../features/characters/rules/
 import {isLevelOneClass,FELL_RIDER_ID,DEADLY_LANCER_ID,MOG_KNIGHT_ID,CHOCOBO_KNIGHT_ID} from '../features/characters/rules/level-one-classes.mjs';
 import {classHitDie,classDefaultHp} from '../features/characters/rules/class-adapters.mjs';
 import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices} from '../features/characters/rules/racial-choices.mjs';
+import {isSupportedRaceOperation} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
 import {registry,spellsForBuild,availableClasses,classFor,className,classSkill,newBuild,prepareLevelUp,steps,stats,raceFor,raceTraits,replacementFor,racialClassSkill,effectiveScores,choiceEvents,eligibleOptions,calculated,spellCounts,buildIssues,previewBuild,hpHistory,classFeatureChanges,hasSpellcasting,buildLevel,carryCharacter} from '../features/characters/rules/build.mjs';
@@ -30,7 +31,7 @@ const traitReview=(race,id)=>{
  if(!f)return 'This trait is unavailable.';
  if(race.data.alternateTraitIds.includes(id)){
   const ops=replacementFor(race,id);
-  if(!ops.length||ops.some(o=>o.resolution!=='resolved'||o.scope!=='whole_feature'||o.operation!=='replace'))
+  if(!ops.length||ops.some(o=>!isSupportedRaceOperation(race,o)))
    return 'This alternative needs a precise replacement mapping.';
  }
  if(race.data.alternateTraitIds.includes(id)){

@@ -48,11 +48,11 @@ test('Iifa skill bonuses apply once, then disappear while manual bonuses and cur
  const attempted=structuredClone(b);attempted.alternateIds=[];assert.throws(()=>compileBuild(attempted,again),/permanent/);
  const same=compileBuild(b,again);assert.equal(same.skills[idx].temp,4);assert.equal(same.hp_curr,1);assert.equal(same.mp,0);assert(same.racialAbilities.some(a=>a.name==='Manual ancestry note'));
 });
-test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Saltbeard stays blocked',()=>{
+test('Tavern Hopper replaces the whole vector and conflicts with heritage; Saltbeard modifies Greed without losing it',()=>{
  const b=fixture();b.alternateIds=['ffd20:race:dwarf:feature:tavern-hopper'];
  assert.deepEqual(effectiveScores(b),{str:10,dex:10,con:12,int:18,wis:8,cha:12});
  b.heritageId=registry.races[0].data.heritages[0].id;assert(raceTraits(b).errors.length);
- b.heritageId='';b.alternateIds=['ffd20:race:dwarf:feature:saltbeard'];assert.throws(()=>compileBuild(b),/precise replacement/);
+ b.heritageId='';b.alternateIds=['ffd20:race:dwarf:feature:saltbeard'];const updated=raceTraits(b);assert.deepEqual(updated.errors,[]);assert(updated.traits.some(f=>f.name==='Saltbeard'));assert(updated.traits.some(f=>f.id==='ffd20:race:dwarf:feature:greed'&&/under water/i.test(f.description)));assert.doesNotThrow(()=>compileBuild(b));
 });
 
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
