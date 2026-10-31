@@ -30,7 +30,7 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Sylph | Improved Flight | Compound Camouflage/Beguiling Liar replacement; preserve correct flight mechanics |
 | Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | Conflicting or incomplete type, speed, vision, language and ability-score modifications |
 | Tarutaru | Polyglot language modifier | **Implemented:** Magic Expert replaced; Languages retained; +2 Linguistics and class skill automated; required unrestricted extra language selected on Ability Scores, independently of high-INT bonus language pool. Verify signed-in save/reopen manually |
-| Tonkin | Dancing Lantern | Partial Lantern Bearer change |
+| Tonkin | Dancing Lantern | **Draft implementation:** retains Lantern Bearer light defenses, replaces only its conditional torchlight spell-like ability with Dancing Lantern at will; no new wizard page. Await CI and explicit publishing. Other Tonkin speech/casting limitations remain guarded/manual |
 | Trollkin | Faster Healing | Combined Thick Skin/Fast Healing change; suppression and healing behavior |
 | Half-Breed | Ancestral Arms; inherited features | Parent races, feat/skill/offense choices and racial point budget must be validated |
 | Dwarf | Saltbeard | **Already fixed:** Greed is modified, not removed. Confirm underwater treasure Appraise +2 and keep other conditional bonuses manual |
