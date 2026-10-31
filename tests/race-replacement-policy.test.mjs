@@ -8,6 +8,7 @@ import {classHitDie} from '../src/features/characters/rules/class-adapters.mjs';
 const raceId=name=>'ffd20:race:'+name;
 function fixture(race,alternate=''){
  const b=newBuild();Object.assign(b,{name:'Racial Replacements',alignment:'True Neutral',raceId:raceId(race),classId:'ffd20:class:dancer',alternateIds:alternate?[raceId(race)+':'+(race==='dwarf'?'feature':'trait')+':'+alternate]:[],reviewed:true});
+ if(race==='hume'){const pool=raceId('hume')+':pool:hume-2-racial-ability';b.racialChoices={[pool]:[pool+':option:strength']};}
  b.hpRolls=[classHitDie(b)];b.skillRanks=fixedSkills.map(()=>0);
  let budget=previewBuild(b).skillBudget;
  for(let i=0;i<fixedSkills.length&&budget>0;i++){b.skillRanks[i]=1;budget--;}

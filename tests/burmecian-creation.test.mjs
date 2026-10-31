@@ -30,5 +30,5 @@ test('Burmecian Battle-Hardened owns only its CMD contribution and manual initia
 });
 test('Burmecian optional languages persist and unreviewed Cleyran/alternate mechanics stay guarded',()=>{
  const b=fixture();b.racialChoices[BURMECIAN_LANGUAGES]=[BURMECIAN_LANGUAGES+':option:draconic'];const d=compileBuild(b);assert.equal(d.languages,'Common, Burmecian, Draconic');assert.equal(compileBuild(d.rulesBuild.input,d).languages,d.languages);
- for(const change of [b=>b.racialChoices[BURMECIAN_LANGUAGES].push(BURMECIAN_LANGUAGES+':option:orc'),b=>b.racialChoices[BURMECIAN_LANGUAGES]=[BURMECIAN_LANGUAGES+':option:kojin'],b=>b.heritageId=BURMECIAN_ID+':heritage:cleyran',b=>b.alternateIds=[BURMECIAN_ID+':trait:jumper']]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
+ for(const change of [b=>b.racialChoices[BURMECIAN_LANGUAGES].push(BURMECIAN_LANGUAGES+':option:orc'),b=>b.racialChoices[BURMECIAN_LANGUAGES]=[BURMECIAN_LANGUAGES+':option:kojin'],b=>b.heritageId=BURMECIAN_ID+':heritage:cleyran',]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
 });

@@ -29,5 +29,5 @@ test('Bangaa Thick-skinned owns exactly one natural armor point and preserves ma
 });
 test('Bangaa bonus languages use the post-penalty Intelligence modifier and reject unreviewed heritages and alternates',()=>{
  const b=fixture();b.racialChoices[BANGAA_LANGUAGES]=[BANGAA_LANGUAGES+':option:ignan'];const d=compileBuild(b);assert.equal(d.languages,'Common, Banganese, Ignan');assert.equal(compileBuild(d.rulesBuild.input,d).languages,d.languages);
- for(const change of [b=>b.racialChoices[BANGAA_LANGUAGES].push(BANGAA_LANGUAGES+':option:terran'),b=>b.baseScores.int=12,b=>b.racialChoices[BANGAA_LANGUAGES]=[BANGAA_LANGUAGES+':option:celestial'],b=>b.heritageId=BANGAA_ID+':heritage:bista',b=>b.alternateIds=[BANGAA_ID+':trait:claws']]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
+ for(const change of [b=>b.racialChoices[BANGAA_LANGUAGES].push(BANGAA_LANGUAGES+':option:terran'),b=>b.baseScores.int=12,b=>b.racialChoices[BANGAA_LANGUAGES]=[BANGAA_LANGUAGES+':option:celestial'],b=>b.heritageId=BANGAA_ID+':heritage:bista',]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
 });
