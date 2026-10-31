@@ -5,6 +5,10 @@ const AEGYL='ffd20:race:aegyl';
 const WING_CLIPPED=AEGYL+':trait:wing-clipped';
 const AEGYL_SPEED=AEGYL+':trait:base-speed';
 const WING_FLIGHT_MODIFIER=WING_CLIPPED+':flight-modifier';
+const QUADAV='ffd20:race:quadav';
+const WATER_TRIBE=QUADAV+':trait:water-tribe';
+const QUADAV_SPEED=QUADAV+':trait:base-speed';
+const SWIM_MODIFIER=WATER_TRIBE+':swim-speed-modifier';
 const TARUTARU='ffd20:race:tarutaru';
 const POLYGLOT=TARUTARU+':trait:polyglot';
 const TARUTARU_LANGUAGES=TARUTARU+':trait:languages';
@@ -49,7 +53,10 @@ export const isSupportedRaceOperation=(race,op)=>
  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===MOOGLE_BASE_SPEED&&
  op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===GROUNDED)||
  (race?.id===TARUTARU&&op.id===POLYGLOT_LANGUAGE_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
- op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===TARUTARU_LANGUAGES&&!(op.addsFeatureIds||[]).length);
+ op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===TARUTARU_LANGUAGES&&!(op.addsFeatureIds||[]).length)||
+ (race?.id===QUADAV&&op.id===SWIM_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
+ op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===QUADAV_SPEED&&!(op.addsFeatureIds||[]).length&&
+ !(op.targetEventIds||[]).length&&!(op.addsEventIds||[]).length&&!(op.removesComponents||[]).length);
 
 // A replacement-only heritage is safe to enable when all its affected ability
 // score vectors already have exact automatic effects. Otherwise leaving the
@@ -69,6 +76,14 @@ export function isSupportedRaceHeritage(race,heritage){
 }
 
 export function applyRaceModification(race,feature,op){
+ if(race?.id===QUADAV&&feature?.id===QUADAV_SPEED&&op?.id===SWIM_MODIFIER){
+  const swim=(feature.effects||[]).find(e=>e.target==='identity.speed.swim'&&e.automation==='automatic'&&
+   e.value?.kind==='constant'&&e.value.value===30);
+  if(!swim)return feature; // Do not invent a speed if the source vector changes.
+  return {...feature,description:'20-foot land speed and 50-foot swim speed with Water Tribe. Armor and encumbrance do not reduce these racial speeds.',
+   effects:(feature.effects||[]).map(e=>e.id===swim.id?{...e,value:{...e.value,value:50}}:e)};
+ }
+
  if(race?.id===TARUTARU&&feature?.id===TARUTARU_LANGUAGES&&op?.id===POLYGLOT_LANGUAGE_MODIFIER)
   return {...feature,description:'Polyglot: starts with Common, Lalafellan, and one freely chosen additional starting language; retains all normal high-Intelligence bonus languages (Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin and Orc).'};
 
