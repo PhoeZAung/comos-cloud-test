@@ -32,6 +32,14 @@ const mutantScorePools=new Set([MUTANT_PHYSICAL,MUTANT_MENTAL,MUTANT_PENALTY]);
 const ORC_SKILL='ffd20:race:orc:pool:skill-bonus-selection';
 const MATANGA_ACADEMIC='ffd20:race:matanga:pool:academic-selection';
 const LOPORRIT_HANDY='ffd20:race:loporrit:pool:handy-selection';
+export const GUADO_ELEMENT='ffd20:race:guado:pool:summoner-element';
+export const VIERA_ELEMENT='ffd20:race:viera:pool:elemental-summoner-subtype';
+export const IXAL_ELEMENT='ffd20:race:ixal:pool:elemental-summoner-selection';
+export const IXAL_TERRAIN='ffd20:race:ixal:pool:bond-to-the-ice-selection';
+export const LAMIA_TERRAIN='ffd20:race:lamia:pool:bond-to-the-land-selection';
+export const LAMIA_TEMPERED='ffd20:race:lamia:pool:tempered-selection';
+const elementalSummonerPools=new Set([GUADO_ELEMENT,VIERA_ELEMENT,IXAL_ELEMENT]);
+const terrainPools=new Set([IXAL_TERRAIN,LAMIA_TERRAIN]);
 export const NU_MOU_SAGACIOUS='ffd20:race:nu-mou:pool:sagacious-two-knowledge';
 export const PUPU_TECH_SAVANT='ffd20:race:pupu:pool:technological-savant-specialty';
 export const GRIA_WEAPON='ffd20:race:gria:pool:weapon-focus-weapon';
@@ -44,7 +52,7 @@ export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,NU_MOU_SAGACIOUS,PUPU_TECH_SAVANT,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([...elementalSummonerPools,...terrainPools,LAMIA_TEMPERED,GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,NU_MOU_SAGACIOUS,PUPU_TECH_SAVANT,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -133,6 +141,8 @@ export function racialChoiceSpecs(race,traits,level=1){
    options:fixedSkills.flatMap((row,i)=>row.name.startsWith('Knw: ')?
     [{id:'skill-row:'+i,name:row.name,value:i}]:[])};
   if(pool.id===PUPU_TECH_SAVANT)return {...pool,minimum:1,maximum:1};
+  if(elementalSummonerPools.has(pool.id)||terrainPools.has(pool.id)||pool.id===LAMIA_TEMPERED)
+   return {...pool,minimum:1,maximum:1};
   if(pool.id===ORC_SKILL)return {...pool,minimum:1,maximum:1};
   if(pool.id===MATANGA_ACADEMIC)return {...pool,minimum:1,maximum:1,
    options:fixedSkills.flatMap((row,i)=>row.name.startsWith('Knw: ')?[{id:'skill-row:'+i,name:row.name,value:i}]:[])};
@@ -205,6 +215,18 @@ export function racialChoiceEffects(b,race,traits){
     if(spec.id===HALF_ANCESTRAL_SLOT)effects.push({...base,kind:'custom',target:'race.half-breed.ancestral-arms-slot',
     textValue:'Ancestral Arms replaces '+(option.value==='offense'?'Offense':'Feat and Skill')+' slot only. Weapon proficiency type and weapon must still be chosen with verified parent race rules.',
     automation:'manual'});
+   if(elementalSummonerPools.has(spec.id))
+    effects.push({...base,kind:'custom',target:'race.elemental-summoner.subtype',textValue:
+     'Selected '+option.name+' elemental subtype: summon spells creating a creature with that subtype last +2 rounds. Applies only to matching summons; manual spell-duration adjudication and retraining to change.',
+     automation:'manual'});
+   if(terrainPools.has(spec.id))
+    effects.push({...base,kind:'custom',target:'race.terrain.bond',textValue:
+     'Chosen '+option.name+' terrain: +2 dodge AC only while in this terrain. No permanent AC bonus; apply manually.',
+     automation:'manual'});
+   if(spec.id===LAMIA_TEMPERED)
+    effects.push({...base,kind:'custom',target:'race.lamia.tempered-resistance',textValue:
+     'Chosen '+option.name+' resistance 5 (not both Water and Wind). Apply matching elemental damage resistance manually.',
+     automation:'manual'});
    if(spec.id===ORC_SKILL){
     if(option.value==='2-acrobatics')
      effects.push({...base,kind:'skill_bonus',target:'skills.row.0.bonus',value:{kind:'constant',value:2}});
