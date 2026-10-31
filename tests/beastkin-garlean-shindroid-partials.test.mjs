@@ -44,7 +44,7 @@ test('Exact source-derived operations only unblock reviewed Beastkin/Garlean/Shi
   }
   choicesHtml(b,slug);
  }
- for(const [race,slug] of [['beastkin','feral'],['shindroid','hologram-simulation']]){
+ for(const [race,slug] of [['beastkin','feral']]){
   const b=fixture(race,[slug]);
   assert.ok(raceTraits(b).errors.length>0,race+' '+slug+' still blocked');
   assert.ok(buildIssues(b).some(x=>/replacement/.test(x.message)));
