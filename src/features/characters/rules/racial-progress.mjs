@@ -1,4 +1,6 @@
 // Explicitly supported racial progression; no inferred bonuses from free text.
+export const DWARF_ID='ffd20:race:dwarf';
+export const DWARF_LANGUAGES=DWARF_ID+':pool:high-intelligence-bonus-languages';
 export const HUME_ID='ffd20:race:hume';
 export const HUME_SCORE=HUME_ID+':pool:hume-2-racial-ability';
 export const HUME_LANGUAGES=HUME_ID+':pool:high-intelligence-bonus-languages';

@@ -14,4 +14,6 @@ Half-Breed remains source-blocked until parent race feature/RP evidence is estab
 - This branch fixes duplicated high-INT choices: languages are shown **only** on the ability-score step when effective INT grants at least one, with per-race eligible choices.
 - A dedicated FFd20 language reference lists all 49 distinct entries from the official Linguistics tables, plus a note that the list is supplemental to Pathfinder languages.
 - Source-resolved Hume Highlander/Lunarian heritages swap the base racial ability adjustment vector and persist the correct scores in the saved character sheet; unaffected Hume bonus feat remains. Conditional heritage effects are manual. Other heritage combinations remain guarded until reviewed.
-- After shared prerequisites are published, restart race audit **Dwarf → Elvaan → Galka**, not Genome.
+- Shared prerequisites published via PR #36 (`e3307f0`) and Railway SUCCESS; race audit restarted with **Dwarf → Elvaan → Galka**, not Genome.
+
+**Dwarf current batch:** The four source-resolved heritage ability score vectors already exist. Review and integration tests now verify they replace, not stack, the standard bonuses and persist on reapplication. Existing high-INT Dwarf language options are activated only when Languages is active, and appear solely on the ability-score step. Other unreviewed alternate/conditional mechanics remain manual.
