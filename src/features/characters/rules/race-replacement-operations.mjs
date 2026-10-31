@@ -24,8 +24,10 @@ const isExactScoped=(op,id,targets,adds)=>op?.id===id&&op.operation==='modify'&&
  !(op.addsEventIds||[]).length&&!(op.removesComponents||[]).length;
 const newBatchModifier=(race,op)=>{
  if(race?.id===ALBHED){
-  const ready=sr(race,'languages')?.choicePoolIds?.includes(ALBHED+':pool:high-intelligence-bonus-languages')&&
-   sourceLang(race,'languages.starting','Common; Albhedian');
+  const ready=race.data.alternateReplacements.some(source=>source.id===ALBHED_X+':replacement'&&
+   source.operation==='replace'&&source.scope==='whole_feature'&&source.resolution==='manual'&&
+   JSON.stringify(source.targetFeatureIds)===JSON.stringify([ALBHED+':trait:languages'])&&
+   JSON.stringify(source.addsFeatureIds)===JSON.stringify([ALBHED_X]));
   return isExactScoped(op,ALBHED_X+':language-modifier',[ALBHED+':trait:languages'],[ALBHED_X])&&ready;
  }
  if(race?.id===SYRICTA){
