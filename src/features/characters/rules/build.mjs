@@ -7,6 +7,8 @@ import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceE
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
+import {isSupportedRaceOperation,isSupportedRaceHeritage,applyRaceModification} from './race-replacement-operations.mjs';
+import {seedRacialMovement} from '../../sheet/movement.mjs';
 import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
@@ -28,19 +30,32 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id));}
+export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
- const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),errors=[];
- const heritage=r.data.heritages.find(h=>h.id===b.heritageId);
- const operations=[...(heritage?.replacements||[]),...b.alternateIds.flatMap(id=>replacementFor(r,id))];
+ const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
+ const heritage=r.data.heritages.find(h=>h.id===b.heritageId),heritageSafe=!heritage||isSupportedRaceHeritage(r,heritage);
+ if(heritage&&!heritageSafe)errors.push('Selected heritage needs a verified replacement and automatic ability-score vector or required choice control.');
+ const operations=[...(heritageSafe?heritage?.replacements||[]:[]),...b.alternateIds.flatMap(id=>replacementFor(r,id))];
  for(const op of operations){
-  if(op.resolution!=='resolved'||op.operation!=='replace'||op.scope!=='whole_feature'){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
+  if(!isSupportedRaceOperation(r,op)){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
+  if(op.operation==='modify'){
+   for(const id of op.targetFeatureIds){
+    if(modified.has(id)||consumed.has(id)||disabled.has(id))errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
+    modified.set(id,op);
+   }
+   // Approved partial modifications may also introduce a named alternate
+   // without deleting unaffected portions of the standard racial trait.
+   if(!op.targetFeatureIds.some(id=>disabled.has(id)||consumed.has(id)))
+    for(const id of op.addsFeatureIds||[])active.add(id);
+   continue;
+  }
   for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
   // A user-disabled score/trait stays disabled when a heritage replaces its vector.
   if(!op.targetFeatureIds.some(id=>disabled.has(id)))for(const id of op.addsFeatureIds)active.add(id);
  }
- const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id))).map(f=>{
+ for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
+ const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?applyRaceModification(r,f,modified.get(f.id)):f)).map(f=>{
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
@@ -83,28 +98,28 @@ export function buildIssues(b,{complete=true}={}){
  if(['array','rolled'].includes(b.abilityMethod)){const pool=b.abilityMethod==='array'?standardArray:b.scorePool;if(pool.length!==6||new Set(b.scoreAssignments).size!==6||b.scoreAssignments.some(i=>!Number.isInteger(i)||i<0||i>5)||stats.some((key,i)=>b.baseScores[key]!==pool[b.scoreAssignments[i]]))add(1,'Assign each generated score exactly once.');}
  if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>buildLevel(b)))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
  const race=raceFor(b);if(!race)add(2,'Choose a race.');
- if(race?.id===GARLEAN_ID&&b.heritageId)add(2,'Garlean heritage requires separate source verification.');
+
  if(race?.id===GARLEAN_ID&&(b.level!==1||b.carry))add(3,'Garlean supports first-level creation and editing only; later levels and multiclassing need separate review.');
- if(race?.id===GARLEAN_ID&&previewBuild(b).summary.mp>0)add(3,'Garlean Magic Ineptitude forbids an MP pool; choose a class without MP. The Magic User alternate is not implemented.');
- if(race?.id===GARIF_ID&&b.heritageId)add(2,'Garif heritage must have verified replacements.');
+ if(race?.id===GARLEAN_ID&&raceTraits(b).traits.some(f=>f.id===GARLEAN_ID+':trait:magic-ineptitude')&&previewBuild(b).summary.mp>0)add(3,'Garlean Magic Ineptitude forbids an MP pool unless replaced by a compatible alternate trait.');
+
  if(race?.id===GARIF_ID&&(b.level!==1||b.carry))add(3,'Garif currently supports first-level creation and editing only; later ranks and multiclassing need a separate verified batch.');
  if(race?.id===GARIF_ID&&b.skillRanks){const chosen=b.racialChoices?.[GARIF_PASTORALIST]?.[0],index=Number(chosen?.split(':').at(-1));if(chosen&&!(b.skillRanks[index]>=1))add(7,'Allocate the Garif Pastoralist bonus rank to its chosen skill.');}
- if(race?.id===HUME_ID&&(b.heritageId&&!new Set([HUME_ID+':heritage:highlander',HUME_ID+':heritage:lunarian']).has(b.heritageId)))add(2,'This Hume heritage or alternate requires more verified choices or mechanics. Highlander and Lunarian ability-score heritages are supported; their conditional abilities remain manual.');
+
  if(race?.id===HUME_ID&&(b.level!==1||b.carry))add(3,'Hume currently supports first-level creation/editing only; progression and multiclassing require a separate verified batch.');
- if(race?.id===AL_BHED_ID&&b.heritageId)add(2,'Al Bhed currently supports standard traits only; alternates require a separate verified batch.');
+
  if(race?.id===AL_BHED_ID&&(b.level!==1||b.carry))add(3,'Al Bhed currently supports first-level creation/editing only; later progression and multiclassing require a separate verified batch.');
  if(race?.id===AL_BHED_ID&&b.skillRanks){const chosen=b.racialChoices?.[AL_BHED_GENIUS]?.[0],index=Number(chosen?.split(':').at(-1));if(chosen&&!(b.skillRanks[index]>=1))add(7,'Allocate the Mechanical Genius bonus rank to its selected skill.');}
- if(race?.id===DRACOBALTIAN_ID&&b.heritageId)add(2,'Dracobaltian currently supports standard traits only; alternate traits require a separate verified batch.');
- if(race?.id===BURMECIAN_ID&&b.heritageId)add(2,'Burmecian currently supports standard traits only; Cleyran and other variants/alternates require a separate verified batch.');
- if(race?.id===BEASTKIN_ID&&b.heritageId)add(2,'Beastkin currently supports standard traits only; alternate traits require a separate verified batch.');
- if(race?.id===BANGAA_ID&&b.heritageId)add(2,'Bangaa currently supports standard traits only; variant heritages and alternates require a separate verified batch.');
- if(race?.id===AU_RA_ID&&b.heritageId)add(2,'Au Ra currently supports standard Xaela traits only; Raen and other variants/alternates require a separate verified batch.');
- if(race?.id===AEGYL_ID&&b.heritageId)add(2,'Aegyl currently supports standard traits only; variants and alternates need a separate verified batch.');
- if(race?.id===MITHRA_ID&&b.heritageId)add(2,'Mithra currently supports standard traits only; variants and alternates need a separate verified batch.');
- if(race?.id===TARUTARU_ID&&b.heritageId)add(2,'Tarutaru currently supports standard traits only; variants and alternates need a separate verified batch.');
+
+
+
+
+
+
+
+
  if(race?.id==='ffd20:race:half-breed')add(2,'Half-Breed requires two legal parent races and verified inherited-trait choices. These choices are not available yet, so this race cannot be saved.');
- if(race?.id==='ffd20:race:galka'&&b.heritageId)add(2,'Galka variant heritage is not yet supported; standard heritage with reviewed alternate racial traits is available.');
- if(race?.id==='ffd20:race:elvaan'&&b.heritageId)add(2,'Elvaan currently supports standard heritage and standard traits only. Variant heritage and alternate mechanics require a separate verified batch.');
+
+
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
  if(race){
   const mustChoose=f=>Boolean(f?.choicePoolIds?.some(id=>!supportsRacialPool(id)));
@@ -113,11 +128,11 @@ export function buildIssues(b,{complete=true}={}){
   for(const id of b.alternateIds){
    const f=race.features.find(f=>f.id===id),ops=replacementFor(race,id);
    if(replacementRequiresWizard(race,f))add(2,(f.name||'Alternate trait')+' requires a structured choice affecting automatic ability scores.');
-   if(!ops.length||ops.some(op=>op.resolution!=='resolved'||op.scope!=='whole_feature'||op.operation!=='replace'))
+   if(!ops.length||ops.some(op=>!isSupportedRaceOperation(race,op)))
     add(2,(f?.name||'Alternate trait')+' has an unresolved replacement rule.');
   }
   const heritage=race.data.heritages.find(h=>h.id===b.heritageId);
-  if(heritage?.replacements.some(op=>op.resolution!=='resolved'||op.scope!=='whole_feature'))add(2,'Selected heritage has an unresolved racial replacement.');
+  if(heritage&&!isSupportedRaceHeritage(race,heritage))add(2,'Selected heritage needs a verified replacement and automatic ability-score vector or a required choice control.');
  }
 
  if(race?.id==='ffd20:race:mutant')add(3,'Mutant requires random level-based ability increases and replaces standard fourth-level ability increases. The current wizard cannot safely calculate this progression, so automated character saving is disabled until its progression is implemented.');
@@ -285,6 +300,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  Object.assign(next,p.scores,{charName:b.name.trim(),alignment:b.alignment,bio:b.bio,portrait:b.portrait,source:'FFD20',race:p.race.name,class:'Black Mage',level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,classes:[{name:'Black Mage',level:b.level,archetype:''}],archetype:'',hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:'int'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition),lang=[],senses=[],profs=[];
  next.speed=0;next.size_category='Medium';
+ seedRacialMovement(next,previous,b.raceId,p.racial.traits);
  for(const e of effects){if(e.target==='identity.speed.land')next.speed=calculated(e.value,b);if(e.target==='identity.size_category')next.size_category=String(e.textValue||'Medium').replace(/^./,c=>c.toUpperCase());if(e.target.startsWith('identity.languages.'))lang.push(e.textValue||e.target.split('.').at(-1));if(e.target.startsWith('identity.senses.'))senses.push(e.textValue||e.target.split('.').at(-1));if(e.target.startsWith('proficiencies.weapon.'))profs.push(e.textValue||e.target.split('.').at(-1).replaceAll('-',' '));}
  next.languages=uniq(lang).join(', ');next.senses=uniq(senses).join('; ');next.proficiencies=uniq([...(b.carry?.proficiencies||'').split(/,\s*/).filter(Boolean),...profs,'Dagger','Sling','Power rod','Power staff','Animated dolls','Quarterstaff','Buckler','Light shields']).join(', ');next.size=next.size_category;
  next.racialIdentity=b.carry&&previous.racialIdentity?structuredClone(previous.racialIdentity):{type:effects.find(e=>e.target==='identity.type')?.textValue||'',subtypes:uniq(effects.filter(e=>e.target==='identity.subtypes').map(e=>e.textValue).filter(Boolean)),rules:p.racial.traits.filter(f=>f.sheetTargets.includes('identity')&&f.effects.some(e=>e.target.startsWith('identity.'))).map(f=>({id:f.id,name:f.name,description:f.description}))};

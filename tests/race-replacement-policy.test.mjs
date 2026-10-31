@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {registry,newBuild,raceTraits,effectiveScores,previewBuild,compileBuild,buildIssues} from '../src/features/characters/rules/build.mjs';
+import {registry,newBuild,raceTraits,replacementFor,effectiveScores,previewBuild,compileBuild,buildIssues} from '../src/features/characters/rules/build.mjs';
 import {replacementRequiresWizard} from '../src/features/characters/rules/racial-choices.mjs';
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
@@ -36,8 +36,10 @@ test('Resolved Dwarf alternates can stack when independent and reject conflictin
  const b=fixture('dwarf');b.alternateIds=[raceId('dwarf')+':feature:mountain-familarity',raceId('dwarf')+':feature:magic-resistant'];
  assert.deepEqual(raceTraits(b).errors,[]);
  const compiled=compileBuild(b);assert.ok(compiled.racialAbilities.some(f=>f.name==='Magic Resistant'));
- const bad=fixture('dwarf');bad.alternateIds=[raceId('dwarf')+':feature:saltbeard'];
- assert.ok(raceTraits(bad).errors.some(x=>/precise/.test(x)));assert.throws(()=>compileBuild(bad),/precise replacement/);
+ const salt=fixture('dwarf');salt.alternateIds=[raceId('dwarf')+':feature:saltbeard'];
+ assert.deepEqual(raceTraits(salt).errors,[]);
+ assert.ok(raceTraits(salt).traits.some(f=>f.id===raceId('dwarf')+':feature:greed'&&/under water/.test(f.description)));
+ assert.doesNotThrow(()=>compileBuild(salt));
  const conflict=fixture('dwarf');conflict.alternateIds=[raceId('dwarf')+':feature:healthy',raceId('dwarf')+':feature:magic-resistant'];
  assert.ok(raceTraits(conflict).errors.some(x=>/Two selections replace/.test(x)));
 });
@@ -63,7 +65,7 @@ test('Generic resolved replacements stay available across source registry while 
   const html=renderBuild(base,2);
   for(const id of race.data.alternateTraitIds){
    const feature=race.features.find(f=>f.id===id);
-   const ops=race.data.alternateReplacements.filter(op=>op.addsFeatureIds.includes(id));
+   const ops=replacementFor(race,id);
    const full=ops.length>0&&ops.every(op=>op.resolution==='resolved'&&op.operation==='replace'&&op.scope==='whole_feature');
    const requires=full&&replacementRequiresWizard(race,feature);
    const input=html.match(new RegExp('<input[^>]*data-rw-alternate="'+id+'"[^>]*>'));

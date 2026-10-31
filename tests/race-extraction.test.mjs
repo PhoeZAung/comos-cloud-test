@@ -35,8 +35,10 @@ test('identity keeps type and movement/language exceptions without adding condit
  const b=fixture(),d=compileBuild(b);
  assert.deepEqual([d.racialIdentity.type,...d.racialIdentity.subtypes],['humanoid','dwarf']);
  const html=renderSection({id:'synthetic',name:b.name,data:d},'overview');
- assert.match(html,/Armor and encumbrance do not modify/);assert.match(html,/Galkan, Giant, Goblin/);
- assert.match(html,/Racial identity rules/);assert.equal(d.fort_base,0);
+ assert(d.racialIdentity.rules.some(r=>/Armor and encumbrance do not modify/.test(r.description)));
+ assert(d.racialIdentity.rules.some(r=>/Galkan, Giant, Goblin/.test(r.description)));
+ assert.doesNotMatch(html,/Armor and encumbrance do not modify|Galkan, Giant, Goblin|Racial identity rules/);
+ assert.equal(d.fort_base,0);
  b.disabledTraits=['ffd20:race:dwarf:feature:languages'];const without=compileBuild(b,d);
  assert.equal(without.languages,'');assert(!without.racialIdentity.rules.some(r=>r.name==='Languages'));
 });
@@ -48,11 +50,11 @@ test('Iifa skill bonuses apply once, then disappear while manual bonuses and cur
  const attempted=structuredClone(b);attempted.alternateIds=[];assert.throws(()=>compileBuild(attempted,again),/permanent/);
  const same=compileBuild(b,again);assert.equal(same.skills[idx].temp,4);assert.equal(same.hp_curr,1);assert.equal(same.mp,0);assert(same.racialAbilities.some(a=>a.name==='Manual ancestry note'));
 });
-test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Saltbeard stays blocked',()=>{
+test('Tavern Hopper replaces the whole vector and conflicts with heritage; Saltbeard modifies Greed without losing it',()=>{
  const b=fixture();b.alternateIds=['ffd20:race:dwarf:feature:tavern-hopper'];
  assert.deepEqual(effectiveScores(b),{str:10,dex:10,con:12,int:18,wis:8,cha:12});
  b.heritageId=registry.races[0].data.heritages[0].id;assert(raceTraits(b).errors.length);
- b.heritageId='';b.alternateIds=['ffd20:race:dwarf:feature:saltbeard'];assert.throws(()=>compileBuild(b),/precise replacement/);
+ b.heritageId='';b.alternateIds=['ffd20:race:dwarf:feature:saltbeard'];const updated=raceTraits(b);assert.deepEqual(updated.errors,[]);assert(updated.traits.some(f=>f.name==='Saltbeard'));assert(updated.traits.some(f=>f.id==='ffd20:race:dwarf:feature:greed'&&/under water/i.test(f.description)));assert.doesNotThrow(()=>compileBuild(b));
 });
 
 test('staged races appear for live testing while keeping unverified mechanics manual',async()=>{
@@ -128,7 +130,7 @@ test('batch 09 Palico, PuPu and Qu are visible as unreviewed testing races with 
  const b=newBuild();b.raceId=palico.id;
  assert.deepEqual(raceTraits(b).errors,[]);
  b.heritageId=palico.data.heritages[0].id;
- assert(raceTraits(b).errors.length>0,'unresolved Palico heritage must be blocked from save');
+ assert.deepEqual(raceTraits(b).errors,[],'Palico heritage has a complete source-defined score replacement');assert.equal(effectiveScores(b).int,12);
  assert.equal(pupu.data.standardTraitIds.length,9);
  assert.equal(pupu.data.alternateTraitIds.length,3);
  assert.equal(pupu.data.heritages.length,1);
@@ -186,7 +188,7 @@ test('first three Beastman Tribe race files appear for safe live testing',()=>{
  const b=newBuild();b.raceId=amal.id;
  assert.deepEqual([effectiveScores(b).str,effectiveScores(b).int,effectiveScores(b).dex],[12,12,8]);
  b.heritageId=amal.data.heritages[0].id;
- assert(raceTraits(b).errors.length>0,'Unresolved Amaljaa class skill substitution must block save');
+ assert.deepEqual(raceTraits(b).errors,[],'Amalj’aa heritage has a complete source-defined score replacement');assert.equal(effectiveScores(b).cha,12);
  b.heritageId='';b.raceId=antica.id;
  assert(buildIssues(b).some(x=>/Antica|Silent Spell|Telepathic Spellcaster/.test(x.message)));
  assert.equal(antica.features.find(f=>f.name==='Languages').effects.length,0,'Antica understands, but must not auto-speak, starting languages');

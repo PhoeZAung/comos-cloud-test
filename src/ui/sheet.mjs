@@ -6,16 +6,16 @@ import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
-import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
+import {escape as e,sections,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
 import {isEquipmentSlot,equippedInSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
 const groupFields={
- abilities:['str','dex','con','int','wis','cha'],identity:['size_category','speed','languages','senses'],
+ abilities:['str','dex','con','int','wis','cha'],identity:['size_category','languages','senses','speed','speed_burrow','speed_climb','speed_fly','speed_swim'],
  resources:['hp_curr','hp_temp','hp_max_temp','mp_curr','mp_temp','mp_max_temp'],hp:['hp_curr','hp_temp','hp_max_temp'],mp:['mp_curr','mp_temp','mp_max_temp'],
  defense:['ac_armor','ac_natural','ac_deflect','ac_dodge','ac_temp','touch_temp','flat_temp','cmd_temp'],
  attack:['init_temp','bab_temp','ar_melee_ability','ar_melee_temp','ar_ranged_ability','ar_ranged_temp','ar_touch_ability','ar_touch_temp','ar_ranged_touch_ability','ar_ranged_touch_temp','cmb_temp'],
  saves:['fort_base','fort_enhance','fort_temp','ref_base','ref_enhance','ref_temp','will_base','will_enhance','will_temp'],resistances:['resistances'],proficiencies:['proficiencies'],currency:['currency_gil','currency_moogle','slot_cap'],spell:['spell_dc_base']
 };
-const labels={two_handed:'Two-handed (reserves both hands)',mp_cost:'MP Amount (blank = spell level)',casting_ability:'Casting ability',caster_level:'Caster level override',dc_misc:'Save DC adjustment',mp_adjustment:'MP cost adjustment',dc_formula:'Save DC formula',uses_formula:'Usage formula',damage:'Dice Roll',str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Armor',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Capacity',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',u_curr:'Uses remaining',u_max:'Maximum uses',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Ability Mod',extra_damage:'Extra damage (not multiplied on crit)',attack_misc:'Attack misc',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
+const labels={two_handed:'Two-handed (reserves both hands)',mp_cost:'MP Amount (blank = spell level)',casting_ability:'Casting ability',caster_level:'Caster level override',dc_misc:'Save DC adjustment',mp_adjustment:'MP cost adjustment',dc_formula:'Save DC formula',uses_formula:'Usage formula',damage:'Dice Roll',str:'Strength',dex:'Dexterity',con:'Constitution',int:'Intelligence',wis:'Wisdom',cha:'Charisma',size_category:'Size',speed:'Land Speed (ft)',speed_burrow:'Burrow (ft)',speed_climb:'Climb (ft)',speed_fly:'Fly (ft)',speed_swim:'Swim (ft)',hp_curr:'Current HP',hp_temp:'Temporary HP',hp_max:'Base maximum HP',hp_max_temp:'Maximum HP adjustment',mp_curr:'Current MP (including temp)',mp_temp:'Temporary MP',mp_class:'Class MP',mp_bonus:'Bonus MP',mp_max_temp:'Maximum MP adjustment',init_temp:'Initiative misc',bab:'Base attack bonus',bab_temp:'BAB adjustment',ac_armor:'Armor',ac_natural:'Natural armor',ac_deflect:'Deflection',ac_dodge:'Dodge',ac_temp:'AC adjustment',touch_temp:'Touch adjustment',flat_temp:'Flat-footed adjustment',cmd_temp:'CMD adjustment',cmb_temp:'CMB adjustment',currency_gil:'Gil',currency_moogle:'Moogle',slot_cap:'Capacity',spell_dc_base:'Spell ability',mp_max_spell_level:'Maximum spell level',desc:'Description',u_curr:'Uses remaining',u_max:'Maximum uses',lvl:'Level / ranks',cs:'Class skill',temp:'Misc bonus',subName:'Specialization',stat:'Ability',ability_mod:'Ability Mod',extra_damage:'Extra damage (not multiplied on crit)',attack_misc:'Attack misc',restoreOnLongRest:'Restore uses on rest',amount:'Quantity',equipped:'Equipped'};
 const readable=k=>labels[k]||k.replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase());
 const textKeys=new Set(['name','desc','damage','extra_damage','range','type','crit_range','crit_mult','attack_type','duration','target','saving_throw','school','spell_resist','at_higher_lvls','subName','languages','senses','resistances','proficiencies','dc_formula','uses_formula']);
 const boolKeys=new Set(['cs','equipped','two_handed','restoreOnLongRest']);
@@ -29,6 +29,13 @@ function field(key,value,{weapon=false}={}){
  if(['desc','resistances','proficiencies'].includes(key))return `<label class="cs-field cs-field-wide"><span>${label}</span><textarea name="${key}" rows="5" maxlength="12000">${e(value||'')}</textarea></label>`;
  const isText=textKeys.has(key);
  return `<label class="cs-field"><span>${label}</span><input name="${key}" type="${isText?'text':'number'}" ${isText?'maxlength="'+(key==='name'?120:12000)+'"':'step="any" '+(['caster_level','mp_cost'].includes(key)?'':'required')} value="${e(value??(isText?'':0))}" ${key==='name'?'required':''}></label>`;
+}
+// One compact Identity editor, with no extra speed descriptions.
+export function renderIdentityEditor(values={}){
+ const details=['size_category','languages','senses'];
+ const movement=['speed','speed_burrow','speed_climb','speed_fly','speed_swim'];
+ const group=(label,keys,layout)=>'<fieldset class="cs-identity-group"><legend>'+label+'</legend><div class="cs-identity-fields '+layout+'">'+keys.map(k=>field(k,values[k])).join('')+'</div></fieldset>';
+ return '<div class="cs-identity-editor">'+group('Character details',details,'cs-identity-details')+group('Movement speeds',movement,'cs-identity-movement')+'</div>';
 }
 export function rollDice(expression,random=limit=>{const range=4294967296,ceiling=range-range%limit;let x;do{x=crypto.getRandomValues(new Uint32Array(1))[0];}while(x>=ceiling);return x%limit+1;}){
  const match=/^\s*(\d{1,2})d(\d{1,4})(?:\s*([+-])\s*(\d{1,6}))?\s*$/i.exec(expression);if(!match)throw Error('Use dice such as 1d20+5 or 2d6.');
@@ -107,7 +114,7 @@ export function mountSheet(){
  function openDialog(title,keys,values,change,{help=''}={}){
   if(busy||conflict){status(conflict?'Refresh to load the latest sheet before editing.':'Saving…');return;}
   root.querySelector('[data-sheet-form] button[type=submit]').hidden=false;dialogState={keys,change};root.querySelector('#cs-dialog-title').textContent=title;
-  root.querySelector('[data-dialog-fields]').innerHTML=(help?'<p class="cs-caption">'+e(help)+'</p>':'')+'<div class="cs-form-grid">'+keys.map(k=>field(k,values[k],{weapon:change.collection==='weapons'})).join('')+'</div>';
+  root.querySelector('[data-dialog-fields]').innerHTML=keys===groupFields.identity?renderIdentityEditor(values):(help?'<p class="cs-caption">'+e(help)+'</p>':'')+'<div class="cs-form-grid">'+keys.map(k=>field(k,values[k],{weapon:change.collection==='weapons'})).join('')+'</div>';
   root.querySelector('[data-dialog-status]').textContent='';if(['damage','heal','spendMp'].includes(change.action))root.querySelector('[name=amount]').closest('label').querySelector('span').textContent='Amount';dialog().showModal();
  }
  function openEquipmentPicker(slot){
@@ -248,6 +255,14 @@ export function mountSheet(){
   }
   if(button.matches('[data-dialog-close]')){dialog()?.close();dirty=false;if(!conflict)void refresh();return;}
   if(button.matches('[data-sheet-refresh]')){void refresh(true);return;}
+  if(button.matches('[data-speed-details]')){
+   if(busy||conflict){status(conflict?'Refresh to load the latest sheet.':'Saving…');return;}
+   root.querySelector('[data-sheet-form] button[type=submit]').hidden=true;
+   root.querySelector('#cs-dialog-title').textContent='Movement speeds';
+   root.querySelector('[data-dialog-fields]').innerHTML=renderSpeedDetails(character.data);
+   root.querySelector('[data-dialog-status]').textContent='';
+   dialog().showModal();return;
+  }
   if(button.matches('[data-edit-stats]')){
    const group=button.dataset.editStats,values={...character.data},s=sheetStats(values);if(group==='resources'){values.mp_curr=s.mp;values.mp_class=values.mp_class??s.mpMax;values.mp_bonus=values.mp_bonus??0;}if(group==='currency')values.currency_gil=values.currency_gil??values.gil??0;
    if(group==='identity')values.size_category=values.size_category||values.size||'Medium';

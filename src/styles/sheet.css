@@ -232,3 +232,24 @@
 .cs-entry-item-preview:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 
 .cs-ammo-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.cs-ammo-tracker .cs-field,.cs-ammo-tracker select{max-width:100%}.cs-ammo-tracker select{width:100%}
+
+/* One Identity edit button; clean grouped fields in its modal. */
+.cs-identity-editor{display:grid;gap:18px;min-width:0}
+.cs-identity-group{min-width:0;max-width:100%;margin:0;padding:14px;border:1px solid var(--line);border-radius:10px}
+.cs-identity-group legend{padding:0 6px;color:var(--text);font-size:13px;font-weight:600}
+.cs-identity-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.cs-identity-fields>.cs-field{min-width:0;max-width:none;margin:0}
+.cs-identity-fields>.cs-field:first-child{grid-column:1/-1}
+.cs-identity-fields .cs-field input,.cs-identity-fields .cs-field select{width:100%;min-width:0}
+@media(max-width:460px){.cs-identity-fields{grid-template-columns:minmax(0,1fr)}.cs-identity-group{padding:12px}}
+
+/* Read-only movement summary; the Identity header button remains the only editor. */
+.cs-speed-details-trigger{border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;text-align:left;padding:0}
+.cs-speed-details-trigger:hover{text-decoration:underline;text-underline-offset:3px}
+.cs-speed-details-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.cs-speed-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0;min-width:0}
+.cs-speed-list>div{padding:11px 13px;border:1px solid var(--line);border-radius:9px;min-width:0;background:var(--surface)}
+.cs-speed-list>div:first-child{grid-column:1/-1}
+.cs-speed-list dt{font-size:12px;color:var(--muted)}
+.cs-speed-list dd{font-size:17px;font-weight:600;margin:2px 0 0}
+@media(max-width:390px){.cs-speed-list{grid-template-columns:minmax(0,1fr)}}

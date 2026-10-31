@@ -21,3 +21,19 @@ Half-Breed remains source-blocked until parent race feature/RP evidence is estab
 ## Race replacement policy · 2026-10-31
 
 This conversation now fixes **replacement behavior first** across every race in the runtime registry. Source-resolved *whole-feature* alternate mappings remove only the named original traits and install the alternate; descriptive choices such as Dwarf Mountain Familarity's terrain remain **on the ability card**, without extra wizard controls or false permanent AC. Unresolved/component-only replacements (including Saltbeard), incompatible MP restrictions, and unsupported choices determining automatic ability scores remain guarded. Starting heritage and alternate **selections** are permanent after save; descriptive subchoices can be recorded by the player on the sheet. No class or archetype rules modified. The unused `race/dwarf-mountain-familarity-20261031` experimental picker branch must not be merged.
+
+**Dwarf Saltbeard** — source-verified component modification: replaces Defensive Training, Hatred and Stonecunning, *modifies* (does not remove) Greed. Greed's +2 Appraise applies only for treasure found in/under water, regardless of composition; +2 AC against aquatic/water creatures and +1 attack remain descriptive/conditional. Implemented through a narrow, source-ID-checked runtime modifier. All other unresolved/partial component operations remain blocked. Source definitions unchanged; no wizard added.
+
+## Broad race-replacement review batch (2026-10-31)
+
+Activated precisely identified **manual** whole-feature replacements across race definitions without creating more wizards. A source record marked manual only because its new benefit is situational can now replace exact standard traits; automatic sheet effects continue to require explicit, supported data. The Dwarf Saltbeard targeted Greed modifier remains the only approved component operation.
+
+Heritage availability now uses source-backed structure: complete replacement mappings, no unresolved choice pool, and automatic constant score effects where a base racial score vector is replaced. This expands supported variant score vectors beyond Dwarf/Hume to correctly represented race heritages, while leaving manually encoded or unresolved ability-score vectors blocked. No editing existing characters' permanent heritage/alternate choices. The review checklist lives at `docs/imports/RACE-MANUAL-REVIEW.md`.
+
+## Aegyl Wing-Clipped and editable movement (2026-10-31)
+
+Wing-Clipped replaces Emotionless and specifically modifies the fly portion of Base Speed: fly 20 ft (poor), upward Fly DC 30, unchanged land 30 ft. Its +2 racial Bluff, Climb and Diplomacy skill bonuses are automatic and tested against saved sheet rows. No wizard picker added. Every character's Identity edit popup offers land, burrow, climb, fly (with maneuverability), and swim speed; available speeds show beneath land speed in Identity, with manual field edits preserved across saves and rule recompile. Ordinary Aegyl start with Fly 40 ft poor; Wing-Clipped Aegyl with 20 ft poor.
+
+## Identity popup layout cleanup (2026-10-31)
+
+Only one Identity Edit button remains in the card header. The Identity card shows Land Speed without extra speed descriptions or redundant racial rules. The popup groups Size/Languages/Senses under Character details and Land/Burrow/Climb/Fly/Swim under Movement speeds, with compact responsive fields and no Fly Maneuverability selector. Existing stored maneuverability and all manual speeds are preserved.

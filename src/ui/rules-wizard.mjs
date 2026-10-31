@@ -6,6 +6,7 @@ import {isBeastmaster,beastmasterSkillBonus} from '../features/characters/rules/
 import {isLevelOneClass,FELL_RIDER_ID,DEADLY_LANCER_ID,MOG_KNIGHT_ID,CHOCOBO_KNIGHT_ID} from '../features/characters/rules/level-one-classes.mjs';
 import {classHitDie,classDefaultHp} from '../features/characters/rules/class-adapters.mjs';
 import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices} from '../features/characters/rules/racial-choices.mjs';
+import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
 import {registry,spellsForBuild,availableClasses,classFor,className,classSkill,newBuild,prepareLevelUp,steps,stats,raceFor,raceTraits,replacementFor,racialClassSkill,effectiveScores,choiceEvents,eligibleOptions,calculated,spellCounts,buildIssues,previewBuild,hpHistory,classFeatureChanges,hasSpellcasting,buildLevel,carryCharacter} from '../features/characters/rules/build.mjs';
@@ -32,7 +33,7 @@ const traitReview=(race,id)=>{
  if(!f)return 'This trait is unavailable.';
  if(race.data.alternateTraitIds.includes(id)){
   const ops=replacementFor(race,id);
-  if(!ops.length||ops.some(o=>o.resolution!=='resolved'||o.scope!=='whole_feature'||o.operation!=='replace'))
+  if(!ops.length||ops.some(o=>!isSupportedRaceOperation(race,o)))
    return 'This alternative needs a precise replacement mapping.';
  }
  if(race.data.alternateTraitIds.includes(id)){
@@ -40,8 +41,7 @@ const traitReview=(race,id)=>{
  }else if(f.choicePoolIds?.some(id=>!supportsRacialPool(id)))return 'This trait requires a choice the wizard cannot yet record.';
  return manualReviewTraits.get(id)||'';
 };
-const HUME_SCORE_HERITAGES=new Set([HUME_ID+':heritage:highlander',HUME_ID+':heritage:lunarian']);
-const heritageReview=(h,race)=>race?.id===TARUTARU_ID?'Tarutaru variant heritages need a separate verified batch.':race?.id===MITHRA_ID?'Mithra variant heritages need a separate verified batch.':race?.id===HUME_ID&&!HUME_SCORE_HERITAGES.has(h.id)?'This Hume heritage has unreviewed additional abilities or choices.':race?.id==='ffd20:race:elvaan'?'Elvaan variant heritages need a separate verified batch.':(h.replacements||[]).some(o=>o.resolution!=='resolved'||o.scope!=='whole_feature')?'Heritage replacements need review.':(h.choicePoolIds?.length?'A heritage choice is not supported.':'');
+const heritageReview=(h,race)=>isSupportedRaceHeritage(race,h)?'':'This heritage needs a verified replacement, automatic ability-score vector, or a required choice control.';
 const choiceSource=(event,b)=>{if(isSheetFamily(b)){const pool=classFor(b).choicePools.find(p=>event?.poolIds?.includes(p.id));return pool?.options?.[0]?.url||(event?.id?.startsWith(b.archetypeId+':')?sheetFamilyArchetype(b)?.sources[0]?.url:classFor(b).sources[0]?.url);}if(isRedMage(b)&&event?.id?.startsWith(b.archetypeId+':event:'))return redMageArchetypes.find(a=>a.id===b.archetypeId)?.sources[0]?.url;if(isRedMage(b)&&event?.poolIds?.some(id=>id.endsWith(':ruby-talents')))return classFor(b).sources.find(s=>s.id==='ruby-talents')?.url;if(isBeastmaster(b))return classFor(b).sources.find(s=>s.id==='companions')?.url;const talent=event?.poolIds?.some(id=>/talent/.test(id));return classFor(b).sources.find(s=>s.id===(talent?'talents':'main'))?.url||classFor(b).sources[0]?.url;};
 const panel=(title,html)=>`<section class="rw-panel"><h2>${e(title)}</h2>${html}</section>`;
 const field=(label,html)=>`<label class="rw-field"><span>${e(label)}</span>${html}</label>`;
@@ -88,7 +88,7 @@ function racialSelections(b,specs,scores){
     if(spec.freeText)return field('Language '+(i+1),'<input list="rw-ffd20-languages" data-rw-language-slot="'+e(spec.id)+'" data-language-index="'+i+'" maxlength="60" placeholder="Choose or type a language" value="'+e(languageName(current))+'">');
     return field('Language '+(i+1),'<select data-rw-language-slot="'+e(spec.id)+'" data-language-index="'+i+'">'+opt('','Choose a language',current)+spec.options.map(o=>opt(o.id,o.name,current)).join('')+'</select>');
    }).join('');
-   return panel('Bonus languages','<p>Choose up to '+maximum+' additional language'+(maximum===1?'':'s')+' based on your effective Intelligence. Each language can be selected once.</p>'+slots+(spec.freeText?'<datalist id="rw-ffd20-languages">'+ffd20LanguageNames.filter(x=>x!=='Common').map(x=>'<option value="'+e(x)+'"></option>').join('')+'</datalist>':'')+'<p><a href="languages.html" target="_blank" rel="noopener noreferrer">View all FFd20 languages</a></p>');
+   return panel(spec.id==='ffd20:race:tarutaru:pool:polyglot-starting-language'?'Polyglot starting language':'Bonus languages','<p>'+(spec.id==='ffd20:race:tarutaru:pool:polyglot-starting-language'?'Choose one extra starting language, regardless of Intelligence. This does not replace any high-Intelligence bonus languages.':'Choose up to '+maximum+' additional language'+(maximum===1?'':'s')+' based on your effective Intelligence. Each language can be selected once.')+'</p>'+slots+(spec.freeText?'<datalist id="rw-ffd20-languages">'+ffd20LanguageNames.filter(x=>x!=='Common').map(x=>'<option value="'+e(x)+'"></option>').join('')+'</datalist>':'')+'<p><a href="languages.html" target="_blank" rel="noopener noreferrer">View all FFd20 languages</a></p>');
   }
   const help=spec.minimum===maximum?'Choose '+maximum+'.':'Choose up to '+maximum+'.';
   const controls=maximum===1?field(spec.name,'<select data-rw-racial-choice="'+e(spec.id)+'">'+opt('','Choose…',selected[0]||'')+spec.options.map(o=>opt(o.id,o.name,selected[0])).join('')+'</select>'):
