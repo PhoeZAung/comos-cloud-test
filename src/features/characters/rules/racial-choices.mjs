@@ -32,6 +32,10 @@ const mutantScorePools=new Set([MUTANT_PHYSICAL,MUTANT_MENTAL,MUTANT_PENALTY]);
 const ORC_SKILL='ffd20:race:orc:pool:skill-bonus-selection';
 const MATANGA_ACADEMIC='ffd20:race:matanga:pool:academic-selection';
 const LOPORRIT_HANDY='ffd20:race:loporrit:pool:handy-selection';
+const YAGUDO='ffd20:race:yagudo';
+export const YAGUDO_RANK_LANGUAGES=YAGUDO+':pool:valiant-linguist-rank-languages';
+export const YAGUDO_LINGUISTICS_ROW=27;
+export const YAGUDO_RELIGION_ROW=25;
 export const GUADO_ELEMENT='ffd20:race:guado:pool:summoner-element';
 export const VIERA_ELEMENT='ffd20:race:viera:pool:elemental-summoner-subtype';
 export const IXAL_ELEMENT='ffd20:race:ixal:pool:elemental-summoner-selection';
@@ -52,7 +56,7 @@ export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([...elementalSummonerPools,...terrainPools,LAMIA_TEMPERED,GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,NU_MOU_SAGACIOUS,PUPU_TECH_SAVANT,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([YAGUDO_RANK_LANGUAGES,...elementalSummonerPools,...terrainPools,LAMIA_TEMPERED,GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,NU_MOU_SAGACIOUS,PUPU_TECH_SAVANT,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -125,7 +129,7 @@ export function mappedRaceTraits(race,traits){
  });
 }
 
-export function racialChoiceSpecs(race,traits,level=1){
+export function racialChoiceSpecs(race,traits,level=1,b=null){
  if(!race)return [];
  const active=new Set(traits.flatMap(t=>t.choicePoolIds||[]));
  // Legacy Dwarf's extracted language trait predates choice-pool links. Keep
@@ -167,6 +171,13 @@ export function racialChoiceSpecs(race,traits,level=1){
   if(pool.id===LAMBKIN_POLYGLOT_LANGUAGE)return {...pool,name:'Polyglot starting language',minimum:1,maximum:1,freeText:true};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
+ // The source grants two independently selected languages per Linguistics rank,
+ // not a fixed list or an extra language per character level. No guessed picks.
+ if(race.id===YAGUDO&&traits.some(f=>f.id===YAGUDO+':trait:valiant-linguist')){
+  const ranks=Math.max(0,Math.min(20,Number(b?.skillRanks?.[YAGUDO_LINGUISTICS_ROW])||0));
+  specs.push({id:YAGUDO_RANK_LANGUAGES,name:'Valiant Linguist · languages from Linguistics ranks',
+   choiceType:'language',freeText:true,options:[],minimum:0,maximum:2*ranks});
+ }
  // One immutable Skill Focus selection unlocks at each Namazu milestone.
  if(race.id===NAMAZU&&traits.some(f=>f.id===NAMAZU+':trait:focused-study')){
   for(const at of NAMAZU_FOCUS_LEVELS.filter(n=>n<=level)){
@@ -198,7 +209,7 @@ export function racialChoiceSpecs(race,traits,level=1){
 
 export function racialChoiceEffects(b,race,traits){
  const effects=[];
- for(const spec of racialChoiceSpecs(race,traits,buildLevel(b))){
+ for(const spec of racialChoiceSpecs(race,traits,buildLevel(b),b)){
   const selected=b.racialChoices?.[spec.id]||[];
   const options=spec.freeText?selected.filter(validLanguageChoice).map(id=>({id,name:languageName(id),value:languageName(id).toLowerCase().replace(/\s+/g,'-')})):selected.map(id=>spec.options.find(o=>o.id===id)).filter(Boolean);
   for(const option of options){
@@ -276,16 +287,29 @@ export function racialChoiceEffects(b,race,traits){
    if(spec.choiceType==='language')effects.push({...base,kind:'language',target:'identity.languages.'+option.value,textValue:option.name});
   }
  }
+ if(race?.id===YAGUDO&&traits.some(f=>f.id===YAGUDO+':trait:zealot-devotee')){
+  const ranks=Number(b.skillRanks?.[YAGUDO_RELIGION_ROW])||0;
+  const extra=Math.floor(Math.max(0,ranks)/5);
+  if(extra>0)effects.push({id:YAGUDO+':trait:zealot-devotee:rank-scaling',
+   kind:'skill_bonus',target:'skills.row.'+YAGUDO_RELIGION_ROW+'.bonus',
+   operation:'add',value:{kind:'constant',value:extra},bonusType:'racial',
+   condition:null,automation:'automatic'});
+ }
  return effects;
 }
 
 export function racialChoiceIssues(b,race,traits,scores){
- const errors=[],specs=racialChoiceSpecs(race,traits,buildLevel(b)),byId=new Map(specs.map(s=>[s.id,s]));
+ const errors=[],specs=racialChoiceSpecs(race,traits,buildLevel(b),b),byId=new Map(specs.map(s=>[s.id,s]));
  for(const [id,values] of Object.entries(b.racialChoices||{})){
   const spec=byId.get(id);
   if(!spec||!Array.isArray(values)){errors.push('Unknown or inactive racial choice.');continue;}
   const identities=spec.freeText?values.map(v=>languageName(v).toLowerCase()):values;
   if(new Set(identities).size!==values.length||values.some(v=>spec.freeText?!validLanguageChoice(v):!spec.options.some(o=>o.id===v)))errors.push('Invalid or duplicate '+spec.name+' selection.');
+ }
+ if(race?.id===YAGUDO&&byId.has(YAGUDO_RANK_LANGUAGES)){
+  const choices=b.racialChoices?.[YAGUDO_RANK_LANGUAGES]||[];
+  if(choices.some(id=>['common','yagudo'].includes(languageName(id).trim().toLowerCase())))
+   errors.push('Yagudo already starts with Common and Yagudo; rank languages must be new.');
  }
  // A starting language is not also a valid high-INT bonus-language pick.
   if([PALICO,KINDRED].includes(race?.id)){
@@ -376,7 +400,7 @@ export function racialChoiceFeats(b,race,traits,previous={}){
 }
 
 export function pruneRacialChoices(b,race,traits){
- const specs=racialChoiceSpecs(race,traits,buildLevel(b)),active=new Set(specs.map(s=>s.id));
+ const specs=racialChoiceSpecs(race,traits,buildLevel(b),b),active=new Set(specs.map(s=>s.id));
  b.racialChoices=Object.fromEntries(Object.entries(b.racialChoices||{}).filter(([id])=>active.has(id)));
  b.racialSpecialties=Object.fromEntries(Object.entries(b.racialSpecialties||{}).filter(([id])=>specs.some(s=>s.id===id&&s.specialty)));
 }
