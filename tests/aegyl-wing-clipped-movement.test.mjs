@@ -64,6 +64,7 @@ test('All movement modes are mutable saved Identity fields and survive rule-buil
  sheet=mergeSheetData(sheet,{action:'fields',fields:{speed:35,speed_burrow:10,speed_climb:15,speed_fly:50,speed_swim:25,speed_fly_maneuverability:'good'}});
  assert.deepEqual([sheet.speed,sheet.speed_burrow,sheet.speed_climb,sheet.speed_fly,sheet.speed_swim,sheet.speed_fly_maneuverability],[35,10,15,50,25,'good']);
  const after=compileBuild(sheet.rulesBuild.input,sheet);
+ assert.equal(after.speed,35,'manually edited Land Speed survives a rules recompile');
  assert.deepEqual([after.speed_burrow,after.speed_climb,after.speed_fly,after.speed_swim,after.speed_fly_maneuverability],[10,15,50,25,'good']);
  assert.match(renderSection({id:'x',name:'Aegyl',data:after},'overview'),/Burrow 10 ft · Climb 15 ft · Fly 50 ft \(good\) · Swim 25 ft/);
  const cleared=mergeSheetData(after,{action:'fields',fields:{speed_fly:0,speed_fly_maneuverability:''}});

@@ -139,10 +139,10 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,
   mp:isChaCaster(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isChaCaster(b)?'cha':'dex'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition);
- const langs=[],senses=[],profs=[];next.speed=0;next.size_category='Medium';
+ const langs=[],senses=[],profs=[];next.speed=Object.hasOwn(previous,'speed')?previous.speed:0;next.size_category='Medium';
  seedRacialMovement(next,previous,b.raceId,p.racial.traits);
  for(const effect of effects){
-  if(effect.target==='identity.speed.land')next.speed=calculated(effect.value,b);
+  if(effect.target==='identity.speed.land'&&!Object.hasOwn(previous,'speed'))next.speed=calculated(effect.value,b);
   if(effect.target==='identity.size_category')next.size_category=String(effect.textValue||'Medium').replace(/^./,ch=>ch.toUpperCase());
   if(effect.target.startsWith('identity.languages.'))langs.push(effect.textValue||effect.target.split('.').at(-1));
   if(effect.target.startsWith('identity.senses.'))senses.push(effect.textValue||effect.target.split('.').at(-1));
