@@ -45,7 +45,8 @@ test('Iifa skill bonuses apply once, then disappear while manual bonuses and cur
  const idx=fixedSkills.findIndex(s=>s.name==='Knw: Arcana');assert(idx>=0);assert.equal(d.skills[idx].rulesBonus,1);assert.equal(d.skills[idx].cs,true);
  d.skills[idx].temp+=3;d.hp_curr=1;d.mp=0;d.racialAbilities.push({name:'Manual ancestry note',desc:'Keep'});
  const again=compileBuild(b,d);assert.equal(again.skills[idx].temp,4);
- b.alternateIds=[];const removed=compileBuild(b,again);assert.equal(removed.skills[idx].temp,3);assert.equal(removed.hp_curr,1);assert.equal(removed.mp,0);assert(removed.racialAbilities.some(a=>a.name==='Manual ancestry note'));
+ const attempted=structuredClone(b);attempted.alternateIds=[];assert.throws(()=>compileBuild(attempted,again),/permanent/);
+ const same=compileBuild(b,again);assert.equal(same.skills[idx].temp,4);assert.equal(same.hp_curr,1);assert.equal(same.mp,0);assert(same.racialAbilities.some(a=>a.name==='Manual ancestry note'));
 });
 test('Tavern Hopper replaces the whole vector, conflicts with heritage, and Saltbeard stays blocked',()=>{
  const b=fixture();b.alternateIds=['ffd20:race:dwarf:feature:tavern-hopper'];

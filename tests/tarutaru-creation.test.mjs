@@ -28,7 +28,7 @@ test('Tarutaru specialty/language choices are required, source-bounded and stabl
  const b=fixture();b.racialChoices[TARUTARU_LANGUAGES]=[TARUTARU_LANGUAGES+':option:draconic'];const d=compileBuild(b);
  assert.equal(d.languages,'Common, Lalafellan, Draconic');d.skills[4].temp+=3;d.hp_curr=1;
  const next=compileBuild(d.rulesBuild.input,d);assert.equal(next.skills[4].temp,5);assert.equal(next.skills[4].subName,'Woodworking');assert.equal(next.hp_curr,1);assert.equal(next.languages,d.languages);
- for(const change of [b=>b.racialChoices={},b=>b.racialSpecialties={},b=>b.racialChoices[TARUTARU_TALENTED]=['skill-row:0'],b=>b.racialChoices[TARUTARU_LANGUAGES].push(TARUTARU_LANGUAGES+':option:orc'),b=>b.racialChoices[TARUTARU_LANGUAGES]=[TARUTARU_LANGUAGES+':option:celestial'],b=>b.heritageId=TARUTARU_ID+':heritage:gnome',b=>b.alternateIds=[TARUTARU_ID+':trait:polyglot']]){
+ for(const change of [b=>b.racialChoices={},b=>b.racialSpecialties={},b=>b.racialChoices[TARUTARU_TALENTED]=['skill-row:0'],b=>b.racialChoices[TARUTARU_LANGUAGES].push(TARUTARU_LANGUAGES+':option:orc'),b=>b.racialChoices[TARUTARU_LANGUAGES]=[TARUTARU_LANGUAGES+':option:celestial'],b=>b.heritageId=TARUTARU_ID+':heritage:gnome',]){
   const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));
  }
 });

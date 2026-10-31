@@ -29,5 +29,5 @@ test('Dracobaltian leathery hide contributes one owned natural armor point and p
 });
 test('Dracobaltian source language choices remain optional, bounded after its Intelligence penalty and reject unsupported alternates',()=>{
  const b=fixture();b.racialChoices[DRACOBALTIAN_LANGUAGES]=[DRACOBALTIAN_LANGUAGES+':option:ignan'];const d=compileBuild(b);assert.equal(d.languages,'Common, Draconese, Ignan');assert.equal(compileBuild(d.rulesBuild.input,d).languages,d.languages);
- for(const change of [b=>b.baseScores.int=12,b=>b.racialChoices[DRACOBALTIAN_LANGUAGES].push(DRACOBALTIAN_LANGUAGES+':option:terran'),b=>b.racialChoices[DRACOBALTIAN_LANGUAGES]=[DRACOBALTIAN_LANGUAGES+':option:celestial'],b=>b.alternateIds=[DRACOBALTIAN_ID+':trait:skulk']]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
+ for(const change of [b=>b.baseScores.int=12,b=>b.racialChoices[DRACOBALTIAN_LANGUAGES].push(DRACOBALTIAN_LANGUAGES+':option:terran'),b=>b.racialChoices[DRACOBALTIAN_LANGUAGES]=[DRACOBALTIAN_LANGUAGES+':option:celestial'],]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
 });

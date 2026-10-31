@@ -5,8 +5,8 @@ import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT
 import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions,RED_MAGERY_EVENT} from './red-mage-level-one.mjs';
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
-import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
-import {GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
+import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
@@ -81,25 +81,28 @@ export function buildIssues(b,{complete=true}={}){
  if(['array','rolled'].includes(b.abilityMethod)){const pool=b.abilityMethod==='array'?standardArray:b.scorePool;if(pool.length!==6||new Set(b.scoreAssignments).size!==6||b.scoreAssignments.some(i=>!Number.isInteger(i)||i<0||i>5)||stats.some((key,i)=>b.baseScores[key]!==pool[b.scoreAssignments[i]]))add(1,'Assign each generated score exactly once.');}
  if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>buildLevel(b)))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
  const race=raceFor(b);if(!race)add(2,'Choose a race.');
- if(race?.id===GARIF_ID&&(b.heritageId||b.alternateIds.length||b.disabledTraits.length))add(2,'Garif currently supports standard traits only; alternate traits and individually disabled standards require another verified batch.');
+ if(race?.id===GARLEAN_ID&&b.heritageId)add(2,'Garlean heritage requires separate source verification.');
+ if(race?.id===GARLEAN_ID&&(b.level!==1||b.carry))add(3,'Garlean supports first-level creation and editing only; later levels and multiclassing need separate review.');
+ if(race?.id===GARLEAN_ID&&previewBuild(b).summary.mp>0)add(3,'Garlean Magic Ineptitude forbids an MP pool; choose a class without MP. The Magic User alternate is not implemented.');
+ if(race?.id===GARIF_ID&&b.heritageId)add(2,'Garif heritage must have verified replacements.');
  if(race?.id===GARIF_ID&&(b.level!==1||b.carry))add(3,'Garif currently supports first-level creation and editing only; later ranks and multiclassing need a separate verified batch.');
  if(race?.id===GARIF_ID&&b.skillRanks){const chosen=b.racialChoices?.[GARIF_PASTORALIST]?.[0],index=Number(chosen?.split(':').at(-1));if(chosen&&!(b.skillRanks[index]>=1))add(7,'Allocate the Garif Pastoralist bonus rank to its chosen skill.');}
- if(race?.id===HUME_ID&&(b.heritageId||b.alternateIds.length))add(2,'Hume currently supports standard heritage and standard traits only. Variants and alternates require a separate verified batch.');
+ if(race?.id===HUME_ID&&(b.heritageId&&!new Set([HUME_ID+':heritage:highlander',HUME_ID+':heritage:lunarian']).has(b.heritageId)))add(2,'This Hume heritage or alternate requires more verified choices or mechanics. Highlander and Lunarian ability-score heritages are supported; their conditional abilities remain manual.');
  if(race?.id===HUME_ID&&(b.level!==1||b.carry))add(3,'Hume currently supports first-level creation/editing only; progression and multiclassing require a separate verified batch.');
- if(race?.id===AL_BHED_ID&&(b.heritageId||b.alternateIds.length))add(2,'Al Bhed currently supports standard traits only; alternates require a separate verified batch.');
+ if(race?.id===AL_BHED_ID&&b.heritageId)add(2,'Al Bhed currently supports standard traits only; alternates require a separate verified batch.');
  if(race?.id===AL_BHED_ID&&(b.level!==1||b.carry))add(3,'Al Bhed currently supports first-level creation/editing only; later progression and multiclassing require a separate verified batch.');
  if(race?.id===AL_BHED_ID&&b.skillRanks){const chosen=b.racialChoices?.[AL_BHED_GENIUS]?.[0],index=Number(chosen?.split(':').at(-1));if(chosen&&!(b.skillRanks[index]>=1))add(7,'Allocate the Mechanical Genius bonus rank to its selected skill.');}
- if(race?.id===DRACOBALTIAN_ID&&(b.heritageId||b.alternateIds.length))add(2,'Dracobaltian currently supports standard traits only; alternate traits require a separate verified batch.');
- if(race?.id===BURMECIAN_ID&&(b.heritageId||b.alternateIds.length))add(2,'Burmecian currently supports standard traits only; Cleyran and other variants/alternates require a separate verified batch.');
- if(race?.id===BEASTKIN_ID&&(b.heritageId||b.alternateIds.length))add(2,'Beastkin currently supports standard traits only; alternate traits require a separate verified batch.');
- if(race?.id===BANGAA_ID&&(b.heritageId||b.alternateIds.length))add(2,'Bangaa currently supports standard traits only; variant heritages and alternates require a separate verified batch.');
- if(race?.id===AU_RA_ID&&(b.heritageId||b.alternateIds.length))add(2,'Au Ra currently supports standard Xaela traits only; Raen and other variants/alternates require a separate verified batch.');
- if(race?.id===AEGYL_ID&&(b.heritageId||b.alternateIds.length))add(2,'Aegyl currently supports standard traits only; variants and alternates need a separate verified batch.');
- if(race?.id===MITHRA_ID&&(b.heritageId||b.alternateIds.length))add(2,'Mithra currently supports standard traits only; variants and alternates need a separate verified batch.');
- if(race?.id===TARUTARU_ID&&(b.heritageId||b.alternateIds.length))add(2,'Tarutaru currently supports standard traits only; variants and alternates need a separate verified batch.');
+ if(race?.id===DRACOBALTIAN_ID&&b.heritageId)add(2,'Dracobaltian currently supports standard traits only; alternate traits require a separate verified batch.');
+ if(race?.id===BURMECIAN_ID&&b.heritageId)add(2,'Burmecian currently supports standard traits only; Cleyran and other variants/alternates require a separate verified batch.');
+ if(race?.id===BEASTKIN_ID&&b.heritageId)add(2,'Beastkin currently supports standard traits only; alternate traits require a separate verified batch.');
+ if(race?.id===BANGAA_ID&&b.heritageId)add(2,'Bangaa currently supports standard traits only; variant heritages and alternates require a separate verified batch.');
+ if(race?.id===AU_RA_ID&&b.heritageId)add(2,'Au Ra currently supports standard Xaela traits only; Raen and other variants/alternates require a separate verified batch.');
+ if(race?.id===AEGYL_ID&&b.heritageId)add(2,'Aegyl currently supports standard traits only; variants and alternates need a separate verified batch.');
+ if(race?.id===MITHRA_ID&&b.heritageId)add(2,'Mithra currently supports standard traits only; variants and alternates need a separate verified batch.');
+ if(race?.id===TARUTARU_ID&&b.heritageId)add(2,'Tarutaru currently supports standard traits only; variants and alternates need a separate verified batch.');
  if(race?.id==='ffd20:race:half-breed')add(2,'Half-Breed requires two legal parent races and verified inherited-trait choices. These choices are not available yet, so this race cannot be saved.');
  if(race?.id==='ffd20:race:galka'&&b.heritageId)add(2,'Galka variant heritage is not yet supported; standard heritage with reviewed alternate racial traits is available.');
- if(race?.id==='ffd20:race:elvaan'&&(b.heritageId||b.alternateIds.length))add(2,'Elvaan currently supports standard heritage and standard traits only. Variant heritage and alternate mechanics require a separate verified batch.');
+ if(race?.id==='ffd20:race:elvaan'&&b.heritageId)add(2,'Elvaan currently supports standard heritage and standard traits only. Variant heritage and alternate mechanics require a separate verified batch.');
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
  if(race){
   const mustChoose=f=>Boolean(f?.choicePoolIds?.some(id=>!supportsRacialPool(id)));
@@ -107,7 +110,7 @@ export function buildIssues(b,{complete=true}={}){
   for(const f of raceTraits(b).traits)if(race.data.standardTraitIds.includes(f.id)&&mustChoose(f))add(2,f.name+' requires a racial choice the wizard cannot yet record.');
   for(const id of b.alternateIds){
    const f=race.features.find(f=>f.id===id),ops=replacementFor(race,id);
-   if(mustChoose(f))add(2,(f.name||'Alternate trait')+' requires a racial choice the wizard cannot yet record.');
+   if(replacementRequiresWizard(race,f))add(2,(f.name||'Alternate trait')+' requires a structured choice affecting automatic ability scores.');
    if(!ops.length||ops.some(op=>op.resolution!=='resolved'||op.scope!=='whole_feature'||op.operation!=='replace'))
     add(2,(f?.name||'Alternate trait')+' has an unresolved replacement rule.');
   }
@@ -220,6 +223,18 @@ function classPreview(b){
  return {scores,summary,race,racial,features,hp:hp+carriedHp,skillBudget:Number(b.carry?.skillBudget||0)+carriedLevels(b)*(mod(scores.int)-mod(b.carry?.int??scores.int))+summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
 export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false,levelTransition=false}={}){
+ if(previous.rulesBuild?.input){
+  const original=previous.rulesBuild.input;
+  if(original.raceId===raw?.raceId){
+   if((original.heritageId||'')!==(raw.heritageId||''))bad('Race heritage is chosen at character creation and is permanent.');
+   if(JSON.stringify([...(original.alternateIds||[])].sort())!==JSON.stringify([...(raw.alternateIds||[])].sort()))bad('Alternate racial traits are chosen at character creation and are permanent.');
+  }
+ }
+ if(previous.rulesBuild?.input?.raceId===GARLEAN_ID){
+  const initial=previous.rulesBuild.input;
+  for(const pool of [GARLEAN_WEAPON,GARLEAN_CRAFT])if((raw?.racialChoices?.[pool]||[]).join('|')!==(initial.racialChoices?.[pool]||[]).join('|'))bad('Garlean starting racial choices cannot be changed during editing.');
+  if((raw?.racialSpecialties?.[GARLEAN_CRAFT]||'')!==(initial.racialSpecialties?.[GARLEAN_CRAFT]||''))bad('Garlean technology Craft specialty cannot be changed during editing.');
+ }
  if(previous.rulesBuild?.input?.raceId===GARIF_ID){
   const original=previous.rulesBuild.input;
   for(const pool of [GARIF_TERRAIN,GARIF_PASTORALIST])if((raw?.racialChoices?.[pool]||[]).join('|')!==(original.racialChoices?.[pool]||[]).join('|'))bad('Existing Garif terrain and first-level Pastoralist allocation cannot be changed during editing.');

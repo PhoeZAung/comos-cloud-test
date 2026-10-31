@@ -43,7 +43,7 @@ test('Hume free-text bonus languages preserve unrestricted names while enforcing
  const newline=fixture();newline.racialChoices[HUME_LANGUAGES]=['language:Valid\nInjected'];assert.throws(()=>compileBuild(newline));
  const inactive=fixture();inactive.disabledTraits=[HUME_ID+':trait:languages'];inactive.racialChoices[HUME_LANGUAGES]=[languageChoice('Aklo')];assert.throws(()=>compileBuild(inactive),/inactive/);
  const other=fixture();other.raceId='ffd20:race:galka';other.racialChoices={[HUME_LANGUAGES]:[languageChoice('Aklo')]};other.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(other).skillBudget?1:0);assert.throws(()=>compileBuild(other),/inactive/);
- const html=renderBuild(b,2);assert.match(html,/data-rw-racial-languages/);assert.match(html,/one per line/);
+  const html=renderBuild(b,1,{mode:'create'});assert.match(html,/data-rw-language-slot/);assert.match(html,/Al Bhed/);assert.match(html,/Ancient Elvaan/);assert.doesNotMatch(renderBuild(b,2),/data-rw-language-slot/);
  assert.match(renderBuild(b,8),/Extra bonus feat/);
 });
 test('Hume disabled standard entitlements are removed without duplicating or deleting manually edited feat content',()=>{
@@ -53,8 +53,8 @@ test('Hume disabled standard entitlements are removed without duplicating or del
  const off=fixture();off.disabledTraits=[HUME_ID+':trait:skilled',HUME_ID+':trait:bonus-feat'];off.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(off).skillBudget?1:0);
  const removed=compileBuild(off,again,{allowRankReduction:true});assert.equal(skillBudget(removed).racialSkill,0);assert(!removed.feats.some(f=>f.sourceRace==='Hume'));assert(removed.feats.some(f=>f.sourceRuleId==='comos:feat-slot:1'));
 });
-test('Hume rejects missing/extra score choices, variants, alternates, level progression and missing Skilled allocation',()=>{
- for(const change of [b=>b.racialChoices={},b=>b.racialChoices[HUME_SCORE].push(HUME_SCORE+':option:strength'),b=>b.heritageId='ffd20:race:hume:heritage:cetra',b=>b.alternateIds=[HUME_ID+':trait:awareness'],b=>b.skillRanks[0]=0,b=>b.level=2]){
+test('Hume rejects invalid score choices, unsupported heritages, progression and missing Skilled allocation',()=>{
+ for(const change of [b=>b.racialChoices={},b=>b.racialChoices[HUME_SCORE].push(HUME_SCORE+':option:strength'),b=>b.heritageId='ffd20:race:hume:heritage:cetra',b=>b.skillRanks[0]=0,b=>b.level=2]){
   const b=fixture();change(b);assert.throws(()=>compileBuild(b));
  }
  const d=compileBuild(fixture());assert.throws(()=>levelUpBuild({...d.rulesBuild.input,level:2},d),/first-level|level-1/);
