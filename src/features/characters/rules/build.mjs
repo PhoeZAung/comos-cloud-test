@@ -83,6 +83,12 @@ export function raceTraits(b){
  }
  for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
  const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?applyRaceModification(r,f,modified.get(f.id)):f)).map(f=>{
+  if(r.id==='ffd20:race:trollkin'&&f.id==='ffd20:race:trollkin:trait:faster-healing'&&
+   b.alternateIds.includes(f.id)&&consumed.has('ffd20:race:trollkin:trait:fast-healing')&&
+   consumed.has('ffd20:race:trollkin:trait:thick-skin'))
+   return {...f,description:'Fast Healing 2 HP each round replaces Fast Healing 1 and Thick Skin. Continues below 0 HP until death; cannot restore lost limbs, starvation, thirst or suffocation HP. Suppressed 1 minute by fire or earth damage as written in the detailed racial rule (element heading conflicts; adjudicate manually). No automatic HP ticking.'};
+  if(r.id==='ffd20:race:sylph'&&f.id==='ffd20:race:sylph:trait:improved-flight'&&b.alternateIds.includes(f.id))
+   return {...f,description:'Improved Flight: land speed becomes 10 ft, flight speed 60 ft (good maneuverability; two steps above poor). Replaces Camouflage and Beguiling Liar; all other traits remain.'};
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
