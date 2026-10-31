@@ -20,7 +20,7 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Garlean | Xenophobia Extremis | Modifies score adjustment and Languages, rather than replacing the entire traits |
 | Al Bhed | Xenophobic | Replaces starting languages without a complete automatic language effect; must remove Common, disallow INT bonus languages and handle Linguistics progression |
 | Forgiven | Scion of Mortality | Changes language and dual-race identity/subtype rather than replacing Type/Languages as entirely removed fields |
-| Lambkin | Polyglot | Modifies Magic Expert and Languages |
+| Lambkin | Polyglot | **Draft implementation:** replaces Magic Expert; retains Common/Lambkin and the high-INT list; +2 Linguistics/class skill, plus one required freely chosen starting language. Await PR CI and explicit publishing; Auto-Float and other situational traits stay manual |
 | Moogle | Grounded | Partial Base Speed/flight modification |
 | Moomba | Climb | Climb speed 20 ft and land 30 ft but no formal old-trait replacement target |
 | Namazu | Fast, Focused Study | Partial speed, skills, or feature ownership |
