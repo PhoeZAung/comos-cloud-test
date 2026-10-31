@@ -34,7 +34,8 @@
             "section": "Deathblow",
             "locator": "deathblow"
           }
-        ]
+        ],
+        "progressionDescription": "At 1st level, the mog knight receives the Limit Break (Deathblow).\n\nDeathblow (Su): This Limit Break allows the mog knight, while mounted, to charge opponents more efficiently. For a duration of 1 round + 1 round per four chocobo knight levels after 1st, the mog knight gains a +2 circumstance bonus to his critical threat range with any weapon while mounted and making a charge attack. This bonus increases by +2 per four chocobo knight levels after 1st. In addition, if a critical threat was rolled, it is automatically confirmed. This bonus is applied after Improved Critical or Keen effects, but otherwise stacks. This limit break requires only a swift action.\n\nThis ability replaces the Limit Break (Supreme Overrun)."
       },
       {
         "id": "ffd20:archetype:chocobo-knight:mog-knight:feature:steady-riding",
@@ -49,7 +50,8 @@
             "section": "Steady Riding",
             "locator": "steady-riding"
           }
-        ]
+        ],
+        "progressionDescription": "At 1st level, a mog knight treats his mount as one size lower for things related to his Ride skill."
       },
       {
         "id": "ffd20:archetype:chocobo-knight:mog-knight:feature:mog-attack",
@@ -63,6 +65,75 @@
             "sourceId": "main",
             "section": "Mog Attack",
             "locator": "mog-attack"
+          }
+        ],
+        "progressionDescription": "At 1st level, a mog knight is able to use his momentum of his mount to deal extra damage. When mounted and performing a charge, the mog knight deals an additional 1d6 points of damage upon a successful hit. This extra damage increases by 1d6 per three chocobo knight levels after 1st, but not multiplied on a critical hit.\n\nThis ability replaces challenge."
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:mog-knight:feature:mog-rush",
+        "name": "Mog Rush",
+        "atLevel": 4,
+        "description": "At 4th level, a mog knight trains his mount to reach faster speeds. The mog knight’s mount gains a 10-foot bonus to its speed when using the charge, run, or withdraw actions. This bonus increases by 10 per four chocobo knight levels after 4th.\n\nThis ability replaces expert trainer.",
+        "progressionDescription": "At 4th level, a mog knight trains his mount to reach faster speeds. The mog knight’s mount gains a 10-foot bonus to its speed when using the charge, run, or withdraw actions. This bonus increases by 10 per four chocobo knight levels after 4th.\n\nThis ability replaces expert trainer.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mog Rush",
+            "locator": "mog-rush"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:mog-knight:feature:mog-shield",
+        "name": "Mog Shield",
+        "atLevel": 5,
+        "description": "At 5th level, whenever the mog knight is mounted or adjacent to his mount, he receives a +1 shield bonus to his Armor Class and a +1 circumstance bonus on his saving throws. These bonuses do not apply if his mount is grappled, helpless, paralyzed, stunned, or unconscious. These bonuses increase by +1 for every five chocobo knight levels after 5th.\n\nThis ability replaces mounted mettle.",
+        "progressionDescription": "At 5th level, whenever the mog knight is mounted or adjacent to his mount, he receives a +1 shield bonus to his Armor Class and a +1 circumstance bonus on his saving throws. These bonuses do not apply if his mount is grappled, helpless, paralyzed, stunned, or unconscious. These bonuses increase by +1 for every five chocobo knight levels after 5th.\n\nThis ability replaces mounted mettle.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mog Shield",
+            "locator": "mog-shield"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:mog-knight:feature:charge-combo",
+        "name": "Charge Combo",
+        "atLevel": 10,
+        "description": "At 10th level, a mog knight, when mounted, can combine a full attack with a single charge. He must forgo the attack at his highest bonus but may take the remaining attacks at any point during his charge. In addition, a mog knight that dual-wields or uses a double weapon also must forgo the off-hand attack at his highest bonus. This movement provokes attacks of opportunity as normal.\n\nThis ability replaces burst of speed.",
+        "progressionDescription": "At 10th level, a mog knight, when mounted, can combine a full attack with a single charge. He must forgo the attack at his highest bonus but may take the remaining attacks at any point during his charge. In addition, a mog knight that dual-wields or uses a double weapon also must forgo the off-hand attack at his highest bonus. This movement provokes attacks of opportunity as normal.\n\nThis ability replaces burst of speed.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charge Combo",
+            "locator": "charge-combo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:mog-knight:feature:ultima-charge",
+        "name": "Ultima Charge",
+        "atLevel": 20,
+        "description": "At 20th level, as a full-round action, a mog knight can charge explosively, using his momentum and kinetic energy to burst from him. When mounted and charging, at the end of his charge, regardless if he strikes any opponents or not, deals non-elemental damage equal to twice his mog attack damage to all creatures within a 30-ft.-radius. A successful Reflex save (DC 20 + the mog knight’s Strength modifier) reduces the damage by half.\n\nThis ability replaces supreme charge.",
+        "progressionDescription": "At 20th level, as a full-round action, a mog knight can charge explosively, using his momentum and kinetic energy to burst from him. When mounted and charging, at the end of his charge, regardless if he strikes any opponents or not, deals non-elemental damage equal to twice his mog attack damage to all creatures within a 30-ft.-radius. A successful Reflex save (DC 20 + the mog knight’s Strength modifier) reduces the damage by half.\n\nThis ability replaces supreme charge.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ultima Charge",
+            "locator": "ultima-charge"
           }
         ]
       }
@@ -83,7 +154,7 @@
         "sourceRefs": [
           {
             "sourceId": "main",
-            "section": "Limit Break",
+            "section": "Deathblow",
             "locator": "deathblow"
           }
         ]
@@ -107,12 +178,111 @@
             "locator": "mog-attack"
           }
         ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:mog-knight:replacement:mog-rush",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:expert-trainer"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:mog-knight:feature:mog-rush"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mog Rush",
+            "locator": "mog-rush"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:mog-knight:replacement:mog-shield",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:mounted-mettle"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:mog-knight:feature:mog-shield"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mog Shield",
+            "locator": "mog-shield"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:mog-knight:replacement:charge-combo",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:burst-of-speed"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:mog-knight:feature:charge-combo"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Charge Combo",
+            "locator": "charge-combo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:chocobo-knight:mog-knight:replacement:ultima-charge",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:chocobo-knight:feature:supreme-charge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:chocobo-knight:mog-knight:feature:ultima-charge"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ultima Charge",
+            "locator": "ultima-charge"
+          }
+        ]
       }
     ],
     "upgrades": [],
     "requiredRaceId": "ffd20:race:moogle",
     "supportedLevels": [
-      1
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
     ]
   }
 }

@@ -14,7 +14,7 @@ test('Antrider resolves only verified first-level parent replacements and retain
  assert.equal(a.data.requiredRaceId,'ffd20:race:antica');
  assert.deepEqual(a.data.replacements.flatMap(r=>r.targetFeatureIds).sort(),[parent.id+':feature:challenge',parent.id+':feature:chocobo-mount']);
  assert.deepEqual(a.data.deferredReplacements.map(r=>r.parentFeatureName),['Expert Trainer','Master Feeder','Improved Chocobo Mount','Superior Chocobo Mount','Protect the Meek']);
- assert(a.data.deferredReplacements.every(r=>!parent.data.features.some(f=>f.name===r.parentFeatureName)));
+ assert(a.data.deferredReplacements.every(r=>r.resolution==='adapter_not_verified'&&parent.data.features.some(f=>f.name===r.parentFeatureName)));
  const inventory=await read('docs/imports/catalog.json');assert.equal(a.sources[0].archiveSha256,inventory.items.find(i=>i.id===ID).source.sha256);
 });
 test('Antrider mount table preserves all rows and mindless/poison caveats rather than inventing automatic statistics',async()=>{

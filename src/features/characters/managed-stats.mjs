@@ -14,7 +14,7 @@ export function updateManagedStats(data,previous){
  const delta=hp(data.con)-hp(previous.con)+carriedLevels(managed.input)*(mod(data.con)-mod(previous.con));data.hp_max=Number(data.hp_max||0)+delta;
  managed.lastValues.mp_bonus+=summary.bonusMp-old.bonusMp;managed.lastValues.hp_max+=delta;
  for(const key of abilities)managed.input.baseScores[key]+=Number(data[key])-Number(previous[key]);
- if(Number(data.con)!==Number(previous.con))for(const row of data.activeAbilities||[]){
+ if(abilities.some(k=>Number(data[k])!==Number(previous[k])))for(const row of data.activeAbilities||[]){
   const counter=levelOneCounter(managed.input,{id:row.sourceRuleId},data),oldRow=previous.activeAbilities?.find(r=>r.sourceRuleId===row.sourceRuleId);
   if(!counter||!row.rulesOwned||!oldRow)continue;const spent=Math.max(0,Number(oldRow.u_max||0)-Number(oldRow.u_curr||0));row.u_max=counter.maximum;row.u_curr=Math.max(0,counter.maximum-spent);
  }

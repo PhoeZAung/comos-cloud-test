@@ -191,7 +191,7 @@
         "atClassLevel": 4,
         "parentFeatureName": "Expert Trainer",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -204,7 +204,7 @@
         "atClassLevel": 6,
         "parentFeatureName": "Master Feeder",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -217,7 +217,7 @@
         "atClassLevel": 7,
         "parentFeatureName": "Improved Chocobo Mount",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:acidic-bite",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -230,7 +230,7 @@
         "atClassLevel": 15,
         "parentFeatureName": "Superior Chocobo Mount",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:acidic-bite",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -243,7 +243,7 @@
         "atClassLevel": 15,
         "parentFeatureName": "Protect the Meek",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:antrider:feature:mindlink-pulse",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",

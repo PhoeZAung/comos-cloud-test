@@ -118,13 +118,13 @@ test('Moogle bonus languages stay optional, require an active trait, and do not 
  assert.throws(()=>compileBuild(other),/inactive/);
 });
 
-test('Mog Knight race/class restrictions and first-level boundaries are enforced on the server model',()=>{
+test('Mog Knight race/class restrictions and incomplete progression requests are enforced on the server model',()=>{
  const b=fixture();b.archetypeId=MOG_KNIGHT_ID;assert.throws(()=>compileBuild(b),/Mog Knight requires/);
  const wrongRace=fixture(true);wrongRace.raceId='ffd20:race:dwarf';wrongRace.racialChoices={};wrongRace.racialSpecialties={};assert.throws(()=>compileBuild(wrongRace),/Mog Knight requires/);
  for(const mog of [false,true]){
   const original=fixture(mog),saved=compileBuild(original),next={...original,level:2};
-  assert.throws(()=>compileBuild(next),/level-1 testing/);
-  assert.throws(()=>levelUpBuild(next,saved),/level-1 testing/);
+  assert.throws(()=>compileBuild(next),/skill points|HP roll|valid/);
+  assert.throws(()=>levelUpBuild(next,saved),/skill points|HP|valid/);
   assert.throws(()=>appendClassBuild(original,saved),/Multiclassing/);
   const spell=fixture(mog);spell.spellIds=['invented'];assert.throws(()=>compileBuild(spell),/does not learn/);
  }

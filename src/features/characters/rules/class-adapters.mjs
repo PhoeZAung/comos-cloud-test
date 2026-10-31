@@ -1,3 +1,4 @@
+import {martialChoicePools,martialArchetype,martialCounter,AKIMBO_ID,GUNBREAKER_ID} from './martial-progression.mjs';
 import {MONK_ID,KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
 import {registry} from './catalog.mjs';
 import {archer,archerAtLevel,archerChanges} from './archer-levels.mjs';
@@ -35,7 +36,7 @@ function makeArcherClass(){
 }
 export const archerClass=makeArcherClass();
 export const availableClasses=[registry.class,archerClass,...levelOneClasses,...(bardClass?[bardClass]:[])];
-export const classFor=b=>availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID))||null;
+export const classFor=b=>{const c=availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID));return c?{...c,choicePools:martialChoicePools(b).length?martialChoicePools(b):c.choicePools}:null;};
 export const isArcher=b=>(b?.classId===ARCHER_ID);
 export const className=b=>classFor(b)?.name||'Unknown class';
 export const classHitDie=b=>Number.isInteger(classFor(b)?.data.hitDie)?classFor(b).data.hitDie:(isArcher(b)?8:6);
@@ -44,7 +45,7 @@ export const classHasSpells=b=>!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
  if(!isArcher(b)&&!isLevelOneClass(b)&&!isBard(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
- if(isLevelOneClass(b)||isBard(b)){const value=id.replace(/^skill:/,'');return classFor(b).data.classSkills.some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
+ if(isLevelOneClass(b)||isBard(b)){const value=id.replace(/^skill:/,'');return (levelOneArchetype(b)?.data.classSkills||classFor(b).data.classSkills).some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
  const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
  return skills.includes(value)||value.startsWith('knowledge-')&&skills.includes('knowledge:'+value.slice('knowledge-'.length))||['craft','profession'].includes(value)&&skills.includes(value+':*');
 }
@@ -130,7 +131,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  Object.assign(next,p.scores,{charName:b.name.trim(),alignment:b.alignment,bio:b.bio,portrait:b.portrait,
   source:'FFD20',race:p.race.name,class:name,classId:definition.id,
   level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,
-  classes:[{name,level:b.level,archetype:b.archetypeId===MOG_KNIGHT_ID?'Mog Knight':''}],archetype:b.archetypeId===MOG_KNIGHT_ID?'Mog Knight':'',archetypeId:b.archetypeId,
+  classes:[{name,level:b.level,archetype:levelOneArchetype(b)?.name||''}],archetype:levelOneArchetype(b)?.name||'',archetypeId:b.archetypeId,
   hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,
   mp:isBard(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isBard(b)?'cha':'dex'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition);
@@ -172,13 +173,14 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
    sourceClass:name,rulesOwned:true,...(f.featureKind==='limit_break'||!isBard(b)&&['Shell Piercer','Trueshot Arrow','Limit Breaks'].includes(f.name)?{limitBreak:true}:{})};
   if(isLevelOneClass(b)&&['Commander’s Aura','Battle Dance','Challenge'].includes(f.name)){const maximum=f.name==='Challenge'?1:Math.max(0,4+mod(p.scores.cha)),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.restoreOnLongRest=false;if(f.name!=='Challenge')row.uses_formula='4+{CHA}';}
   if(isBard(b)&&f.id.endsWith(':bardic-performance')){const maximum=4+mod(p.scores.cha),spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=maximum;row.u_curr=Math.max(0,maximum-spent);row.uses_formula='4+{CHA}';row.restoreOnLongRest=false;}
-  const classCounter=levelOneCounter(b,f,p.scores);if(classCounter){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=classCounter.maximum;row.u_curr=Math.max(0,classCounter.maximum-spent);row.restoreOnLongRest=false;}
+  const classCounter=levelOneCounter(b,f,p.scores);if(classCounter){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=classCounter.maximum;row.u_curr=Math.max(0,classCounter.maximum-spent);row.restoreOnLongRest=false;if(classCounter.formula)row.uses_formula=classCounter.formula;else delete row.uses_formula;}
   if(isBeastmaster(b)){const counter=beastmasterCounter(f,p.scores);if(counter){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=counter.maximum;row.u_curr=Math.max(0,counter.maximum-spent);row.uses_formula=counter.formula;row.restoreOnLongRest=false;}}
   const racial=racialCounter(b,f);if(racial){const spent=old?Math.max(0,Number(old.u_max||0)-Number(old.u_curr||0)):0;row.u_max=racial.maximum;row.u_curr=Math.max(0,racial.maximum-spent);row.restoreOnLongRest=false;}
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
- if([DANCER_ID,CHOCOBO_KNIGHT_ID,KNIGHT_ID,MONK_ID].includes(b.classId)){const feat=[DANCER_ID,MONK_ID].includes(b.classId)?'Improved Unarmed Strike':b.classId===KNIGHT_ID?'Antagonize':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id),desc='Granted by '+name+' at level 1. Check the feat conditions before applying its effects.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:feat,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:feat,rulesDescription:desc,sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
+ if([DANCER_ID,CHOCOBO_KNIGHT_ID,KNIGHT_ID,MONK_ID].includes(b.classId)&&b.archetypeId!==AKIMBO_ID){const feat=[DANCER_ID,MONK_ID].includes(b.classId)?'Improved Unarmed Strike':b.classId===KNIGHT_ID?'Antagonize':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id),desc='Granted by '+name+' at level 1. Check the feat conditions before applying its effects.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:feat,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:feat,rulesDescription:desc,sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
+ for(const feat of [...(b.classId===GUNBREAKER_ID||b.archetypeId===AKIMBO_ID?['Gunsmithing']:[]),...(b.archetypeId===AKIMBO_ID?['Precise Shot',...(b.level>=3?['Two-Weapon Fighting']:[])]:[])]){const id=(b.archetypeId||b.classId)+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id);rows.feats.push({...old,name:old?.name||feat,desc:old?.desc||'Granted by '+(levelOneArchetype(b)?.name||name)+'. Apply source conditions manually.',sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let lv=1;lv<=b.level;lv+=2){const id='comos:feat-slot:'+lv,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+lv,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  for(const event of archerChoiceEvents(b).filter(e=>!eventPool(e).endsWith('archery-talents'))){

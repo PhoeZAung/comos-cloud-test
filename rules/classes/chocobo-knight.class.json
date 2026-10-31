@@ -11,12 +11,20 @@
       "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
       "archiveSha256": "fd7ec4dee855821e24be06bc3d01b31fade1e2e100ca941a33468b6a8e4c6484"
+    },
+    {
+      "id": "classes-base-classes-chocobo-knight-mounted-talents",
+      "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/",
+      "title": "Mounted talent",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "5a0c28cb56b964cc7c0a7358a59cc6dbdd1ff8e5d0ade1d1af521e883a5f1bd8"
     }
   ],
   "review": {
     "state": "needs_review",
     "coverage": "partial",
-    "notes": "First-level character creation only; full progression rows are transcribed, but later-level features/choices are not enabled. Conditional mechanics and mount operation remain manual."
+    "notes": "Levels 1–20: progression totals and explicit choices; conditional combat, companions, equipment and external prerequisites remain manual references. Not full independent rule certification."
   },
   "data": {
     "hitDie": 10,
@@ -49,7 +57,26 @@
       "learningMode": "none"
     },
     "supportedLevels": [
-      1
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
     ],
     "levels": [
       {
@@ -458,7 +485,8 @@
             "section": "Weapon and Armor Proficiency",
             "locator": "proficiencies"
           }
-        ]
+        ],
+        "progressionDescription": "Chocobo knights are proficient with all simple, martial weapons, and knight swords and with all armor (light, medium, and heavy) and shields (including tower shields)."
       },
       {
         "id": "ffd20:class:chocobo-knight:feature:chocobo-mount",
@@ -474,7 +502,8 @@
             "section": "Chocobo Mount",
             "locator": "chocobo-mount"
           }
-        ]
+        ],
+        "progressionDescription": "A chocobo knight gains the service of a loyal and trusty yellow chocobo to carry him into battle. This chocobo functions as a beastmaster’s animal companion, using the chocobo knight’s level as his effective beastmaster level. A chocobo knight’s mount does not gain the shared saves special ability. Unlike normal chocobos of its kind, a chocobo’s Hit Dice, abilities, skills, and feats advance as the chocobo knight advances in level. If a character receives a companion from more than one source, his effective chocobo knight levels stack for the purposes of determining the statistics and abilities of the companion. Chocobos are relatively tame and docile for magical beasts, and are treated as animals for the purpose of Handle Animal checks."
       },
       {
         "id": "ffd20:class:chocobo-knight:feature:mounted-combat",
@@ -490,7 +519,8 @@
             "section": "Mounted Combat",
             "locator": "mounted-combat"
           }
-        ]
+        ],
+        "progressionDescription": "At 1st level, a chocobo knight gains Mounted Combat as a bonus feat."
       },
       {
         "id": "ffd20:class:chocobo-knight:feature:challenge",
@@ -506,7 +536,12 @@
             "section": "Challenge",
             "locator": "challenge"
           }
-        ]
+        ],
+        "progressionDescription": "Once per day, a chocobo knight can challenge a foe to combat. As a swift action, the chocobo knight chooses one target within sight to challenge. The chocobo knight’s melee attacks deal extra damage whenever the attacks are made against the target of his challenge. This extra damage is equal to the chocobo knight’s level. The chocobo knight can use this ability once per day at 1st level, plus one additional time per day for every three levels beyond 1st, to a maximum of seven times per day at 19th level. Challenging a foe requires much of the chocobo knight’s concentration. The chocobo knight takes a –2 penalty to his Armor Class, except against attacks made by the target of his challenge. The challenge remains in effect until the target is dead or unconscious or until the combat ends.",
+        "initialState": {
+          "targetDamage": 1,
+          "dailyUses": 1
+        }
       },
       {
         "id": "ffd20:class:chocobo-knight:feature:commanders-aura",
@@ -522,7 +557,8 @@
             "section": "Commander’s Aura",
             "locator": "commanders-aura"
           }
-        ]
+        ],
+        "progressionDescription": "At 1st level, the chocobo knight can project an aura that provides a beneficial effect to her and all allies that see or hear him (limited to within 60 feet if there are more than 10 allies). Projecting the aura is a move action, switching which bonuses it provides is a swift action, and ending the aura is a free action. At 7th level, the aura bonuses can also be switched as an immediate action.\n\nAll bonuses from this ability (except temporary hit points and fast healing) are morale bonuses. The aura can remain active for a number of rounds per day equal to (2 + 2 per chocobo knight level + his Charisma modifier).\n\nThe Community-Minded trait does not affect this ability, instead granting it 2 additional rounds per day. This ability is a verbal/visual, mind-affecting effect. The following are available aura effects:\n\n Armored Adage: Allies gain DR 2/-, increased by 2 per 4 chocobo knight levels after 1st.\n Buffering Encouragement: Allies gain temporary hit points equal to (chocobo knight level + his Charisma modifier). These hit points last as long as the aura does (even if the aura effect is swapped). While this effect is active, the temporary hit points of allies refresh at the start of their turns.\n Defensive Stratagem: Allies gain a bonus to AC equal to (+1, +1 per four chocobo knight levels after 1st).\n Destructive Counsel: Allies gain a bonus to weapon damage rolls equal to (+2, +2 per four chocobo knight levels after 1st).\n Healing Lesson: Allies gain fast healing 2, increased by 2 per three chocobo knight levels after 1st.\n Resilient Recommendation: The chocobo knight chooses an element when this effect begins – allies gain ER 3 against it, increased by 3 per three chocobo knight levels after 1st.\n Tactical Advice: Allies gain a bonus to combat maneuver checks equal to (+1, +1 per four chocobo knight levels after 1st).\n Valiant March: Allies gain a bonus to their speeds equal to (+10ft, +10ft per three chocobo knight levels after 1st).\n Warding Warning: Allies gain a bonus to saving throws equal to (+1, +1 per four chocobo knight levels after 1st)."
       },
       {
         "id": "ffd20:class:chocobo-knight:feature:fight-as-one",
@@ -538,7 +574,11 @@
             "section": "Fight as One",
             "locator": "fight-as-one"
           }
-        ]
+        ],
+        "progressionDescription": "Fight as One (Su): This Limit Break allows the chocobo knight and his mount to fight as if they were one mind and one body. They both receive a +2 morale bonus on Attack rolls, Saving Throws, and Skill checks + an additional +2 bonus per four chocobo knight levels after 1st. The mount can full-attack after a charge. This lasts for a duration of 1 round + 1 round per four chocobo knight levels after 1st. This limit break requires only a swift action.",
+        "initialState": {
+          "durationRounds": 1
+        }
       },
       {
         "id": "ffd20:class:chocobo-knight:feature:supreme-overrun",
@@ -554,10 +594,966 @@
             "section": "Supreme Overrun",
             "locator": "supreme-overrun"
           }
+        ],
+        "progressionDescription": "Supreme Overrun (Su): This Limit Break allows the chocobo knight and his mount to charge 60 feet in a line, running over his enemies. Enemies within the area of effect take 1d6 points of damage per chocobo knight level, a Reflex save (DC 10 + half of the chocobo knight’s level + his Strength modifier) can half this damage.",
+        "initialState": {
+          "durationRounds": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:steadfast-mount",
+        "name": "Steadfast Mount",
+        "atLevel": 2,
+        "description": "At 2nd level, after the chocobo knight has spent 1 hour practicing with his mount, the mount gains a +1 dodge bonus to AC and a +1 morale bonus on saves, but only while the chocobo knight is mounted on it or adjacent to it. This bonus increases by +1 for every four levels after 2nd.",
+        "progressionDescription": "At 2nd level, after the chocobo knight has spent 1 hour practicing with his mount, the mount gains a +1 dodge bonus to AC and a +1 morale bonus on saves, but only while the chocobo knight is mounted on it or adjacent to it. This bonus increases by +1 for every four levels after 2nd.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Steadfast Mount",
+            "locator": "steadfast-mount"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:banner",
+        "name": "Banner",
+        "atLevel": 2,
+        "description": "At 2nd level, the chocobo knight gains and bestows special effects while displaying a banner. He also obtains a free mundane banner. This ability affects the chocobo knight and all allies that see him and his banner (limited to within 60 feet if there are more than 10 allies). The chocobo knight may swap which banner effect he has active as a full-round action, but this may only be done outside of combat while undisturbed. Active banner abilities are used by waving the banner (or the relevant weapon or shield) as a standard action. All bonuses from this ability (except temporary hit points) are morale bonuses that stack with all others except an identical banner ability. The following are available banner abilities:\n\n Fleet Standard: Allies gain a bonus to their speeds equal to (5ft, +5ft per 5 chocobo knight levels), as well as a +1 dodge bonus to AC.   \n  • At 14th level: Allies also gain a +1 bonus to saving throws against effects that target an area.  \n  • Active: Allies equal to (his Charisma modifier) may use an immediate action to move up to their speeds.\n Inspiring Standard: Allies gain a bonus on saving throws against mind-affecting effects equal to (+1, +1 per 5 chocobo knight levels).  \n  • At 14th level: When combat begins, allies gain temporary hit points equal to (chocobo knight level + his Charisma modifier).  \n  • Active: Allies up to (his Charisma modifier) may attempt a new saving throw against a status effect, ending it if successful.\n Jinx Standard: Allies gain a +1 bonus to the DCs of their abilities and spells. They also gain a bonus to caster level checks equal to (+1, +1 per 5 chocobo knight levels).  \n  • At 14th level: Allies also gain a +1 bonus to saving throws against damaging effects.  \n  • Active: Allies up to (his Charisma modifier) may attempt a Demoralize check as an immediate action.\n Knave Standard: Allies gain a +1 bonus to flanking attacks. They also gain a dodge bonus to AC against attacks of opportunity equal to (+1, +1 per 5 chocobo knight levels).  \n  • At 14th level: Allies gain sneak attack (+1d6).  \n  • Active: Allies up to (his Charisma modifier) may attempt a feint or combat maneuver without provoking attacks as an immediate action.\n Stalwart Standard: Allies gain a +1 bonus to weapon damage. They also gain a bonus to CMD equal to (+1, +1 per 5 chocobo knight levels).  \n  • At 14th level: Allies count as one size larger for the purpose of being affected by combat maneuvers.  \n  • Active: Allies up to (his Charisma modifier) can move up to 10ft, ignoring difficult terrain and without provoking attacks, as an immediate action.",
+        "progressionDescription": "At 2nd level, the chocobo knight gains and bestows special effects while displaying a banner. He also obtains a free mundane banner. This ability affects the chocobo knight and all allies that see him and his banner (limited to within 60 feet if there are more than 10 allies). The chocobo knight may swap which banner effect he has active as a full-round action, but this may only be done outside of combat while undisturbed. Active banner abilities are used by waving the banner (or the relevant weapon or shield) as a standard action. All bonuses from this ability (except temporary hit points) are morale bonuses that stack with all others except an identical banner ability. The following are available banner abilities:\n\n Fleet Standard: Allies gain a bonus to their speeds equal to (5ft, +5ft per 5 chocobo knight levels), as well as a +1 dodge bonus to AC.   \n  • At 14th level: Allies also gain a +1 bonus to saving throws against effects that target an area.  \n  • Active: Allies equal to (his Charisma modifier) may use an immediate action to move up to their speeds.\n Inspiring Standard: Allies gain a bonus on saving throws against mind-affecting effects equal to (+1, +1 per 5 chocobo knight levels).  \n  • At 14th level: When combat begins, allies gain temporary hit points equal to (chocobo knight level + his Charisma modifier).  \n  • Active: Allies up to (his Charisma modifier) may attempt a new saving throw against a status effect, ending it if successful.\n Jinx Standard: Allies gain a +1 bonus to the DCs of their abilities and spells. They also gain a bonus to caster level checks equal to (+1, +1 per 5 chocobo knight levels).  \n  • At 14th level: Allies also gain a +1 bonus to saving throws against damaging effects.  \n  • Active: Allies up to (his Charisma modifier) may attempt a Demoralize check as an immediate action.\n Knave Standard: Allies gain a +1 bonus to flanking attacks. They also gain a dodge bonus to AC against attacks of opportunity equal to (+1, +1 per 5 chocobo knight levels).  \n  • At 14th level: Allies gain sneak attack (+1d6).  \n  • Active: Allies up to (his Charisma modifier) may attempt a feint or combat maneuver without provoking attacks as an immediate action.\n Stalwart Standard: Allies gain a +1 bonus to weapon damage. They also gain a bonus to CMD equal to (+1, +1 per 5 chocobo knight levels).  \n  • At 14th level: Allies count as one size larger for the purpose of being affected by combat maneuvers.  \n  • Active: Allies up to (his Charisma modifier) can move up to 10ft, ignoring difficult terrain and without provoking attacks, as an immediate action.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Banner",
+            "locator": "banner"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:mounted-talents",
+        "name": "Mounted Talents",
+        "atLevel": 2,
+        "description": "As a talented chocobo knight gains experience, he learns a number of talents that expand his role as a mounted combatant. Starting at 2nd, a talented chocobo knight gains a mounted talent. He gains an additional mounted talent at 4th level and every two chocobo knight levels thereafter. A chocobo knight cannot select an individual talent more than once unless the talent specifies otherwise.\n\n A complete list of mounted talents can be found here: Mounted Talents",
+        "progressionDescription": "As a talented chocobo knight gains experience, he learns a number of talents that expand his role as a mounted combatant. Starting at 2nd, a talented chocobo knight gains a mounted talent. He gains an additional mounted talent at 4th level and every two chocobo knight levels thereafter. A chocobo knight cannot select an individual talent more than once unless the talent specifies otherwise.\n\n A complete list of mounted talents can be found here: Mounted Talents",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mounted Talents",
+            "locator": "mounted-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:knights-charge",
+        "name": "Knight’s Charge",
+        "atLevel": 3,
+        "description": "At 3rd level, a chocobo knight learns to make more accurate charge attacks while mounted. The chocobo knight receives a +4 bonus on melee attack rolls on a charge while mounted (instead of the normal +2). In addition, the chocobo knight does not suffer any penalty to his AC after making a charge attack while mounted.",
+        "progressionDescription": "At 3rd level, a chocobo knight learns to make more accurate charge attacks while mounted. The chocobo knight receives a +4 bonus on melee attack rolls on a charge while mounted (instead of the normal +2). In addition, the chocobo knight does not suffer any penalty to his AC after making a charge attack while mounted.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knight’s Charge",
+            "locator": "knights-charge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:commanders-shout",
+        "name": "Commander’s Shout",
+        "atLevel": 3,
+        "description": "At 3rd level, a chocobo knight can let out a mighty shout, allowing an ally affected by his commander’s aura to take additional actions. As an immediate action, a chocobo knight can spend 4 rounds of his commander’s aura to grant an ally an additional move action on that ally’s turn. A creature can only benefit from this ability once per day even if a different chocobo knight uses it on them. A creature must be able to hear the chocobo knight to gain any benefit from this ability",
+        "progressionDescription": "At 3rd level, a chocobo knight can let out a mighty shout, allowing an ally affected by his commander’s aura to take additional actions. As an immediate action, a chocobo knight can spend 4 rounds of his commander’s aura to grant an ally an additional move action on that ally’s turn. A creature can only benefit from this ability once per day even if a different chocobo knight uses it on them. A creature must be able to hear the chocobo knight to gain any benefit from this ability",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Commander’s Shout",
+            "locator": "commanders-shout"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:expert-trainer",
+        "name": "Expert Trainer",
+        "atLevel": 4,
+        "description": "At 4th level, a chocobo knight learns to train chocobos with speed and unsurpassed expertise. The chocobo knight receives a bonus equal to his chocobo knight level whenever he uses Handle Animal on a chocobo that serves as a mount. In addition, he can reduce the time needed to teach a mount a new trick or train a mount for a general purpose to 1 day per 1 week required by increasing the DC by +5. He can also train more than one mount at once, although each mount after the first adds +2 to the DC.",
+        "progressionDescription": "At 4th level, a chocobo knight learns to train chocobos with speed and unsurpassed expertise. The chocobo knight receives a bonus equal to his chocobo knight level whenever he uses Handle Animal on a chocobo that serves as a mount. In addition, he can reduce the time needed to teach a mount a new trick or train a mount for a general purpose to 1 day per 1 week required by increasing the DC by +5. He can also train more than one mount at once, although each mount after the first adds +2 to the DC.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Expert Trainer",
+            "locator": "expert-trainer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:mounted-mettle",
+        "name": "Mounted Mettle",
+        "atLevel": 5,
+        "description": "At 5th level, a chocobo knight and his mount gain a +1 bonus on attack and damage rolls when he is mounted or adjacent to his mount. This bonus increases by +1 for every five levels after 5th.",
+        "progressionDescription": "At 5th level, a chocobo knight and his mount gain a +1 bonus on attack and damage rolls when he is mounted or adjacent to his mount. This bonus increases by +1 for every five levels after 5th.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mounted Mettle",
+            "locator": "mounted-mettle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:battlefield-agility",
+        "name": "Battlefield Agility",
+        "atLevel": 5,
+        "description": "Also at 5th level, a chocobo knight learns to be more aware of the threats that surround him in combat, and shares this awareness with his loyal steed. Both the chocobo knight and his mount gain Mobility as a bonus feat. If the chocobo knight already has this feat, he may pick another Combat feat for which he must meet the prerequisites for.",
+        "progressionDescription": "Also at 5th level, a chocobo knight learns to be more aware of the threats that surround him in combat, and shares this awareness with his loyal steed. Both the chocobo knight and his mount gain Mobility as a bonus feat. If the chocobo knight already has this feat, he may pick another Combat feat for which he must meet the prerequisites for.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battlefield Agility",
+            "locator": "battlefield-agility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:master-feeder",
+        "name": "Master Feeder",
+        "atLevel": 6,
+        "description": "At 6th level, a chocobo knight trains his chocobo mount to eat chocobo food efficiently. The chocobo knight increases the duration of food buffs by 1 (minute/hour) + 1 for every six chocobo knight levels after 6th.",
+        "progressionDescription": "At 6th level, a chocobo knight trains his chocobo mount to eat chocobo food efficiently. The chocobo knight increases the duration of food buffs by 1 (minute/hour) + 1 for every six chocobo knight levels after 6th.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Feeder",
+            "locator": "master-feeder"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:improved-chocobo-mount",
+        "name": "Improved Chocobo Mount",
+        "atLevel": 7,
+        "description": "At 7th level, a chocobo knight’s chocobo mount is trained extensively at charging into battle. When charging while carrying a rider, the chocobo mount receives a +4 bonus on melee attack rolls instead of the normal +2. In addition, the chocobo mount gains a number of temporary hit points equal to the chocobo knight’s level. These temporary hit points last for 1 minute.",
+        "progressionDescription": "At 7th level, a chocobo knight’s chocobo mount is trained extensively at charging into battle. When charging while carrying a rider, the chocobo mount receives a +4 bonus on melee attack rolls instead of the normal +2. In addition, the chocobo mount gains a number of temporary hit points equal to the chocobo knight’s level. These temporary hit points last for 1 minute.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Chocobo Mount",
+            "locator": "improved-chocobo-mount"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:iron-chocobo",
+        "name": "Iron Chocobo",
+        "atLevel": 7,
+        "description": "At 7th level, as long as a chocobo knight is riding his mount, his mount gains DR 2/-. At 11th level and every four chocobo knight levels afterwards, this DR increases by 1. This damage reduction stacks with similar damage reduction.",
+        "progressionDescription": "At 7th level, as long as a chocobo knight is riding his mount, his mount gains DR 2/-. At 11th level and every four chocobo knight levels afterwards, this DR increases by 1. This damage reduction stacks with similar damage reduction.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Iron Chocobo",
+            "locator": "iron-chocobo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:relentless-steed",
+        "name": "Relentless Steed",
+        "atLevel": 8,
+        "description": "At 8th level, a chocobo knight’s mount does not reduce its speed when wearing medium or heavy barding or carrying a heavy load. The chocobo knight may also reroll a Ride skill check or a saving throw made by the mount once per day, but must use the second roll even if it is worse.",
+        "progressionDescription": "At 8th level, a chocobo knight’s mount does not reduce its speed when wearing medium or heavy barding or carrying a heavy load. The chocobo knight may also reroll a Ride skill check or a saving throw made by the mount once per day, but must use the second roll even if it is worse.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Relentless Steed",
+            "locator": "relentless-steed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:chivalrys-call",
+        "name": "Chivalry’s Call",
+        "atLevel": 8,
+        "description": "At 8th level, a chocobo knight can appeal to the honor of his comrade, freeing them from outside control. As a swift action, a chocobo knight may expend 3 rounds of his Commander’s Aura to allow an ally within the range of his Aura to make another saving throw against a mind affecting effect, using the chocobo knight’s total bonus to Will saving throws or their own bonus, whichever is higher.",
+        "progressionDescription": "At 8th level, a chocobo knight can appeal to the honor of his comrade, freeing them from outside control. As a swift action, a chocobo knight may expend 3 rounds of his Commander’s Aura to allow an ally within the range of his Aura to make another saving throw against a mind affecting effect, using the chocobo knight’s total bonus to Will saving throws or their own bonus, whichever is higher.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chivalry’s Call",
+            "locator": "chivalrys-call"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:mounted-expertise",
+        "name": "Mounted Expertise",
+        "atLevel": 9,
+        "description": "A chocobo knight of 9th level or higher is highly skilled at fighting while riding his mount. Before making any rolls when using the attack action or the full attack action while mounted on his mount in melee, a chocobo knight may shift points between his attack rolls and his Armor Class. A penalty subtracted from an attack roll applies as a dodge bonus to his AC; a penalty subtracted from Armor Class applies as a bonus on all attack rolls for that round. The points adjusted with the mounted expertise ability may not exceed the chocobo knight’s base attack bonus. All changes to attack rolls and AC persist until the chocobo knight’s next turn.",
+        "progressionDescription": "A chocobo knight of 9th level or higher is highly skilled at fighting while riding his mount. Before making any rolls when using the attack action or the full attack action while mounted on his mount in melee, a chocobo knight may shift points between his attack rolls and his Armor Class. A penalty subtracted from an attack roll applies as a dodge bonus to his AC; a penalty subtracted from Armor Class applies as a bonus on all attack rolls for that round. The points adjusted with the mounted expertise ability may not exceed the chocobo knight’s base attack bonus. All changes to attack rolls and AC persist until the chocobo knight’s next turn.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mounted Expertise",
+            "locator": "mounted-expertise"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:riders-bond",
+        "name": "Rider’s Bond",
+        "atLevel": 9,
+        "description": "At 9th level, as long as the chocobo knight’s mount is above 0 hit points and the chocobo knight is within 60 feet of it, the chocobo knight gains the benefits of the Diehard and Deathless Initiate feats, regardless of if he qualifies for them.\n\nAt 17th level, whenever the chocobo knight would normally be dead due to hit point damage, as long as his mount is still alive and within 60 feet, the chocobo knight can act as though he was still alive, as well as being able to be healed. If the chocobo knight is healed above the threshold he would need to be alive before leaving the area of this ability, he continue to be alive, although if he is still below 0 hit points, he falls unconscious as normal.",
+        "progressionDescription": "At 9th level, as long as the chocobo knight’s mount is above 0 hit points and the chocobo knight is within 60 feet of it, the chocobo knight gains the benefits of the Diehard and Deathless Initiate feats, regardless of if he qualifies for them.\n\nAt 17th level, whenever the chocobo knight would normally be dead due to hit point damage, as long as his mount is still alive and within 60 feet, the chocobo knight can act as though he was still alive, as well as being able to be healed. If the chocobo knight is healed above the threshold he would need to be alive before leaving the area of this ability, he continue to be alive, although if he is still below 0 hit points, he falls unconscious as normal.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rider’s Bond",
+            "locator": "riders-bond"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:burst-of-speed",
+        "name": "Burst of Speed",
+        "atLevel": 10,
+        "description": "At 10th level and higher, a chocobo knight can urge his mount to greater than normal speed when charging. This ability doubles the maximum distance the mount can travel when making a charge, up to four times its speed. This ability can be used once per day without penalty to the mount. Each additional use of the ability in a single day requires the mount to make a DC 20 Will save immediately after the conclusion of the charge; failure results in the mount taking 2d6 points of damage.",
+        "progressionDescription": "At 10th level and higher, a chocobo knight can urge his mount to greater than normal speed when charging. This ability doubles the maximum distance the mount can travel when making a charge, up to four times its speed. This ability can be used once per day without penalty to the mount. Each additional use of the ability in a single day requires the mount to make a DC 20 Will save immediately after the conclusion of the charge; failure results in the mount taking 2d6 points of damage.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Burst of Speed",
+            "locator": "burst-of-speed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:greater-charge",
+        "name": "Greater Charge",
+        "atLevel": 11,
+        "description": "At 11th level, a chocobo knight learns to make devastating charge attacks while mounted. Double the threat range of any weapons wielded during a charge while mounted. This increase does not stack with other effects that increase the threat range of the weapon (such as Improved Critical). In addition, the chocobo knight can make a free bull rush, disarm, sunder, or trip attempt if his charge attack is successful. This does not provoke an attack of opportunity.",
+        "progressionDescription": "At 11th level, a chocobo knight learns to make devastating charge attacks while mounted. Double the threat range of any weapons wielded during a charge while mounted. This increase does not stack with other effects that increase the threat range of the weapon (such as Improved Critical). In addition, the chocobo knight can make a free bull rush, disarm, sunder, or trip attempt if his charge attack is successful. This does not provoke an attack of opportunity.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Charge",
+            "locator": "greater-charge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:dual-aura",
+        "name": "Dual Aura",
+        "atLevel": 11,
+        "description": "At 11th level, whenever a chocobo knight projects a commander’s aura, he can choose to provide two abilities with his aura without expending additional rounds, rather than just one.",
+        "progressionDescription": "At 11th level, whenever a chocobo knight projects a commander’s aura, he can choose to provide two abilities with his aura without expending additional rounds, rather than just one.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dual Aura",
+            "locator": "dual-aura"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:superior-mounted-combat",
+        "name": "Superior Mounted Combat",
+        "atLevel": 12,
+        "description": "After achieving 12th level, a chocobo knight may attempt a Ride check (as a reaction) twice per round to negate a successful hit on his mount. At 18th level, the chocobo knight may make these attempts three times per round.",
+        "progressionDescription": "After achieving 12th level, a chocobo knight may attempt a Ride check (as a reaction) twice per round to negate a successful hit on his mount. At 18th level, the chocobo knight may make these attempts three times per round.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Mounted Combat",
+            "locator": "superior-mounted-combat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:advanced-mounted-talents",
+        "name": "Advanced Mounted Talents",
+        "atLevel": 12,
+        "description": "At 12th level and every two chocobo knight levels thereafter, a chocobo knight can choose one of the following advanced mounted talents in place of a mounted talent.\n\n A complete list of advanced mounted talents can be found here: Advanced Mounted Talents",
+        "progressionDescription": "At 12th level and every two chocobo knight levels thereafter, a chocobo knight can choose one of the following advanced mounted talents in place of a mounted talent.\n\n A complete list of advanced mounted talents can be found here: Advanced Mounted Talents",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Mounted Talents",
+            "locator": "advanced-mounted-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:chocobos-parry",
+        "name": "Chocobo’s Parry",
+        "atLevel": 13,
+        "description": "At 13th level, a chocobo knight has mastered using his steed to deflect attacks. As an immediate action, a chocobo knight may expend 2 rounds of their commander’s aura to attempt a Ride check to turn his mount to absorb the blow for him. The DC of this check is equal to the result of the attack roll made against him. If successful, the attack hits the mount instead, dealing half of its normal damage. A chocobo knight must decide to use this ability after the attack has been rolled, but before the result has been revealed.",
+        "progressionDescription": "At 13th level, a chocobo knight has mastered using his steed to deflect attacks. As an immediate action, a chocobo knight may expend 2 rounds of their commander’s aura to attempt a Ride check to turn his mount to absorb the blow for him. The DC of this check is equal to the result of the attack roll made against him. If successful, the attack hits the mount instead, dealing half of its normal damage. A chocobo knight must decide to use this ability after the attack has been rolled, but before the result has been revealed.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chocobo’s Parry",
+            "locator": "chocobos-parry"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:defensive-charging",
+        "name": "Defensive Charging",
+        "atLevel": 14,
+        "description": "At 14th level, whenever a mounted chocobo knight charges a foe, his movement does not provoke attacks of opportunity, for either him or his mount.",
+        "progressionDescription": "At 14th level, whenever a mounted chocobo knight charges a foe, his movement does not provoke attacks of opportunity, for either him or his mount.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defensive Charging",
+            "locator": "defensive-charging"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:protect-the-meek",
+        "name": "Protect the Meek",
+        "atLevel": 15,
+        "description": "At 15th level, once per turn, as an immediate action, the chocobo knight can move up to his speed (or his ridden mount’s speed). This movement provokes attacks of opportunity as normal. After moving this way, he may perform one attack against a target within range. The chocobo knight must end his movement adjacent to an enemy or ally. Using this ability staggers the chocobo knight until the end of his next turn, and it cannot be used while staggered.",
+        "progressionDescription": "At 15th level, once per turn, as an immediate action, the chocobo knight can move up to his speed (or his ridden mount’s speed). This movement provokes attacks of opportunity as normal. After moving this way, he may perform one attack against a target within range. The chocobo knight must end his movement adjacent to an enemy or ally. Using this ability staggers the chocobo knight until the end of his next turn, and it cannot be used while staggered.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Protect the Meek",
+            "locator": "protect-the-meek"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:victors-rally",
+        "name": "Victor’s Rally",
+        "atLevel": 15,
+        "description": "At 15th level, the sight of chocobo knight’s triumph can inspire his allies to greatness. When a chocobo knight reduces a creature to 0 or fewer hit points, the chocobo knight can select an ally (other than themselves or his mount) within the radius of his commander’s aura, allowing that ally to either immediately make an attack with a weapon they’re wielding or move up to their movement speed (this movement does not provoke attacks of opportunity). Reducing a creature with fewer HD than half the chocobo knight’s level does not activate this effect, and an ally can only be affected by this class feature once every five minutes.",
+        "progressionDescription": "At 15th level, the sight of chocobo knight’s triumph can inspire his allies to greatness. When a chocobo knight reduces a creature to 0 or fewer hit points, the chocobo knight can select an ally (other than themselves or his mount) within the radius of his commander’s aura, allowing that ally to either immediately make an attack with a weapon they’re wielding or move up to their movement speed (this movement does not provoke attacks of opportunity). Reducing a creature with fewer HD than half the chocobo knight’s level does not activate this effect, and an ally can only be affected by this class feature once every five minutes.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Victor’s Rally",
+            "locator": "victors-rally"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:superior-chocobo-mount",
+        "name": "Superior Chocobo Mount",
+        "atLevel": 15,
+        "description": "Also at 15th level, a chocobo knight’s chocobo mount is even better trained as a charger than before. When charging while carrying a rider, the chocobo mount gains a +4 bonus to damage. In addition, the chocobo mount gains a number of temporary hit points equal to the chocobo knight’s level. These temporary hit points stack with those from Improved Chocobo Mount and last for 1 minute.",
+        "progressionDescription": "Also at 15th level, a chocobo knight’s chocobo mount is even better trained as a charger than before. When charging while carrying a rider, the chocobo mount gains a +4 bonus to damage. In addition, the chocobo mount gains a number of temporary hit points equal to the chocobo knight’s level. These temporary hit points stack with those from Improved Chocobo Mount and last for 1 minute.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Chocobo Mount",
+            "locator": "superior-chocobo-mount"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:unavoidable-onslaught",
+        "name": "Unavoidable Onslaught",
+        "atLevel": 16,
+        "description": "At 16th level, a chocobo knight’s mounted charge is not blocked by friendly creatures.",
+        "progressionDescription": "At 16th level, a chocobo knight’s mounted charge is not blocked by friendly creatures.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unavoidable Onslaught",
+            "locator": "unavoidable-onslaught"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:erratic-charge",
+        "name": "Erratic Charge",
+        "atLevel": 17,
+        "description": "At 17th level, a chocobo knight learns to ride through the thick of combat, striking and then moving away with blinding speed. Whenever the chocobo knight is mounted and takes the charge action, he can first move 10 feet and make a melee attack. This first attack is not a charge, but a regular melee attack, and the movement counts toward the total allowed movement for the round. After making this attack, the chocobo knight must still move in a straight line to reach the target of his charge, and he takes a –5 penalty on the attack roll for the attack at the end of his charge.",
+        "progressionDescription": "At 17th level, a chocobo knight learns to ride through the thick of combat, striking and then moving away with blinding speed. Whenever the chocobo knight is mounted and takes the charge action, he can first move 10 feet and make a melee attack. This first attack is not a charge, but a regular melee attack, and the movement counts toward the total allowed movement for the round. After making this attack, the chocobo knight must still move in a straight line to reach the target of his charge, and he takes a –5 penalty on the attack roll for the attack at the end of his charge.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Erratic Charge",
+            "locator": "erratic-charge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:generals-awe",
+        "name": "General’s Awe",
+        "atLevel": 17,
+        "description": "At 17th level, whenever a chocobo knight is riding his mount, he can spend 4 rounds of his commander’s aura as a free action while making an attack. If the attack is successful, the attacked creature must make a successful Will saving throw (DC 10 + half of the chocobo knight’s level + his Charisma modifier) or be stunned for 1 round.\n\nIn addition, for a number of rounds equal to the chocobo knight’s Charisma modifier, at the beginning of each of the creature’s turns, it must make an additional successful Will saving throw or be unable to make an attack targeting the chocobo knight or his mount. Once a creature has been affected by this ability, it cannot be affected by it again for 24 hours. This second effect is a mind-affecting effect.",
+        "progressionDescription": "At 17th level, whenever a chocobo knight is riding his mount, he can spend 4 rounds of his commander’s aura as a free action while making an attack. If the attack is successful, the attacked creature must make a successful Will saving throw (DC 10 + half of the chocobo knight’s level + his Charisma modifier) or be stunned for 1 round.\n\nIn addition, for a number of rounds equal to the chocobo knight’s Charisma modifier, at the beginning of each of the creature’s turns, it must make an additional successful Will saving throw or be unable to make an attack targeting the chocobo knight or his mount. Once a creature has been affected by this ability, it cannot be affected by it again for 24 hours. This second effect is a mind-affecting effect.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "General’s Awe",
+            "locator": "generals-awe"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:spiritual-bond",
+        "name": "Spiritual Bond",
+        "atLevel": 18,
+        "description": "At 18th level, the chocobo knight can grant his mount temporary hit points equal to his chocobo knight level once per day. While these temporary hit points last, when his mount is within 30 feet of him, he can choose to take the damage taken by his mount. The chocobo knight cannot take damage using this feature, if under the secondary effect of Rider’s Bond.",
+        "progressionDescription": "At 18th level, the chocobo knight can grant his mount temporary hit points equal to his chocobo knight level once per day. While these temporary hit points last, when his mount is within 30 feet of him, he can choose to take the damage taken by his mount. The chocobo knight cannot take damage using this feature, if under the secondary effect of Rider’s Bond.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spiritual Bond",
+            "locator": "spiritual-bond"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:indomitable-steed",
+        "name": "Indomitable Steed",
+        "atLevel": 19,
+        "description": "At 19th level, a chocobo knight and his steed gain DR 5/— when mounted.",
+        "progressionDescription": "At 19th level, a chocobo knight and his steed gain DR 5/— when mounted.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Indomitable Steed",
+            "locator": "indomitable-steed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:feature:supreme-charge",
+        "name": "Supreme Charge",
+        "atLevel": 20,
+        "description": "At 20th level, whenever the chocobo knight makes a charge attack while mounted, he deals double the normal amount of damage (or triple if using a lance). In addition, if the chocobo knight confirms a critical hit on a charge attack while mounted, the target is stunned for 1d4 rounds. A Will save reduces this to dazed for 1d4 rounds. The DC is equal to 10 + the chocobo knight’s base attack bonus.",
+        "progressionDescription": "At 20th level, whenever the chocobo knight makes a charge attack while mounted, he deals double the normal amount of damage (or triple if using a lance). In addition, if the chocobo knight confirms a critical hit on a charge attack while mounted, the target is stunned for 1d4 rounds. A Will save reduces this to dazed for 1d4 rounds. The DC is equal to 10 + the chocobo knight’s base attack bonus.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Supreme Charge",
+            "locator": "supreme-charge"
+          }
         ]
       }
     ],
-    "upgrades": [],
+    "upgrades": [
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:2",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 2,
+        "changes": {
+          "targetDamage": 2,
+          "dailyUses": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:3",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 3,
+        "changes": {
+          "targetDamage": 3,
+          "dailyUses": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:4",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 4,
+        "changes": {
+          "targetDamage": 4,
+          "dailyUses": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:5",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 5,
+        "changes": {
+          "targetDamage": 5,
+          "dailyUses": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:6",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 6,
+        "changes": {
+          "targetDamage": 6,
+          "dailyUses": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:7",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 7,
+        "changes": {
+          "targetDamage": 7,
+          "dailyUses": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:8",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 8,
+        "changes": {
+          "targetDamage": 8,
+          "dailyUses": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:9",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 9,
+        "changes": {
+          "targetDamage": 9,
+          "dailyUses": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:10",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 10,
+        "changes": {
+          "targetDamage": 10,
+          "dailyUses": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:11",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 11,
+        "changes": {
+          "targetDamage": 11,
+          "dailyUses": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:12",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 12,
+        "changes": {
+          "targetDamage": 12,
+          "dailyUses": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:13",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 13,
+        "changes": {
+          "targetDamage": 13,
+          "dailyUses": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:14",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 14,
+        "changes": {
+          "targetDamage": 14,
+          "dailyUses": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:15",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 15,
+        "changes": {
+          "targetDamage": 15,
+          "dailyUses": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:16",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 16,
+        "changes": {
+          "targetDamage": 16,
+          "dailyUses": 6
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:17",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 17,
+        "changes": {
+          "targetDamage": 17,
+          "dailyUses": 6
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:18",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 18,
+        "changes": {
+          "targetDamage": 18,
+          "dailyUses": 6
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:19",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 19,
+        "changes": {
+          "targetDamage": 19,
+          "dailyUses": 7
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:challenge:20",
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "atClassLevel": 20,
+        "changes": {
+          "targetDamage": 20,
+          "dailyUses": 7
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Challenge",
+            "locator": "challenge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:fight-as-one:5",
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "atClassLevel": 5,
+        "changes": {
+          "durationRounds": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fight as One",
+            "locator": "fight-as-one"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:fight-as-one:9",
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "atClassLevel": 9,
+        "changes": {
+          "durationRounds": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fight as One",
+            "locator": "fight-as-one"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:fight-as-one:13",
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "atClassLevel": 13,
+        "changes": {
+          "durationRounds": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fight as One",
+            "locator": "fight-as-one"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:fight-as-one:17",
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "atClassLevel": 17,
+        "changes": {
+          "durationRounds": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fight as One",
+            "locator": "fight-as-one"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:supreme-overrun:5",
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "atClassLevel": 5,
+        "changes": {
+          "durationRounds": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Supreme Overrun",
+            "locator": "supreme-overrun"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:supreme-overrun:9",
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "atClassLevel": 9,
+        "changes": {
+          "durationRounds": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Supreme Overrun",
+            "locator": "supreme-overrun"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:supreme-overrun:13",
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "atClassLevel": 13,
+        "changes": {
+          "durationRounds": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Supreme Overrun",
+            "locator": "supreme-overrun"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:upgrade:supreme-overrun:17",
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "atClassLevel": 17,
+        "changes": {
+          "durationRounds": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Supreme Overrun",
+            "locator": "supreme-overrun"
+          }
+        ]
+      }
+    ],
     "events": [
       {
         "id": "ffd20:class:chocobo-knight:event:proficiencies",
@@ -600,8 +1596,1330 @@
         "type": "grant_feature",
         "atClassLevel": 1,
         "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:steadfast-mount",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:chocobo-knight:feature:steadfast-mount"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:banner",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:chocobo-knight:feature:banner"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:mounted-talents",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:chocobo-knight:feature:mounted-talents"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:knights-charge",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:chocobo-knight:feature:knights-charge"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:commanders-shout",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:chocobo-knight:feature:commanders-shout"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:expert-trainer",
+        "type": "grant_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:chocobo-knight:feature:expert-trainer"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:mounted-mettle",
+        "type": "grant_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:chocobo-knight:feature:mounted-mettle"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:battlefield-agility",
+        "type": "grant_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:chocobo-knight:feature:battlefield-agility"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:master-feeder",
+        "type": "grant_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:chocobo-knight:feature:master-feeder"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:improved-chocobo-mount",
+        "type": "grant_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:chocobo-knight:feature:improved-chocobo-mount"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:iron-chocobo",
+        "type": "grant_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:chocobo-knight:feature:iron-chocobo"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:relentless-steed",
+        "type": "grant_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:chocobo-knight:feature:relentless-steed"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:chivalrys-call",
+        "type": "grant_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:chocobo-knight:feature:chivalrys-call"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:mounted-expertise",
+        "type": "grant_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:chocobo-knight:feature:mounted-expertise"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:riders-bond",
+        "type": "grant_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:chocobo-knight:feature:riders-bond"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:burst-of-speed",
+        "type": "grant_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:chocobo-knight:feature:burst-of-speed"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:greater-charge",
+        "type": "grant_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:chocobo-knight:feature:greater-charge"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:dual-aura",
+        "type": "grant_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:chocobo-knight:feature:dual-aura"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:superior-mounted-combat",
+        "type": "grant_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:chocobo-knight:feature:superior-mounted-combat"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:advanced-mounted-talents",
+        "type": "grant_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:chocobo-knight:feature:advanced-mounted-talents"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:chocobos-parry",
+        "type": "grant_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:chocobo-knight:feature:chocobos-parry"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:defensive-charging",
+        "type": "grant_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:chocobo-knight:feature:defensive-charging"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:protect-the-meek",
+        "type": "grant_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:chocobo-knight:feature:protect-the-meek"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:victors-rally",
+        "type": "grant_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:chocobo-knight:feature:victors-rally"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:superior-chocobo-mount",
+        "type": "grant_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:chocobo-knight:feature:superior-chocobo-mount"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:unavoidable-onslaught",
+        "type": "grant_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:chocobo-knight:feature:unavoidable-onslaught"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:erratic-charge",
+        "type": "grant_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:chocobo-knight:feature:erratic-charge"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:generals-awe",
+        "type": "grant_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:chocobo-knight:feature:generals-awe"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:spiritual-bond",
+        "type": "grant_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:chocobo-knight:feature:spiritual-bond"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:indomitable-steed",
+        "type": "grant_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:chocobo-knight:feature:indomitable-steed"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:supreme-charge",
+        "type": "grant_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-charge"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:2",
+        "type": "upgrade_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:2"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:3",
+        "type": "upgrade_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:3"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:4",
+        "type": "upgrade_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:4"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:5"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:6",
+        "type": "upgrade_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:6"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:7",
+        "type": "upgrade_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:7"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:8",
+        "type": "upgrade_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:8"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:9"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:10"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:11",
+        "type": "upgrade_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:11"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:12",
+        "type": "upgrade_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:12"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:13"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:14",
+        "type": "upgrade_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:14"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:15"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:16"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:17"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:18",
+        "type": "upgrade_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:18"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:19",
+        "type": "upgrade_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:19"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:challenge:20",
+        "type": "upgrade_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:chocobo-knight:feature:challenge",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:challenge:20"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:fight-as-one:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:fight-as-one:5"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:fight-as-one:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:fight-as-one:9"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:fight-as-one:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:fight-as-one:13"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:fight-as-one:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:chocobo-knight:feature:fight-as-one",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:fight-as-one:17"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:supreme-overrun:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:supreme-overrun:5"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:supreme-overrun:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:supreme-overrun:9"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:supreme-overrun:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:supreme-overrun:13"
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:upgrade:supreme-overrun:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:chocobo-knight:feature:supreme-overrun",
+        "upgradeId": "ffd20:class:chocobo-knight:upgrade:supreme-overrun:17"
       }
     ],
-    "archetypeIndex": []
+    "archetypeIndex": [],
+    "choicePools": [
+      {
+        "id": "ffd20:class:chocobo-knight:pool:talents",
+        "name": "Mounted talent",
+        "options": [
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:barreling-overrun",
+            "name": "Barreling Overrun",
+            "description": "Prerequisites: Chocobo Knight 6, Improved Overrun feat.\nThe chocobo knight and his mount gain the Charge Through feat ignoring prerequisites. While mounted, they may use its effects to attempt to Overrun any amount of foes instead of one.",
+            "prerequisiteText": "Chocobo Knight 6, Improved Overrun feat",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Barreling Overrun",
+                "locator": "barreling-overrun"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:combat-feat",
+            "name": "Combat Feat",
+            "description": "A chocobo knight gains a combat-related feat as a bonus feat. He must meet the prerequisites to obtain this feat. This talent may be taken only once.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Combat Feat",
+                "locator": "combat-feat"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:compact-steed",
+            "name": "Compact Steed",
+            "description": "The chocobo knight’s mount can treat its size as one lower for the purpose of which spaces it occupies in regards to terrain and obstacles, whenever it would be beneficial. This is a passive ability that has no effect on any calculations.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Compact Steed",
+                "locator": "compact-steed"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:fast-rider",
+            "name": "Fast Rider",
+            "description": "The speed of a chocobo knight’s mount is increased by 10 feet. At 14th level, the mount’s speed increases by an additional 10 feet.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Fast Rider",
+                "locator": "fast-rider"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:harry",
+            "name": "Harry",
+            "description": "Prerequisites: Chocobo Knight 6.\nThe chocobo knight and his mount gain Step Up as a bonus feat. Whenever either gains a feat that has Step Up as a prerequisite, the other gains it as a bonus feat as well.",
+            "prerequisiteText": "Chocobo Knight 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Harry",
+                "locator": "harry"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:improved-rally",
+            "name": "Improved Rally",
+            "description": "Prerequisites: Rally mounted talent.\nWhen the chocobo knight uses his Rally talent, the next time affected allies would be affected by fatigued, exhausted, or any fear effect, they are not. If allies are affected by such an effect when Rally is used, they may choose to end it immediately instead of receiving this benefit.",
+            "prerequisiteText": "Rally mounted talent",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Improved Rally",
+                "locator": "improved-rally"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:infantry-training",
+            "name": "Infantry Training",
+            "description": "The chocobo knight adds half of his chocobo knight level as a bonus to Ride checks to fast mount/dismount. If the total bonus to these checks (including from this talent) exceeds +19, he automatically succeeds all fast mount/dismount attempts and may attempt them as free actions. Additionally, the chocobo knight always counts as mounted for the purposes of class features and feats that apply to mounted charges.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Infantry Training",
+                "locator": "infantry-training"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mark-of-agility",
+            "name": "Mark of Agility",
+            "description": "Prerequisites: Challenge class feature.\nAgainst the target/s of his challenge, the chocobo knight gains a dodge bonus to AC equal to (+1, +1 per four chocobo knight levels).",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mark of Agility",
+                "locator": "mark-of-agility"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mark-of-archery",
+            "name": "Mark of Archery",
+            "description": "Prerequisites: Challenge class feature.\nAgainst the target/s of his challenge, the chocobo knight gains a stacking morale bonus to ranged weapon damage rolls equal to (+1, +1 per four chocobo knight levels).",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mark of Archery",
+                "locator": "mark-of-archery"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mark-of-defense",
+            "name": "Mark of Defense",
+            "description": "Prerequisites: Challenge class feature.\nAgainst the target/s of his challenge, the chocobo knight gains a stacking morale bonus to CMD equal to (+1, +1 per four chocobo knight levels).",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mark of Defense",
+                "locator": "mark-of-defense"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mark-of-disruption",
+            "name": "Mark of Disruption",
+            "description": "Prerequisites: Challenge class feature.\nAgainst the target/s of his challenge, whenever the chocobo knight makes a full attack, he may include an additional combat maneuver check or feint attempt with no inherent penalties (which must be made against the target/s) as part of the full attack.",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mark of Disruption",
+                "locator": "mark-of-disruption"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mark-of-precision",
+            "name": "Mark of Precision",
+            "description": "Prerequisites: Challenge class feature.\nAgainst the target/s of his challenge, the chocobo knight gains a stacking morale bonus to attack rolls equal to (+1, +1 per four chocobo knight levels).",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mark of Precision",
+                "locator": "mark-of-precision"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mark-of-resilience",
+            "name": "Mark of Resilience",
+            "description": "Prerequisites: Challenge class feature.\nAgainst the target/s of his challenge, the chocobo knight gains a stacking bonus to DR equal to (+1, +1 per four chocobo knight levels).",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mark of Resilience",
+                "locator": "mark-of-resilience"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mark-of-resistance",
+            "name": "Mark of Resistance",
+            "description": "Prerequisites: Challenge class feature.\nAgainst the target/s of his challenge, the chocobo knight gains a stacking morale bonus to saving throws equal to (+1, +1 per four chocobo knight levels).",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mark of Resistance",
+                "locator": "mark-of-resistance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:measured-gait",
+            "name": "Measured Gait",
+            "description": "The chocobo knight’s mount ignores difficult terrain while charging. At 10th level, it ignores difficult terrain passively.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Measured Gait",
+                "locator": "measured-gait"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mounted-acrobatics",
+            "name": "Mounted Acrobatics",
+            "description": "Prerequisites: Chocobo Knight 6.\nThe chocobo knight gains Trick Riding as a bonus feat ignoring prerequisites, and may use it in medium and heavy armor.",
+            "prerequisiteText": "Chocobo Knight 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mounted Acrobatics",
+                "locator": "mounted-acrobatics"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mounted-archer",
+            "name": "Mounted Archer",
+            "description": "Prerequisites: Chocobo Knight 6.\nThe chocobo knight becomes skilled at firing ranged weapons while mounted. A chocobo knight only takes a –2 penalty on attack rolls with ranged weapons while his mount takes a double move. This penalty increases to –4 while his mount is running. If the chocobo knight also has the Mounted Archery feat, these penalties are halved (–1 penalty on attack rolls with ranged weapons while his mount takes a double move, –2 while his mount is running).",
+            "prerequisiteText": "Chocobo Knight 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mounted Archer",
+                "locator": "mounted-archer"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mounted-legion",
+            "name": "Mounted Legion",
+            "description": "When the chocobo knight makes long overland journeys with a group who are all riding mounts, the distance the group can travel each day increases by 30%.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mounted Legion",
+                "locator": "mounted-legion"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mounted-mastery",
+            "name": "Mounted Mastery",
+            "description": "Prerequisites: Chocobo Knight 8.\nThe chocobo knight gains a bonus feat ignoring prerequisites from the following: Ride-By attack, Skill Focus (Ride), Spirited Charge, Trample or Unseat. The chocobo knight ignores his armor check penalties while mounted, and gains a +4 dodge bonus to AC against attacks set against his (and his mount’s) charges. He adds his mount’s Strength modifier to damage rolls of charge attacks.",
+            "prerequisiteText": "Chocobo Knight 8",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mounted Mastery",
+                "locator": "mounted-mastery"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:rally",
+            "name": "Rally",
+            "description": "The chocobo knight may use a standard action to grant all allies aware of him (limited to within 60ft if there are more than 10 allies) temporary hit points equal to (1d6 + 1d6 per two chocobo knight levels). This ability is usable only during combat, and lasts until the end of combat. It has one use, which recharges after either an hour or after two encounters (not counting the one Rally was used in; encounters must have meaningful, threatening enemies to count). This talent may be taken additional times to increase the uses per day by 1, but it is only usable once per combat.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Rally",
+                "locator": "rally"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:risky-lunge",
+            "name": "Risky Lunge",
+            "description": "While riding his mount, a chocobo knight and his mount can choose to only move 5 feet before making his attack with a charge action. If he does so, the chocobo knight and his mount take a -2 penalty to AC until the start of his next turn.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Risky Lunge",
+                "locator": "risky-lunge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:tactician",
+            "name": "Tactician",
+            "description": "The chocobo knight gains a teamwork feat he qualifies for as a bonus feat. As a standard action, he may grant one teamwork feat he possesses to all allies that see or hear him (limited to within 60ft if there are more than 10 allies). Allies gain the benefit of the granted feat even if they don’t meet its prerequisites/requirements, lasting until the end of combat. This talent is usable times per day equal to (1, +1 per five chocobo knight levels). This talent may be taken more than once - copies of it simply grant a teamwork feat and 1 extra use per day.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Tactician",
+                "locator": "tactician"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:terrain-training",
+            "name": "Terrain Training",
+            "description": "Prerequisites: Chocobo Knight 4.\nThe chocobo knight selects a terrain type from the geomancer’s Favored Terrains table. While under that terrain, he and his mount ignore difficult terrain. For every four chocobo knight levels, an additional terrain may be selected. At 12th level, all difficult terrain is ignored instead.",
+            "prerequisiteText": "Chocobo Knight 4",
+            "minimumLevel": 4,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Terrain Training",
+                "locator": "terrain-training"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:act-as-one",
+            "name": "Act as One",
+            "description": "Once per encounter, the chocobo knight can spend a standard action to move up to his speed (or his mount’s speed), then make an attack with a +2 bonus to hit. This is considered as the attack action. All allies within 30 feet may then do the same as an immediate action. Also, until the start of his next turn, all affected allies gain a +2 dodge bonus to AC (even if they did not move/attack).",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Act as One",
+                "locator": "act-as-one"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:awesome-pennon",
+            "name": "Awesome Pennon",
+            "description": "Prerequisites: Banner class feature and greater banner mounted talents.\nThe chocobo knight’s Banner ability grants additional passive effects to allies: +1 stacking morale bonus to attack rolls and immunity to fear effects. The chocobo knight also gains the following active banner ability: Enemies within Banner’s range up to (his Charisma modifier) may be affected by Shaken even if immune or normally unaffected (such as from being mindless).",
+            "prerequisiteText": "Banner class feature and greater banner mounted talents",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Awesome Pennon",
+                "locator": "awesome-pennon"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:banner-of-solace",
+            "name": "Banner of Solace",
+            "description": "Prerequisites: Banner class feature.\nThe chocobo knight gains the following active banner ability which is only usable as a full-round action: Allies up to (his Charisma modifier) gain temporary hit points equal to (chocobo knight level) lasting for the encounter, and a stacking morale bonus to their next damage rolls equal to (+2 per four chocobo knight levels).",
+            "prerequisiteText": "Banner class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Banner of Solace",
+                "locator": "banner-of-solace"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:defensive-challenge",
+            "name": "Defensive Challenge",
+            "description": "Prerequisites: Challenge class feature.\nWhenever the chocobo knight issues a challenge, his target must pay particular attention to him and his ability to intercept attacks. As long as the target is within the threatened area of the chocobo knight, it takes a –2 penalty on attack rolls against anyone other than the chocobo knight.",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Defensive Challenge",
+                "locator": "defensive-challenge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:demanding-challenge",
+            "name": "Demanding Challenge",
+            "description": "Prerequisites: Challenge class feature.\nWhenever a chocobo knight declares a challenge, his target must pay attention to the threat he poses. As long as the target is within the threatened area of the chocobo knight, it takes a –2 penalty to its AC from attacks made by anyone other than the chocobo knight.",
+            "prerequisiteText": "Challenge class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Demanding Challenge",
+                "locator": "demanding-challenge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:greater-banner",
+            "name": "Greater Banner",
+            "description": "Prerequisites: Banner class feature.\nThe chocobo knight’s banner grants an additional stacking +2 bonus to saving throws against mind-affecting effects. The chocobo knight also gains the following active banner ability: Allies up to (his Charisma modifier) may make an additional saving throw against one effect currently affecting them, ending it on a successful saving throw. Allies may only receive the benefit of this effect once per encounter.",
+            "prerequisiteText": "Banner class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Greater Banner",
+                "locator": "greater-banner"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:greater-rally",
+            "name": "Greater Rally",
+            "description": "Prerequisites: Rally and improved rally mounted talents.\nThe chocobo knight’s rally ability now prevents/removes more effects: fatigued, dazed, nauseated, staggered, exhausted, or any fear effect. When Rally is used, its status-preventing effect is applied twice (allies are unaffected by the status effects the next two times, or once if they ended an ongoing effect with it).",
+            "prerequisiteText": "Rally and improved rally mounted talents",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Greater Rally",
+                "locator": "greater-rally"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:hearten",
+            "name": "Hearten",
+            "description": "Prerequisites: Rally talent.\nWhen a chocobo knight with the hearten talent uses his rally ability, he adds his Charisma modifier to the number of temporary hit points gained by each ally.",
+            "prerequisiteText": "Rally talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Hearten",
+                "locator": "hearten"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:leaping-lance",
+            "name": "Leaping Lance",
+            "description": "At any point during a charge, the chocobo knight may leap from his mount (no check required), moving up to 10ft (minimum 5ft) in a direction, after which he may make a charge attack which is in all ways treated as if he was still mounted. This attack gains an additional +2 bonus to hit. After the leap, the chocobo knight’s mount may turn towards him while still charging, moving up next to him. If the chocobo knight can perform a fast mount/dismount as a free action, then he may mount the chocobo as it approaches him (without provoking attacks; this also lets the chocobo occupy his destination square if desired).",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Leaping Lance",
+                "locator": "leaping-lance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:master-tactician",
+            "name": "Master Tactician",
+            "description": "Prerequisites: Tactician mounted talent.\nThe chocobo knight gains a teamwork feat he qualifies for as a bonus feat. He may grant up to two teamwork feats with one usage of Tactician. He may also use Tactician as a move action to grant one feat with it.",
+            "prerequisiteText": "Tactician mounted talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Master Tactician",
+                "locator": "master-tactician"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:mounted-dervish",
+            "name": "Mounted Dervish",
+            "description": "The chocobo knight becomes a fearsome, mobile foe on the battlefield. He gains Mounted Skirmisher as a bonus feat, even if he does not meet the prerequisites. In addition, whenever the chocobo knight is mounted and takes the charge action, he adds 10 feet to his mount’s speed.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Mounted Dervish",
+                "locator": "mounted-dervish"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:powerful-steed",
+            "name": "Powerful Steed",
+            "description": "While riding his mount, a chocobo knight’s steed is treated as one size larger for the purpose of how much damage its natural attacks deal. This does not stack with any other virtual size increases, such as the impact weapon enhancement.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Powerful Steed",
+                "locator": "powerful-steed"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:righteous-challenge",
+            "name": "Righteous Challenge",
+            "description": "Once per day, the chocobo knight may make a Righteous Challenge. This functions as the Challenge class feature, but the chocobo knight also gains a bonus to all attack and damage rolls against the challenge’s target/s equal to (his Charisma modifier), as well as a +4 (circumstance) bonus to confirm critical hits against them. This talent counts as the challenge class feature for the purpose of qualifying for other talents/feats.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Righteous Challenge",
+                "locator": "righteous-challenge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:save-the-meek",
+            "name": "Save the Meek",
+            "description": "Once per combat, as an immediate action, the chocobo knight may move up to his speed (or his ridden mount’s speed). This movement provokes attacks of opportunity as normal. After moving this way, he may perform one attack against an enemy within range. The chocobo knight must end his movement so that he threatens both an enemy and ally. If the attack was successful, the chocobo knight designates an ally within his range - the enemy he hit cannot affect them in any way until the start of his next turn (existing damage sources such as hazards and damage-over-time effects apply normally).",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Save the Meek",
+                "locator": "save-the-meek"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:staggering-assault",
+            "name": "Staggering Assault",
+            "description": "The chocobo knight can drive opponents back without giving ground. As a full-round action, the chocobo knight can make a single attack at his highest attack bonus. If the attack hits, the attack does damage as normal, and the chocobo knight may attempt a bull rush against the target. The chocobo knight gains a bonus on the bull rush combat maneuver check equal to half the amount of damage dealt on the initial attack.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Staggering Assault",
+                "locator": "staggering-assault"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:strategic-supremacy",
+            "name": "Strategic Supremacy",
+            "description": "Prerequisites: Tactician mounted talent.\nWhen the chocobo knight uses his Tactician ability, he also affects enemies within its range. As part of using it, he declares any one teamwork feat - affected enemies cannot use or benefit from that feat.",
+            "prerequisiteText": "Tactician mounted talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Strategic Supremacy",
+                "locator": "strategic-supremacy"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:supreme-rally",
+            "name": "Supreme Rally",
+            "description": "Prerequisites: Rally, improved rally, greater rally mounted talents.\nThe chocobo knight’s rally ability now prevents/removes more effects: fatigued, dazed, sickened, stunned, nauseated, staggered, exhausted, or any fear effect.",
+            "prerequisiteText": "Rally, improved rally, greater rally mounted talents",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Supreme Rally",
+                "locator": "supreme-rally"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          },
+          {
+            "id": "ffd20:class:chocobo-knight:pool:talents:option:tactical-advantage",
+            "name": "Tactical Advantage",
+            "description": "Prerequisites: Tactician mounted talent.\nWhenever the chocobo knight uses his tactician ability to grant the use of a teamwork feat to his allies, he can move up to his speed as a free action either before or after granting the feat. This movement provokes attacks of opportunity normally.",
+            "prerequisiteText": "Tactician mounted talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-base-classes-chocobo-knight-mounted-talents",
+                "section": "Tactical Advantage",
+                "locator": "tactical-advantage"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/base-classes/chocobo-knight/mounted-talents/"
+          }
+        ]
+      }
+    ],
+    "progressionChoices": [
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:chocobo-knight:event:talents:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:class:chocobo-knight:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      }
+    ]
   }
 }

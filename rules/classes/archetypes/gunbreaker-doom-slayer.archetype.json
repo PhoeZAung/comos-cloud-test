@@ -1,0 +1,619 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:gunbreaker:doom-slayer",
+  "parentClassId": "ffd20:class:gunbreaker",
+  "name": "Doom Slayer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/",
+      "title": "Doom Slayer",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "12216a0dc40ee697516be7d63c566927b983635459c227816110e622c8c32c1f"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial"
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:praetor-sacrament",
+        "name": "Praetor Sacrament",
+        "atLevel": 1,
+        "description": "The armor of the doom slayer is tempered by the fires of Damnation. At 1st level, the doom slayer’s praetor armor is considered a set of scale mail. At 3rd level, the doom slayer’s praetor armor is upgraded to a set of half plate. And finally, at 5th level, the doom slayer’s praetor armor is upgraded to a set of full plate. A doom slayer’s praetor armor can be enchanted as normal and all enhancements are transferred while upgrading. In addition, the doom slayer gets the following features while wearing his praetor armor:\n\n The doom slayer gains a +2 circumstance bonus on Intimidate skill checks, this bonus increases by 2 every four gunbreaker levels after 1st.\n The doom slayer’s movement speed increases by 10 feet. This bonus increases by 10 feet for every four gunbreaker levels after 1st. In addition, his movement speed is unhindered by heavy armor.\n The doom slayer gains a +2 circumstance bonus on damage rolls versus demons, devils, and undead creatures, this bonus increases by 2 every four gunbreaker levels after 1st.\n\nThis ability replaces aurora.",
+        "progressionDescription": "The armor of the doom slayer is tempered by the fires of Damnation. At 1st level, the doom slayer’s praetor armor is considered a set of scale mail. At 3rd level, the doom slayer’s praetor armor is upgraded to a set of half plate. And finally, at 5th level, the doom slayer’s praetor armor is upgraded to a set of full plate. A doom slayer’s praetor armor can be enchanted as normal and all enhancements are transferred while upgrading. In addition, the doom slayer gets the following features while wearing his praetor armor:\n\n The doom slayer gains a +2 circumstance bonus on Intimidate skill checks, this bonus increases by 2 every four gunbreaker levels after 1st.\n The doom slayer’s movement speed increases by 10 feet. This bonus increases by 10 feet for every four gunbreaker levels after 1st. In addition, his movement speed is unhindered by heavy armor.\n The doom slayer gains a +2 circumstance bonus on damage rolls versus demons, devils, and undead creatures, this bonus increases by 2 every four gunbreaker levels after 1st.\n\nThis ability replaces aurora.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Praetor Sacrament",
+            "locator": "praetor-sacrament"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:doom-gun-arm",
+        "name": "Doom Gun Arm",
+        "atLevel": 1,
+        "description": "Also, starting at 1st level, a doom slayer begins play with a unique gun arm, a doom gun arm. It is essentially a chainsaw that deals 2d6 points of damage (18-20/x2), with a switchable device attached to it. All other creatures treat his gun arm as if it had the broken condition. If the weapon already has the broken condition, it does not work at all for anyone else trying to use it. This starting weapon can only be sold for scrap (it’s worth 4d10 gil when sold). The doom slayer also gains Gunsmithing as a bonus feat. And while the doom slayer has at least 1 magicked ammo, he doesn’t need to fuel it (see chainsaw on rules of fueling). As a move action, he can switch to the following modes (all modes begin play with enough ammo for 1 reload):\n\n Pistol: The doom slayer, in Pistol mode, can fire pistol rounds that deal 2d4 points of damage (20/x3). It has an ammo capacity of 6, with a range of 45 feet, before needing to reload.\n Shotgun: The doom slayer, in Shotgun mode, can fire a spray of shotgun ammo in a 15-ft.-cone that deals 3d4 points of damage (20/x3). It has an ammo capacity of 6, with a range of 15 feet, before needing to reload. All creatures within the radius require a ranged touch attack to hit them.\n Chaingun: The doom slayer, in Chaingun mode, can fire a mass load of ammo in a 10-ft.-wide, 30-ft.-line that deals 2d6 points of damage (19-20/x3). It has an ammo capacity of 30, with a range of 30 feet, before needing to reload. All creatures within the radius require a ranged touch attack to hit them.\n Plasma Rifle: The doom slayer, in Plasma Rifle mode, can only activate this mode once every 2 hours which lasts for 1 round plus 1 round per two gunbreaker levels after 1st before it needs to cool down and recharge. It deals 2d6 points of non-elemental damage (20/x2) and has a range of 50 feet. It uses whatever ammo the doom slayer supplies it, converting the ammo into plasma, and it has an ammo capacity of 10 before needing to reload. Prerequisite: The doom slayer must be at least 5th level to activate this mode.\n Rocket Launcher: The doom slayer, in Rocket Launcher mode, can fire a rocket, with a range of 150 feet and a minimum range of 30 feet. It deals 1d6 points of fire damage per gunbreaker level in a 10-ft.-radius (a Reflex save of DC 10 + half of the gunbreaker’s level + his Wisdom’s modifier for half damage) and has an ammo capacity of 1. To buy rockets for this mode, the doom slayer will need to pay 100 gil per rocket. The doom slayer has 1 rocket to start with. Prerequisite: The doom slayer must be at least 10th level to activate this mode.\n BFG: The doom slayer, in BFG mode, can launch a great green ball of death at his enemies. It has a range of 100 feet and explodes on impact in a 20-ft.-radius. Usable once per day before needing to cool down and recharge, BFG mode uses up whatever ammo it has in its chambers from the other modes and causes enemies to die unless they make a Fortitude save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) to negate. If they make the save, they are dealt 1d6 points of non-elemental damage per gunbreaker level instead. Prerequisite: The doom slayer must be at least 15th level to activate this mode.\n\nAt 7th level, the doom slayer may change modes as a swift action instead.\n\nThis ability replaces gunsmith.",
+        "progressionDescription": "Also, starting at 1st level, a doom slayer begins play with a unique gun arm, a doom gun arm. It is essentially a chainsaw that deals 2d6 points of damage (18-20/x2), with a switchable device attached to it. All other creatures treat his gun arm as if it had the broken condition. If the weapon already has the broken condition, it does not work at all for anyone else trying to use it. This starting weapon can only be sold for scrap (it’s worth 4d10 gil when sold). The doom slayer also gains Gunsmithing as a bonus feat. And while the doom slayer has at least 1 magicked ammo, he doesn’t need to fuel it (see chainsaw on rules of fueling). As a move action, he can switch to the following modes (all modes begin play with enough ammo for 1 reload):\n\n Pistol: The doom slayer, in Pistol mode, can fire pistol rounds that deal 2d4 points of damage (20/x3). It has an ammo capacity of 6, with a range of 45 feet, before needing to reload.\n Shotgun: The doom slayer, in Shotgun mode, can fire a spray of shotgun ammo in a 15-ft.-cone that deals 3d4 points of damage (20/x3). It has an ammo capacity of 6, with a range of 15 feet, before needing to reload. All creatures within the radius require a ranged touch attack to hit them.\n Chaingun: The doom slayer, in Chaingun mode, can fire a mass load of ammo in a 10-ft.-wide, 30-ft.-line that deals 2d6 points of damage (19-20/x3). It has an ammo capacity of 30, with a range of 30 feet, before needing to reload. All creatures within the radius require a ranged touch attack to hit them.\n Plasma Rifle: The doom slayer, in Plasma Rifle mode, can only activate this mode once every 2 hours which lasts for 1 round plus 1 round per two gunbreaker levels after 1st before it needs to cool down and recharge. It deals 2d6 points of non-elemental damage (20/x2) and has a range of 50 feet. It uses whatever ammo the doom slayer supplies it, converting the ammo into plasma, and it has an ammo capacity of 10 before needing to reload. Prerequisite: The doom slayer must be at least 5th level to activate this mode.\n Rocket Launcher: The doom slayer, in Rocket Launcher mode, can fire a rocket, with a range of 150 feet and a minimum range of 30 feet. It deals 1d6 points of fire damage per gunbreaker level in a 10-ft.-radius (a Reflex save of DC 10 + half of the gunbreaker’s level + his Wisdom’s modifier for half damage) and has an ammo capacity of 1. To buy rockets for this mode, the doom slayer will need to pay 100 gil per rocket. The doom slayer has 1 rocket to start with. Prerequisite: The doom slayer must be at least 10th level to activate this mode.\n BFG: The doom slayer, in BFG mode, can launch a great green ball of death at his enemies. It has a range of 100 feet and explodes on impact in a 20-ft.-radius. Usable once per day before needing to cool down and recharge, BFG mode uses up whatever ammo it has in its chambers from the other modes and causes enemies to die unless they make a Fortitude save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) to negate. If they make the save, they are dealt 1d6 points of non-elemental damage per gunbreaker level instead. Prerequisite: The doom slayer must be at least 15th level to activate this mode.\n\nAt 7th level, the doom slayer may change modes as a swift action instead.\n\nThis ability replaces gunsmith.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Doom Gun Arm",
+            "locator": "doom-gun-arm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:ravenous-hatred",
+        "name": "Ravenous Hatred",
+        "atLevel": 2,
+        "description": "Starting at 2nd level, the doom slayer gains the ability to execute his enemies. When the doom slayer hits an enemy with his chainsaw and reduces their hit points to 10 or less, the doom slayer can make the target make Fortitude save (DC 10 + half his gunbreaker level + his Wisdom modifier). On a failed save, he executes the target, reducing their hp to -1 and bleeding. At 10th level, this threshold increases to 20 or less hit points and at 18th level, it increases to 30 or less hit points.\n\nThis ability replaces keen edge.",
+        "progressionDescription": "Starting at 2nd level, the doom slayer gains the ability to execute his enemies. When the doom slayer hits an enemy with his chainsaw and reduces their hit points to 10 or less, the doom slayer can make the target make Fortitude save (DC 10 + half his gunbreaker level + his Wisdom modifier). On a failed save, he executes the target, reducing their hp to -1 and bleeding. At 10th level, this threshold increases to 20 or less hit points and at 18th level, it increases to 30 or less hit points.\n\nThis ability replaces keen edge.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ravenous Hatred",
+            "locator": "ravenous-hatred"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:dark-vengeance",
+        "name": "Dark Vengeance",
+        "atLevel": 3,
+        "description": "A burning hatred festers for those who tarnished the doom slayer. At 3rd level, he can roll twice on Survival checks to track fiends and aberrations (and take the highest result). He also can roll twice on Knowledge checks to recall information about them (and take the highest result).\n\nThis ability replaces heart of stone.",
+        "progressionDescription": "A burning hatred festers for those who tarnished the doom slayer. At 3rd level, he can roll twice on Survival checks to track fiends and aberrations (and take the highest result). He also can roll twice on Knowledge checks to recall information about them (and take the highest result).\n\nThis ability replaces heart of stone.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dark Vengeance",
+            "locator": "dark-vengeance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:demonic-runes",
+        "name": "Demonic Runes",
+        "atLevel": 5,
+        "description": "At 5th level and five gunbreaker levels thereafter, the doom slayer gains a demonic rune. Each time he gains this feature, he may choose one of the following options. He may choose each one only once. He can only have 2 runes active at a time but he can switch out the ones he chose, once an hour.\n\nAlacrity of the Damned (Ex): When the doom slayer is subjected to an effect that allows him to make a Reflex save to take only half damage, he instead takes no damage if successful, and only half damage if he fails.\n\nBerserk (Ex): When the doom slayer takes this rune, he gains Improved Unarmed Strike as a bonus feat and his unarmed strike scales as a monk’s martial arts of his gunbreaker – 4. As a swift action, he enters a berserk rage and pummels his foes into submission, He adds 1d4 to his unarmed strikes. During berserk, he can take a penalty to his attack rolls for higher damage (-1 penalty on attack rolls for a +2 bonus on damage rolls, decreasing/increasing for every 3 BAB above 5th). He can roll twice on Acrobatics checks for 3 rounds (taking the highest). He may use this ability a number of times equal to his Wisdom modifier.\n\nBullet Hell (Ex): Attacks of opportunity made against the doom slayer must roll twice and take the lowest result.\n\nInfernal Munitions (Su): As long as the gunbreaker has 40 temporary hit points and 1 magicked ammo, he no longer requires ammunition for his ranged weapons. Prerequisite: The doom slayer must have the Mutilating Strike demonic rune before he can select this rune.\n\nMutilating Strike (Ex): Every time the doom slayer successfully executes something with Ravenous Hatred, he gains half his gunbreaker level rounded down plus his Constitution modifier as temporary hit points, which stacks with this ability. The max temporary hit points he may gain is half his maximum hit points, rounded down. At 20th level, this limit is equal to his maximum hit points.\n\nProjectile Accuracy (Ex): The doom slayer now adds Wisdom modifier in addition to his Dexterity modifier to all ranged attack rolls.\n\nQuenched with Blood (Su): The doom slayer no longer requires sleep, food, or water as long as he has killed something with CR 1 or higher within the past 24 hours.\n\nRelentless Fervor (Ex): Once per day, when the doom slayer is reduced to 0 hit points or less, he may instead put his hit points at equal to half his gunbreaker level (rounded down) + his Constitution modifier.\n\nSacrifice (Ex): As a swift action, the doom slayer can activate this ability. When he does, until his next turn, he gains a damage bonus to all of his attacks equal to his gunbreaker level, but also takes additional damage equal to his gunbreaker level when he is hit.\n\nStaggering Blow (Ex): The doom slayer may forfeit the damage of one successful attack per turn to push the target up to 10 feet as if using bull rush, the damage result + his gunbreaker level is equal to his CMB.\n\nTerrifying Brutality (Ex): Upon killing an enemy, each surrounding enemy within 15 feet of the doom slayer must roll twice on all saving throws (taking the lowest result) until the start of the doom slayer’s next turn.\n\nThese abilities replace gun arm mastery.",
+        "progressionDescription": "At 5th level and five gunbreaker levels thereafter, the doom slayer gains a demonic rune. Each time he gains this feature, he may choose one of the following options. He may choose each one only once. He can only have 2 runes active at a time but he can switch out the ones he chose, once an hour.\n\nAlacrity of the Damned (Ex): When the doom slayer is subjected to an effect that allows him to make a Reflex save to take only half damage, he instead takes no damage if successful, and only half damage if he fails.\n\nBerserk (Ex): When the doom slayer takes this rune, he gains Improved Unarmed Strike as a bonus feat and his unarmed strike scales as a monk’s martial arts of his gunbreaker – 4. As a swift action, he enters a berserk rage and pummels his foes into submission, He adds 1d4 to his unarmed strikes. During berserk, he can take a penalty to his attack rolls for higher damage (-1 penalty on attack rolls for a +2 bonus on damage rolls, decreasing/increasing for every 3 BAB above 5th). He can roll twice on Acrobatics checks for 3 rounds (taking the highest). He may use this ability a number of times equal to his Wisdom modifier.\n\nBullet Hell (Ex): Attacks of opportunity made against the doom slayer must roll twice and take the lowest result.\n\nInfernal Munitions (Su): As long as the gunbreaker has 40 temporary hit points and 1 magicked ammo, he no longer requires ammunition for his ranged weapons. Prerequisite: The doom slayer must have the Mutilating Strike demonic rune before he can select this rune.\n\nMutilating Strike (Ex): Every time the doom slayer successfully executes something with Ravenous Hatred, he gains half his gunbreaker level rounded down plus his Constitution modifier as temporary hit points, which stacks with this ability. The max temporary hit points he may gain is half his maximum hit points, rounded down. At 20th level, this limit is equal to his maximum hit points.\n\nProjectile Accuracy (Ex): The doom slayer now adds Wisdom modifier in addition to his Dexterity modifier to all ranged attack rolls.\n\nQuenched with Blood (Su): The doom slayer no longer requires sleep, food, or water as long as he has killed something with CR 1 or higher within the past 24 hours.\n\nRelentless Fervor (Ex): Once per day, when the doom slayer is reduced to 0 hit points or less, he may instead put his hit points at equal to half his gunbreaker level (rounded down) + his Constitution modifier.\n\nSacrifice (Ex): As a swift action, the doom slayer can activate this ability. When he does, until his next turn, he gains a damage bonus to all of his attacks equal to his gunbreaker level, but also takes additional damage equal to his gunbreaker level when he is hit.\n\nStaggering Blow (Ex): The doom slayer may forfeit the damage of one successful attack per turn to push the target up to 10 feet as if using bull rush, the damage result + his gunbreaker level is equal to his CMB.\n\nTerrifying Brutality (Ex): Upon killing an enemy, each surrounding enemy within 15 feet of the doom slayer must roll twice on all saving throws (taking the lowest result) until the start of the doom slayer’s next turn.\n\nThese abilities replace gun arm mastery.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demonic Runes",
+            "locator": "demonic-runes"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:hell-walker",
+        "name": "Hell Walker",
+        "atLevel": 7,
+        "description": "At 7th level, the doom slayer gain resistance to fire damage equal to his gunbreaker level and may ignore difficult terrain if he moved more than 5 feet last turn.\n\nThis ability replaces improved aurora.",
+        "progressionDescription": "At 7th level, the doom slayer gain resistance to fire damage equal to his gunbreaker level and may ignore difficult terrain if he moved more than 5 feet last turn.\n\nThis ability replaces improved aurora.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hell Walker",
+            "locator": "hell-walker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:the-barbarous-dance",
+        "name": "The Barbarous Dance",
+        "atLevel": 9,
+        "description": "At 9th level, as long as the doom slayer has moved more than 5 feet last round, he does not provoke attacks of opportunity.\n\nThis ability replaces heart of light.",
+        "progressionDescription": "At 9th level, as long as the doom slayer has moved more than 5 feet last round, he does not provoke attacks of opportunity.\n\nThis ability replaces heart of light.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "The Barbarous Dance",
+            "locator": "the-barbarous-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:frightening",
+        "name": "Frightening",
+        "atLevel": 11,
+        "description": "The doom slayer incites fear in those who walk the dark path. At 11th level, all Intimidation skill rolls against demons, devils, and undead enemies may roll twice (and take the best result). Once per round he may use a swift action to incite fear in a single chosen enemy. The target must make a Will save against the doom slayer’s Intimidation skill roll + half his gunbreaker level rounded down or becomes frightened for 1 round.\n\nThis ability replaces royal guard.",
+        "progressionDescription": "The doom slayer incites fear in those who walk the dark path. At 11th level, all Intimidation skill rolls against demons, devils, and undead enemies may roll twice (and take the best result). Once per round he may use a swift action to incite fear in a single chosen enemy. The target must make a Will save against the doom slayer’s Intimidation skill roll + half his gunbreaker level rounded down or becomes frightened for 1 round.\n\nThis ability replaces royal guard.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Frightening",
+            "locator": "frightening"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:weapon-of-doom",
+        "name": "Weapon of Doom",
+        "atLevel": 13,
+        "description": "At 13th level, the doom slayer is able to connect with his doom gun arm. This gun arm is then filled with hatred. When this weapon is wielded, all enemies within 60 feet must succeed of a Will save equal to DC 10 + half his gunbreaker level + his Wisdom modifier or be shaken for the 1 minute. This effect only works once per combat. This weapon deals an additional 1d6 points of non-elemental damage. At 20th level, the damage becomes 3d6.\n\nThis ability replaces greater aurora.",
+        "progressionDescription": "At 13th level, the doom slayer is able to connect with his doom gun arm. This gun arm is then filled with hatred. When this weapon is wielded, all enemies within 60 feet must succeed of a Will save equal to DC 10 + half his gunbreaker level + his Wisdom modifier or be shaken for the 1 minute. This effect only works once per combat. This weapon deals an additional 1d6 points of non-elemental damage. At 20th level, the damage becomes 3d6.\n\nThis ability replaces greater aurora.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon of Doom",
+            "locator": "weapon-of-doom"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:unshakable-incorruptible",
+        "name": "Unshakable, Incorruptible",
+        "atLevel": 17,
+        "description": "At 17th level, the doom slayer may roll twice (taking the highest result) on spell saving throws as well as mind effecting abilities from demons, devils, and undead creatures.\n\nThis ability replaces perfect aurora.",
+        "progressionDescription": "At 17th level, the doom slayer may roll twice (taking the highest result) on spell saving throws as well as mind effecting abilities from demons, devils, and undead creatures.\n\nThis ability replaces perfect aurora.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unshakable, Incorruptible",
+            "locator": "unshakable-incorruptible"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:feature:rip-and-tear",
+        "name": "Rip and Tear",
+        "atLevel": 20,
+        "description": "At 20th level, the doom slayer’s Strength, Dexterity, and Wisdom scores increases by 2. He can also roll twice (taking the highest result) on attacks against demons, devil, and undead creatures.\n\nThis ability replaces lion heart.",
+        "progressionDescription": "At 20th level, the doom slayer’s Strength, Dexterity, and Wisdom scores increases by 2. He can also roll twice (taking the highest result) on attacks against demons, devil, and undead creatures.\n\nThis ability replaces lion heart.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rip and Tear",
+            "locator": "rip-and-tear"
+          }
+        ]
+      }
+    ],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:praetor-sacrament",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:aurora"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:praetor-sacrament"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Praetor Sacrament",
+            "locator": "praetor-sacrament"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:doom-gun-arm",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:gunsmith"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:doom-gun-arm"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Doom Gun Arm",
+            "locator": "doom-gun-arm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:ravenous-hatred",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:keen-edge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:ravenous-hatred"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ravenous Hatred",
+            "locator": "ravenous-hatred"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:dark-vengeance",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:heart-of-stone"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:dark-vengeance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dark Vengeance",
+            "locator": "dark-vengeance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:demonic-runes",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:gun-arm-mastery"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:demonic-runes"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demonic Runes",
+            "locator": "demonic-runes"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:hell-walker",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:improved-aurora"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:hell-walker"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hell Walker",
+            "locator": "hell-walker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:the-barbarous-dance",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:heart-of-light"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:the-barbarous-dance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "The Barbarous Dance",
+            "locator": "the-barbarous-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:frightening",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:royal-guard"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:frightening"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Frightening",
+            "locator": "frightening"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:weapon-of-doom",
+        "atClassLevel": 13,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:greater-aurora"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:weapon-of-doom"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon of Doom",
+            "locator": "weapon-of-doom"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:unshakable-incorruptible",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:perfect-aurora"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:unshakable-incorruptible"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unshakable, Incorruptible",
+            "locator": "unshakable-incorruptible"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:replacement:rip-and-tear",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:gunbreaker:feature:lion-heart"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:feature:rip-and-tear"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rip and Tear",
+            "locator": "rip-and-tear"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "classSkills": [
+      "acrobatics",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "intimidate",
+      "knowledge:technology",
+      "perception",
+      "profession:*",
+      "repair",
+      "ride",
+      "sense-motive",
+      "swim",
+      "survival",
+      "knowledge:planes"
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes",
+        "name": "Demonic rune",
+        "options": [
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:alacrity-of-the-damned",
+            "name": "Alacrity of the Damned",
+            "description": "When the doom slayer is subjected to an effect that allows him to make a Reflex save to take only half damage, he instead takes no damage if successful, and only half damage if he fails.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:berserk",
+            "name": "Berserk",
+            "description": "When the doom slayer takes this rune, he gains Improved Unarmed Strike as a bonus feat and his unarmed strike scales as a monk’s martial arts of his gunbreaker – 4. As a swift action, he enters a berserk rage and pummels his foes into submission, He adds 1d4 to his unarmed strikes. During berserk, he can take a penalty to his attack rolls for higher damage (-1 penalty on attack rolls for a +2 bonus on damage rolls, decreasing/increasing for every 3 BAB above 5th). He can roll twice on Acrobatics checks for 3 rounds (taking the highest). He may use this ability a number of times equal to his Wisdom modifier.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:bullet-hell",
+            "name": "Bullet Hell",
+            "description": "Attacks of opportunity made against the doom slayer must roll twice and take the lowest result.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:infernal-munitions",
+            "name": "Infernal Munitions",
+            "description": "As long as the gunbreaker has 40 temporary hit points and 1 magicked ammo, he no longer requires ammunition for his ranged weapons. Prerequisite: The doom slayer must have the Mutilating Strike demonic rune before he can select this rune.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:mutilating-strike",
+            "name": "Mutilating Strike",
+            "description": "Every time the doom slayer successfully executes something with Ravenous Hatred, he gains half his gunbreaker level rounded down plus his Constitution modifier as temporary hit points, which stacks with this ability. The max temporary hit points he may gain is half his maximum hit points, rounded down. At 20th level, this limit is equal to his maximum hit points.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:projectile-accuracy",
+            "name": "Projectile Accuracy",
+            "description": "The doom slayer now adds Wisdom modifier in addition to his Dexterity modifier to all ranged attack rolls.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:quenched-with-blood",
+            "name": "Quenched with Blood",
+            "description": "The doom slayer no longer requires sleep, food, or water as long as he has killed something with CR 1 or higher within the past 24 hours.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:relentless-fervor",
+            "name": "Relentless Fervor",
+            "description": "Once per day, when the doom slayer is reduced to 0 hit points or less, he may instead put his hit points at equal to half his gunbreaker level (rounded down) + his Constitution modifier.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:sacrifice",
+            "name": "Sacrifice",
+            "description": "As a swift action, the doom slayer can activate this ability. When he does, until his next turn, he gains a damage bonus to all of his attacks equal to his gunbreaker level, but also takes additional damage equal to his gunbreaker level when he is hit.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:staggering-blow",
+            "name": "Staggering Blow",
+            "description": "The doom slayer may forfeit the damage of one successful attack per turn to push the target up to 10 feet as if using bull rush, the damage result + his gunbreaker level is equal to his CMB.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:gunbreaker:doom-slayer:pool:runes:option:terrifying-brutality",
+            "name": "Terrifying Brutality",
+            "description": "Upon killing an enemy, each surrounding enemy within 15 feet of the doom slayer must roll twice on all saving throws (taking the lowest result) until the start of the doom slayer’s next turn.\n\nThese abilities replace gun arm mastery.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          }
+        ]
+      }
+    ],
+    "progressionChoices": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:event:runes:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:pool:runes"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:event:runes:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:pool:runes"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:event:runes:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:pool:runes"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:event:runes:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:gunbreaker:doom-slayer:pool:runes"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      }
+    ]
+  }
+}

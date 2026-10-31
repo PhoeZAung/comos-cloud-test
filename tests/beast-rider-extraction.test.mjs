@@ -13,7 +13,7 @@ test('Beast Rider resolves only the existing mount target and preserves nine unv
  assert.equal(a.sources[0].archiveSha256,catalog.items.find(i=>i.id===ID).source.sha256);
  assert.deepEqual(a.data.replacements[0].targetFeatureIds,[p.id+':feature:chocobo-mount']);
  assert.equal(a.data.deferredReplacements.length,9);
- assert(a.data.deferredReplacements.every(r=>!p.data.features.some(f=>f.name===r.parentFeatureName)));
+ assert(a.data.deferredReplacements.every(r=>r.resolution==='adapter_not_verified'&&p.data.features.some(f=>f.name===r.parentFeatureName)));
 });
 test('Beast Rider mount eligibility is distinct from Beastmaster and upgrades set total values instead of accumulating',async()=>{
  const a=await load(),m=a.data.mount;
