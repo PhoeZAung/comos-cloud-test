@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 109,
+  "revision": 111,
   "schedule": [
     "class",
     "race",
@@ -603,19 +603,22 @@
       "updatedAt": "2026-10-31T15:07:57.331Z"
     },
     "ffd20:class:red-mage": {
-      "state": "queued",
-      "stage": "local-validated",
-      "cursor": "First-level Red Mage creation/editing and SQLite persistence implemented",
-      "nextAction": "Implement level 2 Arcane Pool, source-bound Ruby Talent choice and Spellstrike, then later progression. Stay local until publish.",
-      "scope": "Level-one standard Red Mage only: required Magery, CHA MP and starting spells; conditional combat manual. Later levels/archetypes/multiclassing guarded.",
-      "note": "Red Mage level-one local work preserved at 45f4d9f. Parked for explicit user priority: polish Chocobo Knight/Mog Knight, Dancer/Akimbo, Gunbreaker/Doom Slayer. Resume level 2 afterward.",
+      "state": "in_progress",
+      "stage": "local-level-two-validated",
+      "cursor": "Red Mage level 2 Arcane Pool, Ruby Talents, Spellstrike and spell learning complete locally",
+      "nextAction": "Implement Red Mage level 3 Ruby Arcana and Ruby Knowledge with source-backed choices; keep local until publish. Reconcile race checkpoint changes before a future merge.",
+      "scope": "Standard Red Mage levels 1–2 only, required Magery/Talent choices, CHA MP/spells, manual Arcane Pool/daily talent trackers and conditional combat reference cards. Later levels and unsupported prerequisite/subchoice options guarded.",
+      "note": "434 tests and cloud build pass. Browser level 1→2 save/reopen and durable database reopen verified with fixture session. 34 Ruby Talent source records; 12 bounded candidates with STR guard. No push, merge, live login or publication.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/red-mage-level-one-import.md",
-        "tests/red-mage-level-one.test.mjs"
+        "tests/red-mage-level-one.test.mjs",
+        "docs/extraction/red-mage-level-two-import.md",
+        "docs/extraction/red-mage-level-two-validation.json",
+        "tests/red-mage-level-two.test.mjs"
       ],
-      "updatedAt": "2026-10-31T15:22:37.319Z"
+      "updatedAt": "2026-10-31T15:52:37.158Z"
     }
   },
   "history": [
@@ -1590,6 +1593,24 @@
       "stage": "local-fresh-browser-validated",
       "cursor": "Fresh six-path browser level-up and selected milestone pass complete",
       "time": "2026-10-31T15:43:40.070Z"
+    },
+    {
+      "revision": 110,
+      "itemId": "ffd20:class:red-mage",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "local-validated",
+      "cursor": "First-level Red Mage creation/editing and SQLite persistence implemented",
+      "time": "2026-10-31T15:52:37.063Z"
+    },
+    {
+      "revision": 111,
+      "itemId": "ffd20:class:red-mage",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "local-level-two-validated",
+      "cursor": "Red Mage level 2 Arcane Pool, Ruby Talents, Spellstrike and spell learning complete locally",
+      "time": "2026-10-31T15:52:37.158Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

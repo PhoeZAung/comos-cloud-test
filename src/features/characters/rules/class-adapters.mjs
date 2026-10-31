@@ -207,7 +207,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  next.favoredClassBonuses={};next.favored_class_options=p.race.data.favoredRewards.filter(x=>x.classId===definition.id).map(x=>x.description).join('\n')+'\nFavored rewards require manual adjudication.';
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
- next.castingProfiles=isChaCaster(b)?[{className:name,mode:'full',ability:'cha',casterLevel:1,highestSpellLevel:1}]:[];
+ next.castingProfiles=isChaCaster(b)?[{className:name,mode:'full',ability:'cha',casterLevel:b.level,highestSpellLevel:1}]:[];
  if(!isChaCaster(b))next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
  if(oldManaged)for(const key of ownedKeys){

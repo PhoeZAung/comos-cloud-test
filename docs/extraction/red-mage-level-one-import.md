@@ -1,5 +1,8 @@
 # Red Mage local first-level milestone
 
+Historical first-level checkpoint. Level 2 is now locally supported; see
+`red-mage-level-two-import.md` for current scope, validation and limits.
+
 This chat owns classes and archetypes. Work is isolated in branch
 `classes/red-mage` in `/home/phoeaung/Documents/Codex/2026-10-30/hi/work/comos-classes`.
 The race chat can keep its own checkout; this branch does not modify race definitions.

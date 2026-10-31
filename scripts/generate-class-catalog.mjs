@@ -28,7 +28,7 @@ export async function buildClassCatalog(){
   const levelOne=['ffd20:class:chocobo-knight','ffd20:class:dancer','ffd20:class:dragoon','ffd20:class:knight','ffd20:class:monk'].includes(entry.id)&&entry.adapter==='martial-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
   const martialProgression=['ffd20:class:chocobo-knight','ffd20:class:dancer','ffd20:class:gunbreaker'].includes(entry.id)&&entry.adapter==='martial-progression'&&JSON.stringify(c.data.supportedLevels)===JSON.stringify(Array.from({length:20},(_,i)=>i+1));
   const bardOne=entry.id==='ffd20:class:bard'&&entry.adapter==='bard-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
-  const redOne=entry.id==='ffd20:class:red-mage'&&entry.adapter==='red-mage-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
+  const redOne=entry.id==='ffd20:class:red-mage'&&entry.adapter==='red-mage-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1,2]';
   const beastOne=entry.id==='ffd20:class:beastmaster'&&entry.adapter==='beastmaster-level-one'&&JSON.stringify(c.data.supportedLevels)==='[1]';
   if(martialProgression)validateMartialProgression(c);
   if(entry.status==='live'&&!(entry.id==='ffd20:class:archer'&&entry.adapter==='archer')&&!levelOne&&!martialProgression&&!bardOne&&!beastOne&&!redOne)throw Error('Class has no verified runtime adapter: '+entry.id);

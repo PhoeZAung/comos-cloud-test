@@ -2,7 +2,7 @@ import {withBuildDefaults,sameBuildValue} from './build-compatibility.mjs';
 import {DOOM_SLAYER_ID,martialCounter,supportsMartialProgression,martialChoiceEvents,martialEligibleOptions} from './martial-progression.mjs';
 import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classes.mjs';
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
-import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions} from './red-mage-level-one.mjs';
+import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions,RED_MAGERY_EVENT} from './red-mage-level-one.mjs';
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
@@ -70,9 +70,9 @@ export function calculated(value,b,effective=effectiveScores(b)){
  v=value.rounding==='ceil'?Math.ceil(v):value.rounding==='none'?v:Math.floor(v);if(value.minimum!==null)v=Math.max(v,value.minimum);if(value.maximum!==null)v=Math.min(v,value.maximum);return v;
 }
 export function choiceEvents(b){if(isRedMage(b))return redMageChoiceEvents(b);if(supportsMartialProgression(b))return martialChoiceEvents(b);if(isBeastmaster(b))return beastmasterChoiceEvents(b);if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
-export function eligibleOptions(b,event){if(isRedMage(b))return redMageChoiceEvents(b).some(e=>e.id===event.id)?redMageOptions():[];if(supportsMartialProgression(b))return martialEligibleOptions(b,event);if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
+export function eligibleOptions(b,event){if(isRedMage(b))return redMageChoiceEvents(b).some(e=>e.id===event.id)?redMageOptions(b,event,effectiveScores(b)):[];if(supportsMartialProgression(b))return martialEligibleOptions(b,event);if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
 export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?classHitDie(b):classDefaultHp(b)));}
-export function spellCounts(b){if(isRedMage(b))return redMageSpellCounts(effectiveScores(b),b.initialChaMod);if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
+export function spellCounts(b){if(isRedMage(b))return redMageSpellCounts(effectiveScores(b),b.initialChaMod,b.level);if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
  const errors=[];const add=(step,message)=>errors.push({step,message});
  if(!b.name.trim())add(0,'Enter a character name.');
@@ -224,10 +224,10 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
   const original=previous.rulesBuild.input;
   for(const pool of [GARIF_TERRAIN,GARIF_PASTORALIST])if((raw?.racialChoices?.[pool]||[]).join('|')!==(original.racialChoices?.[pool]||[]).join('|'))bad('Existing Garif terrain and first-level Pastoralist allocation cannot be changed during editing.');
  }
- if((isLevelOneClass(raw)&&!supportsMartialProgression(raw)||isChaCaster(raw))&&raw.level!==1)bad('This class currently supports level-1 testing only.');
- if(isRedMage(raw)&&previous.rulesBuild?.input&&JSON.stringify(raw.choices)!==JSON.stringify(previous.rulesBuild.input.choices))bad('Saved Red Magery cannot be replaced in this builder.');
+ if((isLevelOneClass(raw)&&!supportsMartialProgression(raw)||isBard(raw))&&raw.level!==1)bad('This class currently supports level-1 testing only.');
+ if((supportsMartialProgression(raw)||isRedMage(raw))&&previous.rulesBuild&&!levelTransition&&raw.level!==previous.rulesBuild.input.level)bad('Use Level up to change the saved character level.');
+ if(isRedMage(raw)&&previous.rulesBuild?.input&&(!sameBuildValue(raw.choices?.[RED_MAGERY_EVENT],previous.rulesBuild.input.choices?.[RED_MAGERY_EVENT])||!levelTransition&&!sameBuildValue(raw.choices,previous.rulesBuild.input.choices)))bad('Saved Red Magery cannot be replaced in this builder.');
  if(previous.rulesBuild?.input&&supportsMartialProgression(previous.rulesBuild.input)&&raw.archetypeId!==previous.rulesBuild.input.archetypeId)bad('A saved character cannot change archetypes.');
- if(supportsMartialProgression(raw)&&previous.rulesBuild&&!levelTransition&&raw.level!==previous.rulesBuild.input.level)bad('Use Level up to change the saved character level.');
  if(isChaCaster(raw)&&Array.isArray(raw.spellIds)&&new Set(raw.spellIds).size!==raw.spellIds.length)bad('Choose distinct starting spells.');
  if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==(raw?.classId||BLACK_MAGE_ID))bad('A saved character cannot change classes.');
  if(isArcher(raw)||isLevelOneClass(raw)||isChaCaster(raw)){
@@ -235,7 +235,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
   if(append||raw.carry)bad('Archer multiclassing is not yet supported.');
   if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==raw.classId)bad('A saved character cannot change its class.');
   const priorCaster=isChaCaster(raw)?previous.rulesBuild?.input:null;
-  const startingCha=priorCaster?(priorCaster.initialChaMod??priorCaster.spellIds.filter(id=>spellsForBuild(priorCaster).some(s=>s.id===id&&s.level===1)).length-3):null;
+  const startingCha=priorCaster?(priorCaster.initialChaMod??priorCaster.spellIds.filter(id=>spellsForBuild(priorCaster).some(s=>s.id===id&&s.level===1)).length-3-(isRedMage(priorCaster)?2*(priorCaster.level-1):0)):null;
   const b=sanitizeBuild(priorCaster&&raw.initialChaMod==null?{...raw,initialChaMod:startingCha}:raw),p=previewBuild(b);
   if(isChaCaster(b)){
    const prior=previous.rulesBuild?.input;
@@ -312,23 +312,24 @@ export function prepareLevelUp(previous){
  if(!previous?.rulesBuild?.input)bad('Open Edit to establish this character’s reviewed class build before leveling up.');
  const baseline=withBuildDefaults(previous.rulesBuild.input,newBuild());
  if(buildLevel(baseline)>=20)bad('This character is already level 20.');
+ const definition=classFor(baseline),supported=definition?.data.supportedLevels;
+ if(Array.isArray(supported)&&!supported.includes(baseline.level+1))bad(definition.name+' progression beyond level '+baseline.level+' is not enabled yet.');
  baseline.hpRolls=hpHistory(baseline);
  baseline.skillRanks=fixedSkills.map((_,i)=>Number(previous.skills?.[i]?.lvl??baseline.skillRanks?.[i]??0));
  const build=structuredClone(baseline);build.level++;build.hpRolls.push(classDefaultHp(build));
- build.initialIntMod=!hasSpellcasting(classFor(build))?null:baseline.initialIntMod??mod(effectiveScores(baseline).int);
+ build.initialIntMod=!hasSpellcasting(classFor(build))||isChaCaster(build)?baseline.initialIntMod??null:baseline.initialIntMod??mod(effectiveScores(baseline).int);
  build.reviewed=false;
  return {build,baseline};
 }
 export function levelUpBuild(raw,previous){
- if(isRedMage(raw)||isRedMage(previous.rulesBuild?.input))bad('Red Mage currently supports level-1 testing only; level-up is not enabled.');
  if(isBard(raw)||isBard(previous.rulesBuild?.input))bad('Bard currently supports level-1 testing only; level-up is not enabled.');
  if((isLevelOneClass(raw)||isLevelOneClass(previous.rulesBuild?.input))&&!supportsMartialProgression(raw))bad('This class currently supports level-1 testing only; level-up is not enabled.');
- if(supportsMartialProgression(raw)){
+ if(supportsMartialProgression(raw)||isRedMage(raw)||isRedMage(previous.rulesBuild?.input)){
   const raceLimits=buildIssues(raw,{complete:false}).filter(i=>i.step===3);if(raceLimits.length)bad(raceLimits[0].message);
   const stored=previous.rulesBuild?.input;
   const old=stored?withBuildDefaults(stored,newBuild()):null,same=sameBuildValue;
   raw=withBuildDefaults(raw,newBuild());
-  if(!old||!supportsMartialProgression(old)||raw.level!==old.level+1||raw.level>20)bad('Level up adds exactly one level, up to level 20.');
+  if(!old||!(supportsMartialProgression(old)||isRedMage(old))||raw.level!==old.level+1||raw.level>(isRedMage(old)?2:20))bad(isRedMage(old)?'Red Mage currently supports levels 1–2 only.':'Level up adds exactly one level, up to level 20.');
   for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId','carry','favored','initialChaMod','abilityMethod','pointBudget','scorePool','scoreAssignments'])if(!same(raw[key],old[key]))bad('Level up cannot change '+({baseScores:'existing ability scores',initialChaMod:'the starting spell allowance',raceId:'race',heritageId:'heritage',disabledTraits:'standard racial traits',alternateIds:'alternate racial traits',archetypeId:'archetype',classId:'class',carry:'previous class data',favored:'favored-class rewards',abilityMethod:'the ability score method',pointBudget:'the point-buy budget',scorePool:'recorded ability rolls',scoreAssignments:'ability score assignments'}[key]||key)+'.');
   for(const key of ['racialChoices','racialSpecialties'])if(!same(raw[key]??{},old[key]??{}))bad('Level up cannot change racial choices.');
   const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose a +1 ability increase.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
@@ -336,6 +337,7 @@ export function levelUpBuild(raw,previous){
   if(!same(raw.hpRolls,[...hpHistory(old),classDefaultHp(raw)]))bad('Record the class default HP for the new level.');
   if(!Array.isArray(raw.skillRanks)||raw.skillRanks.some((n,i)=>n<Number(previous.skills?.[i]?.lvl||0)))bad('Level up cannot remove existing skill ranks.');
   for(const [id,value] of Object.entries(old.choices||{}))if(!same(raw.choices?.[id],value))bad('Earlier talent/feat choices cannot be changed on level up.');
+  if(isRedMage(raw)&&old.spellIds.some(id=>!raw.spellIds?.includes(id)))bad('Level up cannot remove learned Red Mage spells.');
   return compileBuild(raw,previous,{levelTransition:true});
  }
  if(isArcher(raw)){

@@ -36,7 +36,7 @@ test('Red Mage rejects illegal magery, duplicate/missing/wrong spells, premature
  for(const change of [b=>b.choices={},b=>b.choices[RED_MAGERY_EVENT]=[RED_MAGE_ID+':magery:extra-quick-casts'],b=>b.choices.extra=['fake'],b=>b.spellIds.push(b.spellIds[0]),b=>{b.spellIds[0]='ffd20:spell:not-red-magic';b.spellSelections=null;},b=>b.baseScores.cha=8,b=>b.hpRolls=[6],b=>b.archetypeId='fake',b=>b.level=2,b=>b.initialIntMod=3,b=>b.favored=['hp']]){
   const b=fixture();change(b);assert.throws(()=>compileBuild(b));
  }
- const d=compileBuild(fixture());assert.throws(()=>levelUpBuild({...d.rulesBuild.input,level:2},d),/level-1/);assert.throws(()=>appendClassBuild(fixture(),d),/multiclassing/);
+ const d=compileBuild(fixture());assert.throws(()=>levelUpBuild({...d.rulesBuild.input,level:3},d),/levels 1–2/);assert.throws(()=>appendClassBuild(fixture(),d),/multiclassing/);
  const b=fixture();b.raceId='ffd20:race:immortal';b.racialChoices={};b.racialSpecialties={};assert(buildIssues(b).some(i=>/Magic Ineptitude/.test(i.message)));assert.throws(()=>compileBuild(b));
 });
 test('Red Mage preserves spent MP, manual edits and starting spell entitlement across CHA changes',()=>{

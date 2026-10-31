@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 11 | 11 | 63 | 10 | 0 | 0 |
+| class | 73/73 | 11 | 11 | 62 | 10 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 47 | 15 | 0 | 0 |
 | archetype | 579/579 | 7 | 5 | 572 | 5 | 0 | 402 |
 
-Checkpoint revision: **109**. Active: **none**. Next: **ffd20:class:red-mage**.
+Checkpoint revision: **111**. Active: **ffd20:class:red-mage**. Next: **ffd20:class:red-mage**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -31,7 +31,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | live_partial · deployment-verified | Six first-level abilities, class stats and proficiencies deployed and verified; Later class talents, progression, archetypes and multiclassing require separate source-reviewed adapters |
 | 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | existing live adapter · levels 1 | live_partial · deployment-verified | Lawful first-level Knight, stance counter and manual defensive references deployed; five public assets verified; Later talents/progression/archetypes, code adjudication and defensive effect/recovery automation require separate reviewed batches |
 | 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | existing live adapter · levels 1 | live_partial · deployment-verified | First-level FFd20 Monk, Bodybuilding HP and manual martial references deployed; five public assets verified; Later Ki/talents/blitz/progression/archetypes, conditional martial effects and feat interactions require separate reviewed batches |
-| 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | existing live adapter · levels 1 | queued · local-validated | First-level Red Mage creation/editing and SQLite persistence implemented; Implement level 2 Arcane Pool, source-bound Ruby Talent choice and Spellstrike, then later progression. Stay local until publish. |
+| 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | existing live adapter · levels 1,2 | in_progress · local-level-two-validated | Red Mage level 2 Arcane Pool, Ruby Talents, Spellstrike and spell learning complete locally; Implement Red Mage level 3 Ruby Arcana and Ruby Knowledge with source-backed choices; keep local until publish. Reconcile race checkpoint changes before a future merge. |
 | 11 | [Thief](https://finalfantasyd20.com/classes/core-classes/thief/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 12 | [Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 13 | [White Mage](https://finalfantasyd20.com/classes/core-classes/white-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
