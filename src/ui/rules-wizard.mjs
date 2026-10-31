@@ -5,7 +5,7 @@ import {isBeastmaster,beastmasterSkillBonus} from '../features/characters/rules/
 import {isLevelOneClass,FELL_RIDER_ID,DEADLY_LANCER_ID,MOG_KNIGHT_ID,CHOCOBO_KNIGHT_ID} from '../features/characters/rules/level-one-classes.mjs';
 import {classHitDie,classDefaultHp} from '../features/characters/rules/class-adapters.mjs';
 import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices} from '../features/characters/rules/racial-choices.mjs';
-import {isSupportedRaceOperation} from '../features/characters/rules/race-replacement-operations.mjs';
+import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
 import {registry,spellsForBuild,availableClasses,classFor,className,classSkill,newBuild,prepareLevelUp,steps,stats,raceFor,raceTraits,replacementFor,racialClassSkill,effectiveScores,choiceEvents,eligibleOptions,calculated,spellCounts,buildIssues,previewBuild,hpHistory,classFeatureChanges,hasSpellcasting,buildLevel,carryCharacter} from '../features/characters/rules/build.mjs';
@@ -39,8 +39,7 @@ const traitReview=(race,id)=>{
  }else if(f.choicePoolIds?.some(id=>!supportsRacialPool(id)))return 'This trait requires a choice the wizard cannot yet record.';
  return manualReviewTraits.get(id)||'';
 };
-const HUME_SCORE_HERITAGES=new Set([HUME_ID+':heritage:highlander',HUME_ID+':heritage:lunarian']);
-const heritageReview=(h,race)=>race?.id===TARUTARU_ID?'Tarutaru variant heritages need a separate verified batch.':race?.id===MITHRA_ID?'Mithra variant heritages need a separate verified batch.':race?.id===HUME_ID&&!HUME_SCORE_HERITAGES.has(h.id)?'This Hume heritage has unreviewed additional abilities or choices.':race?.id==='ffd20:race:elvaan'?'Elvaan variant heritages need a separate verified batch.':(h.replacements||[]).some(o=>o.resolution!=='resolved'||o.scope!=='whole_feature')?'Heritage replacements need review.':(h.choicePoolIds?.length?'A heritage choice is not supported.':'');
+const heritageReview=(h,race)=>isSupportedRaceHeritage(race,h)?'':'This heritage needs a verified replacement, automatic ability-score vector, or a required choice control.';
 const choiceSource=(event,b)=>{if(isRedMage(b)&&event?.poolIds?.some(id=>id.endsWith(':ruby-talents')))return classFor(b).sources.find(s=>s.id==='ruby-talents')?.url;if(isBeastmaster(b))return classFor(b).sources.find(s=>s.id==='companions')?.url;const talent=event?.poolIds?.some(id=>/talent/.test(id));return classFor(b).sources.find(s=>s.id===(talent?'talents':'main'))?.url||classFor(b).sources[0]?.url;};
 const panel=(title,html)=>`<section class="rw-panel"><h2>${e(title)}</h2>${html}</section>`;
 const field=(label,html)=>`<label class="rw-field"><span>${e(label)}</span>${html}</label>`;

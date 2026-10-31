@@ -6,7 +6,7 @@ import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceE
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
-import {isSupportedRaceOperation,applyRaceModification} from './race-replacement-operations.mjs';
+import {isSupportedRaceOperation,isSupportedRaceHeritage,applyRaceModification} from './race-replacement-operations.mjs';
 import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
@@ -90,28 +90,28 @@ export function buildIssues(b,{complete=true}={}){
  if(['array','rolled'].includes(b.abilityMethod)){const pool=b.abilityMethod==='array'?standardArray:b.scorePool;if(pool.length!==6||new Set(b.scoreAssignments).size!==6||b.scoreAssignments.some(i=>!Number.isInteger(i)||i<0||i>5)||stats.some((key,i)=>b.baseScores[key]!==pool[b.scoreAssignments[i]]))add(1,'Assign each generated score exactly once.');}
  if(b.skillRanks!==null&&b.skillRanks!==undefined){const budget=previewBuild(b).skillBudget;if(b.skillRanks.length!==fixedSkills.length||b.skillRanks.some(n=>!Number.isInteger(n)||n<0||n>buildLevel(b)))add(7,'Skill ranks must be whole numbers up to your character level.');else if(b.skillRanks.reduce((sum,n)=>sum+n,0)!==budget)add(7,'Allocate all '+budget+' skill points.');}
  const race=raceFor(b);if(!race)add(2,'Choose a race.');
- if(race?.id===GARLEAN_ID&&b.heritageId)add(2,'Garlean heritage requires separate source verification.');
+
  if(race?.id===GARLEAN_ID&&(b.level!==1||b.carry))add(3,'Garlean supports first-level creation and editing only; later levels and multiclassing need separate review.');
- if(race?.id===GARLEAN_ID&&previewBuild(b).summary.mp>0)add(3,'Garlean Magic Ineptitude forbids an MP pool; choose a class without MP. The Magic User alternate is not implemented.');
- if(race?.id===GARIF_ID&&b.heritageId)add(2,'Garif heritage must have verified replacements.');
+ if(race?.id===GARLEAN_ID&&raceTraits(b).traits.some(f=>f.id===GARLEAN_ID+':trait:magic-ineptitude')&&previewBuild(b).summary.mp>0)add(3,'Garlean Magic Ineptitude forbids an MP pool unless replaced by a compatible alternate trait.');
+
  if(race?.id===GARIF_ID&&(b.level!==1||b.carry))add(3,'Garif currently supports first-level creation and editing only; later ranks and multiclassing need a separate verified batch.');
  if(race?.id===GARIF_ID&&b.skillRanks){const chosen=b.racialChoices?.[GARIF_PASTORALIST]?.[0],index=Number(chosen?.split(':').at(-1));if(chosen&&!(b.skillRanks[index]>=1))add(7,'Allocate the Garif Pastoralist bonus rank to its chosen skill.');}
- if(race?.id===HUME_ID&&(b.heritageId&&!new Set([HUME_ID+':heritage:highlander',HUME_ID+':heritage:lunarian']).has(b.heritageId)))add(2,'This Hume heritage or alternate requires more verified choices or mechanics. Highlander and Lunarian ability-score heritages are supported; their conditional abilities remain manual.');
+
  if(race?.id===HUME_ID&&(b.level!==1||b.carry))add(3,'Hume currently supports first-level creation/editing only; progression and multiclassing require a separate verified batch.');
- if(race?.id===AL_BHED_ID&&b.heritageId)add(2,'Al Bhed currently supports standard traits only; alternates require a separate verified batch.');
+
  if(race?.id===AL_BHED_ID&&(b.level!==1||b.carry))add(3,'Al Bhed currently supports first-level creation/editing only; later progression and multiclassing require a separate verified batch.');
  if(race?.id===AL_BHED_ID&&b.skillRanks){const chosen=b.racialChoices?.[AL_BHED_GENIUS]?.[0],index=Number(chosen?.split(':').at(-1));if(chosen&&!(b.skillRanks[index]>=1))add(7,'Allocate the Mechanical Genius bonus rank to its selected skill.');}
- if(race?.id===DRACOBALTIAN_ID&&b.heritageId)add(2,'Dracobaltian currently supports standard traits only; alternate traits require a separate verified batch.');
- if(race?.id===BURMECIAN_ID&&b.heritageId)add(2,'Burmecian currently supports standard traits only; Cleyran and other variants/alternates require a separate verified batch.');
- if(race?.id===BEASTKIN_ID&&b.heritageId)add(2,'Beastkin currently supports standard traits only; alternate traits require a separate verified batch.');
- if(race?.id===BANGAA_ID&&b.heritageId)add(2,'Bangaa currently supports standard traits only; variant heritages and alternates require a separate verified batch.');
- if(race?.id===AU_RA_ID&&b.heritageId)add(2,'Au Ra currently supports standard Xaela traits only; Raen and other variants/alternates require a separate verified batch.');
- if(race?.id===AEGYL_ID&&b.heritageId)add(2,'Aegyl currently supports standard traits only; variants and alternates need a separate verified batch.');
- if(race?.id===MITHRA_ID&&b.heritageId)add(2,'Mithra currently supports standard traits only; variants and alternates need a separate verified batch.');
- if(race?.id===TARUTARU_ID&&b.heritageId)add(2,'Tarutaru currently supports standard traits only; variants and alternates need a separate verified batch.');
+
+
+
+
+
+
+
+
  if(race?.id==='ffd20:race:half-breed')add(2,'Half-Breed requires two legal parent races and verified inherited-trait choices. These choices are not available yet, so this race cannot be saved.');
- if(race?.id==='ffd20:race:galka'&&b.heritageId)add(2,'Galka variant heritage is not yet supported; standard heritage with reviewed alternate racial traits is available.');
- if(race?.id==='ffd20:race:elvaan'&&b.heritageId)add(2,'Elvaan currently supports standard heritage and standard traits only. Variant heritage and alternate mechanics require a separate verified batch.');
+
+
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
  if(race){
   const mustChoose=f=>Boolean(f?.choicePoolIds?.some(id=>!supportsRacialPool(id)));
@@ -124,7 +124,7 @@ export function buildIssues(b,{complete=true}={}){
     add(2,(f?.name||'Alternate trait')+' has an unresolved replacement rule.');
   }
   const heritage=race.data.heritages.find(h=>h.id===b.heritageId);
-  if(heritage?.replacements.some(op=>op.resolution!=='resolved'||op.scope!=='whole_feature'))add(2,'Selected heritage has an unresolved racial replacement.');
+  if(heritage&&!isSupportedRaceHeritage(race,heritage))add(2,'Selected heritage needs a verified replacement and automatic ability-score vector or a required choice control.');
  }
 
  if(race?.id==='ffd20:race:mutant')add(3,'Mutant requires random level-based ability increases and replaces standard fourth-level ability increases. The current wizard cannot safely calculate this progression, so automated character saving is disabled until its progression is implemented.');
