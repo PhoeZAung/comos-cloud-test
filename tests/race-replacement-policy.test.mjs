@@ -36,8 +36,10 @@ test('Resolved Dwarf alternates can stack when independent and reject conflictin
  const b=fixture('dwarf');b.alternateIds=[raceId('dwarf')+':feature:mountain-familarity',raceId('dwarf')+':feature:magic-resistant'];
  assert.deepEqual(raceTraits(b).errors,[]);
  const compiled=compileBuild(b);assert.ok(compiled.racialAbilities.some(f=>f.name==='Magic Resistant'));
- const bad=fixture('dwarf');bad.alternateIds=[raceId('dwarf')+':feature:saltbeard'];
- assert.ok(raceTraits(bad).errors.some(x=>/precise/.test(x)));assert.throws(()=>compileBuild(bad),/precise replacement/);
+ const salt=fixture('dwarf');salt.alternateIds=[raceId('dwarf')+':feature:saltbeard'];
+ assert.deepEqual(raceTraits(salt).errors,[]);
+ assert.ok(raceTraits(salt).traits.some(f=>f.id===raceId('dwarf')+':feature:greed'&&/under water/.test(f.description)));
+ assert.doesNotThrow(()=>compileBuild(salt));
  const conflict=fixture('dwarf');conflict.alternateIds=[raceId('dwarf')+':feature:healthy',raceId('dwarf')+':feature:magic-resistant'];
  assert.ok(raceTraits(conflict).errors.some(x=>/Two selections replace/.test(x)));
 });
