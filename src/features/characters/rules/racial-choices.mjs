@@ -1,4 +1,5 @@
 import {fixedSkills} from '../../sheet/skills.mjs';
+import {buildLevel} from './multiclass.mjs';
 import {QUADAV_ID,QUADAV_TERRAIN,LAMBKIN_ID,LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,DWARF_ID,DWARF_LANGUAGES,GARLEAN_ID,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,DRACOBALTIAN_LANGUAGES,BURMECIAN_ID,BURMECIAN_LANGUAGES,BEASTKIN_ID,BEASTKIN_LANGUAGES,BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
 
 const IMMORTAL='ffd20:race:immortal:pool:';
@@ -31,12 +32,17 @@ const mutantScorePools=new Set([MUTANT_PHYSICAL,MUTANT_MENTAL,MUTANT_PENALTY]);
 const ORC_SKILL='ffd20:race:orc:pool:skill-bonus-selection';
 const MATANGA_ACADEMIC='ffd20:race:matanga:pool:academic-selection';
 const LOPORRIT_HANDY='ffd20:race:loporrit:pool:handy-selection';
+export const GRIA_WEAPON='ffd20:race:gria:pool:weapon-focus-weapon';
+export const NAMAZU_FOCUS='ffd20:race:namazu:pool:focused-study-selection';
+export const NAMAZU_FOCUS_LEVELS=[1,8,16];
+export const namazuFocusSlot=level=>NAMAZU_FOCUS+':level-'+level;
+const GRIA='ffd20:race:gria',NAMAZU='ffd20:race:namazu';
 const HALF='ffd20:race:half-breed';
 export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -99,18 +105,28 @@ export function mappedRaceTraits(race,traits){
   if((race.id===TARUTARU_ID&&f.id===POLYGLOT)||(race.id===LAMBKIN_ID&&f.id===LAMBKIN_POLYGLOT))
    mapped.push({id:f.id+':sheet:linguistics-class-skill',kind:'class_skill',target:'skills.skill:linguistics.class_skill',operation:'add',value:{kind:'constant',value:1},bonusType:'racial',condition:null,automation:'automatic'});
   if(race.id===GARLEAN_ID&&f.id===GARLEAN_ID+':trait:noble-upbringing')for(const [row,label] of [[20,'history'],[23,'nobility']])mapped.push({id:f.id+':sheet:class-skill:'+label,kind:'class_skill',target:'skills.row.'+row+'.class_skill',operation:'add',value:{kind:'constant',value:1},bonusType:null,condition:null,automation:'automatic'});
+  if(race.id===GRIA&&f.id===GRIA+':trait:weapon-familiarity')
+   for(const name of ['Knight sword','Longbow','Composite longbow'])mapped.push({
+    id:f.id+':sheet:weapon:'+name.toLowerCase().replaceAll(' ','-'),kind:'proficiency',
+    target:'proficiencies.weapon.'+name.toLowerCase().replaceAll(' ','-'),
+    operation:'grant',value:null,textValue:name,bonusType:null,condition:null,automation:'automatic'});
   if(race.id===GARIF_ID&&f.id===GARIF_ID+':trait:weapon-familiarity')for(const name of ['Longspear','Shortspear','Javelin','Boar spear'])mapped.push({id:f.id+':sheet:weapon:'+name.toLowerCase().replaceAll(' ','-'),kind:'proficiency',target:'proficiencies.weapon.'+name.toLowerCase().replaceAll(' ','-'),operation:'grant',value:null,textValue:name,bonusType:null,condition:null,automation:'automatic'});
   return mapped.length?{...f,effects:[...f.effects,...mapped]}:f;
  });
 }
 
-export function racialChoiceSpecs(race,traits){
+export function racialChoiceSpecs(race,traits,level=1){
  if(!race)return [];
  const active=new Set(traits.flatMap(t=>t.choicePoolIds||[]));
  // Legacy Dwarf's extracted language trait predates choice-pool links. Keep
  // canonical source unchanged; expose its existing list only while trait active.
  if(race.id===DWARF_ID&&traits.some(f=>f.id===DWARF_ID+':feature:languages'))active.add(DWARF_LANGUAGES);
  const specs=race.choicePools.filter(p=>active.has(p.id)&&supported.has(p.id)).map(pool=>{
+  if(pool.id===GRIA_WEAPON)return {...pool,minimum:1,maximum:1,
+   options:traits.some(f=>f.id===GRIA+':trait:weapon-familiarity')?
+    ['Knight sword','Longbow','Composite longbow'].filter(name=>traits.some(f=>f.effects.some(e=>
+     e.automation==='automatic'&&e.target==='proficiencies.weapon.'+name.toLowerCase().replaceAll(' ','-'))))
+    .map(name=>({id:pool.id+':option:'+name.toLowerCase().replaceAll(' ','-'),name,value:name})):[]};
   if(pool.id===ORC_SKILL)return {...pool,minimum:1,maximum:1};
   if(pool.id===MATANGA_ACADEMIC)return {...pool,minimum:1,maximum:1,
    options:fixedSkills.flatMap((row,i)=>row.name.startsWith('Knw: ')?[{id:'skill-row:'+i,name:row.name,value:i}]:[])};
@@ -135,6 +151,16 @@ export function racialChoiceSpecs(race,traits){
   if(pool.id===LAMBKIN_POLYGLOT_LANGUAGE)return {...pool,name:'Polyglot starting language',minimum:1,maximum:1,freeText:true};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
+ // One immutable Skill Focus selection unlocks at each Namazu milestone.
+ if(race.id===NAMAZU&&traits.some(f=>f.id===NAMAZU+':trait:focused-study')){
+  for(const at of NAMAZU_FOCUS_LEVELS.filter(n=>n<=level)){
+   specs.push({id:namazuFocusSlot(at),name:'Focused Study · level '+at,choiceType:'race_trait_option',
+    options:fixedSkills.map((row,i)=>({id:'skill-row:'+i,
+     name:row.name+(['Craft','Profession','Perform'].includes(row.name)?
+       ' '+(fixedSkills.slice(0,i).filter(r=>r.name===row.name).length+1):''),value:i})),
+    minimum:1,maximum:1});
+  }
+ }
  // The official Palico/Kindred high-INT language lists were not staged as pools.
   // Expose the verified list only while the source Languages trait is active.
   if([PALICO,KINDRED].includes(race.id)&&traits.some(t=>t.id===race.id+':trait:languages')){
@@ -156,7 +182,7 @@ export function racialChoiceSpecs(race,traits){
 
 export function racialChoiceEffects(b,race,traits){
  const effects=[];
- for(const spec of racialChoiceSpecs(race,traits)){
+ for(const spec of racialChoiceSpecs(race,traits,buildLevel(b))){
   const selected=b.racialChoices?.[spec.id]||[];
   const options=spec.freeText?selected.filter(validLanguageChoice).map(id=>({id,name:languageName(id),value:languageName(id).toLowerCase().replace(/\s+/g,'-')})):selected.map(id=>spec.options.find(o=>o.id===id)).filter(Boolean);
   for(const option of options){
@@ -218,7 +244,7 @@ export function racialChoiceEffects(b,race,traits){
 }
 
 export function racialChoiceIssues(b,race,traits,scores){
- const errors=[],specs=racialChoiceSpecs(race,traits),byId=new Map(specs.map(s=>[s.id,s]));
+ const errors=[],specs=racialChoiceSpecs(race,traits,buildLevel(b)),byId=new Map(specs.map(s=>[s.id,s]));
  for(const [id,values] of Object.entries(b.racialChoices||{})){
   const spec=byId.get(id);
   if(!spec||!Array.isArray(values)){errors.push('Unknown or inactive racial choice.');continue;}
@@ -245,7 +271,12 @@ export function racialChoiceIssues(b,race,traits,scores){
   const normal=new Set((b.racialChoices?.[normalId]||[]).map(id=>standardPool?.options.find(o=>o.id===id)?.name?.toLowerCase()).filter(Boolean));
   if(extra===starting||normal.has(extra))errors.push('Polyglot extra language must be different from starting languages and selected bonus languages.');
  }
+ if(race?.id===NAMAZU&&traits.some(f=>f.id===NAMAZU+':trait:focused-study')){
+  const chosen=NAMAZU_FOCUS_LEVELS.filter(n=>n<=buildLevel(b)).map(n=>b.racialChoices?.[namazuFocusSlot(n)]?.[0]).filter(Boolean);
+  if(new Set(chosen).size!==chosen.length)errors.push('Focused Study must choose a different skill at each milestone.');
+ }
  for(const spec of specs){
+  if(spec.id===GRIA_WEAPON&&!spec.options.length)errors.push('Gria Martial Background needs a verified proficient weapon. Keep Weapon Familiarity enabled until class-based proficiency selections are supported.');
   if(spec.id===ELVAAN_WEAPON&&!spec.options.length)errors.push('Martial Background requires a verified proficient weapon. Keep Elvaan Weapon Familiarity active for this limited integration.');
   const values=b.racialChoices?.[spec.id]||[],maximum=spec.maximum??Math.max(0,Math.floor((scores.int-10)/2));
   if(values.length<spec.minimum||values.length>maximum)errors.push(spec.name+': choose '+(spec.minimum===maximum?maximum:'up to '+maximum)+' option(s).');
@@ -285,7 +316,7 @@ export function racialChoiceFeats(b,race,traits,previous={}){
 }
 
 export function pruneRacialChoices(b,race,traits){
- const specs=racialChoiceSpecs(race,traits),active=new Set(specs.map(s=>s.id));
+ const specs=racialChoiceSpecs(race,traits,buildLevel(b)),active=new Set(specs.map(s=>s.id));
  b.racialChoices=Object.fromEntries(Object.entries(b.racialChoices||{}).filter(([id])=>active.has(id)));
  b.racialSpecialties=Object.fromEntries(Object.entries(b.racialSpecialties||{}).filter(([id])=>specs.some(s=>s.id===id&&s.specialty)));
 }
