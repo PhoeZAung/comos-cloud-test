@@ -35,8 +35,10 @@ test('identity keeps type and movement/language exceptions without adding condit
  const b=fixture(),d=compileBuild(b);
  assert.deepEqual([d.racialIdentity.type,...d.racialIdentity.subtypes],['humanoid','dwarf']);
  const html=renderSection({id:'synthetic',name:b.name,data:d},'overview');
- assert.match(html,/Armor and encumbrance do not modify/);assert.match(html,/Galkan, Giant, Goblin/);
- assert.match(html,/Racial identity rules/);assert.equal(d.fort_base,0);
+ assert(d.racialIdentity.rules.some(r=>/Armor and encumbrance do not modify/.test(r.description)));
+ assert(d.racialIdentity.rules.some(r=>/Galkan, Giant, Goblin/.test(r.description)));
+ assert.doesNotMatch(html,/Armor and encumbrance do not modify|Galkan, Giant, Goblin|Racial identity rules/);
+ assert.equal(d.fort_base,0);
  b.disabledTraits=['ffd20:race:dwarf:feature:languages'];const without=compileBuild(b,d);
  assert.equal(without.languages,'');assert(!without.racialIdentity.rules.some(r=>r.name==='Languages'));
 });
