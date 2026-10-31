@@ -28,7 +28,21 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
+export function replacementFor(r,id){
+ const ops=r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));
+ const prefix='ffd20:race:tonkin:trait:';
+ if(r.id!=='ffd20:race:tonkin'||id!==prefix+'dancing-lantern')return ops;
+ // The source replaces *only* the torchlight spell-like component. Preserve
+ // the whole Lantern Bearer feature and its independent light defenses.
+ const source=ops.find(op=>op.id===id+':replacement'&&op.operation==='replace'&&
+  op.scope==='partial_feature'&&op.resolution==='unresolved'&&
+  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===prefix+'lantern-bearer'&&
+  op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===id&&
+  !(op.targetEventIds||[]).length&&!(op.addsEventIds||[]).length&&!(op.removesComponents||[]).length);
+ if(!source)return ops; // Unexpected source changes remain blocked.
+ return [{...source,id:id+':torchlight-modifier',operation:'modify',scope:'part_of_feature',
+  resolution:'manual',description:'Dancing Lantern replaces only the at-will torchlight spell-like ability of Lantern Bearer; retain its light defenses.'}];
+}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
