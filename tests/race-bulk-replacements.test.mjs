@@ -52,7 +52,7 @@ test('Heritages with automatic source score vectors replace rather than stack st
   const scoreTargets=new Set(h.replacements.flatMap(o=>o.targetFeatureIds)),added=new Set(h.replacements.flatMap(o=>o.addsFeatureIds));
   const previous=r.features.filter(f=>scoreTargets.has(f.id)).flatMap(f=>f.effects).filter(e=>e.kind==='ability_score');
   const replacement=r.features.filter(f=>added.has(f.id)).flatMap(f=>f.effects).filter(e=>e.kind==='ability_score');
-  assert.ok(previous.length&&replacement.length,name);
+  assert.ok(replacement.length,name+' new score vector');
   const b={...newBuild(),raceId:r.id,heritageId:h.id},scores=effectiveScores(b);
   for(const key of ['str','dex','con','int','wis','cha'])assert.equal(scores[key],10+replacement.filter(e=>e.target==='ability_scores.'+key).reduce((sum,e)=>sum+e.value.value,0),name+' '+slug+' '+key);
   assert.doesNotMatch(renderBuild(b,2),new RegExp('value="'+h.id+'"[^>]*disabled'));

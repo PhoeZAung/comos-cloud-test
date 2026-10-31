@@ -27,12 +27,13 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id));}
+export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
- const heritage=r.data.heritages.find(h=>h.id===b.heritageId);
- const operations=[...(heritage?.replacements||[]),...b.alternateIds.flatMap(id=>replacementFor(r,id))];
+ const heritage=r.data.heritages.find(h=>h.id===b.heritageId),heritageSafe=!heritage||isSupportedRaceHeritage(r,heritage);
+ if(heritage&&!heritageSafe)errors.push('Selected heritage needs a verified replacement and automatic ability-score vector or required choice control.');
+ const operations=[...(heritageSafe?heritage?.replacements||[]:[]),...b.alternateIds.flatMap(id=>replacementFor(r,id))];
  for(const op of operations){
   if(!isSupportedRaceOperation(r,op)){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
   if(op.operation==='modify'){

@@ -31,7 +31,7 @@ export function isSupportedRaceHeritage(race,heritage){
  const targets=new Set(heritage.replacements.flatMap(op=>op.targetFeatureIds||[]));
  const adds=new Set(heritage.replacements.flatMap(op=>op.addsFeatureIds||[]));
  if((heritage.featureIds||[]).some(id=>!adds.has(id)))return false;
- const scoreRemoved=race.features.filter(f=>targets.has(f.id)).some(f=>f.effects?.some(e=>e.kind==='ability_score'));
+ const scoreRemoved=race.features.filter(f=>targets.has(f.id)).some(f=>/(?:ability[-:]?scores?|racial[-:]?ability)/i.test(f.id+' '+f.name)||f.effects?.some(e=>e.kind==='ability_score'));
  if(!scoreRemoved)return true;
  const replacementEffects=race.features.filter(f=>adds.has(f.id)).flatMap(f=>f.effects||[]).filter(e=>e.kind==='ability_score');
  return replacementEffects.length>0&&replacementEffects.every(e=>
