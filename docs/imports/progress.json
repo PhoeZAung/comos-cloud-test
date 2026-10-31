@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 108,
+  "revision": 109,
   "schedule": [
     "class",
     "race",
@@ -13,11 +13,11 @@
   "items": {
     "ffd20:class:chocobo-knight": {
       "state": "live_partial",
-      "stage": "local-polish-validated",
-      "cursor": "Older-save level-up compatibility and shared six-path regression completed locally",
-      "nextAction": "Review any further requested martial issues; integrate race branch checkpoints before future publication.",
+      "stage": "local-fresh-browser-validated",
+      "cursor": "Fresh six-path browser level-up and selected milestone pass complete",
+      "nextAction": "Keep martial changes local. Before publication integrate current main, reconcile race checkpoint changes and rerun final integrated checks. Resume Red Mage level 2 only after the requested polish scope is satisfied.",
       "scope": "Levels 1–20 sheet progression and source-bound talent choices; mounts, conditional combat and external prerequisites manual/guarded.",
-      "note": "Exact Mog Knight initialChaMod failure fixed. Shared wizard preparation, dependency pruning and meaningful upgrade review. 429 local tests and cloud build pass; no publication. Previously deployed bounded scope retained.",
+      "note": "User prioritizes newly created characters. All six paths passed browser level 1→2; Mog Knight/Dancer/Akimbo level 4 milestones; full browser Mog Knight creation and level 2 save; seven SQLite records reopened. 429 tests/cloud build pass. Static upgrade labels and hidden dependency notice fixed. Fixture only, no live login or publication.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -28,9 +28,11 @@
         "docs/extraction/martial-progression-publication.md",
         "docs/extraction/martial-progression-deployment-validation.json",
         "docs/extraction/martial-polish.md",
-        "tests/martial-polish.test.mjs"
+        "tests/martial-polish.test.mjs",
+        "docs/extraction/martial-fresh-character-validation.md",
+        "docs/extraction/martial-fresh-browser-validation.json"
       ],
-      "updatedAt": "2026-10-31T15:22:37.411Z"
+      "updatedAt": "2026-10-31T15:43:40.070Z"
     },
     "ffd20:class:dancer": {
       "state": "live_partial",
@@ -1579,6 +1581,15 @@
       "stage": "local-polish-validated",
       "cursor": "Older-save level-up compatibility and shared six-path regression completed locally",
       "time": "2026-10-31T15:22:37.411Z"
+    },
+    {
+      "revision": 109,
+      "itemId": "ffd20:class:chocobo-knight",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-fresh-browser-validated",
+      "cursor": "Fresh six-path browser level-up and selected milestone pass complete",
+      "time": "2026-10-31T15:43:40.070Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

@@ -375,7 +375,7 @@ export function classFeatureChanges(build,baseline){
  if(isChaCaster(build))return previewBuild(build).features.filter(f=>!baseline||!previewBuild(baseline).features.some(old=>old.id===f.id)).map(feature=>({feature,kind:'new'}));
  if(isLevelOneClass(build)){
   const after=previewBuild(build),before=baseline?previewBuild(baseline):null,oldFeatures=new Map((before?.features||[]).map(f=>[f.id,f]));
-  const signature=(f,b,scores)=>({name:f.name,state:f.state||{},description:f.description.replace(/Current at level \d+:/g,'Current:'),counter:martialCounter(b,f,scores)});
+  const signature=(f,b,scores)=>({name:f.name,state:f.state||{},description:(f.progressionDescription||f.description).replace(/Current at level \d+:/g,'Current:'),counter:martialCounter(b,f,scores)});
   return after.features.map(feature=>{const old=oldFeatures.get(feature.id),current=martialCounter(build,feature,after.scores)?.maximum,previous=old?martialCounter(baseline,old,before.scores)?.maximum:undefined;return {feature,kind:!old?'new':!sameBuildValue(signature(feature,build,after.scores),signature(old,baseline,before.scores))?'upgrade':null,...(Number.isFinite(current)&&current!==previous?{resourceChange:{previous,current}}:{})};}).filter(row=>row.kind);
  }
  if(isArcher(build))return archerFeatureChanges(build,baseline);

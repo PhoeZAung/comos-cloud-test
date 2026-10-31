@@ -41,6 +41,8 @@ test('sheet CHA edits and resource expenditure survive real wizard preparation f
 });
 test('growth review shows actual resource upgrades and avoids relabeling static traits every level',()=>{
  const first=create([CK,MOG]),second=levelUpBuild(draft(first),first),third=draft(second);
+ const firstChanges=classFeatureChanges(second.rulesBuild.input,first.rulesBuild.input);
+ assert(!firstChanges.some(r=>['Weapon and Armor Proficiency','Mounted Combat'].includes(r.feature.name)));
  const changes=classFeatureChanges(third,second.rulesBuild.input);
  assert(changes.some(r=>r.feature.name==='Commander’s Aura'&&r.kind==='upgrade'));
  assert(!changes.some(r=>r.feature.name==='Limit Breaks'));

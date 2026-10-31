@@ -1,0 +1,91 @@
+{
+  "checkedAt": "2026-10-31T15:42:10.996Z",
+  "fixtureOnly": true,
+  "productionAccountLogin": false,
+  "productionDataChanged": false,
+  "allSixPathsBrowserLevelTwo": true,
+  "fromScratchMogKnightStandardArray": true,
+  "mogKnightReopened": true,
+  "levelFourCharismaAndMysticDance": [
+    "Mog Knight",
+    "Dancer",
+    "Akimbo"
+  ],
+  "dependentChoiceNoticeObserved": true,
+  "savedScreens": [
+    "Saved Fresh chocobo-knight\n\nChocobo Knight level 2\n\nCHA 12; HP 16\n\nLevel up Reopen build\nOwned abilities\nChallenge maximum 1\nCommander\u2019s Aura maximum 7\nFight as One maximum 1\nSupreme Overrun maximum 1\nSteadfast Mount\nBanner\nMounted Talents\nWeapon and Armor Proficiency\nChocobo Mount\nMounted Combat\nCombat Feat",
+    "Saved Fresh dancer\n\nDancer level 2\n\nCHA 12; HP 13\n\nLevel up Reopen build\nOwned abilities\nBattle Dance maximum 7\nPerfect Dance maximum 1\nTrance maximum 1\nEvasion\nVersatile Dance\nKi Pool maximum 2\nDance Talents\nWeapon and Armor Proficiency\nAC Bonus\nUnarmed Strike\nFleet\nAthlete",
+    "Saved Fresh akimbo\n\nDancer Akimbo level 2\n\nCHA 12; HP 13\n\nLevel up Reopen build\nOwned abilities\nPerfect Dance maximum 1\nTrance maximum 1\nVersatile Dance\nWeapon and Armor Proficiencies\nGunsmith\nPrecise Shot\nNimble\nFlair maximum 2\nAkimbo Talents\nPractical Evasion\nAthlete",
+    "Saved Fresh gunbreaker\n\nGunbreaker level 2\n\nCHA 12; HP 16\n\nLevel up Reopen build\nOwned abilities\nWeapon and Armor Proficiency\nMagicked Ammo maximum 3\nAurora maximum 3\nGunbreaker Talents\nNo Mercy maximum 1\nSuperbolide maximum 1\nBlast Shield\nBrutal Shell\nGunsmith\nKeen Edge\nAgile Armaments",
+    "Saved Fresh doom-slayer\n\nGunbreaker Doom Slayer level 2\n\nCHA 12; HP 16\n\nLevel up Reopen build\nOwned abilities\nWeapon and Armor Proficiency\nMagicked Ammo maximum 3\nGunbreaker Talents\nNo Mercy maximum 1\nSuperbolide maximum 1\nBlast Shield\nBrutal Shell\nDoom Gun Arm\nRavenous Hatred\nPraetor Sacrament\nAgile Armaments",
+    "Saved Fresh mog-knight\n\nChocobo Knight Mog Knight level 3\n\nCHA 12; HP 22\n\nLevel up Reopen build\nOwned abilities\nCommander\u2019s Aura maximum 9\nFight as One maximum 1\nSteadfast Mount\nBanner\nMounted Talents\nKnight\u2019s Charge\nCommander\u2019s Shout\nDeathblow maximum 1\nWeapon and Armor Proficiency\nChocobo Mount\nMounted Combat\nSteady Riding\nMog Attack\nFast Rider",
+    "Saved Fresh mog-knight\n\nChocobo Knight Mog Knight level 4\n\nCHA 13; HP 28\n\nLevel up Reopen build\nOwned abilities\nCommander\u2019s Aura maximum 11\nFight as One maximum 1\nSteadfast Mount\nBanner\nMounted Talents\nKnight\u2019s Charge\nCommander\u2019s Shout\nDeathblow maximum 1\nMog Rush\nWeapon and Armor Proficiency\nChocobo Mount\nMounted Combat\nSteady Riding\nMog Attack\nFast Rider\nCombat Feat",
+    "Saved Fresh dancer\n\nDancer level 3\n\nCHA 12; HP 18\n\nLevel up Reopen build\nOwned abilities\nBattle Dance maximum 9\nPerfect Dance maximum 1\nTrance maximum 1\nEvasion\nVersatile Dance\nKi Pool maximum 2\nDance Talents\nMystic Dances\nBeguiling Dance\nWeapon and Armor Proficiency\nAC Bonus\nUnarmed Strike\nFleet\nAthlete\nBox Step",
+    "Saved Fresh dancer\n\nDancer level 4\n\nCHA 13; HP 23\n\nLevel up Reopen build\nOwned abilities\nBattle Dance maximum 11\nPerfect Dance maximum 1\nTrance maximum 1\nEvasion\nVersatile Dance\nKi Pool maximum 3\nDance Talents\nMystic Dances\nBeguiling Dance\nUncanny Dodge\nWeapon and Armor Proficiency\nAC Bonus\nUnarmed Strike\nFleet\nAthlete\nBox Step\nMystic Dance\nChocobo Jig",
+    "Saved Fresh akimbo\n\nDancer Akimbo level 3\n\nCHA 12; HP 18\n\nLevel up Reopen build\nOwned abilities\nPerfect Dance maximum 1\nTrance maximum 1\nVersatile Dance\nWeapon and Armor Proficiencies\nGunsmith\nPrecise Shot\nNimble\nFlair maximum 3\nAkimbo Talents\nPractical Evasion\nFlair Powers\nAkimbo Dance\nAkimbo Reloading\nAthlete\nBox Step",
+    "Saved Fresh akimbo\n\nDancer Akimbo level 4\n\nCHA 13; HP 23\n\nLevel up Reopen build\nOwned abilities\nPerfect Dance maximum 1\nTrance maximum 1\nVersatile Dance\nUncanny Dodge\nWeapon and Armor Proficiencies\nGunsmith\nPrecise Shot\nNimble\nFlair maximum 4\nAkimbo Talents\nPractical Evasion\nFlair Powers\nAkimbo Dance\nAkimbo Reloading\nAthlete\nBox Step\nMystic Dance\nChocobo Jig",
+    "Saved New browser Mog Knight\n\nChocobo Knight Mog Knight level 2\n\nCHA 17; HP 18\n\nLevel up Reopen build\nOwned abilities\nCommander\u2019s Aura maximum 9\nFight as One maximum 1\nSteadfast Mount\nBanner\nMounted Talents\nDeathblow maximum 1\nWeapon and Armor Proficiency\nChocobo Mount\nMounted Combat\nSteady Riding\nMog Attack\nCombat Feat"
+  ],
+  "databaseReopenVerified": true,
+  "persistedCharacters": [
+    {
+      "name": "Fresh chocobo-knight",
+      "class": "Chocobo Knight",
+      "archetype": "",
+      "level": 2,
+      "cha": 12,
+      "ownedRows": 28
+    },
+    {
+      "name": "Fresh mog-knight",
+      "class": "Chocobo Knight",
+      "archetype": "Mog Knight",
+      "level": 4,
+      "cha": 13,
+      "ownedRows": 34
+    },
+    {
+      "name": "Fresh dancer",
+      "class": "Dancer",
+      "archetype": "",
+      "level": 4,
+      "cha": 13,
+      "ownedRows": 36
+    },
+    {
+      "name": "Fresh akimbo",
+      "class": "Dancer",
+      "archetype": "Akimbo",
+      "level": 4,
+      "cha": 13,
+      "ownedRows": 38
+    },
+    {
+      "name": "Fresh gunbreaker",
+      "class": "Gunbreaker",
+      "archetype": "",
+      "level": 2,
+      "cha": 12,
+      "ownedRows": 28
+    },
+    {
+      "name": "Fresh doom-slayer",
+      "class": "Gunbreaker",
+      "archetype": "Doom Slayer",
+      "level": 2,
+      "cha": 12,
+      "ownedRows": 28
+    },
+    {
+      "name": "New browser Mog Knight",
+      "class": "Chocobo Knight",
+      "archetype": "Mog Knight",
+      "level": 2,
+      "cha": 17,
+      "ownedRows": 29
+    }
+  ],
+  "automatedTestsPassed": 429,
+  "cloudBuild": "passed",
+  "browserLimit": "Browser checks covered levels 1\u20132 on all six paths and selected level-4 milestones. Automated tests cover all six paths through level 20; exhaustive spell/combat/choice combinations and real Firebase login are not claimed."
+}

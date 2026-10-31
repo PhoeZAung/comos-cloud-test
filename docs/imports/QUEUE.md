@@ -12,7 +12,7 @@ Partial-live support, testing availability, source archiving and full completion
 | race | 63/63 | 63 | 63 | 47 | 15 | 0 | 0 |
 | archetype | 579/579 | 7 | 5 | 572 | 5 | 0 | 402 |
 
-Checkpoint revision: **108**. Active: **none**. Next: **ffd20:class:red-mage**.
+Checkpoint revision: **109**. Active: **none**. Next: **ffd20:class:red-mage**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -22,7 +22,7 @@ The race count includes testing options whose mandatory choices can still preven
 
 | Order | Entry | Repository state | Work state | Resume point / next action |
 | ---: | --- | --- | --- | --- |
-| 1 | [Chocobo Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | live_partial · local-polish-validated | Older-save level-up compatibility and shared six-path regression completed locally; Review any further requested martial issues; integrate race branch checkpoints before future publication. |
+| 1 | [Chocobo Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | live_partial · local-fresh-browser-validated | Fresh six-path browser level-up and selected milestone pass complete; Keep martial changes local. Before publication integrate current main, reconcile race checkpoint changes and rerun final integrated checks. Resume Red Mage level 2 only after the requested polish scope is satisfied. |
 | 2 | [Dancer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | live_partial · deployment-verified | Requested bounded scope published in PR #33 and verified within current release b864d2a; Review remaining source and manual limits; future gameplay changes stay local until a new publish request |
 | 3 | [Archer](https://finalfantasyd20.com/classes/core-classes/archer/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | existing live adapter · levels 1 | live_partial · deployed | Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.; After baseline imports, review level-2 talents and Versatile Performance, later progression, orchestration rolls and remaining 135 song pages. |
