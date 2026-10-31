@@ -16,7 +16,7 @@ Any racial trait that asks the player to **choose an ability score** belongs in 
 | 04 · Skill and technology picks B | **Nu Mou** Sagacious (two Knowledge skills); **PuPu** Technological Savant (one Knowledge skill plus Repair). | Implemented in Patch 04 with explicit options, skill projection, inactive-choice pruning and creation-time lock. Other distinct race features are not automatically completed by this patch. |
 | 05A · Elemental and terrain choices | **Guado**, **Viera**, **Ixal** Elemental Summoner; **Ixal** Bond to the Ice; **Lamia** Bond to the Land and Tempered. | Implemented in Patch 05A with mandatory source-enumerated selectors, manual conditional effect cards, permanent creation picks, and replacement-safe pruning. |
 | 05B · Trollkin healing ambiguity | **Trollkin** Acid or Fire weakness and Faster Healing. | Implemented safety/UI handling: prominent contradictory source notice, sheet descriptions for Fast Healing 1 / 2 and suppression, no fabricated selection or automatic HP ticks. Element adjudication still needs GM/source clarification. |
-| 06 · Yagudo choices | **Yagudo** Valiant Linguist (language choices tied to Linguistics ranks) and Zealot Devotee (source-based level/rank scaling). | Queue; dynamic chooser/validation and scaling. |
+| 06 · Yagudo rank-based choices | **Yagudo** Valiant Linguist (two chosen languages per Linguistics rank) and Zealot Devotee (+2 Religion plus +1 per five ranks). | Implemented in Patch 06, with dynamic Skills-step language picks at creation and level-up, persistent locks, scaling skill bonuses and exact alternate replacement semantics. |
 | 07 · Magic choices | **Kindred** Fiendish Magery; **Sylph** Fey Magic. | Queue; class-restricted magic and tracked daily/weekly uses. |
 | 08 · Alternate replacements | **Tarutaru** Explorer (source replacement of Talented/Magick Focus, verify exact IDs and preserved traits), and **Garlean** Xenophobia Extremis score/language modification. | Garlean partial modifier **already** source-guarded in main; audit its wizard interactions. Tarutaru needs verified replacement and choice behavior. |
 | 09 · Shindroid simulations | **Shindroid** Hologram Simulation and Race Simulation. | Queue separately; whole/partial replacements, shape/type/size, incompatible alternates and cross-race effects. No silent borrowing of other races' unsupported mechanics. |
@@ -72,3 +72,13 @@ This is **not** a selectable element. The extracted official trait is titled “
 - Canonical staged JSON remains unchanged. Regression tests validate source warning, replacement and zero automatic healing targets.
 
 Official source: https://finalfantasyd20.com/races/beastman-tribes/trollkin/
+
+## Patch 06: Yagudo Valiant Linguist and Zealot Devotee
+
+The original extraction (not changed) lists **Valiant Linguist** as +4 Linguistics and two chosen languages **per Linguistics rank**. The staged trait has no canonical choice pool, so runtime builds a dedicated free-text `ffd20:race:yagudo:pool:valiant-linguist-rank-languages` selector, shown in the **Skills** wizard step after assigning ranks. A rank grants up to two choices, not random language grants. Yagudo already starts with Common and Yagudo, which cannot be selected again. Selected rank languages can be **appended** when a saved character gains additional Linguistics ranks (or fills unselected earned slots) but earlier selections cannot be edited or removed. The existing general high-Intelligence language eligibility is separate and is not counted as a rank entitlement. A user can pick any otherwise legal game language; GM restrictions still apply.
+
+**Zealot Devotee** already has its static +2 Knowledge (Religion) race effect. Patch 06 adds `floor(Knowledge (Religion) ranks/5)` as an **additional** automatic racial bonus, reaching +3 total at 5 ranks, +4 at 10, +5 at 15, +6 at 20. It is **not** based on character level or ability modifier.
+
+The source-defined alternates **Magical Linguist** and **Stability** replace only Valiant Linguist; **Sturdy Feathers** replaces both Valiant Linguist and Zealot Devotee. The language picker and scaling effect are active only when the corresponding standard trait remains. Source staging JSON stays untouched. This patch does not automatically adjudicate the Magical Linguist spell-like abilities/descriptor restrictions or individual GM language restrictions.
+
+Official source: https://finalfantasyd20.com/races/beastman-tribes/yagudo/
