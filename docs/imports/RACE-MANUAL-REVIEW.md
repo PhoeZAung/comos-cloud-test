@@ -19,7 +19,7 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Beastkin | Alluring, Feral, Light Build, Loper | Partial ability/armor vectors; Feral has no explicit target |
 | Garlean | Xenophobia Extremis | Modifies score adjustment and Languages, rather than replacing the entire traits |
 | Al Bhed | Xenophobic | Replaces starting languages without a complete automatic language effect; must remove Common, disallow INT bonus languages and handle Linguistics progression |
-| Forgiven | Scion of Mortality | Changes language and dual-race identity/subtype rather than replacing Type/Languages as entirely removed fields |
+| Forgiven | Scion of Mortality | **Draft:** removes Celestial only and retains Common, outsider(native) identity, plus explicit manual humanoid(hume) race eligibility; broader conditional typing/spells remain manual |
 | Lambkin | Polyglot | Modifies Magic Expert and Languages |
 | Moogle | Grounded | Partial Base Speed/flight modification |
 | Moomba | Climb | Climb speed 20 ft and land 30 ft but no formal old-trait replacement target |
@@ -27,11 +27,11 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Quadav | Water Tribe | Partial Full Withdrawal replacement |
 | Seto Lion | Faster, Nimble Attacks | Partial Claws/Bite/Fast replacements |
 | Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | Partial status, plating, score and speed adjustments |
-| Sylph | Improved Flight | Compound Camouflage/Beguiling Liar replacement; preserve correct flight mechanics |
+| Sylph | Improved Flight | **Draft:** removes Camouflage and Beguiling Liar, retains Base Speed with 10-ft land / 60-ft good flight (instead of 20/40 poor); other conditional mobility remains manual |
 | Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | Conflicting or incomplete type, speed, vision, language and ability-score modifications |
 | Tarutaru | Polyglot language modifier | **Implemented:** Magic Expert replaced; Languages retained; +2 Linguistics and class skill automated; required unrestricted extra language selected on Ability Scores, independently of high-INT bonus language pool. Verify signed-in save/reopen manually |
 | Tonkin | Dancing Lantern | Partial Lantern Bearer change |
-| Trollkin | Faster Healing | Combined Thick Skin/Fast Healing change; suppression and healing behavior |
+| Trollkin | Faster Healing | **Draft:** replaces Thick Skin and normal Fast Healing 1 with one Fast Healing 2 rule card; HP turn ticks, suppression source conflict and attack particulars remain manual |
 | Half-Breed | Ancestral Arms; inherited features | Parent races, feat/skill/offense choices and racial point budget must be validated |
 | Dwarf | Saltbeard | **Already fixed:** Greed is modified, not removed. Confirm underwater treasure Appraise +2 and keep other conditional bonuses manual |
 
