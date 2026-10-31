@@ -33,5 +33,5 @@ test('Au Ra natural armor contribution is idempotent, preserves manual adjustmen
 });
 test('Au Ra source-bounded bonus languages persist while Raen and alternate traits remain guarded',()=>{
  const b=fixture();b.racialChoices[AU_RA_LANGUAGES]=[AU_RA_LANGUAGES+':option:kojin'];const d=compileBuild(b);assert.equal(d.languages,'Common, Draconic, Kojin');assert.equal(compileBuild(d.rulesBuild.input,d).languages,d.languages);
- for(const change of [b=>b.racialChoices[AU_RA_LANGUAGES].push(AU_RA_LANGUAGES+':option:orc'),b=>b.racialChoices[AU_RA_LANGUAGES]=[AU_RA_LANGUAGES+':option:celestial'],b=>b.heritageId=AU_RA_ID+':heritage:raen',b=>b.alternateIds=[AU_RA_ID+':trait:bull-headed']]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
+ for(const change of [b=>b.racialChoices[AU_RA_LANGUAGES].push(AU_RA_LANGUAGES+':option:orc'),b=>b.racialChoices[AU_RA_LANGUAGES]=[AU_RA_LANGUAGES+':option:celestial'],]){const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));}
 });

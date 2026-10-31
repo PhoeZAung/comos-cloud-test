@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {registry,newBuild,raceTraits,effectiveScores,previewBuild,compileBuild,buildIssues} from '../src/features/characters/rules/build.mjs';
+import {registry,newBuild,raceTraits,replacementFor,effectiveScores,previewBuild,compileBuild,buildIssues} from '../src/features/characters/rules/build.mjs';
 import {replacementRequiresWizard} from '../src/features/characters/rules/racial-choices.mjs';
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
@@ -65,7 +65,7 @@ test('Generic resolved replacements stay available across source registry while 
   const html=renderBuild(base,2);
   for(const id of race.data.alternateTraitIds){
    const feature=race.features.find(f=>f.id===id);
-   const ops=race.data.alternateReplacements.filter(op=>op.addsFeatureIds.includes(id));
+   const ops=replacementFor(race,id);
    const full=ops.length>0&&ops.every(op=>op.resolution==='resolved'&&op.operation==='replace'&&op.scope==='whole_feature');
    const requires=full&&replacementRequiresWizard(race,feature);
    const input=html.match(new RegExp('<input[^>]*data-rw-alternate="'+id+'"[^>]*>'));
