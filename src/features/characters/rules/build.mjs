@@ -49,8 +49,18 @@ export function raceTraits(b){
   if(!isSupportedRaceOperation(r,op)){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
   if(op.operation==='modify'){
    for(const id of op.targetFeatureIds){
-    if(modified.has(id)||consumed.has(id)||disabled.has(id))errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
-    modified.set(id,op);
+    const previous=modified.get(id)||[];
+    const beast='ffd20:race:beastkin:trait:',seto='ffd20:race:seto-lion:trait:';
+    const pair=[previous[0]?.id,op.id];
+    const independentBeast=r.id==='ffd20:race:beastkin'&&id===beast+'ability-score-racial-traits'&&
+     previous.length===1&&pair[0]!==pair[1]&&
+     pair.every(x=>[beast+'alluring:ability-modifier',beast+'light-build:ability-modifier'].includes(x));
+    const independentSeto=r.id==='ffd20:race:seto-lion'&&id===seto+'base-speed'&&
+     previous.length===1&&pair[0]!==pair[1]&&
+     pair.every(x=>[seto+'faster:speed-modifier',seto+'nimble-attacks:speed-modifier'].includes(x));
+    if(previous.length&&!independentBeast&&!independentSeto||consumed.has(id)||disabled.has(id))
+     errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
+    modified.set(id,[...previous,op]);
    }
    // Approved partial modifications may also introduce a named alternate
    // without deleting unaffected portions of the standard racial trait.
@@ -58,12 +68,23 @@ export function raceTraits(b){
     for(const id of op.addsFeatureIds||[])active.add(id);
    continue;
   }
-  for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
+  for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');if(disabled.has(id)&&b.alternateIds.some(aid=>op.addsFeatureIds.includes(aid)))errors.push('Cannot replace an already disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
   // A user-disabled score/trait stays disabled when a heritage replaces its vector.
   if(!op.targetFeatureIds.some(id=>disabled.has(id)))for(const id of op.addsFeatureIds)active.add(id);
  }
  for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
- const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?applyRaceModification(r,f,modified.get(f.id)):f)).map(f=>{
+ const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?modified.get(f.id).reduce((v,op)=>applyRaceModification(r,v,op),f):f)).map(f=>{
+  if(r.id==='ffd20:race:quadav'&&f.id==='ffd20:race:quadav:trait:bond-to-the-land'){
+   const pool='ffd20:race:quadav:pool:bond-to-the-land-selection';
+   const terrain=r.choicePools.find(p=>p.id===pool)?.options.find(o=>o.id===b.racialChoices?.[pool]?.[0])?.name;
+   return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. Apply its +2 dodge AC only in that terrain.':'')};
+  }
+  if(r.id==='ffd20:race:trollkin'&&f.id==='ffd20:race:trollkin:trait:faster-healing'&&
+   b.alternateIds.includes(f.id)&&consumed.has('ffd20:race:trollkin:trait:fast-healing')&&
+   consumed.has('ffd20:race:trollkin:trait:thick-skin'))
+   return {...f,description:'Fast Healing 2 HP each round replaces Fast Healing 1 and Thick Skin. Continues below 0 HP until death; cannot restore lost limbs, starvation, thirst or suffocation HP. Suppressed 1 minute by fire or earth damage as written in the detailed racial rule (element heading conflicts; adjudicate manually). No automatic HP ticking.'};
+  if(r.id==='ffd20:race:sylph'&&f.id==='ffd20:race:sylph:trait:improved-flight'&&b.alternateIds.includes(f.id))
+   return {...f,description:'Improved Flight: land speed becomes 10 ft, flight speed 60 ft (good maneuverability; two steps above poor). Replaces Camouflage and Beguiling Liar; all other traits remain.'};
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
@@ -178,9 +199,6 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id==='ffd20:race:orc'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:orc:trait:skill-bonus'))add(2,'Orc Skill Bonus requires choosing either +2 Acrobatics or +1 Climb and Jump. Race choice UI is unsupported and save is blocked until recorded.');
  }
- if(race?.id==='ffd20:race:quadav'){
-  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:quadav:trait:bond-to-the-land'))add(2,'Quadav Bond to the Land requires choosing swamp or underground terrain; race choice UI is unsupported, so save is blocked.');
- }
  if(race?.id==='ffd20:race:sahagin'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:sahagin:trait:tempered'))add(2,'Sahagin Tempered requires choosing either water or ice resistance. Race choice storage is not implemented; save is blocked.');
  }
@@ -260,6 +278,11 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
    if((original.heritageId||'')!==(raw.heritageId||''))bad('Race heritage is chosen at character creation and is permanent.');
    if(JSON.stringify([...(original.alternateIds||[])].sort())!==JSON.stringify([...(raw.alternateIds||[])].sort()))bad('Alternate racial traits are chosen at character creation and are permanent.');
   }
+ }
+ if(previous.rulesBuild?.input?.raceId==='ffd20:race:quadav'){
+  const pool='ffd20:race:quadav:pool:bond-to-the-land-selection';
+  if((raw?.racialChoices?.[pool]||[]).join('|')!==(previous.rulesBuild.input.racialChoices?.[pool]||[]).join('|'))
+   bad('Quadav Bond to the Land terrain is chosen at character creation and is permanent.');
  }
  if(previous.rulesBuild?.input?.raceId==='ffd20:race:syricta'){
   const original=previous.rulesBuild.input;
