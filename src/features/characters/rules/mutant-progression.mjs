@@ -62,8 +62,10 @@ export function mutantD6State(rolls,defense=false){
 export function mutantRollIssues(b,{requireComplete=false}={}){
  if(b?.raceId!==MUTANT_ID)return [];
  const input=b.mutantRolls;
- if(!isObject(input)||Object.keys(input).some(k=>!['resistance','abilities','physical','levels'].includes(k)))
-  return ['Mutant roll records must have resistance, ability table, appearance table and level history only.'];
+ if(!isObject(input)||Object.keys(input).some(k=>!['resistance','abilities','physical','levels'].includes(k))||
+    !Object.hasOwn(input,'resistance')||!Array.isArray(input.abilities)||!Array.isArray(input.physical)||
+    !isObject(input.levels))
+  return ['Mutant roll records require a resistance value, two d100 arrays and a level-history object.'];
  const issues=[];
  const traits=new Set((b.disabledTraits||[]));
  const replacedResistance=(b.alternateIds||[]).includes(MUTANT_ID+':trait:dual-minded');
