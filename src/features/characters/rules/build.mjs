@@ -14,7 +14,7 @@ import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mj
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
 import {registry} from './catalog.mjs';
-import {mutantEmptyRolls,mutantRollIssues} from './mutant-progression.mjs';
+import {MUTANT_ID,MUTANT_TABLE,MUTANT_PHYSICAL,mutantEmptyRolls,mutantRollIssues} from './mutant-progression.mjs';
 import {spells} from './spells.mjs';
 import {blackMageSummary} from '../rules-summary.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
@@ -197,7 +197,7 @@ export function buildIssues(b,{complete=true}={}){
 
  if(race){if(b.heritageId&&!race.data.heritages.some(h=>h.id===b.heritageId))add(2,'Invalid heritage.');if(b.disabledTraits.some(id=>!race.data.standardTraitIds.includes(id)))add(2,'Unknown standard trait.');if(b.alternateIds.some(id=>!race.data.alternateTraitIds.includes(id)))add(2,'Unknown alternate trait.');for(const error of raceTraits(b).errors)add(2,error);}
  if(race){
-  const mustChoose=f=>Boolean(f?.choicePoolIds?.some(id=>!supportsRacialPool(id)));
+  const mustChoose=f=>Boolean(f?.choicePoolIds?.some(id=>!supportsRacialPool(id)&&!(race.id===MUTANT_ID&&[MUTANT_TABLE,MUTANT_PHYSICAL].includes(id))));
   for(const message of racialChoiceIssues(b,race,raceTraits(b).traits,effectiveScores(b)))add(2,message);
   for(const f of raceTraits(b).traits)if(race.data.standardTraitIds.includes(f.id)&&mustChoose(f))add(2,f.name+' requires a racial choice the wizard cannot yet record.');
   for(const id of b.alternateIds){
