@@ -1,5 +1,7 @@
 // Explicitly supported racial progression; no inferred bonuses from free text.
 import {registry} from './catalog.mjs';
+export const QUADAV_ID='ffd20:race:quadav';
+export const QUADAV_TERRAIN=QUADAV_ID+':pool:bond-to-the-land-selection';
 export const DWARF_ID='ffd20:race:dwarf';
 export const DWARF_LANGUAGES=DWARF_ID+':pool:high-intelligence-bonus-languages';
 export const HUME_ID='ffd20:race:hume';
