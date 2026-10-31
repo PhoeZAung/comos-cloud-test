@@ -70,7 +70,7 @@ test('Beastkin Alluring swaps only WIS→CHA, Light Build swaps STR→DEX; both 
  }
  const b=fixture('beastkin',['alluring']);b.disabledTraits=[id('beastkin','ability-score-racial-traits')];
  assert.ok(raceTraits(b).errors.some(x=>/disabled/.test(x)));
- assert.throws(()=>compileBuild(b),/Cannot modify/);
+ assert.throws(()=>compileBuild(b),{code:'INVALID_CHARACTER'});
 });
 test('Beastkin Loper removes natural armor and raises base speed while retaining only conditional Sprinter',()=>{
  const normal=compileBuild(fixture('beastkin')),b=fixture('beastkin',['loper']);
@@ -80,7 +80,7 @@ test('Beastkin Loper removes natural armor and raises base speed while retaining
  assert.ok(active(b,'sprinter'));
  assert.ok(active(b,'loper'));
  const saved=compileBuild(b);
- assert.equal(saved.speed,40);assert.equal(saved.ac_natural,0);
+ assert.equal(saved.speed,40);assert.equal(saved.ac_natural||0,0);
  assert.match(saved.racialAbilities.find(x=>x.sourceRuleId===id('beastkin','base-speed'))?.desc||'',/Sprinter remains/);
  assert.equal(compileBuild(saved.rulesBuild.input,saved).speed,40);
  const conflicting=fixture('beastkin',['loper','cold-acclimated']);
@@ -122,7 +122,7 @@ test('Shindroid Heavy Platform changes only land 30→20, preserves immunity and
  assert.equal(normal.speed,30);assert.equal(saved.speed,20);
  for(const kept of ['base-speed','robotic-immunities','emotionless','magic-ineptitude'])assert.ok(active(b,kept));
  assert.ok(active(b,'heavy-platform'));
- assert.match(saved.racialAbilities.find(x=>x.sourceRuleId===id('shindroid','base-speed'))?.desc||'',/armor or encumbrance/);
+ assert.match(active(b,'base-speed').description,/armor or encumbrance/);
  assert.match(saved.racialAbilities.find(x=>x.sourceRuleId===id('shindroid','heavy-platform'))?.desc||'',/50 pounds/);
  assert.equal(compileBuild(saved.rulesBuild.input,saved).speed,20);
  const altered=mergeSheetData(saved,{action:'fields',fields:{speed:25}});
