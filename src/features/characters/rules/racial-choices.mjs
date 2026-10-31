@@ -15,7 +15,18 @@ export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+// The extracted options already exist for five races. Palico/Kindred also have
+// distinct, required starting picks; their INT bonuses are source-listed but
+// omitted as separate choice pools in the original extraction.
+const languageRaces=['genome','gria','guado','hypello','mandragora','palico','kindred'];
+const languagePool=race=>'ffd20:race:'+race+':pool:';
+const extraLanguages={
+ 'ffd20:race:palico':['Abyssal','Celestial','Elvaan','Galkan','Goblin','Orc'],
+ 'ffd20:race:kindred':['Abyssal','Draconic','Dwarven','Elvaan','Infernal','Lalafellen','Orc']
+};
+const startingLanguagePools=new Set([languagePool('palico')+'starting-second-language',languagePool('kindred')+'languages-selection']);
+
+const supported=new Set([...languageRaces.map(r=>languagePool(r)+(r==='palico'?'starting-second-language':r==='kindred'?'languages-selection':'bonus-languages')),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -102,10 +113,21 @@ export function racialChoiceSpecs(race,traits){
   if([HANDY,TARUTARU_TALENTED].includes(pool.id))return {...pool,minimum:1,maximum:1,specialty:true,options:fixedSkills.flatMap((row,i)=>['Craft','Profession'].includes(row.name)?[{id:'skill-row:'+i,name:row.name+' '+(fixedSkills.slice(0,i).filter(r=>r.name===row.name).length+1),value:i}]:[])};
   if(pool.id===IMMORTAL+'long-lived-knowledge')return {...pool,minimum:0,maximum:4,options:fixedSkills.filter(row=>row.name.startsWith('Knw: ')).map(row=>({id:skillId(row),name:row.name,value:skillId(row)}))};
   if(pool.id===ELVAAN_WEAPON)return {...pool,minimum:1,maximum:1,options:pool.options.filter(o=>traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&e.target==='proficiencies.weapon.'+o.value)))};
-  if(pool.id===HUME_LANGUAGES)return {...pool,minimum:0,maximum:null,freeText:true};
+  if(pool.id===HUME_LANGUAGES||pool.id===languagePool('genome')+'bonus-languages')
+   return {...pool,choiceType:'language',minimum:0,maximum:null,freeText:true};
+  if(startingLanguagePools.has(pool.id))
+   return {...pool,choiceType:'language',startingLanguage:true,minimum:1,maximum:1};
   if(pool.id===LAMBKIN_POLYGLOT_LANGUAGE)return {...pool,name:'Polyglot starting language',minimum:1,maximum:1,freeText:true};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
+ // A separate high-INT choice pool is not extracted for these two races.
+ // Preserve the official starting choice as its own mandatory selection.
+ if(extraLanguages[race.id]&&traits.some(f=>f.id===race.id+':trait:languages')){
+  const id=race.id+':pool:high-intelligence-bonus-languages';
+  specs.push({id,name:'Bonus languages',choiceType:'language',options:extraLanguages[race.id].map(name=>({
+   id:id+':option:'+name.toLowerCase().replaceAll(' ','-'),name,value:name.toLowerCase().replaceAll(' ','-')
+  })),minimum:0,maximum:null});
+ }
  // The seven high-INT bonus languages are unchanged; one unrestricted extra
  // language is a separate required slot on the existing Ability Scores step.
  if(race.id===TARUTARU_ID&&traits.some(f=>f.id===POLYGLOT))
@@ -167,6 +189,13 @@ export function racialChoiceIssues(b,race,traits,scores){
   const standardPool=byId.get(normalId);
   const normal=new Set((b.racialChoices?.[normalId]||[]).map(id=>standardPool?.options.find(o=>o.id===id)?.name?.toLowerCase()).filter(Boolean));
   if(extra===starting||normal.has(extra))errors.push('Polyglot extra language must be different from starting languages and selected bonus languages.');
+ }
+ // A language cannot be taken twice across the starting and Intelligence slots.
+ if(race&&extraLanguages[race.id]){
+  const starter=specs.find(s=>s.startingLanguage),bonus=specs.find(s=>s.id===race.id+':pool:high-intelligence-bonus-languages');
+  const first=starter?.options.find(o=>o.id===b.racialChoices?.[starter.id]?.[0])?.name.toLowerCase();
+  const additional=(b.racialChoices?.[bonus?.id]||[]).map(id=>bonus?.options.find(o=>o.id===id)?.name.toLowerCase());
+  if(first&&additional.includes(first))errors.push('A starting language cannot also be selected as a bonus language.');
  }
  for(const spec of specs){
   if(spec.id===ELVAAN_WEAPON&&!spec.options.length)errors.push('Martial Background requires a verified proficient weapon. Keep Elvaan Weapon Familiarity active for this limited integration.');
