@@ -1,0 +1,619 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:knife-master",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Knife Master",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/knife-master/",
+      "title": "Knife Master",
+      "archiveSha256": "55f3a218e7a66e7dc825fd6c6826c3864df39ca6c9d0c69658a2f4d975aa036f",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:weapon-proficiencies",
+        "name": "Weapon Proficiencies",
+        "atLevel": 1,
+        "description": "A knife master is only proficient with a brass knife, dagger, butterfly knife, deer horn knife, dueling dagger, kerambit, kukri, kunai, punching dagger, sea-knife, spring blade, starknife, switchblade knife, swordbreaker dagger, and war razor.\n\nThis ability modifies and replaces the thief\u2019s starting weapon proficiencies.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Proficiencies",
+            "locator": "weapon-proficiencies"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:knifeplay",
+        "name": "Knifeplay",
+        "atLevel": 1,
+        "description": "This ability functions the same as the sword saint\u2019s [swordplay](https://finalfantasyd20.com/classes/hybrid-classes/sword-saint/#swordplay) ability, except a knife master gains less swordskills (see below) and may only choose swordskills from Universal forms and Knife forms (see below). In addition, he may use any swordskill/knifeskill he knows without needing to ready them. Each knifeskill can still only be used once per encounter. A knife master must use a brass knife, dagger, butterfly knife, deer horn knife, dueling dagger, kerambit, kukri, kunai, punching dagger, sea-knife, spring blade, starknife, switchblade knife, swordbreaker dagger, or war razor to use Knifeskills.\n\n|  |  |\n| --- | --- |\n| **Level** | **Swordskills Known** |\n| 1st | 1 |\n| 2nd | 2 |\n| 3rd | 2 |\n| 4th | 2 |\n| 5th | 3 |\n| 6th | 3 |\n| 7th | 3 |\n| 8th | 4 |\n| 9th | 4 |\n| 10th | 4 |\n| 11th | 5 |\n| 12th | 5 |\n| 13th | 5 |\n| 14th | 6 |\n| 15th | 6 |\n| 16th | 6 |\n| 17th | 7 |\n| 18th | 7 |\n| 19th | 7 |\n| 20th | 8 |\n\nThis ability replaces mark and measure the mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knifeplay",
+            "locator": "knifeplay"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:sneak-stab",
+        "name": "Sneak Stab",
+        "atLevel": 1,
+        "description": "A knife master focuses its ability to deal sneak attack damage with daggers and similar weapons to such a degree that he can deal more sneak attack damage with those weapons at the expense of sneak attacks with other weapons. When he makes a sneak attack with a brass knife, dagger, butterfly knife, deer horn knife, dueling dagger, kerambit, kukri, kunai, punching dagger, sea-knife, spring blade, starknife, switchblade knife, swordbreaker dagger, or war razor, he uses d8s to roll sneak attack damage instead of d6s. For sneak attacks with all other weapons, he uses d4s instead of d6s.\n\nThis ability is identical in all other ways to sneak attack, and supplements that ability.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sneak Stab",
+            "locator": "sneak-stab"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:sword-saint-training",
+        "name": "Sword Saint Training",
+        "atLevel": 2,
+        "description": "At 2nd level, a knife master may take a [sword saint talent](https://www.finalfantasyd20.com/classes/hybrid-classes/sword-saint/sword-saint-talents/) that modifies swordplay in place of a thief talent. He uses his thief level as his sword saint level for qualifying for talents. Unless specifically noted in a sword saint talent\u2019s description, a knife master cannot select a particular sword saint talent more than once. At 12th level, a knife master may select advanced sword saint talents that modify swordplay.\n\nThese abilities may replace thief talents.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sword Saint Training",
+            "locator": "sword-saint-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:blade-sense",
+        "name": "Blade Sense",
+        "atLevel": 3,
+        "description": "At 3rd level, a knife master is so skilled in combat involving light bladed or piercing weapons that he gains a +1 dodge bonus to AC while wearing light or no armor. Anything that causes the knife master to lose his Dexterity bonus to AC also causes him to lose this dodge bonus. This bonus increases by +1 for every three levels, to a maximum of +6 at 18th level.\n\nThis ability replaces danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Sense",
+            "locator": "blade-sense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:knife-expert",
+        "name": "Knife Expert",
+        "atLevel": 5,
+        "description": "At 5th level, a knife master gains a +1 bonus on attack, damage, and combat maneuver checks with a brass knife, dagger, butterfly knife, deer horn knife, dueling dagger, kerambit, kukri, kunai, punching dagger, sea-knife, spring blade, starknife, switchblade knife, swordbreaker dagger, or war razor. This bonus increases by +1 for every four thief levels beyond 5th.\n\nThis ability replaces improved theft.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knife Expert",
+            "locator": "knife-expert"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:hidden-blade",
+        "name": "Hidden Blade",
+        "atLevel": 7,
+        "description": "At 7th level, a knife master adds half of his level on Sleight of Hand checks made to conceal a brass knife, dagger, butterfly knife, deer horn knife, dueling dagger, kerambit, kukri, kunai, punching dagger, sea-knife, spring blade, starknife, switchblade knife, swordbreaker dagger, or war razor.\n\nThis ability replaces skilled liar.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Blade",
+            "locator": "hidden-blade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:practiced-skill",
+        "name": "Practiced Skill",
+        "atLevel": 10,
+        "description": "When a knife master reaches 10th level, he has become so proficient in the basic skills that he can further his skill with that particular skill unlocking its true power, truly mastering his skills. He may select one basic sword/knifeskill he has learned and choose to gain its Practiced effect. The knife master may choose an additional sword/knifeskill at 12th level and 17th level.\n\nThis ability replaces mug.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Practiced Skill",
+            "locator": "practiced-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:perfected-skill",
+        "name": "Perfected Skill",
+        "atLevel": 15,
+        "description": "When a knife master reaches 15th level, he has become so extraordinarily adept in the basic skills and has perfected his power. He may choose a single sword/knifeskill that he has chosen to have practiced and now gain its Perfected effect. The knife master may choose an additional sword/knifeskill at 20th level.\n\nThis ability replaces theft mastery.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfected Skill",
+            "locator": "perfected-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:chefs-knife",
+        "name": "Chef\u2019s Knife",
+        "atLevel": 20,
+        "description": "At 20th level, a knife master masters the technique of his ancestors. As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the knife master can make a single melee attack with a brass knife, dagger, butterfly knife, deer horn knife, dueling dagger, kerambit, kukri, kunai, punching dagger, sea-knife, spring blade, starknife, switchblade knife, swordbreaker dagger, or war razor. If struck, the target must make a Fortitude save (DC 20 + the knife master\u2019s Charisma modifier) or be reduced to -1 hp, stabilized and unconscious. Those who are immune to critical hits are immune to this.\n\nThis ability replaces master strike.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chef\u2019s Knife",
+            "locator": "chefs-knife"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:feature:advanced-thief-talents",
+        "name": "Advanced Thief Talents",
+        "atLevel": 12,
+        "description": "The following advanced thief talents complement the knife master archetype: another day, confounding blades, deadly sneak, entanglement of blades, unwitting ally, and weapon snatcher.\n\n**Knife Forms**\n\n**Mugstrike**\n\n**Sword Skill** Knife (Basic)  \n**Element** Non-Elemental  \n**Range** 15 ft.  \n**Target** One creature  \n**Saving Throw** Reflex partial\n\nThe knife master stabs the air, a phantom blade flying at and piercing his foe, then hooking one of their possessions on the way back. This attack deals focus sword damage, plus an additional 1d6 damage + 1d6 damage per every two thief levels after the 1st. A successful Reflex save halves this damage. Failing the save also allows the knife master to perform a *steal* combat maneuver that does not provoke attacks of opportunity. Any item stolen is transferred to the knife master\u2019s person without an action needing to be spent to place it in his inventory.\n\n*Practiced:* This skill, with practice, adds the knife master\u2019s Charisma modifier as an equipment bonus to the *steal* combat maneuver.\n\n*Perfected:* This skill, when perfected, can instead take the target\u2019s weapon with a *disarm* combat maneuver. The knife master\u2019s Charisma modifier is still added as an equipment bonus to this maneuver, and the weapon is placed on the knife master\u2019s person if the maneuver is successful. Treat the weapon in all other ways as if it had been taken using a *steal* combat maneuver, except that creatures always immediately notice the theft of a wielded weapon.\n\n**Pinpoint Strike**\n\n**Sword Skill** Knife (Basic)  \n**Element** Non-Elemental  \n**Range** 30 ft.  \n**Target** One creature  \n**Saving Throw** Fortitude partial\n\nThe knife master strikes with such precision that an enemy\u2019s defenses are rent asunder, leaving them exposed. This attack deals focus sword damage, plus an additional 1d6 + 1d6 damage for every four thief levels after the 1st. In addition, the target\u2019s damage reduction is decreased by 1 + 1 for every four thief levels after the 1st (to a minimum of 0). This lasts for a number of rounds equal to the knife master\u2019s Charisma modifier. A successful Fortitude save halves this damage and negates the damage reduction penalty.\n\n*Practiced:* This skill, with practice, also reduces all of the target\u2019s elemental resistances by 1 + 1 per every two thief levels after the 1st on a failed save (to a minimum of 0). Targets which nullify or absorb an element ignore this effect for that element type.\n\n*Perfected:* This skill, when perfected, instead reduces the target\u2019s damage reduction by half of the knife master\u2019s thief level and reduces all of the target\u2019s elemental resistances by the knife master\u2019s thief level on a failed save (to a minimum of 0) instead of the normal values.\n\n**Shadow Weave**\n\n**Sword Skill** Knife (Basic)  \n**Element** Shadow  \n**Range** 30 ft. line  \n**Target** enemies in a 30 ft. long, 5 ft. wide line  \n**Saving Throw** Fortitude partial\n\nThe knife master dashes along a path, slicing up all enemies within his reach, before vanishing through the shadows back to his original position. He makes melee attacks at his highest BAB against each enemy within a 30 foot long, 5 foot wide line. The attack deals focus sword damage + an additional 1d6 damage for every four thief levels after the 1st. In addition, enemies he attacks suffer the [*blinded*](https://finalfantasyd20.com/magic/status-effects/#blinded) status effect for a number of rounds equal to the knife master\u2019s Charisma modifier. A successful Fortitude save halves this damage and negates the status effect.\n\n*Practiced:* This skill, with practice, allows the knife master to make a Stealth check after this attack at no penalty as a [free action](https://finalfantasyd20.com/system-rules/pathfinder-basics/#free). To do so, the knife master must make this attack from a place where he has cover or concealment, or must be able to make Stealth checks without requiring cover or concealment. In addition, the affected area increases to a 15 feet wide line.\n\n*Perfected:* This skill, once perfected, also inflicts the [*slow*](https://finalfantasyd20.com/magic/status-effects/#slow) status effect in addition to [*blinded*](https://finalfantasyd20.com/magic/status-effects/#blinded). In addition, the affected area increases to a 60 feet long line. The knife master can still sneak attack enemies in the area farther away than 30 feet.\n\n**Venomous Kiss**\n\n**Sword Skill** Knife (Basic)  \n**Element** Non-Elemental  \n**Range** melee  \n**Target** One creature  \n**Saving Throw** Fortitude partial\n\nThe knife master channels venomous hatred into his strike, wounding a target with a powerful poison. This attack deals focus sword damage, plus 1d6 + an additional 1d6 damage for every two thief levels after the 1st. In addition, the target suffers the [*poisoned*](https://finalfantasyd20.com/magic/status-effects/#poisoned) status effect for 1d6 rounds. A successful Fortitude save halves this damage and negates the status effect. If the knife master uses this skill with a blade coated with poison, there is a 25% chance the poison dose is not expended in the attack and can be used to make an additional attack. A single dose of poison can be preserved by this property or the [*toxic*](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/toxic/) special ability only once. These properties do not stack, the knife master takes the highest chance to avoid expending an applied poison.\n\n*Practiced:* This skill, with practice, increases the duration of the [*poisoned*](https://finalfantasyd20.com/magic/status-effects/#poisoned) status to 2d4 rounds. In addition, the knife master adds his Charisma modifier to the DC of any dose of poison used in this attack. This stacks with other increases to poison DC, but cannot raise it above 10 + his thief level.\n\n*Perfected:* This skill, once perfected, increases the duration of the [*poisoned*](https://finalfantasyd20.com/magic/status-effects/#poisoned) status to 3d3 rounds and the chance that a dose of poison is preserved to 50%.\n\n**Whisper Slash**\n\n**Sword Skill** Knife (Basic)  \n**Element** Non-Elemental  \n**Range** melee  \n**Target** One creature  \n**Saving Throw** none\n\nThe knife master holds unnaturally still, before lashing out with a slice that can\u2019t be reacted to until it\u2019s too late. He makes a melee attack against an enemy, dealing focus sword damage. The enemy is considered flat-footed against this attack, unless they have Uncanny Dodge.\n\n*Practiced:* This skill, with practice, considers the enemy to be flat-footed against this attack unless they have Improved Uncanny Dodge.\n\n*Perfected:* This skill, once perfected, considers the enemy to be flat-footed even if they have Improved Uncanny Dodge.\n\n**Cut the Path**\n\n**Sword Skill** Knife (Master)  \n**Prerequisites** 2 Knife Sword (Basic) skills known  \n**Element** Shadow  \n**Range** 30 ft.  \n**Target** One creature  \n**Saving Throw** Will partial\n\nThe knife master\u2019s blade is covered in a dark temporal energy as he strikes a foe. The target takes focus sword damage + an additional 1d10 damage per four thief levels. In addition, the target is subjected to one of two effects:\n\n* If the target\u2019s initiative is greater than the knife master\u2019s, the knife master and target switch initiative scores, as per [*switch fate*](https://finalfantasyd20.com/magic/spells/s/switch-fate/).\n* If the target\u2019s initiative is lower than or equal to the knife master\u2019s, lower the target\u2019s initiative by 5. If the target has already taken their turn in the current round, they do not take a second turn.\n\nA successful Will save negates this effect and halves the damage.\n\n**Everyone\u2019s Karma**\n\n**Sword Skill** Knife (Master)  \n**Prerequisites** 3 Knife Sword (Basic) skills known and 1 Knife Sword (Master) skills known  \n**Element** Shadow  \n**Range** 30 ft.  \n**Target** enemies in a 30 ft. cone  \n**Saving Throw** Will partial\n\nThe ultimate Knife Sword swordskill. The knife master unleashes the anguish of slain tonberries upon their foes in a shadowy wave of torment, the point of their blade tapping into the knives wielded by their kin. Enemies in a 30 ft. cone take focus sword damage plus 1d10 damage per two thief levels + an additional 1d10 damage per tonberry/tonkin they have slain. Enemies hit by this attack are also [*frightened*](https://finalfantasyd20.com/magic/status-effects/#frightened) for 1 round and [*shaken*](https://finalfantasyd20.com/magic/status-effects/#shaken) for 1 round per thief level. A successful Will save halves this damage and negates the status effect. This is considered a fear effect.\n\n**Flurry of Blades**\n\n**Sword Skill** Knife (Master)  \n**Prerequisites** 3 Knife Sword (Basic) skills known  \n**Element** Non-Elemental  \n**Range** melee  \n**Target** One creature  \n**Saving Throw** None\n\nThe knife master\u2019s blades harness a supernatural energy, his weapons becoming sharper and his strikes becoming faster. Activating this swordskill is a [full-round action](https://finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), and cannot be used with Improved Swordplay or Advanced Swordplay. The knife master makes a full attack action against a target within melee range, making a number of attacks allowed by his BAB. If he has additional attacks from effects such as *haste* or Two-Weapon Fighting, he makes those as well, but he cannot make secondary natural attacks. Each attack deals focus sword damage + 1d10 damage + an additional 1d10 damage per six thief levels. If the target dies and the knife master has additional attacks remaining, he may make them against another target within melee range.\n\n**Lantern Alight**\n\n**Sword Skill** Knife (Master)  \n**Prerequisites** 2 Knife Sword (Basic) skills known  \n**Element** Fire  \n**Range** personal  \n**Target** enemies within a 20 ft. radius burst  \n**Saving Throw** Reflex partial\n\nThe knife master\u2019s blade flicks lantern oil all around him, which suddenly sparks and catches alight. Enemies within a 20 ft. radius burst around the knife master take focus sword damage + 1d10 damage per two thief levels. In addition, enemies hit by this attack are inflicted with [*burning*](https://finalfantasyd20.com/magic/status-effects/#burning) for 1 round per level. A successful Reflex save halves this damage and negates the status effect.\n\n**Rancor Blade**\n\n**Sword Skill** Knife (Master)  \n**Prerequisites** 2 Knife Sword (Basic) skills known  \n**Element** Non-Elemental  \n**Range** 30 ft.  \n**Target** enemies within a 10 ft. radius burst  \n**Saving Throw** Will partial\n\nThe knife master harnesses the rancor of tonberries, driving into the very hearts of his foes with this unnatural rage. He strikes the ground, a spectral blade appearing within 30 feet, hitting enemies in a 10 ft. radius burst. Enemies take focus sword damage + 1d10 damage + an additional 1d10 damage per three thief levels. In addition, enemies are afflicted with the [*berserk*](https://finalfantasyd20.com/magic/status-effects/#berserk) status effect. A successful Will save halves this damage and negates the status effect.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Thief Talents",
+            "locator": "advanced-thief-talents"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:knife-master:replacement:knifeplay:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:measure-the-mark",
+          "ffd20:class:thief:feature:mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:knife-master:feature:knifeplay"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mark and measure the mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knifeplay",
+            "locator": "knifeplay"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:replacement:blade-sense:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:knife-master:feature:blade-sense"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Sense",
+            "locator": "blade-sense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:replacement:knife-expert:1",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-theft"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:knife-master:feature:knife-expert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "improved theft",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knife Expert",
+            "locator": "knife-expert"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:replacement:hidden-blade:1",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:skilled-liar"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:knife-master:feature:hidden-blade"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "skilled liar",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Blade",
+            "locator": "hidden-blade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:replacement:practiced-skill:1",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mug"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:knife-master:feature:practiced-skill"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mug",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Practiced Skill",
+            "locator": "practiced-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:replacement:perfected-skill:1",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:theft-mastery"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:knife-master:feature:perfected-skill"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "theft mastery",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfected Skill",
+            "locator": "perfected-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:replacement:chefs-knife:1",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:master-strike"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:knife-master:feature:chefs-knife"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "master strike",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chef\u2019s Knife",
+            "locator": "chefs-knife"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:weapon-proficiencies",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:weapon-proficiencies",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Proficiencies",
+            "locator": "weapon-proficiencies"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:knifeplay",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:knifeplay",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knifeplay",
+            "locator": "knifeplay"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:sneak-stab",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:sneak-stab",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sneak Stab",
+            "locator": "sneak-stab"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:sword-saint-training",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:sword-saint-training",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sword Saint Training",
+            "locator": "sword-saint-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:blade-sense",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:blade-sense",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Sense",
+            "locator": "blade-sense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:knife-expert",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:knife-expert",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knife Expert",
+            "locator": "knife-expert"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:hidden-blade",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:hidden-blade",
+        "atClassLevel": 7,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Blade",
+            "locator": "hidden-blade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:practiced-skill",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:practiced-skill",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Practiced Skill",
+            "locator": "practiced-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:perfected-skill",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:perfected-skill",
+        "atClassLevel": 15,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfected Skill",
+            "locator": "perfected-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:chefs-knife",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:chefs-knife",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chef\u2019s Knife",
+            "locator": "chefs-knife"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:knife-master:event:grant:advanced-thief-talents",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:knife-master:feature:advanced-thief-talents",
+        "atClassLevel": 12,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Thief Talents",
+            "locator": "advanced-thief-talents"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {
+      "proficiencies": [
+        "Brass knife",
+        "Dagger",
+        "Butterfly knife",
+        "Deer horn knife",
+        "Dueling dagger",
+        "Kerambit",
+        "Kukri",
+        "Kunai",
+        "Punching dagger",
+        "Sea-knife",
+        "Spring blade",
+        "Starknife",
+        "Switchblade knife",
+        "Swordbreaker dagger",
+        "War razor",
+        "Light armor"
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:thief:pool:thief-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:knife-master:option:sword-saint-talent:manual-selection",
+            "name": "Sword Saint talent (record selection on sheet)",
+            "description": "Choose a legal Sword Saint talent modifying swordplay instead of this thief talent. Record its exact name and effects manually on the existing sheet; prerequisite and duplicate checks are manual.",
+            "minimumLevel": 2,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Sword Saint talent",
+                "locator": "sword-saint-talent"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/knife-master/"
+          }
+        ]
+      },
+      {
+        "poolId": "ffd20:class:thief:pool:thief-advanced-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:knife-master:option:sword-saint-talent:manual-selection",
+            "name": "Sword Saint talent (record selection on sheet)",
+            "description": "Choose a legal Sword Saint talent modifying swordplay instead of this thief talent. Record its exact name and effects manually on the existing sheet; prerequisite and duplicate checks are manual.",
+            "minimumLevel": 2,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Sword Saint talent",
+                "locator": "sword-saint-talent"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/knife-master/"
+          },
+          {
+            "id": "ffd20:archetype:thief:knife-master:option:advanced-sword-saint-talent",
+            "name": "Advanced Sword Saint talent (manual selection)",
+            "description": "Choose a legal advanced Sword Saint talent modifying swordplay instead of this advanced talent. Record exact name/effects and verify prerequisites/duplicates manually.",
+            "minimumLevel": 12,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Sword Saint talent",
+                "locator": "sword-saint-talent"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/knife-master/"
+          }
+        ]
+      }
+    ]
+  }
+}

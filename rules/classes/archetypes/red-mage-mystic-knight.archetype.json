@@ -1,0 +1,1970 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:mystic-knight",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Mystic Knight",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+      "title": "Mystic Knight",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "ece62c6ebc346ddf9f59649a3ab100e684d0fce30de0ae6622abe3654249f145"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:weapon-and-armor-proficiencies",
+        "name": "Weapon and Armor Proficiencies",
+        "atLevel": 1,
+        "description": "A mystic knight is proficient with all simple and martial weapons (including knight swords) and with all armor (light, medium, and heavy) and shields (excluding tower shields).\n\nThis ability modifies the starting red mage\u2019s weapon and armor proficiencies.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiencies",
+            "locator": "weapon-and-armor-proficiencies"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:mystic-prowess",
+        "name": "Mystic Prowess",
+        "atLevel": 1,
+        "description": "A mystic knight\u2019s base attack bonus increases by one step (from 3/4 BAB to Full BAB). Also increases mystic knight\u2019s hit dice from d8 to d10.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mystic Prowess",
+            "locator": "mystic-prowess"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:mystic-adrenaline",
+        "name": "Mystic Adrenaline",
+        "atLevel": 1,
+        "description": "At 1st level, the mystic knight receives the Limit Breaks (Mystic Adrenaline and Mystic Overdrive).\n\n*Mystic Adrenaline ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break focuses the mystic knight into using his swordskills with better prowess. For a duration of 1 round + 1 round per four red mage levels after 1st, the mystic knight gains a +1 insight bonus to DC\u2019s of his blade magic and swordskills plus an additional +1 per four red mage levels after 1st and he can use blade magic and swordskills without expending any uses (even swordskills he has already used) for the duration of this limit break. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n*Mystic Overdrive ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break lets the mystic knight use a swordskill without expending its use or use it if its already been used. The swordskill\u2019s range and radius is doubled and deals max possible damage (no need to roll). The mystic knight is fatigued for 1 round after using this limit break.\n\nThese abilities replace the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:mystic-overdrive",
+        "name": "Mystic Overdrive",
+        "atLevel": 1,
+        "description": "At 1st level, the mystic knight receives the Limit Breaks (Mystic Adrenaline and Mystic Overdrive).\n\n*Mystic Adrenaline ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break focuses the mystic knight into using his swordskills with better prowess. For a duration of 1 round + 1 round per four red mage levels after 1st, the mystic knight gains a +1 insight bonus to DC\u2019s of his blade magic and swordskills plus an additional +1 per four red mage levels after 1st and he can use blade magic and swordskills without expending any uses (even swordskills he has already used) for the duration of this limit break. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n*Mystic Overdrive ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break lets the mystic knight use a swordskill without expending its use or use it if its already been used. The swordskill\u2019s range and radius is doubled and deals max possible damage (no need to roll). The mystic knight is fatigued for 1 round after using this limit break.\n\nThese abilities replace the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:magical-knowledge",
+        "name": "Magical Knowledge",
+        "atLevel": 1,
+        "description": "At 1st level, the mystic knight\u2019s knowledge of magic expands as he learns to control the elements and spells with his blade. He gains a +1 bonus to Knowledge (Arcana) and Spellcraft skills checks. This bonus increases by 1 every four red mage levels after 1st.\n\nThis ability replaces armored mage.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magical Knowledge",
+            "locator": "magical-knowledge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:mystic-swordplay",
+        "name": "Mystic Swordplay",
+        "atLevel": 1,
+        "description": "This ability functions the same as the sword saint\u2019s [swordplay](https://www.finalfantasyd20.com/classes/hybrid-classes/sword-saint/#swordplay) ability, except a mystic knight gains less [swordskills](https://www.finalfantasyd20.com/classes/hybrid-classes/sword-saint/swordskills/) (see below) and may only choose swordskills from Destroy Sword and Universal forms. In addition, he may use any swordskill he knows without needing to ready them. Each swordskill can still only be used once per encounter but can be regained through the mystic knight\u2019s Arcane Pool by spending 1 Arcane Point to regain a spent Swordskill.\n\n| Level | Swordskills Known |\n| --- | --- |\n| 1st | 2 |\n| 2nd | 3 |\n| 3rd | 3 |\n| 4th | 3 |\n| 5th | 4 |\n| 6th | 4 |\n| 7th | 4 |\n| 8th | 5 |\n| 9th | 5 |\n| 10th | 5 |\n| 11th | 6 |\n| 12th | 6 |\n| 13th | 6 |\n| 14th | 7 |\n| 15th | 7 |\n| 16th | 7 |\n| 17th | 8 |\n| 18th | 8 |\n| 19th | 8 |\n| 20th | 9 |\n\nThis ability replaces cantrips, spells, and MP Pool. Mystic knights do not gain any spells or spellcasting ability, do not have a caster level, and do not count as having a red mage spell list for spell trigger or spell completion magic items.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mystic Swordplay",
+            "locator": "mystic-swordplay"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:stamina-pool",
+        "name": "Stamina Pool",
+        "atLevel": 1,
+        "description": "At 1st level, the mystic knight gains a reservoir of stamina that he can draw upon to fuel his talents that he gains below. This stamina pool has a number of points equal to half his red mage level + his Constitution modifier (minimum 1). The pool refreshes once per day when the mystic knight rests for a full 8 hours. Sustained modes take up a static amount of stamina points from the mystic knight\u2019s current and maximum stamina pool and most sustained modes stack.\n\nSome talents are activated as a sustained mode. When activated, these talents both consume stamina and reduce the user\u2019s maximum stamina by the listed amount. While active, they provide their listed bonuses until the user deactivates them as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), falls unconscious, or dies, at which point the reduction to the user\u2019s maximum stamina is removed. Multiple sustained mode talents may be used at the same time as long as the user has enough stamina, though some talents may specify others that they cannot be used with.\n\nBy spending 1 stamina point as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the mystic knight can do one of the following:\n\n* Increase his speed by 10 feet for 1 round, or\n* Delay and suppress his fatigue or exhaustion for 1 round, or\n* Increase one saving throw by +1 for 1 round.\n* Regain a swordskill he has already used for the encounter.\n\nThis ability replaces spell proficiency.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stamina Pool",
+            "locator": "stamina-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:red-magery",
+        "name": "Red Magery",
+        "atLevel": 1,
+        "description": "Also at 1st, 5th, 9th, 13th, and 17th level, a mystic knight increases his power with his abilities. At each such opportunity, he can choose from the list (including quick mind) of the following (with a maximum of 2 per):\n\n* *Blade Magic Expertise:* This grants the mystic knight a +1 bonus to Blade Magic DCs.\n* *Extra Runic Absorptions:* This grants the mystic knight an additional use of Runic Absorption per day. (Only attainable after 4th)\n* *Extra Swordskills:* This grants the mystic knight an additional swordskill known.\n\nThis ability replaces extra quick casts, ruby knowledge mastery, and spell combat expertise red mageries.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Red Magery",
+            "locator": "red-magery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:blade-magic",
+        "name": "Blade Magic",
+        "atLevel": 1,
+        "description": "A mystic knight has the special power to imbue his melee weapon with magical energy. At 1st level and every two levels thereafter, a mystic knight chooses one enchantment from the Blade Magic list (see below). Applying an enchantment is a swift action and enchantments last a number of rounds equal to his Charisma modifier. A weapon can only have a single Blade Magic enchantment on it at a time, and can only be applied on a weapon from the light blades or heavy blades [weapon group](https://www.finalfantasyd20.com/classes/core-classes/warrior/#chosen-weapon). Applying a new enchantment replaces the old one. The mystic knight can only use this ability a number of times per day equal to his red mage level. For the purpose of spell effects, a mystic knight has an effective caster level equal to his red mage level for blade magic. These bonuses do not function if the weapon is wielded by anyone other than the mystic knight.\n\n* **Barrier:** A weapon empowered by this blade magic grants Damage Reduction equal to the mystic knight\u2019s Charisma modifier. *Prerequisites:* A mystic knight must have the shell and protect blade magics to select this blade magic.\n* **Bio:** Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Sap status effect, taking 2d4 + Charisma modifier points of non-elemental damage for a number of rounds equal to the mystic knight\u2019s Charisma modifier. *Prerequisite:* A mystic knight must be at least 7th level and have the Poison Blade Magic to select this blade magic.\n* **Blind:** Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Blind status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Cure:** While wielding a weapon empowered by this blade magic, the weapon instead heals the target for its regular weapon damage, or damages undead. This blade magic does not apply if he attacks an ally with an attack of opportunity, however. *Prerequisite:* A mystic knight must have light blade magic to select this blade magic.\n* **Dark:** A weapon empowered by this blade magic deals shadow damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Dimmed status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Dispel:** Whenever a weapon empowered by this blade magic strikes a creature that has a magical enchantment, the mystic knight can roll a caster level check in order to attempt to remove the enchantment. *Prerequisite:* A mystic knight must have wind blade magic to select this blade magic.\n* **Drain:** While wielding a weapon empowered by this blade magic, the mystic knight heals for 1/10th of the damage he deals with that weapon. *Prerequisites:* A mystic knight must be at least 5th level and have the dark blade magic to select this blade magic.\n* **Earth:** A weapon empowered by this blade magic deals earth damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Weighted status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Executor:** A weapon empowered by this blade magic always threatens a critical strike against targets below 20% of their max hit points. *Prerequisites:* A mystic knight must be at least 9th level and have the dark blade magic to select this blade magic.\n* **Fear:** Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Will save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Panicked status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Fire:** A weapon empowered by this blade magic deals fire damage instead of its usual damage. Also, the target must succeed on a Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Burning status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Ice:** A weapon empowered by this blade magic deals ice damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Frozen status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Light:** A weapon empowered by this blade magic deals holy damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Illuminated status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Lightning:** A weapon empowered by this blade magic deals lighting damage instead of its usual damage. Also, the target must succeed on a Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Static status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Poison:** Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Poison status effect, taking 1d6 + Charisma modifier points of non-elemental damage for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Protect:** A weapon empowered by this blade magic provides a deflection bonus to AC equal to the mystic knight\u2019s Charisma modifier.\n* **Ruin:** A weapon empowered by this blade magic deals its damage a second time as non-elemental damage. The target may attempt a Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) to halve the extra damage. This effect can only occur once per round.\n* **Shell:** A weapon empowered by this blade magic grants Spell Resistance equal to the mystic knight\u2019s level. *Prerequisites:* A mystic knight must be at least 5th level and have the light and protect blade magics to select this blade magic.\n* **Silence:** Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Silence status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier. *Prerequisites:* A mystic knight must be at least 3rd level and have the water blade magic to select this blade magic.\n* **Sleep:** Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Will save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Sleep status effect for 1 round.\n* **Slow:** Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Slow status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier. *Prerequisites:* A mystic knight must be at least 5th level and have the ice blade magic to select this blade magic.\n* **Temper:** A weapon empowered by this blade magic has a sacred bonus to attack rolls equal to the mystic knight\u2019s Charisma modifier and ignores up to 5 points of Damage Reduction. *Prerequisites:* A mystic knight must be at least 7th level and have the fire blade magic to select this blade magic.\n* **Water:** A weapon empowered by this blade magic deals water damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Drenched status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Wind:** A weapon empowered by this blade magic deals wind damage instead of its usual damage. Also, the target must succeed on a Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Squalled status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Zombie:** Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Zombie status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier. *Prerequisite:* A mystic knight must be at least 9th level to select this blade magic.\n\nThis ability replaces spell combat, improved spell combat, and greater spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:exploit-weakness",
+        "name": "Exploit Weakness",
+        "atLevel": 2,
+        "description": "A mystic knight knows very well how to take advantage of elemental weaknesses that his opponents have. At 2nd level, if the mystic knight deals elemental damage to an enemy that the creature is weak to, instead of dealing the usual 1.5x damage, he instead deals 2x damage. The mystic knight can use this ability a number of times per day equal to 3 + his Charisma modifier. The mystic knight can choose to use this ability before an attack is made as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). At 10th and 20th levels, this damage multiplier increases by an additional 0.5x to a maximum of 3x damage.\n\nThis ability replaces spellstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Exploit Weakness",
+            "locator": "exploit-weakness"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:used-to-magic",
+        "name": "Used to Magic",
+        "atLevel": 2,
+        "description": "A mystic knight has spent his entire life around magic, and thus knows how to best defend against it. At 2nd level, a mystic knight gains a +1 competence bonus to all saves against spells and spell-like effects. This bonus increases by +1 every three red mage levels after 2nd.\n\nThis ability replaces a ruby talent gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Used to Magic",
+            "locator": "used-to-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:talent-trees",
+        "name": "Talent Trees",
+        "atLevel": 2,
+        "description": "The mystic knight gets access to the mystic knight talent tree from below. At 2nd level and every two levels thereafter, the mystic knight chooses to learn one talent from the talent tree below, one ruby talent, or a [sword saint talent](https://www.finalfantasyd20.com/classes/hybrid-classes/sword-saint/sword-saint-talents/) that modifies swordplay, using his red mage level as his sword saint level for qualifying for talents. The mystic knight may pick up Extra Ruby Talent\u00a0feats to select these talents. **Weapon Requirement:** Any melee weapons.\n\n**Mystic Knight Specialization Talent Tree**\n\n* **Mystic Aura:** As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the mystic knight may activate this talent as a sustained mode. While in this mode, the mystic knight\u2019s blade magic ability becomes a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to activate and instead affects his allies but not himself. The effects lasts 1 round less per ally effected (minimum 1 round) and the mystic knight can choose to exclude his choice of allies. To receive this effect, allies must be within 30 feet of the mystic knight and must stay within 30 feet or lose the effect if they move out of range, but regains the effects if they re-enter the aura\u2019s range. Allies use the mystic knight\u2019s DC for blade magic effects. This talent does not effect the cure blade magic. Instead, if the mystic knight activates cure blade magic, he heals allies within the aura equal to his Charisma modifier at the beginning of each effected allies\u2019 turn. This mode uses up 3 stamina points of the mystic knight\u2019s current and maximum stamina.\n* **Blade Sweep:** At the cost of 1 stamina point, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the mystic knight makes a melee attack against all adjacent targets. A blade magic must be active on the mystic knight\u2019s weapon to use this talent.\n* **Blade Drive:** At the cost of 1 stamina point, as [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the mystic knight can grind his sword against the ground and send his blade magic effects forward in a crescent wave. He makes a range touch attack against all enemies in a 30-ft. Line. and if successful. he deals normal melee damage as if he hit with a blade magic effected melee attack. A blade magic must be active on the mystic knight\u2019s weapon to use this talent. *Prerequisite:* Blade Sweep\n* **Blade Burst:** At the cost of 2 stamina points, when activating a swordskill, the mystic knight can change the element of the swordskill to the type of blade magic active, and/or combine any status effect from the blade magic on the swordskill. Using the swordskill\u2019s DC for the blade magic instead. This effect ends the active blade magic after use. Cure blade magic cannot be used with this talent. A blade magic must be active on the mystic knight\u2019s weapon to use this talent. *Prerequisites:* Blade Sweep, Blade Drive\n* **Magic Shell:** As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the mystic knight may activate this talent as a sustained mode. While in this mode, the mystic knight gains a +2 insight bonus on saving throws. This mode uses up 2 stamina points of the mystic knight\u2019s current and maximum stamina.\n* **Magiwall:** At the cost of 1 stamina point, as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), the mystic knight forms an elemental barrier over himself and allies. He and allies within 15 feet gains elemental resistance 5 to a chosen element for a number of rounds equal to the mystic knight\u2019s Charisma modifier. This increases by 5 every four red mage levels after 1st. If he has the magic shell sustained mode active, allies also gain the effects of magic shell for the duration of this talent. *Prerequisite:* Magic Shell\n* **Magic Guard:** Increasing the stamina cost of magic shell to 3, when magic shell is active, the mystic knight gains a +1 shield bonus to AC plus 1 every four red mage levels after 1st. *Prerequisites:* Magic Shell, Magiwall.\n* **Ethereal Embrace:** At the cost of 3 stamina points, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the mystic knight invokes a swirling light to surround him and his allies within 15 feet, granting [Haste](https://www.finalfantasyd20.com/magic/spells/h/haste) and Fast Healing 2 up to 50% HP for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\n* **Purifying Breeze:** Ethereal Embrace\u2019s range increases to 30 feet and now grants a Protect and Shell status effect as a white mage of the same level as his red mage level (I.E. If a mystic knight is 10th level, the spells of this talent would of the 5th level version \u2013 Protect III and Shell III). *Prerequisite:* Ethereal Embrace\n* **Empowering Storm:** Ethereal Embrace now increases the DC of spells and abilities of those effected by 2, and increases the Fast Healing 2 to Fast Healing 4 instead. *Prerequisites:* Ethereal Embrace, Purifying Breeze.\n* **Mystic Force:** Ethereal Embrace now grants the effects of the mystic knight\u2019s Magiwall talent to those effected. *Prerequisites:* Ethereal Embrace, Purifying Breeze, Empowering Storm, Magic Shell, Magiwall.\n\nThese abilities may replace ruby talents.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Talent Trees",
+            "locator": "talent-trees"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:armor-training",
+        "name": "Armor Training",
+        "atLevel": 3,
+        "description": "Starting at 3rd level, a mystic knight learns to be more maneuverable while wearing armor. Whenever he is wearing armor, he reduces the armor check penalty by 1 (to a minimum of 0) and increases the maximum Dexterity bonus allowed by his armor by 1. Every four levels thereafter (7th, 11th, 15th and 19th), these bonuses increase by +1 each time, to a maximum \u20135 reduction of the armor check penalty and a +5 increase of the maximum Dexterity bonus allowed. In addition, at 7th level, a mystic knight can also move at his normal speed while wearing medium armor. At 10th level, a mystic knight can move at his normal speed while wearing heavy armor.\n\nThis ability replaces ruby knowledge.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armor Training",
+            "locator": "armor-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:runic-absorption",
+        "name": "Runic Absorption",
+        "atLevel": 4,
+        "description": "A mystic knight is adept at recognizing magic and quickly neutralizing it with his blades. Starting at 4th level, if a creature within 30 feet of the mystic knight attempts to cast a spell, he can expend an attack of opportunity in order to attempt to absorb the raw magic into his weapon. Treat this as a counterspell attempt with [*Dispel*](https://www.finalfantasyd20.com/magic/spells/d/dispel), using the mystic knight\u2019s level as his caster level. If successful, the spell is countered, and the mystic knight gains a number of temporary hit points equal to the level of the countered spell for 1 round. The mystic knight can use this ability once per day plus an additional time per day for every four red mage levels after 4th.\n\nThis ability replaces quick cast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Runic Absorption",
+            "locator": "runic-absorption"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:mighty-swordskills",
+        "name": "Mighty Swordskills",
+        "atLevel": 4,
+        "description": "At 4th level, a mystic knight adds +2 damage to his Focus Sword damage. In addition the mystic knight may reroll all 1s for damage from swordskills.\n\nThis ability replaces spell power.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Swordskills",
+            "locator": "mighty-swordskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:practiced-skill",
+        "name": "Practiced Skill",
+        "atLevel": 5,
+        "description": "When a mystic knight reaches 5th level, he has become so proficient in the basic skills that he can further his skill with that particular skill unlocking its true power, truly mastering his skills. He may select one basic sword skill he has learned and choose to gain its Practiced effect. The mystic knight may choose an additional swordskill at 10th level and every five red mage levels thereafter.\n\nThis ability replaces clear mind.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Practiced Skill",
+            "locator": "practiced-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:sword-magic",
+        "name": "Sword Magic",
+        "atLevel": 5,
+        "description": "At 5th level, the mystic knight has learned to envelop his blade with the magic of others. As a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), the mystic knight can add the effect of a single target spell from a willing ally\u2019s spell list to his next single melee attack. If the attack hits, it deals normal damage + the effect of the borrowed spell. The spell functions off of the caster\u2019s level and casting modifier, and the caster\u2019s DC for the spell. In addition, the caster must spend MP as if casting the spell. The mystic knight can only borrow spells from an ally he has sight of within 15 feet. The spell persists on his melee weapon for 1 minute or until he attempts a single attack. Sword magic does not suffer spell failure, however if the caster that the spell is borrowed from has spell failure, that chance is applied when attaching the spell to the mystic knight\u2019s melee weapon. If the spell fails, the mystic knight still expends his use of sword magic. (Healing spells cause the weapon to deal no damage, unless against an undead target.)\n\nThe mystic knight may use sword magic once per encounter plus an additional time every four red mage levels after 5th, as he is able to handle the magic channeling through his blade more as he gets stronger. He may regain a use of sword magic by spending a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to soothe himself of the intensity of using magic in such a way.\n\nThis ability replaces convert.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sword Magic",
+            "locator": "sword-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:magic-burst",
+        "name": "Magic Burst",
+        "atLevel": 11,
+        "description": "At 11th level, when the mystic knight deals damage with a spell via sword magic. Half the damage of the spell is dealt to enemies adjacent to the target, a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) negates the damage.\n\nThis ability replaces jack-of-all-trades.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magic Burst",
+            "locator": "magic-burst"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:advanced-blade-magic",
+        "name": "Advanced Blade Magic",
+        "atLevel": 11,
+        "description": "Starting at 11th level, whenever the mystic knight chooses a Blade Magic, he can now instead choose from the Advanced Blade Magic list.\n\n* **Aspir:** A weapon empowered by this blade magic also deals its weapon damage to the target\u2019s MP. The target can make a Will save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) to negate this effect. *Prerequisite:* A mystic knight must have the drain blade magic to select this blade magic.\n* **Balance:** A weapon empowered by this blade magic deals bonus physical damage on a successful hit equal to the mystic knight\u2019s missing hit points once per round. *Prerequisites:* A mystic knight must be at least 15th level and have the slow and temper blade magics to select this blade magic.\n* **Death:** Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or die. A weapon empowered by this blade magic does not deal its regular damage. Unlike other Blade Magic, once the effect successfully happens, the enchantment is lost. *Prerequisites:* A mystic knight must have the statue, enervation, and executor blade magics to select this blade magic.\n* **Enervation:** Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive 1d4 negative levels. Negative levels from Enervation cannot stack. *Prerequisite:* A mystic knight must have the dark blade magic to select this blade magic.\n* **Gravity:** A weapon empowered by this blade magic ignores all forms of damage reduction. Also, if a weapon empowered by this blade magic strike a creature twice in the same round, that creature becomes flat-footed until the mystic knight\u2019s next turn. A Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) negates this effect. *Prerequisites:* A mystic knight must have the enervation and ruin blade magics to select this blade magic.\n* **Infect:** Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Disease status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier. *Prerequisites:* A mystic knight must have the poison and bio blade magics to select this blade magic.\n* **Statue:** Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Statue status effect for 1 round. *Prerequisite:* A mystic knight must have the earth blade magic to select this blade magic.\n* **Stop:** Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Stop status effect for 1 round. *Prerequisites:* A mystic knight must have the slow and gravity blade magics to select this blade magic.\n* **Ultima:** A weapon empowered by this blade magic always deals damage as if the enemy had an elemental weakness to it. *Prerequisites:* A mystic knight must have the dark, earth, fire, ice, light, lightning, water, and wind blade magics to select this blade magic.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Blade Magic",
+            "locator": "advanced-blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:perfected-skill",
+        "name": "Perfected Skill",
+        "atLevel": 15,
+        "description": "When a mystic knight reaches 15th level, he has become so extraordinarily adept in the basic skills and has perfected his power. He may choose a single sword skill that he has chosen to have practiced and now gain its Perfected effect. The mystic knight may choose an additional swordskill at 20th level.\n\nThis ability replaces doublecast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfected Skill",
+            "locator": "perfected-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:mirror-stance",
+        "name": "Mirror Stance",
+        "atLevel": 19,
+        "description": "At 19th level, a mystic knight can prepare themselves to deflect incoming spells. Once per day as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a mystic knight can assume Mirror Stance for 1 minute. While in this stance, he reflects any spells targeted at him back to the caster, as per the Reflect spell. He can reflect a total level of spells equal to half his red mage level + his Charisma modifier. This stance ends if he exceeds this limit.\n\nThis ability replaces 1 mp spell.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mirror Stance",
+            "locator": "mirror-stance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:feature:battle-sage",
+        "name": "Battle Sage",
+        "atLevel": 20,
+        "description": "At 20th level, the magical power surging through a mystic knight reaches its zenith. Whenever a weapon is enchanted with Blade Magic, the mystic knight can either choose to double the weapon\u2019s critical threat range or increase the weapon\u2019s critical modifier by +1. This stacks with similar effects but apply after all other similar effects.\n\nThis ability replaces red wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Sage",
+            "locator": "battle-sage"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:weapon-and-armor-proficiencies",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:weapon-and-armor-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:weapon-and-armor-proficiencies"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiencies",
+            "locator": "weapon-and-armor-proficiencies"
+          }
+        ],
+        "description": "This ability modifies the starting red mage\u2019s weapon and armor proficiencies."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:limit-breaks",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:dual-spellcasting",
+          "ffd20:class:red-mage:feature:flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:mystic-adrenaline",
+          "ffd20:archetype:red-mage:mystic-knight:feature:mystic-overdrive"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ],
+        "description": "These abilities replace the red mage\u2019s standard Limit Breaks."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:magical-knowledge",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:armored-mage",
+          "ffd20:class:red-mage:feature:armored-mage-medium",
+          "ffd20:class:red-mage:feature:armored-mage-shield"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:magical-knowledge"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magical Knowledge",
+            "locator": "magical-knowledge"
+          }
+        ],
+        "description": "This ability replaces armored mage."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:mystic-swordplay",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:cantrips",
+          "ffd20:class:red-mage:feature:spells"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:mystic-swordplay"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mystic Swordplay",
+            "locator": "mystic-swordplay"
+          }
+        ],
+        "description": "This ability replaces cantrips, spells, and MP Pool. Mystic knights do not gain any spells or spellcasting ability, do not have a caster level, and do not count as having a red mage spell list for spell trigger or spell completion magic items."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:stamina-pool",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:stamina-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stamina Pool",
+            "locator": "stamina-pool"
+          }
+        ],
+        "description": "This ability replaces spell proficiency."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:blade-magic",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:improved-spell-combat",
+          "ffd20:class:red-mage:feature:greater-spell-combat",
+          "ffd20:class:red-mage:feature:spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:blade-magic"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ],
+        "description": "This ability replaces spell combat, improved spell combat, and greater spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:exploit-weakness",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spellstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:exploit-weakness"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Exploit Weakness",
+            "locator": "exploit-weakness"
+          }
+        ],
+        "description": "This ability replaces spellstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:used-to-magic",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:used-to-magic"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Used to Magic",
+            "locator": "used-to-magic"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:armor-training",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:armor-training"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armor Training",
+            "locator": "armor-training"
+          }
+        ],
+        "description": "This ability replaces ruby knowledge."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:runic-absorption",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:quick-cast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:runic-absorption"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Runic Absorption",
+            "locator": "runic-absorption"
+          }
+        ],
+        "description": "This ability replaces quick cast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:mighty-swordskills",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-power"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:mighty-swordskills"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Swordskills",
+            "locator": "mighty-swordskills"
+          }
+        ],
+        "description": "This ability replaces spell power."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:practiced-skill",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:clear-mind"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:practiced-skill"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Practiced Skill",
+            "locator": "practiced-skill"
+          }
+        ],
+        "description": "This ability replaces clear mind."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:sword-magic",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:convert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:sword-magic"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sword Magic",
+            "locator": "sword-magic"
+          }
+        ],
+        "description": "This ability replaces convert."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:magic-burst",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:jack-of-all-trades"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:magic-burst"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magic Burst",
+            "locator": "magic-burst"
+          }
+        ],
+        "description": "This ability replaces jack-of-all-trades."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:perfected-skill",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:doublecast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:perfected-skill"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfected Skill",
+            "locator": "perfected-skill"
+          }
+        ],
+        "description": "This ability replaces doublecast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:mirror-stance",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:1-mp-spell"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:mirror-stance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mirror Stance",
+            "locator": "mirror-stance"
+          }
+        ],
+        "description": "This ability replaces 1 mp spell."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:battle-sage",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:mystic-knight:feature:battle-sage"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Sage",
+            "locator": "battle-sage"
+          }
+        ],
+        "description": "This ability replaces red wizard."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:replacement:noncasting",
+        "atClassLevel": 1,
+        "operation": "remove",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spells",
+          "ffd20:class:red-mage:feature:cantrips"
+        ],
+        "replacementFeatureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mystic Swordplay",
+            "locator": "mystic-swordplay"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic",
+        "name": "Blade Magic",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:barrier",
+            "name": "Barrier",
+            "description": "A weapon empowered by this blade magic grants Damage Reduction equal to the mystic knight\u2019s Charisma modifier. Prerequisites: A mystic knight must have the shell and protect blade magics to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:protect",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:shell"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:bio",
+            "name": "Bio",
+            "description": "Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Sap status effect, taking 2d4 + Charisma modifier points of non-elemental damage for a number of rounds equal to the mystic knight\u2019s Charisma modifier. Prerequisite: A mystic knight must be at least 7th level and have the Poison Blade Magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 7,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:poison"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:blind",
+            "name": "Blind",
+            "description": "Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Blind status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:cure",
+            "name": "Cure",
+            "description": "While wielding a weapon empowered by this blade magic, the weapon instead heals the target for its regular weapon damage, or damages undead. This blade magic does not apply if he attacks an ally with an attack of opportunity, however. Prerequisite: A mystic knight must have light blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:light"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:dark",
+            "name": "Dark",
+            "description": "A weapon empowered by this blade magic deals shadow damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Dimmed status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:dispel",
+            "name": "Dispel",
+            "description": "Whenever a weapon empowered by this blade magic strikes a creature that has a magical enchantment, the mystic knight can roll a caster level check in order to attempt to remove the enchantment. Prerequisite: A mystic knight must have wind blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:wind"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:drain",
+            "name": "Drain",
+            "description": "While wielding a weapon empowered by this blade magic, the mystic knight heals for 1/10th of the damage he deals with that weapon. Prerequisites: A mystic knight must be at least 5th level and have the dark blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:dark"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:earth",
+            "name": "Earth",
+            "description": "A weapon empowered by this blade magic deals earth damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Weighted status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:executor",
+            "name": "Executor",
+            "description": "A weapon empowered by this blade magic always threatens a critical strike against targets below 20% of their max hit points. Prerequisites: A mystic knight must be at least 9th level and have the dark blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 9,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:dark"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:fear",
+            "name": "Fear",
+            "description": "Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Will save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Panicked status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:fire",
+            "name": "Fire",
+            "description": "A weapon empowered by this blade magic deals fire damage instead of its usual damage. Also, the target must succeed on a Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Burning status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:ice",
+            "name": "Ice",
+            "description": "A weapon empowered by this blade magic deals ice damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Frozen status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:light",
+            "name": "Light",
+            "description": "A weapon empowered by this blade magic deals holy damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Illuminated status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:lightning",
+            "name": "Lightning",
+            "description": "A weapon empowered by this blade magic deals lighting damage instead of its usual damage. Also, the target must succeed on a Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Static status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:poison",
+            "name": "Poison",
+            "description": "Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Poison status effect, taking 1d6 + Charisma modifier points of non-elemental damage for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:protect",
+            "name": "Protect",
+            "description": "A weapon empowered by this blade magic provides a deflection bonus to AC equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:ruin",
+            "name": "Ruin",
+            "description": "A weapon empowered by this blade magic deals its damage a second time as non-elemental damage. The target may attempt a Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) to halve the extra damage. This effect can only occur once per round.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:shell",
+            "name": "Shell",
+            "description": "A weapon empowered by this blade magic grants Spell Resistance equal to the mystic knight\u2019s level. Prerequisites: A mystic knight must be at least 5th level and have the light and protect blade magics to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:protect",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:light"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:silence",
+            "name": "Silence",
+            "description": "Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Silence status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier. Prerequisites: A mystic knight must be at least 3rd level and have the water blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:water"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:sleep",
+            "name": "Sleep",
+            "description": "Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Will save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Sleep status effect for 1 round.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:slow",
+            "name": "Slow",
+            "description": "Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Slow status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier. Prerequisites: A mystic knight must be at least 5th level and have the ice blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:ice"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:temper",
+            "name": "Temper",
+            "description": "A weapon empowered by this blade magic has a sacred bonus to attack rolls equal to the mystic knight\u2019s Charisma modifier and ignores up to 5 points of Damage Reduction. Prerequisites: A mystic knight must be at least 7th level and have the fire blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 7,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:fire"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:water",
+            "name": "Water",
+            "description": "A weapon empowered by this blade magic deals water damage instead of its usual damage. Also, the target must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Drenched status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:wind",
+            "name": "Wind",
+            "description": "A weapon empowered by this blade magic deals wind damage instead of its usual damage. Also, the target must succeed on a Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Squalled status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:zombie",
+            "name": "Zombie",
+            "description": "Whenever a creature is struck with a weapon empowered by this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Zombie status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier. Prerequisite: A mystic knight must be at least 9th level to select this blade magic.\n\nThis ability replaces spell combat, improved spell combat, and greater spell combat.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 9,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blade Magic",
+                "locator": "blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:aspir",
+            "name": "Aspir",
+            "description": "A weapon empowered by this blade magic also deals its weapon damage to the target\u2019s MP. The target can make a Will save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) to negate this effect. Prerequisite: A mystic knight must have the drain blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:drain"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:balance",
+            "name": "Balance",
+            "description": "A weapon empowered by this blade magic deals bonus physical damage on a successful hit equal to the mystic knight\u2019s missing hit points once per round. Prerequisites: A mystic knight must be at least 15th level and have the slow and temper blade magics to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:temper",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:slow"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:death",
+            "name": "Death",
+            "description": "Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or die. A weapon empowered by this blade magic does not deal its regular damage. Unlike other Blade Magic, once the effect successfully happens, the enchantment is lost. Prerequisites: A mystic knight must have the statue, enervation, and executor blade magics to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:enervation",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:executor",
+              "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:statue"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:enervation",
+            "name": "Enervation",
+            "description": "Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive 1d4 negative levels. Negative levels from Enervation cannot stack. Prerequisite: A mystic knight must have the dark blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:dark"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:gravity",
+            "name": "Gravity",
+            "description": "A weapon empowered by this blade magic ignores all forms of damage reduction. Also, if a weapon empowered by this blade magic strike a creature twice in the same round, that creature becomes flat-footed until the mystic knight\u2019s next turn. A Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) negates this effect. Prerequisites: A mystic knight must have the enervation and ruin blade magics to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:enervation",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:ruin"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:infect",
+            "name": "Infect",
+            "description": "Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Disease status effect for a number of rounds equal to the mystic knight\u2019s Charisma modifier. Prerequisites: A mystic knight must have the poison and bio blade magics to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:poison",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:bio"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:statue",
+            "name": "Statue",
+            "description": "Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Statue status effect for 1 round. Prerequisite: A mystic knight must have the earth blade magic to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:earth"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:stop",
+            "name": "Stop",
+            "description": "Whenever a creature is struck by a weapon empowered with this blade magic, they must succeed on a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or receive the Stop status effect for 1 round. Prerequisites: A mystic knight must have the slow and gravity blade magics to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:gravity",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:slow"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:advanced-blade-magic:ultima",
+            "name": "Ultima",
+            "description": "A weapon empowered by this blade magic always deals damage as if the enemy had an elemental weakness to it. Prerequisites: A mystic knight must have the dark, earth, fire, ice, light, lightning, water, and wind blade magics to select this blade magic.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Blade Magic",
+                "locator": "advanced-blade-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:lightning",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:earth",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:light",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:water",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:dark",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:fire",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:wind",
+              "ffd20:archetype:red-mage:mystic-knight:option:blade-magic:ice"
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:3",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:7",
+        "type": "choose",
+        "atClassLevel": 7,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:11",
+        "type": "choose",
+        "atClassLevel": 11,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:13",
+        "type": "choose",
+        "atClassLevel": 13,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:17",
+        "type": "choose",
+        "atClassLevel": 17,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:mystic-knight:event:blade-magic:19",
+        "type": "choose",
+        "atClassLevel": 19,
+        "poolIds": [
+          "ffd20:archetype:red-mage:mystic-knight:pool:blade-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blade Magic",
+            "locator": "blade-magic"
+          }
+        ]
+      }
+    ],
+    "profile": {
+      "spellcasting": false,
+      "hitDie": 10,
+      "fullBab": true,
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Knight swords",
+        "Light armor",
+        "Medium armor",
+        "Heavy armor",
+        "Shields except tower shields"
+      ],
+      "mageryOptions": [
+        {
+          "id": "ffd20:archetype:red-mage:mystic-knight:option:red-magery:blade-magic-expertise",
+          "name": "Blade Magic Expertise",
+          "description": "This grants the mystic knight a +1 bonus to Blade Magic DCs.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+          "minimumLevel": 1,
+          "repeatLimit": 2,
+          "featureIds": [],
+          "manualPrerequisites": true,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Red Magery",
+              "locator": "red-magery"
+            }
+          ],
+          "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+        },
+        {
+          "id": "ffd20:archetype:red-mage:mystic-knight:option:red-magery:extra-runic-absorptions",
+          "name": "Extra Runic Absorptions",
+          "description": "This grants the mystic knight an additional use of Runic Absorption per day. (Only attainable after 4th)\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+          "minimumLevel": 1,
+          "repeatLimit": 2,
+          "featureIds": [],
+          "manualPrerequisites": true,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Red Magery",
+              "locator": "red-magery"
+            }
+          ],
+          "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+        },
+        {
+          "id": "ffd20:archetype:red-mage:mystic-knight:option:red-magery:extra-swordskills",
+          "name": "Extra Swordskills",
+          "description": "This grants the mystic knight an additional swordskill known.\n\nThis ability replaces extra quick casts, ruby knowledge mastery, and spell combat expertise red mageries.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+          "minimumLevel": 1,
+          "repeatLimit": 2,
+          "featureIds": [],
+          "manualPrerequisites": true,
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Red Magery",
+              "locator": "red-magery"
+            }
+          ],
+          "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+        },
+        {
+          "id": "ffd20:class:red-mage:magery:quick-mind",
+          "name": "Quick Mind",
+          "description": "One additional swift or immediate action per round usable with Red Mage features/spells; the one swift-cast spell per round limit remains.",
+          "minimumLevel": 1,
+          "repeatLimit": 2,
+          "featureIds": []
+        }
+      ]
+    },
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:red-mage:pool:ruby-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:mystic-aura",
+            "name": "Mystic Aura",
+            "description": "As a swift action, the mystic knight may activate this talent as a sustained mode. While in this mode, the mystic knight\u2019s blade magic ability becomes a standard action to activate and instead affects his allies but not himself. The effects lasts 1 round less per ally effected (minimum 1 round) and the mystic knight can choose to exclude his choice of allies. To receive this effect, allies must be within 30 feet of the mystic knight and must stay within 30 feet or lose the effect if they move out of range, but regains the effects if they re-enter the aura\u2019s range. Allies use the mystic knight\u2019s DC for blade magic effects. This talent does not effect the cure blade magic. Instead, if the mystic knight activates cure blade magic, he heals allies within the aura equal to his Charisma modifier at the beginning of each effected allies\u2019 turn. This mode uses up 3 stamina points of the mystic knight\u2019s current and maximum stamina.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:blade-sweep",
+            "name": "Blade Sweep",
+            "description": "At the cost of 1 stamina point, as a standard action, the mystic knight makes a melee attack against all adjacent targets. A blade magic must be active on the mystic knight\u2019s weapon to use this talent.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:blade-drive",
+            "name": "Blade Drive",
+            "description": "At the cost of 1 stamina point, as standard action, the mystic knight can grind his sword against the ground and send his blade magic effects forward in a crescent wave. He makes a range touch attack against all enemies in a 30-ft. Line. and if successful. he deals normal melee damage as if he hit with a blade magic effected melee attack. A blade magic must be active on the mystic knight\u2019s weapon to use this talent. Prerequisite: Blade Sweep\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:blade-sweep"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:blade-burst",
+            "name": "Blade Burst",
+            "description": "At the cost of 2 stamina points, when activating a swordskill, the mystic knight can change the element of the swordskill to the type of blade magic active, and/or combine any status effect from the blade magic on the swordskill. Using the swordskill\u2019s DC for the blade magic instead. This effect ends the active blade magic after use. Cure blade magic cannot be used with this talent. A blade magic must be active on the mystic knight\u2019s weapon to use this talent. Prerequisites: Blade Sweep, Blade Drive\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:blade-sweep",
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:blade-drive"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:magic-shell",
+            "name": "Magic Shell",
+            "description": "As a swift action, the mystic knight may activate this talent as a sustained mode. While in this mode, the mystic knight gains a +2 insight bonus on saving throws. This mode uses up 2 stamina points of the mystic knight\u2019s current and maximum stamina.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:magiwall",
+            "name": "Magiwall",
+            "description": "At the cost of 1 stamina point, as a move action, the mystic knight forms an elemental barrier over himself and allies. He and allies within 15 feet gains elemental resistance 5 to a chosen element for a number of rounds equal to the mystic knight\u2019s Charisma modifier. This increases by 5 every four red mage levels after 1st. If he has the magic shell sustained mode active, allies also gain the effects of magic shell for the duration of this talent. Prerequisite: Magic Shell\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:magic-shell"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:magic-guard",
+            "name": "Magic Guard",
+            "description": "Increasing the stamina cost of magic shell to 3, when magic shell is active, the mystic knight gains a +1 shield bonus to AC plus 1 every four red mage levels after 1st. Prerequisites: Magic Shell, Magiwall.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:magic-shell",
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:magiwall"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:ethereal-embrace",
+            "name": "Ethereal Embrace",
+            "description": "At the cost of 3 stamina points, as a standard action, the mystic knight invokes a swirling light to surround him and his allies within 15 feet, granting Haste and Fast Healing 2 up to 50% HP for a number of rounds equal to the mystic knight\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:purifying-breeze",
+            "name": "Purifying Breeze",
+            "description": "Ethereal Embrace\u2019s range increases to 30 feet and now grants a Protect and Shell status effect as a white mage of the same level as his red mage level (I.E. If a mystic knight is 10th level, the spells of this talent would of the 5th level version \u2013 Protect III and Shell III). Prerequisite: Ethereal Embrace\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:ethereal-embrace"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:empowering-storm",
+            "name": "Empowering Storm",
+            "description": "Ethereal Embrace now increases the DC of spells and abilities of those effected by 2, and increases the Fast Healing 2 to Fast Healing 4 instead. Prerequisites: Ethereal Embrace, Purifying Breeze.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:ethereal-embrace",
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:purifying-breeze"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:mystic-force",
+            "name": "Mystic Force",
+            "description": "Ethereal Embrace now grants the effects of the mystic knight\u2019s Magiwall talent to those effected. Prerequisites: Ethereal Embrace, Purifying Breeze, Empowering Storm, Magic Shell, Magiwall.\n\nThese abilities may replace ruby talents.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:ethereal-embrace",
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:purifying-breeze",
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:empowering-storm",
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:magic-shell",
+              "ffd20:archetype:red-mage:mystic-knight:option:talent-trees:magiwall"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

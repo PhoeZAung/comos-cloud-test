@@ -1,5 +1,6 @@
 import {seedRacialMovement} from '../../sheet/movement.mjs';
-import {isRedMage,redMageClass,redMageSpellRows} from './red-mage-level-one.mjs';
+import {isSheetFamily,sheetFamilyDefinition,sheetFamilyProfile} from './sheet-family-progression.mjs';
+import {isRedMage,redMageClass,redMageSpellRows,redMageDefinition,redMageHasSpells} from './red-mage-level-one.mjs';
 import {syncGunbreakerAmmo} from './gunbreaker-ammo.mjs';
 import {martialChoicePools,martialArchetype,martialCounter,AKIMBO_ID,GUNBREAKER_ID} from './martial-progression.mjs';
 import {MONK_ID,KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
@@ -38,16 +39,17 @@ function makeArcherClass(){
   data:{...archer.data,events},resources:[]};
 }
 export const archerClass=makeArcherClass();
-const isChaCaster=b=>isBard(b)||isRedMage(b);
+const isChaCaster=b=>isBard(b)||isRedMage(b)&&redMageHasSpells(b);
 export const availableClasses=[registry.class,archerClass,...levelOneClasses,...(bardClass?[bardClass]:[]),...(redMageClass?[redMageClass]:[])];
-export const classFor=b=>{const c=availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID));return c?{...c,choicePools:martialChoicePools(b).length?martialChoicePools(b):c.choicePools}:null;};
+export const classFor=b=>{if(isSheetFamily(b))return sheetFamilyDefinition(b);if(isRedMage(b))return redMageDefinition(b);const c=availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID));return c?{...c,choicePools:martialChoicePools(b).length?martialChoicePools(b):c.choicePools}:null;};
 export const isArcher=b=>(b?.classId===ARCHER_ID);
 export const className=b=>classFor(b)?.name||'Unknown class';
 export const classHitDie=b=>Number.isInteger(classFor(b)?.data.hitDie)?classFor(b).data.hitDie:(isArcher(b)?8:6);
 export const classDefaultHp=b=>Math.floor(classHitDie(b)/2)+1;
-export const classHasSpells=b=>!isArcher(b)&&!isLevelOneClass(b);
+export const classHasSpells=b=>isSheetFamily(b)?Boolean(sheetFamilyProfile(b).manualSpellcasting):isRedMage(b)?redMageHasSpells(b):!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
+ if(isRedMage(b)&&b.level>=15&&!levelOneArchetype(b)?.data.replacements.some(r=>r.atClassLevel<=b.level&&!r.eventOnly&&r.targetFeatureIds.includes('ffd20:class:red-mage:feature:jack-of-all-trades')))return true;
  if(!isArcher(b)&&!isLevelOneClass(b)&&!isChaCaster(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
  if(isLevelOneClass(b)||isChaCaster(b)){const value=id.replace(/^skill:/,'');return (levelOneArchetype(b)?.data.classSkills||classFor(b).data.classSkills).some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
  const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
@@ -137,7 +139,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,
   classes:[{name,level:b.level,archetype:levelOneArchetype(b)?.name||''}],archetype:levelOneArchetype(b)?.name||'',archetypeId:b.archetypeId,
   hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,
-  mp:isChaCaster(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isChaCaster(b)?'cha':'dex'});
+  mp:isChaCaster(b)||isSheetFamily(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isSheetFamily(b)?sheetFamilyProfile(b).castingAbility||'dex':isChaCaster(b)?'cha':'dex'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition);
  const langs=[],senses=[],profs=[];next.speed=0;next.size_category='Medium';
  seedRacialMovement(next,previous,b.raceId,p.racial.traits);
@@ -184,7 +186,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   rows[where].push(row);
  };
  for(const f of p.features)grant(f,['active','mixed'].includes(f.activation)?'activeAbilities':'passiveAbilities');
- if([DANCER_ID,CHOCOBO_KNIGHT_ID,KNIGHT_ID,MONK_ID].includes(b.classId)&&b.archetypeId!==AKIMBO_ID){const feat=[DANCER_ID,MONK_ID].includes(b.classId)?'Improved Unarmed Strike':b.classId===KNIGHT_ID?'Antagonize':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id),desc='Granted by '+name+' at level 1. Check the feat conditions before applying its effects.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:feat,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:feat,rulesDescription:desc,sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
+ if((!isSheetFamily(b)&&[DANCER_ID,CHOCOBO_KNIGHT_ID,KNIGHT_ID,MONK_ID].includes(b.classId)||isSheetFamily(b)&&b.classId===MONK_ID&&p.features.some(f=>f.id===MONK_ID+':feature:martial-arts'))&&b.archetypeId!==AKIMBO_ID){const feat=[DANCER_ID,MONK_ID].includes(b.classId)?'Improved Unarmed Strike':b.classId===KNIGHT_ID?'Antagonize':'Mounted Combat';const id=definition.id+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id),desc='Granted by '+name+' at level 1. Check the feat conditions before applying its effects.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:feat,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:feat,rulesDescription:desc,sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
  for(const feat of [...(b.classId===GUNBREAKER_ID||b.archetypeId===AKIMBO_ID?['Gunsmithing']:[]),...(b.archetypeId===AKIMBO_ID?['Precise Shot',...(b.level>=3?['Two-Weapon Fighting']:[])]:[])]){const id=(b.classId===GUNBREAKER_ID?b.classId:b.archetypeId||b.classId)+':bonus-feat:'+slug(feat),old=previous.feats?.find(r=>r.sourceRuleId===id);rows.feats.push({...old,name:old?.name||feat,desc:old?.desc||'Granted by '+(levelOneArchetype(b)?.name||name)+'. Apply source conditions manually.',sourceRuleId:id,sourceClass:name,rulesOwned:true,pendingFeat:false,automation:'manual'});}
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let lv=1;lv<=b.level;lv+=2){const id='comos:feat-slot:'+lv,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+lv,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
@@ -209,7 +211,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  next.favoredClassBonuses={};next.favored_class_options=p.race.data.favoredRewards.filter(x=>x.classId===definition.id).map(x=>x.description).join('\n')+'\nFavored rewards require manual adjudication.';
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
- next.castingProfiles=isChaCaster(b)?[{className:name,mode:'full',ability:'cha',casterLevel:b.level,highestSpellLevel:1}]:[];
+ next.castingProfiles=isChaCaster(b)?[{className:name,mode:'full',ability:'cha',casterLevel:b.level,highestSpellLevel:p.summary.spellLevel}]:[];
  if(!isChaCaster(b))next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
  if(oldManaged)for(const key of ownedKeys){

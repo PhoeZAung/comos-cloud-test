@@ -1,0 +1,1364 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:fist-of-rhalgr",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Fist of Rhalgr",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+      "title": "Fist of Rhalgr",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "fb276ed9f7852fee2ebcc0d159396c6cb017404cd9a1c2060c98de402f732e5e"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:ac-bonus",
+        "name": "AC Bonus",
+        "atLevel": 1,
+        "description": "A fist of rhalgr is highly trained at dodging blows, and she has a sixth sense that lets her avoid even unanticipated attacks.\n\nWhen unarmored and unencumbered, the fist of rhalgr adds her Wisdom bonus (if any) (this bonus is halved if she has a level in another non-prestige class and this is not her favored class) to her AC and her CMD. If the fist of rhalgr gains an attribute bonus to her AC or CMD from some other source, it does not stack.\n\nIn addition, a fist of rhalgr gains a +1 bonus to AC and CMD at 4th level. This bonus increases by 1 for every four monk levels thereafter, up to a maximum of +5 at 20th level. These bonuses to AC apply even against touch attacks or when the fist of rhalgr is flat-footed.\n\nShe loses these bonuses when she is immobilized or helpless, when she wears any armor, when she carries a shield, or when she carries a medium or heavy load.\n\nThis ability replaces bodybuilding.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finishers",
+        "name": "Combo Finishers",
+        "atLevel": 1,
+        "description": "At 1st level, a fist of rhalgr builds up her strength by landing unarmed strikes on her enemies, unleashing her fury in the form of combo finishers. Upon each successful unarmed strike she makes on an enemy creature, the fist of rhalgr accrues one combo point (even with combo finishers themselves, should they have a require an unarmed strike). She may accrue up to three combo points at once, with this limit increasing by an additional point every 5th level she attains after 1st (up to a maximum of six combo points at 16th level). All accrued combo points decay 1 minute after the last successful unarmed strike, or if the fist of rhalgr is knocked prone, or is otherwise rendered helpless.\n\nThe fist of rhalgr may utilize these combo points via combo finishers, each taking the place of an attack unless otherwise specified. Once a combo finisher is utilized, whether it hits its target or not, its requisite combo point cost is expended from the fist of rhalgr\u2019s combo point pool. At 1st level, she begins play with two combo finishers from the list below, and gains access to an additional combo finisher at every odd level thereafter. The fist of rhalgr\u2019s combo point limit must be at or above the combo finisher\u2019s specified combo point cost in order to be eligible to select it.\n\nThe saving throw DC for a combo finisher is always equal to 10 + half of your monk level + your Strength or Dexterity modifier. Any combo finishers that add extra weapon damage dice are not multiplied on a critical hit; they are instead added to the total.\n\n* *Bootshine*: Costs 1 combo point. Make an unarmed strike. Increase your critical threat range by 1 for that attack after all critical threat range multiplying effects are applied.\n* *Form Shift*: Costs 2 combo points. Make an unarmed strike. If successful, you deal normal damage and may switch to, or start, a new fighting style.\n* *Steel Peak*: Costs 2 combo points. Make an unarmed strike. If successful, you deal normal damage and your target is flat-footed until the start of their next turn. A successful Reflex save negates flat-footed.\n* *True Strike*: Costs 2 combo points. Make an unarmed strike. If successful, you maximize your weapon damage on that attack.\n* *Twin Snakes*: Costs 2 combo points. Make an unarmed strike. If successful, you deal normal damage and gain a +2 bonus to all ensuing unarmed strike damage rolls by you lasting for 3 rounds. This damage bonus increases by +1 for every ten monk levels you possess.\n* *Snap Punch*: Costs 3 combo points. Make an unarmed strike. If successful, you triple your weapon damage on that attack if you are flanking your target.\n* *Demolish*: Costs 3 combo points. Make an unarmed strike. If successful, you deal normal damage and also inflict [Bleed](https://www.finalfantasyd20.com/magic/status-effects/#bleed) damage equal to your weapon damage dice roll on your target.\n* *One Inch Punch*: Costs 3 combo points. Make an unarmed strike. If successful, you deal normal damage and your target is [Stunned](https://www.finalfantasyd20.com/magic/status-effects/#stunned) for 1 round. A successful Fortitude save negates the status effect.\n* *Rockbreaker*: Costs 3 combo points. Deal unarmed strike damage as earth damage to creatures in a 15 foot cone. A successful Reflex save halves this damage.\n* *Haymaker*: Costs 4 combo points. Make an unarmed strike. If successful, you deal normal damage and your target is [Staggered](https://www.finalfantasyd20.com/magic/status-effects/#staggered) for 3 rounds. A successful Fortitude save negates the status effect.\n* *Howling Fist*: Costs 4 combo points. Make an unarmed strike. If successful, your unarmed strike damage is instead dealt as wind damage. Additionally, your target and adjacent creatures (excluding yourself) are [Deafened](https://www.finalfantasyd20.com/magic/status-effects/#deafened) for 1 minute (no save).\n* *Four-point Fury*: Costs 4 combo points. Make a trip combat maneuver check and resolve this attack against up to 4 creatures within reach. This does not provoke attacks of opportunity and does not cause you to fall prone if you fail your check by 10 or more.\n* *Dragon Kick*: Costs 4 combo points. Make an unarmed strike. If successful, you deal normal damage, and DR of all types equal to your monk level is bypassed on this attack and any other attacks you make for the remainder of your turn.\n* *Masterful Blitz*: Costs at least 4 combo points. Utilize a blitz technique in place of your unarmed strike, with the combo point cost increasing depending on the type of action the blitz technique requires. If the blitz technique requires a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), this expends 4 combo points. If the blitz technique requires a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), this expends 5 combo points. If the blitz technique requires a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), this expends 6 combo points. When used with the Phantom Rush blitz technique, this combo finisher allows you to expend 5 combo points to augment your charge with the effects of Phantom Rush as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) instead (this does not consume an unarmed strike attack).\n* *Flint Strike*: Costs 5 combo points. Make an unarmed strike. If successful, you triple your weapon damage on that attack, with your total damage being dealt as fire damage instead.\n* *Six-sided Star*: Costs 5 combo points. Make an unarmed strike. If successful, you deal normal damage and may move up to the speed granted by your fast movement class feature afterwards. This movement does not provoke attacks of opportunity.\n* *Tornado Kick*: Costs 5 combo points. Make an unarmed strike. If successful, you double your weapon damage on that attack, dealing your total damage as wind damage to both your target and adjacent creatures excluding yourself. The adjacent creatures are allowed a Reflex save; a successful save halves this damage.\n* *Final Heaven*: Costs 6 combo points. Make an unarmed strike. If successful, this attack is treated as an automatic confirmed critical hit, and is instead dealt as non-elemental damage.\n\nThis ability replaces flying kick, martial wisdom, and monk talents gained at 4th, 8th, 12th, 16th, and 20th levels.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:ki-pool",
+        "name": "Ki Pool",
+        "atLevel": 2,
+        "description": "A fist of rhalgr gains additional ki pool points from her Wisdom modifier instead of her Constitution modifier. Additionally, abilities that use her ki pool key off of her Wisdom instead of her Constitution.\n\nA fist of rhalgr gains access to the Raging Fist blitz technique instead of Chakra:\n\n*Raging Fist ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: As a\u00a0[swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), a fist of rhalgr may make one additional unarmed strike at her highest attack bonus when making a flurry of blows attack. This bonus attack stacks with all bonus attacks gained from flurry of blows, as well as those from Haste and similar effects.\n\nThis ability modifies ki pool.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:blitz-techniques",
+        "name": "Blitz Techniques",
+        "atLevel": 3,
+        "description": "A fist of rhalgr loses access to the aura blast, ki trap, meteor strike, razor gale, shockwave, soul spiral, and unbridled strength blitz techniques, but gains the following in their place:\n\n* *The Forbidden Chakra ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: Unleashes one\u2019s energy using a forbidden technique. Deal your Wisdom score \u00d7 (1 per 6 monk levels attained) in non-elemental damage to a creature within reach. A successful Fortitude save halves this damage. Requires Monk 6.\n* *Elixir Field ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: Blast the ground beneath you with your ki, harming nearby enemies with its backfire. Deal 1d6 per monk level of non-elemental damage to enemies adjacent to you. Additionally, enemies caught in the area of effect suffer the Dazzled status effect for a number of rounds equal to your monk level. A successful Reflex save halves this damage.\n* *Riddle of Elements ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: Steel yourself with the power of the elements. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), grant different effects on self based on the type of element selected, be it earth, fire, or wind. Earth: Gain DR/\u2013 equal to half your monk level. Fire: Gain an extra 1d6 per six monk levels attained in fire damage on melee attacks. Wind: Gain a +1 dodge bonus to your AC and Reflex save per six monk levels attained. Only one riddle effect can be active at a time. This blitz technique has a duration of 1 minute. Requires Monk 6.\n* *Brotherhood ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: Incite allies to battle with a courageous rallying cry. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), grant a bonus to damage rolls equal to 1d6 per six monk levels attained to allies within 20 feet whenever they make an attack with a melee weapon. This effect has a duration of 1 minute. Requires Monk 6.\n* *Celestial Revolution ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: Strike an airborne foe, tethering your ki to them and dragging them to the ground. Leap towards and make an unarmed strike against an airborne target no more than 20 + 10 \u00d7 (1 per 3 monk levels attained) feet higher than you in altitude and within 30 feet of horizontal range. If the attack is successful, you deal normal unarmed strike damage and your target plummets to the ground, taking falling damage as normal. You land back in the square of which you started this ability from, negating any falling damage that would normally occur. Movement from this ability does not provoke attacks of opportunity.\n* *Enlightenment ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: Blast creatures in a line with holy energy. Deal 1d6 per monk level of holy damage to creatures in a 20 foot line. Targets caught in the area of effect are also Illuminated for a number of rounds equal to your monk level. A successful Reflex save halves damage and negates the status effect.\n* *Meditation ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: Briefly meditate, sacrificing ki for increased combat momentum. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), you may expend up to 3 ki points, gaining 2 combo points for each ki point expended.\n\nThis ability modifies blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blitz Techniques",
+            "locator": "blitz-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:fast-movement",
+        "name": "Fast Movement",
+        "atLevel": 3,
+        "description": "At 3rd level, the fist of rhalgr gains a +10 foot enhancement bonus to her land speed. This bonus increases by an additional 10 feet at every third level past 3rd. A fist of rhalgr in armor or carrying a medium or heavy load loses this extra speed.\n\nThis ability replaces boost and lifefont.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Movement",
+            "locator": "fast-movement"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finisher-flexibility",
+        "name": "Combo Finisher Flexibility",
+        "atLevel": 4,
+        "description": "At 4th level, the fist of rhalgr can contemplate on her repertoire of combo finishers, affording her great flexibility when preparing for combat. She may replace any of her selected combo finishers for new ones after committing to one hour of uninterrupted meditation.\n\nThis ability replaces style flexibility.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finisher Flexibility",
+            "locator": "combo-finisher-flexibility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:evasion",
+        "name": "Evasion",
+        "atLevel": 5,
+        "description": "At 5th level or higher, a fist of rhalgr can avoid damage from many area-effect attacks. If a fist of rhalgr makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, she instead takes no damage. Evasion can be used only if a fist of rhalgr is wearing no armor. A helpless fist of rhalgr does not gain the benefit of evasion.\n\nThis ability replaces counterstance.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Evasion",
+            "locator": "evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:shoulder-tackle",
+        "name": "Shoulder Tackle",
+        "atLevel": 5,
+        "description": "At 5th level, the fist of rhalgr can opt to lose the attack bonus associated with a charge and instead gain an additional combo point upon successfully landing her charge attack.\n\nThis ability replaces zen.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shoulder Tackle",
+            "locator": "shoulder-tackle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:greased-lightning",
+        "name": "Greased Lightning",
+        "atLevel": 7,
+        "description": "At 7th level, for each combo finisher with an attack roll component the fist of rhalgr lands during her turn, she gains a stack of Greased Lightning, up to a maximum of 3 stacks. The fist of rhalgr can only receive up to 1 stack per combo finisher utilized, no matter how many attack rolls it may entail. For each stack of Greased Lightning she has, she gains a +1 insight bonus to attack. All stacks of Greased Lightning are lost 1 minute after her last successful unarmed strike, or if the fist of rhalgr is knocked prone or is otherwise rendered helpless.\n\nAt 10th level and every three levels thereafter, the maximum stacks she can hold increases by 1, to a maximum of 7 at 19th level.\n\nThis ability modifies greased lightning.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greased Lightning",
+            "locator": "greased-lightning"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:perfect-balance",
+        "name": "Perfect Balance",
+        "atLevel": 10,
+        "description": "At 10th level, the fist of rhalgr gains the ability to enter a state of perfect balance. As a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), she reduces the combo point cost of all combo finishers by 1 for 3 rounds. Additionally, the fist of rhalgr gains a bonus to her CMD equal to half her monk level when defending against trip combat maneuvers while this ability is active.\n\nThe fist of rhalgr can use this ability three times a day, gaining an additional usage every fifth level after 10th.\n\nThis ability replaces formless strikes.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Balance",
+            "locator": "perfect-balance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:improved-evasion",
+        "name": "Improved Evasion",
+        "atLevel": 13,
+        "description": "At 13th level, the fist of rhalgr\u2019s evasion ability improves. She still takes no damage on a successful Reflex saving throw against attacks such as a dragon\u2019s breath weapon, but henceforth she takes only half damage on a failed save. A helpless fist of rhalgr (such as one who is unconscious or paralyzed) does not gain the benefit of improved evasion.\n\nThis ability replaces reinforced fortitude.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Evasion",
+            "locator": "improved-evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:anatman",
+        "name": "Anatman",
+        "atLevel": 19,
+        "description": "At 19th level, the fist of rhalgr has perfected the technique of preserving her momentum between battles by harmonizing her energy with the outer world, erasing her sense of self.\n\nAs a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), the fist of rhalgr can retain all combo points she currently possess until she rests or is otherwise rendered unconscious. If an encounter occurs during this period, these combo points revert to their normal 1-minute decay duration.\n\nThe fist of rhalgr can use this ability 3 times per day.\n\nThis ability replaces inner strength.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Anatman",
+            "locator": "anatman"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:raging-fist",
+        "name": "Raging Fist",
+        "atLevel": 2,
+        "description": "Assail your foe with raging fury. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), you may make one additional unarmed strike at your highest attack bonus when making a flurry of blows attack. This bonus attack stacks with all bonus attacks gained from flurry of blows, as well as those from Haste and similar effects.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Raging Fist",
+            "locator": "raging-fist"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:ac-bonus",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:bodybuilding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:ac-bonus"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ],
+        "description": "bodybuilding"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:combo-finishers",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:martial-wisdom",
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finishers"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ],
+        "description": "flying kick, martial wisdom, and monk talents gained at 4th, 8th, 12th, 16th, and 20th levels"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:combo-finishers:events",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:monk-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:monk-talents:4",
+          "ffd20:class:monk:event:monk-talents:8",
+          "ffd20:class:monk:event:monk-talents:12",
+          "ffd20:class:monk:event:monk-talents:16",
+          "ffd20:class:monk:event:monk-talents:20"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finishers"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ],
+        "description": "flying kick, martial wisdom, and monk talents gained at 4th, 8th, 12th, 16th, and 20th levels"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:fast-movement",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:lifefont",
+          "ffd20:class:monk:feature:boost"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:fast-movement"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Movement",
+            "locator": "fast-movement"
+          }
+        ],
+        "description": "boost and lifefont"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:combo-finisher-flexibility",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:style-flexibility"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finisher-flexibility"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finisher Flexibility",
+            "locator": "combo-finisher-flexibility"
+          }
+        ],
+        "description": "style flexibility"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:evasion",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:counterstance"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:evasion"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Evasion",
+            "locator": "evasion"
+          }
+        ],
+        "description": "counterstance"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:shoulder-tackle",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:zen"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:shoulder-tackle"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shoulder Tackle",
+            "locator": "shoulder-tackle"
+          }
+        ],
+        "description": "zen"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:perfect-balance",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:formless-strikes"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:perfect-balance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Balance",
+            "locator": "perfect-balance"
+          }
+        ],
+        "description": "formless strikes"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:improved-evasion",
+        "atClassLevel": 13,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:reinforced-fortitude"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:improved-evasion"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Evasion",
+            "locator": "improved-evasion"
+          }
+        ],
+        "description": "reinforced fortitude"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:anatman",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:inner-strength"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:feature:anatman"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Anatman",
+            "locator": "anatman"
+          }
+        ],
+        "description": "inner strength"
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:replacement:starting-blitz",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:chakra"
+        ],
+        "replacementFeatureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers",
+        "name": "Combo Finishers",
+        "options": [
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:bootshine",
+            "name": "Bootshine",
+            "description": " Costs 1 combo point. Make an unarmed strike. Increase your critical threat range by 1 for that attack after all critical threat range multiplying effects are applied.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:form-shift",
+            "name": "Form Shift",
+            "description": " Costs 2 combo points. Make an unarmed strike. If successful, you deal normal damage and may switch to, or start, a new fighting style.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:steel-peak",
+            "name": "Steel Peak",
+            "description": " Costs 2 combo points. Make an unarmed strike. If successful, you deal normal damage and your target is flat-footed until the start of their next turn. A successful Reflex save negates flat-footed.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:true-strike",
+            "name": "True Strike",
+            "description": " Costs 2 combo points. Make an unarmed strike. If successful, you maximize your weapon damage on that attack.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:twin-snakes",
+            "name": "Twin Snakes",
+            "description": " Costs 2 combo points. Make an unarmed strike. If successful, you deal normal damage and gain a +2 bonus to all ensuing unarmed strike damage rolls by you lasting for 3 rounds. This damage bonus increases by +1 for every ten monk levels you possess.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:snap-punch",
+            "name": "Snap Punch",
+            "description": " Costs 3 combo points. Make an unarmed strike. If successful, you triple your weapon damage on that attack if you are flanking your target.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:demolish",
+            "name": "Demolish",
+            "description": " Costs 3 combo points. Make an unarmed strike. If successful, you deal normal damage and also inflict Bleed damage equal to your weapon damage dice roll on your target.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:one-inch-punch",
+            "name": "One Inch Punch",
+            "description": " Costs 3 combo points. Make an unarmed strike. If successful, you deal normal damage and your target is Stunned for 1 round. A successful Fortitude save negates the status effect.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:rockbreaker",
+            "name": "Rockbreaker",
+            "description": " Costs 3 combo points. Deal unarmed strike damage as earth damage to creatures in a 15 foot cone. A successful Reflex save halves this damage.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:haymaker",
+            "name": "Haymaker",
+            "description": " Costs 4 combo points. Make an unarmed strike. If successful, you deal normal damage and your target is Staggered for 3 rounds. A successful Fortitude save negates the status effect.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:howling-fist",
+            "name": "Howling Fist",
+            "description": " Costs 4 combo points. Make an unarmed strike. If successful, your unarmed strike damage is instead dealt as wind damage. Additionally, your target and adjacent creatures (excluding yourself) are Deafened for 1 minute (no save).\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:four-point-fury",
+            "name": "Four-point Fury",
+            "description": " Costs 4 combo points. Make a trip combat maneuver check and resolve this attack against up to 4 creatures within reach. This does not provoke attacks of opportunity and does not cause you to fall prone if you fail your check by 10 or more.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:dragon-kick",
+            "name": "Dragon Kick",
+            "description": " Costs 4 combo points. Make an unarmed strike. If successful, you deal normal damage, and DR of all types equal to your monk level is bypassed on this attack and any other attacks you make for the remainder of your turn.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:masterful-blitz",
+            "name": "Masterful Blitz",
+            "description": " Costs at least 4 combo points. Utilize a blitz technique in place of your unarmed strike, with the combo point cost increasing depending on the type of action the blitz technique requires. If the blitz technique requires a swift action, this expends 4 combo points. If the blitz technique requires a move action, this expends 5 combo points. If the blitz technique requires a standard action, this expends 6 combo points. When used with the Phantom Rush blitz technique, this combo finisher allows you to expend 5 combo points to augment your charge with the effects of Phantom Rush as a free action instead (this does not consume an unarmed strike attack).\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:flint-strike",
+            "name": "Flint Strike",
+            "description": " Costs 5 combo points. Make an unarmed strike. If successful, you triple your weapon damage on that attack, with your total damage being dealt as fire damage instead.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:six-sided-star",
+            "name": "Six-sided Star",
+            "description": " Costs 5 combo points. Make an unarmed strike. If successful, you deal normal damage and may move up to the speed granted by your fast movement class feature afterwards. This movement does not provoke attacks of opportunity.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:tornado-kick",
+            "name": "Tornado Kick",
+            "description": " Costs 5 combo points. Make an unarmed strike. If successful, you double your weapon damage on that attack, dealing your total damage as wind damage to both your target and adjacent creatures excluding yourself. The adjacent creatures are allowed a Reflex save; a successful save halves this damage.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:combo-finishers:final-heaven",
+            "name": "Final Heaven",
+            "description": " Costs 6 combo points. Make an unarmed strike. If successful, this attack is treated as an automatic confirmed critical hit, and is instead dealt as non-elemental damage.\n\nThis ability replaces flying kick, martial wisdom, and monk talents gained at 4th, 8th, 12th, 16th, and 20th levels.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 16,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combo Finishers",
+                "locator": "combo-finishers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:1:0",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:1:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:3:2",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:5:3",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:7:4",
+        "type": "choose",
+        "atClassLevel": 7,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:9:5",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:11:6",
+        "type": "choose",
+        "atClassLevel": 11,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:13:7",
+        "type": "choose",
+        "atClassLevel": 13,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:15:8",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:17:9",
+        "type": "choose",
+        "atClassLevel": 17,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:event:combo-finishers:19:10",
+        "type": "choose",
+        "atClassLevel": 19,
+        "poolIds": [
+          "ffd20:archetype:monk:fist-of-rhalgr:pool:combo-finishers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:ac-bonus:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:ac-bonus",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finishers:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finishers",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finishers",
+            "locator": "combo-finishers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:ki-pool:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:ki-pool",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:blitz-techniques:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:blitz-techniques",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blitz Techniques",
+            "locator": "blitz-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:fast-movement:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:fast-movement",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Movement",
+            "locator": "fast-movement"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finisher-flexibility:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finisher-flexibility",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combo Finisher Flexibility",
+            "locator": "combo-finisher-flexibility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:evasion:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:evasion",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Evasion",
+            "locator": "evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:shoulder-tackle:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:shoulder-tackle",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shoulder Tackle",
+            "locator": "shoulder-tackle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:greased-lightning:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:greased-lightning",
+        "atClassLevel": 7,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greased Lightning",
+            "locator": "greased-lightning"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:perfect-balance:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:perfect-balance",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Balance",
+            "locator": "perfect-balance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:improved-evasion:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:improved-evasion",
+        "atClassLevel": 13,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Evasion",
+            "locator": "improved-evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:anatman:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:anatman",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Anatman",
+            "locator": "anatman"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:fist-of-rhalgr:feature:raging-fist:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:raging-fist",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Raging Fist",
+            "locator": "raging-fist"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:class:monk:feature:ki-pool",
+        "perLevel": 0.5,
+        "ability": "wis",
+        "minimum": 0
+      },
+      {
+        "featureId": "ffd20:archetype:monk:fist-of-rhalgr:feature:combo-finishers",
+        "byLevel": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "hitDie": 10,
+      "excludedOptionNames": [
+        "Aura Blast",
+        "Ki Trap",
+        "Meteor Strike",
+        "Razor Gale",
+        "Shockwave",
+        "Soul Spiral",
+        "Unbridled Strength"
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true,
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:monk:pool:blitz-techniques",
+        "options": [
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:blitz-techniques:the-forbidden-chakra",
+            "name": "The Forbidden Chakra",
+            "description": " Unleashes one\u2019s energy using a forbidden technique. Deal your Wisdom score \u00d7 (1 per 6 monk levels attained) in non-elemental damage to a creature within reach. A successful Fortitude save halves this damage. Requires Monk 6.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blitz Techniques",
+                "locator": "blitz-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:blitz-techniques:elixir-field",
+            "name": "Elixir Field",
+            "description": " Blast the ground beneath you with your ki, harming nearby enemies with its backfire. Deal 1d6 per monk level of non-elemental damage to enemies adjacent to you. Additionally, enemies caught in the area of effect suffer the Dazzled status effect for a number of rounds equal to your monk level. A successful Reflex save halves this damage.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blitz Techniques",
+                "locator": "blitz-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:blitz-techniques:riddle-of-elements",
+            "name": "Riddle of Elements",
+            "description": " Steel yourself with the power of the elements. As a swift action, grant different effects on self based on the type of element selected, be it earth, fire, or wind. Earth: Gain DR/\u2013 equal to half your monk level. Fire: Gain an extra 1d6 per six monk levels attained in fire damage on melee attacks. Wind: Gain a +1 dodge bonus to your AC and Reflex save per six monk levels attained. Only one riddle effect can be active at a time. This blitz technique has a duration of 1 minute. Requires Monk 6.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blitz Techniques",
+                "locator": "blitz-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:blitz-techniques:brotherhood",
+            "name": "Brotherhood",
+            "description": " Incite allies to battle with a courageous rallying cry. As a swift action, grant a bonus to damage rolls equal to 1d6 per six monk levels attained to allies within 20 feet whenever they make an attack with a melee weapon. This effect has a duration of 1 minute. Requires Monk 6.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blitz Techniques",
+                "locator": "blitz-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:blitz-techniques:celestial-revolution",
+            "name": "Celestial Revolution",
+            "description": " Strike an airborne foe, tethering your ki to them and dragging them to the ground. Leap towards and make an unarmed strike against an airborne target no more than 20 + 10 \u00d7 (1 per 3 monk levels attained) feet higher than you in altitude and within 30 feet of horizontal range. If the attack is successful, you deal normal unarmed strike damage and your target plummets to the ground, taking falling damage as normal. You land back in the square of which you started this ability from, negating any falling damage that would normally occur. Movement from this ability does not provoke attacks of opportunity.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blitz Techniques",
+                "locator": "blitz-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:blitz-techniques:enlightenment",
+            "name": "Enlightenment",
+            "description": " Blast creatures in a line with holy energy. Deal 1d6 per monk level of holy damage to creatures in a 20 foot line. Targets caught in the area of effect are also Illuminated for a number of rounds equal to your monk level. A successful Reflex save halves damage and negates the status effect.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blitz Techniques",
+                "locator": "blitz-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:fist-of-rhalgr:option:blitz-techniques:meditation",
+            "name": "Meditation",
+            "description": " Briefly meditate, sacrificing ki for increased combat momentum. As a swift action, you may expend up to 3 ki points, gaining 2 combo points for each ki point expended.\n\nThis ability modifies blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blitz Techniques",
+                "locator": "blitz-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/",
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,841 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:demon-hunter",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Demon Hunter",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/demon-hunter/",
+      "title": "Demon Hunter",
+      "archiveSha256": "3c904156902e4a25cb040fe6702e8a91476ba4fb820df3de019d4db051ae2b8d",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:class-skills",
+        "name": "Class Skills",
+        "atLevel": 1,
+        "description": "A demon hunter adds Bluff, Fly, Knowledge (planes), Sense Motive and Use Magic Device to his list of class skills but loses Handle Animal, Knowledge (Dungeoneering), and Ride as class skills.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Skills",
+            "locator": "class-skills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:weapon-proficiency",
+        "name": "Weapon Proficiency",
+        "atLevel": 1,
+        "description": "The demon hunter gains proficiency with simple firearms at 1st level. The demon hunter also suffers no penalty for using weapons that require or have an alignment.\n\nThis ability modifies the warrior\u2019s standard weapon proficiencies.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Proficiency",
+            "locator": "weapon-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:devil-trigger",
+        "name": "Devil Trigger",
+        "atLevel": 1,
+        "description": "This Limit Break transforms the demon hunter into a Demon, replacing his type with Outsider (Native). For a duration of 1 round + 1 round per four warrior levels after 1st, the demon hunter gains a +1 profane bonus to attack and damage rolls plus an additional +1 per four warrior levels after 1st, he also gains 1 Fire, Ice, Wind, Earth, Lightning, and Water resistance plus an additional 1 per two warrior levels after 1st. While in this form, the demon hunter gains darkvision (60 feet) and a fly speed of 30 feet (Average maneuverability). This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:jackpot",
+        "name": "Jackpot",
+        "atLevel": 1,
+        "description": "This limit break allows the demon hunter to fire off two compressed beams of energy, typically from their guns and doing so is a free action to swap back and forth, that combine into one at an enemy. The demon hunter makes a ranged touch attack against a target within 60ft and if successful, he deals 2d6 non-elemental damage plus 2d6 for every four warrior levels after 1st. He deals an additional 1d6 damage per style rank he has acquired. (D=1d6, C=2d6, B=3d6, etc.)\n\nThese abilities replace the warrior\u2019s standard Limit Breaks.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:demon-blood",
+        "name": "Demon Blood",
+        "atLevel": 1,
+        "description": "A demon hunter\u2019s blood ignites within their very being, changing their physical makeup for the better. Starting at 1st level, the demon hunter gains DR 1/-, this increases by 1 at 5th level and every four warrior levels thereafter to a max of DR 5/- at 17th level.\n\nAt 6th level, a demon hunter gains fast healing 1.\n\nThis ability replaces martial flexibility.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demon Blood",
+            "locator": "demon-blood"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:stylish-warrior",
+        "name": "Stylish Warrior",
+        "atLevel": 1,
+        "description": "At 1st level, one to put on a show, the demon hunter excels at showing off during combat. While he doesn\u2019t exactly dance, some would believe the demon hunter if he said he was. While in combat, the demon hunter can accrue style points for combining attacks and dodging enemies. Points are translated into rankings, which in turn give buffs to his allies.\n\nFor every attack the demon hunter lands on an enemy, he gains 1 point, for every attack he misses, he loses 1 point. If the demon hunter gets hit and takes damage, he loses 2 points and if he falls unconscious or dies, he loses all points. A confirmed critical hit rewards double the normal style points. A successful check with the [Antagonize](https://www.d20pfsrd.com/feats/general-feats/antagonize/) feat grants the demon hunter 1 style point per antagonized enemy, this can only happen once per enemy per encounter. Successfully using [Acrobatics](https://www.d20pfsrd.com/skills/Acrobatics/#Move_Through_Threatened_Squares) to move through a threatened area grants 1 point, moving through an enemy\u2019s space instead grants 2, acrobatic rewards can only occur once per round. If the demon hunter does not attack for 2 full turns, he loses 1 point, he also loses 1 point per 6 seconds outside of combat.\n\nThe demon hunter stops getting points if he uses the same attack 3 times in a row. For example, if he full-attacked with a longsword, he only gets a point for the first 3 hits, any hits afterwards do not reward a point. Changing to a different weapon style, gun/ranged weapon, combat maneuver or spell will reset this effect, allowing them to accrue points with the initial attack again. The first 3 hits of two-weapon fighting give a point each, afterwards, the demon hunter must use a combat maneuver or swap to a single weapon, 2-handed weapon, or ranged weapon to gain points again.\n\nBonus points may be awarded at GM\u2019s discretion. Super stylish moves like combining Prop and Shredder with The Time Has Come then swapping to a gun attack should award more than 1 point per hit.\n\n* 1 point \u2013 D \u2013 No effect.\n* 3 points \u2013 C \u2013 Allies gain +1 morale bonus to attack rolls.\n* 6 points \u2013 B \u2013 Allies gain +2 morale bonus to attack and damage rolls.\n* 10 points \u2013 A \u2013 Allies gain +3 morale bonus to attack and damage rolls and +10 movement speed.\n* 15 points \u2013 S \u2013 Allies gain +4 morale bonus to attack and damage rolls, +20 movement speed and 1 additional attack of opportunity.\n* 21 points \u2013 SS \u2013 Allies gain +5 morale bonus to attack and damage rolls, +30 movement speed, 2 additional attacks of opportunity and 1 additional [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n* 28 points \u2013 SSS \u2013 Allies gain SS bonuses and may make a single re-roll per round.\n\nAn alternative reward system would be to grant bonus EXP and Gil to the party for ending combat with a higher rank. For this system, reward +2% per rank (D-2, C-4, B-6, A-8, S-10, SS-12, SSS-14).\n\nThis ability replaces chosen weapon, weapon guard, and additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stylish Warrior",
+            "locator": "stylish-warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:awakened-heritage",
+        "name": "Awakened Heritage",
+        "atLevel": 2,
+        "description": "At 2nd level and every four warrior levels thereafter (6th, 10th, 14th, 18th) thereafter, the demon hunter can choose to awaken a specific part of his demonic heritage to improve his ability scores. At the designated levels, he may improve one ability score by 2 points, this can only apply to the same ability score once.\n\nThis ability replaces a warrior talent gained at 2nd, 6th, 10th, 14th, and 18th level, and critical aim.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Awakened Heritage",
+            "locator": "awakened-heritage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:demonic-encyclopedia",
+        "name": "Demonic Encyclopedia",
+        "atLevel": 3,
+        "description": "At 3rd level, the demon hunter spends a lot of time researching their contracted targets, as any professional would want to be prepared for a job ahead.\n\nThe demon hunter adds their level as a bonus on all [Knowledge (planes)](https://www.d20pfsrd.com/skills/knowledge/) checks related to [Outsiders](https://www.d20pfsrd.com/bestiary/rules-for-monsters/creature-types#TOC-Outsider) of the [Daemon](https://www.d20pfsrd.com/bestiary/monster-listings/outsiders/daemons/), [Demon](https://www.d20pfsrd.com/bestiary/monster-listings/outsiders/demon/), and [Devil](https://www.d20pfsrd.com/bestiary/monster-listings/outsiders/devil/)\u00a0subtypes.\n\nThis ability replaces chosen knowledge.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demonic Encyclopedia",
+            "locator": "demonic-encyclopedia"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:demonic-training",
+        "name": "Demonic Training",
+        "atLevel": 3,
+        "description": "At 3rd level and every four warrior levels thereafter, a demon hunter increases the effectiveness of his demonic powers. At each such opportunity, he can choose from the list of the following (with a maximum of 2 per):\n\n* **Explosive Victory:** When the demon hunter kills an enemy, the enemy\u2019s body lets out a gush of blood or explodes into pieces, at the demon hunter\u2019s choice, granting the demon hunter a style point for defeating them. The second time this is taken, he gains 2 style points per kill.\n* **Increased Royal Meter:** This increases the multiplier of the demon hunter\u2019s warrior levels for calculating his maximum royal points by 1 (3x to 4x to 5x).\n* **Speed:** This increases the demon hunter\u2019s base land movement speed by 10 feet.\n* **Stylish Maneuvers:** This grants a +1 profane bonus to the demon hunter\u2019s trip combat maneuver checks.\n\nThis ability replaces warrior techniques, additional techs III, unstoppable strike, and devastating blow.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demonic Training",
+            "locator": "demonic-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:demon-combat-styles",
+        "name": "Demon Combat Styles",
+        "atLevel": 4,
+        "description": "At 4th level and every four warrior levels thereafter except 20th (8th, 12th, 16th), the demon hunter gains access to a new Demon Combat style from the list below. Entering a style requires a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) and the demon hunter remains in that style until he changes or goes unconscious. This becomes a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) at 10th level and a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) at 16th level. A demon hunter can only change styles once per round.\n\n**Trickster:** While in this form, the demon hunter aims to become more acrobatic and nimble and may use the following abilities. The demon hunter gains a +2 dodge bonus to his AC while in this form. These abilities in Trickster do not provoke AoO.\n\n* *Dash:* With a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the demon hunter may move at half movement speed in any direction, this may be done even while airborne.\n* *Flipper:* With an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), the demon hunter can recover from being knocked prone, moving 5 feet away from the attacker.\n* *Mustang:* With a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), the demon hunter may jump to any adjacent square of an adjacent enemy.\n\n**Swordmaster:** While in this form, the demon hunter expands his sword attacks and elemental power. On change, the demon hunter selects 1 element, besides holy or shadow, and imbues his weapon with 1d6 plus an additional 1d6 per six warrior levels after 4th (to a maximum of +3d6 at 16th level) of that element to his damage.\n\n* *Aerial Rave \u2013 Single:* As an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), once per round, if the demon hunter is within 50 feet of an enemy that has been hit/thrown into the air or is otherwise falling from the air (flying or floating does not count, neither does tripping to the floor), the demon hunter may make a single attack with his ranged weapon or jump to attack with a melee weapon against the mid-air enemy. After this ability is used the demon hunter is fatigued for 1 round. This ability cannot be used while fatigued or exhausted or 1 round after it is used (if he\u2019s immune to being fatigued/exhausted or has healed it). This ability moves the demon hunter\u2019s turn to the initiative he acted on similar to readied actions.\n  + *Aerial Rave \u2013 Full:* As Aerial Rave \u2013 Single, but the demon hunter may make a full-attack with his ranged weapon, or his melee weapon in mid-air. Increase the debilitated/cooldown rounds to 3.\n* *Directional Change:* As a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the demon hunter can make a full-attack action but must move to attack a new target after each successful attack, he can only cover a total distance equal to his base movement speed. This cannot be combined with Million Stab or Prop and Shredder. This movement still provokes.\n* *Instant Switch:* The demon hunter may immediately swap any held weapons for any weapons in his inventory with a single [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). This action provokes unless he has the Quick Draw feat. This may be done during attacks to aid in gaining Style Points.\n\n**Gunslinger:** While in this form, the demon hunter focuses wholly on ranged attacks and firearms. The demon hunter also reduces the time taken to reload by 1 step (from standard to move) which stacks with any other speed up reloading abilities.\n\n* *Dead Shot:* As a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the demon hunter may change all his iterative ranged attacks into re-rolls for a single ranged shot, taking the highest of all the rolls. He may do the same for damage rolls. For every dice he does not use, add +2 to the attack or damage, if it was an attack dice or damage dice respectively.\n* *Multi-Target:* By taking a -5 penalty, the demon hunter may shoot 2 targets per attack, dealing the same damage to both targets. He takes the same dice results, but penalties and bonuses such as cover apply to the specific targets.\n* *Shot Cancel:* By forgoing an attack in a full-attack, the demon hunter may swap one of his weapons to another in his inventory to use that in his full-attack, this does not provoke. This can be combined with going into another combat style with a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) at 10th level.\n\n**Royalguard:** While in this form, the demon hunter minimizes incoming damage and focuses on countering enemy attacks. The demon hunter also acquires a Royal meter, gaining royal points for any damage that would hit his flat-footed AC. Damage that would hit his flat-footed AC but not his normal AC does not affect his style points. The Royal meter can hold damage equal to his Constitution modifier + (3 x his warrior level), any extra damage is lost. Royal points diminish at a rate of half of his warrior level per minute and are lost when unconscious or sleeping. For example: If you have a flat-foot AC of 20, a normal AC of 30, an enemy rolls an attack roll of between 20-29 and deals 16 damage that damage is converted into 16 royal points and you take no damage. If they roll a 30+ on their attack roll you take damage as normal and lose style points as usual.\n\n* *Block & Charge:* With a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the demon hunter takes on an improved total defense. Granting him a +8 dodge bonus to his AC instead of the standard +4, this stacks with the increase granted by having 3 ranks in Acrobatics to grant +10 dodge bonus total.\n* *Release:* With a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the demon hunter releases the stored Royal points into a 30-ft.-area, dealing non-elemental damage to all enemies for the number of points stored, with a Reflex save (DC 10 + half of the warrior\u2019s level + his Constitution modifier) to reduce the damage by half.\n* *Royal Release:* While in Block & Charge, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) when being attacked, the demon hunter declares odds or evens that the enemy will roll on their next attack roll against him. If the enemy rolls in the declared odds or evens, the demon hunter initiates the Release ability and the damage is doubled, if he is wrong it instead does half damage. This ability empties the Royal meter as per normal with Release.\n\nThis ability replaces the warrior talents gained at 4th, 8th, 12th, and 16th level, and assured crits.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demon Combat Styles",
+            "locator": "demon-combat-styles"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:million-stab",
+        "name": "Million Stab",
+        "atLevel": 9,
+        "description": "At 9th level, a demon hunter may add two additional melee attacks to his full-attack action with melee weapons, this also changes the damage type to piercing. The two additional attacks give style points outside of the 3 normally gained from successful attacks in this full-attack. These attacks stack with any other additional attacks the demon hunter would otherwise gain, but do not stack with any effect that doubles attacks. A demon hunter can use Million Stab a number of times per day equal to 1 + his Constitution modifier.\n\nAt 10th level, a demon hunter can use War Cry a number of times per day equal to 3 + his Constitution modifier, instead of spending stamina.\n\nThis ability replaces additional techs IV and modifies war cry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Million Stab",
+            "locator": "million-stab"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:prop-and-shredder",
+        "name": "Prop and Shredder",
+        "atLevel": 13,
+        "description": "At 13th level, whenever the demon hunter attempts a trip combat maneuver, he can instead attempt to send the target flying into the air (10 feet), the DC for this is the enemy\u2019s CMD+5. For every 5 which the demon hunter beats the DC, the height is increased by 5 feet. The target takes falling damage as normal, and if it hits a ceiling it takes an additional 2d6. Hitting the ceiling and floor grants a Style Point each.\n\nThis ability replaces improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Prop and Shredder",
+            "locator": "prop-and-shredder"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:the-time-has-come",
+        "name": "The Time Has Come",
+        "atLevel": 19,
+        "description": "At 19th level, a demon hunter may pause time at the snap of his fingers. With a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the demon hunter gains 1 turn of actions outside of the normal turn order. During this time, the demon hunter may make any action without provoking AoO, even attacking enemies or casting spells. The demon hunter may use this ability at the beginning or end of his turn; when it stops, it places him back into his original turn. This ability can be used once per day.\n\nThis ability replaces doublestrike.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "The Time Has Come",
+            "locator": "the-time-has-come"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:feature:devil-trigger-majin-form",
+        "name": "Devil Trigger \u2013 Majin Form",
+        "atLevel": 20,
+        "description": "At 20th level, the demon hunter may enter his true devil mode. Once per day, for 1 round + his Constitution modifier, the demon hunter gains +10 profane bonus to attack and damage rolls, gains Darkvision (120 feet), a fly speed of 60 feet (good maneuverability), movement speed is increased by 30 feet and immunity to all damage from Good creatures. Similar to a berserker\u2019s rage, the Majin Form changes the attitude of the demon hunter to become more feral and evil, having a temporary alignment of Evil while in the form.\n\nThis ability replaces weapon mastery.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Devil Trigger \u2013 Majin Form",
+            "locator": "devil-trigger-majin-form"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:weapon-proficiency:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-and-armor-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:weapon-proficiency"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Proficiency",
+            "locator": "weapon-proficiency"
+          }
+        ],
+        "description": "This ability modifies the warrior\u2019s standard weapon proficiencies."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:limit-breaks:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:critical-strikes",
+          "ffd20:class:warrior:feature:omnistrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:devil-trigger",
+          "ffd20:archetype:warrior:demon-hunter:feature:jackpot"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ],
+        "description": "These abilities replace the warrior\u2019s standard Limit Breaks."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:demon-blood:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:martial-flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:demon-blood"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demon Blood",
+            "locator": "demon-blood"
+          }
+        ],
+        "description": "This ability replaces martial flexibility."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:stylish-warrior:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii",
+          "ffd20:class:warrior:feature:chosen-weapon",
+          "ffd20:class:warrior:feature:weapon-guard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:stylish-warrior"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stylish Warrior",
+            "locator": "stylish-warrior"
+          }
+        ],
+        "description": "This ability replaces chosen weapon, weapon guard, and additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:awakened-heritage:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:critical-aim"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2",
+          "ffd20:class:warrior:event:warrior-talents:6",
+          "ffd20:class:warrior:event:warrior-talents:10",
+          "ffd20:class:warrior:event:warrior-talents:14",
+          "ffd20:class:warrior:event:warrior-talents:18"
+        ],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:awakened-heritage"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Awakened Heritage",
+            "locator": "awakened-heritage"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd, 6th, 10th, 14th, and 18th level, and critical aim."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:demonic-encyclopedia:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:demonic-encyclopedia"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demonic Encyclopedia",
+            "locator": "demonic-encyclopedia"
+          }
+        ],
+        "description": "This ability replaces chosen knowledge."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:demonic-training:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii",
+          "ffd20:class:warrior:feature:warrior-techniques",
+          "ffd20:class:warrior:feature:stamina-pool",
+          "ffd20:class:warrior:feature:delay-fatigue",
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop",
+          "ffd20:class:warrior:feature:unstoppable-strike",
+          "ffd20:class:warrior:feature:devastating-blow"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:demonic-training"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demonic Training",
+            "locator": "demonic-training"
+          }
+        ],
+        "description": "This ability replaces warrior techniques, additional techs III, unstoppable strike, and devastating blow."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:demon-combat-styles:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:assured-crits"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:4",
+          "ffd20:class:warrior:event:warrior-talents:8",
+          "ffd20:class:warrior:event:warrior-talents:12",
+          "ffd20:class:warrior:event:warrior-talents:16"
+        ],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:demon-combat-styles"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Demon Combat Styles",
+            "locator": "demon-combat-styles"
+          }
+        ],
+        "description": "This ability replaces the warrior talents gained at 4th, 8th, 12th, and 16th level, and assured crits."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:million-stab:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:million-stab"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Million Stab",
+            "locator": "million-stab"
+          }
+        ],
+        "description": "This ability replaces additional techs IV"
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:prop-and-shredder:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:prop-and-shredder"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Prop and Shredder",
+            "locator": "prop-and-shredder"
+          }
+        ],
+        "description": "This ability replaces improved rush."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:the-time-has-come:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:doublestrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:the-time-has-come"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "The Time Has Come",
+            "locator": "the-time-has-come"
+          }
+        ],
+        "description": "This ability replaces doublestrike."
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:replacement:devil-trigger-majin-form:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-mastery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:demon-hunter:feature:devil-trigger-majin-form"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Devil Trigger \u2013 Majin Form",
+            "locator": "devil-trigger-majin-form"
+          }
+        ],
+        "description": "This ability replaces weapon mastery."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:pool:awakened-heritage",
+        "name": "Awakened Heritage",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:demon-hunter:option:awakened-heritage:manual",
+            "name": "Awakened Heritage (manual selection)",
+            "description": "At 2nd level and every four warrior levels thereafter (6th, 10th, 14th, 18th) thereafter, the demon hunter can choose to awaken a specific part of his demonic heritage to improve his ability scores. At the designated levels, he may improve one ability score by 2 points, this can only apply to the same ability score once.\n\nThis ability replaces a warrior talent gained at 2nd, 6th, 10th, 14th, and 18th level, and critical aim.\nRecord the exact selected source option and any prerequisites on existing sheet entries.",
+            "minimumLevel": 2,
+            "repeatLimit": 5,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Awakened Heritage",
+                "locator": "awakened-heritage"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/demon-hunter/"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:pool:demon-combat-styles",
+        "name": "Demon Combat Styles",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:demon-hunter:option:demon-combat-styles:manual",
+            "name": "Demon Combat Styles (manual selection)",
+            "description": "At 4th level and every four warrior levels thereafter except 20th (8th, 12th, 16th), the demon hunter gains access to a new Demon Combat style from the list below. Entering a style requires a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) and the demon hunter remains in that style until he changes or goes unconscious. This becomes a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) at 10th level and a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) at 16th level. A demon hunter can only change styles once per round.\n\n**Trickster:** While in this form, the demon hunter aims to become more acrobatic and nimble and may use the following abilities. The demon hunter gains a +2 dodge bonus to his AC while in this form. These abilities in Trickster do not provoke AoO.\n\n* *Dash:* With a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the demon hunter may move at half movement speed in any direction, this may be done even while airborne.\n* *Flipper:* With an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), the demon hunter can recover from being knocked prone, moving 5 feet away from the attacker.\n* *Mustang:* With a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), the demon hunter may jump to any adjacent square of an adjacent enemy.\n\n**Swordmaster:** While in this form, the demon hunter expands his sword attacks and elemental power. On change, the demon hunter selects 1 element, besides holy or shadow, and imbues his weapon with 1d6 plus an additional 1d6 per six warrior levels after 4th (to a maximum of +3d6 at 16th level) of that element to his damage.\n\n* *Aerial Rave \u2013 Single:* As an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), once per round, if the demon hunter is within 50 feet of an enemy that has been hit/thrown into the air or is otherwise falling from the air (flying or floating does not count, neither does tripping to the floor), the demon hunter may make a single attack with his ranged weapon or jump to attack with a melee weapon against the mid-air enemy. After this ability is used the demon hunter is fatigued for 1 round. This ability cannot be used while fatigued or exhausted or 1 round after it is used (if he\u2019s immune to being fatigued/exhausted or has healed it). This ability moves the demon hunter\u2019s turn to the initiative he acted on similar to readied actions.\n  + *Aerial Rave \u2013 Full:* As Aerial Rave \u2013 Single, but the demon hunter may make a full-attack with his ranged weapon, or his melee weapon in mid-air. Increase the debilitated/cooldown rounds to 3.\n* *Directional Change:* As a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the demon hunter can make a full-attack action but must move to attack a new target after each successful attack, he can only cover a total distance equal to his base movement speed. This cannot be combined with Million Stab or Prop and Shredder. This movement still provokes.\n* *Instant Switch:* The demon hunter may immediately swap any held weapons for any weapons in his inventory with a single [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). This action provokes unless he has the Quick Draw feat. This may be done during attacks to aid in gaining Style Points.\n\n**Gunslinger:** While in this form, the demon hunter focuses wholly on ranged attacks and firearms. The demon hunter also reduces the time taken to reload by 1 step (from standard to move) which stacks with any other speed up reloading abilities.\n\n* *Dead Shot:* As a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the demon hunter may change all his iterative ranged attacks into re-rolls for a single ranged shot, taking the highest of all the rolls. He may do the same for damage rolls. For every dice he does not use, add +2 to the attack or damage, if it was an attack dice or damage dice respectively.\n* *Multi-Target:* By taking a -5 penalty, the demon hunter may shoot 2 targets per attack, dealing the same damage to both targets. He takes the same dice results, but penalties and bonuses such as cover apply to the specific targets.\n* *Shot Cancel:* By forgoing an attack in a full-attack, the demon hunter may swap one of his weapons to another in his inventory to use that in his full-attack, this does not provoke. This can be combined with going into another combat style with a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) at 10th level.\n\n**Royalguard:** While in this form, the demon hunter minimizes incoming damage and focuses on countering enemy attacks. The demon hunter also acquires a Royal meter, gaining royal points for any damage that would hit his flat-footed AC. Damage that would hit his flat-footed AC but not his normal AC does not affect his style points. The Royal meter can hold damage equal to his Constitution modifier + (3 x his warrior level), any extra damage is lost. Royal points diminish at a rate of half of his warrior level per minute and are lost when unconscious or sleeping. For example: If you have a flat-foot AC of 20, a normal AC of 30, an enemy rolls an attack roll of between 20-29 and deals 16 damage that damage is converted into 16 royal points and you take no damage. If they roll a 30+ on their attack roll you take damage as normal and lose style points as usual.\n\n* *Block & Charge:* With a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the demon hunter takes on an improved total defense. Granting him a +8 dodge bonus to his AC instead of the standard +4, this stacks with the increase granted by having 3 ranks in Acrobatics to grant +10 dodge bonus total.\n* *Release:* With a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the demon hunter releases the stored Royal points into a 30-ft.-area, dealing non-elemental damage to all enemies for the number of points stored, with a Reflex save (DC 10 + half of the warrior\u2019s level + his Constitution modifier) to reduce the damage by half.\n* *Royal Release:* While in Block & Charge, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) when being attacked, the demon hunter declares odds or evens that the enemy will roll on their next attack roll against him. If the enemy rolls in the declared odds or evens, the demon hunter initiates the Release ability and the damage is doubled, if he is wrong it instead does half damage. This ability empties the Royal meter as per normal with Release.\n\nThis ability replaces the warrior talents gained at 4th, 8th, 12th, and 16th level, and assured crits.\nRecord the exact selected source option and any prerequisites on existing sheet entries.",
+            "minimumLevel": 4,
+            "repeatLimit": 4,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Demon Combat Styles",
+                "locator": "demon-combat-styles"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/demon-hunter/"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:awakened-heritage:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:awakened-heritage"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "awakened-heritage",
+            "locator": "awakened-heritage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:awakened-heritage:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:awakened-heritage"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "awakened-heritage",
+            "locator": "awakened-heritage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:awakened-heritage:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:awakened-heritage"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "awakened-heritage",
+            "locator": "awakened-heritage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:awakened-heritage:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:awakened-heritage"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "awakened-heritage",
+            "locator": "awakened-heritage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:awakened-heritage:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:awakened-heritage"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "awakened-heritage",
+            "locator": "awakened-heritage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:demon-combat-styles:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:demon-combat-styles"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "demon-combat-styles",
+            "locator": "demon-combat-styles"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:demon-combat-styles:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:demon-combat-styles"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "demon-combat-styles",
+            "locator": "demon-combat-styles"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:demon-combat-styles:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:demon-combat-styles"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "demon-combat-styles",
+            "locator": "demon-combat-styles"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:demon-hunter:event:demon-combat-styles:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:warrior:demon-hunter:pool:demon-combat-styles"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "demon-combat-styles",
+            "locator": "demon-combat-styles"
+          }
+        ]
+      }
+    ],
+    "profile": {
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Light armor",
+        "Medium armor",
+        "Heavy armor",
+        "Shields except tower shields",
+        "Simple firearms"
+      ],
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "intimidate",
+        "profession:*",
+        "survival",
+        "swim",
+        "bluff",
+        "fly",
+        "knowledge:planes",
+        "sense-motive",
+        "use-magic-device"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:warrior:demon-hunter:feature:the-time-has-come",
+        "base": 1,
+        "perLevel": 0,
+        "minimum": 1
+      },
+      {
+        "featureId": "ffd20:archetype:warrior:demon-hunter:feature:devil-trigger-majin-form",
+        "base": 1,
+        "perLevel": 0,
+        "minimum": 1
+      },
+      {
+        "featureId": "ffd20:class:warrior:feature:war-cry",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "con",
+        "minimum": 0
+      }
+    ],
+    "extraOptions": []
+  }
+}

@@ -1,0 +1,758 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:featherweight",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Featherweight",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/featherweight/",
+      "title": "Featherweight",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "fa989a5b85e8773388d901471db89b6a0b834f5575283615341d025bff3debe4"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:ac-bonus",
+        "name": "AC Bonus",
+        "atLevel": 1,
+        "description": "A featherweight is highly trained at dodging blows, and she has a sixth sense that lets her avoid even unanticipated attacks.\n\nWhen unarmored and unencumbered, the featherweight adds her Wisdom bonus (if any) (this bonus is halved if she has a level in another non-prestige class and this is not her favored class) to her AC and her CMD. If the featherweight gains an attribute bonus to her AC or CMD from some other source, it does not stack.\n\nIn addition, a featherweight gains a +1 bonus to AC and CMD at 4th level. This bonus increases by 1 for every four monk levels thereafter, up to a maximum of +5 at 20th level. These bonuses to AC apply even against touch attacks or when the featherweight is flat-footed.\n\nShe loses these bonuses when she is immobilized or helpless, when she wears any armor, when she carries a shield, or when she carries a medium or heavy load.\n\nThis ability replaces bodybuilding.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:deft-hand",
+        "name": "Deft Hand",
+        "atLevel": 1,
+        "description": "At 1st level, the featherweight receives the [Weapon Finesse](https://www.d20pfsrd.com/feats/combat-feats/weapon-finesse-combat/) feat as a bonus feat. She may only use this feat with her unarmed strikes, or with light weapons with the monk special quality. Additionally, a featherweight adds a +1 dodge bonus to AC against attacks of opportunity and a +1 competence bonus to Acrobatics checks. At 5th level, and every 4 monk levels thereafter, these bonuses increase by 1, to a maximum of +5 at 17th level.\n\nAlso at 3rd level, she may use her Dexterity modifier instead of her Strength modifier for damage rolls with her unarmed strikes or with light weapons with the monk special quality.\n\nThis ability replaces flying kick and martial wisdom.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deft Hand",
+            "locator": "deft-hand"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:evasion",
+        "name": "Evasion",
+        "atLevel": 2,
+        "description": "At 2nd level or higher, a featherweight can avoid damage from many area-effect attacks. If a featherweight makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, she instead takes no damage. Evasion can be used only if a featherweight is wearing no armor. A helpless featherweight does not gain the benefit of evasion.\n\nThis ability replaces ascetic.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Evasion",
+            "locator": "evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:ki-pool",
+        "name": "Ki Pool",
+        "atLevel": 2,
+        "description": "A featherweight gains additional ki pool points from her Wisdom modifier instead of her Constitution modifier. Additionally, abilities that use her ki pool key off of her Wisdom instead of her Constitution.\n\nThis ability modifies ki pool.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:unbalancing-counter",
+        "name": "Unbalancing Counter",
+        "atLevel": 3,
+        "description": "At 3rd level, a featherweight\u2019s attacks of opportunity render a struck creature flat-footed until the end of her next turn (a Reflex save DC 10 + half her monk level + her Wisdom modifier negates this effect).\n\nThis ability replaces the blitz technique gained at 3rd level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unbalancing Counter",
+            "locator": "unbalancing-counter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:sudden-speed",
+        "name": "Sudden Speed",
+        "atLevel": 3,
+        "description": "At 3rd level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) the featherweight can increase her base land speed by 30 feet for 1 round. Her speed increases by an additional 10 feet for every three monk levels after 3rd. A featherweight may use this ability a number of times per day equal to 3 + her Wisdom modifier.\n\nThis ability replaces boost.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sudden Speed",
+            "locator": "sudden-speed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:think-fast",
+        "name": "Think Fast",
+        "atLevel": 5,
+        "description": "At 5th level, a featherweight gains [Deflect Arrows](https://www.d20pfsrd.com/feats/combat-feats/deflect-arrows-combat/) as a bonus feat. If she already has that feat, she gains [Snatch Arrows](https://www.d20pfsrd.com/feats/combat-feats/snatch-arrows-combat/) as a bonus feat instead.\n\nThis ability replaces zen.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Think Fast",
+            "locator": "think-fast"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:redirection",
+        "name": "Redirection",
+        "atLevel": 8,
+        "description": "At 8th level, the featherweight can change a weapon\u2019s intended trajectory with even the faintest touch. When attacked by a melee attack, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), she can make an opposed attack roll. The DC is the attacker\u2019s attack roll, and attack bonuses from charging do not apply to this opposed roll. If successful, the featherweight may change the target to any square within her attacker\u2019s threatened area, using the result of the featherweight\u2019s attack roll. Use the attacker\u2019s weapon to determine if a critical threat is rolled. A creature who is forced to attack itself with this ability gains a +2 dodge bonus to AC versus this attack. To use this ability, she must be unarmed or wielding a light weapon with the monk special quality.\n\nA featherweight may use this ability a number of times per day equal to her monk level, and no more than once per round.\n\nThis ability replaces diamond body.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Redirection",
+            "locator": "redirection"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:fast-tumble",
+        "name": "Fast Tumble",
+        "atLevel": 9,
+        "description": "At 9th level, a featherweight can use her Acrobatics skill to tumble at her full speed through a threatened square to avoid provoking an attack of opportunity without increasing the DC by 10.\n\nThis ability replaces the blitz technique gained at 9th level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Tumble",
+            "locator": "fast-tumble"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:light-weight",
+        "name": "Light Weight",
+        "atLevel": 10,
+        "description": "At 10th level, a featherweight\u2019s control over her body allows her to manipulate her center of gravity, shifting her weight. When moving, she counts her weight as negligible. This allows her to stand or move across surfaces that would normally be unable to support her weight, such as thin branches, ropes, or debris. She may stand on such objects for 1 round per monk level before needing to make an Acrobatics check to Cross Narrow Surfaces or to prevent falling. This also allows her to cross difficult terrain while running or charging, but she does not ignore the movement speed penalty. A featherweight loses these benefits when wearing any armor or carrying a medium or heavy load.\n\nThis ability replaces formless strikes.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Light Weight",
+            "locator": "light-weight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:improved-evasion",
+        "name": "Improved Evasion",
+        "atLevel": 13,
+        "description": "At 13th level, a featherweight\u2019s evasion ability improves. She still takes no damage on a successful Reflex saving throw against attacks such as a dragon\u2019s breath weapon, but henceforth she takes only half damage on a failed save. A helpless featherweight (such as one who is unconscious or paralyzed) does not gain the benefit of improved evasion.\n\nThis ability replaces reinforced fortitude.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Evasion",
+            "locator": "improved-evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:feather-fighter",
+        "name": "Feather Fighter",
+        "atLevel": 15,
+        "description": "At 15th level, a featherweight can spend 1 ki point from her ki pool as an immediate action to double her dodge bonus versus attacks of opportunity until the start of her next turn. Dodge bonuses to AC that apply to attacks other than attacks of opportunity are not affected by this ability.\n\nThis ability replaces the blitz technique gained at 15th level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feather Fighter",
+            "locator": "feather-fighter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:uncanny-initiative",
+        "name": "Uncanny Initiative",
+        "atLevel": 19,
+        "description": "At 19th level, the featherweight does not need to roll for initiative. She always treats her initiative roll as if it resulted in any number of her choosing (from 1 to 20).\n\nThis ability replaces inner strength.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Initiative",
+            "locator": "uncanny-initiative"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:feather-master",
+        "name": "Feather Master",
+        "atLevel": 20,
+        "description": "At 20th level, a featherweight reaches the pinnacle of her fighting style. She gains an additional attack at her highest base attack bonus when using flurry of blows, and her dodge bonus to AC increases by 2.\n\nThis ability replaces perfect self.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feather Master",
+            "locator": "feather-master"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:ac-bonus",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:bodybuilding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:ac-bonus"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ],
+        "description": "bodybuilding"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:deft-hand",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:martial-wisdom",
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:deft-hand"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deft Hand",
+            "locator": "deft-hand"
+          }
+        ],
+        "description": "flying kick and martial wisdom"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:evasion",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:ascetic"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:evasion"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Evasion",
+            "locator": "evasion"
+          }
+        ],
+        "description": "ascetic"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:unbalancing-counter:events",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:3"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:unbalancing-counter"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unbalancing Counter",
+            "locator": "unbalancing-counter"
+          }
+        ],
+        "description": "the blitz technique gained at 3rd level"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:sudden-speed",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:boost"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:sudden-speed"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sudden Speed",
+            "locator": "sudden-speed"
+          }
+        ],
+        "description": "boost"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:think-fast",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:zen"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:think-fast"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Think Fast",
+            "locator": "think-fast"
+          }
+        ],
+        "description": "zen"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:redirection",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:diamond-body"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:redirection"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Redirection",
+            "locator": "redirection"
+          }
+        ],
+        "description": "diamond body"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:fast-tumble:events",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:9"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:fast-tumble"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Tumble",
+            "locator": "fast-tumble"
+          }
+        ],
+        "description": "the blitz technique gained at 9th level"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:light-weight",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:formless-strikes"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:light-weight"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Light Weight",
+            "locator": "light-weight"
+          }
+        ],
+        "description": "formless strikes"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:improved-evasion",
+        "atClassLevel": 13,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:reinforced-fortitude"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:improved-evasion"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Evasion",
+            "locator": "improved-evasion"
+          }
+        ],
+        "description": "reinforced fortitude"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:feather-fighter:events",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:15"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:feather-fighter"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feather Fighter",
+            "locator": "feather-fighter"
+          }
+        ],
+        "description": "the blitz technique gained at 15th level"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:uncanny-initiative",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:inner-strength"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:uncanny-initiative"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Initiative",
+            "locator": "uncanny-initiative"
+          }
+        ],
+        "description": "inner strength"
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:replacement:feather-master",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:perfect-self"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:featherweight:feature:feather-master"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feather Master",
+            "locator": "feather-master"
+          }
+        ],
+        "description": "perfect self"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:ac-bonus:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:ac-bonus",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:deft-hand:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:deft-hand",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deft Hand",
+            "locator": "deft-hand"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:evasion:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:evasion",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Evasion",
+            "locator": "evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:ki-pool:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:ki-pool",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:unbalancing-counter:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:unbalancing-counter",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unbalancing Counter",
+            "locator": "unbalancing-counter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:sudden-speed:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:sudden-speed",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sudden Speed",
+            "locator": "sudden-speed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:think-fast:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:think-fast",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Think Fast",
+            "locator": "think-fast"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:redirection:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:redirection",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Redirection",
+            "locator": "redirection"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:fast-tumble:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:fast-tumble",
+        "atClassLevel": 9,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Tumble",
+            "locator": "fast-tumble"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:light-weight:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:light-weight",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Light Weight",
+            "locator": "light-weight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:improved-evasion:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:improved-evasion",
+        "atClassLevel": 13,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Evasion",
+            "locator": "improved-evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:feather-fighter:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:feather-fighter",
+        "atClassLevel": 15,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feather Fighter",
+            "locator": "feather-fighter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:uncanny-initiative:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:uncanny-initiative",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Initiative",
+            "locator": "uncanny-initiative"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:featherweight:feature:feather-master:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:featherweight:feature:feather-master",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Feather Master",
+            "locator": "feather-master"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:class:monk:feature:ki-pool",
+        "perLevel": 0.5,
+        "ability": "wis",
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "hitDie": 10
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

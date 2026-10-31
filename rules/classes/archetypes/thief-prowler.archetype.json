@@ -1,0 +1,264 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:prowler",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Prowler",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/prowler/",
+      "title": "Prowler",
+      "archiveSha256": "3af54fcb0e0ebb3f10c098a7e7edb6bf1e3b393f54a341207e1f98632a0ab4e7",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:prowler:feature:prowling-strikes",
+        "name": "Prowling Strikes",
+        "atLevel": 1,
+        "description": "The prowler\u2019s signature ability allows her to enter an adjacent creature\u2019s space in order to make melee attacks without provoking an attack of opportunity. In addition, the prowler gains a bonus equal to half her thief level (minimum +1) on Acrobatics checks made to avoid provoking attacks of opportunity. The prowler can make prowling strikes only against foes whose at least one size category larger than her. At the end of the prowler\u2019s attack on the foe, she can return to the square she left without provoking an attack of opportunity. She can instead choose to remain in the foe\u2019s space without squeezing as long as the foe is at least one size category larger than she is.\n\nThis ability replaces trapfinding.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Prowling Strikes",
+            "locator": "prowling-strikes"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:feature:slinking-leap",
+        "name": "Slinking Leap",
+        "atLevel": 3,
+        "description": "At 3rd level, a prowler becomes adept at confounding foes as she moves with sudden changes of direction. Once per round, when a prowler would provoke attacks of opportunity from movement but avoids doing so using Acrobatics or her prowling strike class feature, she can make a Bluff check to feint or to create a distraction to hide as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). She gains a +1 bonus on Bluff checks to feint and to create a distraction to hide for every three thief levels she has.\n\nThis ability replaces danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Slinking Leap",
+            "locator": "slinking-leap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:feature:furious-stance",
+        "name": "Furious Stance",
+        "atLevel": 4,
+        "description": "At 4th level, when a prowler uses prowling strike against a foe, she threatens that foe until the start of her next turn. This allows her to make attacks of opportunity and flank that foe (including dealing sneak attack damage), with some limitations.\n\nWhile flanking this way, the first attack she makes upon entering a foe\u2019s space benefits from any flanking she had when she left her previous square. She must enter the foe\u2019s space to make an attack of opportunity if she does not already share that foe\u2019s space. She can move up to 5 feet to make this attack of opportunity and then return to her previous space as part of the attack of opportunity. This movement doesn\u2019t provoke attacks of opportunity.\n\nThis ability replaces uncanny dodge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Furious Stance",
+            "locator": "furious-stance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:feature:underfoot",
+        "name": "Underfoot",
+        "atLevel": 8,
+        "description": "At 8th level, if a prowler makes a prowling strike against a creature that is larger than she is, she can elect to remain in that creature\u2019s space. As long as she does so, she gains partial cover from attacks and effects directed at her from sources other than the creature whose space she shares. While remaining underfoot, the creature whose space the prowler shares gains a +2 circumstance bonus on attack rolls to hit the prowler and a +2 dodge bonus to AC against the prowler. While underfoot, the prowler can select one ally who is adjacent to the creature: the prowler and that selected ally are considered to be flanking the foe until the start of the prowler\u2019s next turn or until the creature whose space the prowler shares, moves out of that space, whichever comes first.\n\nThis ability replaces improved uncanny dodge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Underfoot",
+            "locator": "underfoot"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:prowler:replacement:prowling-strikes:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:trapfinding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:prowler:feature:prowling-strikes"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "trapfinding",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Prowling Strikes",
+            "locator": "prowling-strikes"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:replacement:slinking-leap:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:prowler:feature:slinking-leap"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Slinking Leap",
+            "locator": "slinking-leap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:replacement:furious-stance:1",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:uncanny-dodge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:prowler:feature:furious-stance"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "uncanny dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Furious Stance",
+            "locator": "furious-stance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:replacement:underfoot:1",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-uncanny-dodge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:prowler:feature:underfoot"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "improved uncanny dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Underfoot",
+            "locator": "underfoot"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:prowler:event:grant:prowling-strikes",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:prowler:feature:prowling-strikes",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Prowling Strikes",
+            "locator": "prowling-strikes"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:event:grant:slinking-leap",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:prowler:feature:slinking-leap",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Slinking Leap",
+            "locator": "slinking-leap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:event:grant:furious-stance",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:prowler:feature:furious-stance",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Furious Stance",
+            "locator": "furious-stance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:prowler:event:grant:underfoot",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:prowler:feature:underfoot",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Underfoot",
+            "locator": "underfoot"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {},
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

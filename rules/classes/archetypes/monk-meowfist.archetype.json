@@ -1,0 +1,471 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:meowfist",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Meowfist",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/meowfist/",
+      "title": "Meowfist",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "620237026d7d66c8b5629be013c67d5d1726c5707ee121c2d3f7ed32bdff5e7a"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:ac-bonus",
+        "name": "AC Bonus",
+        "atLevel": 1,
+        "description": "A meowfist is highly trained at dodging blows, and he has a sixth sense that lets her avoid even unanticipated attacks.\n\nWhen unarmored and unencumbered, the meowfist adds her Wisdom bonus (if any) (this bonus is halved if he has a level in another non-prestige class and this is not her favored class) to her AC and her CMD. If the meowfist gains an attribute bonus to her AC or CMD from some other source, it does not stack.\n\nIn addition, a meowfist gains a +1 bonus to AC and CMD at 4th level. This bonus increases by 1 for every four monk levels thereafter, up to a maximum of +5 at 20th level. These bonuses to AC apply even against touch attacks or when the meowfist is flat-footed.\n\nHe loses these bonuses when he is immobilized or helpless, when he wears any armor, when he carries a shield, or when he carries a medium or heavy load.\n\nThis ability replaces bodybuilding and martial wisdom.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:agile-kitty",
+        "name": "Agile Kitty",
+        "atLevel": 1,
+        "description": "At 1st level, a meowfist gains [Agile Maneuvers](https://www.d20pfsrd.com/feats/combat-feats/agile-maneuvers-combat/) as a bonus feat.\n\nAt 3rd level, the meowfist may add his Dexterity modifier instead of Strength to his unarmed strike attack and damage rolls.\n\nThis ability replaces flying kick.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Agile Kitty",
+            "locator": "agile-kitty"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:ki-pool",
+        "name": "Ki Pool",
+        "atLevel": 2,
+        "description": "A meowfist gains additional ki pool points from his Wisdom modifier instead of his Constitution modifier. Additionally, abilities that use his ki pool key off of his Wisdom instead of his Constitution.\n\nThis ability modifies ki pool.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:ready-for-anything",
+        "name": "Ready for Anything",
+        "atLevel": 2,
+        "description": "At 2nd level, a meowfist gains a +2 bonus on initiative checks and Perception checks to act in a surprise round. This bonus improves by 1 per three monk levels after 2nd.\n\nThis ability replaces ascetic and a monk talent gained at 2nd level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ready for Anything",
+            "locator": "ready-for-anything"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:maneuver-training",
+        "name": "Maneuver Training",
+        "atLevel": 3,
+        "description": "At 3rd level, a meowfist gains additional training with the dirty trick combat maneuver. He gains a +1 bonus on combat maneuver checks when attempting this combat maneuver and a +1 bonus to his CMD when defending against this maneuver.\n\nAt 7th, 10th, and 16th levels, a meowfist becomes further trained in another combat maneuver, gaining the above +1 bonus on combat maneuver checks and to CMD. In addition, the bonuses granted by previous maneuver training increase by 1 each. For example, when a meowfist reaches 7th level, he gains a +1 bonus on one type of combat maneuver, +1 to her CMD against that combat maneuver, and the bonuses for the dirty trick combat maneuver increase to +2.\n\nThis ability replaces boost.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Training",
+            "locator": "maneuver-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:turn-the-tables",
+        "name": "Turn the Tables",
+        "atLevel": 5,
+        "description": "At 5th level, opponents provoke an attack of opportunity from the meowfist whenever they fail at a combat maneuver against the meowfist.\n\nThis ability replaces counterstance.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Turn the Tables",
+            "locator": "turn-the-tables"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:dirty-blow",
+        "name": "Dirty Blow",
+        "atLevel": 8,
+        "description": "At 8th level, when a meowfist succeeds at a dirty trick combat maneuver, he can deal his unarmed strike damage to that opponent.\n\nThis ability replaces diamond body.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Blow",
+            "locator": "dirty-blow"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:knockout",
+        "name": "Knockout",
+        "atLevel": 11,
+        "description": "Starting at 11th level, once per day a meowfist can unleash a devastating attack that can instantly knock a target unconscious. He must announce this intent before making his attack roll. If the meowfist\u2019s strike is successful and the target takes damage from the blow, the target must succeed at a Fortitude saving throw (DC = 10 + half of the monk\u2019s level + his Dexterity modifier) or fall unconscious for 1d6 rounds. Each round on its turn, the unconscious target can attempt a new saving throw to end the effect; this is a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) that does not provoke attacks of opportunity. Creatures immune to critical hits or nonlethal damage are immune to this ability.\n\nAt 15th and 19th level, a meowfist can use this ability an additional time per day.\n\nThis ability replaces lifefont.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knockout",
+            "locator": "knockout"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:meowfist:replacement:ac-bonus",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:martial-wisdom",
+          "ffd20:class:monk:feature:bodybuilding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:meowfist:feature:ac-bonus"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ],
+        "description": "bodybuilding and martial wisdom"
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:replacement:agile-kitty",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:meowfist:feature:agile-kitty"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Agile Kitty",
+            "locator": "agile-kitty"
+          }
+        ],
+        "description": "flying kick"
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:replacement:ready-for-anything",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:ascetic"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:meowfist:feature:ready-for-anything"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ready for Anything",
+            "locator": "ready-for-anything"
+          }
+        ],
+        "description": "ascetic and a monk talent gained at 2nd level"
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:replacement:ready-for-anything:events",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:monk-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:monk-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:meowfist:feature:ready-for-anything"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ready for Anything",
+            "locator": "ready-for-anything"
+          }
+        ],
+        "description": "ascetic and a monk talent gained at 2nd level"
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:replacement:maneuver-training",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:boost"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:meowfist:feature:maneuver-training"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Training",
+            "locator": "maneuver-training"
+          }
+        ],
+        "description": "boost"
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:replacement:turn-the-tables",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:counterstance"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:meowfist:feature:turn-the-tables"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Turn the Tables",
+            "locator": "turn-the-tables"
+          }
+        ],
+        "description": "counterstance"
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:replacement:dirty-blow",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:diamond-body"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:meowfist:feature:dirty-blow"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Blow",
+            "locator": "dirty-blow"
+          }
+        ],
+        "description": "diamond body"
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:replacement:knockout",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:lifefont"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:meowfist:feature:knockout"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knockout",
+            "locator": "knockout"
+          }
+        ],
+        "description": "lifefont"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:ac-bonus:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:meowfist:feature:ac-bonus",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:agile-kitty:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:meowfist:feature:agile-kitty",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Agile Kitty",
+            "locator": "agile-kitty"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:ki-pool:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:meowfist:feature:ki-pool",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:ready-for-anything:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:meowfist:feature:ready-for-anything",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ready for Anything",
+            "locator": "ready-for-anything"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:maneuver-training:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:meowfist:feature:maneuver-training",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Training",
+            "locator": "maneuver-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:turn-the-tables:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:meowfist:feature:turn-the-tables",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Turn the Tables",
+            "locator": "turn-the-tables"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:dirty-blow:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:meowfist:feature:dirty-blow",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Blow",
+            "locator": "dirty-blow"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:meowfist:feature:knockout:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:meowfist:feature:knockout",
+        "atClassLevel": 11,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Knockout",
+            "locator": "knockout"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:class:monk:feature:ki-pool",
+        "perLevel": 0.5,
+        "ability": "wis",
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "requiredRaceId": "ffd20:race:palico"
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

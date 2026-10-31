@@ -1,0 +1,326 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:lanista",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Lanista",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/lanista/",
+      "title": "Lanista",
+      "archiveSha256": "d53c6e5a8abf5ca436a18a4aeb12f54e00e3b1693e5346782745f35290dfce8f",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:lanista:feature:class-skills",
+        "name": "Class Skills",
+        "atLevel": 1,
+        "description": "A lanista gains Perception to his list of class skills. This replaces Handle Animal as a class skill.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Skills",
+            "locator": "class-skills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:feature:know-your-enemy",
+        "name": "Know Your Enemy",
+        "atLevel": 1,
+        "description": "Beginning of 1st level, by taking the time to study his foes, the lanista gains insight into their weaknesses. As a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), he may study a foe he can see and make a Perception check (DC 10 + the target\u2019s HD). Success grants him a +1 insight bonus against his enemy. This insight bonus may be applied to one of the following stances, chosen when the check is made:\n\n* *Martial stance:*\u00a0Attack and damage rolls against the target. At 10th level, the lanista is treated as having the [Critical Focus](https://www.d20pfsrd.com/feats/combat-feats/critical-focus-combat/) feat for the purpose of attacks against the studied foe.\n* *Defensive stance:*\u00a0Armor Class and saving throws against the target\u2019s attacks. At 10th level, the lanista is treated as having the [Mobility](https://www.d20pfsrd.com/feats/combat-feats/mobility-combat-final/) feat when provoking attacks of opportunity from the studied foe.\n* *Tactical stance:*\u00a0CMB and CMD when initiating or defending against bull rush, disarm, grapple, overrun, and trip combat maneuvers. At 10th level, the lanista no longer provokes attacks of opportunity from a studied foe when attempting to bull rush, disarm, grapple, overrun, or trip that target. This does not affect attacks of opportunity made by any creature other than the studied foe.\n\nA lanista may change his stance as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). The bonus lasts for 1 minute per warrior level or until the lanista uses this ability on another target. The bonus increases by +1 at 6th, 10th, 12th, and 20th level. At 10th level, the lanista can use this ability as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) rather than a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move).\n\nThis ability replaces martial flexibility.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Know Your Enemy",
+            "locator": "know-your-enemy"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:feature:martial-flexibility",
+        "name": "Martial Flexibility",
+        "atLevel": 5,
+        "description": "At 5th level, the lanista can use a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) to gain the benefit of a combat feat he doesn\u2019t possess. This effect lasts for 1 minute. The lanista must otherwise meet all the feat\u2019s prerequisites. He can use this ability a number of times per day equal to 3 + half his warrior level.\n\nThe lanista can use this ability again before the duration expires in order to replace the previous combat feat with another choice. If a combat feat has a daily use limitation (such as Stunning Fist), any uses of that combat feat while using this ability count toward that feat\u2019s daily limit. At later levels, when he gains multiple feats through this ability, the lanista can use those feats to meet the prerequisites of other feats he gains with this ability. Doing so means he cannot replace a feat currently fulfilling another\u2019s prerequisite without also replacing those feats that require it. Each individual feat selected counts toward his daily uses of this ability.\n\nAt 8th level, a lanista can use this ability to gain the benefit of two combat feats at the same time. He can select one feat as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) or two feats as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). At 11th level, a lanista can use this ability to gain the benefit of three combat feats at the same time. He can select one feat as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), two feats as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), or three feats as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). At 14th level, a lanista can use this ability to gain the benefit of one combat feat as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) or three combat feats as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). At 17th level, a lanista can use this ability to gain the benefit of any number of combat feats as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nThis ability replaces additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Flexibility",
+            "locator": "martial-flexibility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:feature:leaping-attack",
+        "name": "Leaping Attack",
+        "atLevel": 7,
+        "description": "At 7th level, when a lanista moves at least 5 feet prior to attacking, he gains a +1 bonus on attack and damage rolls. This bonus increases by +1 for every four levels beyond 7th.\n\nThis ability replaces additional techs III.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Leaping Attack",
+            "locator": "leaping-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:feature:telling-blow",
+        "name": "Telling Blow",
+        "atLevel": 9,
+        "description": "At 9th level, a lanista can aim his blows at the weakest point in a studied foe\u2019s defense, ignoring up to 3 points of damage reduction. This does not apply to damage reduction without a type (such as DR 10/\u2014). This ability cannot be used against creatures that are immune to critical hits or otherwise lack discernible weak points. This ability stacks with the Penetrating Strike feat.\n\nThis ability replaces additional techs IV.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Telling Blow",
+            "locator": "telling-blow"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:feature:deadly-critical",
+        "name": "Deadly Critical",
+        "atLevel": 13,
+        "description": "At 13th level, when a lanista confirms a critical hit with a weapon from his chosen weapon group, he can increase the weapon\u2019s damage multiplier by +1 as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate). He can use this ability once per day at 13th level, plus one additional time per day for every three levels above 13th.\n\nThis ability replaces improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deadly Critical",
+            "locator": "deadly-critical"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:feature:whirlwind-blitz",
+        "name": "Whirlwind Blitz",
+        "atLevel": 20,
+        "description": "At 20th level, a lanista can make a full-attack action as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). He may also use the [Whirlwind Attack](https://www.d20pfsrd.com/feats/combat-feats/whirlwind-attack-combat-final/) feat as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard).\n\nThis ability replaces weapon mastery.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Whirlwind Blitz",
+            "locator": "whirlwind-blitz"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:lanista:replacement:know-your-enemy:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:martial-flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:lanista:feature:know-your-enemy"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Know Your Enemy",
+            "locator": "know-your-enemy"
+          }
+        ],
+        "description": "This ability replaces martial flexibility."
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:replacement:martial-flexibility:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:lanista:feature:martial-flexibility"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Flexibility",
+            "locator": "martial-flexibility"
+          }
+        ],
+        "description": "This ability replaces additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:replacement:leaping-attack:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:lanista:feature:leaping-attack"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Leaping Attack",
+            "locator": "leaping-attack"
+          }
+        ],
+        "description": "This ability replaces additional techs III."
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:replacement:telling-blow:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:lanista:feature:telling-blow"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Telling Blow",
+            "locator": "telling-blow"
+          }
+        ],
+        "description": "This ability replaces additional techs IV."
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:replacement:deadly-critical:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:lanista:feature:deadly-critical"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deadly Critical",
+            "locator": "deadly-critical"
+          }
+        ],
+        "description": "This ability replaces improved rush."
+      },
+      {
+        "id": "ffd20:archetype:warrior:lanista:replacement:whirlwind-blitz:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-mastery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:lanista:feature:whirlwind-blitz"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Whirlwind Blitz",
+            "locator": "whirlwind-blitz"
+          }
+        ],
+        "description": "This ability replaces weapon mastery."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "intimidate",
+        "knowledge:dungeoneering",
+        "profession:*",
+        "ride",
+        "survival",
+        "swim",
+        "perception"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:warrior:lanista:feature:martial-flexibility",
+        "base": 3,
+        "perLevel": 0.5,
+        "minimum": 0
+      }
+    ],
+    "extraOptions": []
+  }
+}

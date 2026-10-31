@@ -1,0 +1,392 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:feral-guardian",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Feral Guardian",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/feral-guardian/",
+      "title": "Feral Guardian",
+      "archiveSha256": "0b49cad99b246ba798ed90caf74fbb07a1af02139c7a1c60d50096c72e842964",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:feature:finisher-amendments",
+        "name": "Finisher amendments",
+        "atLevel": 1,
+        "description": "The feral guardian\u2019s warrior limit breaks no longer need chosen weapon to function.\n\nThis ability modifies the warrior\u2019s standard limit breaks.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:feature:animal-companion",
+        "name": "Animal Companion",
+        "atLevel": 1,
+        "description": "At 1st level, a feral guardian gains an animal companion, treating his warrior level as his effective beastmaster level for the purpose of this ability.\n\nThis ability replaces chosen weapon.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Companion",
+            "locator": "animal-companion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:feature:share-training",
+        "name": "Share Training",
+        "atLevel": 2,
+        "description": "At 2nd level, when the animal companion can see and hear its master, it can use any combat feat possessed by the feral guardian. The animal companion doesn\u2019t have to meet the feat\u2019s prerequisites, but at the GM\u2019s discretion may be precluded from using certain combat feats due to its physical form. For example, a feral guardian\u2019s wolf companion with access to Exotic Weapon Proficiency (spiked chain) would not gain the ability to use spiked chains, since it doesn\u2019t have any limbs capable of properly handling them.\n\nThis ability replaces combat offenses.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Share Training",
+            "locator": "share-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:feature:warrior-talents",
+        "name": "Warrior Talents",
+        "atLevel": 2,
+        "description": "At 2nd level, a feral guardian loses access to any warrior talent that interacts with chosen weapon, but instead gains access to beastmaster tricks, treating his warrior level as his effective beastmaster level for the purpose of this ability.\n\nThis ability may replace warrior talents.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Warrior Talents",
+            "locator": "warrior-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:feature:nature-sense",
+        "name": "Nature Sense",
+        "atLevel": 3,
+        "description": "At 3rd level, a feral guardian gains a +2 bonus on Knowledge (nature) and Survival checks.\n\nThis ability replace chosen knowledge.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Nature Sense",
+            "locator": "nature-sense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:feature:critical-aim",
+        "name": "Critical Aim",
+        "atLevel": 14,
+        "description": "A feral guardian\u2019s animal companion gains the bonus to critical hit range with its natural attacks instead.\n\nThis ability modifies critical aim.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Critical Aim",
+            "locator": "critical-aim"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:feature:assured-crits",
+        "name": "Assured Crits",
+        "atLevel": 16,
+        "description": "A feral guardian\u2019s animal companion gains the bonus to critical hit confirmations with its natural attacks instead.\n\nThis ability modifies assured crits.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assured Crits",
+            "locator": "assured-crits"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:replacement:limit-breaks:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:critical-strikes",
+          "ffd20:class:warrior:feature:omnistrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:feral-guardian:feature:finisher-amendments"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ],
+        "description": "This ability modifies the warrior\u2019s standard limit breaks."
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:replacement:animal-companion:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-weapon"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:feral-guardian:feature:animal-companion"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Companion",
+            "locator": "animal-companion"
+          }
+        ],
+        "description": "This ability replaces chosen weapon."
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:replacement:share-training:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-offenses"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:feral-guardian:feature:share-training"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Share Training",
+            "locator": "share-training"
+          }
+        ],
+        "description": "This ability replaces combat offenses."
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:replacement:warrior-talents:0",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2",
+          "ffd20:class:warrior:event:warrior-talents:4",
+          "ffd20:class:warrior:event:warrior-talents:6",
+          "ffd20:class:warrior:event:warrior-talents:8",
+          "ffd20:class:warrior:event:warrior-talents:10",
+          "ffd20:class:warrior:event:warrior-talents:12",
+          "ffd20:class:warrior:event:warrior-talents:14",
+          "ffd20:class:warrior:event:warrior-talents:16",
+          "ffd20:class:warrior:event:warrior-talents:18",
+          "ffd20:class:warrior:event:warrior-talents:20"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:feral-guardian:feature:warrior-talents"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Warrior Talents",
+            "locator": "warrior-talents"
+          }
+        ],
+        "description": "This ability may replace warrior talents."
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:replacement:nature-sense:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:feral-guardian:feature:nature-sense"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Nature Sense",
+            "locator": "nature-sense"
+          }
+        ],
+        "description": "This ability replace chosen knowledge."
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:replacement:critical-aim:0",
+        "atClassLevel": 14,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:critical-aim"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:feral-guardian:feature:critical-aim"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Critical Aim",
+            "locator": "critical-aim"
+          }
+        ],
+        "description": "This ability modifies critical aim."
+      },
+      {
+        "id": "ffd20:archetype:warrior:feral-guardian:replacement:assured-crits:0",
+        "atClassLevel": 16,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:assured-crits"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:feral-guardian:feature:assured-crits"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assured Crits",
+            "locator": "assured-crits"
+          }
+        ],
+        "description": "This ability modifies assured crits."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "excludedOptionNames": [
+        "Adept: Abundant Tactics",
+        "Adept: Formidable",
+        "Adept: High Reflexes",
+        "Adept: Lightning Speed",
+        "Adept: Sacrifice Weapon",
+        "Adept: Stable Footing",
+        "Debilitating Assault",
+        "Melee Power",
+        "Melee Tenacity",
+        "Rain of Blows",
+        "Warrior Spirit",
+        "Weapon Aptitude",
+        "Adept: Antimagic Tactics",
+        "Adept: Armed Maneuver",
+        "Adept: Critical Specialty",
+        "Adept: Flanking Leader",
+        "Adept: Flash Feint",
+        "Adept: Graceful Blows",
+        "Adept: Graceful Throw",
+        "Adept: Retaliation Expert",
+        "Adept: Sever Influence",
+        "Adept: Spell Parry",
+        "Arsenal",
+        "Heroic Assault",
+        "Martial Arts Master"
+      ]
+    },
+    "resources": [],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:warrior:pool:warrior-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:feral-guardian:option:beastmaster-trick-manual-choice",
+            "name": "Beastmaster trick (manual choice)",
+            "description": "At 2nd level, a feral guardian loses access to any warrior talent that interacts with chosen weapon, but instead gains access to beastmaster tricks, treating his warrior level as his effective beastmaster level for the purpose of this ability.\n\nThis ability may replace warrior talents.\nManual selection: write the exact selected option/feat and verify its prerequisites on existing sheet entries.",
+            "minimumLevel": 2,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Beastmaster trick (manual choice)",
+                "locator": "beastmaster-trick-manual-choice"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/feral-guardian/",
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ]
+  }
+}

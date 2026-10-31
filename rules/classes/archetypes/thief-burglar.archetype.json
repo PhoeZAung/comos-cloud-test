@@ -1,0 +1,673 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:burglar",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Burglar",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/",
+      "title": "Burglar",
+      "archiveSha256": "b26abe9d723ade9131cf6bc0f4ae2c3a1c3eed18c534853463f038cbb4b14c52",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:burglar:feature:touch-and-go",
+        "name": "Touch and Go",
+        "atLevel": 1,
+        "description": "At 1st level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the burglar restores a number of hit points equal to his thief level + his Constitution modifier and gains a +1 dodge bonus to AC plus an additional +1 bonus per four thief levels after 1st for a number of rounds equal to his Intelligence modifier (minimum of 1). The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier.\n\nThis ability replaces mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch and Go",
+            "locator": "touch-and-go"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:feature:burglar-tricks",
+        "name": "Burglar Tricks",
+        "atLevel": 2,
+        "description": "Starting at 2nd level, a burglar learns a number of tricks to confound his foes. At 2nd level and every two thief levels thereafter, he learns a new burglar trick. A burglar cannot select an individual trick more than once.\n\n*Addle ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), the burglar can addle the brains of a spellcasting foe within 30 feet. The foe must make a Will save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) or the current spell is interrupted (expending MP as normal) and for a number of rounds equal to the burglar\u2019s Intelligence modifier, the spellcaster\u2019s spells require a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) to cast (if a spellcaster already casts spells as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), this doesn\u2019t affect them). The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier.\n\n*Aimed Strike ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the burglar takes careful aim, striking where it hurts the most. The burglar makes a melee attack at his highest BAB + 4. If he hits, he critically threatens and gains a +4 bonus to confirm. **Prerequisite:** The burglar must be at least 8th level to select this trick.\n\n*All In ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the burglar can go all-in, increasing his physical prowess and maneuverability. The burglar increases all melee weapon damage by half and gains a +4 dodge bonus to AC for 2 rounds. If the burglar has not dropped anyone by the time this ability ends, he becomes fatigued, his melee damage decreases by half, and he suffers a -4 penalty to his AC for 1 minute. **Prerequisite:** The burglar must be at least 6th level to select this trick.\n\n*Burglar\u2019s Antidote ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the burglar can cure effects that ail him, removing the two effects of either Disease, Bleeding, Fear, or Poison. The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier. **Prerequisite:** The burglar must be at least 6th level to select this trick.\n\n*Cunning Attack ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* Once per round, if a burglar attacks a foe that is flat-footed to him, he deals normal damage plus a number of bleeding wounds equal to his Sneak Attack dice. These wounds are much harder to heal, it requires healing of hit points equal to bleeding damage inflicted. For example, if a creature took 9 bleeding damage over the course of 3 rounds, he would need to heal 9 hit points to get rid of the bleeding attack.\n\n*Exploit Opening ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the burglar makes a melee touch attack against a foe. If it hits, the foe is stunned for 1 round unless a Fortitude save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) is made. In addition, for a number of rounds equal to his Intelligence modifier, the foe is considered weak against physical damage, meaning they take 1.5x damage when subjected to physical damage. **Prerequisite:** The burglar must be at least 10th level to select this trick.\n\n*Find Footing ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* If dazed, stunned, or disabled, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), the burglar can use this trick to snap out of it, removing the status effect. The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier. **Prerequisite:** The burglar must be at least 6th level to select this trick.\n\n*Knives Out ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the burglar enters a counterattack stance. Until the start of his next turn, he loses all dodge and Dexterity bonuses to AC, gains damage reduction of 10/- (does not stack with any other damage reduction), and all physical damage dealt to him is reflected back at the attacker equal to 30% of the damage (before damage reduction). **Prerequisite:** The burglar must be at least 8th level to select this trick.\n\n*Provoke ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the burglar can provoke a foe within 30 feet to attack him. The burglar makes an Intimidate skill check against a DC of 10 + the CR of a creature + their Sense Motive or Wisdom modifier. If successful, the foe must attack the burglar, but the burglar gains a DR of 5/- (does not stack with any other damage reduction) and a +1 bonus to his critical hit range for the next round.\n\n*Reveal Weakness ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the burglar can reveal the weaknesses of 1 foe within 30 feet. The foe must make a Fortitude save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) or for a number of rounds equal to the burglar\u2019s Intelligence modifier, the foe takes 1d6 points of extra [precision damage](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#precision-damage) from any physical attack.\n\n*Riddle ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the burglar confounds a foe within 30 feet with a riddle that causes the foe to become dazed for 1 round, with a Will save (DC 10 + half of the thief\u2019s level + his Intelligence modifier). The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier.\n\n*Stealth Strike ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the burglar makes a powerful attack that potentially allows him to stealth from view. The burglar makes a melee attack at his highest BAB. If he hits, he deals 3x weapon damage and marks the opponent for 1 round. If the opponent dies before the mark disappears, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) that can be used outside of the burglar\u2019s turn, he may Stealth. **Prerequisite:** The burglar must be at least 6th level to select this trick.\n\n*Subtle Stab ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* If adjacent to a foe during a surprise round in which the burglar is not surprised or can act in a surprise round, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), he can make 1 melee attack against that foe.\n\n*Surprise Strike ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* Once per round, if a burglar attacks a foe that is flat-footed, he deals an extra 2d6 points of [precision damage](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#precision-damage). In addition, the critical hit range and multiplier increases by 1 (applied after all other effects that modify critical hit range and multiplier, to a maximum of x4) for this attack.\n\n*Tripped Strike ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the burglar moves in such a way to trip up his opponent. The burglar makes a melee attack. If he hits, he deals normal damage and causes the opponent to fall prone and become stunned for 1 round unless he makes a Fortitude save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) to negate being stunned.\n\nThese abilities replace thief talents and advanced thief talents.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Burglar Tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:feature:cash-out",
+        "name": "Cash Out",
+        "atLevel": 4,
+        "description": "At 4th, level the burglar can set up and later capitalize upon a foe. As a standard action, he makes an attack that deals damage as normal, though it cannot be a critical hit. On a successful hit, it also applies either Blind Bet, Hedge Your Bets, or Lucky Strike for a number of rounds equal to the burglar\u2019s Intelligence modifier. If the target is already suffering from one of these ailments, the burglar may instead remove it to cause a more severe effect.\n\n* **Blind Bet ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):** When applied, roll a 1d4. The foe takes a penalty to attack and damage rolls equal to the die roll. When removed by the burglar, the foe is dazed for a number of rounds equal to the die roll.\n* **Hedge Your Bets ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):** When applied, roll a 1d4. All allies that attack this foe restore a number of hit points equal to the die roll. When removed by the burglar, the burglar is healed for 2d6 hit points times the die roll.\n* **Lucky Strike ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** When applied, roll a 1d4. The foe takes points of damage equal to the die roll every round. When removed by the burglar, the foe takes 2d6 points of [precision damage](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#precision-damage) times the die roll.\n\nThis ability replaces debilitating injury.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Cash Out",
+            "locator": "cash-out"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:burglar:replacement:touch-and-go:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:burglar:feature:touch-and-go"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch and Go",
+            "locator": "touch-and-go"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:replacement:burglar-tricks:1",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-advanced-talents",
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:burglar:feature:burglar-tricks"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "thief talents and advanced thief talents",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Burglar Tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:replacement:cash-out:1",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:debilitating-injury"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:burglar:feature:cash-out"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "debilitating injury",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Cash Out",
+            "locator": "cash-out"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:burglar-tricks:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:thief:burglar:pool:burglar-tricks"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "burglar-tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:grant:touch-and-go",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:burglar:feature:touch-and-go",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch and Go",
+            "locator": "touch-and-go"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:grant:burglar-tricks",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:burglar:feature:burglar-tricks",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Burglar Tricks",
+            "locator": "burglar-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:burglar:event:grant:cash-out",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:burglar:feature:cash-out",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Cash Out",
+            "locator": "cash-out"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:thief:burglar:pool:burglar-tricks",
+        "name": "Burglar Tricks",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:addle",
+            "name": "Addle",
+            "description": "As an immediate action, the burglar can addle the brains of a spellcasting foe within 30 feet. The foe must make a Will save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) or the current spell is interrupted (expending MP as normal) and for a number of rounds equal to the burglar\u2019s Intelligence modifier, the spellcaster\u2019s spells require a full-round action to cast (if a spellcaster already casts spells as a full-round action, this doesn\u2019t affect them). The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:aimed-strike",
+            "name": "Aimed Strike",
+            "description": "As a standard action, the burglar takes careful aim, striking where it hurts the most. The burglar makes a melee attack at his highest BAB + 4. If he hits, he critically threatens and gains a +4 bonus to confirm. Prerequisite: The burglar must be at least 8th level to select this trick.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:all-in",
+            "name": "All In",
+            "description": "As a swift action, the burglar can go all-in, increasing his physical prowess and maneuverability. The burglar increases all melee weapon damage by half and gains a +4 dodge bonus to AC for 2 rounds. If the burglar has not dropped anyone by the time this ability ends, he becomes fatigued, his melee damage decreases by half, and he suffers a -4 penalty to his AC for 1 minute. Prerequisite: The burglar must be at least 6th level to select this trick.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:burglars-antidote",
+            "name": "Burglar\u2019s Antidote",
+            "description": "As a swift action, the burglar can cure effects that ail him, removing the two effects of either Disease, Bleeding, Fear, or Poison. The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier. Prerequisite: The burglar must be at least 6th level to select this trick.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:cunning-attack",
+            "name": "Cunning Attack",
+            "description": "Once per round, if a burglar attacks a foe that is flat-footed to him, he deals normal damage plus a number of bleeding wounds equal to his Sneak Attack dice. These wounds are much harder to heal, it requires healing of hit points equal to bleeding damage inflicted. For example, if a creature took 9 bleeding damage over the course of 3 rounds, he would need to heal 9 hit points to get rid of the bleeding attack.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:exploit-opening",
+            "name": "Exploit Opening",
+            "description": "As a standard action, the burglar makes a melee touch attack against a foe. If it hits, the foe is stunned for 1 round unless a Fortitude save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) is made. In addition, for a number of rounds equal to his Intelligence modifier, the foe is considered weak against physical damage, meaning they take 1.5x damage when subjected to physical damage. Prerequisite: The burglar must be at least 10th level to select this trick.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:find-footing",
+            "name": "Find Footing",
+            "description": "If dazed, stunned, or disabled, as a free action, the burglar can use this trick to snap out of it, removing the status effect. The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier. Prerequisite: The burglar must be at least 6th level to select this trick.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:knives-out",
+            "name": "Knives Out",
+            "description": "As a swift action, the burglar enters a counterattack stance. Until the start of his next turn, he loses all dodge and Dexterity bonuses to AC, gains damage reduction of 10/- (does not stack with any other damage reduction), and all physical damage dealt to him is reflected back at the attacker equal to 30% of the damage (before damage reduction). Prerequisite: The burglar must be at least 8th level to select this trick.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:provoke",
+            "name": "Provoke",
+            "description": "As a swift action, the burglar can provoke a foe within 30 feet to attack him. The burglar makes an Intimidate skill check against a DC of 10 + the CR of a creature + their Sense Motive or Wisdom modifier. If successful, the foe must attack the burglar, but the burglar gains a DR of 5/- (does not stack with any other damage reduction) and a +1 bonus to his critical hit range for the next round.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:reveal-weakness",
+            "name": "Reveal Weakness",
+            "description": "As a swift action, the burglar can reveal the weaknesses of 1 foe within 30 feet. The foe must make a Fortitude save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) or for a number of rounds equal to the burglar\u2019s Intelligence modifier, the foe takes 1d6 points of extra precision damage from any physical attack.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:riddle",
+            "name": "Riddle",
+            "description": "As a swift action, the burglar confounds a foe within 30 feet with a riddle that causes the foe to become dazed for 1 round, with a Will save (DC 10 + half of the thief\u2019s level + his Intelligence modifier). The burglar can use this ability a number of times per day equal to 3 + his Intelligence modifier.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:stealth-strike",
+            "name": "Stealth Strike",
+            "description": "As a standard action, the burglar makes a powerful attack that potentially allows him to stealth from view. The burglar makes a melee attack at his highest BAB. If he hits, he deals 3x weapon damage and marks the opponent for 1 round. If the opponent dies before the mark disappears, as a free action that can be used outside of the burglar\u2019s turn, he may Stealth. Prerequisite: The burglar must be at least 6th level to select this trick.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:subtle-stab",
+            "name": "Subtle Stab",
+            "description": "If adjacent to a foe during a surprise round in which the burglar is not surprised or can act in a surprise round, as a free action, he can make 1 melee attack against that foe.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:surprise-strike",
+            "name": "Surprise Strike",
+            "description": "Once per round, if a burglar attacks a foe that is flat-footed, he deals an extra 2d6 points of precision damage. In addition, the critical hit range and multiplier increases by 1 (applied after all other effects that modify critical hit range and multiplier, to a maximum of x4) for this attack.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          },
+          {
+            "id": "ffd20:archetype:thief:burglar:option:burglar-tricks:tripped-strike",
+            "name": "Tripped Strike",
+            "description": "As a standard action, the burglar moves in such a way to trip up his opponent. The burglar makes a melee attack. If he hits, he deals normal damage and causes the opponent to fall prone and become stunned for 1 round unless he makes a Fortitude save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) to negate being stunned.\n\nThese abilities replace thief talents and advanced thief talents.\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Burglar Tricks",
+                "locator": "burglar-tricks"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:thief:burglar:feature:touch-and-go",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "int",
+        "minimum": 0
+      }
+    ],
+    "profile": {},
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

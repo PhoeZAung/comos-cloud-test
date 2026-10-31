@@ -1,0 +1,469 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:heavyweight",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Heavyweight",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/heavyweight/",
+      "title": "Heavyweight",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "8b7b82889450c9a3e8be318cf30eef3799d44ead415a30b40637144692be507f"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:heavy-hand",
+        "name": "Heavy Hand",
+        "atLevel": 1,
+        "description": "At 1st level, the heavyweight receives the [Power Attack](https://www.d20pfsrd.com/feats/combat-feats/power-attack-combat/) feat as a bonus feat. She may only use this feat with her unarmed strikes, or with weapons with the monk special quality. In addition, a heavyweight adds a +1 bonus to Power Attack damage and combat maneuver rolls for grappling when she uses her unarmed strikes or weapons with the monk special quality. At 5th level, and every 4 monk levels thereafter, this bonus increases by 1, to a maximum of +5 at 17th level.\n\nThis ability replaces flying kick.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heavy Hand",
+            "locator": "heavy-hand"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:girthy-grappler",
+        "name": "Girthy Grappler",
+        "atLevel": 3,
+        "description": "At 3rd level, a heavyweight suffers no penalties to attack rolls while grappling, can make attacks of opportunity while grappling, and retains her Dexterity bonus to AC when pinning an opponent or when grappled.\n\nThis ability replaces the blitz technique gained at level 3.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Girthy Grappler",
+            "locator": "girthy-grappler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:combatant-s-chakra",
+        "name": "Combatant\u2019s Chakra",
+        "atLevel": 5,
+        "description": "At 5th level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), a heavyweight can spend 1 ki point from her ki pool to grant herself temporary hit points. She gains temporary hit points equal to her Constitution modifier times the number of enemies within her reach (minimum 1 temporary hit point). These temporary hit points last for a number of rounds equal to her Constitution modifier.\n\nThis ability replaces zen.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combatant\u2019s Chakra",
+            "locator": "combatant-s-chakra"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:double-fisting",
+        "name": "Double Fisting",
+        "atLevel": 9,
+        "description": "At 9th level, by spending a ki point from her ki pool, the heavyweight can perform a grapple against 2 different targets within her reach as part of the same action. She makes a single combat maneuver check, and it applies to all targets. When she has multiple targets grappled at once, the heavyweight can use the same action and combat maneuver check against all targets to maintain the grapple (and affect them all with pinning attempts, dragging, etc).\n\nThis ability replaces the blitz technique gained at level 9.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Double Fisting",
+            "locator": "double-fisting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:come-here",
+        "name": "Come Here!",
+        "atLevel": 10,
+        "description": "At 10th level, when making a grapple combat maneuver, the heavyweight may double her natural reach (she still moves creatures she grapples to an open adjacent square). If she does so, she takes a -2 penalty to AC until the start of her next turn.\n\nThis ability replaces formless strikes.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Come Here!",
+            "locator": "come-here"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:bear-hold",
+        "name": "Bear Hold",
+        "atLevel": 15,
+        "description": "At 15th level, the heavyweight can perform a grapple against all creatures within her reach by using double fisting, but attempting to do so against more than 2 creatures is a full round action.\n\nThis ability replaces the blitz technique gained at level 15.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bear Hold",
+            "locator": "bear-hold"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:inescapable-grasp",
+        "name": "Inescapable Grasp",
+        "atLevel": 17,
+        "description": "At 17th level, the heavyweight can spend 1 ki point from her ki pool as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to suppress her opponents\u2019 [*freedom of movement*](https://www.finalfantasyd20.com/magic/spells/f/freedom-of-movement/) and magical bonuses to Escape Artist or on checks to escape a grapple until the start of her next turn. In addition, her unarmed strikes gain the [ghost touch](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/ghost-touch/) special ability, and she can make a free grapple attempt once per round at the end of her flurry of blows.\n\nThis ability replaces fleet footwork.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inescapable Grasp",
+            "locator": "inescapable-grasp"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:heavy-master",
+        "name": "Heavy Master",
+        "atLevel": 20,
+        "description": "At 20th level, a heavyweight reaches the pinnacle of her fighting style. She doubles her Strength modifier for damage when using Power Attack, and she gains DR/- 2. This DR stacks with DR from other sources, such as her Inner Strength class feature.\n\nThis ability replaces perfect self.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heavy Master",
+            "locator": "heavy-master"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:heavyweight:replacement:heavy-hand",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:heavyweight:feature:heavy-hand"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heavy Hand",
+            "locator": "heavy-hand"
+          }
+        ],
+        "description": "flying kick"
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:replacement:girthy-grappler:events",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:3"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:heavyweight:feature:girthy-grappler"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Girthy Grappler",
+            "locator": "girthy-grappler"
+          }
+        ],
+        "description": "the blitz technique gained at level 3"
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:replacement:combatant-s-chakra",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:zen"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:heavyweight:feature:combatant-s-chakra"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combatant\u2019s Chakra",
+            "locator": "combatant-s-chakra"
+          }
+        ],
+        "description": "zen"
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:replacement:double-fisting:events",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:9"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:heavyweight:feature:double-fisting"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Double Fisting",
+            "locator": "double-fisting"
+          }
+        ],
+        "description": "the blitz technique gained at level 9"
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:replacement:come-here",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:formless-strikes"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:heavyweight:feature:come-here"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Come Here!",
+            "locator": "come-here"
+          }
+        ],
+        "description": "formless strikes"
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:replacement:bear-hold:events",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:15"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:heavyweight:feature:bear-hold"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bear Hold",
+            "locator": "bear-hold"
+          }
+        ],
+        "description": "the blitz technique gained at level 15"
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:replacement:inescapable-grasp",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:fleet-footwork"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:heavyweight:feature:inescapable-grasp"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inescapable Grasp",
+            "locator": "inescapable-grasp"
+          }
+        ],
+        "description": "fleet footwork"
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:replacement:heavy-master",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:perfect-self"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:heavyweight:feature:heavy-master"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heavy Master",
+            "locator": "heavy-master"
+          }
+        ],
+        "description": "perfect self"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:heavy-hand:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:heavyweight:feature:heavy-hand",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heavy Hand",
+            "locator": "heavy-hand"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:girthy-grappler:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:heavyweight:feature:girthy-grappler",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Girthy Grappler",
+            "locator": "girthy-grappler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:combatant-s-chakra:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:heavyweight:feature:combatant-s-chakra",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combatant\u2019s Chakra",
+            "locator": "combatant-s-chakra"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:double-fisting:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:heavyweight:feature:double-fisting",
+        "atClassLevel": 9,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Double Fisting",
+            "locator": "double-fisting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:come-here:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:heavyweight:feature:come-here",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Come Here!",
+            "locator": "come-here"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:bear-hold:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:heavyweight:feature:bear-hold",
+        "atClassLevel": 15,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bear Hold",
+            "locator": "bear-hold"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:inescapable-grasp:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:heavyweight:feature:inescapable-grasp",
+        "atClassLevel": 17,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inescapable Grasp",
+            "locator": "inescapable-grasp"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:heavyweight:feature:heavy-master:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:heavyweight:feature:heavy-master",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heavy Master",
+            "locator": "heavy-master"
+          }
+        ]
+      }
+    ],
+    "resources": [],
+    "profile": {},
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

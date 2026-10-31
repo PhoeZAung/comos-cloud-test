@@ -1,0 +1,609 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:draconic-warrior",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Draconic Warrior",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/draconic-warrior/",
+      "title": "Draconic Warrior",
+      "archiveSha256": "c0d41b00b7a2042c16658defe37171e56c74c55cdd307f88438144c234c78e7b",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:dragonblood",
+        "name": "Dragonblood",
+        "atLevel": 1,
+        "description": "A draconic warrior chooses a specific element: Dark, Earth, Fire, Ice, Light, Lightning, Water, or Wind.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonblood",
+            "locator": "dragonblood"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:natural-weapons",
+        "name": "Natural Weapons",
+        "atLevel": 1,
+        "description": "At 1st level, a draconic warrior gains a +1 bonus on attack and damage rolls with all natural weapons. The bonus improves by +1 for every four warrior levels beyond 1st. This ability counts as chosen weapon for talent purposes.\n\nThis ability alters chosen weapon.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Natural Weapons",
+            "locator": "natural-weapons"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:claws",
+        "name": "Claws",
+        "atLevel": 1,
+        "description": "At 1st level, the draconic warrior grow claws.\n\nThese claws are treated as natural weapons, allowing him to make two claw attacks as a full attack, using his full base attack bonus. These attacks deal 1d4 points of damage each (1d3 if he is Small) plus his Strength modifier.\n\nAt 4th level, these claws are considered magic weapons for the purpose of overcoming damage reduction. At 8th level, the damage increases to 1d6 points (1d4 if he is Small). At 12th level, these claws deal an additional 1d6 points of damage of his element type on a hit.\n\nThis ability replaces combat defenses and improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Claws",
+            "locator": "claws"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:bite",
+        "name": "Bite",
+        "atLevel": 2,
+        "description": "At 2nd level, whenever the draconic warrior grows claws, he also gains a bite attack. This is a primary natural attack that deals 1d6 points of damage (1d4 if he is Small), plus 1\u20131/2 times his Strength modifier. Upon reaching 6th level, this bite also deals 1d6 points of damage of his element type on a hit.\n\nThis ability replaces combat offenses.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bite",
+            "locator": "bite"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:draconic-elemental-defences",
+        "name": "Draconic Elemental Defences",
+        "atLevel": 3,
+        "description": "At 3rd level, the draconic warrior becomes acutely aware of elemental attacks. The draconic warrior gets a +1 bonus on all [saving throws](https://www.d20pfsrd.com/GAMEMASTERING/COMBAT/#saving_throws) against spells and effects that deal his chosen elemental type, or are of the elemental subschool for their chosen element. This bonus increases by +1 every four levels thereafter.\n\nThis ability replaces warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Elemental Defences",
+            "locator": "draconic-elemental-defences"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:dragon-resistances",
+        "name": "Dragon Resistances",
+        "atLevel": 4,
+        "description": "At 4th level, the draconic warrior gains resist 5 against his element type and a +1 natural armor bonus. At 9th level, his elemental resistance increases to 10 and natural armor bonus increases to +2. At 14th level, his elemental resistance increases to 15 and natural armor bonus increases to +3. At 19th level, his elemental resistance increases to 20 and natural armor bonus increases to +4.\n\nThis ability replaces physical resilience.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Resistances",
+            "locator": "dragon-resistances"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:dragon-senses",
+        "name": "Dragon Senses",
+        "atLevel": 5,
+        "description": "The draconic warrior\u2019s senses take on a keen draconic edge. At 5th level, he can select darkvision with a range of 60 feet or low-light vision if he does not yet have both, or he can add 60 feet to the range of his darkvision. At 11th level, he gains blindsense with a range of 30 feet. If he already has blindsense, he instead increases its range by 30 feet. At 15th level, he gains either the scent ability or a +4 bonus on Perception checks.\n\nThis ability replaces additional tech II, weapon guard, weapon adaptation, and tenacious grip.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Senses",
+            "locator": "dragon-senses"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:scaled-toughness",
+        "name": "Scaled Toughness",
+        "atLevel": 7,
+        "description": "At 7th level, the draconic warrior can manifest the scaly toughness of dragonkind. Once per day as a swift action, he can harden his skin, giving it a scaly appearance and granting him DR 10/magic. During this time, he is also immune to paralysis and sleep effects. This effect lasts for a number of rounds equal to his warrior level. At 13th level, he can use this ability twice per day. At 19th level, he can use this ability three times per day.\n\nThis ability replaces additional techs III.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Scaled Toughness",
+            "locator": "scaled-toughness"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:tail-swipe",
+        "name": "Tail Swipe",
+        "atLevel": 8,
+        "description": "At 8th level, the draconic warrior expresses his wrath through sweeps of a wicked tail. He can grow a scaly tail. This tail can be used only to make attacks of opportunity, but it allows him to make one additional attack of opportunity each round. This tail attack deals an amount of bludgeoning damage equal to 1d6 (1d4 if he is Small, 2d6 if he is Large, or 3d6 if he is Huge) + half his Strength modifier. At 10th level, he can attempt a free trip combat maneuver check against any creature damaged by his tail attack. This does not provoke an attack of opportunity.\n\nThis ability replaces secure weaponry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tail Swipe",
+            "locator": "tail-swipe"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:breath-weapon",
+        "name": "Breath Weapon",
+        "atLevel": 9,
+        "description": "The primal power of dragonkind seethes within the draconic warrior. He gains a breath weapon. This breath weapon deals 1d6 points of damage of his element type per two warrior levels he has, a Reflex save (DC 10 + half of the warrior\u2019s level + his Constitution modifier) for half damage. The shape of the breath weapon is either a 30-foot cone or a 60-foot line, selected when he gets this ability. He can use this ability once per day at 9th level, plus one additional time at 14th level and 19th level.\n\nAt 10th level, a draconic warrior can use War Cry a number of times per day equal to 3 + his Constitution modifier, instead of spending stamina.\n\nThis ability replaces additional techs IV and weapon unity, and modifies war cry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Breath Weapon",
+            "locator": "breath-weapon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:wings",
+        "name": "Wings",
+        "atLevel": 11,
+        "description": "At 11th level, the draconic warrior can choose to have leathery wings grow from his back, giving him a fly speed of 60 feet with average maneuverability.\n\nThis ability replaces autonomic grasp.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Wings",
+            "locator": "wings"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:critical-aim",
+        "name": "Critical Aim",
+        "atLevel": 14,
+        "description": "A draconic warrior gains the bonus to his critical hit range with his natural weapons instead.\n\nThis ability modifies critical aim.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Critical Aim",
+            "locator": "critical-aim"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:assured-crits",
+        "name": "Assured Crits",
+        "atLevel": 16,
+        "description": "A draconic warrior gains the bonus to his critical hit confirmations with his natural weapons instead.\n\nThis ability modifies assured crits.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assured Crits",
+            "locator": "assured-crits"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:feature:power-of-wyrms",
+        "name": "Power of Wyrms",
+        "atLevel": 20,
+        "description": "At 20th level, the draconic warrior gains immunity to paralysis, sleep, and damage from his element type. He has these benefits constantly.\n\nThis ability replaces weapon mastery.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Power of Wyrms",
+            "locator": "power-of-wyrms"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:natural-weapons:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-weapon"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:natural-weapons"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Natural Weapons",
+            "locator": "natural-weapons"
+          }
+        ],
+        "description": "This ability alters chosen weapon."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:claws:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-defenses",
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:claws"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Claws",
+            "locator": "claws"
+          }
+        ],
+        "description": "This ability replaces combat defenses and improved rush."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:bite:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-offenses"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:bite"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bite",
+            "locator": "bite"
+          }
+        ],
+        "description": "This ability replaces combat offenses."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:draconic-elemental-defences:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-techniques",
+          "ffd20:class:warrior:feature:stamina-pool",
+          "ffd20:class:warrior:feature:delay-fatigue",
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:draconic-elemental-defences"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Elemental Defences",
+            "locator": "draconic-elemental-defences"
+          }
+        ],
+        "description": "This ability replaces warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:dragon-resistances:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:physical-resilience"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:dragon-resistances"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Resistances",
+            "locator": "dragon-resistances"
+          }
+        ],
+        "description": "This ability replaces physical resilience."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:dragon-senses:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii",
+          "ffd20:class:warrior:feature:weapon-adaption",
+          "ffd20:class:warrior:feature:tenacious-grip",
+          "ffd20:class:warrior:feature:weapon-guard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:dragon-senses"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Senses",
+            "locator": "dragon-senses"
+          }
+        ],
+        "description": "This ability replaces additional tech II, weapon guard, weapon adaptation, and tenacious grip."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:scaled-toughness:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:scaled-toughness"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Scaled Toughness",
+            "locator": "scaled-toughness"
+          }
+        ],
+        "description": "This ability replaces additional techs III."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:tail-swipe:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:secure-weaponry"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:tail-swipe"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tail Swipe",
+            "locator": "tail-swipe"
+          }
+        ],
+        "description": "This ability replaces secure weaponry."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:breath-weapon:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv",
+          "ffd20:class:warrior:feature:weapon-unity"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:breath-weapon"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Breath Weapon",
+            "locator": "breath-weapon"
+          }
+        ],
+        "description": "This ability replaces additional techs IV and weapon unity"
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:wings:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:autonomic-grasp"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:wings"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Wings",
+            "locator": "wings"
+          }
+        ],
+        "description": "This ability replaces autonomic grasp."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:critical-aim:0",
+        "atClassLevel": 14,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:critical-aim"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:critical-aim"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Critical Aim",
+            "locator": "critical-aim"
+          }
+        ],
+        "description": "This ability modifies critical aim."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:assured-crits:0",
+        "atClassLevel": 16,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:assured-crits"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:assured-crits"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assured Crits",
+            "locator": "assured-crits"
+          }
+        ],
+        "description": "This ability modifies assured crits."
+      },
+      {
+        "id": "ffd20:archetype:warrior:draconic-warrior:replacement:power-of-wyrms:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-mastery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:draconic-warrior:feature:power-of-wyrms"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Power of Wyrms",
+            "locator": "power-of-wyrms"
+          }
+        ],
+        "description": "This ability replaces weapon mastery."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "excludedOptionNames": [
+        "Axes",
+        "Blades, Heavy",
+        "Blades, Light",
+        "Close",
+        "Double",
+        "Flails",
+        "Hammers",
+        "Polearms",
+        "Spears",
+        "Tribal"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:class:warrior:feature:war-cry",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "con",
+        "minimum": 0
+      }
+    ],
+    "extraOptions": []
+  }
+}

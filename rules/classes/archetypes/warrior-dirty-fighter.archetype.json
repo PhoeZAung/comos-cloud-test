@@ -1,0 +1,214 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:dirty-fighter",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Dirty Fighter",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/dirty-fighter/",
+      "title": "Dirty Fighter",
+      "archiveSha256": "3aa0301032cc8bf31f7517e80f55d77175c6f93274f04dc15fe082e1c5561c24",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:dirty-fighter:feature:sidestep",
+        "name": "Sidestep",
+        "atLevel": 2,
+        "description": "At 2nd level, a dirty warrior learns how to evade his enemies when they react to his combat maneuvers. He gains a +1 dodge bonus to his AC against attacks of opportunity provoked by him while attempting a combat maneuver. This bonus increases by +1 for every four levels beyond 2nd level.\n\nThis ability replaces a warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sidestep",
+            "locator": "sidestep"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:dirty-fighter:feature:maneuver-training",
+        "name": "Maneuver Training",
+        "atLevel": 5,
+        "description": "At 5th level, a dirty warrior becomes a master of dirty tricks. He gains a +2 bonus on dirty trick combat maneuver checks and +2 to his CMD when he is the target of a dirty trick combat maneuver.\n\nThis ability replaces additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Training",
+            "locator": "maneuver-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:dirty-fighter:feature:speedy-tricks",
+        "name": "Speedy Tricks",
+        "atLevel": 9,
+        "description": "At 9th level, a dirty warrior has perfected how to quickly perform dirty tricks. He can make a dirty trick combat maneuver as an attack instead of a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard).\n\nThis ability replaces additional techs IV.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Speedy Tricks",
+            "locator": "speedy-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:dirty-fighter:feature:double-tricks",
+        "name": "Double Tricks",
+        "atLevel": 13,
+        "description": "At 13th level, when a dirty warrior performs a combat maneuver, he may apply two different conditions to his target instead of one. Each penalty condition requires a separate action to remove. At 17th level, he may apply three different conditions.\n\nThis ability replaces improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Double Tricks",
+            "locator": "double-tricks"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:dirty-fighter:replacement:sidestep:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:dirty-fighter:feature:sidestep"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sidestep",
+            "locator": "sidestep"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:dirty-fighter:replacement:maneuver-training:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:dirty-fighter:feature:maneuver-training"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maneuver Training",
+            "locator": "maneuver-training"
+          }
+        ],
+        "description": "This ability replaces additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:dirty-fighter:replacement:speedy-tricks:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:dirty-fighter:feature:speedy-tricks"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Speedy Tricks",
+            "locator": "speedy-tricks"
+          }
+        ],
+        "description": "This ability replaces additional techs IV."
+      },
+      {
+        "id": "ffd20:archetype:warrior:dirty-fighter:replacement:double-tricks:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:dirty-fighter:feature:double-tricks"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Double Tricks",
+            "locator": "double-tricks"
+          }
+        ],
+        "description": "This ability replaces improved rush."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "resources": [],
+    "extraOptions": []
+  }
+}

@@ -1,0 +1,352 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:nimble-striker",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Nimble Striker",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/nimble-striker/",
+      "title": "Nimble Striker",
+      "archiveSha256": "ea0e4b44485116ba6e46ee2491685ccff8b4db0775cd820065746d7d0c433a6d",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "A nimble striker is proficient with all simple and martial weapons and with light armor and shields.\n\nThis ability replaces the warrior\u2019s standard weapon and armor proficiencies.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:feature:chosen-weapon",
+        "name": "Chosen Weapon",
+        "atLevel": 1,
+        "description": "At 1st level, a nimble striker must choose light blades or close weapon group as his chosen weapon group.\n\nThis ability modifies chosen weapon.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chosen Weapon",
+            "locator": "chosen-weapon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:feature:finesse-training",
+        "name": "Finesse Training",
+        "atLevel": 1,
+        "description": "At 1st level, a nimbler striker gains [Weapon Finesse](http://www.d20pfsrd.com/feats/combat-feats/weapon-finesse-combat-final/) as a bonus feat. At 3rd level, whenever he makes a successful melee attack with his chosen weapon, he adds his Dexterity modifier instead of his Strength modifier to the damage roll. If any effect would prevent the nimbler striker from adding his Strength modifier to the damage roll, he does not add his Dexterity modifier. In addition, warrior abilities keyed off of Strength are now keyed off of Dexterity.\n\nThis ability replaces martial flexibility.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Finesse Training",
+            "locator": "finesse-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:feature:skilled-leaper",
+        "name": "Skilled Leaper",
+        "atLevel": 2,
+        "description": "Beginning at 2nd level, the nimble striker adds his warrior level to any Acrobatic skill checks made to jump, both for vertical jumps and horizontal jumps. In addition, he always counts as having a running start when making jump checks using Acrobatics.\n\nThis ability replaces a warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Skilled Leaper",
+            "locator": "skilled-leaper"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:feature:armed-defense",
+        "name": "Armed Defense",
+        "atLevel": 3,
+        "description": "At 3rd level, so long as he is armed with a weapon from his chosen weapon group, the nimble striker can add a +2 deflection bonus to his AC. He can only add this bonus if he is wearing light armor or no armor. This bonus increases by an additional +1 for every four warrior levels beyond 3rd.\n\nThis ability replaces overhand chop and increase save from warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armed Defense",
+            "locator": "armed-defense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:feature:dexterous-swordplay",
+        "name": "Dexterous Swordplay",
+        "atLevel": 5,
+        "description": "At 5th level, a nimble striker gains a +1 dodge bonus to AC as long as he is wearing no armor or light armor, wielding a weapon from his chosen weapon group. This bonus increases by 1 for every 3 levels the nimble striker possesses to a maximum of +6 at 20th level.\n\nThis ability replaces additional techs II and improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dexterous Swordplay",
+            "locator": "dexterous-swordplay"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:feature:lightning-strike",
+        "name": "Lightning Strike",
+        "atLevel": 10,
+        "description": "At 10th level, as part of a full attack, a nimble striker can make one additional attack. This attack is at the nimble striker\u2019s highest base attack bonus, but each attack in the round (including the extra one) takes a \u20132 penalty.\n\nThis ability replaces war cry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lightning Strike",
+            "locator": "lightning-strike"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:replacement:weapon-and-armor-proficiency:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-and-armor-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:nimble-striker:feature:weapon-and-armor-proficiency"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ],
+        "description": "This ability replaces the warrior\u2019s standard weapon and armor proficiencies."
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:replacement:chosen-weapon:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-weapon"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:nimble-striker:feature:chosen-weapon"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chosen Weapon",
+            "locator": "chosen-weapon"
+          }
+        ],
+        "description": "This ability modifies chosen weapon."
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:replacement:finesse-training:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:martial-flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:nimble-striker:feature:finesse-training"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Finesse Training",
+            "locator": "finesse-training"
+          }
+        ],
+        "description": "This ability replaces martial flexibility."
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:replacement:skilled-leaper:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:nimble-striker:feature:skilled-leaper"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Skilled Leaper",
+            "locator": "skilled-leaper"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:replacement:armed-defense:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:nimble-striker:feature:armed-defense"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armed Defense",
+            "locator": "armed-defense"
+          }
+        ],
+        "description": "This ability replaces overhand chop and increase save from warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:replacement:dexterous-swordplay:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii",
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:nimble-striker:feature:dexterous-swordplay"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dexterous Swordplay",
+            "locator": "dexterous-swordplay"
+          }
+        ],
+        "description": "This ability replaces additional techs II and improved rush."
+      },
+      {
+        "id": "ffd20:archetype:warrior:nimble-striker:replacement:lightning-strike:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:war-cry"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:nimble-striker:feature:lightning-strike"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lightning Strike",
+            "locator": "lightning-strike"
+          }
+        ],
+        "description": "This ability replaces war cry."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Light armor",
+        "Medium armor",
+        "Shields except tower shields"
+      ],
+      "excludedOptionNames": [
+        "Axes",
+        "Blades, Heavy",
+        "Double",
+        "Flails",
+        "Hammers",
+        "Natural",
+        "Polearms",
+        "Spears",
+        "Tribal"
+      ]
+    },
+    "resources": [],
+    "extraOptions": []
+  }
+}

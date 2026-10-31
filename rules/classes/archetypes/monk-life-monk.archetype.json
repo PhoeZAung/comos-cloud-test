@@ -1,0 +1,350 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:life-monk",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Life Monk",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/life-monk/",
+      "title": "Life Monk",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "fa3fe54cafd4cd8247f3388900532ebd911e96fff89548af9b8dbb0a68d9cc4a"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:healing-palm",
+        "name": "Healing Palm",
+        "atLevel": 1,
+        "description": "At 1st level, a life monk heals her allies by touch. As long as the life monk has 1 ki point in her ki pool, any time a life monk touches an ally, she heals an amount of damage equal to her martial arts damage plus her Wisdom modifier. The life monk can also perform healing palm on herself, doing so only requires a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). A life monk can use healing palm equal to her number of iterative attacks. A life monk can use this ability a number of times per day equal to 3 plus her monk level plus her Wisdom modifier.\n\nThis ability replace flying kick.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Healing Palm",
+            "locator": "healing-palm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:superior-ki-pool",
+        "name": "Superior Ki Pool",
+        "atLevel": 1,
+        "description": "At 1st level, a life monk gains a pool of ki points, supernatural energy she can use to accomplish amazing feats. The number of points in a life monk\u2019s ki pool is equal to double her monk level + her Wisdom modifier. As long as she has at least 1 point in her ki pool, she can make a ki healing strike. At 3rd level, ki healing strike allows her unarmed attacks to be treated as +1 for healing (for example, healing palm would heal for 1d6 + 1 + Wisdom modifier). At 7th level, her unarmed attacks are now treated as +2 for healing. At 10th level, her unarmed attacks are treated as +3 for healing. At 16th level, his unarmed attacks are treated +4 for healing. At 20th level, his unarmed attacks are treated +5 for healing.\n\nBy spending 1 point from his ki pool as a swift action, a life monk can make one additional healing palm at his highest attack bonus when using flurry of blows.\n\nThe ki pool is replenished each morning after 8 hours of rest or meditation; these hours do not need to be consecutive.\n\nIn addition, a life monk can spend ki points to increase the healing dice by 1 dice of her healing palm per point spent (to a maximum of 5).\n\nThis ability replaces martial wisdom and ki pool gained at 2nd level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Ki Pool",
+            "locator": "superior-ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:ancient-healing-hand",
+        "name": "Ancient Healing Hand",
+        "atLevel": 7,
+        "description": "At 7th level, a life monk can heal another creature\u2019s wounds with a touch. As a standard action, the monk can spend 1 ki point to heal a number of hit points equal to double the monk\u2019s level. She needs at least one hand free to use this ability, and cannot heal herself.\n\nThis ability replaces greased lightning.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ancient Healing Hand",
+            "locator": "ancient-healing-hand"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:ki-sacrifice",
+        "name": "Ki Sacrifice",
+        "atLevel": 11,
+        "description": "At 11th level, a life monk can use half her entire ki pool to bring a person back to life. It takes 1 hour to perform this ritual. At the end of the ritual, the life monk sacrifices half of her ki pool (rounded down) in order to cast [raise](https://www.finalfantasyd20.com/magic/spells/r/raise) (as the spell) with a caster level equal to her monk level. The ritual must be started within the duration of Raise. The ritual uses half of the ki in the life monk\u2019s ki pool; the life monk must have at least 6 points of ki in her ki pool to use this ability. At 15th level, the life monk may sacrifice her ki to cast [arise](https://www.finalfantasyd20.com/magic/spells/a/arise). The life monk must have at least 8 points of ki in her ki pool to use this ability. When this ability is used, the life monk\u2019s ki pool is not replenished until 24 hours have passed but can still regain ki by the clear mind class feature.\n\nThis ability replaces lifefont.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Sacrifice",
+            "locator": "ki-sacrifice"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:true-sacrifice",
+        "name": "True Sacrifice",
+        "atLevel": 20,
+        "description": "At 20th level, in a final selfless act, a life monk can draw in her entire ki, which then explodes outward in a 50-foot-radius emanation. All dead allies within the emanation are brought back to life, as if they were the subject of a [full-life](https://www.finalfantasyd20.com/magic/spells/f/full-life) spell with a caster level equal to the monk\u2019s level. When the life monk does this, she is truly and utterly destroyed. A life monk destroyed in this way can never come back to life, not even by way of power of a deity. Furthermore, the life monk\u2019s name can never be spoken or written down again. All written mentions of her name become nothing more than a blank space.\n\nThis ability replaces perfect self.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Sacrifice",
+            "locator": "true-sacrifice"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:life-monk:replacement:healing-palm",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:life-monk:feature:healing-palm"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Healing Palm",
+            "locator": "healing-palm"
+          }
+        ],
+        "description": "flying kick"
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:replacement:superior-ki-pool",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:martial-wisdom",
+          "ffd20:class:monk:feature:ki-pool"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:life-monk:feature:superior-ki-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Ki Pool",
+            "locator": "superior-ki-pool"
+          }
+        ],
+        "description": "martial wisdom and ki pool gained at 2nd level"
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:replacement:ancient-healing-hand",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:greased-lightning"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:life-monk:feature:ancient-healing-hand"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ancient Healing Hand",
+            "locator": "ancient-healing-hand"
+          }
+        ],
+        "description": "greased lightning"
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:replacement:ki-sacrifice",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:lifefont"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:life-monk:feature:ki-sacrifice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Sacrifice",
+            "locator": "ki-sacrifice"
+          }
+        ],
+        "description": "lifefont"
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:replacement:true-sacrifice",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:perfect-self"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:life-monk:feature:true-sacrifice"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Sacrifice",
+            "locator": "true-sacrifice"
+          }
+        ],
+        "description": "perfect self"
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:replacement:base-chakra",
+        "atClassLevel": 1,
+        "operation": "remove",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:chakra"
+        ],
+        "replacementFeatureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Ki Pool",
+            "locator": "superior-ki-pool"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:healing-palm:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:life-monk:feature:healing-palm",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Healing Palm",
+            "locator": "healing-palm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:superior-ki-pool:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:life-monk:feature:superior-ki-pool",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Ki Pool",
+            "locator": "superior-ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:ancient-healing-hand:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:life-monk:feature:ancient-healing-hand",
+        "atClassLevel": 7,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ancient Healing Hand",
+            "locator": "ancient-healing-hand"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:ki-sacrifice:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:life-monk:feature:ki-sacrifice",
+        "atClassLevel": 11,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Sacrifice",
+            "locator": "ki-sacrifice"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:life-monk:feature:true-sacrifice:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:life-monk:feature:true-sacrifice",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Sacrifice",
+            "locator": "true-sacrifice"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:monk:life-monk:feature:superior-ki-pool",
+        "perLevel": 2,
+        "ability": "wis",
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "escape-artist",
+        "knowledge:history",
+        "knowledge:religion",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "ride",
+        "sense-motive",
+        "stealth",
+        "swim",
+        "heal"
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

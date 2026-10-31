@@ -1,0 +1,184 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:spellblade",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Spellblade",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spellblade/",
+      "title": "Spellblade",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "e68f16d8ae3f7242296d76b2290b282b8078688fc7e83bb49f8f66f7299afe51"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:spellblade:feature:force-blade",
+        "name": "Force Blade",
+        "atLevel": 2,
+        "description": "At 2nd level, a spellblade can spend MP up to the spell level that he can cast as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to create a dagger of force in his off hand. The force blade lasts for 1 minute or until dismissed, has an enhancement bonus on attack and damage rolls equal to the MP spent (maximum +5), and is considered a weapon the spellblade is holding for purposes of his arcane pool feature (using the pool to add abilities to a held weapon applies to the red mage\u2019s physical weapon and to the force blade for no additional cost). The force blade acts as a dagger, but the hand holding it is still considered free for the purpose of casting spells and delivering touch attacks. The spellblade can use the force blade as if he were fighting with two weapons, or can use that hand to cast spells as part of the spell combat class ability (but not both in the same round). Attacks with the force blade are force attacks and deal non-elemental damage.\n\nThis ability replaces spellstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Force Blade",
+            "locator": "force-blade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spellblade:feature:spellblade-arcana",
+        "name": "Spellblade Arcana",
+        "atLevel": 3,
+        "description": "A spellblade gains access to the following ruby arcana. He cannot select any arcana more than once.\n\n*Pool-Sourced Blade ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* Instead of spending MP to create the force blade, the spellblade can spend points from his arcane pool to do so. A force blade created this way has an enhancement bonus equal to the number of arcane pool points spent (maximum +5).\n\n*Spellblade Parry ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* When an enemy makes a melee attack roll against the spellblade, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), the spellblade can end the force blade\u2019s duration to gain a deflection bonus to his Armor Class until the end of his next turn. This bonus is equal to the MP spent to create the force blade (maximum +5).\n\n*Throw Blade ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), a spellblade can throw his force blade up to 60 feet as a ranged attack (no range penalty). If the force blade misses, it returns automatically to the spellblade\u2019s hand just before his next turn. If the force blade hits, it deals damage and its duration ends; the spellblade can choose to spend up to 2 points from his arcane pool to increase the thrown force blade\u2019s damage by +1d6 for each point spent.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spellblade Arcana",
+            "locator": "spellblade-arcana"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spellblade:feature:ruby-arcana",
+        "name": "Ruby Arcana",
+        "atLevel": 3,
+        "description": "The following ruby arcana complement the spellblade archetype: hasted assault, pool strike, and spell shield.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Arcana",
+            "locator": "ruby-arcana"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:spellblade:replacement:force-blade",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spellstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:spellblade:feature:force-blade"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Force Blade",
+            "locator": "force-blade"
+          }
+        ],
+        "description": "This ability replaces spellstrike."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:red-mage:pool:ruby-arcana",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:spellblade:option:spellblade-arcana:pool-sourced-blade",
+            "name": "Pool-Sourced Blade",
+            "description": "Instead of spending MP to create the force blade, the spellblade can spend points from his arcane pool to do so. A force blade created this way has an enhancement bonus equal to the number of arcane pool points spent (maximum +5).\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade Arcana",
+                "locator": "spellblade-arcana"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spellblade/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:spellblade:option:spellblade-arcana:spellblade-parry",
+            "name": "Spellblade Parry",
+            "description": "When an enemy makes a melee attack roll against the spellblade, as an immediate action, the spellblade can end the force blade\u2019s duration to gain a deflection bonus to his Armor Class until the end of his next turn. This bonus is equal to the MP spent to create the force blade (maximum +5).\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade Arcana",
+                "locator": "spellblade-arcana"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spellblade/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:spellblade:option:spellblade-arcana:throw-blade",
+            "name": "Throw Blade",
+            "description": "As a standard action, a spellblade can throw his force blade up to 60 feet as a ranged attack (no range penalty). If the force blade misses, it returns automatically to the spellblade\u2019s hand just before his next turn. If the force blade hits, it deals damage and its duration ends; the spellblade can choose to spend up to 2 points from his arcane pool to increase the thrown force blade\u2019s damage by +1d6 for each point spent.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade Arcana",
+                "locator": "spellblade-arcana"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spellblade/"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1517 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:ruby-archer",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Ruby Archer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-archer/",
+      "title": "Ruby Archer",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "61858cbae72e3cc861b6d0bce8c5461a6864ad2c6d75914053f5bf7b0b7219c4"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:precise-shot",
+        "name": "Precise Shot",
+        "atLevel": 1,
+        "description": "At 1st level, a ruby archer gains the [Precise Shot](https://www.d20pfsrd.com/feats/combat-feats/precise-shot-combat/) feat as a bonus feat without needing to meet the prerequisite.\n\nThis ability replaces spell proficiency.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Precise Shot",
+            "locator": "precise-shot"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:ranged-weapon-bond",
+        "name": "Ranged Weapon Bond",
+        "atLevel": 1,
+        "description": "At 1st level, a ruby archer gains a bonded object as per the [ruby wizard\u2019s arcane bonded object](https://www.finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-wizard/#arcane-bond); it must be a ranged weapon (any kind of bow or crossbow), and it can be used to cast a spell once per day for free.\n\nThis ability replaces a red magery gained at 1st level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Weapon Bond",
+            "locator": "ranged-weapon-bond"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:ranged-spell-combat",
+        "name": "Ranged Spell Combat",
+        "atLevel": 1,
+        "description": "Instead of a light or one-handed melee weapon, a ruby archer must use a ranged weapon (any kind of bow or crossbow) for spell combat. He doesn\u2019t need a free hand for ranged spell combat. However, the ruby archer cannot accept an attack penalty to gain a bonus on concentration checks to cast a spell defensively.\n\nThis ability modifies spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Spell Combat",
+            "locator": "ranged-spell-combat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:ranged-spellstrike",
+        "name": "Ranged Spellstrike",
+        "atLevel": 2,
+        "description": "At 2nd level, whenever a ruby archer casts a spell that calls for a ranged attack, he can deliver the spell through a ranged weapon (any kind of bow or crossbow) he wields as part of a ranged attack. Instead of the free ranged attack normally allowed to deliver the spell, a ruby archer can make one free ranged attack with a ranged weapon (at his highest base attack bonus) as part of casting this spell. The attack does not increase the spell\u2019s range.\n\nIf the spell can normally affect multiple targets, only a single missile, ray, or effect accompanies each attack; if the spell allows multiple attacks and the ruby archer can make additional ranged attacks as part of a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) with spell combat, one additional ray, missile, or effect from the spell accompanies each subsequent ranged attack the ruby archer makes in the same round until all attacks allowed by the spell are made. Unused missiles, rays, or effects remaining at the end of the ruby archer\u2019s turn are wasted.\n\nThis ability modifies spellstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Spellstrike",
+            "locator": "ranged-spellstrike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:arcane-pool",
+        "name": "Arcane Pool",
+        "atLevel": 2,
+        "description": "A ruby archer\u2019s choices of weapon special abilities to apply with arcane pool at 6th level include distance, heart-piercing and nimble shot but not dancing, keen, or vorpal.\n\nThis ability modifies arcane pool.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:ruby-talents",
+        "name": "Ruby Talents",
+        "atLevel": 2,
+        "description": "In addition to the red mage\u2019s ruby talents, the ruby archer can also pick from the list below:\n\n*Distant Spellstrike ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The range of any spell the red mage delivers through a ranged weapon attack increases to the maximum range of the weapon if that is greater than the spell\u2019s range. **Prerequisite:** The ruby archer must be at least 12th level to select this talent.\n\n*Reach Spellstrike ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The red mage can deliver spells with a range of touch with ranged spellstrike up to a maximum range of close (25 feet + 5 feet per two caster levels). **Prerequisite:** The ruby archer must be at least 6th level to select this talent.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Talents",
+            "locator": "ruby-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:ranged-spell-power",
+        "name": "Ranged Spell Power",
+        "atLevel": 4,
+        "description": "Starting at 4th level, the ruby archer can more easily overcome the spell resistance of any opponent he successfully injures with a ranged attack. If he has injured an opponent with a ranged attack, he gains a +2 bonus on his caster level check to overcome spell resistance for the remainder of the encounter. This bonus increases to +3 at 9th level, to +4 at 14th level, and to +5 at 19th level.\n\nThis ability modifies spell power.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Spell Power",
+            "locator": "ranged-spell-power"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:spell-volley",
+        "name": "Spell Volley",
+        "atLevel": 5,
+        "description": "At 5th level, when the ruby archer casts a spell with a range of close or longer using spell combat that does not normally require an attack roll, he can choose to deliver the spell using his wielded ranged weapon. This spell is placed upon a single piece of ammunition. When the ammunition is fired, the spell\u2019s area is centered where the ammunition lands, even if the spell could normally be centered only on the caster. This ability allows the ruby archer to use his ranged weapon\u2019s range rather than the spell\u2019s range. The ammunition must be fired during the round that the casting is completed or the spell is wasted. If this attack misses by 5 or more it is off target, striking in a square 1d6 x 5 feet away in a random direction, otherwise it lands in the target\u2019s square on a miss of 4 or less.\n\nThis ability replaces a red magery gained at 5th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spell Volley",
+            "locator": "spell-volley"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:archery-talents",
+        "name": "Archery Talents",
+        "atLevel": 5,
+        "description": "At 5th level, the ruby archer is able to choose an archery talent from the archer\u2019s list of [archery talents](https://www.finalfantasyd20.com/classes/core-classes/archer/archery-talents/), counting his red mage level for its prerequisite levels (if any). He gains an additional archery talent at 9th, 13th, and 17th levels.\n\nThis ability replaces convert.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Archery Talents",
+            "locator": "archery-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:arcane-salvo",
+        "name": "Arcane Salvo",
+        "atLevel": 9,
+        "description": "At 9th level, a ruby archer can fire a salvo of magical projectiles as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), targeting a number of enemies equal to his Charisma modifier within the first range increment of his ranged weapon. This attack only uses a single piece of ammunition, however if this ammunition is magical its effects only apply to a single creature of the ruby archer\u2019s choice, determined before the attack is rolled. He rolls one attack at his highest attack bonus and applies it to the AC of each target. Before rolling for the attack, the ruby archer can choose to take a -2 to his attack roll and expend MP as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), dealing an additional amount of damage equal to 1d10 per level of the expended MP up to the max of his known spell level. This damage is magical in nature and bypasses any damage reduction. In addition, reloading a ranged weapon using Rapid Reload now reduces the time it takes to reload the weapon by an additional step.\n\nThis ability replaces a ruby arcana gained at 9th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Salvo",
+            "locator": "arcane-salvo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:impossible-shots",
+        "name": "Impossible Shots",
+        "atLevel": 15,
+        "description": "At 15th level, the ruby archer\u2019s ranged weapon attacks seek his targets with impossible accuracy, ignoring his target\u2019s cover (but not total cover) and concealment (but not total concealment), and the effects of wind (both magical and mundane). If the ruby archer fires his weapon into a square of a creature he can\u2019t see, or attacks a creature that has total concealment from another source (such as the displacement spell), the miss chance for doing so is reduced to 20%. In addition, once per round when the ruby archer misses his target with a ranged weapon attack, he can roll that attack again against a different target. This target must be within a number of feet from the initial target equal to the range increment of the weapon that was used to make the initial attack. The ruby archer must be able to see this second target.\n\nThis ability replaces a ruby arcana gained at 15th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Impossible Shots",
+            "locator": "impossible-shots"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:feature:focusing-spellstrike",
+        "name": "Focusing Spellstrike",
+        "atLevel": 16,
+        "description": "At 16th level, a ruby archer can use ranged spellstrike to deliver a cone- or line-shaped spell as a ray, affecting only the creature or object struck.\n\nThis ability replaces counterstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Focusing Spellstrike",
+            "locator": "focusing-spellstrike"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:precise-shot",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:precise-shot"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Precise Shot",
+            "locator": "precise-shot"
+          }
+        ],
+        "description": "This ability replaces spell proficiency."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:ranged-weapon-bond",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:red-magery:1"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:ranged-weapon-bond"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Weapon Bond",
+            "locator": "ranged-weapon-bond"
+          }
+        ],
+        "description": "This ability replaces a red magery gained at 1st level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:ranged-spell-combat",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:ranged-spell-combat"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Spell Combat",
+            "locator": "ranged-spell-combat"
+          }
+        ],
+        "description": "This ability modifies spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:ranged-spellstrike",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spellstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:ranged-spellstrike"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Spellstrike",
+            "locator": "ranged-spellstrike"
+          }
+        ],
+        "description": "This ability modifies spellstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:arcane-pool",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:arcane-pool"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:arcane-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ],
+        "description": "This ability modifies arcane pool."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:ranged-spell-power",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-power"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:ranged-spell-power"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Spell Power",
+            "locator": "ranged-spell-power"
+          }
+        ],
+        "description": "This ability modifies spell power."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:spell-volley",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:red-magery:5"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:spell-volley"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spell Volley",
+            "locator": "spell-volley"
+          }
+        ],
+        "description": "This ability replaces a red magery gained at 5th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:archery-talents",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:convert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:archery-talents"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Archery Talents",
+            "locator": "archery-talents"
+          }
+        ],
+        "description": "This ability replaces convert."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:arcane-salvo",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:9"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:arcane-salvo"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Salvo",
+            "locator": "arcane-salvo"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 9th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:impossible-shots",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:15"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:impossible-shots"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Impossible Shots",
+            "locator": "impossible-shots"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 15th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:replacement:focusing-spellstrike",
+        "atClassLevel": 16,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:counterstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-archer:feature:focusing-spellstrike"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Focusing Spellstrike",
+            "locator": "focusing-spellstrike"
+          }
+        ],
+        "description": "This ability replaces counterstrike."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:pool:archery-talents",
+        "name": "Archery Talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:acute-senses",
+            "name": "Acute Senses",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Free-action Perception reroll; must take new result.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:ambushing-shot",
+            "name": "Ambushing Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Act as initiative 20 in surprise round, but only one bow/crossbow attack action; normal initiative thereafter.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:arrow-splitter",
+            "name": "Arrow-Splitter",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "+1 ranged attack vs targets at least two sizes smaller; ranged attacks deal full damage to objects.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:blood-reader",
+            "name": "Blood Reader",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "While seeing a living aimed target, know its remaining hit points.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:chameleon-step",
+            "name": "Chameleon Step",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Move up to double speed as move action without Stealth movement penalty; 3 + DEX mod uses/day.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:camouflage",
+            "name": "Camouflage",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "After 1 minute preparing natural foliage gain +4 Stealth matching the surroundings until disrupted.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:close-ranged-sniper",
+            "name": "Close-Ranged Sniper",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Gain Point Blank Shot or Far Shot/Precise Shot if already known.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:combat-trick",
+            "name": "Combat Trick",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Gain one combat feat; this talent may only be selected once.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:critical-genius",
+            "name": "Critical Genius",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Choose one bow/crossbow; critical threat 19\u201320 and multiplier x2. At Archer 12 becomes 18\u201320; extra BAB damage after a crit on attack action.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:defensive-bow-stance",
+            "name": "Defensive Bow Stance",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Swift action: bow/crossbow attacks do not provoke until next turn.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:defensive-grace",
+            "name": "Defensive Grace",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Once per encounter add Aim bonus to CMD and ranged-target-specific dodge AC; Take Aim doubles it.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:expert-initiative",
+            "name": "Expert Initiative",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Reroll initiative once per day, must accept new result.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:expert-tracker",
+            "name": "Expert Tracker",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "No Survival tracking penalty at full movement speed.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:extended-ambush",
+            "name": "Extended Ambush",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "In surprise round, a ranged attack against surprised target allows free action Aim.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:flee",
+            "name": "Flee",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Move away from designated opponent without provoking their opportunity attack; brief +10 speed.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:greater-targeted-shot",
+            "name": "Greater Targeted Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "If a Targeted Shot deals at least half of target HP and 40 damage, double its effects and duration.\nCheck the source prerequisites manually.",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:greater-intercept",
+            "name": "Greater Intercept",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "On deflecting an arrow, redirect it to another target within 30 ft.\nCheck the source prerequisites manually.",
+            "minimumLevel": 18,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:grounding-shot",
+            "name": "Grounding Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Ignore usual penalty shooting prone targets; +2 damage vs prone targets.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:hateful-attack",
+            "name": "Hateful Attack",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Swift-action automatic confirmation of a ranged critical threat.\nCheck the source prerequisites manually.",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:hide-in-plain-sight",
+            "name": "Hide in Plain Sight",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Use Stealth even when observed.\nCheck the source prerequisites manually.",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:hunters-target",
+            "name": "Hunter's Target",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Once/encounter swift designated target; on ranged hit gain +half Archer level damage vs that target.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:improved-targeted-shot",
+            "name": "Improved Targeted Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Reduce Targeted Shot attack penalty by 2.\nCheck the source prerequisites manually.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:improved-intercept",
+            "name": "Improved Intercept",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Forgo full-attack shot to intercept before next turn as immediate action.\nCheck the source prerequisites manually.",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:intercept-arrow",
+            "name": "Intercept Arrow",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Ready a bow/crossbow attack to deflect incoming ranged weapon attack within 30 ft by opposed attack roll.\nCheck the source prerequisites manually.",
+            "minimumLevel": 4,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:long-strides",
+            "name": "Long Strides",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "+10 speed in light/no armor; add +10 to natural fly/climb/swim modes.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:marauders-step",
+            "name": "Marauder's Step",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "With Shot on the Run feat: move half speed before ranged full-attack, under armor/load restrictions.\nCheck the source prerequisites manually.",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:nowhere-to-run",
+            "name": "Nowhere to Run",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Opportunity attack when designated Hunter's Target withdraws.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:piercing-shot",
+            "name": "Piercing Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Standard action: shoot along weapon range increment, attack every creature in line; only first gets a confirmed crit.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:reset-initiative",
+            "name": "Reset Initiative",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Once/encounter after first round change initiative to current+5.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:saving-grace",
+            "name": "Saving Grace",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Once/encounter add aimed-target bonus to saving throws vs attacks by that target; Take Aim doubles.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:second-chance-shot",
+            "name": "Second Chance Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Immediate action reroll missed ranged attack with -5 penalty.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:secondary-target",
+            "name": "Secondary Target",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "On ranged miss redirect to another enemy within 20 feet of original target.\nCheck the source prerequisites manually.",
+            "minimumLevel": 14,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:shared-precision",
+            "name": "Shared Precision",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Requires Precise Shot feat; grant nearby allies Precise Shot against the struck target for 1 round.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:sure-footing",
+            "name": "Sure Footing",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "+5 Acrobatics in narrow-surface or loose-ground movement conditions.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:sure-shot",
+            "name": "Sure Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Full-round shot up to third range increment, target flat-footed, ignore DR unless target has Uncanny Dodge.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:surge",
+            "name": "Surge",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Once/encounter swift move up to speed.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:surprise-shift",
+            "name": "Surprise Shift",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Swift 5-foot move without provoking or consuming normal 5-foot step.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:swift-strider",
+            "name": "Swift Strider",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Once/encounter each: Blurring Burst (+2 Reflex), Sudden Assault (charge), Weaving Stride (conditional +2 AC per AoO).\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:threatening-shot",
+            "name": "Threatening Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Threaten first range increment for flanking only, not opportunity attacks; not adjacent.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:vantage-point",
+            "name": "Vantage Point",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "When wholly above enemy ignore range penalties and low cover lacking height.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:weak-point",
+            "name": "Weak Point",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Once/encounter swift ignore one visible target's DR for the rest of turn.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:without-a-trace",
+            "name": "Without a Trace",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Requires Evasion class feature; when Evasion avoids damage, immediate Stealth at -20 plus +1 per avoided damage die.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:aiding-shot",
+            "name": "Aiding Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "On ranged hit grant allies +2 circumstance attack versus struck target until next turn.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:distracting-shot",
+            "name": "Distracting Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "On bow/crossbow hit impose -2 enemy attack for one round.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:hobbling-shot",
+            "name": "Hobbling Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "On hit halve enemy land speed 1 min if Fort DC 10 + half Archer level + DEX mod fails.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:keen-shot",
+            "name": "Keen Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Ignore concealment penalty but not total concealment.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:splitshot",
+            "name": "Splitshot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Two arrows/bolts at two targets from one attack action with -2 penalty; target separation scales with BAB.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:surprise-shot",
+            "name": "Surprise Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Immediate ranged shot when initiative rolled, if holding loaded weapon.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:tangling-shot",
+            "name": "Tangling Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "On hit enemy becomes entangled for one round unless Fort save succeeds.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:trick-shot",
+            "name": "Trick Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Learn disarm/feint/sunder shots at level 6; extra trick every four levels; bull rush/grapple/trip options from level 14.\nCheck the source prerequisites manually.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:two-with-one-blow",
+            "name": "Two with One Blow",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Use bow/crossbow attack at -4 vs two adjacent opponents; separate damage and crit confirms.\nCheck the source prerequisites manually.",
+            "minimumLevel": 4,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:weak-spot",
+            "name": "Weak Spot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
+            "description": "Ranged touch attack versus same/larger target but forfeit ability modifier damage bonus.\nCheck the source prerequisites manually.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Archery Talents",
+                "locator": "archery-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:event:archery-talents:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-archer:pool:archery-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Archery Talents",
+            "locator": "archery-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:event:archery-talents:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-archer:pool:archery-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Archery Talents",
+            "locator": "archery-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:event:archery-talents:13",
+        "type": "choose",
+        "atClassLevel": 13,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-archer:pool:archery-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Archery Talents",
+            "locator": "archery-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-archer:event:archery-talents:17",
+        "type": "choose",
+        "atClassLevel": 17,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-archer:pool:archery-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Archery Talents",
+            "locator": "archery-talents"
+          }
+        ]
+      }
+    ],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:red-mage:pool:ruby-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:option:ruby-talents:distant-spellstrike",
+            "name": "Distant Spellstrike",
+            "description": "The range of any spell the red mage delivers through a ranged weapon attack increases to the maximum range of the weapon if that is greater than the spell\u2019s range. Prerequisite: The ruby archer must be at least 12th level to select this talent.\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ruby Talents",
+                "locator": "ruby-talents"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-archer/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-archer:option:ruby-talents:reach-spellstrike",
+            "name": "Reach Spellstrike",
+            "description": "The red mage can deliver spells with a range of touch with ranged spellstrike up to a maximum range of close (25 feet + 5 feet per two caster levels). Prerequisite: The ruby archer must be at least 6th level to select this talent.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ruby Talents",
+                "locator": "ruby-talents"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-archer/"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,671 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:gladiator",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Gladiator",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/gladiator/",
+      "title": "Gladiator",
+      "archiveSha256": "57aa816a3e25637ba2c57aab6b67cdefdfc78cb00fd447df51c6c2c4c64af46f",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:class-skills",
+        "name": "Class Skills",
+        "atLevel": 1,
+        "description": "A gladiator gains Perform (act, comedy, and dance) (Cha) as class skills.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Skills",
+            "locator": "class-skills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "A gladiator is not proficient with heavy armor or tower shields. Instead, he gains the [Performance Weapon Mastery](https://www.d20pfsrd.com/feats/combat-feats/performance-weapon-mastery-combat/) feat at 1st level as a bonus feat. Furthermore, a gladiator using piecemeal armor is considered to be wearing a suit of armor as long as he wearing two or three armor pieces, gaining the +1 to armor bonus but still taking the +5% chance of spell failure if the pieces are mixed.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:gladiator-style",
+        "name": "Gladiator Style",
+        "atLevel": 1,
+        "description": "At 1st level, the gladiator selects one of the following styles, representing his formal style. The gladiator may ignore prerequisites when selecting a bonus feat from his style, whether through this ability, bonus feats as a gladiator, or general feat selection.\n\n* *Armored:* The gladiator reduces the armor check penalty of any armor worn by 1 and increases the max Dex bonus to AC by 1.\n* *Beast-warrior:* The gladiator gains the [Power Attack](https://www.d20pfsrd.com/feats/combat-feats/power-attack-combat/) feat. In addition, he gains a +2 bonus on attack rolls against animals and magical beasts.\n* *Blade and* *S**hield:* The gladiator gains [Improved Shield Bash](https://www.d20pfsrd.com/feats/combat-feats/improved-shield-bash-combat/) or [Two-Weapon Fighting](https://www.d20pfsrd.com/feats/combat-feats/two-weapon-fighting-combat/) as a bonus feat. The gladiator reduces the armor check penalty of any shield by 2.\n* *Dual* *B**lade:* The gladiator gains [Two-Weapon Fighting](https://www.d20pfsrd.com/feats/combat-feats/two-weapon-fighting-combat/) as a bonus feat.\n* *Executioner:* The gladiator gains [Power Attack](https://www.d20pfsrd.com/feats/combat-feats/power-attack-combat/) as a bonus feat. In addition, he treats all proficient weapons as [deadly](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/deadly/).\n* *Exotic:* The gladiator gains [Exotic Weapon Proficiency](https://www.d20pfsrd.com/feats/combat-feats/exotic-weapon-proficiency-combat/) as a bonus feat.\n* *Net and Trident:* The gladiator gains [Exotic Weapon Proficiency](https://www.d20pfsrd.com/feats/combat-feats/exotic-weapon-proficiency-combat/) (net) and can throw it one-handed.\n* *Technical:* The gladiator gains [Improved Grapple](https://www.d20pfsrd.com/feats/combat-feats/improved-grapple-combat/) as a bonus feat.\n\nThis ability replaces combat defences.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gladiator Style",
+            "locator": "gladiator-style"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:uncanny-dodge",
+        "name": "Uncanny Dodge",
+        "atLevel": 2,
+        "description": "Starting at 2nd level, a gladiator can react to danger before his senses would normally allow him to do so. He cannot be caught flat-footed, even if the attacker is invisible. He still loses his Dexterity bonus to AC if immobilized. A gladiator with this ability can still lose his Dexterity bonus to AC if an opponent successfully uses the feint action against him. If a gladiator already has uncanny dodge from a different class, he automatically gains improved uncanny dodge (see below) instead.\n\nThis ability replaces combat offenses.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Dodge",
+            "locator": "uncanny-dodge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:fame",
+        "name": "Fame",
+        "atLevel": 2,
+        "description": "At 2nd level, when a gladiator begins a performance combat, he always starts with at least 1 victory point. If he already has victory points, he gains 1 extra victory point. At 10th level, the gladiator starts out with at least 2 victory points. If he already has victory points, he gains 2 extra victory points.\n\nThis ability replaces a warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fame",
+            "locator": "fame"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:shake-it-off",
+        "name": "Shake It Off",
+        "atLevel": 3,
+        "description": "A gladiator of at least 3rd level gains a +2 bonus to save versus any status effect. This bonus increases by 1 for every four warrior levels after 3rd level.\n\nThis ability replaces chosen knowledge.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shake It Off",
+            "locator": "shake-it-off"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:melee-smash",
+        "name": "Melee Smash",
+        "atLevel": 4,
+        "description": "A gladiator gains +1 to damage with melee attacks at 4th level. This bonus increases by +1 every five levels, to a maximum of +4 at 19 level.\n\nThis ability replaces physical resilience.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Melee Smash",
+            "locator": "melee-smash"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:improved-uncanny-dodge",
+        "name": "Improved Uncanny Dodge",
+        "atLevel": 5,
+        "description": "At 5th level and higher, a gladiator can no longer be flanked. This defense denies a thief the ability to sneak attack the gladiator by flanking him, unless the attacker has at least four more thief levels than the target has warrior levels. If a character already has uncanny dodge (see above) from another class, the levels from the classes that grant uncanny dodge stack to determine the minimum thief level required to flank the character.\n\nThis ability replaces weapon guard.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Uncanny Dodge",
+            "locator": "improved-uncanny-dodge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:improved-gladiator-style",
+        "name": "Improved Gladiator Style",
+        "atLevel": 6,
+        "description": "At 6th level, the gladiator gains an additional ability, based on his style. The gladiator may ignore prerequisites when selecting a bonus feat from his style, whether through this ability, bonus feats as a gladiator, or general feat selection.\n\n* *Armored:* The gladiator may move at normal speed in medium armor. In addition, he reduces the armor check penalty of worn armor by 1.\n* *Beast-warrior:* The gladiator gains [Lunge](https://www.d20pfsrd.com/feats/combat-feats/lunge-combat/), [Stand Still](https://www.d20pfsrd.com/feats/combat-feats/stand-still-combat/), or [Weapon Focus](https://www.d20pfsrd.com/feats/combat-feats/weapon-focus-combat/) (any melee weapon) as a bonus feat. He also gains the ability of wild empathy, as a ranger.\n* *Blade and* *S**hield:* The gladiator gains [Improved Shield Bash](https://www.d20pfsrd.com/feats/combat-feats/improved-shield-bash-combat/), [Two-Weapon Fighting](https://www.d20pfsrd.com/feats/combat-feats/two-weapon-fighting-combat/), or [Shield Focus](https://www.d20pfsrd.com/feats/combat-feats/shield-focus-combat/) as a bonus feat. Once per day, when wearing a light or heavy shield, the gladiator may make a bull rush as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) after performing a full attack.\n* *Dual* *B**lade:* The gladiator gains [Double Slice](https://www.d20pfsrd.com/feats/combat-feats/double-slice-combat/), [Improved Two-Weapon Fighting](https://www.d20pfsrd.com/feats/combat-feats/improved-two-weapon-fighting-combat/), or [Weapon Focus](https://www.d20pfsrd.com/feats/combat-feats/weapon-focus-combat/) (any melee weapon) as a bonus feat. He can treat any one-handed heavy or light blade (as per the warrior weapon training groups) as a light weapon.\n* *Executioner:* The gladiator gains [Cleave](https://www.d20pfsrd.com/feats/combat-feats/cleave-combat/), [Dazzling Display](https://www.d20pfsrd.com/feats/combat-feats/dazzling-display-combat/), or [Weapon Focus](https://www.d20pfsrd.com/feats/combat-feats/weapon-focus-combat/) (any melee weapon) as a bonus feat. The first time he damages an enemy with a melee attack each round, he gains a +2 bonus to Intimidate checks for 1 round.\n* *Exotic:* The gladiator gains [Dazzling Display](https://www.d20pfsrd.com/feats/combat-feats/dazzling-display-combat/), [Power Attack](https://www.d20pfsrd.com/feats/combat-feats/power-attack-combat/), or [Weapon Focus](https://www.d20pfsrd.com/feats/combat-feats/weapon-focus-combat/) as a bonus feat. He gains a +2 CMD against attempts to disarm him.\n* *Net and Trident:* The gladiator gains [Lunge](https://www.d20pfsrd.com/feats/combat-feats/lunge-combat/), [Two-Weapon Fighting](https://www.d20pfsrd.com/feats/combat-feats/two-weapon-fighting-combat/), or [Weapon Finesse](https://www.d20pfsrd.com/feats/combat-feats/weapon-finesse-combat/) as a bonus feat. He can treat a shortspear or trident as a light weapon.\n* *Technical:* The gladiator gains [Improved Disarm](https://www.d20pfsrd.com/feats/combat-feats/improved-disarm-combat/), [Improved Overrun](https://www.d20pfsrd.com/feats/combat-feats/improved-overrun-combat/), or [Step-Up](https://www.d20pfsrd.com/feats/combat-feats/step-up-combat/) as a bonus feat. His Dex bonus to AC is increased by +1; note that Dex bonus to AC is limited by armor worn.\n\nThis ability replaces robust physique.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Gladiator Style",
+            "locator": "improved-gladiator-style"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:damage-reduction",
+        "name": "Damage Reduction",
+        "atLevel": 7,
+        "description": "At 7th level, a gladiator gains damage reduction 1/-. At 10th level, and every three gladiator levels thereafter, this damage reduction rises by 1 point.\n\nThis ability replaces weapon adaption.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Damage Reduction",
+            "locator": "damage-reduction"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:fleet",
+        "name": "Fleet",
+        "atLevel": 9,
+        "description": "At 9th and 17th level, the gladiator gains [Fleet](https://www.d20pfsrd.com/feats/general-feats/fleet/) as a bonus feat.\n\nThis ability replaces tenacious grip.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fleet",
+            "locator": "fleet"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:bleeding-critical",
+        "name": "Bleeding Critical",
+        "atLevel": 11,
+        "description": "At 11th level, a gladiator gains [Bleeding Critical](https://www.d20pfsrd.com/feats/combat-feats/bleeding-critical-combat-critical/) as a bonus feat. If he already has this feat, he can select another feat for which he qualifies.\n\nThis ability replaces autonomic grasp.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bleeding Critical",
+            "locator": "bleeding-critical"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:tiring-critical",
+        "name": "Tiring Critical",
+        "atLevel": 13,
+        "description": "At 13th level, a gladiator gains [Tiring Critical](https://www.d20pfsrd.com/feats/combat-feats/tiring-critical-combat-critical/) as a bonus feat. If he already has this feat, he can select another feat for which he qualifies.\n\nThis ability replaces weapon unity.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tiring Critical",
+            "locator": "tiring-critical"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:defensive-roll",
+        "name": "Defensive Roll",
+        "atLevel": 15,
+        "description": "A gladiator of at least 15th level can roll with a potentially lethal blow to take less damage from it than he otherwise would. Once per day, when he would be reduced to 0 or fewer hit points by damage in combat (from a weapon or other blow, not a spell or special ability), the gladiator can attempt to roll with the damage. To use this ability, the gladiator must attempt a Reflex saving throw (DC = damage dealt). If the save succeeds, he takes only half damage from the blow; if it fails, he takes full damage. He must be aware of the attack and able to react to it in order to execute his defensive roll \u2014if he is denied his Dexterity bonus to AC, he can\u2019t use this ability. Since this effect would not normally allow a character to make a Reflex save for half damage, the evasion ability does not apply to the defensive roll.\n\nThis ability replaces unstoppable strike.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defensive Roll",
+            "locator": "defensive-roll"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:feature:arena-king-queen",
+        "name": "Arena King/Queen",
+        "atLevel": 20,
+        "description": "At 20th level, the gladiator becomes a champion of death and glory. Any time he is affected by a morale bonus of any kind, he gains +4 luck bonus on Will saves. Whenever he threatens an opponent with a melee weapon, he gains a +4 dodge bonus to AC.\n\nThis ability replaces a warrior advanced talent gained at 20th level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arena King/Queen",
+            "locator": "arena-king-queen"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:gladiator-style:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-defenses"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:gladiator-style"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gladiator Style",
+            "locator": "gladiator-style"
+          }
+        ],
+        "description": "This ability replaces combat defences."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:uncanny-dodge:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-offenses"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:uncanny-dodge"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Dodge",
+            "locator": "uncanny-dodge"
+          }
+        ],
+        "description": "This ability replaces combat offenses."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:fame:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:fame"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fame",
+            "locator": "fame"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:shake-it-off:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:shake-it-off"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shake It Off",
+            "locator": "shake-it-off"
+          }
+        ],
+        "description": "This ability replaces chosen knowledge."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:melee-smash:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:physical-resilience"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:melee-smash"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Melee Smash",
+            "locator": "melee-smash"
+          }
+        ],
+        "description": "This ability replaces physical resilience."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:improved-uncanny-dodge:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-guard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:improved-uncanny-dodge"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Uncanny Dodge",
+            "locator": "improved-uncanny-dodge"
+          }
+        ],
+        "description": "This ability replaces weapon guard."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:improved-gladiator-style:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:robust-physique"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:improved-gladiator-style"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Gladiator Style",
+            "locator": "improved-gladiator-style"
+          }
+        ],
+        "description": "This ability replaces robust physique."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:damage-reduction:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-adaption"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:damage-reduction"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Damage Reduction",
+            "locator": "damage-reduction"
+          }
+        ],
+        "description": "This ability replaces weapon adaption."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:fleet:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:tenacious-grip"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:fleet"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fleet",
+            "locator": "fleet"
+          }
+        ],
+        "description": "This ability replaces tenacious grip."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:bleeding-critical:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:autonomic-grasp"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:bleeding-critical"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bleeding Critical",
+            "locator": "bleeding-critical"
+          }
+        ],
+        "description": "This ability replaces autonomic grasp."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:tiring-critical:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-unity"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:tiring-critical"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tiring Critical",
+            "locator": "tiring-critical"
+          }
+        ],
+        "description": "This ability replaces weapon unity."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:defensive-roll:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:unstoppable-strike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:defensive-roll"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Defensive Roll",
+            "locator": "defensive-roll"
+          }
+        ],
+        "description": "This ability replaces unstoppable strike."
+      },
+      {
+        "id": "ffd20:archetype:warrior:gladiator:replacement:arena-king-queen:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:20"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:gladiator:feature:arena-king-queen"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arena King/Queen",
+            "locator": "arena-king-queen"
+          }
+        ],
+        "description": "This ability replaces a warrior advanced talent gained at 20th level."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:warrior:gladiator:pool:gladiator-style",
+        "name": "Gladiator Style",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:gladiator:option:gladiator-style:manual",
+            "name": "Gladiator Style (manual selection)",
+            "description": "At 1st level, the gladiator selects one of the following styles, representing his formal style. The gladiator may ignore prerequisites when selecting a bonus feat from his style, whether through this ability, bonus feats as a gladiator, or general feat selection.\n\n* *Armored:* The gladiator reduces the armor check penalty of any armor worn by 1 and increases the max Dex bonus to AC by 1.\n* *Beast-warrior:* The gladiator gains the [Power Attack](https://www.d20pfsrd.com/feats/combat-feats/power-attack-combat/) feat. In addition, he gains a +2 bonus on attack rolls against animals and magical beasts.\n* *Blade and* *S**hield:* The gladiator gains [Improved Shield Bash](https://www.d20pfsrd.com/feats/combat-feats/improved-shield-bash-combat/) or [Two-Weapon Fighting](https://www.d20pfsrd.com/feats/combat-feats/two-weapon-fighting-combat/) as a bonus feat. The gladiator reduces the armor check penalty of any shield by 2.\n* *Dual* *B**lade:* The gladiator gains [Two-Weapon Fighting](https://www.d20pfsrd.com/feats/combat-feats/two-weapon-fighting-combat/) as a bonus feat.\n* *Executioner:* The gladiator gains [Power Attack](https://www.d20pfsrd.com/feats/combat-feats/power-attack-combat/) as a bonus feat. In addition, he treats all proficient weapons as [deadly](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/deadly/).\n* *Exotic:* The gladiator gains [Exotic Weapon Proficiency](https://www.d20pfsrd.com/feats/combat-feats/exotic-weapon-proficiency-combat/) as a bonus feat.\n* *Net and Trident:* The gladiator gains [Exotic Weapon Proficiency](https://www.d20pfsrd.com/feats/combat-feats/exotic-weapon-proficiency-combat/) (net) and can throw it one-handed.\n* *Technical:* The gladiator gains [Improved Grapple](https://www.d20pfsrd.com/feats/combat-feats/improved-grapple-combat/) as a bonus feat.\n\nThis ability replaces combat defences.\nRecord the exact selected source option and any prerequisites on existing sheet entries.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Gladiator Style",
+                "locator": "gladiator-style"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/gladiator/"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:warrior:gladiator:event:gladiator-style:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:warrior:gladiator:pool:gladiator-style"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "gladiator-style",
+            "locator": "gladiator-style"
+          }
+        ]
+      }
+    ],
+    "profile": {
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Light armor",
+        "Medium armor",
+        "Shields except tower shields"
+      ],
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "handle-animal",
+        "intimidate",
+        "knowledge:dungeoneering",
+        "profession:*",
+        "ride",
+        "survival",
+        "swim",
+        "perform:*"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:warrior:gladiator:feature:defensive-roll",
+        "base": 1,
+        "perLevel": 0,
+        "minimum": 1
+      }
+    ],
+    "extraOptions": []
+  }
+}

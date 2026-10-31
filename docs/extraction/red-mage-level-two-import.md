@@ -1,5 +1,9 @@
 # Red Mage local level-two milestone
 
+Published in PR #39 as b4c63eb; live files and health verified. See
+`class-release-publication.md` for current release evidence. The notes below
+describe the earlier local implementation and fixture-validation milestone.
+
 User request: continue Red Mage level 2 after the fresh-character martial pass.
 Work stays in the isolated classes/red-mage checkout. Nothing is published.
 

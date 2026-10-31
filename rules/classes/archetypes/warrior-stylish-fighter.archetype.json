@@ -1,0 +1,314 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:stylish-fighter",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Stylish Fighter",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/stylish-fighter/",
+      "title": "Stylish Fighter",
+      "archiveSha256": "d57fc4ccba5b32196cb79348c475ecb11dfab253c594c8897551a38a3188d7a1",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:feature:bonus-feat",
+        "name": "Bonus Feat",
+        "atLevel": 1,
+        "description": "At 1st level, 2nd level, and every four levels thereafter, a stylish fighter may select a bonus style feat. He does not need to meet the prerequisites of that feat. Starting at 6th level, a stylish fighter can choose to instead gain a wildcard style slot.\n\nWhenever he enters one or more styles, he can spend his wildcard style slots to gain feats in those styles\u2019 feat paths (such as Earth Child Topple) as long as he meets the prerequisites. Each time he changes styles, he can also change these wildcard style slots.\n\nAdditionally, a stylish fighter may use his chosen weapon to count for improved unarmed strike feat requirement, his warrior level to count for monk level requirement, or his Strength score to count for Wisdom score requirement.\n\nThis ability replaces martial flexibility.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bonus Feat",
+            "locator": "bonus-feat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:feature:fuse-style",
+        "name": "Fuse Style",
+        "atLevel": 1,
+        "description": "At 1st level, a stylish fighter can fuse two of the styles he knows into a more perfect style. The stylish fighter can have two style feat stances active at once. Starting a stance provided by a style feat is still a swift action, but when the stylish fighter switches to another style feat, he can choose one style whose stance is already active to persist. He may only have two style feat stances active at a time.\n\nAt 8th level, the stylish fighter can fuse three styles at once. He can have the stances of three style feats active at the same time. He gains a bonus on attack rolls equal to the number of styles whose stances he currently has active. He can enter up to three stances as a swift action.\n\nAt 15th level, the stylish fighter can fuse four styles at once. He can have the stances of four style feats active at the same time. He can enter up to four stances as a swift action.\n\nAdditionally, if a style lists unarmed strike as the main component, the stylish fighter can use his chosen weapon instead (chosen weapon bonus (rounded down) is halved if he has a level in another non-prestige class and this is not his favored class).\n\nThis ability replaces combat defenses, combat offenses, and chosen knowledge.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fuse Style",
+            "locator": "fuse-style"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:feature:perfect-style",
+        "name": "Perfect Style",
+        "atLevel": 19,
+        "description": "At 19th level, a stylish fighter can have the stances of five style feats active at once, and can change those stances as a free action.\n\nThis ability replaces doublestrike.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Style",
+            "locator": "perfect-style"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:replacement:bonus-feat:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:martial-flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stylish-fighter:feature:bonus-feat"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bonus Feat",
+            "locator": "bonus-feat"
+          }
+        ],
+        "description": "This ability replaces martial flexibility."
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:replacement:fuse-style:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-knowledge",
+          "ffd20:class:warrior:feature:combat-defenses",
+          "ffd20:class:warrior:feature:combat-offenses"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stylish-fighter:feature:fuse-style"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fuse Style",
+            "locator": "fuse-style"
+          }
+        ],
+        "description": "This ability replaces combat defenses, combat offenses, and chosen knowledge."
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:replacement:perfect-style:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:doublestrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stylish-fighter:feature:perfect-style"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Style",
+            "locator": "perfect-style"
+          }
+        ],
+        "description": "This ability replaces doublestrike."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:pool:bonus-feat",
+        "name": "Bonus Feat",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:stylish-fighter:option:bonus-feat:manual",
+            "name": "Bonus Feat (manual selection)",
+            "description": "At 1st level, 2nd level, and every four levels thereafter, a stylish fighter may select a bonus style feat. He does not need to meet the prerequisites of that feat. Starting at 6th level, a stylish fighter can choose to instead gain a wildcard style slot.\n\nWhenever he enters one or more styles, he can spend his wildcard style slots to gain feats in those styles\u2019 feat paths (such as Earth Child Topple) as long as he meets the prerequisites. Each time he changes styles, he can also change these wildcard style slots.\n\nAdditionally, a stylish fighter may use his chosen weapon to count for improved unarmed strike feat requirement, his warrior level to count for monk level requirement, or his Strength score to count for Wisdom score requirement.\n\nThis ability replaces martial flexibility.\nRecord the exact selected source option and any prerequisites on existing sheet entries.",
+            "minimumLevel": 1,
+            "repeatLimit": 6,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Bonus Feat",
+                "locator": "bonus-feat"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/stylish-fighter/"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:event:bonus-feat:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:warrior:stylish-fighter:pool:bonus-feat"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "bonus-feat",
+            "locator": "bonus-feat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:event:bonus-feat:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:warrior:stylish-fighter:pool:bonus-feat"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "bonus-feat",
+            "locator": "bonus-feat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:event:bonus-feat:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:warrior:stylish-fighter:pool:bonus-feat"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "bonus-feat",
+            "locator": "bonus-feat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:event:bonus-feat:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:warrior:stylish-fighter:pool:bonus-feat"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "bonus-feat",
+            "locator": "bonus-feat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:event:bonus-feat:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:warrior:stylish-fighter:pool:bonus-feat"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "bonus-feat",
+            "locator": "bonus-feat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stylish-fighter:event:bonus-feat:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:warrior:stylish-fighter:pool:bonus-feat"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "bonus-feat",
+            "locator": "bonus-feat"
+          }
+        ]
+      }
+    ],
+    "profile": {},
+    "resources": [],
+    "extraOptions": []
+  }
+}

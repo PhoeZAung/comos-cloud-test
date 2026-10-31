@@ -1,0 +1,849 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:ruby-wizard",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Ruby Wizard",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-wizard/",
+      "title": "Ruby Wizard",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "3957f0a10493ccf716cdccceff5bbbfda8b41f701c78d6e153b4f7ab0a8ab10a"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "A ruby wizard is proficient with simple weapons, animated dolls, power rod, and power staff. Like any other spellcaster, a ruby wizard wearing light, medium, or heavy armor or using a shield incurs a chance of spell failure. A multiclass ruby wizard still incurs the normal spell failure chance for spells received from other classes.\n\nThis ability replaces the normal red mage weapon and armor proficiencies.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-i",
+        "name": "Ruby Scholar I",
+        "atLevel": 1,
+        "description": "A ruby wizard of 1st level may select two 1st level spells, one each from the black mage and white mage spell lists. The ruby wizard can cast these spells as a spell-like ability by expending one point of his Arcane Pool. The ruby wizard uses his red mage caster level and Intelligence modifier to determine its effects.\n\nThis ability replaces armored mage (light).\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar I",
+            "locator": "ruby-scholar-i"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:arcane-bond",
+        "name": "Arcane Bond",
+        "atLevel": 1,
+        "description": "At 1st level, ruby wizards form a powerful bond with an object or a creature. This bond can take one of two forms: a familiar or a bonded object. A familiar is a magical pet that enhances the ruby wizard\u2019s skills and senses and can aid him in magic, while a bonded object is an item a ruby wizard can use to cast additional spells or to serve as a magical item. Once a ruby wizard makes this choice, it is permanent and cannot be changed.\n\nRules for bonded items are given below, while rules for familiars are located here: <https://www.finalfantasyd20.com/magic/familiars/>\n\nA ruby wizard who select a bonded object begin play with one at no cost. Objects that are the subject of an arcane bond must fall into one of the following categories: amulet, ring, staff, wand, or weapon. These objects are always masterwork quality. Weapons acquired at 1st level are not made of any special material. If the object is an amulet or ring, it must be worn to have effect, while staves, wands, and weapons must be held in one hand. If a ruby wizard attempts to cast a spell without his bonded object worn or in hand, he must make a concentration check or lose the spell. The DC for this check is equal to 20 + the spell\u2019s level. If the object is a ring or amulet, it occupies the ring or neck slot accordingly.\n\nA bonded object can be used once per day to cast any one spell that the ruby wizard knows and is capable of casting, without spending MP. This spell is treated like any other spell cast by the ruby wizard, including casting time, duration, and other effects dependent on the ruby wizard\u2019s level. This spell cannot be modified by metamagic feats or other abilities.\n\nA ruby wizard can add additional magic abilities to his bonded object as if he has the required Item Creation Feats and if he meets the level prerequisites of the feat. For example, a ruby wizard with a bonded dagger must be at least 5th level to add magic abilities to the dagger (see Craft Magic Arms and Armor feat). If the bonded object is a wand, it loses its wand abilities when its last charge is consumed, but it is not destroyed and it retains all of its bonded object properties and can be used to craft a new wand. The magic properties of a bonded object, including any magic abilities added to the object, only function for the ruby wizard who owns it. If a bonded object\u2019s owner dies, or the item is replaced, the object reverts to being an ordinary masterwork item of the appropriate type.\n\nIf a bonded object is damaged, it is restored to full hit points the next time the ruby wizard rests a full 8 hours. If the object of an arcane bond is lost or destroyed, it can be replaced after 1 week in a special ritual that costs 200 gil per red mage level plus the cost of the masterwork item. This ritual takes 8 hours to complete. Items replaced in this way do not possess any of the additional enchantments of the previous bonded item. A ruby wizard can designate an existing magic item as his bonded item. This functions in the same way as replacing a lost or destroyed item except that the new magic item retains its abilities while gaining the benefits and drawbacks of becoming a bonded item.\n\nThis ability replaces spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Bond",
+            "locator": "arcane-bond"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:extra-arcane-pool",
+        "name": "Extra Arcane Pool",
+        "atLevel": 2,
+        "description": "At 2nd level, a ruby wizard gains the [Extra Arcane Pool](https://www.finalfantasyd20.com/feats/class-feats/extra-arcane-pool/) feat as a bonus feat.\n\nThis ability replaces a ruby talent gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Extra Arcane Pool",
+            "locator": "extra-arcane-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:mage-talents",
+        "name": "Mage Talents",
+        "atLevel": 4,
+        "description": "At 4th, 8th, 12th, 16th, and 20th level, a ruby wizard may pick a mage talent from either the black mage or white mage class.\n\nThis ability may replace a ruby talent gained at 4th, 8th, 12th, 16th, and 20th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mage Talents",
+            "locator": "mage-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:arcane-pool",
+        "name": "Arcane Pool",
+        "atLevel": 2,
+        "description": "By spending 1 arcane pool from his arcane pool, a ruby wizard can change the element type from his power rod or staff to any element for a number of rounds equal to his Charisma modifier.\n\nThis ability modifies arcane pool.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-ii",
+        "name": "Ruby Scholar II",
+        "atLevel": 3,
+        "description": "A ruby wizard of 3rd level may select two 2nd level spells, one each from the black mage and white mage spell lists. The ruby wizard can cast these spells as a spell-like ability by expending two points of his Arcane Pool. The ruby wizard uses his red mage caster level and Intelligence modifier to determine its effects.\n\nThis ability replaces armored mage.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar II",
+            "locator": "ruby-scholar-ii"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:scholar-knowledge",
+        "name": "Scholar Knowledge",
+        "atLevel": 3,
+        "description": "At 3rd level, the ruby wizard becomes more specialized in dealing and healing damage with his spells. Whenever a ruby wizard casts any 1st level spell or higher that deals a variable amount of damage (rather than a flat increase to damage), he adds his Intelligence bonus (minimum +1) to the amount of damage dealt. Whenever a ruby wizard casts any 1st level spell or higher that heals a variable amount of damage (rather than a flat amount of healing), he adds his Wisdom bonus (minimum +1) to the damage healed. A spell that can create more than one instance of damage/healing in its casting gains this extra damage/healing to the first one of those instances. (For example, Fiery Shuriken creates 2 or more shuriken upon casting, the first shuriken gets the extra damage of those created from the casting. The -ra line of spells get the extra damage/healing from Scholar Knowledge). If a spell deals or heals damage for more than 1 round, it does not gain the benefit of the scholar knowledge ability. The bonus from this ability applies only to spells that he casts as a ruby wizard, not to those he might have by virtue of levels in another class.\n\nThis ability modifies ruby knowledge.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Scholar Knowledge",
+            "locator": "scholar-knowledge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:quick-cast",
+        "name": "Quick Cast",
+        "atLevel": 4,
+        "description": "Beginning at 4th level, once per day, a ruby wizard can cast one spell (or spell-like ability) up to 7th level spells as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), so long as the casting time of the spell is 1 [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) or less. He can use this ability an additional time per day for every four red mage levels thereafter.\n\nThis ability modifies quick cast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Cast",
+            "locator": "quick-cast"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-iii",
+        "name": "Ruby Scholar III",
+        "atLevel": 6,
+        "description": "A ruby wizard of 6th level may select two 3rd level spells, one each from the black mage and white mage spell lists. The ruby wizard can cast these spells as a spell-like ability by expending three points of his Arcane Pool. The ruby wizard uses his red mage caster level and Intelligence modifier to determine its effects.\n\nThis ability replaces ruby arcana gained at 6th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar III",
+            "locator": "ruby-scholar-iii"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:master-scholar",
+        "name": "Master Scholar",
+        "atLevel": 7,
+        "description": "At 7th level, a ruby wizard adds half his red mage level (minimum 1) as a bonus on all Knowledge (arcana), Spellcraft, and Use Magic Device checks. He can always take 10 on Knowledge (arcana) and Spellcraft checks, even if distracted or endangered.\n\nThis ability replaces improved spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Scholar",
+            "locator": "master-scholar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-iv",
+        "name": "Ruby Scholar IV",
+        "atLevel": 9,
+        "description": "A ruby wizard of 9th level may select two 4th level spells, one each from the black mage and white mage spell lists. The ruby wizard can cast these spells as a spell-like ability by expending four points of his Arcane Pool. The ruby wizard uses his red mage caster level and Intelligence modifier to determine its effects.\n\nThis ability replaces ruby arcana gained at 9th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar IV",
+            "locator": "ruby-scholar-iv"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:loremaster",
+        "name": "Loremaster",
+        "atLevel": 11,
+        "description": "At 11th level, the ruby wizard becomes a master of lore and can take 10 on any Knowledge skill check that he has ranks in. A ruby wizard can choose not to take 10 and can instead roll normally. In addition, once per day, the ruby wizard can take 20 on any Knowledge skill check as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard).\n\nThis ability replaces fighter training.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Loremaster",
+            "locator": "loremaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-v",
+        "name": "Ruby Scholar V",
+        "atLevel": 12,
+        "description": "A ruby wizard of 12th level may select two 5th level spells, one each from the black mage and white mage spell lists. The ruby wizard can cast these spells as a spell-like ability by expending five points of his Arcane Pool. The ruby wizard uses his red mage caster level and Intelligence modifier to determine its effects.\n\nThis ability replaces ruby arcana gained at 12th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar V",
+            "locator": "ruby-scholar-v"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:advanced-mage-talents",
+        "name": "Advanced Mage Talents",
+        "atLevel": 14,
+        "description": "At 14th and 16th level, a ruby wizard may pick an advanced mage talent from either the black mage or white mage class.\n\nThis ability replaces greater spell combat and counterstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Mage Talents",
+            "locator": "advanced-mage-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-vi",
+        "name": "Ruby Scholar VI",
+        "atLevel": 15,
+        "description": "A ruby wizard of 15th level may select two 6th level spells, one each from the black mage and white mage spell lists. The ruby wizard can cast these spells as a spell-like ability by expending six points of his Arcane Pool. The ruby wizard uses his red mage caster level and Intelligence modifier to determine its effects.\n\nThis ability replaces ruby arcana gained at 15th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar VI",
+            "locator": "ruby-scholar-vi"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-vii",
+        "name": "Ruby Scholar VII",
+        "atLevel": 18,
+        "description": "A ruby wizard of 18th level may select two 7th level spells, one each from the black mage and white mage spell lists. The ruby wizard can cast these spells as a spell-like ability by expending seven points of his Arcane Pool. The ruby wizard uses his red mage caster level and Intelligence modifier to determine its effects.\n\nThis ability replaces ruby arcana gained at 18th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar VII",
+            "locator": "ruby-scholar-vii"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:feature:quad-cast",
+        "name": "Quad-Cast",
+        "atLevel": 20,
+        "description": "At 20th level, once per day, a ruby wizard can take a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) to cast four spells, but at 75% power. The ruby wizard pays MP for all four spells as normal and must make a concentration check (DC 15 + double the spell\u2019s level) once for each spell at a cumulative +2 penalty, he must check for all four spells. He must also indicate the targets before spells are resolved.\n\nThis ability replaces red\u00a0wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quad-Cast",
+            "locator": "quad-cast"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:weapon-and-armor-proficiency",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:weapon-and-armor-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:weapon-and-armor-proficiency"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ],
+        "description": "This ability replaces the normal red mage weapon and armor proficiencies."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:ruby-scholar-i",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:armored-mage"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-i"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar I",
+            "locator": "ruby-scholar-i"
+          }
+        ],
+        "description": "This ability replaces armored mage (light)."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:arcane-bond",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:arcane-bond"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Bond",
+            "locator": "arcane-bond"
+          }
+        ],
+        "description": "This ability replaces spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:extra-arcane-pool",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:extra-arcane-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Extra Arcane Pool",
+            "locator": "extra-arcane-pool"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:arcane-pool",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:arcane-pool"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:arcane-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ],
+        "description": "This ability modifies arcane pool."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:ruby-scholar-ii",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:armored-mage",
+          "ffd20:class:red-mage:feature:armored-mage-medium",
+          "ffd20:class:red-mage:feature:armored-mage-shield"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-ii"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar II",
+            "locator": "ruby-scholar-ii"
+          }
+        ],
+        "description": "This ability replaces armored mage."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:scholar-knowledge",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:scholar-knowledge"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Scholar Knowledge",
+            "locator": "scholar-knowledge"
+          }
+        ],
+        "description": "This ability modifies ruby knowledge."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:quick-cast",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:quick-cast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:quick-cast"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Cast",
+            "locator": "quick-cast"
+          }
+        ],
+        "description": "This ability modifies quick cast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:ruby-scholar-iii",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:6"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-iii"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar III",
+            "locator": "ruby-scholar-iii"
+          }
+        ],
+        "description": "This ability replaces ruby arcana gained at 6th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:master-scholar",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:improved-spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:master-scholar"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Scholar",
+            "locator": "master-scholar"
+          }
+        ],
+        "description": "This ability replaces improved spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:ruby-scholar-iv",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:9"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-iv"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar IV",
+            "locator": "ruby-scholar-iv"
+          }
+        ],
+        "description": "This ability replaces ruby arcana gained at 9th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:loremaster",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:fighter-training"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:loremaster"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Loremaster",
+            "locator": "loremaster"
+          }
+        ],
+        "description": "This ability replaces fighter training."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:ruby-scholar-v",
+        "atClassLevel": 12,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:12"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-v"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar V",
+            "locator": "ruby-scholar-v"
+          }
+        ],
+        "description": "This ability replaces ruby arcana gained at 12th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:advanced-mage-talents",
+        "atClassLevel": 14,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:greater-spell-combat",
+          "ffd20:class:red-mage:feature:counterstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:advanced-mage-talents"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Mage Talents",
+            "locator": "advanced-mage-talents"
+          }
+        ],
+        "description": "This ability replaces greater spell combat and counterstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:ruby-scholar-vi",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:15"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-vi"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar VI",
+            "locator": "ruby-scholar-vi"
+          }
+        ],
+        "description": "This ability replaces ruby arcana gained at 15th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:ruby-scholar-vii",
+        "atClassLevel": 18,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:18"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:ruby-scholar-vii"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Scholar VII",
+            "locator": "ruby-scholar-vii"
+          }
+        ],
+        "description": "This ability replaces ruby arcana gained at 18th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:replacement:quad-cast",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:feature:quad-cast"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quad-Cast",
+            "locator": "quad-cast"
+          }
+        ],
+        "description": "This ability replaces red wizard."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:pool:advanced-mage-talents",
+        "name": "Advanced Mage Talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:ruby-wizard:option:manual-advanced-mage-talent",
+            "name": "Advanced Mage Talent (manual selection)",
+            "description": "Choose a legal advanced Black Mage or White Mage talent and record its exact name and effects on the existing sheet entries.",
+            "minimumLevel": 14,
+            "repeatLimit": 2,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Mage Talents",
+                "locator": "advanced-mage-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:event:advanced-mage-talents:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:pool:advanced-mage-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Mage Talents",
+            "locator": "advanced-mage-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-wizard:event:advanced-mage-talents:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-wizard:pool:advanced-mage-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Mage Talents",
+            "locator": "advanced-mage-talents"
+          }
+        ]
+      }
+    ],
+    "profile": {
+      "proficiencies": [
+        "Simple weapons",
+        "Animated dolls",
+        "Power rod",
+        "Power staff"
+      ],
+      "arcanePoolBonus": 2
+    },
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:red-mage:pool:ruby-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:ruby-wizard:option:manual-mage-talent",
+            "name": "Mage Talent (manual selection)",
+            "description": "Choose a legal Black Mage or White Mage talent instead of this Ruby Talent. Record its exact name, prerequisites and effect on the existing sheet ability/feat entries.",
+            "minimumLevel": 4,
+            "allowedLevels": [
+              4,
+              8,
+              12,
+              16,
+              20
+            ],
+            "repeatLimit": 5,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Mage Talents",
+                "locator": "mage-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ]
+  }
+}

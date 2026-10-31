@@ -1,0 +1,185 @@
+{
+  "checkedAt": "2026-10-31T16:07:48.931112+00:00",
+  "mergeCommit": "b4c63eb061f6ca27a7b263ff08a6c0b9fc851a8d",
+  "headCommit": "65dc83fe58ebbc2d4960a8b19702634c97d1e3dc",
+  "pullRequest": "https://github.com/PhoeZAung/comos-cloud-test/pull/39",
+  "baseURL": "https://feisty-freedom-production-304e.up.railway.app",
+  "branchCI": 41217982170,
+  "testsPassed": 449,
+  "assets": [
+    {
+      "path": "assets/rules-wizard.mjs",
+      "status": 200,
+      "expectedSha256": "5a704cfcfb1917344c23aafb57b2dd233e6f6c7f3c1119db3d0445cbf5a4f613",
+      "actualSha256": "5a704cfcfb1917344c23aafb57b2dd233e6f6c7f3c1119db3d0445cbf5a4f613",
+      "matches": true
+    },
+    {
+      "path": "assets/sheet.mjs",
+      "status": 200,
+      "expectedSha256": "68f6c3ab62f0727f9a8f8f99557d7e3c31e266b4e4d2f197b495f9eed5debe22",
+      "actualSha256": "68f6c3ab62f0727f9a8f8f99557d7e3c31e266b4e4d2f197b495f9eed5debe22",
+      "matches": true
+    },
+    {
+      "path": "assets/sheet.css",
+      "status": 200,
+      "expectedSha256": "b19584c201a2a32d2feb66b21e0a6a8e454cc3459049c50c20a1920931811888",
+      "actualSha256": "b19584c201a2a32d2feb66b21e0a6a8e454cc3459049c50c20a1920931811888",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/build.mjs",
+      "status": 200,
+      "expectedSha256": "489c6d54aad37e42798c7da8310ec115f1ee2a13ae6feb66c9644f9f2eeed772",
+      "actualSha256": "489c6d54aad37e42798c7da8310ec115f1ee2a13ae6feb66c9644f9f2eeed772",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/class-adapters.mjs",
+      "status": 200,
+      "expectedSha256": "eb19604bbce9cc65e64bb7df43ec328e850f5147aa486a9b644d11f25fcfdfd6",
+      "actualSha256": "eb19604bbce9cc65e64bb7df43ec328e850f5147aa486a9b644d11f25fcfdfd6",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/level-one-classes.mjs",
+      "status": 200,
+      "expectedSha256": "d0608a840d42454e6e7e3bd35165b3b06639148ea6fd04710ab60c0182562507",
+      "actualSha256": "d0608a840d42454e6e7e3bd35165b3b06639148ea6fd04710ab60c0182562507",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/class-catalog.mjs",
+      "status": 200,
+      "expectedSha256": "7260390cd136a21f5119dfa678dcd25198e0391250482e9f5fd8b4aee55ac597",
+      "actualSha256": "7260390cd136a21f5119dfa678dcd25198e0391250482e9f5fd8b4aee55ac597",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/martial-progression.mjs",
+      "status": 200,
+      "expectedSha256": "da7fcffda0d2bd0e1d3cf97faa0ecaafcdc5f2c5bb2e488921e8e1b630dd1c2e",
+      "actualSha256": "da7fcffda0d2bd0e1d3cf97faa0ecaafcdc5f2c5bb2e488921e8e1b630dd1c2e",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/martial-contract.mjs",
+      "status": 200,
+      "expectedSha256": "7afc7ebc2ac05f7254956b75bad74afadd3310366dc1ebd519f4573b88f852b0",
+      "actualSha256": "7afc7ebc2ac05f7254956b75bad74afadd3310366dc1ebd519f4573b88f852b0",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/gunbreaker-ammo.mjs",
+      "status": 200,
+      "expectedSha256": "88d3f9cd4fe68dff4ff089c91d2ce01d24fb1389c8c74ec9951d4f3e64c86c39",
+      "actualSha256": "88d3f9cd4fe68dff4ff089c91d2ce01d24fb1389c8c74ec9951d4f3e64c86c39",
+      "matches": true
+    },
+    {
+      "path": "features/characters/managed-stats.mjs",
+      "status": 200,
+      "expectedSha256": "bac9f021924c05685050a090c6a774669f13b76f75842e1a1b9d4327b5ee5f6e",
+      "actualSha256": "bac9f021924c05685050a090c6a774669f13b76f75842e1a1b9d4327b5ee5f6e",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/races.mjs",
+      "status": 200,
+      "expectedSha256": "30b6974da2bb89bfb4b52e2bdfcb03a6292b1aa1c130307cab2cba67d898f348",
+      "actualSha256": "30b6974da2bb89bfb4b52e2bdfcb03a6292b1aa1c130307cab2cba67d898f348",
+      "matches": true
+    },
+    {
+      "path": "features/sheet/gunbreaker-ammo-view.mjs",
+      "status": 200,
+      "expectedSha256": "7130b0ef28532786d4c6adff2709419deed173c6b0dcee969eb1830a34f5ebfa",
+      "actualSha256": "7130b0ef28532786d4c6adff2709419deed173c6b0dcee969eb1830a34f5ebfa",
+      "matches": true
+    },
+    {
+      "path": "features/sheet/view.mjs",
+      "status": 200,
+      "expectedSha256": "dc9b216fba9120dc91670f4410aeb1c7e9fbbec21a253de181aeccb6887b06c5",
+      "actualSha256": "dc9b216fba9120dc91670f4410aeb1c7e9fbbec21a253de181aeccb6887b06c5",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/racial-choices.mjs",
+      "status": 200,
+      "expectedSha256": "158f2a1289b2ad4bd50443736bfab9fe6c5e41b91825c219ceaa61520f97eba5",
+      "actualSha256": "158f2a1289b2ad4bd50443736bfab9fe6c5e41b91825c219ceaa61520f97eba5",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/racial-progress.mjs",
+      "status": 200,
+      "expectedSha256": "805d819f8f7354051f677c847354f410fb540e315f970a0274c64bddcc274167",
+      "actualSha256": "805d819f8f7354051f677c847354f410fb540e315f970a0274c64bddcc274167",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/build-compatibility.mjs",
+      "status": 200,
+      "expectedSha256": "8f20dd73ab7d3807e855e43d2acc9e5d64c0ce967373a804ad22ba142e0acde6",
+      "actualSha256": "8f20dd73ab7d3807e855e43d2acc9e5d64c0ce967373a804ad22ba142e0acde6",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/red-mage-level-one.mjs",
+      "status": 200,
+      "expectedSha256": "81dd33dd015de7d91a85c5c198bc836fa55dcc30fcb1871e79c734da2003cc47",
+      "actualSha256": "81dd33dd015de7d91a85c5c198bc836fa55dcc30fcb1871e79c734da2003cc47",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/red-mage-spells.mjs",
+      "status": 200,
+      "expectedSha256": "a2c277566d9456e8f6b899e3fb392e02ea0af443a96c7fda54139e751bf73e99",
+      "actualSha256": "a2c277566d9456e8f6b899e3fb392e02ea0af443a96c7fda54139e751bf73e99",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/languages.mjs",
+      "status": 200,
+      "expectedSha256": "426f601dd5d20b30881a5950f3238d5b7c4bcef62f30fcbd382a29523004d443",
+      "actualSha256": "426f601dd5d20b30881a5950f3238d5b7c4bcef62f30fcbd382a29523004d443",
+      "matches": true
+    }
+  ],
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "apiVersion": 1,
+      "database": "ready",
+      "schemaVersion": 20,
+      "authentication": "configured"
+    }
+  },
+  "unauthenticatedPrivateRead": {
+    "path": "api/v1/my/characters",
+    "status": 401,
+    "denied": true
+  },
+  "productionProviderLoginTested": false,
+  "verified": true,
+  "mainCI": 41218059820,
+  "railway": {
+    "deploymentId": "ed8b759c-5f4f-4067-8194-16b72b84a850",
+    "status": "SUCCESS",
+    "serviceId": "5cbe8adc-1b1f-4f88-bbb0-d6d45f2d5e8f",
+    "environmentId": "ad3559c8-8ac9-4cdd-809c-a8ea24317ee1",
+    "runningReplicas": 1,
+    "crashedReplicas": 0,
+    "pendingWork": [],
+    "createdAt": "2026-10-31T16:06:34.685Z",
+    "successfulAt": "2026-10-31T16:07:27.313Z"
+  },
+  "limits": [
+    "No real Firebase account login or production character mutation was performed.",
+    "Red Mage supports levels 1\u20132 only; conditional combat, rest refresh and unsupported talent subchoices remain manual or guarded.",
+    "Martial base classes/requested archetypes retain existing documented manual/guarded scope through level 20."
+  ]
+}

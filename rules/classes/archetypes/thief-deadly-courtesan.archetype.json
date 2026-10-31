@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:deadly-courtesan",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Deadly Courtesan",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/deadly-courtesan/",
+      "title": "Deadly Courtesan",
+      "archiveSha256": "ae49b2560f7e8159f8eeebc0bbc089b792f3bf912810148e7b54dc5e76926229",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:feature:bardic-performance",
+        "name": "Bardic Performance",
+        "atLevel": 2,
+        "description": "At 2nd level, a deadly courtesan gains the [bardic performance](https://www.finalfantasyd20.com/classes/core-classes/bard/#bardic-performance) ability and the [fascinate](https://www.finalfantasyd20.com/classes/core-classes/bard/#fascinate) bardic performance. Her fascinate DC is 10 + half of her thief level + her Charisma modifier. She can use this bardic performance for a number of rounds per day equal to 1 + her Charisma modifier. At each level after 2nd, she can use bardic performance for 1 additional round per day. If the deadly courtesan also has bard levels, she may use these rounds for either class\u2019s fascinate bardic performance, and her bard and thief levels stack for determining her fascinate DC.\n\nThis ability replaces the thief talent gained at 2nd level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bardic Performance",
+            "locator": "bardic-performance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:feature:inspire-competence",
+        "name": "Inspire Competence",
+        "atLevel": 3,
+        "description": "At 3rd level, a deadly courtesan can use her bardic performance to [inspire competence](https://www.finalfantasyd20.com/classes/core-classes/bard/#inspire-competence). The bonus begins at +2 and increases by +1 for every six levels the courtesan has attained beyond 3rd (+3 at 9th and +4 at 15th).\n\nThis ability replaces all levels of danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inspire Competence",
+            "locator": "inspire-competence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:feature:performance-strike",
+        "name": "Performance Strike",
+        "atLevel": 8,
+        "description": "At 8th level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), a deadly courtesan may expend rounds of bardic performance to gain a morale bonus on one attack roll. The amount of the bonus is equal to the number of bardic performance rounds expended (maximum bonus equal to half her thief level).\n\nThis ability replaces improved uncanny dodge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Performance Strike",
+            "locator": "performance-strike"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:replacement:bardic-performance:1",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:deadly-courtesan:feature:bardic-performance"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:2"
+        ],
+        "eventOnly": true,
+        "description": "the thief talent gained at 2nd level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bardic Performance",
+            "locator": "bardic-performance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:replacement:inspire-competence:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:deadly-courtesan:feature:inspire-competence"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "all levels of danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inspire Competence",
+            "locator": "inspire-competence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:replacement:performance-strike:1",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-uncanny-dodge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:deadly-courtesan:feature:performance-strike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "improved uncanny dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Performance Strike",
+            "locator": "performance-strike"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:event:grant:bardic-performance",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:deadly-courtesan:feature:bardic-performance",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bardic Performance",
+            "locator": "bardic-performance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:event:grant:inspire-competence",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:deadly-courtesan:feature:inspire-competence",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inspire Competence",
+            "locator": "inspire-competence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:deadly-courtesan:event:grant:performance-strike",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:deadly-courtesan:feature:performance-strike",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Performance Strike",
+            "locator": "performance-strike"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:thief:deadly-courtesan:feature:bardic-performance",
+        "base": 0,
+        "perLevel": 0,
+        "ability": "cha",
+        "minimum": 0,
+        "byLevel": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19
+        ]
+      }
+    ],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "appraise",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "disable-device",
+        "disguise",
+        "escape-artist",
+        "intimidate",
+        "knowledge:local",
+        "linguistics",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "sense-motive",
+        "sleight-of-hand",
+        "stealth",
+        "swim",
+        "use-magic-device",
+        "knowledge:history",
+        "knowledge:nobility"
+      ],
+      "classSkillSourceText": "A deadly courtesan adds Knowledge (history) and Knowledge (nobility) to her list of class skills and removes Knowledge (dungeoneering) from her list of class skills."
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

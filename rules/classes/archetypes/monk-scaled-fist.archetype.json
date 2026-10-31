@@ -1,0 +1,471 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:scaled-fist",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Scaled Fist",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/scaled-fist/",
+      "title": "Scaled Fist",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "94f9fc13ac97738e8825cd7945ba61baae2489bcfeaf05a8868d0abddcb48ff5"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:draconic-might",
+        "name": "Draconic Might",
+        "atLevel": 1,
+        "description": "Any of the scaled fist\u2019s class abilities that make calculations based on her Constitution may use her Charisma instead.\n\nIn addition, a scaled fist may use her Charisma score instead of her Wisdom score to qualify for, and determine the benefits of, feats that lists Improved Unarmed Strikes as one of her prerequisites.\n\nThis ability replaces martial wisdom.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Might",
+            "locator": "draconic-might"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:elemental-fist",
+        "name": "Elemental Fist",
+        "atLevel": 1,
+        "description": "At 1st level, a scaled fist gains the [Elemental Fist](https://www.finalfantasyd20.com/feats/combat-feats/elemental-fist/) as a bonus feat even if she does not meet the prerequisites.\n\nThis ability replaces flying kick.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Elemental Fist",
+            "locator": "elemental-fist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:dragon-style",
+        "name": "Dragon Style",
+        "atLevel": 3,
+        "description": "At 3rd level, a scaled fist gains the [Dragon Style](https://www.finalfantasyd20.com/feats/style-feats/dragon-style) feat even if she does not meet the prerequisites.\n\nThis ability replaces a blitz technique gained at 3rd level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Style",
+            "locator": "dragon-style"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:draconic-mettle",
+        "name": "Draconic Mettle",
+        "atLevel": 4,
+        "description": "At 4th level, a scaled fist gains a +2 bonus on saving throws attempted against all fear, paralysis, and sleep effects. This bonus increases by +1 for every two monk levels thereafter.\n\nThis ability replaces style flexibility.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Mettle",
+            "locator": "draconic-mettle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:dragon-ferocity",
+        "name": "Dragon Ferocity",
+        "atLevel": 5,
+        "description": "At 5th level, a scaled fist gained the [Dragon Ferocity](https://www.finalfantasyd20.com/feats/style-feats/dragon-ferocity) feat even if she does not meet the prerequisites.\n\nThis ability replaces zen.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Ferocity",
+            "locator": "dragon-ferocity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:draconic-fury",
+        "name": "Draconic Fury",
+        "atLevel": 6,
+        "description": "At 6th level, the scaled fist has gained some control over the draconic energies she studies. She must select one type of element: earth, fire, ice, lightning, water, or wind. Once this choice is made, it cannot be changed. When attacking with unarmed strikes, the scaled fist deals an extra 1d6 points of damage of her chosen element so long as she has at least 1 point in her ki pool.\n\nAdditionally, she can expend 1 point from her ki pool as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to imbue her unarmed strikes with a different element, causing them to deal an extra 1d6 points of damage of the chosen energy type for a number of rounds equal to half her monk level.\n\nThis ability replaces a blitz technique gained at 6th level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Fury",
+            "locator": "draconic-fury"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:dragon-roar",
+        "name": "Dragon Roar",
+        "atLevel": 8,
+        "description": "At 8th level, a scaled fist gains the [Dragon Roar](https://www.finalfantasyd20.com/feats/style-feats/dragon-roar) feat even if she does not meet the prerequisites.\n\nThis ability replaces a monk talent gained at 8th level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Roar",
+            "locator": "dragon-roar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:draconic-breath",
+        "name": "Draconic Breath",
+        "atLevel": 11,
+        "description": "At 11th level, a scaled fist can spend 1 point from her ki pool to make a breath weapon attack as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). This breath weapon deals 1d6 points of damage of her energy type per monk level in a 30-foot cone. Those caught in the area of the breath can attempt a Reflex save (DC 10 + half of the monk\u2019s level + her Constitution or Charisma modifier) to halve the normal damage.\n\nThis ability replaces lifefont.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Breath",
+            "locator": "draconic-breath"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:replacement:draconic-might",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:martial-wisdom"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:scaled-fist:feature:draconic-might"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Might",
+            "locator": "draconic-might"
+          }
+        ],
+        "description": "martial wisdom"
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:replacement:elemental-fist",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:scaled-fist:feature:elemental-fist"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Elemental Fist",
+            "locator": "elemental-fist"
+          }
+        ],
+        "description": "flying kick"
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:replacement:dragon-style:events",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:3"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:scaled-fist:feature:dragon-style"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Style",
+            "locator": "dragon-style"
+          }
+        ],
+        "description": "a blitz technique gained at 3rd level"
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:replacement:draconic-mettle",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:style-flexibility"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:scaled-fist:feature:draconic-mettle"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Mettle",
+            "locator": "draconic-mettle"
+          }
+        ],
+        "description": "style flexibility"
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:replacement:dragon-ferocity",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:zen"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:scaled-fist:feature:dragon-ferocity"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Ferocity",
+            "locator": "dragon-ferocity"
+          }
+        ],
+        "description": "zen"
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:replacement:draconic-fury:events",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:6"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:scaled-fist:feature:draconic-fury"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Fury",
+            "locator": "draconic-fury"
+          }
+        ],
+        "description": "a blitz technique gained at 6th level"
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:replacement:dragon-roar:events",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:monk-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:monk-talents:8"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:scaled-fist:feature:dragon-roar"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Roar",
+            "locator": "dragon-roar"
+          }
+        ],
+        "description": "a monk talent gained at 8th level"
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:replacement:draconic-breath",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:lifefont"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:scaled-fist:feature:draconic-breath"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Breath",
+            "locator": "draconic-breath"
+          }
+        ],
+        "description": "lifefont"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:draconic-might:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:scaled-fist:feature:draconic-might",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Might",
+            "locator": "draconic-might"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:elemental-fist:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:scaled-fist:feature:elemental-fist",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Elemental Fist",
+            "locator": "elemental-fist"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:dragon-style:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:scaled-fist:feature:dragon-style",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Style",
+            "locator": "dragon-style"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:draconic-mettle:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:scaled-fist:feature:draconic-mettle",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Mettle",
+            "locator": "draconic-mettle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:dragon-ferocity:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:scaled-fist:feature:dragon-ferocity",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Ferocity",
+            "locator": "dragon-ferocity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:draconic-fury:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:scaled-fist:feature:draconic-fury",
+        "atClassLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Fury",
+            "locator": "draconic-fury"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:dragon-roar:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:scaled-fist:feature:dragon-roar",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragon Roar",
+            "locator": "dragon-roar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:scaled-fist:feature:draconic-breath:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:scaled-fist:feature:draconic-breath",
+        "atClassLevel": 11,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Draconic Breath",
+            "locator": "draconic-breath"
+          }
+        ]
+      }
+    ],
+    "resources": [],
+    "profile": {
+      "requiredRaceId": "ffd20:race:gria"
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

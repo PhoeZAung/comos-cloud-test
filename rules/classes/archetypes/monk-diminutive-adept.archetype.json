@@ -1,0 +1,213 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:diminutive-adept",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Diminutive Adept",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/diminutive-adept/",
+      "title": "Diminutive Adept",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "c0db92030681cf99ad0d2a23820818898f7dc744df50a6fd9e229a8a0881a35f"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:feature:diminutive-trip",
+        "name": "Diminutive Trip",
+        "atLevel": 1,
+        "description": "At 1st level, a diminutive adept learns a number of maneuvers and grabs that can cause even the largest opponents to stumble and fall. He gains [Improved Trip](https://www.d20pfsrd.com/feats/combat-feats/improved-trip-combat-final/) as a bonus feat, even if he does not meet the requirements.\n\nAt 4th level, and every four levels thereafter, he acts as if he is one size larger for the purposes of determining the maximum size of creatures he can trip and when determining his CMB and CMD for purposes of a trip combat maneuver.\n\nThis ability replaces flying kick.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diminutive Trip",
+            "locator": "diminutive-trip"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:feature:diminutive-grace",
+        "name": "Diminutive Grace",
+        "atLevel": 2,
+        "description": "At 2nd level, a diminutive adept uses his size and grace to avoid the attacks of those he passes. When using the Acrobatics skill to avoid attacks of opportunity by moving through a threatened area or an enemy\u2019s space, he only takes a \u20135 penalty when doing so at full speed, instead of the normal \u201310 penalty.\n\nThis ability replaces ascetic.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diminutive Grace",
+            "locator": "diminutive-grace"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:feature:improved-diminutive-grace",
+        "name": "Improved Diminutive Grace",
+        "atLevel": 6,
+        "description": "At 6th level, a diminutive adept\u2019s ability to avoid attacks of opportunity against those he passes improves. When using the Acrobatics skill to avoid attacks of opportunity, while moving through a threatened area or through an enemy\u2019s space, he takes no penalty when doing so at full speed.\n\nThis ability replaces a monk talent gained at 6th level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Diminutive Grace",
+            "locator": "improved-diminutive-grace"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:replacement:diminutive-trip",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:diminutive-adept:feature:diminutive-trip"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diminutive Trip",
+            "locator": "diminutive-trip"
+          }
+        ],
+        "description": "flying kick"
+      },
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:replacement:diminutive-grace",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:ascetic"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:diminutive-adept:feature:diminutive-grace"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diminutive Grace",
+            "locator": "diminutive-grace"
+          }
+        ],
+        "description": "ascetic"
+      },
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:replacement:improved-diminutive-grace:events",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:monk-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:monk-talents:6"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:diminutive-adept:feature:improved-diminutive-grace"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Diminutive Grace",
+            "locator": "improved-diminutive-grace"
+          }
+        ],
+        "description": "a monk talent gained at 6th level"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:feature:diminutive-trip:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:diminutive-adept:feature:diminutive-trip",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diminutive Trip",
+            "locator": "diminutive-trip"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:feature:diminutive-grace:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:diminutive-adept:feature:diminutive-grace",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diminutive Grace",
+            "locator": "diminutive-grace"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:diminutive-adept:feature:improved-diminutive-grace:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:diminutive-adept:feature:improved-diminutive-grace",
+        "atClassLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Diminutive Grace",
+            "locator": "improved-diminutive-grace"
+          }
+        ]
+      }
+    ],
+    "resources": [],
+    "profile": {
+      "requiredSize": "small"
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

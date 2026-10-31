@@ -1,0 +1,417 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:student-of-the-stone",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Student of the Stone",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/student-of-the-stone/",
+      "title": "Student of the Stone",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "ada45832be19a9ef4be807c4dc777e534c6d1b5881d5b35d67894c8e64f350b1"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:hard-as-stone",
+        "name": "Hard as Stone",
+        "atLevel": 2,
+        "description": "At 2nd level, whenever an opponent rolls to confirm a critical hit against a student of stone, treat the student of stone\u2019s AC as +4 higher than normal.\n\nThis ability replaces a monk talent gained at 2nd level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hard as Stone",
+            "locator": "hard-as-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:strength-of-stone",
+        "name": "Strength of Stone",
+        "atLevel": 3,
+        "description": "At 3rd level, a student of stone learns to draw strength from the earth. So long as both he and his opponent are touching the ground, the student of stone gains a +1 bonus on attack rolls, damage rolls, bull rush and trip combat maneuver rolls, and to his CMD when resisting a bull rush or trip attempt. These bonus increase by an additional +1 for every fifth level after 3rd.\n\nThis ability replaces boost.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Strength of Stone",
+            "locator": "strength-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:bones-of-stone",
+        "name": "Bones of Stone",
+        "atLevel": 5,
+        "description": "At 5th level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), a student of stone can spend 1 ki point to gain DR 5/\u2013 until the beginning of his next turn.\n\nAt 10th level, he can spend 1 ki point to gain DR 10/\u2013 until his next turn.\n\nAt 15th level, he can spend 1 ki point to gain DR 15/\u2013 until his next turn.\n\nThis ability replaces counterstance.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bones of Stone",
+            "locator": "bones-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:body-of-stone",
+        "name": "Body of Stone",
+        "atLevel": 8,
+        "description": "At 8th level, a student of stone gains the benefits of the [light fortification](https://www.d20pfsrd.com/magic-armor#TOC-Fortification) armor property.\n\nThis ability replaces diamond body.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Body of Stone",
+            "locator": "body-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:soul-of-stone",
+        "name": "Soul of Stone",
+        "atLevel": 12,
+        "description": "At 12th level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), a student of stone can spend 1 ki point to gain [tremorsense](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules/#Tremorsense_Ex) 15 feet for an amount of rounds equal to his monk level.\n\nAt 18th level, the range of this tremorsense increases to 30 feet.\n\nThis ability replaces a blitz technique gained at 12th level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Soul of Stone",
+            "locator": "soul-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:entomb",
+        "name": "Entomb",
+        "atLevel": 19,
+        "description": "At 19th level, a student of stone can phase a foe into solid rock, killing it instantly. To use this ability, he expends 1 ki point as part of a bull rush or reposition combat maneuver against a creature adjacent to unworked earth or stone. If the attempt succeeds, the student of stone pushes his foe inside the rock. If the creature succeeds at a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier), it is ejected in the nearest open space and takes 5d6 points of earth damage. If it fails, it dies instantly as its body merges with the surrounding stone. Entomb is usable once per day, but a failed bull rush or reposition attempt does not count as a use of the ability. Entomb has no effect on creatures that can earth glide, are incorporeal, or can otherwise can survive merging with a solid object.\n\nThis ability replaces inner strength.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Entomb",
+            "locator": "entomb"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:stone-self",
+        "name": "Stone Self",
+        "atLevel": 20,
+        "description": "At 20th level, a student of stone becomes an outsider with the earth subtype. He gains DR 5/chaotic, burrow speed 20 feet, and tremorsense 20 feet.\n\nThis ability replaces perfect self.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stone Self",
+            "locator": "stone-self"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:replacement:hard-as-stone:events",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:monk-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:monk-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:student-of-the-stone:feature:hard-as-stone"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hard as Stone",
+            "locator": "hard-as-stone"
+          }
+        ],
+        "description": "a monk talent gained at 2nd level"
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:replacement:strength-of-stone",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:boost"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:student-of-the-stone:feature:strength-of-stone"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Strength of Stone",
+            "locator": "strength-of-stone"
+          }
+        ],
+        "description": "boost"
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:replacement:bones-of-stone",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:counterstance"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:student-of-the-stone:feature:bones-of-stone"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bones of Stone",
+            "locator": "bones-of-stone"
+          }
+        ],
+        "description": "counterstance"
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:replacement:body-of-stone",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:diamond-body"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:student-of-the-stone:feature:body-of-stone"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Body of Stone",
+            "locator": "body-of-stone"
+          }
+        ],
+        "description": "diamond body"
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:replacement:soul-of-stone:events",
+        "atClassLevel": 12,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:12"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:student-of-the-stone:feature:soul-of-stone"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Soul of Stone",
+            "locator": "soul-of-stone"
+          }
+        ],
+        "description": "a blitz technique gained at 12th level"
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:replacement:entomb",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:inner-strength"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:student-of-the-stone:feature:entomb"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Entomb",
+            "locator": "entomb"
+          }
+        ],
+        "description": "inner strength"
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:replacement:stone-self",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:perfect-self"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:student-of-the-stone:feature:stone-self"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stone Self",
+            "locator": "stone-self"
+          }
+        ],
+        "description": "perfect self"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:hard-as-stone:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:student-of-the-stone:feature:hard-as-stone",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hard as Stone",
+            "locator": "hard-as-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:strength-of-stone:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:student-of-the-stone:feature:strength-of-stone",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Strength of Stone",
+            "locator": "strength-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:bones-of-stone:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:student-of-the-stone:feature:bones-of-stone",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bones of Stone",
+            "locator": "bones-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:body-of-stone:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:student-of-the-stone:feature:body-of-stone",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Body of Stone",
+            "locator": "body-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:soul-of-stone:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:student-of-the-stone:feature:soul-of-stone",
+        "atClassLevel": 12,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Soul of Stone",
+            "locator": "soul-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:entomb:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:student-of-the-stone:feature:entomb",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Entomb",
+            "locator": "entomb"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:student-of-the-stone:feature:stone-self:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:student-of-the-stone:feature:stone-self",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stone Self",
+            "locator": "stone-self"
+          }
+        ]
+      }
+    ],
+    "resources": [],
+    "profile": {
+      "requiredRaceId": "ffd20:race:dwarf"
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

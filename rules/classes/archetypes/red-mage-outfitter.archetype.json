@@ -1,0 +1,704 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:outfitter",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Outfitter",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/",
+      "title": "Outfitter",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "1ed6e63ad4124e0099f0c71ccd4d16652ba26fce5336f625f82a73903fb8a62b"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:feature:illuminated-runway",
+        "name": "Illuminated Runway",
+        "atLevel": 1,
+        "description": "At 1st level, the outfitter receives the Limit Break (Illuminated Runway).\n\n*Illuminated Runway ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the outfitter to double both her current outfit\u2019s enhancement bonus and her Charisma modifier added to AC for a duration of 1 round + 1 round per four red mage levels after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nThis ability replaces one of the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:feature:garment-grid",
+        "name": "Garment Grid",
+        "atLevel": 1,
+        "description": "At 1st level, the outfitter selects a particular style of clothing in which to specialize and to imprint on her garment grid (a magical device which only she can use). Upon choosing a style, she gains access to a set of clothing of her own design; she may specify the outfit\u2019s appearance, material, style, color, etc. as she likes provided it is non-magical and not unreasonably rare. Once she creates a design for that style, it is set unless she spends one day and 100 gil per two red mage levels redesigning it. Each clothing style has the following attributes, which are active while its corresponding outfit is worn by the outfitter only:\n\n* **Formal Wear:** grants a +1 enhancement bonus to Intelligence or to Wisdom, determined when the outfit is designed. Grants a metamagic feat for which the outfitter is eligible, determined when the outfit is designed.\n* **Casual Wear:** grants a +1 enhancement bonus to Dexterity. Base movement speed is increased by 10 ft.\n* **Battle Gear:** grants a +1 enhancement to Strength or to Constitution, determined when the outfit is designed. Additionally, the outfitter adds a buckler to her outfit; the buckler has a starting AC bonus of +1, but at 5th level and every four levels thereafter, she may upgrade her buckler at redesign cost to add an additional +1 (maximum +5 at level 17). This outfit is treated as medium armor for the purposes of determining movement speed and has a 20% spell failure chance except when using the spellstrike ability.\n\nWhen the outfitter wears any such outfit she designs with her garment grid, she adds her Charisma modifier (if any) (this bonus is halved if she has a level in another non-prestige class and this is not her favored class) to her AC. Armor worn over these clothes doesn\u2019t stack. At 6th, 11th, and 16th levels, the outfitter may upgrade her outfit at redesign cost to add an additional +1 enhancement bonus (maximum +4 at level 16).\n\nAlso at 6th and 11th levels, the outfitter may select an additional clothing style not previously chosen and design an outfit for it. Beginning at 6th level, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the outfitter may activate her garment grid and magically switch outfits, deactivating the attributes of the previous outfit and activating those of the new one.\n\nThis ability replaces spell combat, improved spell combat, and greater spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Garment Grid",
+            "locator": "garment-grid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:feature:thread-pool",
+        "name": "Thread Pool",
+        "atLevel": 2,
+        "description": "At 2nd level, the outfitter\u2019s ability to modify and adjust vestments takes on a mystical quality.\n\nShe gains a reservoir of mystical arcane energy that she can draw upon to fuel her powers and enhance her garments. This thread pool has a number of points equal to half her red mage level (minimum 1) + her Charisma modifier. The pool refreshes once per day when the outfitter rests for a full 8 hours.\n\nAt 2nd level, an outfitter can expend 1 point from her thread pool as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to grant any outfit she is wearing a +1 enhancement bonus (to AC) for 1 minute. For every four red mage levels beyond 2nd the outfit gains another +1 enhancement bonus, to a maximum of +5 at 18th level. These bonuses can be added to the outfit, stacking with existing enhancements to a maximum of +5. Multiple uses of this ability do not stack with themselves.\n\nAt 6th level, these bonuses can be used to add any of the following armor properties: animated, arrow catching, arrow deflection, assiduous, bashing, bastion, blinding, bolstering, clangorous, fortification, frosted, grinding, impervious, jarring, jawbreaker, mirrored, ramming, rebounding, or reflecting.\n\nAdding these properties consumes an amount of bonus equal to the property\u2019s base price modifier. These properties are added to any the outfit already has, but duplicates do not stack. If the outfit is not magical, at least a +1 enhancement bonus must be added before any other properties can be added. These bonuses and properties are decided when the thread pool point is spent and cannot be changed until the next time the outfitter uses this ability. These bonuses do not function if the outfit is worn or wielded by anyone other than the outfitter. An outfitter may enhance one outfit in this way at one time. If she uses this ability again or if she changes outfits, the first use immediately ends.\n\nThis ability replaces arcane pool.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thread Pool",
+            "locator": "thread-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:feature:a-stitch-in-time",
+        "name": "A Stitch in Time",
+        "atLevel": 2,
+        "description": "At 2nd level, the outfitter adds half her red mage level, rounded down, to all Craft (clothing), Craft (armor) (for armor made primarily from some kind of fabric), Craft (Jewelry), Craft (Silver/Goldsmithing), Disguise, and Profession (tailor) checks. Additionally, all associated tasks accomplished through these skill checks take half the usual time required.\n\nThis ability replaces the ruby talent gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "A Stitch in Time",
+            "locator": "a-stitch-in-time"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:feature:grid-accessories",
+        "name": "Grid Accessories",
+        "atLevel": 3,
+        "description": "At 3rd level, the outfitter may temporarily enchant a non-magical item to behave as though it were a wondrous item. Eligible items include those listed on the FFd20 website; additional items are subject to GM approval. To enchant an ordinary item, the outfitter must meet the wondrous item\u2019s CL requirement, spend one minute per CL focusing on the item, and expend one thread pool point per four CL. The mundane item then gains wondrous effects, which are bestowed on its wearer; however, a Dispel spell or effect will end the enchantment. The enchantment lasts a number of hours equal to the outfitter\u2019s Charisma modifier. The outfitter may enchant one item per day at 3rd level, two per day at 7th level, and three per day at 10th level.\n\nThis ability replaces ruby arcana and ruby knowledge.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Grid Accessories",
+            "locator": "grid-accessories"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:feature:garment-grid-plus",
+        "name": "Garment Grid +",
+        "atLevel": 5,
+        "description": "At 5th level, the outfitter, inspired by other classes, enhances her garment grid. The outfitter is able to select one of the garments below and use its listed signature ability by switching to it instead of to one of her own basic outfits. Where the ability\u2019s text (found on its origin class\u2019s page) references a level for the purposes of scaling, the outfitter\u2019s current level minus 2 satisfies the text\u2019s requirements; thus, a 7th level outfitter may deal 3d6 sneak attack [precision damage](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#precision-damage) while wearing the Thief garment, a 8th level outfitter restores 3d6 hit points with Lay on Hands while wearing the White Mage garment, etc. The outfitter also adds her Charisma modifier to the garment\u2019s associated skill check and treats it as a class skill while wearing that garment.\n\n* **Bard:** Inspiration. **Skill:** Perform (sing)\n* **Berserker:** Rage. **Skill:** Intimidate\n* **Black Mage:** Elemental Shield. **Skill:** Spellcraft. **Special:** Retains use of damaging and debilitating Red Mage spells known.\n* **Blue Mage:** Analysis. **Skill:** Knowledge (all). **Special:** Retains use of enhancing Red Mage spells known.\n* **Chemist:** Bomb. Skill: Sleight of Hand\n* **Engineer:** Demolish. **Skill:** Repair\n* **Knight:** Defensive Stance. **Skill:** Intimidate\n* **Monk:** Stunning Fist. **Skill:** Acrobatics\n* **Thief:** Sneak Attack. **Skill:** Stealth\n* **Warrior:** Martial Flexibility. **Skill:** Survival\n* **White Mage:** Lay on Hands. **Skill:** Heal. **Special:** Retains use of healing and enhancing Red Mage spells known.\n\nWhile wearing a garment from this list, the outfitter loses access to the Red Mage spell list (aside from those specified where applicable), spellstrike, and the enhancement and special bonuses of her basic outfits (though she still adds her Charisma modifier bonus to AC). The outfitter can switch to these kinds of garments a number of times per day equal to her Charisma modifier.\n\nAt 9th, 13th, and 17th levels, the outfitter adds another garment from the list above to her garment grid wardrobe.\n\nThis ability replaces convert and jack-of-all-trades.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Garment Grid +",
+            "locator": "garment-grid-plus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:feature:quick-change",
+        "name": "Quick Change",
+        "atLevel": 10,
+        "description": "At 10th level, the outfitter may switch outfits as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) instead of a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard).\n\nThis ability replaces the ruby talent gained at 10th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Change",
+            "locator": "quick-change"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:feature:garment-grid-ensemble",
+        "name": "Garment Grid Ensemble",
+        "atLevel": 20,
+        "description": "At 20th level, the outfitter\u2019s proficiency with her garment grid reaches the height of fashion. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the outfitter may switch to a special outfit called an ensemble; this outfit combines the enhancement bonuses and special features of her existing Formal Wear, Casual Wear, and Battle Gear outfits (though her AC bonus from Charisma does not stack). The effects of this ensemble outfit persist for a number of rounds equal to 1 + her Charisma modifier; once the effects lapse, the outfitter must switch back to one of her three basic outfits or her Garment Grid + outfits. She may activate this ability a number of times per day equal to her Charisma modifier, but only once per encounter. If the outfitter activates her Illuminated Runway limit break while using this ability, she must select only one enhancement bonus to double. In addition, activating this ability restores a number of points to the outfitter\u2019s thread pool equal to her Charisma modifier.\n\nThis ability replaces red wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Garment Grid Ensemble",
+            "locator": "garment-grid-ensemble"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:replacement:garment-grid",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:improved-spell-combat",
+          "ffd20:class:red-mage:feature:greater-spell-combat",
+          "ffd20:class:red-mage:feature:spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:outfitter:feature:garment-grid"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Garment Grid",
+            "locator": "garment-grid"
+          }
+        ],
+        "description": "This ability replaces spell combat, improved spell combat, and greater spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:replacement:thread-pool",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:arcane-pool"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:outfitter:feature:thread-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thread Pool",
+            "locator": "thread-pool"
+          }
+        ],
+        "description": "This ability replaces arcane pool."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:replacement:a-stitch-in-time",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:outfitter:feature:a-stitch-in-time"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "A Stitch in Time",
+            "locator": "a-stitch-in-time"
+          }
+        ],
+        "description": "This ability replaces the ruby talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:replacement:grid-accessories",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-knowledge",
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:outfitter:feature:grid-accessories"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Grid Accessories",
+            "locator": "grid-accessories"
+          }
+        ],
+        "description": "This ability replaces ruby arcana and ruby knowledge."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:replacement:garment-grid-plus",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:jack-of-all-trades",
+          "ffd20:class:red-mage:feature:convert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:outfitter:feature:garment-grid-plus"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Garment Grid +",
+            "locator": "garment-grid-plus"
+          }
+        ],
+        "description": "This ability replaces convert and jack-of-all-trades."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:replacement:quick-change",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:10"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:outfitter:feature:quick-change"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Change",
+            "locator": "quick-change"
+          }
+        ],
+        "description": "This ability replaces the ruby talent gained at 10th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:replacement:garment-grid-ensemble",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:outfitter:feature:garment-grid-ensemble"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Garment Grid Ensemble",
+            "locator": "garment-grid-ensemble"
+          }
+        ],
+        "description": "This ability replaces red wizard."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:pool:garment-grid",
+        "name": "Garment Grid",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid:formal-wear",
+            "name": "Formal Wear",
+            "description": "grants a +1 enhancement bonus to Intelligence or to Wisdom, determined when the outfit is designed. Grants a metamagic feat for which the outfitter is eligible, determined when the outfit is designed.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid",
+                "locator": "garment-grid"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid:casual-wear",
+            "name": "Casual Wear",
+            "description": "grants a +1 enhancement bonus to Dexterity. Base movement speed is increased by 10 ft.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid",
+                "locator": "garment-grid"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid:battle-gear",
+            "name": "Battle Gear",
+            "description": "grants a +1 enhancement to Strength or to Constitution, determined when the outfit is designed. Additionally, the outfitter adds a buckler to her outfit; the buckler has a starting AC bonus of +1, but at 5th level and every four levels thereafter, she may upgrade her buckler at redesign cost to add an additional +1 (maximum +5 at level 17). This outfit is treated as medium armor for the purposes of determining movement speed and has a 20% spell failure chance except when using the spellstrike ability.\n\nWhen the outfitter wears any such outfit she designs with her garment grid, she adds her Charisma modifier (if any) (this bonus is halved if she has a level in another non-prestige class and this is not her favored class) to her AC. Armor worn over these clothes doesn\u2019t stack. At 6th, 11th, and 16th levels, the outfitter may upgrade her outfit at redesign cost to add an additional +1 enhancement bonus (maximum +4 at level 16).\n\nAlso at 6th and 11th levels, the outfitter may select an additional clothing style not previously chosen and design an outfit for it. Beginning at 6th level, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the outfitter may activate her garment grid and magically switch outfits, deactivating the attributes of the previous outfit and activating those of the new one.\n\nThis ability replaces spell combat, improved spell combat, and greater spell combat.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid",
+                "locator": "garment-grid"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:pool:garment-grid-plus",
+        "name": "Garment Grid +",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:bard",
+            "name": "Bard",
+            "description": "Inspiration. Skill: Perform (sing)\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:berserker",
+            "name": "Berserker",
+            "description": "Rage. Skill: Intimidate\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:black-mage",
+            "name": "Black Mage",
+            "description": "Elemental Shield. Skill: Spellcraft. Special: Retains use of damaging and debilitating Red Mage spells known.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:blue-mage",
+            "name": "Blue Mage",
+            "description": "Analysis. Skill: Knowledge (all). Special: Retains use of enhancing Red Mage spells known.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:chemist",
+            "name": "Chemist",
+            "description": "Bomb. Skill: Sleight of Hand\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:engineer",
+            "name": "Engineer",
+            "description": "Demolish. Skill: Repair\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:knight",
+            "name": "Knight",
+            "description": "Defensive Stance. Skill: Intimidate\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:monk",
+            "name": "Monk",
+            "description": "Stunning Fist. Skill: Acrobatics\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:thief",
+            "name": "Thief",
+            "description": "Sneak Attack. Skill: Stealth\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:warrior",
+            "name": "Warrior",
+            "description": "Martial Flexibility. Skill: Survival\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:garment-grid-plus:white-mage",
+            "name": "White Mage",
+            "description": "Lay on Hands. Skill: Heal. Special: Retains use of healing and enhancing Red Mage spells known.\n\nWhile wearing a garment from this list, the outfitter loses access to the Red Mage spell list (aside from those specified where applicable), spellstrike, and the enhancement and special bonuses of her basic outfits (though she still adds her Charisma modifier bonus to AC). The outfitter can switch to these kinds of garments a number of times per day equal to her Charisma modifier.\n\nAt 9th, 13th, and 17th levels, the outfitter adds another garment from the list above to her garment grid wardrobe.\n\nThis ability replaces convert and jack-of-all-trades.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Garment Grid +",
+                "locator": "garment-grid-plus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:pool:limit-break-replacement",
+        "name": "Limit Break replacement",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:replace-finisher:dual-spellcasting",
+            "name": "Replace Dual Spellcasting",
+            "description": "Replace Dual Spellcasting with Illuminated Runway; retain the other standard Limit Break.",
+            "targetFeatureId": "ffd20:class:red-mage:feature:dual-spellcasting",
+            "repeatLimit": 1,
+            "minimumLevel": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:archetype:red-mage:outfitter:option:replace-finisher:flexibility",
+            "name": "Replace Flexibility",
+            "description": "Replace Flexibility with Illuminated Runway; retain the other standard Limit Break.",
+            "targetFeatureId": "ffd20:class:red-mage:feature:flexibility",
+            "repeatLimit": 1,
+            "minimumLevel": 1,
+            "featureIds": []
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:event:garment-grid:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:red-mage:outfitter:pool:garment-grid"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Garment Grid",
+            "locator": "garment-grid"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:event:garment-grid-plus:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:archetype:red-mage:outfitter:pool:garment-grid-plus"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Garment Grid +",
+            "locator": "garment-grid-plus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:outfitter:event:limit-break-replacement:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:red-mage:outfitter:pool:limit-break-replacement"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break replacement",
+            "locator": "limit-break-replacement"
+          }
+        ]
+      }
+    ],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "fly",
+        "intimidate",
+        "knowledge:arcana",
+        "perception",
+        "profession:*",
+        "ride",
+        "spellcraft",
+        "swim",
+        "use-magic-device",
+        "disguise"
+      ],
+      "chooseLimitBreakReplacement": true
+    },
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

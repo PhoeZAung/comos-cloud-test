@@ -1,0 +1,44 @@
+[
+  {
+    "archetype": "combatant",
+    "heading": "Skirmisher",
+    "kind": "manual-modification",
+    "text": "skirmisher"
+  },
+  {
+    "archetype": "festivalist",
+    "heading": "Sneak Attack",
+    "kind": "manual-modification",
+    "text": "the thief\u2019s normal sneak attack progression"
+  },
+  {
+    "archetype": "knife-master",
+    "heading": "Weapon Proficiencies",
+    "kind": "manual-modification",
+    "text": "and replaces the thief\u2019s starting weapon proficiencies"
+  },
+  {
+    "archetype": "sky-pirate",
+    "heading": "Sailor\u2019s Step",
+    "kind": "source-schedule-note",
+    "text": "Body explicitly grants Sailor\u2019s Step at11 and replaces level12 talent. This sheet grants the card at11 and withholds the level12 talent/trick choice; source summary may place it at12. GM may reconcile timing manually."
+  },
+  {
+    "archetype": "solid-snake",
+    "heading": "Weapon Proficiencies",
+    "kind": "manual-modification",
+    "text": "the thief\u2019s starting weapon proficiencies"
+  },
+  {
+    "archetype": "spellthief",
+    "heading": "Skirmisher",
+    "kind": "manual-modification",
+    "text": "skirmisher"
+  },
+  {
+    "archetype": "treasure-hunter",
+    "heading": "Enemies of the Dark",
+    "kind": "manual-modification",
+    "text": "sneak attack"
+  }
+]

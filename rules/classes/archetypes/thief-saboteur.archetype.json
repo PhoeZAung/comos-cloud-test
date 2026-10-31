@@ -1,0 +1,1333 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:saboteur",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Saboteur",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/",
+      "title": "Saboteur",
+      "archiveSha256": "8da68f8283fc35dc990bc7af8a8089a0e81ff178c3d36bdbb5eff1dd27c10e53",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:marked-target",
+        "name": "Marked Target",
+        "atLevel": 1,
+        "description": "A saboteur must learn to adapt as needed based on the foes and obstacles she faces. At 1st level, a saboteur learns how to mark a creature she can see as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). When she does, she chooses one of the following marks to apply to her target:\n\n* **Assassin\u2019s Mark:** The saboteur gains a +1 bonus on attack and damage rolls against the marked target. This bonus increases by +1 at 5th level and every four levels thereafter.\n* **Charlatan\u2019s Mark:** The saboteur gains a +1 bonus on Bluff, Diplomacy, Sleight of Hand, and Stealth checks against the target and on Bluff and Disguise checks to pass herself as the marked target. This bonus increases by +1 for every three levels past 1st.\n* **Duelist\u2019s Mark:** The saboteur gains a +1 bonus to AC against attacks made by the marked target. This bonus increases by +1 at 5th level and every four levels thereafter.\n* **Informant\u2019s Mark:** The saboteur gains a +1 bonus on Knowledge, Sense Motive, and Perception checks made against or concerning the marked target. This bonus increases by +1 for every two levels past first.\n\nOnce she has chosen which type of mark to apply to her target, she cannot change it. The mark lasts until the target dies, the saboteur dismisses the mark (a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift)), or for 24 hours, whichever comes first. She can choose to mark a dead creature (or leave her mark on a creature that dies, rather than having it automatically end); usually this is done to disguise herself as the deceased target with charlatan\u2019s mark or to learn about the target with informant\u2019s mark. Once a target has been marked, it cannot be marked again for 24 hours. The saboteur can only maintain one marked target at a time.\n\nThis ability replaces mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Marked Target",
+            "locator": "marked-target"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:saboteur-trap",
+        "name": "Saboteur Trap",
+        "atLevel": 2,
+        "description": "At 2nd level, a saboteur learns how to create a snare trap\u00a0and one other\u00a0trap\u00a0of her choice.\n\nAt 4th level and every two thief levels thereafter, she learns another trap. The saboteur can use these traps a total number of times per day equal to half her thief level + her Intelligence modifier. Once a trap is learned, it can\u2019t be unlearned and replaced with a different type of trap. The saboteur cannot select an individual trap more than once. The save DCs are also based on Intelligence instead of Wisdom.\n\nSetting a trap is a full-round action that provokes attacks of opportunity. A trap fills a single 5-foot square, and cannot be placed in the same area as a mechanical trap or a magical trap. The saboteur only needs simple materials to create the trap, such as a piece of cloth, a small amount of metal (such as a dagger, iron spike, or a few nails), a foot of rope or vine, and so on. The DCs for Perception checks to notice the trap, Disable Device checks to disable it, and for saving throws to avoid it are equal to 10 + half the saboteur\u2019s thief level + her Intelligence modifier. All traps are Trigger: location, and Reset: none.\n\n*Acid Trap (Ex):* This target is splattered with acid, taking a number of points of earth damage equal to 1d6 + half the saboteur\u2019s thief level to the triggering creature (Reflex negates). The saboteur must supply a dose of acid when setting the trap.\n\n*Alarm Trap (Ex):* When this trap is triggered, it creates a momentary loud noise.\n\n*Blighted Mark Trap (Ex):* This trap stains the victim with blighted plant matter, increasing its susceptibility to the attacks of creatures created or enthralled by the affliction. The target takes a \u20132 penalty to Armor Class against the attacks of creatures closely affiliated with the specific blight (typically demons, fey, plants, or undead) and on saving throws against effects created by such creatures. This effect lasts for 10 minutes per thief level. a successful Will save negates this effect. The saboteur must supply a sample of the specific blight when setting this trap.\n\n*Burning Trap (Ex):* If the triggering creature fails its Reflex save, it catches on fire, taking 1d6 points of fire damage at the start of its turn for 1d4 rounds. The burning creature can attempt a new save as a full-round action. Dropping and rolling on the ground grants a +4 bonus on this save. **Prerequisite:** The saboteur must have the Fire Trap saboteur trap to select this saboteur trap.\n\n*Blightburn Trap (Ex):* This trap strikes the target with a small shard of blightburn, dealing 2d6 points of fire damage, 1d3 points of Constitution damage, and 1d3 points of Charisma damage. A successful Fortitude save negates the ability damage and halves the fire damage. The saboteur must supply a sliver of blightburn, a dangerous task in itself, though storing the blightburn in a lead vial makes the task less risky.\n\n*Bludgeoning Trap (Ex):* The trap bludgeons the creature that triggers it. The trap makes an attack with a bonus equal to the saboteur\u2019s thief level + her Intelligence modifier. The triggering creature is denied its Dexterity bonus to AC if it was unaware of the trap. If the trap hits, it deals 1d6 points of bludgeoning damage for every four thief levels the saboteur possesses (minimum 1d6). The saboteur must provide an object suitable for dealing lethal bludgeoning damage, such as a large branch or heavy stone.\n\n*Cleansing Trap (Ex):* The trap suppresses the target\u2019s ability to use one randomly selected attack, ability, or quality that creates a disease or poison effect; this lasts for 1 round per thief level. If the creature has more than one such attack, ability, or quality that creates a disease or poison effect, the attack, ability, or quality to be suppressed when the creature is affected by this trap is determined at random from those not already suppressed.\n\n*Dirty Trick Trap (Ex):* If the triggering creature fails its saving throw against the trap or is struck by the trap\u2019s attack, the trap also attempts a dirty trick combat maneuver against the triggering creature. The type of dirty trick is chosen when the trap is created, and if it isn\u2019t possible or isn\u2019t applicable to the triggering creature, the combat maneuver is wasted. The trap\u2019s CMB for the dirty trick is equal to the saboteur\u2019s thief level + her Intelligence modifier.\n\n*Distraction Trap (Ex):* The target is affected with irritation that detracts from its alertness. It takes a \u20132 penalty on Perception checks, initiative checks, and Reflex saves for 10 minutes per thief level. If this is a supernatural trap, this is a mind-affecting effect. The saboteur must supply a dose of itching powder or another alchemical irritant.\n\n*Exploding Trap (Ex):* The trap explodes in fire, filling all squares adjacent to the trap and dealing a number of points of fire damage equal to 1d6 + half the saboteur\u2019s thief level (Reflex negates). If it is an extraordinary trap, the saboteur must use an explosive material such as alchemist\u2019s fire when setting the trap. **Prerequisite:** The saboteur must have the Fire Trap saboteur trap to select this saboteur trap.\n\n*Fire Trap (Ex):* The trap explodes in flames, dealing a number of points of fire damage equal to 1d6 + half the saboteur\u2019s thief level to the triggering creature (Reflex negates). If it is an extraordinary trap, the saboteur must use an explosive material such as alchemist\u2019s fire when setting the trap.\n\n*Firework Trap (Ex):* The trap explodes in a flash of colored lights. All creatures within 10 feet must succeed at a Fortitude saving throw or be blinded for 1d4+1 rounds. The saboteur must use an alchemical weapon when setting the trap, such as flash powder or a firework. **Prerequisite:** The saboteur must have the Fire Trap or Smoke Trap saboteur trap to select this saboteur trap.\n\n*Freezing Trap (Su):* The trap creates a burst of ice that damages and encases the triggering creature. The creature takes 1d3 points of ice damage + 1 per thief level and is frozen. A successful Reflex save halves the damage and means the creature is not frozen. The ice melts in 2d4 rounds.\n\n*Infected Snare Trap (Ex):* The snare is made of diseased materials, which contain an aggressive blight that saps the energy and bodily health from the target creature. When initially caught in the snare, the trapped creature must succeed at a Fortitude saving throw or immediately take 2 points of Constitution damage. Each subsequent hour, the creature must succeed at a Fortitude saving throw or take 2 points of Constitution damage. This effect lasts for 12 hours or until the creature makes two successful saving throws in a row, whichever comes first. This is a poison effect. **Prerequisite:** The saboteur must have the Snare Trap saboteur trap to select this saboteur trap.\n\n*Lazurite Trap (Ex):* Lazurite radiation increases the victim\u2019s susceptibility to the attacks of undead creatures that are bolstered by the radiation. The target takes a \u20132 penalty to Armor Class against the attacks of undead creatures and on saving throws against effects created by undead. This effect lasts for 10 minutes per thief level. A successful Will save negates this effect. The saboteur must supply a sliver of lazurite.\n\n*Limning Trap (Ex):* This trap sprays glowing dust into the trapped square and all adjacent squares. A creature covered in this dust glows like a candle (becoming visibly outlined if invisible) and takes a -20 penalty on Stealth checks. The dust\u2019s effects last for 1 round per thief level or until the creature washes it off (a move action requiring water or some other cleanser). The saboteur must use alchemical components when setting the trap, such as glowing ink or marker dye.\n\n*Marking Trap (Ex):* If the triggering creature fails its save against the trap, it is marked with a dye and/or scent of the saboteur\u2019s choosing. A scent mark decreases the DC of tracking the marked creature by scent by 4. The mark can be washed off with vigorous scrubbing, but fades on its own after a week.\n\n*Over-Sized Barbs (Ex):* The target is speared with barbs that penetrate and protrude from its body, making squeezing, climbing, and swimming challenging. The trap implants 1d4+1 barbs, each dealing 1 point of damage. A successful Reflex save halves the number of barbs. The target takes a penalty on Climb checks and Swim checks equal to the number of barbs attached, and is considered one size category larger for the purposes of determining what size of opening or passageway it must squeeze through as long as at least 1 barb remains attached. Each barb can be removed with a full minute of work and a Heal check that equals or exceeds the trap\u2019s DC. If this check fails, the barb is still removed but the target takes 1d4 points of damage. The barbs shake loose harmlessly after 10 minutes per thief level.\n\n*Penetrating Trap (Ex):* The damage die of a penetrating trap increases to 1d8. Choose either adamantine, cold iron, or silver. The trap counts as that material for the purposes of overcoming damage reduction. The saboteur must provide 1 pound of the chosen material during the trap\u2019s construction. **Prerequisite:** The saboteur must have the Wounding Trap saboteur trap to select this saboteur trap.\n\n*Pit Trap (Ex):* This simple pit is covered over with leaves or appropriate materials for the area. It\u2019s 5 feet deep plus 5 feet for every four thief levels. A victim that succeeds at a Reflex save doesn\u2019t fall into the pit. The saboteur can set this trap only in terrain with soft ground.\n\n*Poison Trap (Ex):* The trap poisons the creature that triggers it. The saboteur must provide 1 dose of contact, inhaled, or injury poison when setting the trap, and the trap uses that poison\u2019s effects and DC.\n\n*Quicksand Trap (Su):* The trap and all adjacent squares become quicksand as long as they contain loose sand or soil. The Swim DC to move in this quicksand is equal to the trap\u2019s save DC, and the Swim DC to tread in the quicksand is equal to the trap\u2019s DC \u20135. The quicksand lasts for a number of rounds equal to the saboteur\u2019s thief level. When the effect ends, any creature still in the quicksand is returned to the surface prone.\n\n*Rust Monster Trap (Ex):* The trap throws up a cloud of dust ground from the antennae of a rust monster, dealing 1d4 points of damage to the target\u2019s metal armor and weapons. A successful Reflex save negates this damage. The saboteur must supply a set of rust monster antennae.\n\n*Selective Trigger (Ex):* The saboteur adds a race, type, alignment, or minimum weight restriction to the trap\u2019s trigger. The saboteur can choose only the minimum weight restriction.\n\n*Sleet Trap (Su):* The detonating trap creates a 20-foot-radius burst of sleet with the effects of a sleet storm. The driving sleet lasts for 1 round, but the icy ground persists for 1 round per thief level.\n\n*Smoke Trap (Ex):* This trap bellows out thick, choking smoke that fills the trapped square and all adjacent squares. Any breathing creature in these squares must succeed at a Fortitude saving throws or take a -4 penalty to Strength and Dexterity every round it\u2019s within the smoke and for 1d4+1 rounds after leaving the smoke. All sight, even darkvision, is ineffective in or through the smoke. The smoke lasts for 1 round per two thief levels, and is dispersed by wind as fog cloud. The saboteur must use an alchemical component when setting the trap, such as a smokestick.\n\n*Snare Trap (Ex):* The trap constricts around a limb or other part of the triggering creature\u2019s body (Reflex avoids). The creature cannot move from the location of the trap, unless the saboteur included a \u201cleash\u201d when setting the trap, in which case the creature is limited to the length of the leash. The trapped creature can escape with an Escape Artist check (DC equal to the trap\u2019s DC) as a full-round action. The trap or its leash has a number of hit points equal to half the saboteur\u2019s thief level, or can be burst as a full-round action with a DC 25 Strength check. The trap can hold up to a Medium creature. At the saboteur\u2019s option, if there is a tall object or structure nearby, he can have the trap lift the creature.\n\n*Swarm Trap (Ex):* The trap releases a bat swarm, rat swarm, or spider swarm that attacks all creatures in the area. The swarm remains in the general area for no longer than 1 round per thief level, after which it disperses. The saboteur must provide the creatures of the swarm (typically in a small box, cage, or crate); these creatures may die of starvation before the trap is triggered (this trap lasts 1 day per thief level).\n\n*Tar Trap (Ex):* The target is coated in a thin layer of sticky tar unless it succeeds at a Reflex save. It is entangled, and becomes susceptible to catching fire from any source of flame. If lit on fire, the tar burns intensely for 1 round; it deals 2d6 points of fire damage and is destroyed in the process. Unless burned away, the tar remains for 1 round per thief level. The saboteur must supply a dose of tar.\n\n*Toxic Fumes Trap (Ex):* The smoke this trap creates is extremely noxious. Any breathing creature must succeed at a Fortitude saving throw (in addition to the Fortitude save for the smoke trap) or be nauseated every round it\u2019s within the smoke and for 1d4+1 rounds after leaving the smoke. The saboteur must use a toxic material when setting the trap, such as noxious aromatic. **Prerequisite:** The saboteur must have the Smoke Trap saboteur trap to select this saboteur trap.\n\n*Tripwire (Ex):* A taut wire stretched between two vertical surfaces knocks the target prone unless it succeeds at a Reflex save. A running or charging creature takes a \u20136 penalty on its save.\n\n*Wounding Trap (Ex):* This trap makes a melee attack against the target using the saboteur\u2019s base attack bonus + her Intelligence modifier for the attack roll. It deals an amount of damage equal to 1d6 + half the saboteur\u2019s thief level. The saboteur chooses whether this damage is bludgeoning, piercing, or slashing.\n\nThis ability replaces thief talents and advanced thief talents.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Saboteur Trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:hidden-spotter",
+        "name": "Hidden Spotter",
+        "atLevel": 3,
+        "description": "At 3rd level, a saboteur becomes adept at spotting hidden alcoves and traps, even passively. Whenever she passes within 10 feet of a trap, hidden passage, or secret door, she can attempt an immediate Perception check to notice the trap or passage. This check should be made in secret by the GM.\n\nThis ability replaces measure the mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Spotter",
+            "locator": "hidden-spotter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:careful-disarm",
+        "name": "Careful Disarm",
+        "atLevel": 4,
+        "description": "At 4th level, whenever a saboteur attempts to disarm a trap using Disable Device, she does not spring the trap unless she fails by 10 or more. If she does set off a trap she was attempting to disarm, she adds double her trap sense bonus to avoid the trap.\n\nThis ability replaces uncanny dodge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Careful Disarm",
+            "locator": "careful-disarm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:swift-sabotage",
+        "name": "Swift Sabotage",
+        "atLevel": 5,
+        "description": "Starting at 5th level, a saboteur becomes adept at quickly disabling traps and other devices. It takes the saboteur half the normal time to perform a Disable Device check (minimum 1 round). If she attempts to use Disable Device to open a lock that would take a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) to open, she instead can do so as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). She can also trigger a trap she has placed within 30 feet of her as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), whether that trap is a saboteur trap or a mechanical trap she has placed.\n\nThis ability replaces improved theft.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Sabotage",
+            "locator": "swift-sabotage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:trap-master",
+        "name": "Trap Master",
+        "atLevel": 8,
+        "description": "At 8th level, whenever a saboteur disarms a trap using Disable Device, she can bypass it even if her check did not exceed the DC by 10 or more. If it is a magic trap that allows specific creatures to pass it without danger, she can modify which creatures it allows to pass, adding her allies and restricting enemies if she desires.\n\nThis ability replaces improved uncanny dodge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trap Master",
+            "locator": "trap-master"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:improved-mark",
+        "name": "Improved Mark",
+        "atLevel": 10,
+        "description": "At 10th level, a saboteur\u2019s ability to mark a target improves. She can now maintain two marked targets at once, and marking a target can be done as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). She may now change which type of marks are applied to her marked targets as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), but only once per marked target in a 24 hour period. She can change all of her marks with the same [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nThis ability replaces mug.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Mark",
+            "locator": "improved-mark"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:ranged-setup",
+        "name": "Ranged Setup",
+        "atLevel": 11,
+        "description": "At 11th level, a saboteur learns how to set her traps from a distance. As part of the [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to place a saboteur trap, she can throw the trap with a free hand to setup the trap in a single unoccupied square within 20 feet. Alternatively, she can affix the trap to an arrow, crossbow bolt, or thrown weapon, allowing her to set the trap from further away or use it as a direct attack. Drawing the trap, attaching the trap to the projectile and firing it in this manner is a full- round action. The trapped projectile is fired or thrown in the normal manner. If fired at a square, the trap is treated as if the saboteur had set the trap in that square. If fired at a creature, the target takes damage from the ranged weapon and is treated as if it had triggered the trap (saving throw applies). A trap that is set with this ability (either thrown or affixed to a ranged weapon) has its saving throw DC lowered by 2. A trap that is affixed to a ranged weapon and misses its target breaks apart harmlessly.\n\nThis ability replaces a thief talent at level 12.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Setup",
+            "locator": "ranged-setup"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:greater-mark",
+        "name": "Greater Mark",
+        "atLevel": 17,
+        "description": "At 17th level, a saboteur\u2019s mark becomes especially potent. She can now maintain three marked targets at once, and can mark all of her targets simultaneously with a single [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). Instead of maintaining multiple marked targets, she can instead mark a single target with two different marks. As long as she has a single target with two marks applied to it, she cannot maintain any other marked targets.\n\nThis ability replaces hide in plain sight.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Mark",
+            "locator": "greater-mark"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:instant-sabotage",
+        "name": "Instant Sabotage",
+        "atLevel": 19,
+        "description": "At 19th level, the saboteur can complete any Disable Device check that would take 1 round or longer in a single [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). When using Disable Device to open a lock that would take a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) to open, she can instead do so as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). She can also trigger a trap she has placed within 30 feet of her as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), whether that trap is a saboteur trap or a mechanical trap she has placed. She can only trigger one trap each round in this manner.\n\nThis ability replaces shadow step.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Instant Sabotage",
+            "locator": "instant-sabotage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:feature:snare-trap",
+        "name": "Snare Trap",
+        "atLevel": 2,
+        "description": "The trap constricts around a limb or other part of the triggering creature\u2019s body (Reflex avoids). The creature cannot move from the location of the trap, unless the saboteur included a \u201cleash\u201d when setting the trap, in which case the creature is limited to the length of the leash. The trapped creature can escape with an Escape Artist check (DC equal to the trap\u2019s DC) as a full-round action. The trap or its leash has a number of hit points equal to half the saboteur\u2019s thief level, or can be burst as a full-round action with a DC 25 Strength check. The trap can hold up to a Medium creature. At the saboteur\u2019s option, if there is a tall object or structure nearby, he can have the trap lift the creature.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Snare Trap",
+            "locator": "snare-trap"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:marked-target:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:marked-target"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Marked Target",
+            "locator": "marked-target"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:saboteur-trap:1",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-advanced-talents",
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:saboteur-trap"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "thief talents and advanced thief talents",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Saboteur Trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:hidden-spotter:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:measure-the-mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:hidden-spotter"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "measure the mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Spotter",
+            "locator": "hidden-spotter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:careful-disarm:1",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:uncanny-dodge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:careful-disarm"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "uncanny dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Careful Disarm",
+            "locator": "careful-disarm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:swift-sabotage:1",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-theft"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:swift-sabotage"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "improved theft",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Sabotage",
+            "locator": "swift-sabotage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:trap-master:1",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-uncanny-dodge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:trap-master"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "improved uncanny dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trap Master",
+            "locator": "trap-master"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:improved-mark:1",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mug"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:improved-mark"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mug",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Mark",
+            "locator": "improved-mark"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:ranged-setup:1",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:ranged-setup"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-advanced-talents:12"
+        ],
+        "eventOnly": true,
+        "description": "a thief talent at level 12",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Setup",
+            "locator": "ranged-setup"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:greater-mark:1",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:hide-in-plain-sight"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:greater-mark"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "hide in plain sight",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Mark",
+            "locator": "greater-mark"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:replacement:instant-sabotage:1",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:shadow-step"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:saboteur:feature:instant-sabotage"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "shadow step",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Instant Sabotage",
+            "locator": "instant-sabotage"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:saboteur-trap:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:thief:saboteur:pool:saboteur-trap"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "saboteur-trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:marked-target",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:marked-target",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Marked Target",
+            "locator": "marked-target"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:saboteur-trap",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:saboteur-trap",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Saboteur Trap",
+            "locator": "saboteur-trap"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:hidden-spotter",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:hidden-spotter",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Spotter",
+            "locator": "hidden-spotter"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:careful-disarm",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:careful-disarm",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Careful Disarm",
+            "locator": "careful-disarm"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:swift-sabotage",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:swift-sabotage",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Sabotage",
+            "locator": "swift-sabotage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:trap-master",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:trap-master",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trap Master",
+            "locator": "trap-master"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:improved-mark",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:improved-mark",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Mark",
+            "locator": "improved-mark"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:ranged-setup",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:ranged-setup",
+        "atClassLevel": 11,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ranged Setup",
+            "locator": "ranged-setup"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:greater-mark",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:greater-mark",
+        "atClassLevel": 17,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Mark",
+            "locator": "greater-mark"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:instant-sabotage",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:instant-sabotage",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Instant Sabotage",
+            "locator": "instant-sabotage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:saboteur:event:grant:snare-trap",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:saboteur:feature:snare-trap",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Snare Trap",
+            "locator": "snare-trap"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:thief:saboteur:pool:saboteur-trap",
+        "name": "Saboteur Trap",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:acid-trap",
+            "name": "Acid Trap",
+            "description": "This target is splattered with acid, taking a number of points of earth damage equal to 1d6 + half the saboteur\u2019s thief level to the triggering creature (Reflex negates). The saboteur must supply a dose of acid when setting the trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:alarm-trap",
+            "name": "Alarm Trap",
+            "description": "When this trap is triggered, it creates a momentary loud noise.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:blighted-mark-trap",
+            "name": "Blighted Mark Trap",
+            "description": "This trap stains the victim with blighted plant matter, increasing its susceptibility to the attacks of creatures created or enthralled by the affliction. The target takes a \u20132 penalty to Armor Class against the attacks of creatures closely affiliated with the specific blight (typically demons, fey, plants, or undead) and on saving throws against effects created by such creatures. This effect lasts for 10 minutes per thief level. a successful Will save negates this effect. The saboteur must supply a sample of the specific blight when setting this trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:burning-trap",
+            "name": "Burning Trap",
+            "description": "If the triggering creature fails its Reflex save, it catches on fire, taking 1d6 points of fire damage at the start of its turn for 1d4 rounds. The burning creature can attempt a new save as a full-round action. Dropping and rolling on the ground grants a +4 bonus on this save. Prerequisite: The saboteur must have the Fire Trap saboteur trap to select this saboteur trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/",
+            "requiresOptionIds": [
+              "ffd20:archetype:thief:saboteur:option:saboteur-trap:fire-trap"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:blightburn-trap",
+            "name": "Blightburn Trap",
+            "description": "This trap strikes the target with a small shard of blightburn, dealing 2d6 points of fire damage, 1d3 points of Constitution damage, and 1d3 points of Charisma damage. A successful Fortitude save negates the ability damage and halves the fire damage. The saboteur must supply a sliver of blightburn, a dangerous task in itself, though storing the blightburn in a lead vial makes the task less risky.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:bludgeoning-trap",
+            "name": "Bludgeoning Trap",
+            "description": "The trap bludgeons the creature that triggers it. The trap makes an attack with a bonus equal to the saboteur\u2019s thief level + her Intelligence modifier. The triggering creature is denied its Dexterity bonus to AC if it was unaware of the trap. If the trap hits, it deals 1d6 points of bludgeoning damage for every four thief levels the saboteur possesses (minimum 1d6). The saboteur must provide an object suitable for dealing lethal bludgeoning damage, such as a large branch or heavy stone.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:cleansing-trap",
+            "name": "Cleansing Trap",
+            "description": "The trap suppresses the target\u2019s ability to use one randomly selected attack, ability, or quality that creates a disease or poison effect; this lasts for 1 round per thief level. If the creature has more than one such attack, ability, or quality that creates a disease or poison effect, the attack, ability, or quality to be suppressed when the creature is affected by this trap is determined at random from those not already suppressed.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:dirty-trick-trap",
+            "name": "Dirty Trick Trap",
+            "description": "If the triggering creature fails its saving throw against the trap or is struck by the trap\u2019s attack, the trap also attempts a dirty trick combat maneuver against the triggering creature. The type of dirty trick is chosen when the trap is created, and if it isn\u2019t possible or isn\u2019t applicable to the triggering creature, the combat maneuver is wasted. The trap\u2019s CMB for the dirty trick is equal to the saboteur\u2019s thief level + her Intelligence modifier.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:distraction-trap",
+            "name": "Distraction Trap",
+            "description": "The target is affected with irritation that detracts from its alertness. It takes a \u20132 penalty on Perception checks, initiative checks, and Reflex saves for 10 minutes per thief level. If this is a supernatural trap, this is a mind-affecting effect. The saboteur must supply a dose of itching powder or another alchemical irritant.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:exploding-trap",
+            "name": "Exploding Trap",
+            "description": "The trap explodes in fire, filling all squares adjacent to the trap and dealing a number of points of fire damage equal to 1d6 + half the saboteur\u2019s thief level (Reflex negates). If it is an extraordinary trap, the saboteur must use an explosive material such as alchemist\u2019s fire when setting the trap. Prerequisite: The saboteur must have the Fire Trap saboteur trap to select this saboteur trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/",
+            "requiresOptionIds": [
+              "ffd20:archetype:thief:saboteur:option:saboteur-trap:fire-trap"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:fire-trap",
+            "name": "Fire Trap",
+            "description": "The trap explodes in flames, dealing a number of points of fire damage equal to 1d6 + half the saboteur\u2019s thief level to the triggering creature (Reflex negates). If it is an extraordinary trap, the saboteur must use an explosive material such as alchemist\u2019s fire when setting the trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:firework-trap",
+            "name": "Firework Trap",
+            "description": "The trap explodes in a flash of colored lights. All creatures within 10 feet must succeed at a Fortitude saving throw or be blinded for 1d4+1 rounds. The saboteur must use an alchemical weapon when setting the trap, such as flash powder or a firework. Prerequisite: The saboteur must have the Fire Trap or Smoke Trap saboteur trap to select this saboteur trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:freezing-trap",
+            "name": "Freezing Trap",
+            "description": "The trap creates a burst of ice that damages and encases the triggering creature. The creature takes 1d3 points of ice damage + 1 per thief level and is frozen. A successful Reflex save halves the damage and means the creature is not frozen. The ice melts in 2d4 rounds.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:infected-snare-trap",
+            "name": "Infected Snare Trap",
+            "description": "The snare is made of diseased materials, which contain an aggressive blight that saps the energy and bodily health from the target creature. When initially caught in the snare, the trapped creature must succeed at a Fortitude saving throw or immediately take 2 points of Constitution damage. Each subsequent hour, the creature must succeed at a Fortitude saving throw or take 2 points of Constitution damage. This effect lasts for 12 hours or until the creature makes two successful saving throws in a row, whichever comes first. This is a poison effect. Prerequisite: The saboteur must have the Snare Trap saboteur trap to select this saboteur trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:lazurite-trap",
+            "name": "Lazurite Trap",
+            "description": "Lazurite radiation increases the victim\u2019s susceptibility to the attacks of undead creatures that are bolstered by the radiation. The target takes a \u20132 penalty to Armor Class against the attacks of undead creatures and on saving throws against effects created by undead. This effect lasts for 10 minutes per thief level. A successful Will save negates this effect. The saboteur must supply a sliver of lazurite.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:limning-trap",
+            "name": "Limning Trap",
+            "description": "This trap sprays glowing dust into the trapped square and all adjacent squares. A creature covered in this dust glows like a candle (becoming visibly outlined if invisible) and takes a -20 penalty on Stealth checks. The dust\u2019s effects last for 1 round per thief level or until the creature washes it off (a move action requiring water or some other cleanser). The saboteur must use alchemical components when setting the trap, such as glowing ink or marker dye.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:marking-trap",
+            "name": "Marking Trap",
+            "description": "If the triggering creature fails its save against the trap, it is marked with a dye and/or scent of the saboteur\u2019s choosing. A scent mark decreases the DC of tracking the marked creature by scent by 4. The mark can be washed off with vigorous scrubbing, but fades on its own after a week.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:over-sized-barbs",
+            "name": "Over-Sized Barbs",
+            "description": "The target is speared with barbs that penetrate and protrude from its body, making squeezing, climbing, and swimming challenging. The trap implants 1d4+1 barbs, each dealing 1 point of damage. A successful Reflex save halves the number of barbs. The target takes a penalty on Climb checks and Swim checks equal to the number of barbs attached, and is considered one size category larger for the purposes of determining what size of opening or passageway it must squeeze through as long as at least 1 barb remains attached. Each barb can be removed with a full minute of work and a Heal check that equals or exceeds the trap\u2019s DC. If this check fails, the barb is still removed but the target takes 1d4 points of damage. The barbs shake loose harmlessly after 10 minutes per thief level.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:penetrating-trap",
+            "name": "Penetrating Trap",
+            "description": "The damage die of a penetrating trap increases to 1d8. Choose either adamantine, cold iron, or silver. The trap counts as that material for the purposes of overcoming damage reduction. The saboteur must provide 1 pound of the chosen material during the trap\u2019s construction. Prerequisite: The saboteur must have the Wounding Trap saboteur trap to select this saboteur trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/",
+            "requiresOptionIds": [
+              "ffd20:archetype:thief:saboteur:option:saboteur-trap:wounding-trap"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:pit-trap",
+            "name": "Pit Trap",
+            "description": "This simple pit is covered over with leaves or appropriate materials for the area. It\u2019s 5 feet deep plus 5 feet for every four thief levels. A victim that succeeds at a Reflex save doesn\u2019t fall into the pit. The saboteur can set this trap only in terrain with soft ground.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:poison-trap",
+            "name": "Poison Trap",
+            "description": "The trap poisons the creature that triggers it. The saboteur must provide 1 dose of contact, inhaled, or injury poison when setting the trap, and the trap uses that poison\u2019s effects and DC.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:quicksand-trap",
+            "name": "Quicksand Trap",
+            "description": "The trap and all adjacent squares become quicksand as long as they contain loose sand or soil. The Swim DC to move in this quicksand is equal to the trap\u2019s save DC, and the Swim DC to tread in the quicksand is equal to the trap\u2019s DC \u20135. The quicksand lasts for a number of rounds equal to the saboteur\u2019s thief level. When the effect ends, any creature still in the quicksand is returned to the surface prone.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:rust-monster-trap",
+            "name": "Rust Monster Trap",
+            "description": "The trap throws up a cloud of dust ground from the antennae of a rust monster, dealing 1d4 points of damage to the target\u2019s metal armor and weapons. A successful Reflex save negates this damage. The saboteur must supply a set of rust monster antennae.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:selective-trigger",
+            "name": "Selective Trigger",
+            "description": "The saboteur adds a race, type, alignment, or minimum weight restriction to the trap\u2019s trigger. The saboteur can choose only the minimum weight restriction.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:sleet-trap",
+            "name": "Sleet Trap",
+            "description": "The detonating trap creates a 20-foot-radius burst of sleet with the effects of a sleet storm. The driving sleet lasts for 1 round, but the icy ground persists for 1 round per thief level.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:smoke-trap",
+            "name": "Smoke Trap",
+            "description": "This trap bellows out thick, choking smoke that fills the trapped square and all adjacent squares. Any breathing creature in these squares must succeed at a Fortitude saving throws or take a -4 penalty to Strength and Dexterity every round it\u2019s within the smoke and for 1d4+1 rounds after leaving the smoke. All sight, even darkvision, is ineffective in or through the smoke. The smoke lasts for 1 round per two thief levels, and is dispersed by wind as fog cloud. The saboteur must use an alchemical component when setting the trap, such as a smokestick.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:swarm-trap",
+            "name": "Swarm Trap",
+            "description": "The trap releases a bat swarm, rat swarm, or spider swarm that attacks all creatures in the area. The swarm remains in the general area for no longer than 1 round per thief level, after which it disperses. The saboteur must provide the creatures of the swarm (typically in a small box, cage, or crate); these creatures may die of starvation before the trap is triggered (this trap lasts 1 day per thief level).\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:tar-trap",
+            "name": "Tar Trap",
+            "description": "The target is coated in a thin layer of sticky tar unless it succeeds at a Reflex save. It is entangled, and becomes susceptible to catching fire from any source of flame. If lit on fire, the tar burns intensely for 1 round; it deals 2d6 points of fire damage and is destroyed in the process. Unless burned away, the tar remains for 1 round per thief level. The saboteur must supply a dose of tar.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:toxic-fumes-trap",
+            "name": "Toxic Fumes Trap",
+            "description": "The smoke this trap creates is extremely noxious. Any breathing creature must succeed at a Fortitude saving throw (in addition to the Fortitude save for the smoke trap) or be nauseated every round it\u2019s within the smoke and for 1d4+1 rounds after leaving the smoke. The saboteur must use a toxic material when setting the trap, such as noxious aromatic. Prerequisite: The saboteur must have the Smoke Trap saboteur trap to select this saboteur trap.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/",
+            "requiresOptionIds": [
+              "ffd20:archetype:thief:saboteur:option:saboteur-trap:smoke-trap"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:tripwire",
+            "name": "Tripwire",
+            "description": "A taut wire stretched between two vertical surfaces knocks the target prone unless it succeeds at a Reflex save. A running or charging creature takes a \u20136 penalty on its save.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          },
+          {
+            "id": "ffd20:archetype:thief:saboteur:option:saboteur-trap:wounding-trap",
+            "name": "Wounding Trap",
+            "description": "This trap makes a melee attack against the target using the saboteur\u2019s base attack bonus + her Intelligence modifier for the attack roll. It deals an amount of damage equal to 1d6 + half the saboteur\u2019s thief level. The saboteur chooses whether this damage is bludgeoning, piercing, or slashing.\n\nThis ability replaces thief talents and advanced thief talents.\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Saboteur Trap",
+                "locator": "saboteur-trap"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:thief:saboteur:feature:saboteur-trap",
+        "base": 0,
+        "perLevel": 0.5,
+        "ability": "int",
+        "minimum": 0
+      }
+    ],
+    "profile": {},
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

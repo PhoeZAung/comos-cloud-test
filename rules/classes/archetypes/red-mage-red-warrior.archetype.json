@@ -1,0 +1,1076 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:red-warrior",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Red Warrior",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/red-warrior/",
+      "title": "Red Warrior",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "8e1f1655739a2966da46f9be5d6eae72ecc9c7802d67f20cd764bf81810d2b0d"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:armor-proficiency",
+        "name": "Armor Proficiency",
+        "atLevel": 1,
+        "description": "The red warrior is proficient with light, medium, and heavy armor as well as all shields (except tower shields).\n\nThis ability replaces the red mage\u2019s starting armor proficiencies.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armor Proficiency",
+            "locator": "armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:aegis-shield",
+        "name": "Aegis Shield",
+        "atLevel": 1,
+        "description": "At 1st level, the red warrior receives the Limit Breaks (Aegis Shield and Arcane Savant).\n\n*Aegis Shield ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the red warrior to create a glowing, floating red shield that helps deflect attacks. For a duration of 1 round + 1 round per four red mage levels after 1st, this limit break grants the red warrior and any adjacent allies a +2 shield bonus to AC as well as a damage reduction of 2/- (this stacks with Enduring Body). These bonuses increase by 2 for every four red mage levels attained after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n*Arcane Savant ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the red warrior to spend points from his arcane pool without expending them for a duration of 1 round + 1 round per four red mage levels after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nThese abilities replace the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:arcane-savant",
+        "name": "Arcane Savant",
+        "atLevel": 1,
+        "description": "At 1st level, the red warrior receives the Limit Breaks (Aegis Shield and Arcane Savant).\n\n*Aegis Shield ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the red warrior to create a glowing, floating red shield that helps deflect attacks. For a duration of 1 round + 1 round per four red mage levels after 1st, this limit break grants the red warrior and any adjacent allies a +2 shield bonus to AC as well as a damage reduction of 2/- (this stacks with Enduring Body). These bonuses increase by 2 for every four red mage levels attained after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\n*Arcane Savant ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the red warrior to spend points from his arcane pool without expending them for a duration of 1 round + 1 round per four red mage levels after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nThese abilities replace the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:martial-prowess",
+        "name": "Martial Prowess",
+        "atLevel": 1,
+        "description": "A red warrior\u2019s base attack bonus increases by one step (from 3/4 BAB to Full BAB). Also increases red warrior\u2019s hit dice from d8 to d10.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Prowess",
+            "locator": "martial-prowess"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:arcane-pool",
+        "name": "Arcane Pool",
+        "atLevel": 1,
+        "description": "At 1st level, the red warrior gains a reservoir of mystical arcane energy that he can draw upon to fuel his powers and enhance his weapon and shield. This arcane pool has a number of points equal to his red mage level + his Charisma modifier. The pool refreshes once per day when the red warrior rests for a full 8 hours.\n\nAt 1st level, a red warrior can expend 1 point from his arcane pool as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to grant any weapon and shield he is holding a +1 enhancement bonus for 1 minute, paying the arcane pool cost separately for each. For every four levels beyond 1st, the weapon and shield gains another +1 enhancement bonus, to a maximum of +5 at 17th level. These bonuses can be added to the weapon and shield stacking with existing weapon and shield enhancement to a maximum of +5. Multiple uses of this ability do not stack with themselves.\n\nAt 5th level, these bonuses can be used to add any of the following weapon properties: [dancing](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/dancing/),\u00a0[earthen](https://www.finalfantasyd20.com/magical-items/magical-weapons/earthen/),\u00a0[earthen burst](https://www.finalfantasyd20.com/magical-items/magical-weapons/earthen-burst/),\u00a0[flaming](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/flaming/),\u00a0[flaming burst](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/flaming-burst/),\u00a0[frost](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/frost/),\u00a0[icy burst](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/icy-burst/),\u00a0[jetstream](https://www.finalfantasyd20.com/magical-items/magical-weapons/jetstream/),\u00a0[jetstream burst](https://www.finalfantasyd20.com/magical-items/magical-weapons/jetstream-burst/), [keen](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/keen/), [roaring](https://www.finalfantasyd20.com/magical-items/magical-weapons/roaring/),\u00a0[roaring burst](https://www.finalfantasyd20.com/magical-items/magical-weapons/roaring-burst/), [shock](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/shock/),\u00a0[shocking burst](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/shocking-burst/),\u00a0[speed](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/speed/), or\u00a0[vorpal](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/vorpal/).\n\nAlso at 5th level and above, he can also add the following shield special abilities: animated, arrow catching, arrow deflection, bashing, blinding, fortification (any), reflecting, spell resistance (any).\n\nAdding these properties consumes an amount of bonus equal to the property\u2019s base price modifier. These properties are added to any the weapon and shield already has, but duplicates do not stack. If the weapon and shield is not magical, at least a +1 enhancement bonus must be added before any other properties can be added. These bonuses and properties are decided when the arcane pool point is spent and cannot be changed until the next time the red warrior uses this ability. These bonuses do not function if the weapon and shield are wielded by anyone other than the red warrior. A red warrior can only enhance one weapon and one shield in this way at one time. If he uses this ability again, the first use immediately ends.\n\nIn addition, a red warrior can expend 1 point from his arcane pool to gain a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) that does not count against the red warrior\u2019s normal limit of one [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) per round that can be used with red warrior class features.\n\nThis ability replaces spell proficiency, spells, and MP Pool. Red warriors do not gain any spells or spellcasting ability, do not have a caster level, and do not count as having a red mage spell list for spell trigger or spell completion magic items.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:enduring-body",
+        "name": "Enduring Body",
+        "atLevel": 1,
+        "description": "Also at 1st level, a red warrior learns a new principle of warfare for the individual combatant: to unleash in oneself the spirit of the enduring body. The spirit of the ideal body transforms a red warrior, granting him damage reduction 1/\u2013. At 7th level, his damage reduction improves to 2/\u2013. At 10th level, his damage reduction improves to 3/\u2013.\n\nThis ability replaces armored mage gained at 1st, 7th, and 10th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Enduring Body",
+            "locator": "enduring-body"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:resilience",
+        "name": "Resilience",
+        "atLevel": 1,
+        "description": "Also at 1st level, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), the red warrior may reduce the damage he is about to take by 5 hit points for every 1 point from his arcane pool he expends. The red warrior may not spend more points from his arcane pool than his red mage level per effect being reduced.\n\nThis ability replaces spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Resilience",
+            "locator": "resilience"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:extra-arcane-pool",
+        "name": "Extra Arcane Pool",
+        "atLevel": 1,
+        "description": "At 1st level, a red warrior gains the [Extra Arcane Pool](https://www.finalfantasyd20.com/feats/class-feats/extra-arcane-pool/) feat.\n\nThis ability replaces cantrips.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Extra Arcane Pool",
+            "locator": "extra-arcane-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:chain-of-personal-superiority",
+        "name": "Chain of Personal Superiority",
+        "atLevel": 1,
+        "description": "At 1st level, a red warrior learns a new principle of warfare for the individual combatant: the ability to both deal punishment and take it. Calling upon inner reserves of knowledge and dedication, a red warrior can provide himself with a +2 enhancement bonus to Strength and Constitution for up to 1 minute. A red warrior can use this ability three times per day. Activating this ability is a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). At 5th, 9th, 13th, and 17th level, the enhancement bonus to Strength and Constitution improves by +2.\n\nThis ability replaces red magery gained at 1st, 5th, 9th, 13th, and 17th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chain of Personal Superiority",
+            "locator": "chain-of-personal-superiority"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:chain-of-defensive-posture",
+        "name": "Chain of Defensive Posture",
+        "atLevel": 2,
+        "description": "At 2nd level, a red warrior learns the second principle of warfare for the individual combatant: the ability to avoid the enemy\u2019s counterattacks if that enemy is not immediately overwhelmed. Calling upon inner reserves of knowledge and dedication, a red warrior can provide himself with a +2 insight bonus to Armor Class for up to 1 minute. A red warrior can use this ability three times per day. Activating this ability is a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). At 6th level, the insight bonus to Armor Class improves to +4.\n\nThis ability replaces a ruby talent gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chain of Defensive Posture",
+            "locator": "chain-of-defensive-posture"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:swap-places",
+        "name": "Swap Places",
+        "atLevel": 2,
+        "description": "At 2nd level, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) and by expending 1 point from his arcane pool, a red warrior can swap places with an adjacent ally who is about to get attacked. Neither activating this ability nor the movement of the red warrior or his ally from this ability provoke attacks of opportunity. This occurs before the attack and the attacker must resolve the attack against the red warrior instead of the original target. At 6th level and every 4 levels thereafter, the red warrior gains a +1 dodge bonus to his AC against this attack.\n\nThis ability replaces arcane pool gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swap Places",
+            "locator": "swap-places"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:aura-of-protection",
+        "name": "Aura of Protection",
+        "atLevel": 2,
+        "description": "At 2nd level, the red warrior learns how to harness his arcane pool to protect himself and his allies. As long as there is at least one point left in the red warrior\u2019s arcane pool, he projects an aura of protection around him. Any ally, including the red warrior, within 10 feet of the red warrior gains a +1 dodge bonus to AC. At 8th and 14th level, this bonus increases by +1 and the range of the aura increases by +10 feet. If the red warrior is killed, paralyzed, stunned, or knocked unconscious, this aura is disrupted. Whenever the condition that disrupted the aura is removed, the aura returns. A red warrior can spend one point of their arcane pool to grant this bonus to the saves of all allies in the aura for a number of rounds equal to their Charisma modifier.\n\nThis ability replaces spellstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aura of Protection",
+            "locator": "aura-of-protection"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:ruby-arcana",
+        "name": "Ruby Arcana",
+        "atLevel": 3,
+        "description": "At 3rd level, a red warrior loses access to the following ruby arcana:\n\nBroad Study, Brutish Arcana, Concentrate, Empowered Magic, Familiar, Maximized Magic, Pool Strike, Pool Strike (Arcing), Pool Strike (Clinging), Quickened Magic, Reflection, Rod Mastery, Rod Wielder, Scroll Mastery, Silent Magic, Spell Blending, Spell Trickery, Still Magic, Wand Mastery, and Wand Wielder.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Arcana",
+            "locator": "ruby-arcana"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:arcane-deflection",
+        "name": "Arcane Deflection",
+        "atLevel": 3,
+        "description": "Beginning at 3rd level, the red warrior learns how to use his arcane pool to fight in melee combat. As long as the red warrior has at least one point in his arcane pool remaining, he gains a +1 deflection bonus to AC. At 8th level and every five levels thereafter, this bonus increases by 1.\n\nThis ability replaces ruby knowledge.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Deflection",
+            "locator": "arcane-deflection"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:sweeping-strike",
+        "name": "Sweeping Strike",
+        "atLevel": 4,
+        "description": "At 4th level, a red warrior gains the ability to make great, sweeping swings with a melee weapon. On each melee attack a red warrior makes, he can choose squares he threatens that are adjacent to each other, and his attacks apply to creatures in those two squares equally. A red warrior can use this ability on any attack, even an attack of opportunity or a cleave attempt. A red warrior cannot use this ability if he has moved more than 10 feet since the end of his last turn. If a red warrior hits one or both of his foes with a sweeping strike, he can attempt a cleave normally; however, he makes only one cleave attempt per sweeping strike, even if he successfully hits more than one foe. Regardless of size, a red warrior can only hit an opponent once with sweeping strike. If the red warrior somehow gets a MP pool, this ability does not work with melee power weapons.\n\nThis ability replaces quick cast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sweeping Strike",
+            "locator": "sweeping-strike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:melee-power",
+        "name": "Melee Power",
+        "atLevel": 4,
+        "description": "At 4th level, a red warrior adds +2 to damage with all melee weapons. In addition, the red warrior may reroll 1s for damage with all melee weapon dice.\n\nThis ability replaces spell power.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Melee Power",
+            "locator": "melee-power"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:clear-mind",
+        "name": "Clear Mind",
+        "atLevel": 5,
+        "description": "At 5th level, a red warrior can regain his arcane pool quicker. The red warrior must be relaxed and must be free from overt distractions, such as combat raging nearby or other loud noises. For example, he could be riding in the back of a carriage and benefit from this ability. The red warrior does not gain this recovery if he is asleep or unconscious. The red warrior regains 1 arcane point per hour.\n\nThis ability modifies and replaces clear mind.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Clear Mind",
+            "locator": "clear-mind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:convert",
+        "name": "Convert",
+        "atLevel": 5,
+        "description": "Beginning of 5th level, a red warrior can convert hit points into arcane points as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). For every 5 hit points converted, the red warrior receives 1 arcane point. The red warrior cannot convert below 1 hit point and can only convert arcane points equal to his red mage level. The red warrior can use this ability a number of times per day equal to his Charisma modifier.\n\nThis ability modifies and replaces convert.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Convert",
+            "locator": "convert"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:dual-effect",
+        "name": "Dual Effect",
+        "atLevel": 7,
+        "description": "At 7th level, the red warrior\u2019s resilience ability has become almost second nature. Any time the red warrior uses Swap Places or In Harm\u2019s Way (see below), he can also use Resilience in the same [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate).\n\nThis ability replaces improved spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dual Effect",
+            "locator": "dual-effect"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:well-of-power",
+        "name": "Well of Power",
+        "atLevel": 10,
+        "description": "At 10th level, a red warrior can tap his arcane pool to use chain of personal superiority or chain of defensive posture more than would normally be possible. If he has already expended all of his daily uses of either chain of personal superiority or chain of defense posture, he may spend 1 point from his arcane pool to gain an additional use of either ability. He can do this as many times as he wants in a day, provided he has points in his arcane pool left. At 14th level, he can expend 2 points from his arcane pool to gain an additional daily use of chain of overwhelming force if he has already expended his daily use.\n\nThis ability replaces a ruby talent gained at 10th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Well of Power",
+            "locator": "well-of-power"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:chain-of-overwhelming-force",
+        "name": "Chain of Overwhelming Force",
+        "atLevel": 14,
+        "description": "At 14th level, a red warrior learns a new principle of warfare for the individual combatant: to discover the underlying violence of the world and deliver it in a perfectly executed attack. The red warrior taps into this underlying energy and apply it to a single melee attack, dealing an extra 10d6 points of damage. A red warrior can use this ability once per day. Activating this ability is part of the attack action. If the attack misses, the ability is wasted.\n\nThis ability replaces greater spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chain of Overwhelming Force",
+            "locator": "chain-of-overwhelming-force"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:in-harm-s-way",
+        "name": "In Harm\u2019s Way",
+        "atLevel": 15,
+        "description": "At 15th level, a red warrior can absorb effects that would affect an ally within his reach. The red warrior may expend 1 point from his arcane pool as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) to take the effect of an area effect that would have hit his ally, although he is affected as normal if he is also in the area of effect.\n\nThis ability replaces doublecast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "In Harm\u2019s Way",
+            "locator": "in-harm-s-way"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:counterattack",
+        "name": "Counterattack",
+        "atLevel": 16,
+        "description": "At 16th level, a red warrior can expend 1 point from his arcane pool to make an attack of opportunity against an opponent who hits an ally adjacent to the red warrior with a melee attack, so long as the attacking creature is within the red warrior\u2019s reach. The red warrior must be able to see the attacks coming to use this class feature.\n\nThis ability replaces counterstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Counterattack",
+            "locator": "counterattack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:retributive-attack",
+        "name": "Retributive Attack",
+        "atLevel": 18,
+        "description": "At 18th level, if an adjacent ally of a red warrior is rendered helpless or unconscious, the red warrior can make a retributive attack against the creature that felled his ally. When making a retributive attack, the red warrior adds his Charisma bonus (if any) to his attack roll and deals an extra 1 point of damage per red mage level on a successful hit. A red warrior can make a number of retributive attacks per day equal to his Charisma bonus (minimum of one), but never more than once per round. He may make more than one retributive attack against the same foe.\n\nThis ability replaces a ruby talent gained at 18th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Retributive Attack",
+            "locator": "retributive-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:mighty-resilience",
+        "name": "Mighty Resilience",
+        "atLevel": 19,
+        "description": "At 19th level, the red warrior automatically negates the additional damage of one successful critical hit or sneak attack, as well as other abilities or effects that rely on a successful critical hit or sneak attack (such as blinding from Blinding Critical or bleed from sneak attack) if the red warrior has 1 point in his arcane pool remaining. The red warrior takes only normal damage from the attack.\n\nThis ability replaces 1 MP spell.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Resilience",
+            "locator": "mighty-resilience"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:feature:red-knight",
+        "name": "Red Knight",
+        "atLevel": 20,
+        "description": "At 20th level, once per day as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), the red warrior can enter into a very powerful Trance. As long as he has 1 point in his arcane pool remaining, for up to 5 minutes the red warrior adds his Charisma modifier to his attack rolls, damage rolls, AC, skill checks, ability checks, saves, and initiative, and he increases his speed by +5 feet for every point of his Charisma modifier.\n\nThis ability replaces red wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Red Knight",
+            "locator": "red-knight"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:armor-proficiency",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:weapon-and-armor-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:armor-proficiency"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armor Proficiency",
+            "locator": "armor-proficiency"
+          }
+        ],
+        "description": "This ability replaces the red mage\u2019s starting armor proficiencies."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:limit-breaks",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:dual-spellcasting",
+          "ffd20:class:red-mage:feature:flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:aegis-shield",
+          "ffd20:archetype:red-mage:red-warrior:feature:arcane-savant"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ],
+        "description": "These abilities replace the red mage\u2019s standard Limit Breaks."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:arcane-pool",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-proficiency",
+          "ffd20:class:red-mage:feature:spells"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:arcane-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ],
+        "description": "This ability replaces spell proficiency, spells, and MP Pool. Red warriors do not gain any spells or spellcasting ability, do not have a caster level, and do not count as having a red mage spell list for spell trigger or spell completion magic items."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:enduring-body",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:armored-mage",
+          "ffd20:class:red-mage:feature:armored-mage-medium",
+          "ffd20:class:red-mage:feature:armored-mage-shield"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:enduring-body"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Enduring Body",
+            "locator": "enduring-body"
+          }
+        ],
+        "description": "This ability replaces armored mage gained at 1st, 7th, and 10th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:resilience",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:resilience"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Resilience",
+            "locator": "resilience"
+          }
+        ],
+        "description": "This ability replaces spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:extra-arcane-pool",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:cantrips"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:extra-arcane-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Extra Arcane Pool",
+            "locator": "extra-arcane-pool"
+          }
+        ],
+        "description": "This ability replaces cantrips."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:chain-of-personal-superiority",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:red-magery:1",
+          "ffd20:class:red-mage:event:red-magery:5",
+          "ffd20:class:red-mage:event:red-magery:9",
+          "ffd20:class:red-mage:event:red-magery:13",
+          "ffd20:class:red-mage:event:red-magery:17"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:chain-of-personal-superiority"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chain of Personal Superiority",
+            "locator": "chain-of-personal-superiority"
+          }
+        ],
+        "description": "This ability replaces red magery gained at 1st, 5th, 9th, 13th, and 17th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:chain-of-defensive-posture",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:chain-of-defensive-posture"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chain of Defensive Posture",
+            "locator": "chain-of-defensive-posture"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:swap-places",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:arcane-pool"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:swap-places"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swap Places",
+            "locator": "swap-places"
+          }
+        ],
+        "description": "This ability replaces arcane pool gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:aura-of-protection",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spellstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:aura-of-protection"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aura of Protection",
+            "locator": "aura-of-protection"
+          }
+        ],
+        "description": "This ability replaces spellstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:arcane-deflection",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:arcane-deflection"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Deflection",
+            "locator": "arcane-deflection"
+          }
+        ],
+        "description": "This ability replaces ruby knowledge."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:sweeping-strike",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:quick-cast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:sweeping-strike"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sweeping Strike",
+            "locator": "sweeping-strike"
+          }
+        ],
+        "description": "This ability replaces quick cast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:melee-power",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-power"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:melee-power"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Melee Power",
+            "locator": "melee-power"
+          }
+        ],
+        "description": "This ability replaces spell power."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:clear-mind",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:clear-mind"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:clear-mind"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Clear Mind",
+            "locator": "clear-mind"
+          }
+        ],
+        "description": "This ability modifies and replaces clear mind."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:convert",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:convert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:convert"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Convert",
+            "locator": "convert"
+          }
+        ],
+        "description": "This ability modifies and replaces convert."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:dual-effect",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:improved-spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:dual-effect"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dual Effect",
+            "locator": "dual-effect"
+          }
+        ],
+        "description": "This ability replaces improved spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:well-of-power",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:10"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:well-of-power"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Well of Power",
+            "locator": "well-of-power"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 10th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:chain-of-overwhelming-force",
+        "atClassLevel": 14,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:greater-spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:chain-of-overwhelming-force"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chain of Overwhelming Force",
+            "locator": "chain-of-overwhelming-force"
+          }
+        ],
+        "description": "This ability replaces greater spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:in-harm-s-way",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:doublecast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:in-harm-s-way"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "In Harm\u2019s Way",
+            "locator": "in-harm-s-way"
+          }
+        ],
+        "description": "This ability replaces doublecast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:counterattack",
+        "atClassLevel": 16,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:counterstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:counterattack"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Counterattack",
+            "locator": "counterattack"
+          }
+        ],
+        "description": "This ability replaces counterstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:retributive-attack",
+        "atClassLevel": 18,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:18"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:retributive-attack"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Retributive Attack",
+            "locator": "retributive-attack"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 18th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:mighty-resilience",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:1-mp-spell"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:mighty-resilience"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Resilience",
+            "locator": "mighty-resilience"
+          }
+        ],
+        "description": "This ability replaces 1 MP spell."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:red-knight",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:red-warrior:feature:red-knight"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Red Knight",
+            "locator": "red-knight"
+          }
+        ],
+        "description": "This ability replaces red wizard."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:red-warrior:replacement:noncasting",
+        "atClassLevel": 1,
+        "operation": "remove",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spells",
+          "ffd20:class:red-mage:feature:cantrips"
+        ],
+        "replacementFeatureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "spellcasting": false,
+      "hitDie": 10,
+      "fullBab": true,
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Power rod",
+        "Power staff",
+        "Power flail",
+        "Power pole",
+        "Light armor",
+        "Medium armor",
+        "Shields except tower shields",
+        "Heavy armor"
+      ],
+      "arcanePoolMode": "full",
+      "arcanePoolBonus": 2,
+      "excludedOptionNames": [
+        "Broad Study",
+        "Brutish Arcana",
+        "Concentrate",
+        "Empowered Magic",
+        "Familiar",
+        "Maximized Magic",
+        "Pool Strike",
+        "Pool Strike, Arcing",
+        "Pool Strike, Clinging",
+        "Quickened Magic",
+        "Reflection",
+        "Rod Mastery",
+        "Rod Wielder",
+        "Scroll Mastery",
+        "Silent Magic",
+        "Spell Blending",
+        "Spell Trickery",
+        "Still Magic",
+        "Wand Mastery",
+        "Wand Wielder"
+      ]
+    },
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

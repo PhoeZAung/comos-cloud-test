@@ -56,8 +56,8 @@
       "id": "ffd20:class:monk",
       "file": "rules/classes/monk.class.json",
       "status": "live",
-      "adapter": "martial-level-one",
-      "coverage": "partial"
+      "adapter": "sheet-family-progression",
+      "coverage": "partial_manual"
     },
     {
       "id": "ffd20:class:gunbreaker",
@@ -71,6 +71,20 @@
       "file": "rules/classes/red-mage.class.json",
       "status": "live",
       "adapter": "red-mage-level-one"
+    },
+    {
+      "id": "ffd20:class:thief",
+      "file": "rules/classes/thief.class.json",
+      "status": "live",
+      "adapter": "sheet-family-progression",
+      "coverage": "partial_manual"
+    },
+    {
+      "id": "ffd20:class:warrior",
+      "file": "rules/classes/warrior.class.json",
+      "status": "live",
+      "adapter": "sheet-family-progression",
+      "coverage": "partial_manual"
     }
   ]
 }

@@ -1,0 +1,277 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:foehammer",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Foehammer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/foehammer/",
+      "title": "Foehammer",
+      "archiveSha256": "8644c6b66d29ec290c1ce343905ccc415f21412ab4caef64df5a2adea833fff8",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:foehammer:feature:chosen-weapon",
+        "name": "Chosen Weapon",
+        "atLevel": 1,
+        "description": "At 1st level, a foehammer must choose hammers or flails weapon group as his chosen weapon group.\n\nThis ability modifies chosen weapon.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chosen Weapon",
+            "locator": "chosen-weapon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:foehammer:feature:sledgehammer",
+        "name": "Sledgehammer",
+        "atLevel": 3,
+        "description": "At 3rd level, a foehammer wielding his chosen weapon gains a +2 circumstance bonus on combat maneuver checks made to bull rush, overrun, sunder, or trip.\n\nThis ability replaces warrior techniques\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sledgehammer",
+            "locator": "sledgehammer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:foehammer:feature:hammer-to-the-ground",
+        "name": "Hammer to the Ground",
+        "atLevel": 7,
+        "description": "At 7th level, when a foehammer succeeds at a bull rush combat maneuver, he can make a trip combat maneuver at the end of the bull rush. If he does not move with the target, the force of his blow may still trip his foe, but he takes a \u20135 penalty on the combat maneuver check to trip.\n\nAt 15th level, any creature a foehammer successfully bull rushes is automatically knocked prone at the end of the bull rush.\n\nThis ability replaces additional techs II and additional techs III.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hammer to the Ground",
+            "locator": "hammer-to-the-ground"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:foehammer:feature:rhythmic-blows",
+        "name": "Rhythmic Blows",
+        "atLevel": 9,
+        "description": "At 9th level, each time that a foehammer hits a target, he gains a +1 bonus on attack rolls against that target. This bonus stacks with each hit against that target, but lasts only until the end of the foehammer\u2019s turn.\n\nAt 10th level, a foehammer can use War Cry a number of times per day equal to 3 + his Constitution modifier, instead of spending stamina.\n\nThis ability replaces additional techs IV, and changes war cry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rhythmic Blows",
+            "locator": "rhythmic-blows"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:foehammer:feature:ground-breaker",
+        "name": "Ground Breaker",
+        "atLevel": 11,
+        "description": "At 11th level, as a full-round action, a foehammer may strike the ground with his hammer. If the attack deals more damage than the floor\u2019s hardness, the space he occupies and all adjacent squares become difficult terrain. Creatures in those squares, except for the foehammer, are knocked prone (DC 15 Reflex negates).\n\nThis ability replaces aggressor and improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ground Breaker",
+            "locator": "ground-breaker"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:foehammer:replacement:chosen-weapon:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-weapon"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:foehammer:feature:chosen-weapon"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chosen Weapon",
+            "locator": "chosen-weapon"
+          }
+        ],
+        "description": "This ability modifies chosen weapon."
+      },
+      {
+        "id": "ffd20:archetype:warrior:foehammer:replacement:sledgehammer:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-techniques",
+          "ffd20:class:warrior:feature:stamina-pool",
+          "ffd20:class:warrior:feature:delay-fatigue",
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:foehammer:feature:sledgehammer"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sledgehammer",
+            "locator": "sledgehammer"
+          }
+        ],
+        "description": "This ability replaces warrior techniques"
+      },
+      {
+        "id": "ffd20:archetype:warrior:foehammer:replacement:hammer-to-the-ground:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii",
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:foehammer:feature:hammer-to-the-ground"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hammer to the Ground",
+            "locator": "hammer-to-the-ground"
+          }
+        ],
+        "description": "This ability replaces additional techs II and additional techs III."
+      },
+      {
+        "id": "ffd20:archetype:warrior:foehammer:replacement:rhythmic-blows:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:foehammer:feature:rhythmic-blows"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rhythmic Blows",
+            "locator": "rhythmic-blows"
+          }
+        ],
+        "description": "This ability replaces additional techs IV"
+      },
+      {
+        "id": "ffd20:archetype:warrior:foehammer:replacement:ground-breaker:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush",
+          "ffd20:class:warrior:feature:aggressor"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:foehammer:feature:ground-breaker"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ground Breaker",
+            "locator": "ground-breaker"
+          }
+        ],
+        "description": "This ability replaces aggressor and improved rush."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "excludedOptionNames": [
+        "Axes",
+        "Blades, Heavy",
+        "Blades, Light",
+        "Close",
+        "Double",
+        "Natural",
+        "Polearms",
+        "Spears",
+        "Tribal"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:class:warrior:feature:war-cry",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "con",
+        "minimum": 0
+      }
+    ],
+    "extraOptions": []
+  }
+}

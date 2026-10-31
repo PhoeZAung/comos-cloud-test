@@ -1,5 +1,9 @@
 # Local martial progression polish
 
+Published in PR #39 as b4c63eb; live files and health verified. See
+`class-release-publication.md` for current release evidence. The notes below
+describe the earlier local implementation and fixture-validation milestone.
+
 User scope: Chocobo Knight/Mog Knight, Dancer/Akimbo, Gunbreaker/Doom Slayer,
 levels 1–20. Red Mage work is parked locally while these families take priority.
 Work remains isolated in the class checkout and is not published.

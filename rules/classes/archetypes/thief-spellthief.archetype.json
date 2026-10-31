@@ -1,0 +1,800 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:spellthief",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Spellthief",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/spellthief/",
+      "title": "Spellthief",
+      "archiveSha256": "7fd3082482981ce78ac2ebeff1051ff5020a9dfdc90a374133d4c7c15f23c2a6",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:spellthief:feature:manafilch",
+        "name": "Manafilch",
+        "atLevel": 3,
+        "description": "At 3rd level, the spellthief gains [Steal MP](https://www.finalfantasyd20.com/feats/combat-feats/steal-mp/) as a bonus feat.\n\nAt 7th level, when using this feat, the spellthief steals an additional number of MP equal to the number of dice used to steal MP (3d4+3 at 7th level, for example).\n\nAt 11th level, the dice for stealing MP increases to 1d6.\n\nAt 15th level, the spellthief may steal MP from a monster that has no MP pool, instead gaining a number of MP back equal to the number of dice he would roll to steal MP; to steal MP from a creature in this manner, he must forgo all of his dice for sneak attack damage.\n\nAny excess MP gained over the spellthief\u2019s maximum MP pool disappear at the end of his next turn.\n\nThis ability replaces measure the mark, \u00a0skilled liar, and  distraction.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Manafilch",
+            "locator": "manafilch"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:feature:spells",
+        "name": "Spells",
+        "atLevel": 4,
+        "description": "Beginning at 4th level, a spellthief gains the ability to cast spells, which are drawn from the [black mage spell list](https://www.finalfantasyd20.com/magic/spells-by-class/black-mage/). A spellthief begins play with 1 1st level black mage spell of his choice. Each time a character attains a new thief level, he gains one spell of his choice to add to his list of spells. The free spell must be of spell levels he can cast. Like most spellcasters, a spellthief can find or purchase scrolls with spells to add to his repertoire. A spellthief wearing armor heavier than light applies the spell failure chance as normal.\n\nTo learn or cast a spell, the spellthief must have an Intelligence score equal to at least 10 + the spell level (Int 11 for 1st-level spells, Int 12 for 2nd-level spells, and so forth). The Difficulty Class for a saving throw against a spellthief\u2019s spell is 10 + the spell level + the spellthief\u2019s Intelligence modifier. In addition, a spellthief gains additional MP for having a high attribute (Intelligence).\n\nThrough 3rd level, a spellthief has no caster level. At 4th level and higher, his caster level is equal to his thief level \u20133.\n\n| Level | Base MP | Spell Level |\n| --- | --- | --- |\n| 4th | 0 | 1st |\n| 5th | 1 | 1st |\n| 6th | 1 | 1st |\n| 7th | 1 | 2nd |\n| 8th | 3 | 2nd |\n| 9th | 4 | 2nd |\n| 10th | 4 | 3rd |\n| 11th | 7 | 3rd |\n| 12th | 9 | 3rd |\n| 13th | 10 | 4th |\n| 14th | 14 | 4th |\n| 15th | 17 | 4th |\n| 16th | 19 | 4th |\n| 17th | 20 | 4th |\n| 18th | 24 | 4th |\n| 19th | 27 | 4th |\n| 20th | 33 | 4th |\n\nThis ability replaces the thief talents gained at 4th, 8th, 12th, 16th, and 20th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spells",
+            "locator": "spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:feature:spelljab",
+        "name": "Spelljab",
+        "atLevel": 5,
+        "description": "At 5th level, a spellthief has discovered how to employ his limited magic to enhance his blows when striking at the perfect opportunity. When he is in a position to make a melee attack that would deal sneak attack damage, the spellthief may, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that does not provoke attacks of opportunity, make a single attack and cast a damaging or enfeebling spell that normally targets one creature with a melee or ranged touch attack by channeling it through his weapon. If the attack hits, then the spell\u2019s effects also are applied, adding the sneak attack damage to the attack as well. If the attack is a critical hit, then the critical hit applies to the spell, as well as the normal attack. Creatures that are normally immune to [precision damage](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#precision-damage) are not immune to this ability, although they take no damage from sneak attack.\n\nThis ability replaces thief\u2019s edge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spelljab",
+            "locator": "spelljab"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:feature:skirmisher",
+        "name": "Skirmisher",
+        "atLevel": 13,
+        "description": "At 13th level, a spellthief may use his spelljab class feature when using skirmisher, even though it is not an attack action.\n\nThis ability modifies skirmisher.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Skirmisher",
+            "locator": "skirmisher"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:feature:steal-spells",
+        "name": "Steal Spells",
+        "atLevel": 14,
+        "description": "At 14th level, a spellthief may attempt to steal a spell that he knows the caster has cast or a random spell. As a touch attack, the spellthief swipes a spell from the caster (a Will save, DC 10 + half of the thief\u2019s level + his Intelligence modifier, negates this ability), if it\u2019s a spell the spellthief has seen the caster cast, the caster loses the spell, and the spellthief gains it. If a random spell, roll a number for spell levels, then roll a number for which spell gets stolen. The spell the spellthief steals remains on his spell list for 1 day unless it\u2019s a spell that he can cast as a black mage spellcaster up to 4th level and the caster loses access to it until the day has passed. The spellthief can cast this spell regardless of its spell level as long as he has the MP to cast it.\n\nThis ability replace flee.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Steal Spells",
+            "locator": "steal-spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:feature:true-syphon",
+        "name": "True Syphon",
+        "atLevel": 20,
+        "description": "At 20th level, a spellthief may use his Steal MP feat without sacrificing sneak dice.\n\nThis ability replace master strike.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Syphon",
+            "locator": "true-syphon"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:spellthief:replacement:manafilch:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:measure-the-mark",
+          "ffd20:class:thief:feature:skilled-liar",
+          "ffd20:class:thief:feature:distraction"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:spellthief:feature:manafilch"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "measure the mark,  skilled liar, and  distraction",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Manafilch",
+            "locator": "manafilch"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:replacement:spells:1",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:spellthief:feature:spells"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:4",
+          "ffd20:class:thief:event:thief-talents:8",
+          "ffd20:class:thief:event:thief-advanced-talents:12",
+          "ffd20:class:thief:event:thief-advanced-talents:16",
+          "ffd20:class:thief:event:thief-advanced-talents:20"
+        ],
+        "eventOnly": true,
+        "description": "the thief talents gained at 4th, 8th, 12th, 16th, and 20th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spells",
+            "locator": "spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:replacement:spelljab:1",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thiefs-edge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:spellthief:feature:spelljab"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "thief\u2019s edge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spelljab",
+            "locator": "spelljab"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:replacement:steal-spells:1",
+        "atClassLevel": 14,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:flee"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:spellthief:feature:steal-spells"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "flee",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Steal Spells",
+            "locator": "steal-spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:replacement:true-syphon:1",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:master-strike"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:spellthief:feature:true-syphon"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "master strike",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Syphon",
+            "locator": "true-syphon"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:spellthief:event:grant:manafilch",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:spellthief:feature:manafilch",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Manafilch",
+            "locator": "manafilch"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:event:grant:spells",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:spellthief:feature:spells",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spells",
+            "locator": "spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:event:grant:spelljab",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:spellthief:feature:spelljab",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spelljab",
+            "locator": "spelljab"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:event:grant:skirmisher",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:spellthief:feature:skirmisher",
+        "atClassLevel": 13,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Skirmisher",
+            "locator": "skirmisher"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:event:grant:steal-spells",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:spellthief:feature:steal-spells",
+        "atClassLevel": 14,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Steal Spells",
+            "locator": "steal-spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:spellthief:event:grant:true-syphon",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:spellthief:feature:true-syphon",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Syphon",
+            "locator": "true-syphon"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "appraise",
+        "bluff",
+        "climb",
+        "craft:*",
+        "disable-device",
+        "escape-artist",
+        "intimidate",
+        "knowledge:dungeoneering",
+        "knowledge:local",
+        "linguistics",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "sense-motive",
+        "sleight-of-hand",
+        "stealth",
+        "swim",
+        "use-magic-device",
+        "knowledge:arcana",
+        "spellcraft"
+      ],
+      "classSkillSourceText": "A spellthief adds Knowledge (Arcana) (Int) and Spellcraft (Int) to their list of class skills. This replaces Diplomacy and Disguise as class skills.",
+      "manualSpellcasting": true,
+      "castingAbility": "int",
+      "levels": [
+        {
+          "level": 1,
+          "bab": 0,
+          "fort": 0,
+          "ref": 2,
+          "will": 0,
+          "iterativeAttacks": [],
+          "baseMp": 0,
+          "maxSpellLevel": 0,
+          "special": "Finesse Training, Mark, Trapfinding, Sneak Attack (+1d6), Limit Breaks",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 1",
+              "locator": "table-thief-level-1"
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "bab": 1,
+          "fort": 0,
+          "ref": 3,
+          "will": 0,
+          "iterativeAttacks": [
+            1
+          ],
+          "baseMp": 0,
+          "maxSpellLevel": 0,
+          "special": "Thief Talent, Evasion",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 2",
+              "locator": "table-thief-level-2"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "bab": 2,
+          "fort": 1,
+          "ref": 3,
+          "will": 1,
+          "iterativeAttacks": [
+            2
+          ],
+          "baseMp": 0,
+          "maxSpellLevel": 0,
+          "special": "Danger Sense (+1), Finesse Training, Measure the Mark, Sneak Attack (+2d6)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 3",
+              "locator": "table-thief-level-3"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "bab": 3,
+          "fort": 1,
+          "ref": 4,
+          "will": 1,
+          "iterativeAttacks": [
+            3
+          ],
+          "baseMp": 0,
+          "maxSpellLevel": 1,
+          "special": "Debilitating Injury, Thief Talent, Uncanny Dodge",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 4",
+              "locator": "table-thief-level-4"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "bab": 3,
+          "fort": 1,
+          "ref": 4,
+          "will": 1,
+          "iterativeAttacks": [
+            3
+          ],
+          "baseMp": 1,
+          "maxSpellLevel": 1,
+          "special": "Improved Theft (+2), Sneak Attack (+3d6), Thief\u2019s Edge",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 5",
+              "locator": "table-thief-level-5"
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "bab": 4,
+          "fort": 2,
+          "ref": 5,
+          "will": 2,
+          "iterativeAttacks": [
+            4
+          ],
+          "baseMp": 1,
+          "maxSpellLevel": 1,
+          "special": "Danger Sense (+2), Thief Talent",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 6",
+              "locator": "table-thief-level-6"
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "bab": 5,
+          "fort": 2,
+          "ref": 5,
+          "will": 2,
+          "iterativeAttacks": [
+            5
+          ],
+          "baseMp": 1,
+          "maxSpellLevel": 2,
+          "special": "Skilled Liar, Sneak Attack (+4d6)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 7",
+              "locator": "table-thief-level-7"
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "bab": 6,
+          "fort": 2,
+          "ref": 6,
+          "will": 2,
+          "iterativeAttacks": [
+            6,
+            1
+          ],
+          "baseMp": 3,
+          "maxSpellLevel": 2,
+          "special": "Thief Talent, Improved Uncanny Dodge",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 8",
+              "locator": "table-thief-level-8"
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "bab": 6,
+          "fort": 3,
+          "ref": 6,
+          "will": 3,
+          "iterativeAttacks": [
+            6,
+            1
+          ],
+          "baseMp": 4,
+          "maxSpellLevel": 2,
+          "special": "Danger Sense (+3), Improved Theft (+4), Distraction, Sneak Attack (+5d6)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 9",
+              "locator": "table-thief-level-9"
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "bab": 7,
+          "fort": 3,
+          "ref": 7,
+          "will": 3,
+          "iterativeAttacks": [
+            7,
+            2
+          ],
+          "baseMp": 4,
+          "maxSpellLevel": 3,
+          "special": "Thief Talent, Mug, Thief\u2019s Edge",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 10",
+              "locator": "table-thief-level-10"
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "bab": 8,
+          "fort": 3,
+          "ref": 7,
+          "will": 3,
+          "iterativeAttacks": [
+            8,
+            3
+          ],
+          "baseMp": 7,
+          "maxSpellLevel": 3,
+          "special": "Finesse Training, Sneak Attack (+6d6)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 11",
+              "locator": "table-thief-level-11"
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "bab": 9,
+          "fort": 4,
+          "ref": 8,
+          "will": 4,
+          "iterativeAttacks": [
+            9,
+            4
+          ],
+          "baseMp": 9,
+          "maxSpellLevel": 3,
+          "special": "Danger Sense (+4), Thief Advanced Talent",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 12",
+              "locator": "table-thief-level-12"
+            }
+          ]
+        },
+        {
+          "level": 13,
+          "bab": 9,
+          "fort": 4,
+          "ref": 8,
+          "will": 4,
+          "iterativeAttacks": [
+            9,
+            4
+          ],
+          "baseMp": 10,
+          "maxSpellLevel": 4,
+          "special": "Improved Theft (+6), Skirmisher, Sneak Attack (+7d6)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 13",
+              "locator": "table-thief-level-13"
+            }
+          ]
+        },
+        {
+          "level": 14,
+          "bab": 10,
+          "fort": 4,
+          "ref": 9,
+          "will": 4,
+          "iterativeAttacks": [
+            10,
+            5
+          ],
+          "baseMp": 14,
+          "maxSpellLevel": 4,
+          "special": "Thief Advanced Talent, Flee",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 14",
+              "locator": "table-thief-level-14"
+            }
+          ]
+        },
+        {
+          "level": 15,
+          "bab": 11,
+          "fort": 5,
+          "ref": 9,
+          "will": 5,
+          "iterativeAttacks": [
+            11,
+            6,
+            1
+          ],
+          "baseMp": 17,
+          "maxSpellLevel": 4,
+          "special": "Danger Sense (+5), Theft Mastery, Sneak Attack (+8d6), Thief\u2019s Edge",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 15",
+              "locator": "table-thief-level-15"
+            }
+          ]
+        },
+        {
+          "level": 16,
+          "bab": 12,
+          "fort": 5,
+          "ref": 10,
+          "will": 5,
+          "iterativeAttacks": [
+            12,
+            7,
+            2
+          ],
+          "baseMp": 19,
+          "maxSpellLevel": 4,
+          "special": "Thief Advanced Talent, Master of All",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 16",
+              "locator": "table-thief-level-16"
+            }
+          ]
+        },
+        {
+          "level": 17,
+          "bab": 12,
+          "fort": 5,
+          "ref": 10,
+          "will": 5,
+          "iterativeAttacks": [
+            12,
+            7,
+            2
+          ],
+          "baseMp": 20,
+          "maxSpellLevel": 4,
+          "special": "Improved Theft (+8), Hide in Plain Sight, Sneak Attack (+9d6)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 17",
+              "locator": "table-thief-level-17"
+            }
+          ]
+        },
+        {
+          "level": 18,
+          "bab": 13,
+          "fort": 6,
+          "ref": 11,
+          "will": 6,
+          "iterativeAttacks": [
+            13,
+            8,
+            3
+          ],
+          "baseMp": 24,
+          "maxSpellLevel": 4,
+          "special": "Danger Sense (+6), Thief Advanced Talent",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 18",
+              "locator": "table-thief-level-18"
+            }
+          ]
+        },
+        {
+          "level": 19,
+          "bab": 14,
+          "fort": 6,
+          "ref": 11,
+          "will": 6,
+          "iterativeAttacks": [
+            14,
+            9,
+            4
+          ],
+          "baseMp": 27,
+          "maxSpellLevel": 4,
+          "special": "Finesse Training, Masterful Talent, Shadow Step, Sneak Attack (+10d6)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 19",
+              "locator": "table-thief-level-19"
+            }
+          ]
+        },
+        {
+          "level": 20,
+          "bab": 15,
+          "fort": 6,
+          "ref": 12,
+          "will": 6,
+          "iterativeAttacks": [
+            15,
+            10,
+            5
+          ],
+          "baseMp": 33,
+          "maxSpellLevel": 4,
+          "special": "Thief Advanced Talent, Master Strike, Thief\u2019s Edge",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Thief level 20",
+              "locator": "table-thief-level-20"
+            }
+          ]
+        }
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualSpellInstructions": "Beginning at4, choose/source black mage spells per the Spells card and enter them manually on existing spell rows; INT eligibility, spell learning, stealing and temporary MP effects are manual."
+  }
+}

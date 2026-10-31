@@ -1,5 +1,19 @@
 # Resume the class and race import queue
 
+Latest class release: PR #39, b4c63eb, is live with 449 integrated tests and
+verified Railway/public-asset evidence. See docs/extraction/class-release-publication.md.
+This chat owns classes/archetypes and uses the isolated classes/red-mage
+checkout; the race chat owns its separate checkout and RACES-ONLY.md plan.
+Latest LOCAL batch: Thief+25archetypes, Warrior+25archetypes and Monk+20archetypes
+through20.493tests,1387savedroutelevel-ups and8browserfixture records pass;see
+CLASSES-ONLY.md and docs/extraction/three-class-families-progress.md. Earlier
+Red Mage+18archetypes1–20 work remains included and unpublished. Complex effects
+stay manual; source conflicts and incomplete racial choices are disclosed.
+Next candidate class batch is White Mage, then Knight/Dragoon full families.
+Use the user's whole-family/parallel-batch preference; do not take unrelated races.
+Future gameplay changes remain local until another explicit publish request.
+
+
 The user chose class/race integration as the main goal. Use the existing FFd20
 archive and keep unresolved Pathfinder-dependent mechanics manual or guarded.
 Bulk Pathfinder collection is paused. Do not wait for cloud publication to
@@ -27,7 +41,7 @@ or assume the next item is still an unimplemented Garif.
 
 Before this pause, the standing user instruction was to continue through validated queue milestones
 without waiting for another "next", while the active run has capacity and the
-user has not stopped it. Push recoverable checkpoints as work progresses.
+user has not stopped it. Save recoverable local commits/bundles as work progresses; push only when publish is authorized.
 Codex does not perform this reasoning unattended after a run or runtime stops.
 
 This queue tracks **73 classes, 63 races and 579 archetypes**. It schedules and

@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:festivalist",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Festivalist",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/festivalist/",
+      "title": "Festivalist",
+      "archiveSha256": "4dafdd46c58222e5a4514c0581563ad91fd86678e0d506325e89355032e01baf",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:festivalist:feature:familiar",
+        "name": "Familiar",
+        "atLevel": 1,
+        "description": "At 1st level, a festivalist gains [Familiar](https://www.finalfantasyd20.com/feats/general-feats/familiar/) as a bonus feat without needing to meet the prerequisites. A festivalist uses her thief level for determining the familiar\u2018s abilities.\n\nThis ability replaces finesse training.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Familiar",
+            "locator": "familiar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:feature:pet-performance",
+        "name": "Pet Performance",
+        "atLevel": 2,
+        "description": "A festivalist gains use of several [bardic performances](https://www.finalfantasyd20.com/classes/core-classes/bard/#bardic-performance), making Handle Animal checks in place of any Perform checks.\n\nAt 2nd level, she gains the [distraction](https://www.finalfantasyd20.com/classes/core-classes/bard/#distraction) bardic performance.\n\nAt 4th level, she gains the [fascinate](https://www.finalfantasyd20.com/classes/core-classes/bard/#fascinate) bardic performance.\n\nAt 6th level, she also gains use of the following performance:\n\n*Trained Legerdemain ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0At 6th level, a festivalist can command a familiar or pet within 30 feet to make a Disable Device or Sleight of Hand check as if trained in the skill, using its own skill ranks (if any), Dexterity modifier, and equipment, with a competence bonus equal to half her thief level. The check requires the normal amount of time to complete and the DC increases by 5. The festivalist must maintain this pet performance each round her familiar or pet attempts a Disable Device or Sleight of Hand check.\n\nThe pet performance ability otherwise functions identically to bardic performance. Levels in a class with the distraction or fascinate bardic performances stack with thief levels for the purpose of determining bonuses granted by these performances.\n\nThis ability replaces the thief talents gained at 2nd, 4th, and 6th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Pet Performance",
+            "locator": "pet-performance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:feature:sneak-attack",
+        "name": "Sneak Attack",
+        "atLevel": 2,
+        "description": "A festivalist gains this ability starting at 2nd level. The sneak attack damage dealt is 1d6 points at 2nd level, and increases by 1d6 points every four thief levels thereafter. A festivalist\u2019s familiar can also deal sneak attack damage as appropriate to foes as long as it is within 30 feet of her (though only Small and larger creatures may flank enemies, as usual).\n\nThis ability modifies the thief\u2019s normal sneak attack progression.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sneak Attack",
+            "locator": "sneak-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:feature:animal-trainer",
+        "name": "Animal Trainer",
+        "atLevel": 3,
+        "description": "Starting at 3rd level, a festivalist receives a bonus equal to half her thief level whenever she uses Handle Animal on a Tiny or Small animal. In addition, she can increase the DC by 5 to reduce the time needed to teach an animal a new trick or train an animal for a general purpose to 1 day for every week normally required. She can also train more than one animal at once, although each animal after the first adds 2 to the DC.\n\nThis ability replaces danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Trainer",
+            "locator": "animal-trainer"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:festivalist:replacement:familiar:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:finesse-training"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:festivalist:feature:familiar"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "finesse training",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Familiar",
+            "locator": "familiar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:replacement:pet-performance:1",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:festivalist:feature:pet-performance"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:2",
+          "ffd20:class:thief:event:thief-talents:4",
+          "ffd20:class:thief:event:thief-talents:6"
+        ],
+        "eventOnly": true,
+        "description": "the thief talents gained at 2nd, 4th, and 6th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Pet Performance",
+            "locator": "pet-performance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:replacement:animal-trainer:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:festivalist:feature:animal-trainer"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Trainer",
+            "locator": "animal-trainer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:replacement:sneak-attack-progression",
+        "atClassLevel": 1,
+        "operation": "remove",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:sneak-attack"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:festivalist:feature:sneak-attack"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sneak Attack",
+            "locator": "sneak-attack"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:festivalist:event:grant:familiar",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:festivalist:feature:familiar",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Familiar",
+            "locator": "familiar"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:event:grant:pet-performance",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:festivalist:feature:pet-performance",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Pet Performance",
+            "locator": "pet-performance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:event:grant:sneak-attack",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:festivalist:feature:sneak-attack",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sneak Attack",
+            "locator": "sneak-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:festivalist:event:grant:animal-trainer",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:festivalist:feature:animal-trainer",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Animal Trainer",
+            "locator": "animal-trainer"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "appraise",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "disable-device",
+        "disguise",
+        "escape-artist",
+        "intimidate",
+        "knowledge:dungeoneering",
+        "knowledge:local",
+        "linguistics",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "sense-motive",
+        "sleight-of-hand",
+        "stealth",
+        "swim",
+        "use-magic-device",
+        "handle-animal"
+      ],
+      "classSkillSourceText": "A festivalist gains Handle Animal as a class skill."
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

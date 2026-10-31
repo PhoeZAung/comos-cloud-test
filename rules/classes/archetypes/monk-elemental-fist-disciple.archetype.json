@@ -1,0 +1,1609 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:elemental-fist-disciple",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Elemental Fist Disciple",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/elemental-fist-disciple/",
+      "title": "Elemental Fist Disciple",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "d3c8ff428155cde30720000e04d6f16e29aa11c4bfa735c726aea64ed5aeb24e"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:elemental-fists",
+        "name": "Elemental Fists",
+        "atLevel": 1,
+        "description": "At 1st level, the elemental fist disciple receives the Limit Break (Elemental Fists).\n\n*Elemental Fists ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break imbues the elemental fist disciple\u2019s fists with elemental energy. As a free action, the elemental fist disciple can choose an element to imbue his fists with (earth, fire, ice, lightning, water, or wind) and change it at the start of his next turn every round for a duration of 1 round + 1 round per four monk levels after 1st. For the duration of the limit break, the elemental fist disciple deals normal unarmed damage plus 1d6 points of elemental damage of the element chosen + an additional 1d6 per four monk levels after 1st. This limit break requires only a swift action.\n\nThis ability replaces the Limit Break (Flawless Fists).\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:fistskills",
+        "name": "Fistskills",
+        "atLevel": 1,
+        "description": "This ability functions the same as the sword saint\u2019s [swordplay](https://www.finalfantasyd20.com/classes/hybrid-classes/sword-saint/#swordplay) ability, except an elemental fist disciple gains less fistskills (see below) and may only choose swordskills from Elemental Fist (see below), Destroy Sword, and Universal forms. In addition, he may use any fistskill he knows without needing to ready them. Each fistskill can still only be used once per encounter but can be regained through his Ki Pool ability. In addition, all swordskills that reference sword focus now uses unarmed strikes instead and uses his Wisdom modifier instead of Charisma. The elemental fist disciple may take Extra Swordskills feat to gain additional Fistskills.\n\n| Level | Swordskills Known |\n| --- | --- |\n| 1st | 2 |\n| 2nd | 3 |\n| 3rd | 3 |\n| 4th | 3 |\n| 5th | 4 |\n| 6th | 4 |\n| 7th | 4 |\n| 8th | 5 |\n| 9th | 5 |\n| 10th | 5 |\n| 11th | 6 |\n| 12th | 6 |\n| 13th | 6 |\n| 14th | 7 |\n| 15th | 7 |\n| 16th | 7 |\n| 17th | 8 |\n| 18th | 8 |\n| 19th | 8 |\n| 20th | 9 |\n\nThese abilities replace flying kick, martial wisdom, and blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:superior-ki-pool",
+        "name": "Superior Ki Pool",
+        "atLevel": 1,
+        "description": "At 1st level, an elemental fist disciple gains a pool of ki points, supernatural energy he can use to accomplish amazing feats. The number of points in an elemental fist disciple\u2019s ki pool is equal to double his monk level + his Wisdom modifier. As long as he has at least 1 point in his ki pool, he can make a ki strike. At 3rd level, ki strike allows his unarmed attacks to be treated as magic weapons for the purpose of overcoming damage reduction. At 7th level, his unarmed attacks are also treated as cold iron and silver for the purpose of overcoming damage reduction. At 10th level, his unarmed attacks are also treated as lawful weapons for the purpose of overcoming damage reduction. At 16th level, his unarmed attacks are treated as adamantine weapons for the purpose of overcoming damage reduction and bypassing hardness.\n\nBy spending 1 point from his ki pool as a swift action, an elemental fist disciple can make one additional unarmed strike at his highest attack bonus when making a flurry of blows attack. This bonus attack stacks with all bonus attacks gained from flurry of blows, as well as those from haste and similar effects. An elemental fist disciple gains additional powers that consume points from his ki pool as he gains levels.\n\nThe ki pool is replenished each morning after 8 hours of rest or meditation; these hours do not need to be consecutive.\n\nIn addition, an elemental fist disciple can spend ki points to increase the damage dice or DC save by 1 per point spent (to a maximum of 5). Also, he can spend 1 point of his ki pool, as a swift action, to use a fistskill he has already used for the encounter or use a fistskill without expending its use for the encounter. When he spends points from ki pool during an encounter, he regains a single fistskill use for the encounter.\n\nThis ability replaces ascetic and ki pool.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Ki Pool",
+            "locator": "superior-ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:fist-talents",
+        "name": "Fist Talents",
+        "atLevel": 2,
+        "description": "As he gains levels, an elemental fist disciple learns special talents tailored to his specific way of blending martial puissance and ki power. Starting at 2nd level, an elemental fist disciple gains one sword saint talent that modifies his swordskills or a monk talent. He gains an additional talent for every two levels of monk attained after 2nd level. Unless specifically noted in a talent\u2019s description, an elemental fist disciple cannot select a particular talent more than once. \u00a0An elemental fist disciple counts his monk levels as sword saint levels for talent prerequisites.\n\nThese abilities replace monk talents.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:practiced-skill",
+        "name": "Practiced Skill",
+        "atLevel": 5,
+        "description": "When an elemental fist disciple reaches 5th level, he has become so proficient in the basic skills that he can further his skill with that particular skill unlocking its true power, truly mastering his skills. He may select one basic fist skill he has learned and choose to gain its Practiced effect. The elemental fist disciple may choose an additional fistskill at 10th level and every five monk levels thereafter. The elemental fist disciple may, at the start of each day, after spending an hour to train, changed which fist skill to gain the Practiced effect.\n\nThis ability replaces counterstance.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Practiced Skill",
+            "locator": "practiced-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:perfected-skill",
+        "name": "Perfected Skill",
+        "atLevel": 10,
+        "description": "When an elemental fist disciple reaches 10th level, he has become so extraordinarily adept in the basic skills and has perfected his power. He may choose a single fist skill that he has chosen to have practiced and now gain its Perfected effect. The elemental fist disciple may choose an additional fistskill at 15th level and another at 20th level. The elemental fist disciple may, at the start of each day, after spending an hour to train, changed which fist skill to gain the Perfected effect.\n\nThis ability replaces formless strikes.\n\n**Elemental Fist Forms**\n\n**Earth Slash**\n\n**Fist Skill**: Elemental Fist (Basic)  \n**Element**: Earth  \n**Range**: 30 feet  \n**Target**: Enemies in a 5-ft.-wide, 30-ft.-line.  \n**Saving Throw:** Reflex half\n\nThe elemental fist disciple can use the power of the earth to slash forward in a line in front of him. The 5-ft.-wide line extends up to 30 feet. Enemies within the area of effect take focus unarmed strike damage + 1d6 points of earth damage per two monk levels, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half.\n\n*Practiced:* This fistskill with practice, inflicts *Weighted* status on targets for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n*Perfected:* This fistskill when perfected, inflicts Blin*d* on targets for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n**Wind Burst**\n\n**Fist Skill**: Elemental Fist (Basic)  \n**Element**: Wind  \n**Range**: Centered on the elemental fist disciple.  \n**Target**: Enemies in a 15-ft.-radius burst.  \n**Saving Throw:** Reflex half\n\nThe elemental fist disciple can use the power of wind to create a powerful wind to burst all around the elemental fist disciple. This ability is centered on the elemental fist disciple and explodes out to 15-ft.-radius burst. Enemies within the area of effect take focus unarmed strike damage + 1d6 points of wind damage + 1d6 per two monk levels after 1st, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half.\n\n*Practiced:* This fistskill with practice, inflicts *Squalled* status on targets for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n*Perfected:* This fistskill when perfected, inflicts *Silenced* status on targets for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n**Fire Cross**\n\n**Fist Skill**: Elemental Fist (Basic)  \n**Element**: Fire  \n**Range**: 30 feet.  \n**Target**: Enemies within two lines, 15-ft.-long and 5-ft.-wide, perpendicular to each other, intersecting at the center.  \n**Saving Throw:** Reflex half\n\nThe elemental fist disciple can use the power of fire to create a cross of burning flames within 30 feet of him. The cross is two lines, 15-ft.-long and 5-ft.-wide, perpendicular to each other, intersecting at the center. Enemies within the area of effect take focus unarmed strike damage + 1d6 points of fire damage + 1d6 per two monk levels after 1st, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half.\n\n*Practiced:* This fistskill with practice, inflicts *Burning* status on targets for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n*Perfected:* This fistskill when perfected, *Diseases*\u00a0the target for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n**Icy Breath**\n\n**Fist Skill**: Elemental Fist (Basic)  \n**Element**: Ice  \n**Range**: 15 feet.  \n**Target**: Enemies in a 15-ft.-cone.  \n**Saving Throw:** Reflex half\n\nThe elemental fist disciple can use the power of ice to breathe out a blast of cold air. It extends out to 15 feet in a cone. Enemies within the area of effect take 1d6 points of ice damage per monk level, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half.\n\n*Practiced:* This fistskill with practice, inflicts *Frozen* status on targets for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n*Perfected:* This fistskill when perfected, also knocks the target prone on a failed save.\n\n**Watery Explosion**\n\n**Fist Skill**: Elemental Fist (Basic)  \n**Element**: Water  \n**Range**: 30 feet.  \n**Target**: Enemies in a 15-ft.-radius spread.  \n**Saving Throw:** Reflex half\n\nThe elemental fist disciple can use the power of water to launch a ball of water that explodes on impact. The elemental fist disciple can use this ability on anyone within 30 feet and when it hits something, it explodes in a 15-ft.-radius spread. Enemies within the area of effect take focus unarmed strike damage + 1d6 points of water damage + 1d6 per two monk levels after 1st, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half.\n\n*Practiced:* This fistskill with practice, inflicts *Drenched* status on targets for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n*Perfected:* This fistskill when perfected, also inflicts *Slow* for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n**Lightning Strike**\n\n**Fist Skill**: Elemental Fist (Basic)  \n**Element**: Lightning  \n**Range**: 30 feet.  \n**Target**: Enemies in a 15-ft.-radius.  \n**Saving Throw:** Reflex half\n\nThe elemental fist disciple can use the power of lightning to strike an area with an electric blast. The elemental fist disciple can use this ability on anyone within 30 feet and it hits a 15-ft. square. Enemies within the area of effect take focus unarmed strike damage + 1d6 points of lightning damage + 1d6 per two monk levels after 1st, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half.\n\n*Practiced:* This fistskill with practice, inflicts *Static* status on targets for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n*Perfected:* This fistskill when perfected, deafens the targets in the area of effect for a number of rounds equal to the elemental fist disciple\u2019s Wisdom modifier on a failed save.\n\n**Magma Ball**\n\n**Fist Skill**: Elemental Fist (Master); **Prerequisites**: 2 Elemental Fist (Basic) fistskills known  \n**Element**: Earth/Fire  \n**Range**: 60 ft.  \n**Target**: Enemies in a 30-ft.-radius spread.  \n**Saving Throw:** Reflex half (see text)\n\nThe elemental fist disciple can harness the power of earth and fire to launch a ball of molten lava that explodes on impact. The elemental fist disciple can use this ability on anyone within 60 feet and when it hits something, it explodes in a 30-ft.-radius spread. Enemies within the area of effect take focus unarmed strike damage + 1d8 points of earth/fire (split equally) damage per two monk levels and are inflicted with the Curse status for 1 round per monk level, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half and negates the Curse status effect.\n\n**Electric Hailstorm**\n\n**Fist Skill**: Elemental Fist (Master); **Prerequisites**: 2 Elemental Fist (Basic) fistskills known  \n**Element**: Lightning/Ice  \n**Range**: 60 ft.  \n**Target**: Enemies in a 30-ft.-radius.  \n**Saving Throw:** Reflex half (see text)\n\nThe elemental fist disciple can harness the power of ice and lightning to produce a small storm that rains electrified hailstones. The elemental fist disciple can center the hailstorm within 60 feet of him and it rains on a 30-ft.-square area. Enemies within the area of effect take focus unarmed strike damage + 1d8 points of ice/lightning (split equally) damage per two monk levels and are inflicted with the Disable status for 1 round per monk level, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half and negates the Disable status effect.\n\n**Pressure Cannon**\n\n**Fist Skill**: Elemental Fist (Master); **Prerequisites**: 2 Elemental Fist (Basic) fistskills known  \n**Element**: Water/Wind  \n**Range**: 60 ft.  \n**Target**: Enemies in a 10-ft.-wide, 60-ft.-line.  \n**Saving Throw:** Reflex half (see text)\n\nThe elemental fist disciple can harness the power of water and wind to create a blast of concentrated water and wind in a line. The 10-ft.-wide line extends up to 60 feet. Enemies within the area of effect take focus unarmed strike damage + 1d6 points of water/wind (split equally) damage per two monk levels and are inflicted with the Slow status for 1 round per monk level, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half and negates the Slow status effect.\n\n**Elemental Maelstorm**\n\n**Fist Skill**: Elemental Fist (Master); **Prerequisites**: 2 Elemental Fist (Master), 4 Elemental Fist (Basic) fistskills known  \n**Element**: All  \n**Range**: 120 ft.  \n**Target**: Enemies in a 30-ft.-radius.  \n**Saving Throw:** Reflex half (see text)\n\nThe elemental fist disciple can harness the power of the elements to create a large storm of confusing elements. The elemental fist disciple can center the hailstorm within 120 feet of him and it rains on a 30-ft.-square area. Enemies within the area of effect take focus unarmed strike damage + 2d6 points damage of each element (earth, fire, ice, lightning, water, and wind) and are inflicted with the Confuse status for 1 round per monk level, a Reflex save (DC 10 + half of the monk\u2019s level + his Wisdom modifier) reduces the damage by half and negates the Confuse status effect.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfected Skill",
+            "locator": "perfected-skill"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:replacement:limit-break",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flawless-fists"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:feature:elemental-fists"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ],
+        "description": "the Limit Break (Flawless Fists)"
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:replacement:fistskills",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques",
+          "ffd20:class:monk:feature:martial-wisdom",
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:feature:fistskills"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ],
+        "description": "flying kick, martial wisdom, and blitz techniques"
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:replacement:superior-ki-pool",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:ascetic",
+          "ffd20:class:monk:feature:ki-pool"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:feature:superior-ki-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Ki Pool",
+            "locator": "superior-ki-pool"
+          }
+        ],
+        "description": "ascetic and ki pool"
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:replacement:fist-talents",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:monk-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:feature:fist-talents"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ],
+        "description": "monk talents"
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:replacement:practiced-skill",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:counterstance"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:feature:practiced-skill"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Practiced Skill",
+            "locator": "practiced-skill"
+          }
+        ],
+        "description": "counterstance"
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:replacement:perfected-skill",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:formless-strikes"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:feature:perfected-skill"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfected Skill",
+            "locator": "perfected-skill"
+          }
+        ],
+        "description": "formless strikes"
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:replacement:base-chakra",
+        "atClassLevel": 1,
+        "operation": "remove",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:chakra"
+        ],
+        "replacementFeatureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Ki Pool",
+            "locator": "superior-ki-pool"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills",
+        "name": "Fistskills",
+        "options": [
+          {
+            "id": "ffd20:archetype:monk:elemental-fist-disciple:option:fistskills:manual-selection",
+            "name": "Fistskills (manual selection)",
+            "description": "Choose a legal Fistskills option from the reference card and record its exact name, prerequisite checks and effects on the existing ability/feat entries.\nThis ability functions the same as the sword saint\u2019s [swordplay](https://www.finalfantasyd20.com/classes/hybrid-classes/sword-saint/#swordplay) ability, except an elemental fist disciple gains less fistskills (see below) and may only choose swordskills from Elemental Fist (see below), Destroy Sword, and Universal forms. In addition, he may use any fistskill he knows without needing to ready them. Each fistskill can still only be used once per encounter but can be regained through his Ki Pool ability. In addition, all swordskills that reference sword focus now uses unarmed strikes instead and uses his Wisdom modifier instead of Charisma. The elemental fist disciple may take Extra Swordskills feat to gain additional Fistskills.\n\n| Level | Swordskills Known |\n| --- | --- |\n| 1st | 2 |\n| 2nd | 3 |\n| 3rd | 3 |\n| 4th | 3 |\n| 5th | 4 |\n| 6th | 4 |\n| 7th | 4 |\n| 8th | 5 |\n| 9th | 5 |\n| 10th | 5 |\n| 11th | 6 |\n| 12th | 6 |\n| 13th | 6 |\n| 14th | 7 |\n| 15th | 7 |\n| 16th | 7 |\n| 17th | 8 |\n| 18th | 8 |\n| 19th | 8 |\n| 20th | 9 |\n\nThese abilities replace flying kick, martial wisdom, and blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 1,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Fistskills",
+                "locator": "fistskills"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/elemental-fist-disciple/",
+            "manualPrerequisites": true
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents",
+        "name": "Fist Talents",
+        "options": [
+          {
+            "id": "ffd20:class:monk:talent:monk-talent",
+            "name": "Monk Talent",
+            "description": "Benefits\nPrerequisites: Prerequisites.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Prerequisites",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Monk Talent",
+                "locator": "monk-talent"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:acrobatic-maneuvers",
+            "name": "Acrobatic Maneuvers",
+            "description": "Continue using your Flying Kick ability even after missing your target. Should you miss a Flying Kick attack, you may choose to attempt an Acrobatics skill check to move through your target's space. If successful, you move into your target's space, allowing you to continue using your Flying Kick ability as if your attack was successful.\nPrerequisites: Flying Kick class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Flying Kick class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Acrobatic Maneuvers",
+                "locator": "acrobatic-maneuvers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:flying-kick"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:anatman",
+            "name": "Anatman",
+            "description": "Channel your Mantra inward, greatly enhancing its effect. Instead of channeling the benefits of Mantra to your allies, you may channel it to only affect yourself, doubling all healing amplification effects of Mantra.\nPrerequisites: Mantra blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Mantra blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Anatman",
+                "locator": "anatman"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:mantra"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:armored-monk",
+            "name": "Armored Monk",
+            "description": "You become proficient in wearing light armor. Additionally, you do not lose access to your flurry of blows, flying kick, blitz techniques, and greased lightning abilities while wearing light armor.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Armored Monk",
+                "locator": "armored-monk"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:aura-cannon",
+            "name": "Aura Cannon",
+            "description": "Send forth a massive wave of energy to assault your enemies. When using your Aura Blast blitz technique, you may opt to have it affect creatures in a 30 foot line instead. A successful Reflex save (DC 10 + half of your monk level + your Constitution modifier) halves this damage.\nPrerequisites: Aura Blast blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Aura Blast blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Aura Cannon",
+                "locator": "aura-cannon"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:aura-blast"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:bodily-wisdom",
+            "name": "Bodily Wisdom",
+            "description": "You may use your Constitution score instead of your Wisdom score for the purposes of meeting the prerequisites of style feats, combat feats that have a style feat listed as a prerequisite, and the [Stunning Fist](https://www.d20pfsrd.com/feats/combat-feats/stunning-fist-combat/) feat.\nPrerequisites: Martial Wisdom class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Martial Wisdom class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Bodily Wisdom",
+                "locator": "bodily-wisdom"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:martial-wisdom"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:burst-of-speed",
+            "name": "Burst of Speed",
+            "description": "Gain a burst of speed by sacrificing momentum. As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), you gain the [Hasted](https://www.finalfantasyd20.com/magic/status-effects/#hasted) status effect for a number of rounds equal to the number of Greased Lightning stacks you have accrued. All Greased Lightning stacks are expended upon activating this talent.\nPrerequisites: Greased Lightning class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Greased Lightning class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Burst of Speed",
+                "locator": "burst-of-speed"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:greased-lightning"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:combat-feat",
+            "name": "Combat Feat",
+            "description": "You gain a bonus combat feat. This talent may be taken only once.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Combat Feat",
+                "locator": "combat-feat"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:counter",
+            "name": "Counter",
+            "description": "Improve the accuracy of your counter attacks. You gain a +2 attack bonus when attacking with your Counterstance ability. This talent may be taken up to three times; the 1st rank being accessible at 6th level or higher, the 2nd rank at 10th level or higher, and the 3rd rank at 14th level or higher. These effects stack with eachother.\nPrerequisites: Counterstance class feature,  Monk 6 (1st rank),  Monk 10 (2nd rank),  Monk 14 (3rd rank).\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Counterstance class feature,  Monk 6 (1st rank),  Monk 10 (2nd rank),  Monk 14 (3rd rank)",
+            "minimumLevel": 6,
+            "repeatLimit": 3,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Counter",
+                "locator": "counter"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "rankMinimumLevels": [
+              6,
+              10,
+              14
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:counterstance"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:cyclone",
+            "name": "Cyclone",
+            "description": "Turn in a circle, attacking with backhand blows. When you use the full-attack action, you can give up your regular attacks and instead make one unarmed strike at your highest base attack bonus against each adjacent opponent. You must make a separate attack roll against each opponent. When using this ability, you also forfeit any bonus or extra attacks granted by other feats, spells, or other abilities.\nPrerequisites: Monk 4.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Monk 4",
+            "minimumLevel": 4,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Cyclone",
+                "locator": "cyclone"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:evasion-bonus",
+            "name": "Evasion Bonus",
+            "description": "Gain a +1 dodge bonus to your AC.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Evasion Bonus",
+                "locator": "evasion-bonus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:focus",
+            "name": "Focus",
+            "description": "Build up your strength in a momentary act of defense. You may use your Boost ability as part of a standard action to assume [total defense](https://www.d20pfsrd.com/Gamemastering/combat/#TOC-Total-Defense), having the benefits of that ability start on your ensuing turn instead.\nPrerequisites: Boost class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Boost class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Focus",
+                "locator": "focus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:boost"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:hamedo",
+            "name": "Hamedo",
+            "description": "Anticipate your opponent's intentions and strike quickly before they do. While in your Counterstance, instead of attacking after all of your opponent's attacks have been resolved against you, you may treat any action with an attack roll component made against you while within your threatened area as if it provokes attacks of opportunity.\nPrerequisites: Counterstance class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Counterstance class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Hamedo",
+                "locator": "hamedo"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:counterstance"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:hp-boost",
+            "name": "HP Boost",
+            "description": "Gain an additional amount of maximum hit points equal to your monk level. Each time you gain a monk level after selecting this talent, your maximum hit points increase by one. This talent may be taken up to three times; the 1st rank being accessible at 2nd level or higher, the 2nd rank at 6th level or higher, and the 3rd rank at 10th level or higher. These effects stack with eachother.\nPrerequisites: Monk 2 (1st rank),  Monk 6 (2nd rank),  Monk 10 (3rd rank).\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Monk 2 (1st rank),  Monk 6 (2nd rank),  Monk 10 (3rd rank)",
+            "minimumLevel": 2,
+            "repeatLimit": 3,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "HP Boost",
+                "locator": "hp-boost"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "rankMinimumLevels": [
+              2,
+              6,
+              10
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:invigorate",
+            "name": "Invigorate",
+            "description": "Chakra heals your wounds slowly over time as opposed to all at once. You may activate your Chakra blitz technique as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), granting you fast healing equal to your Constitution bonus instead of healing you all at once. This effect lasts for a number of rounds equal to your monk level + your Wisdom bonus.\nPrerequisites: Chakra blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Chakra blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Invigorate",
+                "locator": "invigorate"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques",
+              "ffd20:class:monk:feature:chakra"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:ki-trap-detonate",
+            "name": "Ki Trap: Detonate",
+            "description": "Detonate your Ki Trap, damaging nearby creatures. As an immediate action, you may detonate your Ki Trap, dealing non-elemental damage equal to 1d6 per monk level to creatures within its area of effect. A successful Reflex save (DC: 10 + half of your monk level + your Constitution modifier) halves this damage. The Ki Trap is destroyed after detonation.\nPrerequisites: Ki Trap blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Ki Trap blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Ki Trap: Detonate",
+                "locator": "ki-trap-detonate"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:ki-trap"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:ki-trap-move",
+            "name": "Ki Trap: Move",
+            "description": "Teleport your Ki Trap to a nearby location. You may teleport an existing Ki Trap to a visible square within 30 feet as a move action.\nPrerequisites: Ki Trap blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Ki Trap blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Ki Trap: Move",
+                "locator": "ki-trap-move"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:ki-trap"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:leap",
+            "name": "Leap",
+            "description": "Increase your speed by 10 feet while using your Flying Kick ability. This talent may be taken up to three times; the 1st rank being accessible at 2nd level or higher, the 2nd rank at 6th level or higher, and the 3rd rank at 10th level or higher. These effects stack with eachother.\nPrerequisites: Flying Kick class feature,  Monk 2 (1st rank),  Monk 6 (2nd rank),  Monk 10 (3rd rank).\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Flying Kick class feature,  Monk 2 (1st rank),  Monk 6 (2nd rank),  Monk 10 (3rd rank)",
+            "minimumLevel": 2,
+            "repeatLimit": 3,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Leap",
+                "locator": "leap"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "rankMinimumLevels": [
+              2,
+              6,
+              10
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:flying-kick"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:living-weapon",
+            "name": "Living Weapon",
+            "description": "You may treat your body as a weapon for the purposes of magically enhancing it, allowing you to bestow an enhancement bonus and melee weapon special abilities to all types of your unarmed strikes (kicks, elbows, etc) without the need of manufactured weapons. Magically enhancing your body through these means doubles the price requirement of any given enhancement level (ex: a +1 enhancement would have a price of 4,000 gil), but the crafting time for this process is unaffected.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Living Weapon",
+                "locator": "living-weapon"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:overpower",
+            "name": "Overpower",
+            "description": "Overwhelm your target with your strike, wracking its senses. You may attempt to overpower your target with your next unarmed strike on your turn as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). On a successful hit, your target must make a Fortitude save (DC: 10 + half monk level + Strength modifier) or be Staggered for a number of rounds equal to the number of Greased Lightning stacks you have accrued. All stacks of Greased Lightning on yourself are expended once this attack is resolved (even if you miss).\nPrerequisites: Greased Lightning class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Greased Lightning class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Overpower",
+                "locator": "overpower"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:greased-lightning"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:penance",
+            "name": "Penance",
+            "description": "Slow your foe after landing a critical strike with your Aura Blast blitz technique. Whenever you confirm a critical hit with your Aura Blast blitz technique, instead of adding additional damage, you may inflict your target with the Slow status effect for a number of rounds equal to your monk level (no save).\nPrerequisites: Aura Blast blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Aura Blast blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Penance",
+                "locator": "penance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:aura-blast"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:phoenix-inferno",
+            "name": "Phoenix Inferno",
+            "description": "Widen the area of effect of your Rising Phoenix blitz technique at the cost of spending more ki. By spending an additional ki point when activating your Rising Phoenix blitz technique, you increase the range to affect all enemies within 30 feet of you.\nPrerequisites: Rising Phoenix blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Rising Phoenix blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Phoenix Inferno",
+                "locator": "phoenix-inferno"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:rising-phoenix"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:pressure-points",
+            "name": "Pressure Points",
+            "description": "Strike at a creature\u2019s vital pressure points, causing weakness and intense pain. Whenever you confirm a critical hit, instead of adding additional damage, you may deal Strength or Dexterity damage to your target equal to your weapon dice roll.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Pressure Points",
+                "locator": "pressure-points"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:pummel",
+            "name": "Pummel",
+            "description": "Increase the number of your attacks while using your Raging Fist blitz technique at the cost of accuracy. By opting for a -5 penalty to all of your attacks when using the full-attack action with your Raging Fist blitz technique, you gain two additional attacks at your highest base attack bonus instead of one. At 11th level, the amount of additional attacks provided by this talent increases to three.\nPrerequisites: Raging Fist blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Raging Fist blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Pummel",
+                "locator": "pummel"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:raging-fist"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:purifying-chakra",
+            "name": "Purifying Chakra",
+            "description": "Channel your purification energies while activating Chakra. When activating the Chakra blitz technique (or the Invigorate talent), you may spend an additional ki point to also activate the Purification blitz technique, relieving yourself of status ailments within that same action.\nPrerequisites: Chakra and Purification blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Chakra and Purification blitz techniques",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Purifying Chakra",
+                "locator": "purifying-chakra"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:purification"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques",
+              "ffd20:class:monk:feature:chakra"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:relentless-momentum",
+            "name": "Relentless Momentum",
+            "description": "Your attacks are relentless, affording your enemies little time to recover. You gain one stack of Greased Lightning at the start of your next turn after landing a Combo Finisher talent.\nPrerequisites: Greased Lightning class feature, Combo Finisher monk talent.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Greased Lightning class feature, Combo Finisher monk talent",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Relentless Momentum",
+                "locator": "relentless-momentum"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:talent:monk-talent"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:greased-lightning"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:slow-fall",
+            "name": "Slow Fall",
+            "description": "You can slow your descent so long as you are within arms reach of a wall. You take damage as if the fall were 20 feet shorter than it actually is. Your ability to slow your fall (that is, to reduce the effective distance of the fall when next to a wall) improves by an additional 10 feet for every two monk levels you attain until at 20th level you can use a nearby wall to slow your descent and fall any distance without harm.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Slow Fall",
+                "locator": "slow-fall"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:smite",
+            "name": "Smite",
+            "description": "Deal an additional +2 damage with melee weapons that you are proficient with. This additional damage does not get multiplied on critical hits. This talent may be taken up to two times; the 1st rank being accessible at 2nd level or higher, and the 2nd rank at 10th level or higher. These effects stack with eachother.\nPrerequisites: Monk 2 (1st rank),  Monk 10 (2nd rank).\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Monk 2 (1st rank),  Monk 10 (2nd rank)",
+            "minimumLevel": 2,
+            "repeatLimit": 2,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Smite",
+                "locator": "smite"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "rankMinimumLevels": [
+              2,
+              10
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:spiritual-overflow",
+            "name": "Spiritual Overflow",
+            "description": "Overflow your lifeforce to reach allies in need. When utilizing your Soul Spiral blitz technique, you may sacrifice an additional amount of hit points to increase its range. This range increase is equal to an additional 5 feet per 5 additional hit points sacrificed. When used in this way, these additional sacrificed hit points do not heal your allies.\nPrerequisites: Soul Spiral blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Soul Spiral blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Spiritual Overflow",
+                "locator": "spiritual-overflow"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:soul-spiral"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:starshower",
+            "name": "Starshower",
+            "description": "Your strikes land with such speed that even the most agile foes cannot evade them. As a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), you may expend 6 stacks of Greased Lightning to treat all creatures as flat-footed against your attacks until the end of your turn. This talent is a combo finisher.\nPrerequisites: Monk 16, Greased Lightning class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Monk 16, Greased Lightning class feature",
+            "minimumLevel": 16,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Starshower",
+                "locator": "starshower"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:greased-lightning"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:steady-landing",
+            "name": "Steady Landing",
+            "description": "Land unwaveringly after using your Flying Kick ability. You do not take the imposed -2 AC penalty for 1 round after using your Flying Kick ability.\nPrerequisites: Flying Kick class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Flying Kick class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Steady Landing",
+                "locator": "steady-landing"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:flying-kick"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:stigma-magic",
+            "name": "Stigma Magic",
+            "description": "Channel your purification magics to instead dispel magical effects on those you touch. By spending 1 ki point as a standard action, make a touch attack against a creature within reach. If successful, you may attempt to dispel (via a [dispel check](https://www.finalfantasyd20.com/magic/spells/d/dispel/)) a number of that creature's ongoing spells and effects equal to the number of negative status effects removed with the Purification blitz technique. Use your monk level as your caster level when attempting this check.\nPrerequisites: Purification blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Purification blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Stigma Magic",
+                "locator": "stigma-magic"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:purification"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:still-mind",
+            "name": "Still Mind",
+            "description": "A monk with this talent gains a +2 bonus on saving throws against enfeebling spells and effects.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Still Mind",
+                "locator": "still-mind"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:style-feat",
+            "name": "Style Feat",
+            "description": "You may choose a style feat or a feat that lists a style feat as a prerequisite. You gain that as a bonus feat. You must still meet prerequisites for the style feat or any other feat selected with this talent. This talent may be selected multiple times.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Style Feat",
+                "locator": "style-feat"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:subtle-blow",
+            "name": "Subtle Blow",
+            "description": "Strike at a creature in a subtle, unexpected way, throwing them off kilter. You may declare your next attack on your turn to be a Subtle Blow as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). If the attack hits, you deal weapon dice damage to them and your opponent loses their [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) on their next turn. A creature can only be affected by a Subtle Blow once per day.\nPrerequisites: \u2014.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "\u2014",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Subtle Blow",
+                "locator": "subtle-blow"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:class:monk:talent:tornado-kick",
+            "name": "Tornado Kick",
+            "description": "Flourish a flying spin kick, assaulting your target with a powerful torrent of wind. You may declare your next unarmed strike on your turn to be a Tornado Kick as a free action, dealing an additional 1d6 wind damage per Greased Lightning stack to your target on a successful hit. All stacks of Greased Lightning are expended once this attack is resolved (even if you miss).\nPrerequisites: Greased Lightning class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Greased Lightning class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Tornado Kick",
+                "locator": "tornado-kick"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:greased-lightning"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:trained-suplexor",
+            "name": "Trained Suplexor",
+            "description": "Suplex large things, including phantom locomotives. You may grapple a creature up to three sizes larger than yourself when using your Meteor Strike blitz technique. Additionally, increase the bludgeoning damage dealt to that creature by 1d10 for every size larger than it is yourself.\nPrerequisites: Meteor Strike blitz technique.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Meteor Strike blitz technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "Trained Suplexor",
+                "locator": "trained-suplexor"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:class:monk:blitz:meteor-strike"
+            ],
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:blitz-techniques"
+            ]
+          },
+          {
+            "id": "ffd20:class:monk:talent:true-strike",
+            "name": "True Strike",
+            "description": "Land a blow to your target that not even the thickest of armor can endure. You may declare your next unarmed strike on your turn to be a True Strike as a free action, allowing you to resolve that attack against the target's touch AC. You must possess at least two stacks of Greased Lightning before you can activate this talent, both of which are expended once this attack is resolved (even if you miss). This is a Combo Finisher talent.\nPrerequisites: Greased Lightning class feature.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "prerequisiteText": "Greased Lightning class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "monk-talents",
+                "section": "True Strike",
+                "locator": "true-strike"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/monk-talents/",
+            "manualPrerequisites": true,
+            "requiresFeatureIds": [
+              "ffd20:class:monk:feature:greased-lightning"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:elemental-fist-disciple:option:fist-talents:sword-saint",
+            "name": "Sword Saint Talent (manual selection)",
+            "description": "Select a Sword Saint talent that modifies swordskills, counting Monk level as Sword Saint level. Record exact talent name, prerequisites and effects on existing sheet entries.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 2,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Fist Talents",
+                "locator": "fist-talents"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/elemental-fist-disciple/",
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:1:0",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:1:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:2:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:5:3",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:8:4",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:11:5",
+        "type": "choose",
+        "atClassLevel": 11,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:14:6",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:17:7",
+        "type": "choose",
+        "atClassLevel": 17,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fistskills:20:8",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fistskills"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:2:0",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:4:1",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:6:2",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:8:3",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:10:4",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:12:5",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:14:6",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:16:7",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:18:8",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:event:fist-talents:20:9",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:monk:elemental-fist-disciple:pool:fist-talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:elemental-fists:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:elemental-fist-disciple:feature:elemental-fists",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:fistskills:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:elemental-fist-disciple:feature:fistskills",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fistskills",
+            "locator": "fistskills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:superior-ki-pool:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:elemental-fist-disciple:feature:superior-ki-pool",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Ki Pool",
+            "locator": "superior-ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:fist-talents:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:elemental-fist-disciple:feature:fist-talents",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fist Talents",
+            "locator": "fist-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:practiced-skill:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:elemental-fist-disciple:feature:practiced-skill",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Practiced Skill",
+            "locator": "practiced-skill"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:elemental-fist-disciple:feature:perfected-skill:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:elemental-fist-disciple:feature:perfected-skill",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfected Skill",
+            "locator": "perfected-skill"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:monk:elemental-fist-disciple:feature:superior-ki-pool",
+        "perLevel": 2,
+        "ability": "wis",
+        "minimum": 0
+      }
+    ],
+    "profile": {},
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

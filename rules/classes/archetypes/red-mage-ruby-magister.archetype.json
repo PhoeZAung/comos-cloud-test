@@ -1,0 +1,702 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:ruby-magister",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Ruby Magister",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/",
+      "title": "Ruby Magister",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "84959073bcda96390a4c2d22c08ec950c55f920879c0d31010bf62e5348b08b4"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:chain-spell",
+        "name": "Chain Spell",
+        "atLevel": 1,
+        "description": "At 1st level, the ruby magister receives the Limit Break (Chain Spell).\n\n*Chain Spell ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the ruby magister to unleash a flurry of spells in an instant. For a duration of 1 round + 1 round per four red mage levels after 1st, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the ruby magister can cast up to five spells and use up to triple his maximum spell level in MP. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nThis ability replaces the Limit Break (Dual Spellcasting).\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:weapon-bond",
+        "name": "Weapon Bond",
+        "atLevel": 2,
+        "description": "At 2nd level, the ruby magister must choose the Weapon Bond ability for his choice of Minor Quick Learner abilities. The weapon selected for this becomes his chosen weapon for all ruby magister features.\n\nThis ability modifies a ruby talent gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Bond",
+            "locator": "weapon-bond"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:perfect-strike",
+        "name": "Perfect Strike",
+        "atLevel": 4,
+        "description": "At 4th level, when a ruby magister hits with his chosen weapon, he can spend 1 point from his arcane pool in order to maximize his\u00a0[weapon damage](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#weapon-damage). Don\u2019t roll for damage\u2014the weapon deals maximum damage. This affects only the weapon\u2019s base damage dice, not additional damage from sneak attack, magical weapon properties, or critical hits. If the ruby magister confirms a critical hit, he can instead spend 2 points from his arcane pool to increase his weapon\u2019s critical multiplier by 1.\n\nThis ability replaces quick cast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Strike",
+            "locator": "perfect-strike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:infuse-weapon",
+        "name": "Infuse Weapon",
+        "atLevel": 10,
+        "description": "A ruby magister can channel arcane energy into his chosen weapon. As a\u00a0[swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), at 10th level and every two red mage levels thereafter, the ruby magister may infuse a cumulative +1 bonus to attack and damage into his weapon (to a max of +6 at 20th level). The ruby magister may infuse a previously enchanted weapon as well, provided that the total bonus does not exceed half of his total red mage level. He can perform this ability equal to 3 + his Charisma modifier times per day. This ability lasts for a number of rounds equal to 3 + the ruby magister\u2019s Charisma modifier.\n\nWhile a ruby magister often chooses a single weapon to use this ability, he may switch weapons throughout the duration of the ability (although he cannot infuse more than one weapon in a single round). Should a ruby magister let go of a weapon (e.g. throwing or dropping it) then it loses its infusion prior to the ruby magister\u2019s next turn. In addition, until the beginning of the ruby magister\u2019s next turn, whenever he deals earth, fire, ice, lightning, water, or wind damage with an attack or spell, he can choose to deal damage of another of those types instead. This choice must be made before the damage is rolled, and before resistance or immunity is applied.\n\nThis ability replaces a ruby talent gained at 10th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Infuse Weapon",
+            "locator": "infuse-weapon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:legendary-combat-casting",
+        "name": "Legendary Combat Casting",
+        "atLevel": 12,
+        "description": "At 12th level, a ruby magister no longer provokes an attack of opportunity when casting a 1st level red mage spell during spell combat. At 14th level and every two red mage levels thereafter, this ability extends to the next spell level of red mage spells, to a maximum of 5th level spells at 20th level.\n\nThis ability replaces a ruby arcana gained at 12th level and greater spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Legendary Combat Casting",
+            "locator": "legendary-combat-casting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:spellblade",
+        "name": "Spellblade",
+        "atLevel": 15,
+        "description": "At 15th, 17th, and 19th level, a ruby magister gains a spellblade ability. Each acquired ability can be used a number of times per day equal to the ruby magister\u2019s Charisma modifier as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift)\u00a0which only lasts for 1 round.\n\n* *Arcane Endowment:* This ability allows the ruby magister to expend MP up to his current spell level and gain a bonus to the attack and damage roll made with his weapon equal to the MP spent.\n* *Critical Aim:* This ability allows the ruby magister to expend MP up to his current spell level and increase the critical threat range of his weapon by +1 for every MP spent. This stacks with Improved Critical and similar abilities, but is calculated after all other modifiers.\n* *Magical Barrier:* This ability allows the ruby magister to expend MP up to his current spell level and gain a damage reduction equal to the MP spent.\n* *Protection Grid:* This ability allows the ruby magister to expend MP up to his current spell level and gain a deflection bonus to AC equal to the MP spent.\n* *Resistance Array:* This ability allows the ruby magister to expend MP up to his current spell level and gain a bonus to all elemental resistance equal to the MP spent.\n* *Safeguard:*\u00a0This ability allows the ruby magister to expend MP up to his current spell level and gain a bonus to all saving throws equal to the MP spent.\n\nThis ability replaces doublecast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spellblade",
+            "locator": "spellblade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:spell-recall",
+        "name": "Spell Recall",
+        "atLevel": 15,
+        "description": "At 15th level, the ruby magister can tap in to his arcane pool to cast a spell he has recently expended. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the ruby magister can choose a spell he has cast during the current combat and spend a number of arcane points equal to twice its spell level, allowing him to cast it again this round without spending MP or spending an action to cast it. The ruby magister can only recall a spell once for each time it is cast and cannot recall a spell cast through this ability.\n\nThis ability replaces a ruby arcana gained at 15th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spell Recall",
+            "locator": "spell-recall"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:mettle",
+        "name": "Mettle",
+        "atLevel": 16,
+        "description": "At 16th level and higher, a ruby magister can resist magical and unusual attacks with great willpower or fortitude. If he makes a successful Will or Fortitude save against an attack that normally would have a lesser effect on a successful save (such as any spell with a saving throw entry of Will half or Fortitude partial), he instead completely negates the effect. An unconscious or sleeping ruby magister does not gain the benefit of mettle.\n\nThis ability replaces counterstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mettle",
+            "locator": "mettle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:critical-perfection",
+        "name": "Critical Perfection",
+        "atLevel": 18,
+        "description": "At 18th level, a ruby magister adds his Charisma bonus (minimum 0) on critical hit confirmation rolls with his chosen weapon. In addition, the ruby magister may use his red mage levels in place of his base attack bonuses to qualify for Critical Focus and any feat for which it is a prerequisite; these feats apply only with a ruby magister\u2019s chosen weapon.\n\nThis ability replaces a ruby talent gained at 18th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Critical Perfection",
+            "locator": "critical-perfection"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:improved-spell-recall",
+        "name": "Improved Spell Recall",
+        "atLevel": 18,
+        "description": "At 18th level, the ruby magister\u2019s ability to tap in to his arcane pool becomes more efficient, requiring him to only spend a number of arcane points equal to a spell\u2019s level to recall it.\n\nThis ability replaces a ruby arcana gained at 18th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Spell Recall",
+            "locator": "improved-spell-recall"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:whirlwind-blade",
+        "name": "Whirlwind Blade",
+        "atLevel": 19,
+        "description": "At 19th level, when wielding a one-handed weapon in one hand (and nothing in the other), a ruby magister can, using a full attack action, spin around with his weapon and send replicas of the blade, composed of magical energy, toward all foes within 30 feet. The ruby magister makes a separate melee attack roll against each foe, using his highest attack bonus. Each successful attack inflicts damage as if the ruby magister struck the foe with the weapon. The ruby magister can use this ability a number of times per day, equal to his Charisma modifier (minimum 1/day).\n\nThis ability replaces 1 mp spell.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Whirlwind Blade",
+            "locator": "whirlwind-blade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:feature:weapon-mastery",
+        "name": "Weapon Mastery",
+        "atLevel": 20,
+        "description": "At 20th level, a ruby magister gains [weapon mastery](https://www.finalfantasyd20.com/classes/core-classes/warrior/#weapon-mastery)\u00a0with his chosen weapon, as the warrior class ability.\n\nThis ability replaces red wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Mastery",
+            "locator": "weapon-mastery"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:limit-break",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:dual-spellcasting"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:chain-spell"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ],
+        "description": "This ability replaces the Limit Break (Dual Spellcasting)."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:weapon-bond",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:weapon-bond"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Bond",
+            "locator": "weapon-bond"
+          }
+        ],
+        "description": "This ability modifies a ruby talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:perfect-strike",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:quick-cast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:perfect-strike"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Strike",
+            "locator": "perfect-strike"
+          }
+        ],
+        "description": "This ability replaces quick cast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:infuse-weapon",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:10"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:infuse-weapon"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Infuse Weapon",
+            "locator": "infuse-weapon"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 10th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:legendary-combat-casting",
+        "atClassLevel": 12,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:greater-spell-combat"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:12"
+        ],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:legendary-combat-casting"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Legendary Combat Casting",
+            "locator": "legendary-combat-casting"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 12th level and greater spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:spellblade",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:doublecast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:spellblade"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spellblade",
+            "locator": "spellblade"
+          }
+        ],
+        "description": "This ability replaces doublecast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:spell-recall",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:15"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:spell-recall"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spell Recall",
+            "locator": "spell-recall"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 15th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:mettle",
+        "atClassLevel": 16,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:counterstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:mettle"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mettle",
+            "locator": "mettle"
+          }
+        ],
+        "description": "This ability replaces counterstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:critical-perfection",
+        "atClassLevel": 18,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:18"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:critical-perfection"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Critical Perfection",
+            "locator": "critical-perfection"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 18th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:improved-spell-recall",
+        "atClassLevel": 18,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:18"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:improved-spell-recall"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Spell Recall",
+            "locator": "improved-spell-recall"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 18th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:whirlwind-blade",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:1-mp-spell"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:whirlwind-blade"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Whirlwind Blade",
+            "locator": "whirlwind-blade"
+          }
+        ],
+        "description": "This ability replaces 1 mp spell."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:replacement:weapon-mastery",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ruby-magister:feature:weapon-mastery"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Mastery",
+            "locator": "weapon-mastery"
+          }
+        ],
+        "description": "This ability replaces red wizard."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:pool:spellblade",
+        "name": "Spellblade",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:ruby-magister:option:spellblade:arcane-endowment",
+            "name": "Arcane Endowment",
+            "description": "This ability allows the ruby magister to expend MP up to his current spell level and gain a bonus to the attack and damage roll made with his weapon equal to the MP spent.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade",
+                "locator": "spellblade"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-magister:option:spellblade:critical-aim",
+            "name": "Critical Aim",
+            "description": "This ability allows the ruby magister to expend MP up to his current spell level and increase the critical threat range of his weapon by +1 for every MP spent. This stacks with Improved Critical and similar abilities, but is calculated after all other modifiers.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade",
+                "locator": "spellblade"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-magister:option:spellblade:magical-barrier",
+            "name": "Magical Barrier",
+            "description": "This ability allows the ruby magister to expend MP up to his current spell level and gain a damage reduction equal to the MP spent.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade",
+                "locator": "spellblade"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-magister:option:spellblade:protection-grid",
+            "name": "Protection Grid",
+            "description": "This ability allows the ruby magister to expend MP up to his current spell level and gain a deflection bonus to AC equal to the MP spent.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade",
+                "locator": "spellblade"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-magister:option:spellblade:resistance-array",
+            "name": "Resistance Array",
+            "description": "This ability allows the ruby magister to expend MP up to his current spell level and gain a bonus to all elemental resistance equal to the MP spent.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade",
+                "locator": "spellblade"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:ruby-magister:option:spellblade:safeguard",
+            "name": "Safeguard",
+            "description": "This ability allows the ruby magister to expend MP up to his current spell level and gain a bonus to all saving throws equal to the MP spent.\n\nThis ability replaces doublecast.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Spellblade",
+                "locator": "spellblade"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:event:spellblade:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-magister:pool:spellblade"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spellblade",
+            "locator": "spellblade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:event:spellblade:17",
+        "type": "choose",
+        "atClassLevel": 17,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-magister:pool:spellblade"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spellblade",
+            "locator": "spellblade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ruby-magister:event:spellblade:19",
+        "type": "choose",
+        "atClassLevel": 19,
+        "poolIds": [
+          "ffd20:archetype:red-mage:ruby-magister:pool:spellblade"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spellblade",
+            "locator": "spellblade"
+          }
+        ]
+      }
+    ],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

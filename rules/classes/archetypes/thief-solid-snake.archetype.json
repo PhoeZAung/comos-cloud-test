@@ -1,0 +1,421 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:solid-snake",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Solid Snake",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/solid-snake/",
+      "title": "Solid Snake",
+      "archiveSha256": "525724257f20deb4e0fc8e215bdf85b1d37d1b772f1611adf67a7325c46af8ec",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:solid-snake:feature:weapon-proficiencies",
+        "name": "Weapon Proficiencies",
+        "atLevel": 1,
+        "description": "The solid snake is proficient with all weapons from the light blade weapon group (from warrior), crossbows, darts, and 1-handed firearms.\n\nThis ability modifies the thief\u2019s starting weapon proficiencies.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Proficiencies",
+            "locator": "weapon-proficiencies"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:feature:bag-o-tricks",
+        "name": "Bag o\u2019 Tricks",
+        "atLevel": 1,
+        "description": "At 1st level and every three thief levels thereafter, a solid snake gains a unique set of equipment to help him achieve his goals. These items are only usable by the solid snake.\n\n* **Body Armor:** This item bestows a +4 armor bonus to AC for the snake, with no armor check penalty or max Dexterity, with a 10% spell failure chance, that counts as light armor. In addition, it gains a +1 enchantment for every four thief levels after 1st.\n* **Cardboard Box:** This inconspicuous item allows the solid snake to sneak past enemies with relative ease. Requiring a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to put on or take off, while wearing the cardboard box, the snake gains a +2 bonus on Stealth checks plus an additional +2 per two thief levels after 1st, but must make a Bluff check versus any enemies that \u201csees\u201d him.\n* **Cigarette:** This item allows the solid snake to smoke and heal himself for a number of hit points equal to double his thief level + his Constitution modifier, but requires a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round). Afterwards, the solid snake takes 1 point of Constitution damage.\n* **Diazepam:** Usable a number of times per day equal to half of his thief level (minimum 1), the solid snake can take this item to end shaken and other fear effects.\n* **Ration:** The item is a specialized food item, usable a number of times per day equal to half of the thief\u2019s level (minimum 1). Eating the ration takes a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), but heals the solid snake for 1d6 points of damage + 1d6 points of damage per two thief levels after 1st.\n* **Rocket Missile:** This explosive item can only be used once per day, with a range of 100 feet, but it deals 1d6 fire damage plus an additional 1d6 per thief level after 1st in a 20-ft.-radius, with a Reflex save (DC 10 + half of the thief\u2019s level + his Dexterity modifier) for half damage.\n* **Silencer:** This item can be applied to any simple or advanced firearm and it silences any firearm so it does not make a sound. This also grants the solid snake a bonus equal to half his thief level (minimum 1) on Stealth checks when sniping.\n\nThis ability replaces mark and improved theft.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bag o\u2019 Tricks",
+            "locator": "bag-o-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:feature:martial-flexibility",
+        "name": "Martial Flexibility",
+        "atLevel": 1,
+        "description": "A solid snake can take a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) to gain the benefit of a combat feat he doesn\u2019t possess. This effect lasts for 1 minute. The solid snake must meet all the feat\u2019s prerequisites. He may use this ability a number of times per day equal to 3 + half his thief level. The solid snake can use this ability again before the duration expires in order to replace the previous combat feat with another choice. If a combat feat has a daily use limitation (such as Stunning Fist), any uses of that combat feat while using this ability count toward that feat\u2019s daily limit.\n\nAt 6th level, a solid snake can use this ability to gain the benefit of two combat feats at the same time. He may select one feat as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) or two feats as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). He may use one of these feats to meet a prerequisite of the second feat; doing so means that he cannot replace a feat currently fulfilling another\u2019s prerequisite without also replacing those feats that require it. Each individual feat selected counts toward his daily uses of this ability.\n\nAt 10th level, a solid snake can use this ability to gain the benefit of three combat feats at the same time. He may select one feat as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), two feats as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), or three feats as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). He may use one of the feats to meet a prerequisite of the second and third feats, and use the second feat to meet a prerequisite of the third feat. Each individual feat selected counts toward his daily uses of this ability.\n\nAt 12th level, a solid snake can use this ability to gain the benefit of one combat feat as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) or three combat feats as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). Each individual feat selected counts toward his daily uses of this ability.\n\nAt 20th level, a solid snake can use this ability to gain the benefit of any number of combat feats as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). Each feat selected counts toward his daily uses of this ability.\n\nThis ability replaces finesse training.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Flexibility",
+            "locator": "martial-flexibility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:feature:interrogate",
+        "name": "Interrogate",
+        "atLevel": 3,
+        "description": "At 3rd level as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), a solid snake can ask a target one question for every two thief levels he has. The target is not compelled to answer truthfully, but the solid snake\u2019s implicit or explicit threats and looming manner leads the target to believe the solid snake will cause it serious harm if it lies. This imposes a \u20132 penalty on the target\u2019s Bluff checks to lie when answering the specific questions the solid snake asked. At 6th level and every three thief levels thereafter, the penalty increases by 2 (to a maximum of \u201312 at 18th level). He can use this ability a number of times per day equal to 3 + his Intelligence modifier. This is a mind-affecting fear effect.\n\nThis ability replaces danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Interrogate",
+            "locator": "interrogate"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:feature:cqc-expert",
+        "name": "CQC Expert",
+        "atLevel": 4,
+        "description": "At 4th level, the solid snake becomes an expert in close quarter combat. He gains [Improved Unarmed Strike](https://www.d20pfsrd.com/feats/combat-feats/improved-unarmed-strike-combat/) as a bonus feat and also gains the unarmed strike damage of a monk of his thief level \u2013 3.\n\nThis ability replaces debilitating injury.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "CQC Expert",
+            "locator": "cqc-expert"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:feature:assassinate",
+        "name": "Assassinate",
+        "atLevel": 10,
+        "description": "At 10th level, a solid snake can kill foes that are unable to defend themselves. To attempt to assassinate a target, the solid snake must first study his target for 1 round as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). On the following round, if the solid snake makes a sneak attack against the target and that target is denied its Dexterity bonus to AC, the sneak attack has the additional effect of possibly killing the target. This attempt automatically fails if the target recognizes the solid snake as an enemy. If the sneak attack is successful, the target must attempt a Fortitude saving throw with a DC equal to 10 + half of the thief\u2019s level + his Intelligence modifier. If the target fails this save, it dies; otherwise, the target takes the sneak attack damage as normal and is then immune to that solid snake\u2019s assassinate ability for 24 hours.\n\nThis ability replaces mug.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assassinate",
+            "locator": "assassinate"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:feature:swift-assassination",
+        "name": "Swift Assassination",
+        "atLevel": 19,
+        "description": "At 19th level, once per day, a solid snake can use his assassinate ability against a foe without studying the foe beforehand. He must still sneak attack his foe using a melee weapon that deals damage.\n\nThis ability replaces shadow step.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Assassination",
+            "locator": "swift-assassination"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:solid-snake:replacement:bag-o-tricks:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-theft",
+          "ffd20:class:thief:feature:mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:solid-snake:feature:bag-o-tricks"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mark and improved theft",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bag o\u2019 Tricks",
+            "locator": "bag-o-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:replacement:martial-flexibility:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:finesse-training"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:solid-snake:feature:martial-flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "finesse training",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Flexibility",
+            "locator": "martial-flexibility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:replacement:interrogate:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:solid-snake:feature:interrogate"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Interrogate",
+            "locator": "interrogate"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:replacement:cqc-expert:1",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:debilitating-injury"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:solid-snake:feature:cqc-expert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "debilitating injury",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "CQC Expert",
+            "locator": "cqc-expert"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:replacement:assassinate:1",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mug"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:solid-snake:feature:assassinate"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mug",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assassinate",
+            "locator": "assassinate"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:replacement:swift-assassination:1",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:shadow-step"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:solid-snake:feature:swift-assassination"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "shadow step",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Assassination",
+            "locator": "swift-assassination"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:solid-snake:event:grant:weapon-proficiencies",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:weapon-proficiencies",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Proficiencies",
+            "locator": "weapon-proficiencies"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:event:grant:bag-o-tricks",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:bag-o-tricks",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bag o\u2019 Tricks",
+            "locator": "bag-o-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:event:grant:martial-flexibility",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:martial-flexibility",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Flexibility",
+            "locator": "martial-flexibility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:event:grant:interrogate",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:interrogate",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Interrogate",
+            "locator": "interrogate"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:event:grant:cqc-expert",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:cqc-expert",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "CQC Expert",
+            "locator": "cqc-expert"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:event:grant:assassinate",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:assassinate",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assassinate",
+            "locator": "assassinate"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:solid-snake:event:grant:swift-assassination",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:swift-assassination",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Assassination",
+            "locator": "swift-assassination"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:martial-flexibility",
+        "base": 3,
+        "perLevel": 0.5,
+        "ability": null,
+        "minimum": 0
+      },
+      {
+        "featureId": "ffd20:archetype:thief:solid-snake:feature:interrogate",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "int",
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "proficiencies": [
+        "Light blade weapon group",
+        "Crossbows",
+        "Darts",
+        "One-handed firearms",
+        "Light armor"
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

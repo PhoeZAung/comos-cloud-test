@@ -1,0 +1,387 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:shinsect",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "ShinSect",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/shinsect/",
+      "title": "ShinSect",
+      "archiveSha256": "baa0f7df8048b410f01923ded82203d2cc04d6742d1b2649d75266782dd7194c",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:shinsect:feature:class-skills",
+        "name": "Class Skills",
+        "atLevel": 1,
+        "description": "The shinsect replaces the Handle Animal, Knowledge (Dungeoneering), and Ride skills with Perception, Sense Motive, and Diplomacy as class skills.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Skills",
+            "locator": "class-skills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "A shinsect is proficient with all simple weapons and all small firearms plus tonfas, and with all armor (light, medium, and heavy) and tower shields.\n\nThis replaces the normal weapon and armor proficiencies.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:feature:part-of-the-job",
+        "name": "Part of the Job",
+        "atLevel": 1,
+        "description": "Having served and been trained by Shinra Inc., a shinsect is also equipped to do his basic duties. These are still Shinra property and he is expected to maintain and, if necessary, replace these items on his own pay\u2026and it goes without saying that stealing Shinra property is a federal offense (punishment may vary). A shinsect receives for \u2018free\u2019: *ShinSect Uniform (parade armor), masterwork club or tonfa, 3 handcuffs, pistol with 3 reloads.*\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Part of the Job",
+            "locator": "part-of-the-job"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:feature:solid-swing",
+        "name": "Solid Swing",
+        "atLevel": 1,
+        "description": "The club and tonfa, though a simple and common weapon throughout the world, is not the best weapon a man can wield in lethal combat but with the right training it can be. The martial style of shinsect is an example of any bells or whistles being removed and leaving only the power-heavy style known to man. At 1st level, a shinsect gains a +2 bonus to damage with clubs and tonfas, this bonus to damage increases by +2 every four levels thereafter. Abilities and warrior talents that use Chosen Weapon, function normally with this replaced ability.\n\nThis ability replaces chosen weapon and weapon guard.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Solid Swing",
+            "locator": "solid-swing"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:feature:versatile-battery",
+        "name": "Versatile Battery",
+        "atLevel": 2,
+        "description": "While a simple weapon on its own, with a little creativity and know-how, a club or tonfa can have many tricks other weapons would find difficult. At 2nd level, a shinsect may, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) at the beginning of each turn, choose up to two of below traits to apply to any clubs or tonfas he wields until the beginning of his next turn. At 7th level, he may apply three traits, and at 14th level, he may apply any number of traits he wishes.\n\n*Blocking, Disarm, Grapple, Monk, Nonlethal, Sunder, Trip*\n\nThis ability replaces the warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Versatile Battery",
+            "locator": "versatile-battery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:feature:small-arms-expertise",
+        "name": "Small Arms Expertise",
+        "atLevel": 3,
+        "description": "ShinSect are trained mostly for indoor and small scale suppressions not wide open battlefields; this, along with the delicate machinery they may be guarding, means a greater emphasis on controlled firearm use. While shotguns may be the weapon of choice for an assault team in similar situations, the potential for damaged property and personnel is simply too great a risk, thus, small arms became the center point of the Divisions ranged weaponry. A shinsect gains a +2 bonus to damage with small firearms. This bonus increases by +1 at 7th level and every four levels thereafter.\n\nThis ability replaces overhand chop and increase save from warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Small Arms Expertise",
+            "locator": "small-arms-expertise"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:feature:shinsect-talent",
+        "name": "ShinSect Talent",
+        "atLevel": 4,
+        "description": "At 4th level, a shinsect gains his one shinsect talent. A shinsect gains a new talent every two levels thereafter, choosing from the warrior talent list or the talents below.\n\n*Bludgeoning Finesse ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A shinsect gains [Weapon Finesse](https://www.d20pfsrd.com/feats/combat-feats/weapon-finesse-combat-final/) as a bonus feat. In addition, he can select a club or tonfa, these count as light, finesseable weapons. Once this choice is made, it cannot be changed. Whenever he makes a successful melee attack with the selected weapon, he adds his Dexterity modifier instead of his Strength modifier to the damage roll. If any effect would prevent the shinsect from adding his Strength modifier to the damage roll, he does not add his Dexterity modifier.\n\n*CQC Pistol ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0When using a pistol in melee, a shinsect may treat it as a small non-magical club or tonfa instead of an improvised weapon, if he chooses to do so, he cannot fire the weapon until his next turn. **Prerequisites:** Weapon Focus (pistol), Weapon Focus (club or tonfa).\n\n*Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A shinsect can avoid even magical and unusual attacks with great agility. If he makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, he instead takes no damage. Evasion can be used only if the shinsect is wearing light armor or no armor. A helpless shinsect does not gain the benefit of evasion.\n\n*Press Shot ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* This talent allows a shinsect to fire a pistol (and any other small firearm) when engaging in melee combat or being grappled without provoking an attack of opportunity. In addition, he deals an additional +2d6 points of piercing damage any such opponent. **Prerequisites:**\u00a0Point-Blank Shot, Precise Shot\n\n*Shield for Body and Mind ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0As long as a shinsect is holding a riot/tower shield, he gains a +4 bonus to all Will saves against fear effects and to rolls to resist Intimidation skill checks.\u00a0**Prerequisites:**\u00a0Shield Focus (Tower Shield), Iron Will.\n\n*Shield Safety ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0As long as a shinsect is using a riot/tower shield, he may apply its shield bonus to Reflex saves to avoid area-effect spells and effects.\u00a0**Prerequisites:**\u00a0Shield Focus (Tower Shield), warrior 8th.\n\n*Stick Skillz ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* Select 2 Improved Combat Maneuver Feats, a shinsect counts as possessing these feats as long as he is performing them with a club or tonfa. This talent can be taken multiple times (selecting 2 new maneuvers each time). **Prerequisites:** Weapon Focus (Club or Tonfa), Combat Expertise.\n\n*Suppression Technique ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0The bonus damage from the Solid Swing class feature is doubled if the damage inflicted is nonlethal.\n\nThis ability modifies and may replace warrior talents gained at 4th, 6th, 8th, and 10th level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "ShinSect Talent",
+            "locator": "shinsect-talent"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:feature:advanced-shinsect-talents",
+        "name": "Advanced ShinSect Talents",
+        "atLevel": 12,
+        "description": "At 12th level, a shinsect gains a one shinsect talent that may now take from the advanced warrior talent list or from the talents below. Every two levels thereafter, he gains a new talent.\n\n*Advanced CQC Pistol ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0When gaining the benefits of the CQC Pistol Talent, a shinsect may apply the weapon\u2019s enchantment bonus and any appropriate abilities it has (if any) when doing so.\u00a0**Prerequisites:** CQC Pistol, Greater Weapon Focus (Club or Tonfa), Greater Weapon Focus (Pistol)\n\n*Mad Stick Skillz ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* Select 2 Greater Combat Maneuver Feats, these must be maneuvers that a shinsect has taken with the Stick Skillz Talent, he counts as possessing these feats as long as he is performing them with a club or tonfa. This talent can be taken multiple times (selecting 2 new maneuvers each time). **Prerequisite:**\u00a0Stick Skillz.\n\n*Suppression Mastery ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0The bonus damage from the Solid Swing class feature is quadrupled if the damage inflicted is nonlethal.\u00a0**Prerequisite:** Suppression Technique\n\n*Tower of the Mind ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0As long as a shinsect is using a riot/tower shield, he gains a +4 bonus to all Will saves, this bonus doubles on rolls to resist Fear saves and Intimidation skill checks.\u00a0**Prerequisites:**\u00a0Shield for Body and Mind, Improved Iron Will.\n\nThis ability modifies and may replace advanced warrior talents gained at 12th, 14th, 16th, 18th, and 20th level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced ShinSect Talents",
+            "locator": "advanced-shinsect-talents"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:shinsect:replacement:solid-swing:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-weapon",
+          "ffd20:class:warrior:feature:weapon-guard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:shinsect:feature:solid-swing"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Solid Swing",
+            "locator": "solid-swing"
+          }
+        ],
+        "description": "This ability replaces chosen weapon and weapon guard."
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:replacement:versatile-battery:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:shinsect:feature:versatile-battery"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Versatile Battery",
+            "locator": "versatile-battery"
+          }
+        ],
+        "description": "This ability replaces the warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:replacement:small-arms-expertise:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:shinsect:feature:small-arms-expertise"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Small Arms Expertise",
+            "locator": "small-arms-expertise"
+          }
+        ],
+        "description": "This ability replaces overhand chop and increase save from warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:replacement:shinsect-talent:0",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:4",
+          "ffd20:class:warrior:event:warrior-talents:6",
+          "ffd20:class:warrior:event:warrior-talents:8",
+          "ffd20:class:warrior:event:warrior-talents:10"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:shinsect:feature:shinsect-talent"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "ShinSect Talent",
+            "locator": "shinsect-talent"
+          }
+        ],
+        "description": "This ability modifies and may replace warrior talents gained at 4th, 6th, 8th, and 10th level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:shinsect:replacement:advanced-shinsect-talents:0",
+        "atClassLevel": 12,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:12",
+          "ffd20:class:warrior:event:warrior-talents:14",
+          "ffd20:class:warrior:event:warrior-talents:16",
+          "ffd20:class:warrior:event:warrior-talents:18",
+          "ffd20:class:warrior:event:warrior-talents:20"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:shinsect:feature:advanced-shinsect-talents"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced ShinSect Talents",
+            "locator": "advanced-shinsect-talents"
+          }
+        ],
+        "description": "This ability modifies and may replace advanced warrior talents gained at 12th, 14th, 16th, 18th, and 20th level."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "intimidate",
+        "profession:*",
+        "survival",
+        "swim",
+        "perception",
+        "sense-motive",
+        "diplomacy"
+      ],
+      "proficiencies": [
+        "Simple weapons",
+        "Small firearms",
+        "Tonfas",
+        "Light armor",
+        "Medium armor",
+        "Heavy armor",
+        "Tower shields"
+      ]
+    },
+    "resources": [],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:warrior:pool:warrior-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:shinsect:option:shinsect-talent-manual-choice",
+            "name": "ShinSect Talent (manual choice)",
+            "description": "At 4th level, a shinsect gains his one shinsect talent. A shinsect gains a new talent every two levels thereafter, choosing from the warrior talent list or the talents below.\n\n*Bludgeoning Finesse ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A shinsect gains [Weapon Finesse](https://www.d20pfsrd.com/feats/combat-feats/weapon-finesse-combat-final/) as a bonus feat. In addition, he can select a club or tonfa, these count as light, finesseable weapons. Once this choice is made, it cannot be changed. Whenever he makes a successful melee attack with the selected weapon, he adds his Dexterity modifier instead of his Strength modifier to the damage roll. If any effect would prevent the shinsect from adding his Strength modifier to the damage roll, he does not add his Dexterity modifier.\n\n*CQC Pistol ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0When using a pistol in melee, a shinsect may treat it as a small non-magical club or tonfa instead of an improvised weapon, if he chooses to do so, he cannot fire the weapon until his next turn. **Prerequisites:** Weapon Focus (pistol), Weapon Focus (club or tonfa).\n\n*Evasion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A shinsect can avoid even magical and unusual attacks with great agility. If he makes a successful Reflex saving throw against an attack that normally deals half damage on a successful save, he instead takes no damage. Evasion can be used only if the shinsect is wearing light armor or no armor. A helpless shinsect does not gain the benefit of evasion.\n\n*Press Shot ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* This talent allows a shinsect to fire a pistol (and any other small firearm) when engaging in melee combat or being grappled without provoking an attack of opportunity. In addition, he deals an additional +2d6 points of piercing damage any such opponent. **Prerequisites:**\u00a0Point-Blank Shot, Precise Shot\n\n*Shield for Body and Mind ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0As long as a shinsect is holding a riot/tower shield, he gains a +4 bonus to all Will saves against fear effects and to rolls to resist Intimidation skill checks.\u00a0**Prerequisites:**\u00a0Shield Focus (Tower Shield), Iron Will.\n\n*Shield Safety ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0As long as a shinsect is using a riot/tower shield, he may apply its shield bonus to Reflex saves to avoid area-effect spells and effects.\u00a0**Prerequisites:**\u00a0Shield Focus (Tower Shield), warrior 8th.\n\n*Stick Skillz ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* Select 2 Improved Combat Maneuver Feats, a shinsect counts as possessing these feats as long as he is performing them with a club or tonfa. This talent can be taken multiple times (selecting 2 new maneuvers each time). **Prerequisites:** Weapon Focus (Club or Tonfa), Combat Expertise.\n\n*Suppression Technique ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0The bonus damage from the Solid Swing class feature is doubled if the damage inflicted is nonlethal.\n\nThis ability modifies and may replace warrior talents gained at 4th, 6th, 8th, and 10th level.\nManual selection: write the exact selected option/feat and verify its prerequisites on existing sheet entries.",
+            "minimumLevel": 4,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "ShinSect Talent (manual choice)",
+                "locator": "shinsect-talent-manual-choice"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/shinsect/",
+            "manualPrerequisites": true,
+            "allowedLevels": [
+              4,
+              6,
+              8,
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "poolId": "ffd20:class:warrior:pool:warrior-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:shinsect:option:advanced-shinsect-talent-manual-choice",
+            "name": "Advanced ShinSect Talent (manual choice)",
+            "description": "At 12th level, a shinsect gains a one shinsect talent that may now take from the advanced warrior talent list or from the talents below. Every two levels thereafter, he gains a new talent.\n\n*Advanced CQC Pistol ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0When gaining the benefits of the CQC Pistol Talent, a shinsect may apply the weapon\u2019s enchantment bonus and any appropriate abilities it has (if any) when doing so.\u00a0**Prerequisites:** CQC Pistol, Greater Weapon Focus (Club or Tonfa), Greater Weapon Focus (Pistol)\n\n*Mad Stick Skillz ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* Select 2 Greater Combat Maneuver Feats, these must be maneuvers that a shinsect has taken with the Stick Skillz Talent, he counts as possessing these feats as long as he is performing them with a club or tonfa. This talent can be taken multiple times (selecting 2 new maneuvers each time). **Prerequisite:**\u00a0Stick Skillz.\n\n*Suppression Mastery ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0The bonus damage from the Solid Swing class feature is quadrupled if the damage inflicted is nonlethal.\u00a0**Prerequisite:** Suppression Technique\n\n*Tower of the Mind ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0As long as a shinsect is using a riot/tower shield, he gains a +4 bonus to all Will saves, this bonus doubles on rolls to resist Fear saves and Intimidation skill checks.\u00a0**Prerequisites:**\u00a0Shield for Body and Mind, Improved Iron Will.\n\nThis ability modifies and may replace advanced warrior talents gained at 12th, 14th, 16th, 18th, and 20th level.\nManual selection: write the exact selected option/feat and verify its prerequisites on existing sheet entries.",
+            "minimumLevel": 12,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced ShinSect Talent (manual choice)",
+                "locator": "advanced-shinsect-talent-manual-choice"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/shinsect/",
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ]
+  }
+}

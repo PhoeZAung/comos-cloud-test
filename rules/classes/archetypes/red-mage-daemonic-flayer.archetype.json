@@ -1,0 +1,153 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:daemonic-flayer",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Daemonic Flayer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/daemonic-flayer/",
+      "title": "Daemonic Flayer",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "335ccd63e7207f9d19dbd62e843c1b13d46ef0c3600c0ddb574dd8111d6f76bd"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:daemonic-flayer:feature:infernal-mortification",
+        "name": "Infernal Mortification",
+        "atLevel": 2,
+        "description": "At 2nd level, a daemonic flayer can sacrifice some of his own infernal blood to add to his arcane pool. Sacrificing blood in this way is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). For every 2 points of Constitution damage the daemonic flayer takes in this way, his arcane pool increases by 1 point. Any arcane pool points gained in this way and not spent disappear the next time he prepares his spells. Unlike normal ability score damage, this damage cannot be healed by way of restora. Only time can heal the Constitution damage taken by way of infernal mortification. This ability cannot be used if the daemonic flayer\u2019s Constitution damage is equal to or greater than half his Constitution score.\n\nThis ability replaces a ruby talent gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Infernal Mortification",
+            "locator": "infernal-mortification"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:daemonic-flayer:feature:ruby-arcana",
+        "name": "Ruby Arcana",
+        "atLevel": 3,
+        "description": "A daemonic flayer gains access to the following ruby arcana. He cannot select any arcana more than once.\n\n*Bypassing Strike ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The daemonic flayer can expend 1 point from his arcane pool as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to allow one melee or spellstrike attack he makes before the end of his turn to ignore an evil outsider target\u2019s damage reduction.\n\n*Daemonic Blade ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), as long as the daemonic flayer used infernal mortification that day to increase his arcane pool, he can conjure forth a weapon using this arcana. Doing so costs 2 points from his arcane pool. The weapon can take the form of any single one-handed melee weapon the daemonic flayer is proficient with. This weapon starts as a weapon with a +1 enhancement bonus, but for every four levels beyond 3rd the daemonic flayer possesses, the weapon gains another +1 enhancement bonus, to a maximum of +5 at 19th level. This summoned weapon lasts for 1 minute. At 5th level, these bonuses can be used to add any of the following weapon properties to the daemonic blade: anarchic, axiomatic, dancing, flaming, flaming burst, frost, icy burst, keen, shock, shocking burst, speed, or unholy. These bonuses and properties are decided when the arcane pool points are spent and cannot be changed until the next time the daemonic flayer uses this arcana. Another creature cannot wield the daemonic blade; if it leaves the hand of the daemonic flayer, it dissipates in a wisp of red smoke that smells of burning blood. A daemonic flayer can only have one daemonic blade in existence at a time. If he uses this ability again, the first daemonic blade disappears.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Arcana",
+            "locator": "ruby-arcana"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:daemonic-flayer:replacement:infernal-mortification",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:daemonic-flayer:feature:infernal-mortification"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Infernal Mortification",
+            "locator": "infernal-mortification"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 2nd level."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:red-mage:pool:ruby-arcana",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:daemonic-flayer:option:ruby-arcana:bypassing-strike",
+            "name": "Bypassing Strike",
+            "description": "The daemonic flayer can expend 1 point from his arcane pool as a swift action to allow one melee or spellstrike attack he makes before the end of his turn to ignore an evil outsider target\u2019s damage reduction.\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ruby Arcana",
+                "locator": "ruby-arcana"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/daemonic-flayer/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:daemonic-flayer:option:ruby-arcana:daemonic-blade",
+            "name": "Daemonic Blade",
+            "description": "As a swift action, as long as the daemonic flayer used infernal mortification that day to increase his arcane pool, he can conjure forth a weapon using this arcana. Doing so costs 2 points from his arcane pool. The weapon can take the form of any single one-handed melee weapon the daemonic flayer is proficient with. This weapon starts as a weapon with a +1 enhancement bonus, but for every four levels beyond 3rd the daemonic flayer possesses, the weapon gains another +1 enhancement bonus, to a maximum of +5 at 19th level. This summoned weapon lasts for 1 minute. At 5th level, these bonuses can be used to add any of the following weapon properties to the daemonic blade: anarchic, axiomatic, dancing, flaming, flaming burst, frost, icy burst, keen, shock, shocking burst, speed, or unholy. These bonuses and properties are decided when the arcane pool points are spent and cannot be changed until the next time the daemonic flayer uses this arcana. Another creature cannot wield the daemonic blade; if it leaves the hand of the daemonic flayer, it dissipates in a wisp of red smoke that smells of burning blood. A daemonic flayer can only have one daemonic blade in existence at a time. If he uses this ability again, the first daemonic blade disappears.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ruby Arcana",
+                "locator": "ruby-arcana"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/daemonic-flayer/"
+          }
+        ]
+      }
+    ]
+  }
+}

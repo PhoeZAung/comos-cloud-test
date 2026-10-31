@@ -1,0 +1,119 @@
+{
+  "checkedAt": "2026-10-31T18:47:05.094749+00:00",
+  "scope": "LOCAL sheet support: Thief, Warrior, Monk base and all70archetypes1\u201320",
+  "published": false,
+  "testsPassed": 493,
+  "cloudBuild": "passed",
+  "automatedPathsThrough20": 73,
+  "routeLevelUpRequests": 1387,
+  "automatedSQLiteCloseReopen": true,
+  "browserProgressionPaths": 7,
+  "browserFreshCreationAndReopen": "Warrior, standard array, Galka, native weapon/defense selections",
+  "browserSavedCharacters": [
+    {
+      "name": "Fresh thief",
+      "className": "Thief",
+      "archetype": "",
+      "level": 2,
+      "hp": 15,
+      "baseMp": 0,
+      "bab": 1,
+      "nativeChoices": 1
+    },
+    {
+      "name": "Fresh warrior",
+      "className": "Warrior",
+      "archetype": "",
+      "level": 2,
+      "hp": 18,
+      "baseMp": 0,
+      "bab": 2,
+      "nativeChoices": 4
+    },
+    {
+      "name": "Fresh monk level 2",
+      "className": "Monk",
+      "archetype": "",
+      "level": 3,
+      "hp": 32,
+      "baseMp": 0,
+      "bab": 3,
+      "nativeChoices": 2
+    },
+    {
+      "name": "Fresh combatant",
+      "className": "Thief",
+      "archetype": "Combatant",
+      "level": 2,
+      "hp": 18,
+      "baseMp": 0,
+      "bab": 2,
+      "nativeChoices": 1
+    },
+    {
+      "name": "Fresh white-monk",
+      "className": "Monk",
+      "archetype": "White Monk",
+      "level": 2,
+      "hp": 15,
+      "baseMp": 3,
+      "bab": 1,
+      "nativeChoices": 1
+    },
+    {
+      "name": "Fresh swarm-fighter",
+      "className": "Warrior",
+      "archetype": "Swarm Fighter",
+      "level": 2,
+      "hp": 18,
+      "baseMp": 0,
+      "bab": 2,
+      "nativeChoices": 1
+    },
+    {
+      "name": "Fresh thief level 11",
+      "className": "Thief",
+      "archetype": "",
+      "level": 12,
+      "hp": 75,
+      "baseMp": 0,
+      "bab": 9,
+      "nativeChoices": 10
+    },
+    {
+      "name": "Browser Warrior creation",
+      "className": "Warrior",
+      "archetype": "",
+      "level": 1,
+      "hp": 11,
+      "baseMp": 0,
+      "bab": 1,
+      "nativeChoices": 2
+    }
+  ],
+  "browserSQLiteCloseReopen": true,
+  "fixtureOnly": true,
+  "realFirebaseLoginTested": false,
+  "productionDataChanged": false,
+  "serverStopped": true,
+  "manualRaceFixtureTraits": {
+    "Monk Meowfist": [
+      "Palico Languages"
+    ],
+    "Monk Scaled Fist": [
+      "Gria Languages",
+      "Gria Martial Background"
+    ],
+    "Monk Treetop Monk": [
+      "Viera Elemental Summoner"
+    ]
+  },
+  "raceFixtureScope": "The three listed fixtures explicitly disable unsupported racial choice traits using existing standard-trait controls to isolate class progression. Default-race safeguards are unchanged; these tests do not certify those pending racial choices.",
+  "manualLimits": [
+    "Conditional combat, companions, weapons, feats, cross-class options and spell subchoices stay manual reference cards/rows.",
+    "White Monk and Spellthief use source MP/chassis; spell learning/effects/casterlevel details are manual.",
+    "Optional external prerequisite or bonus selections use manual source instructions.",
+    "Source timing conflicts for Sky Pirate/Saboteur and manual Warrior modifications are disclosed in family audits."
+  ],
+  "screenshot": "three-class-families-local.png"
+}

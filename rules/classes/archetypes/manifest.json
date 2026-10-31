@@ -47,6 +47,534 @@
       "coverage": "partial",
       "status": "live",
       "adapter": "martial-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:animist",
+      "file": "rules/classes/archetypes/red-mage-animist.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:daemonic-flayer",
+      "file": "rules/classes/archetypes/red-mage-daemonic-flayer.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:elemental-knight",
+      "file": "rules/classes/archetypes/red-mage-elemental-knight.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:generalist",
+      "file": "rules/classes/archetypes/red-mage-generalist.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ishgardian-heretic",
+      "file": "rules/classes/archetypes/red-mage-ishgardian-heretic.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:mystic-knight",
+      "file": "rules/classes/archetypes/red-mage-mystic-knight.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:outfitter",
+      "file": "rules/classes/archetypes/red-mage-outfitter.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:paradigm-shifter",
+      "file": "rules/classes/archetypes/red-mage-paradigm-shifter.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:red-warrior",
+      "file": "rules/classes/archetypes/red-mage-red-warrior.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:reserve-mage",
+      "file": "rules/classes/archetypes/red-mage-reserve-mage.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ruby-archer",
+      "file": "rules/classes/archetypes/red-mage-ruby-archer.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ruby-fist",
+      "file": "rules/classes/archetypes/red-mage-ruby-fist.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ruby-magister",
+      "file": "rules/classes/archetypes/red-mage-ruby-magister.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ruby-wizard",
+      "file": "rules/classes/archetypes/red-mage-ruby-wizard.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:shield-mage",
+      "file": "rules/classes/archetypes/red-mage-shield-mage.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:spell-dancer",
+      "file": "rules/classes/archetypes/red-mage-spell-dancer.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:spellblade",
+      "file": "rules/classes/archetypes/red-mage-spellblade.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:vermilion-duelist",
+      "file": "rules/classes/archetypes/red-mage-vermilion-duelist.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:agent",
+      "file": "rules/classes/archetypes/thief-agent.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:assassin",
+      "file": "rules/classes/archetypes/thief-assassin.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:bounty-hunter",
+      "file": "rules/classes/archetypes/thief-bounty-hunter.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:burglar",
+      "file": "rules/classes/archetypes/thief-burglar.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:combatant",
+      "file": "rules/classes/archetypes/thief-combatant.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:deadly-courtesan",
+      "file": "rules/classes/archetypes/thief-deadly-courtesan.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:festivalist",
+      "file": "rules/classes/archetypes/thief-festivalist.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:filcher",
+      "file": "rules/classes/archetypes/thief-filcher.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:keyblade-master",
+      "file": "rules/classes/archetypes/thief-keyblade-master.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:knife-master",
+      "file": "rules/classes/archetypes/thief-knife-master.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:merchant",
+      "file": "rules/classes/archetypes/thief-merchant.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:prowler",
+      "file": "rules/classes/archetypes/thief-prowler.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:raptor",
+      "file": "rules/classes/archetypes/thief-raptor.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:rogue",
+      "file": "rules/classes/archetypes/thief-rogue.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:saboteur",
+      "file": "rules/classes/archetypes/thief-saboteur.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:skulking-slayer",
+      "file": "rules/classes/archetypes/thief-skulking-slayer.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:sky-pirate",
+      "file": "rules/classes/archetypes/thief-sky-pirate.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:solid-snake",
+      "file": "rules/classes/archetypes/thief-solid-snake.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:spellthief",
+      "file": "rules/classes/archetypes/thief-spellthief.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:street-magician",
+      "file": "rules/classes/archetypes/thief-street-magician.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:streetrat",
+      "file": "rules/classes/archetypes/thief-streetrat.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:thug",
+      "file": "rules/classes/archetypes/thief-thug.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:time-bandit",
+      "file": "rules/classes/archetypes/thief-time-bandit.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:treasure-hunter",
+      "file": "rules/classes/archetypes/thief-treasure-hunter.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:thief:trickster",
+      "file": "rules/classes/archetypes/thief-trickster.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:airborne-ambusher",
+      "file": "rules/classes/archetypes/warrior-airborne-ambusher.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:cyberpunk-warrior",
+      "file": "rules/classes/archetypes/warrior-cyberpunk-warrior.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:defender",
+      "file": "rules/classes/archetypes/warrior-defender.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:demon-hunter",
+      "file": "rules/classes/archetypes/warrior-demon-hunter.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:dirty-fighter",
+      "file": "rules/classes/archetypes/warrior-dirty-fighter.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:draconic-warrior",
+      "file": "rules/classes/archetypes/warrior-draconic-warrior.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:dragonwarrior",
+      "file": "rules/classes/archetypes/warrior-dragonwarrior.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:elemental-warrior",
+      "file": "rules/classes/archetypes/warrior-elemental-warrior.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:feral-guardian",
+      "file": "rules/classes/archetypes/warrior-feral-guardian.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:first-shield",
+      "file": "rules/classes/archetypes/warrior-first-shield.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:foehammer",
+      "file": "rules/classes/archetypes/warrior-foehammer.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:gladiator",
+      "file": "rules/classes/archetypes/warrior-gladiator.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:lanista",
+      "file": "rules/classes/archetypes/warrior-lanista.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:mercenary",
+      "file": "rules/classes/archetypes/warrior-mercenary.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:monster-hunter",
+      "file": "rules/classes/archetypes/warrior-monster-hunter.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:nimble-striker",
+      "file": "rules/classes/archetypes/warrior-nimble-striker.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:sea-wolf",
+      "file": "rules/classes/archetypes/warrior-sea-wolf.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:shinsect",
+      "file": "rules/classes/archetypes/warrior-shinsect.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:squire",
+      "file": "rules/classes/archetypes/warrior-squire.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:stormbreaker",
+      "file": "rules/classes/archetypes/warrior-stormbreaker.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:stylish-fighter",
+      "file": "rules/classes/archetypes/warrior-stylish-fighter.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:swarm-fighter",
+      "file": "rules/classes/archetypes/warrior-swarm-fighter.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:talekeeper",
+      "file": "rules/classes/archetypes/warrior-talekeeper.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:viking",
+      "file": "rules/classes/archetypes/warrior-viking.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:warrior:weapon-collector",
+      "file": "rules/classes/archetypes/warrior-weapon-collector.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:diminutive-adept",
+      "file": "rules/classes/archetypes/monk-diminutive-adept.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:elemental-fist-disciple",
+      "file": "rules/classes/archetypes/monk-elemental-fist-disciple.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:featherweight",
+      "file": "rules/classes/archetypes/monk-featherweight.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:fist-of-rhalgr",
+      "file": "rules/classes/archetypes/monk-fist-of-rhalgr.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:heavyweight",
+      "file": "rules/classes/archetypes/monk-heavyweight.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:ironskin-monk",
+      "file": "rules/classes/archetypes/monk-ironskin-monk.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:ki-master",
+      "file": "rules/classes/archetypes/monk-ki-master.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:life-monk",
+      "file": "rules/classes/archetypes/monk-life-monk.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:master-of-many-styles",
+      "file": "rules/classes/archetypes/monk-master-of-many-styles.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:meowfist",
+      "file": "rules/classes/archetypes/monk-meowfist.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:monk-of-the-wild",
+      "file": "rules/classes/archetypes/monk-monk-of-the-wild.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:nimble-guardian",
+      "file": "rules/classes/archetypes/monk-nimble-guardian.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:peacekeeper",
+      "file": "rules/classes/archetypes/monk-peacekeeper.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:scaled-fist",
+      "file": "rules/classes/archetypes/monk-scaled-fist.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:streak",
+      "file": "rules/classes/archetypes/monk-streak.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:student-of-the-stone",
+      "file": "rules/classes/archetypes/monk-student-of-the-stone.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:treetop-monk",
+      "file": "rules/classes/archetypes/monk-treetop-monk.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:wanderer",
+      "file": "rules/classes/archetypes/monk-wanderer.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:weapon-adept",
+      "file": "rules/classes/archetypes/monk-weapon-adept.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
+    },
+    {
+      "id": "ffd20:archetype:monk:white-monk",
+      "file": "rules/classes/archetypes/monk-white-monk.archetype.json",
+      "status": "live",
+      "adapter": "sheet-family-progression"
     }
   ]
 }

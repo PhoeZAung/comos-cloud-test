@@ -1,0 +1,614 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:swarm-fighter",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Swarm Fighter",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/swarm-fighter/",
+      "title": "Swarm Fighter",
+      "archiveSha256": "074851a0835e2a4280d63ba99569aad3fb7a1929dfb3a8512fe43179f777b02d",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:prerequisite",
+        "name": "Prerequisite",
+        "atLevel": 1,
+        "description": "The swarm warrior must have the swarming alternate racial trait to take this archetype.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Prerequisite",
+            "locator": "prerequisite"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "A swarm warrior is proficient with all simple and martial weapons. He is proficient with light and medium armor, but not with shields.\n\nThis ability modifies the warrior\u2019s standard weapon and armor proficiencies.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:athletic-prowess",
+        "name": "Athletic Prowess",
+        "atLevel": 1,
+        "description": "At 1st level, a swarm warrior gains a bonus on Acrobatics and Climb skill checks equal to half his warrior level (minimum 1).\n\nThis ability replaces combat defences.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Athletic Prowess",
+            "locator": "athletic-prowess"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:mobility",
+        "name": "Mobility",
+        "atLevel": 2,
+        "description": "At 2nd level, the swarm warrior gains [Mobility](https://www.d20pfsrd.com/feats/combat-feats/mobility-combat/) as a bonus feat, even if he does not meet the prerequisites.\n\nThis ability replaces a warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mobility",
+            "locator": "mobility"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:swarming-attack",
+        "name": "Swarming Attack",
+        "atLevel": 2,
+        "description": "Also, at 2nd level, while using the swarming racial trait to share a space with an ally, a swarm warrior gains a bonus on damage rolls equal to the number of [precision damage](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#precision-damage) dice his ally has. For example, a swarm warrior would gain +3 damage if his ally has sneak attack 3d6.\n\nThis ability replaces combat offenses.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swarming Attack",
+            "locator": "swarming-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:safety-in-numbers",
+        "name": "Safety in Numbers",
+        "atLevel": 3,
+        "description": "At 3rd level, a swarm warrior benefits greatly from the proximity of his allies. He gains a morale bonus on saves against fear effects equal to the number of allies within 20 feet of him. This bonus can\u2019t exceed half his warrior level.\n\nThis ability replaces warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Safety in Numbers",
+            "locator": "safety-in-numbers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:teamwork-fighting",
+        "name": "Teamwork Fighting",
+        "atLevel": 4,
+        "description": "At 4th level and every four warrior levels thereafter, the swarm warrior gains a bonus [Teamwork Feat](https://www.d20pfsrd.com/feats/teamwork-feats/). Any allies adjacent or sharing a space with the swarm warrior gains use of these teamwork feats.\n\nThis ability replaces a warrior talent gained at 4th level and every four warrior levels thereafter and additional techs IV.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Teamwork Fighting",
+            "locator": "teamwork-fighting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:share-space",
+        "name": "Share Space",
+        "atLevel": 5,
+        "description": "At 5th level, the swarm warrior can move into the space of another creature at least one size category larger than he is. He may end his movement in, and make attacks from, that space. He must succeed at the Acrobatics check for moving through an occupied square to move into a space occupied by an enemy. While sharing the space of another creature, he gains a +2 shield bonus to AC and a +1 circumstance bonus on Reflex saves.\n\nThis ability replaces additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Share Space",
+            "locator": "share-space"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:strike-the-underbelly",
+        "name": "Strike the Underbelly",
+        "atLevel": 7,
+        "description": "At 7th level, creatures with which the swarm warrior shares a space are denied their Dexterity bonus to Armor Class against the swam warrior\u2019s attacks.\n\nAt 10th level, a swarm warrior can use War Cry a number of times per day equal to 3 + his Constitution modifier, instead of spending stamina.\n\nThis ability replaces additional techs III and changes war cry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Strike the Underbelly",
+            "locator": "strike-the-underbelly"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:always-underfoot",
+        "name": "Always Underfoot",
+        "atLevel": 13,
+        "description": "At 13th level, the swarm warrior gains [Step Up](https://www.d20pfsrd.com/feats/combat-feats/step-up-combat/) as a bonus feat. A creature sharing a square with the swarm warrior is considered adjacent for the purposes of this feat. At 17th level, the swarm warrior gains [Following Step](https://www.d20pfsrd.com/feats/combat-feats/following-step-combat/) as a bonus feat. If the swarm warrior already has these feats, he may take another Combat feat that he must meet the prerequisites for.\n\nThese abilities replace improved rush and devastating blow.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Always Underfoot",
+            "locator": "always-underfoot"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:feature:soft-underbelly",
+        "name": "Soft Underbelly",
+        "atLevel": 20,
+        "description": "At 20th level, any attacks made against creatures with which the swarm warrior shares a space automatically confirm all critical threats.\n\nThis ability replaces weapon mastery.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Soft Underbelly",
+            "locator": "soft-underbelly"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:weapon-and-armor-proficiency:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-and-armor-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:weapon-and-armor-proficiency"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ],
+        "description": "This ability modifies the warrior\u2019s standard weapon and armor proficiencies."
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:athletic-prowess:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-defenses"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:athletic-prowess"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Athletic Prowess",
+            "locator": "athletic-prowess"
+          }
+        ],
+        "description": "This ability replaces combat defences."
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:mobility:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:mobility"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mobility",
+            "locator": "mobility"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:swarming-attack:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-offenses"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:swarming-attack"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swarming Attack",
+            "locator": "swarming-attack"
+          }
+        ],
+        "description": "This ability replaces combat offenses."
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:safety-in-numbers:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-techniques",
+          "ffd20:class:warrior:feature:stamina-pool",
+          "ffd20:class:warrior:feature:delay-fatigue",
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:safety-in-numbers"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Safety in Numbers",
+            "locator": "safety-in-numbers"
+          }
+        ],
+        "description": "This ability replaces warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:teamwork-fighting:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:4",
+          "ffd20:class:warrior:event:warrior-talents:8",
+          "ffd20:class:warrior:event:warrior-talents:12",
+          "ffd20:class:warrior:event:warrior-talents:16",
+          "ffd20:class:warrior:event:warrior-talents:20"
+        ],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:teamwork-fighting"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Teamwork Fighting",
+            "locator": "teamwork-fighting"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 4th level and every four warrior levels thereafter and additional techs IV."
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:share-space:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:share-space"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Share Space",
+            "locator": "share-space"
+          }
+        ],
+        "description": "This ability replaces additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:strike-the-underbelly:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:strike-the-underbelly"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Strike the Underbelly",
+            "locator": "strike-the-underbelly"
+          }
+        ],
+        "description": "This ability replaces additional techs III"
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:always-underfoot:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:devastating-blow",
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:always-underfoot"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Always Underfoot",
+            "locator": "always-underfoot"
+          }
+        ],
+        "description": "These abilities replace improved rush and devastating blow."
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:replacement:soft-underbelly:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-mastery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:swarm-fighter:feature:soft-underbelly"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Soft Underbelly",
+            "locator": "soft-underbelly"
+          }
+        ],
+        "description": "This ability replaces weapon mastery."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:pool:teamwork-fighting",
+        "name": "Teamwork Fighting",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:swarm-fighter:option:teamwork-fighting:manual",
+            "name": "Teamwork Fighting (manual selection)",
+            "description": "At 4th level and every four warrior levels thereafter, the swarm warrior gains a bonus [Teamwork Feat](https://www.d20pfsrd.com/feats/teamwork-feats/). Any allies adjacent or sharing a space with the swarm warrior gains use of these teamwork feats.\n\nThis ability replaces a warrior talent gained at 4th level and every four warrior levels thereafter and additional techs IV.\nRecord the exact selected source option and any prerequisites on existing sheet entries.",
+            "minimumLevel": 4,
+            "repeatLimit": 5,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Teamwork Fighting",
+                "locator": "teamwork-fighting"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/swarm-fighter/"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:event:teamwork-fighting:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:archetype:warrior:swarm-fighter:pool:teamwork-fighting"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "teamwork-fighting",
+            "locator": "teamwork-fighting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:event:teamwork-fighting:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:warrior:swarm-fighter:pool:teamwork-fighting"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "teamwork-fighting",
+            "locator": "teamwork-fighting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:event:teamwork-fighting:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:warrior:swarm-fighter:pool:teamwork-fighting"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "teamwork-fighting",
+            "locator": "teamwork-fighting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:event:teamwork-fighting:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:warrior:swarm-fighter:pool:teamwork-fighting"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "teamwork-fighting",
+            "locator": "teamwork-fighting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:swarm-fighter:event:teamwork-fighting:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:warrior:swarm-fighter:pool:teamwork-fighting"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "teamwork-fighting",
+            "locator": "teamwork-fighting"
+          }
+        ]
+      }
+    ],
+    "profile": {
+      "prerequisiteText": "The swarm warrior must have the swarming alternate racial trait to take this archetype.",
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Light armor",
+        "Medium armor"
+      ],
+      "requiredRacialTraitNames": [
+        "Swarming"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:class:warrior:feature:war-cry",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "con",
+        "minimum": 0
+      }
+    ],
+    "extraOptions": []
+  }
+}

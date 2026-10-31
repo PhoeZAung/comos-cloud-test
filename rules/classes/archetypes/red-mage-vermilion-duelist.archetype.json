@@ -1,0 +1,490 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:vermilion-duelist",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Vermilion Duelist",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/",
+      "title": "Vermilion Duelist",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "f1cecced94dd396082218cd1777b910131f43532a5643a2b4c58cc49f0f8cd5e"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:feature:crystal-runic-scourge",
+        "name": "Crystal Runic Scourge",
+        "atLevel": 1,
+        "description": "At 1st level, the vermilion duelist receives the Limit Breaks (Crystal Runic Scourge and Manafication).\n\n*Crystal Runic Scourge ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break surrounds the vermillion duelist\u2019s crystal medium with explosive runes. For a duration of 1 round + 1 round per four red mage levels after 1st, whenever a creature attacks the vermillion duelist with a melee attack, they suffer 1d4 points of non-elemental damage plus 1d4 points per four red mage levels after 1st.\u00a0 In addition, creatures that suffer damage from this limit break are also dazzled for 1 round per red mage level unless they make a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier). This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to activate.\n\n*Manafication ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the vermillion duelist to absorb the energies around him for his attacks. For a duration of 1 round + 1 round per four red mage levels after 1st, the vermillion duelist reduces the cost of a talent that uses stamina or spell that uses MP, to 0. This Limit Break affects only one spell or one talent per round. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to activate.\n\nThese abilities replace the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:feature:manafication",
+        "name": "Manafication",
+        "atLevel": 1,
+        "description": "At 1st level, the vermilion duelist receives the Limit Breaks (Crystal Runic Scourge and Manafication).\n\n*Crystal Runic Scourge ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break surrounds the vermillion duelist\u2019s crystal medium with explosive runes. For a duration of 1 round + 1 round per four red mage levels after 1st, whenever a creature attacks the vermillion duelist with a melee attack, they suffer 1d4 points of non-elemental damage plus 1d4 points per four red mage levels after 1st.\u00a0 In addition, creatures that suffer damage from this limit break are also dazzled for 1 round per red mage level unless they make a Fortitude save (DC 10 + half of the red mage\u2019s level + his Charisma modifier). This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to activate.\n\n*Manafication ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the vermillion duelist to absorb the energies around him for his attacks. For a duration of 1 round + 1 round per four red mage levels after 1st, the vermillion duelist reduces the cost of a talent that uses stamina or spell that uses MP, to 0. This Limit Break affects only one spell or one talent per round. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to activate.\n\nThese abilities replace the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:feature:magic-crystal-medium",
+        "name": "Magic Crystal Medium",
+        "atLevel": 1,
+        "description": "Beginning of 1st level, the vermilion duelist begins play with a magic crystal medium, a floating crystal that hovers around the vermilion duelist while he fights. This crystal assists him in casting magic and thus, the vermilion duelist is unable to cast magic from the red mage spell list without it. To cast magic, he must spend a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to command the crystal to attach itself to the vermilion duelist\u2019s weapon\u2019s pommel, acting as a catalyst, from there, he may cast magic normally. The weapon must be a light or one-handed melee weapon appropriate to the vermilion duelist\u2019s size. However, when he decides to use the weapon in melee combat the crystal will detach itself, going back to a floating position around the vermilion duelist. This crystal only functions with the will of the vermilion duelist. The crystal itself has an AC of 10 when floating around the vermilion duelist and with HP equal to half of the vermilion duelist, and has a Hardness equal to the vermilion duelist\u2019s Charisma modifier. If the crystal is ever destroyed, the vermilion duelist must spend 4 hours of uninterrupted meditation and spend 50 gil x his level to form a new crystal medium. If the weapon of the vermilion duelist is ever sundered, the crystal detaches safely from the weapon.\n\nThe crystal can also be used to send a jolt of energy to damage enemies emulating the power of the vermilion duelist weapon when attached. He may make a ranged touch attack and if successful, it deals damage equal to the weapon + the vermilion duelist\u2019s Charisma modifier as non-elemental damage. This attack has a range of 30 feet. He may attack multiple times this way if he has a high base attack bonus.\n\nAt 10th level, the vermilion duelist can attach the crystal to his weapon as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free).\n\nThis ability modifies spellcasting and replaces red magery.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magic Crystal Medium",
+            "locator": "magic-crystal-medium"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:feature:stamina-pool",
+        "name": "Stamina Pool",
+        "atLevel": 1,
+        "description": "At 1st level, the vermilion duelist gains a reservoir of stamina that he can draw upon to fuel his talents that he gains below. This stamina pool has a number of points equal to half his red mage level + his Constitution modifier (minimum 1). The pool refreshes once per day when the vermilion duelist rests for a full 8 hours. Sustained modes take up a static amount of stamina points from the vermilion duelist\u2019s current and maximum stamina pool and most sustained modes stack.\n\nSome talents are activated as a sustained mode. When activated, these talents both consume stamina and reduce the user\u2019s maximum stamina by the listed amount. While active, they provide their listed bonuses until the user deactivates them as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), falls unconscious, or dies, at which point the reduction to the user\u2019s maximum stamina is removed. Multiple sustained mode talents may be used at the same time as long as the user has enough stamina, though some talents may specify others that they cannot be used with.\n\nBy spending 1 stamina point as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the vermilion duelist can do one of the following:\n\n* Increase his speed by 10 feet for 1 round, or\n* Delay and suppress his fatigue or exhaustion for 1 round, or\n* Increase one saving throw by +1 for 1 round.\n\nThis ability replaces spell proficiency.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stamina Pool",
+            "locator": "stamina-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:feature:finesse-training",
+        "name": "Finesse Training",
+        "atLevel": 3,
+        "description": "At 3rd level, a vermillion duelist gains [Weapon Finesse](https://www.d20pfsrd.com/feats/combat-feats/weapon-finesse-combat-final/) as a bonus feat. In addition, he can select any one type of weapon that can be used with Weapon Finesse (such as rapiers or daggers). Once this choice is made, it cannot be changed. Whenever he makes a successful melee attack with the selected weapon, he adds his Dexterity modifier instead of her Strength modifier to the damage roll. If any effect would prevent the vermillion duelist from adding his Strength modifier to the damage roll, he does not add his Dexterity modifier. The vermillion duelist can select a second weapon at 11th level and a third at 19th level.\n\nThis ability replaces ruby knowledge.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Finesse Training",
+            "locator": "finesse-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:feature:talent-trees",
+        "name": "Talent Trees",
+        "atLevel": 2,
+        "description": "The vermilion duelist gets access to the vermilion duelist talent tree from below. At 2nd level and every two levels thereafter, the vermilion duelist chooses to learn one talent from the talent tree below or a ruby talent. The vermillion duelist can pick up Extra Ruby Talent feats to select these talents. **Weapon Requirement:** Any one-handed or light melee weapons.\n\n**Vermilion Specialization Talent Tree**\n\n* **Acceleration:** At the cost of 1 stamina point, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), the vermilion duelist can gain an additional melee attack when making a full round attack at his highest base attack bonus. All attacks made this round has a -2 penalty to the attack roll.\n* **Corps-a-Corps:** At the cost of 1 stamina point, as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), the vermilion duelist can conjure a whip of aether to attach to an enemy, ally, or surface within 30 feet, and pull himself adjacent to the target. This movement does not provoke attacks of opportunity. The whip disappears after use.\n* **Quick Corps:** Corps-a-Corps now is a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to use. *Prerequisite:* Corps-a-Corps\n* **Displacement:** At the cost of 1 stamina point, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the vermilion duelist can jump back out of harm\u2019s way immediately while performing a melee attack. He moves back, up to 15 feet from his square in a straight line behind him. This movement does not provoke attacks of opportunity. *Prerequisite:* Corps-a-Corps\n* **Verswiftness:** At the cost of 1 stamina point, the vermilion duelist can increase their number of swift or immediate actions per turn by 1. This does not increase the normal limit of one swift cast spell per round.\n* **Embolden:** As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the vermilion duelist may activate this talent as sustained mode. The vermilion duelist invokes his crystal to shine and enhances himself and nearby allies within 15 feet, granting a +1 bonus to all damage rolls plus an additional +1 for every four red mage levels after 3rd. This mode uses up 2 stamina points of the vermilion duelist\u2019s current and maximum stamina pool.\n* **Fleche:** At the cost of 1 stamina point, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the vermilion duelist conjures swords of aether around him, hurling them at a single enemy as a ranged touch attack, dealing 1d6 points of non-elemental damage, plus an additional 1d6 points of non-elemental damage per four red mage levels after 3rd. Fleche has a range of 25 feet + 5 feet per two red mage levels after 3rd.\n* **Contre Sixte:** When using fleche, the vermilion duelist can expend an additional stamina point to cause the swords to spread out around a target and explode, dealing its damage in a 20-ft.-radius instead. A successful Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) reduces the damage by half. *Prerequisite:* Fleche\n* **Impact:** At the cost of 1 stamina point, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), when using his crystal medium to attack with a jolt of energy, the energy explodes out from the target dealing damage to those adjacent to the target. A successful Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) reduces the damage by half.\n* **Vermilion Magic:** At the cost of 1 stamina point, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), when the vermilion duelist casts a spell from the red mage spell list, he may add the prefix \u201cVer\u201d to the beginning of the spell and infusing his own stamina into the spell, increasing the amount of dice of the spell by 1 or increasing the duration by 1 round.\n* **Vermilion Wrath:** Vermilion magic now increases the die of the spell by 2 dice or the duration by 2, instead of 1. He also counts his caster level as 1 higher for the purpose of bypassing spell resistance when using vermilion magic. *Prerequisite:* Vermilion Magic\n\nThese abilities may replace ruby talent.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Talent Trees",
+            "locator": "talent-trees"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:feature:dual-cast",
+        "name": "Dual Cast",
+        "atLevel": 4,
+        "description": "At 4th level, when the vermilion duelist casts a spell, he may cast another spell as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift); however the spell\u2019s effects are halved. He may use this ability up to 3 + his Charisma modifier times per day. Both of the spells must have the same\u00a0[standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard)\u00a0casting time.\n\nThis ability replaces quick cast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dual Cast",
+            "locator": "dual-cast"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:replacement:limit-breaks",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:dual-spellcasting",
+          "ffd20:class:red-mage:feature:flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:vermilion-duelist:feature:crystal-runic-scourge",
+          "ffd20:archetype:red-mage:vermilion-duelist:feature:manafication"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ],
+        "description": "These abilities replace the red mage\u2019s standard Limit Breaks."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:replacement:magic-crystal-medium",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:vermilion-duelist:feature:magic-crystal-medium"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magic Crystal Medium",
+            "locator": "magic-crystal-medium"
+          }
+        ],
+        "description": "This ability modifies spellcasting and replaces red magery."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:replacement:stamina-pool",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:vermilion-duelist:feature:stamina-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stamina Pool",
+            "locator": "stamina-pool"
+          }
+        ],
+        "description": "This ability replaces spell proficiency."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:replacement:finesse-training",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:vermilion-duelist:feature:finesse-training"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Finesse Training",
+            "locator": "finesse-training"
+          }
+        ],
+        "description": "This ability replaces ruby knowledge."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:vermilion-duelist:replacement:dual-cast",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:quick-cast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:vermilion-duelist:feature:dual-cast"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dual Cast",
+            "locator": "dual-cast"
+          }
+        ],
+        "description": "This ability replaces quick cast."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:red-mage:pool:ruby-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:acceleration",
+            "name": "Acceleration",
+            "description": "At the cost of 1 stamina point, as a free action, the vermilion duelist can gain an additional melee attack when making a full round attack at his highest base attack bonus. All attacks made this round has a -2 penalty to the attack roll.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:corps-a-corps",
+            "name": "Corps-a-Corps",
+            "description": "At the cost of 1 stamina point, as a move action, the vermilion duelist can conjure a whip of aether to attach to an enemy, ally, or surface within 30 feet, and pull himself adjacent to the target. This movement does not provoke attacks of opportunity. The whip disappears after use.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:quick-corps",
+            "name": "Quick Corps",
+            "description": "Corps-a-Corps now is a swift action to use. Prerequisite: Corps-a-Corps\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:corps-a-corps"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:displacement",
+            "name": "Displacement",
+            "description": "At the cost of 1 stamina point, as a swift action, the vermilion duelist can jump back out of harm\u2019s way immediately while performing a melee attack. He moves back, up to 15 feet from his square in a straight line behind him. This movement does not provoke attacks of opportunity. Prerequisite: Corps-a-Corps\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:corps-a-corps"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:verswiftness",
+            "name": "Verswiftness",
+            "description": "At the cost of 1 stamina point, the vermilion duelist can increase their number of swift or immediate actions per turn by 1. This does not increase the normal limit of one swift cast spell per round.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:embolden",
+            "name": "Embolden",
+            "description": "As a swift action, the vermilion duelist may activate this talent as sustained mode. The vermilion duelist invokes his crystal to shine and enhances himself and nearby allies within 15 feet, granting a +1 bonus to all damage rolls plus an additional +1 for every four red mage levels after 3rd. This mode uses up 2 stamina points of the vermilion duelist\u2019s current and maximum stamina pool.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:fleche",
+            "name": "Fleche",
+            "description": "At the cost of 1 stamina point, as a swift action, the vermilion duelist conjures swords of aether around him, hurling them at a single enemy as a ranged touch attack, dealing 1d6 points of non-elemental damage, plus an additional 1d6 points of non-elemental damage per four red mage levels after 3rd. Fleche has a range of 25 feet + 5 feet per two red mage levels after 3rd.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:contre-sixte",
+            "name": "Contre Sixte",
+            "description": "When using fleche, the vermilion duelist can expend an additional stamina point to cause the swords to spread out around a target and explode, dealing its damage in a 20-ft.-radius instead. A successful Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) reduces the damage by half. Prerequisite: Fleche\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:fleche"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:impact",
+            "name": "Impact",
+            "description": "At the cost of 1 stamina point, as a free action, when using his crystal medium to attack with a jolt of energy, the energy explodes out from the target dealing damage to those adjacent to the target. A successful Reflex save (DC 10 + half of the red mage\u2019s level + his Charisma modifier) reduces the damage by half.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:vermilion-magic",
+            "name": "Vermilion Magic",
+            "description": "At the cost of 1 stamina point, as a free action, when the vermilion duelist casts a spell from the red mage spell list, he may add the prefix \u201cVer\u201d to the beginning of the spell and infusing his own stamina into the spell, increasing the amount of dice of the spell by 1 or increasing the duration by 1 round.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:vermilion-wrath",
+            "name": "Vermilion Wrath",
+            "description": "Vermilion magic now increases the die of the spell by 2 dice or the duration by 2, instead of 1. He also counts his caster level as 1 higher for the purpose of bypassing spell resistance when using vermilion magic. Prerequisite: Vermilion Magic\n\nThese abilities may replace ruby talent.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Talent Trees",
+                "locator": "talent-trees"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:vermilion-duelist:option:talent-trees:vermilion-magic"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
