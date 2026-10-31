@@ -16,7 +16,7 @@ const UNABLE=TONKIN+':trait:unable-to-cast';
 
 function fixture({dancing=false,int=10}={}){
  const b=newBuild();
- Object.assign(b,{name:'Tonkin Lantern',alignment:'True Neutral',raceId:TONKIN,classId:'ffd20:class:archer',
+ Object.assign(b,{name:'Tonkin Lantern',alignment:'True Neutral',raceId:TONKIN,classId:'ffd20:class:monk',
   reviewed:true,alternateIds:dancing?[DANCING]:[]});
  b.baseScores.int=int;
  b.hpRolls=[classHitDie(b)];
