@@ -27,7 +27,8 @@ test('Identity overview has only the header edit action, with land speed visible
  const identity=html.slice(html.indexOf('<h2>Identity</h2>'),html.indexOf('<h2>Proficiencies</h2>'));
  assert.ok(identity.length>0);
  assert.equal((identity.match(/data-edit-stats="identity"/g)||[]).length,1);
- assert.match(identity,/Speed<\/dt><dd>30 ft/);
+ assert.match(identity,/<dt>Speed<\/dt><dd><button[^>]*data-speed-details[^>]*>30 ft<\/button>/);
+ assert.equal((identity.match(/data-speed-details/g)||[]).length,1);
  assert.doesNotMatch(identity,/cs-speed-trigger|cs-movement-summary|Fly 20 ft|Racial identity rules|Long flight explanation/);
 });
 test('Removing fly maneuverability from editor does not erase existing stored values or other speed updates',()=>{

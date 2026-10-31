@@ -8,8 +8,13 @@ export const movementModes=[
 export const flyManeuverabilities=['','clumsy','poor','average','good','perfect'];
 export const movementDetails=data=>movementModes.filter(m=>Number(data?.[m.field])>0&&Number.isFinite(Number(data[m.field]))).map(m=>m.label+' '+Number(data[m.field])+' ft'+(m.field==='speed_fly'&&data.speed_fly_maneuverability?' ('+data.speed_fly_maneuverability+')':''));
 export function seedRacialMovement(next,previous,raceId,traits){
- // FFd20 Aegyl Base Speed: fly 40 ft poor; Wing-Clipped: fly 20 ft poor.
- // Never replace a sheet user's own edits while recompiling a saved build.
+ // Only fill missing fields. User-entered values, including zero, are preserved.
+ if(raceId==='ffd20:race:moogle'){
+  const grounded=traits.some(t=>t.id==='ffd20:race:moogle:trait:grounded');
+  if(!Object.hasOwn(previous,'speed_fly'))next.speed_fly=grounded?0:20;
+  if(!Object.hasOwn(previous,'speed_fly_maneuverability'))next.speed_fly_maneuverability=grounded?'':'clumsy';
+  return;
+ }
  if(raceId!=='ffd20:race:aegyl')return;
  if(!Object.hasOwn(previous,'speed_fly'))next.speed_fly=traits.some(t=>t.id==='ffd20:race:aegyl:trait:wing-clipped')?20:40;
  if(!Object.hasOwn(previous,'speed_fly_maneuverability'))next.speed_fly_maneuverability='poor';

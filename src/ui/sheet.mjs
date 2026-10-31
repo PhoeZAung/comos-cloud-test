@@ -6,7 +6,7 @@ import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
-import {escape as e,sections,renderSheetFrame,renderSection,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
+import {escape as e,sections,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
 import {isEquipmentSlot,equippedInSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','languages','senses','speed','speed_burrow','speed_climb','speed_fly','speed_swim'],
@@ -255,6 +255,14 @@ export function mountSheet(){
   }
   if(button.matches('[data-dialog-close]')){dialog()?.close();dirty=false;if(!conflict)void refresh();return;}
   if(button.matches('[data-sheet-refresh]')){void refresh(true);return;}
+  if(button.matches('[data-speed-details]')){
+   if(busy||conflict){status(conflict?'Refresh to load the latest sheet.':'Saving…');return;}
+   root.querySelector('[data-sheet-form] button[type=submit]').hidden=true;
+   root.querySelector('#cs-dialog-title').textContent='Movement speeds';
+   root.querySelector('[data-dialog-fields]').innerHTML=renderSpeedDetails(character.data);
+   root.querySelector('[data-dialog-status]').textContent='';
+   dialog().showModal();return;
+  }
   if(button.matches('[data-edit-stats]')){
    const group=button.dataset.editStats,values={...character.data},s=sheetStats(values);if(group==='resources'){values.mp_curr=s.mp;values.mp_class=values.mp_class??s.mpMax;values.mp_bonus=values.mp_bonus??0;}if(group==='currency')values.currency_gil=values.currency_gil??values.gil??0;
    if(group==='identity')values.size_category=values.size_category||values.size||'Medium';
