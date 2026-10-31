@@ -28,7 +28,36 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
+export function replacementFor(r,id){
+ const ops=r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));
+ if(!r||ops.length!==1)return ops;
+ const base=r.id+':trait:',sylph='ffd20:race:sylph',trollkin='ffd20:race:trollkin',forgiven='ffd20:race:forgiven';
+ const verified=(slug,targets,scope,resolution)=>{
+  const op=ops[0];
+  return id===base+slug&&op.id===base+slug+':replacement'&&op.operation==='replace'&&
+   op.scope===scope&&op.resolution===resolution&&
+   JSON.stringify(op.targetFeatureIds)===JSON.stringify(targets.map(x=>base+x))&&
+   op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===id&&
+   !(op.targetEventIds||[]).length&&!(op.addsEventIds||[]).length&&!(op.removesComponents||[]).length;
+ };
+ if(r.id===sylph&&verified('improved-flight',['camouflage','beguiling-liar'],'partial_feature','unresolved')){
+  const op=ops[0];
+  return [{...op,id:id+':skill-replacement',scope:'whole_feature',resolution:'manual',
+   description:'Improved Flight replaces Camouflage and Beguiling Liar.'},
+   {...op,id:id+':speed-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+    targetFeatureIds:[base+'base-speed'],addsFeatureIds:[],
+    description:'Improved Flight modifies Base Speed land 20 to 10 ft, fly 40 to 60 ft (good maneuverability).'}];
+ }
+ if(r.id===trollkin&&verified('faster-healing',['thick-skin','fast-healing'],'partial_feature','unresolved')){
+  return [{...ops[0],id:id+':two-part-replacement',scope:'whole_feature',resolution:'manual',
+   description:'Faster Healing 2 replaces baseline Fast Healing 1 and replaces Thick Skin.'}];
+ }
+ if(r.id===forgiven&&verified('scion-of-mortality',['languages','type'],'whole_feature','manual')){
+  return [{...ops[0],id:id+':identity-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+   description:'Scion of Mortality removes Celestial only, retains Common, and records humanoid (hume) eligibility alongside outsider (native) without deleting racial identity.'}];
+ }
+ return ops;
+}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
