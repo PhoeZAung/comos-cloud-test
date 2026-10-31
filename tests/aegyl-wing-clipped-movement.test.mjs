@@ -49,12 +49,13 @@ test('Normal Aegyl retain fly 40 ft poor and do not get Wing-Clipped bonuses',()
  assert.equal(row(sheet,'Bluff').rulesBonus,0);assert.equal(row(sheet,'Climb').rulesBonus,0);assert.equal(row(sheet,'Diplomacy').rulesBonus,0);
  assert.match(sheet.racialAbilities.find(f=>f.sourceRuleId===BASE).desc,/40/);
 });
-test('Sheet Identity always shows land speed; other movement types display beneath it and open edit popup',()=>{
+test('Identity shows land speed only and uses a single top Edit button',()=>{
  const sheet=compileBuild(fixture('ffd20:class:dancer',true)),char={id:'e5',name:'Aegyl',data:sheet};
  const html=renderSection(char,'overview');assert.match(html,/Speed/);
- assert.match(html,/30 ft/);assert.match(html,/Fly 20 ft \(poor\)/);
- assert.match(html,/data-edit-stats="identity"/);
- const frame=renderSheetFrame(char,'overview');assert.match(frame,/cs-speed-trigger/);
+ assert.match(html,/30 ft/);assert.doesNotMatch(html,/Fly 20 ft/);
+ assert.equal((html.match(/data-edit-stats="identity"/g)||[]).length,1);
+ assert.doesNotMatch(html,/cs-speed-trigger|cs-movement-summary|Racial identity rules/);
+ const frame=renderSheetFrame(char,'overview');assert.doesNotMatch(frame,/cs-speed-trigger/);
  assert.deepEqual(movementDetails({speed_fly:20,speed_swim:15,speed_climb:5,speed_burrow:10,speed_fly_maneuverability:'poor'}),['Burrow 10 ft','Climb 5 ft','Fly 20 ft (poor)','Swim 15 ft']);
  const basic=renderSection({id:'b',name:'Normal',data:{speed:30}},'overview');
  assert.match(basic,/30 ft/);assert.doesNotMatch(basic,/cs-movement-summary/);
@@ -66,7 +67,7 @@ test('All movement modes are mutable saved Identity fields and survive rule-buil
  const after=compileBuild(sheet.rulesBuild.input,sheet);
  assert.equal(after.speed,35,'manually edited Land Speed survives a rules recompile');
  assert.deepEqual([after.speed_burrow,after.speed_climb,after.speed_fly,after.speed_swim,after.speed_fly_maneuverability],[10,15,50,25,'good']);
- assert.match(renderSection({id:'x',name:'Aegyl',data:after},'overview'),/Burrow 10 ft · Climb 15 ft · Fly 50 ft \(good\) · Swim 25 ft/);
+ assert.doesNotMatch(renderSection({id:'x',name:'Aegyl',data:after},'overview'),/Burrow 10 ft|Climb 15 ft|Fly 50 ft|Swim 25 ft/);
  const cleared=mergeSheetData(after,{action:'fields',fields:{speed_fly:0,speed_fly_maneuverability:''}});
  assert.equal(compileBuild(cleared.rulesBuild.input,cleared).speed_fly,0,'manual clearing must not regenerate racial fly speed');
 });

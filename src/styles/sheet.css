@@ -233,9 +233,12 @@
 
 .cs-ammo-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.cs-ammo-tracker .cs-field,.cs-ammo-tracker select{max-width:100%}.cs-ammo-tracker select{width:100%}
 
-/* Speed remains visible in Identity; movement modes share its edit popup. */
-.cs-speed-trigger{border:0;background:transparent;color:inherit;font:inherit;font-weight:600;cursor:pointer;padding:0;text-align:left}
-.cs-speed-trigger:hover{text-decoration:underline}
-.cs-movement-summary{display:block;line-height:1.4;opacity:.85;margin-top:3px}
-.cs-movement-heading{grid-column:1/-1;font-size:13px;margin:8px 0 0}
-.cs-movement-hint{display:block;font-size:11px;opacity:.7;line-height:1.4;margin:-4px 0 8px}
+/* One Identity edit button; clean grouped fields in its modal. */
+.cs-identity-editor{display:grid;gap:18px;min-width:0}
+.cs-identity-group{min-width:0;max-width:100%;margin:0;padding:14px;border:1px solid var(--line);border-radius:10px}
+.cs-identity-group legend{padding:0 6px;color:var(--text);font-size:13px;font-weight:600}
+.cs-identity-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.cs-identity-fields>.cs-field{min-width:0;max-width:none;margin:0}
+.cs-identity-fields>.cs-field:first-child{grid-column:1/-1}
+.cs-identity-fields .cs-field input,.cs-identity-fields .cs-field select{width:100%;min-width:0}
+@media(max-width:460px){.cs-identity-fields{grid-template-columns:minmax(0,1fr)}.cs-identity-group{padding:12px}}
