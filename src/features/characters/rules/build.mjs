@@ -293,6 +293,8 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
   const fixedPools={
    'ffd20:race:genome':['bonus-languages'],
    'ffd20:race:gria':['bonus-languages','weapon-focus-weapon'],
+   'ffd20:race:nu-mou':['sagacious-two-knowledge'],
+   'ffd20:race:pupu':['technological-savant-specialty'],
    'ffd20:race:guado':['bonus-languages'],
    'ffd20:race:hypello':['bonus-languages'],
    'ffd20:race:mandragora':['bonus-languages'],
