@@ -179,18 +179,8 @@ export function buildIssues(b,{complete=true}={}){
  if(classHasSpells(b)&&race?.id==='ffd20:race:shindroid'&&!b.alternateIds.includes('ffd20:race:shindroid:trait:magitek-unit'))add(3,'Shindroid Magic Ineptitude forbids obtaining an MP pool without Magitek Unit; this casting build cannot be saved unless Magitek Unit is selected.');
  if(classHasSpells(b)&&race?.id==='ffd20:race:antica')add(3,'Antica cannot normally cast spells without Silent Spell or Telepathic Spellcaster. The current casting wizard cannot verify this exception; you can inspect Antica rules but cannot save this automatic build.');
  if(classHasSpells(b)&&race?.id==='ffd20:race:tonkin')add(3,'Tonkin cannot normally cast vocal-component spells, and Silent Spell/Telepathic Spellcaster compatibility is not yet verified in this casting wizard. Character saving is blocked until supported.');
- if(race?.id==='ffd20:race:ixal'){
-  const active=new Set(raceTraits(b).traits.map(f=>f.id));
-  if(active.has('ffd20:race:ixal:trait:bond-to-the-ice'))add(2,'Ixal Bond to the Ice requires choosing one forest or icy terrain; race-specific choice UI is unavailable and character saving is blocked.');
-  if(active.has('ffd20:race:ixal:trait:elemental-summoner'))add(2,'Ixal Elemental Summoner requires choosing one elemental subtype; race-specific choice UI is unavailable and character saving is blocked.');
- }
  if(race?.id==='ffd20:race:kindred'){
   if(b.alternateIds.includes('ffd20:race:kindred:trait:maw-or-claw'))add(2,'Kindred Maw or Claw requires selecting one natural attack package, unsupported by the wizard; character saving is blocked.');
- }
- if(race?.id==='ffd20:race:lamia'){
-  const active=new Set(raceTraits(b).traits.map(f=>f.id));
-  if(active.has('ffd20:race:lamia:trait:bond-to-the-land'))add(2,'Lamia Bond to the Land requires desert or water terrain selection; race-specific choice storage is unavailable and save is blocked.');
-  if(active.has('ffd20:race:lamia:trait:tempered'))add(2,'Lamia Tempered requires choosing water or wind resistance; race-specific choice storage is unavailable and save is blocked.');
  }
  if(race?.id==='ffd20:race:loporrit'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
@@ -201,7 +191,6 @@ export function buildIssues(b,{complete=true}={}){
  }
  if(race?.id==='ffd20:race:viera'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
-  if(active.has('ffd20:race:viera:trait:elemental-summoner'))add(2,'Viera Elemental Summoner requires choosing one elemental subtype. Race-specific selection is not yet supported by this wizard; save is blocked until the subtype can be recorded.');
   if(active.has('ffd20:race:viera:trait:mist-sight'))add(2,'Viera Mist Sight requires one selected spell-like ability (not all three). Race-specific selection is not yet supported; save is blocked until the spell choice can be recorded.');
  }
  if(isRedMage(b)){for(const issue of redMageIssues(b,effectiveScores(b),{complete}))add(issue.step,issue.message);return errors;}
@@ -295,7 +284,10 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
    'ffd20:race:gria':['bonus-languages','weapon-focus-weapon'],
    'ffd20:race:nu-mou':['sagacious-two-knowledge'],
    'ffd20:race:pupu':['technological-savant-specialty'],
-   'ffd20:race:guado':['bonus-languages'],
+   'ffd20:race:guado':['bonus-languages','summoner-element'],
+   'ffd20:race:viera':['elemental-summoner-subtype'],
+   'ffd20:race:ixal':['bond-to-the-ice-selection','elemental-summoner-selection'],
+   'ffd20:race:lamia':['bond-to-the-land-selection','tempered-selection'],
    'ffd20:race:hypello':['bonus-languages'],
    'ffd20:race:mandragora':['bonus-languages'],
    'ffd20:race:palico':['starting-second-language','high-intelligence-bonus-languages'],
