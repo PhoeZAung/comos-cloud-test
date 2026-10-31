@@ -50,6 +50,7 @@ test('Black Mage selected spells carry the source-scoped DC bonus while sheet IN
  assert.equal(compiled.mp_bonus,blackMageSummary(1,20).bonusMp);
  const spell=compiled.spells.find(s=>s.sourceClass==='Black Mage'&&s.lvl>0);
  assert(spell);assert.equal(spell.rulesDcBonus,1);
+ assert.equal(compiled.spells.find(s=>s.sourceClass==='Black Mage'&&s.lvl===0).rulesDcBonus,1,'Fiendish casting INT also applies to cantrip DC');
  const reopened=compileBuild(compiled.rulesBuild.input,compiled);
  assert.equal(reopened.spells.find(s=>s.sourceRuleId===spell.sourceRuleId).rulesDcBonus,1);
  assert.equal(reopened.spells.find(s=>s.sourceRuleId===spell.sourceRuleId).dc_misc,1);
