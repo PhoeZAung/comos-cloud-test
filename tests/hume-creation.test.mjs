@@ -43,7 +43,7 @@ test('Hume free-text bonus languages preserve unrestricted names while enforcing
  const newline=fixture();newline.racialChoices[HUME_LANGUAGES]=['language:Valid\nInjected'];assert.throws(()=>compileBuild(newline));
  const inactive=fixture();inactive.disabledTraits=[HUME_ID+':trait:languages'];inactive.racialChoices[HUME_LANGUAGES]=[languageChoice('Aklo')];assert.throws(()=>compileBuild(inactive),/inactive/);
  const other=fixture();other.raceId='ffd20:race:galka';other.racialChoices={[HUME_LANGUAGES]:[languageChoice('Aklo')]};other.skillRanks=fixedSkills.map((_,i)=>i<previewBuild(other).skillBudget?1:0);assert.throws(()=>compileBuild(other),/inactive/);
- const html=renderBuild(b,2);assert.match(html,/data-rw-racial-languages/);assert.match(html,/one per line/);
+  const html=renderBuild(b,1,{mode:'create'});assert.match(html,/data-rw-language-slot/);assert.match(html,/Al Bhed/);assert.match(html,/Ancient Elvaan/);assert.doesNotMatch(renderBuild(b,2),/data-rw-language-slot/);
  assert.match(renderBuild(b,8),/Extra bonus feat/);
 });
 test('Hume disabled standard entitlements are removed without duplicating or deleting manually edited feat content',()=>{

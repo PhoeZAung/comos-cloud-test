@@ -97,10 +97,10 @@ test('Moogle starting language choices use the source list and Intelligence allo
  const d=compileBuild(b);assert.equal(d.languages,'Common, Moogle, Aklo, Auran');
  const again=compileBuild(d.rulesBuild.input,d);assert.equal(again.languages,d.languages);
  assert.equal(again.skills.reduce((n,s)=>n+s.lvl,0),6);
- const race=renderBuild(b,2);assert.match(race,/Bonus languages/);assert.match(race,/choose up to 2/i);
- assert.match(race,/data-rw-racial-option="ffd20:race:moogle:pool:bonus-languages"/);
- const scores=renderBuild(b,1,{mode:'create'});assert.match(scores,/data-rw-bonus-languages/);
- assert.match(scores,/data-rw-racial-option="ffd20:race:moogle:pool:bonus-languages"/);
+  const race=renderBuild(b,2);assert.doesNotMatch(race,/data-rw-language-slot|<h2>Bonus languages<\/h2>/);
+  const scores=renderBuild(b,1,{mode:'create'});assert.match(scores,/data-rw-bonus-languages/);
+  assert.match(scores,/up to 2 additional languages/i);
+  assert.match(scores,/data-rw-language-slot="ffd20:race:moogle:pool:bonus-languages"/);
  b.racialChoices[MOOGLE_LANGUAGES].push(MOOGLE_LANGUAGES+':option:draconic');
  assert.throws(()=>compileBuild(b),/up to 2/);
  b.racialChoices[MOOGLE_LANGUAGES]=[MOOGLE_LANGUAGES+':option:celestial'];

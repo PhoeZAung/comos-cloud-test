@@ -39,7 +39,7 @@ test('Galka optional language selection and alternate traits are available with 
  for(const values of [[option('dwarven'),option('goblin')],[option('dwarven'),option('dwarven')],[option('celestial')]]){const wrong=fixture();wrong.racialChoices[LANG]=values;assert.throws(()=>compileBuild(wrong));}
  const removed=fixture();removed.disabledTraits=['ffd20:race:galka:feature:languages'];assert.throws(()=>compileBuild(removed),/inactive/);
  const low=fixture();low.baseScores.int=10;assert(buildIssues(low).some(i=>/choose (?:up to )?0/.test(i.message)));
- const html=renderBuild(fixture(),2);assert.match(html,/Dwarven/);assert.match(html,/data-rw-racial-choice="ffd20:race:galka:pool:high-intelligence-bonus-languages"/);
+  const html=renderBuild(fixture(),2),ability=renderBuild(fixture(),1,{mode:'create'});assert.doesNotMatch(html,/data-rw-language-slot/);assert.match(ability,/Dwarven/);assert.match(ability,/data-rw-language-slot="ffd20:race:galka:pool:high-intelligence-bonus-languages"/);
  assert.match(html,/data-rw-alternate="ffd20:race:galka:feature:architectural-ingenuity"/);
  assert.doesNotMatch(html,/data-rw-alternate="ffd20:race:galka:feature:architectural-ingenuity" disabled/);
  const alternate=fixture();alternate.alternateIds=['ffd20:race:galka:feature:architectural-ingenuity'];const selected=compileBuild(alternate);assert(selected.alternateRacialTraits.some(t=>t.name==='Architectural Ingenuity'&&t.enabled));
