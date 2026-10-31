@@ -10,12 +10,26 @@ const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
 const SYRICTA='ffd20:race:syricta';
 export const SYRICTA_ELEMENT=SYRICTA+':pool:elemental-resistance-selection';
 export const SYRICTA_BREATH=SYRICTA+':pool:breath-weapon-selection';
+export const SYRICTA_MEMORIES=SYRICTA+':pool:memories-knowledge-skills';
+const GENOME='ffd20:race:genome',PALICO='ffd20:race:palico',KINDRED='ffd20:race:kindred';
+const PALICO_START=PALICO+':pool:starting-second-language',KINDRED_START=KINDRED+':pool:languages-selection';
+const extraLanguageRacePools=new Map([
+ ['genome','bonus-languages'],['gria','bonus-languages'],['guado','bonus-languages'],
+ ['hypello','bonus-languages'],['mandragora','bonus-languages'],
+ ['palico','starting-second-language'],['kindred','languages-selection']
+].map(([slug,pool])=>['ffd20:race:'+slug+':pool:'+pool,{slug,pool}]));
+const optionalLangs={
+ palico:['Abyssal','Celestial','Elvaan','Galkan','Goblin','Orc'],
+ kindred:['Abyssal','Draconic','Dwarven','Elvaan','Infernal','Lalafellen','Orc']
+};
+const languageBonusId=id=>id+':pool:high-intelligence-bonus-languages';
+
 const HALF='ffd20:race:half-breed';
 export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -38,7 +52,7 @@ const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-')
 // Some source definitions use older extraction target names. Keep the
 // source records intact and append only their verified unconditional sheet maps.
 export function mappedRaceTraits(race,traits){
- if(![SYRICTA,LAMBKIN_ID,'ffd20:race:moomba','ffd20:race:shindroid','ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID,BURMECIAN_ID,DRACOBALTIAN_ID,GARIF_ID,GARLEAN_ID].includes(race.id))return traits;
+ if(![...['genome','gria','guado','hypello','mandragora'].map(slug=>'ffd20:race:'+slug),SYRICTA,LAMBKIN_ID,'ffd20:race:moomba','ffd20:race:shindroid','ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID,BURMECIAN_ID,DRACOBALTIAN_ID,GARIF_ID,GARLEAN_ID].includes(race.id))return traits;
  return traits.map(f=>{
   const mapped=[];
   const add=(e,target,value=e.value,textValue=e.textValue)=>mapped.push({...e,id:e.id+':sheet:'+mapped.length,target,value,textValue,automation:'automatic'});
@@ -90,7 +104,9 @@ export function racialChoiceSpecs(race,traits){
  // canonical source unchanged; expose its existing list only while trait active.
  if(race.id===DWARF_ID&&traits.some(f=>f.id===DWARF_ID+':feature:languages'))active.add(DWARF_LANGUAGES);
  const specs=race.choicePools.filter(p=>active.has(p.id)&&supported.has(p.id)).map(pool=>{
-  if(pool.id===HALF_ANCESTRAL_SLOT)return {...pool,minimum:1,maximum:1,options:[
+  if(pool.id===GENOME+':pool:bonus-languages')return {...pool,minimum:0,maximum:null,freeText:true};
+   if([PALICO_START,KINDRED_START].includes(pool.id))return {...pool,choiceType:'language',minimum:1,maximum:1};
+   if(pool.id===HALF_ANCESTRAL_SLOT)return {...pool,minimum:1,maximum:1,options:[
     {id:pool.id+':option:feat-and-skill',name:'Replace inherited Feat and Skill slot',value:'feat-and-skill'},
     {id:pool.id+':option:offense',name:'Replace inherited Offense slot',value:'offense'}]};
   if([SYRICTA_ELEMENT,SYRICTA_BREATH].includes(pool.id))return {...pool,minimum:1,maximum:1};
@@ -106,6 +122,18 @@ export function racialChoiceSpecs(race,traits){
   if(pool.id===LAMBKIN_POLYGLOT_LANGUAGE)return {...pool,name:'Polyglot starting language',minimum:1,maximum:1,freeText:true};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
+ // The official Palico/Kindred high-INT language lists were not staged as pools.
+  // Expose the verified list only while the source Languages trait is active.
+  if([PALICO,KINDRED].includes(race.id)&&traits.some(t=>t.id===race.id+':trait:languages')){
+   const slug=race.id.split(':').at(-1),id=languageBonusId(race.id);
+   specs.push({id,name:'Bonus languages',choiceType:'language',options:optionalLangs[slug].map(name=>({
+    id:id+':option:'+name.toLowerCase().replace(/\s+/g,'-'),name,value:name.toLowerCase().replace(/\s+/g,'-')
+   })),minimum:0,maximum:null});
+  }
+  if(race.id===SYRICTA&&traits.some(f=>f.id===SYRICTA+':trait:memories-of-the-forgotten'))
+   specs.push({id:SYRICTA_MEMORIES,name:'Memories of the Forgotten: two Knowledge skills',choiceType:'race_trait_option',
+    options:fixedSkills.flatMap((row,i)=>row.name.startsWith('Knw: ')?[{id:'skill-row:'+i,name:row.name,value:i}]:[]),
+    minimum:2,maximum:2});
  // The seven high-INT bonus languages are unchanged; one unrestricted extra
  // language is a separate required slot on the existing Ability Scores step.
  if(race.id===TARUTARU_ID&&traits.some(f=>f.id===POLYGLOT))
@@ -125,7 +153,11 @@ export function racialChoiceEffects(b,race,traits){
      textValue:spec.id===SYRICTA_ELEMENT?'Chosen resistance '+option.name+': 5 (manual application)':
       'Chosen breath weapon shape: '+option.name+'; 3/day, scales by character level (manual damage/uses)',
      automation:'manual'});
-   if(spec.id===HALF_ANCESTRAL_SLOT)effects.push({...base,kind:'custom',target:'race.half-breed.ancestral-arms-slot',
+   if(spec.id===SYRICTA_MEMORIES&&Number.isInteger(option.value)){
+     effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2}});
+     effects.push({...base,id:base.id+':class-skill',kind:'class_skill',target:'skills.row.'+option.value+'.class_skill',value:{kind:'constant',value:1}});
+    }
+    if(spec.id===HALF_ANCESTRAL_SLOT)effects.push({...base,kind:'custom',target:'race.half-breed.ancestral-arms-slot',
     textValue:'Ancestral Arms replaces '+(option.value==='offense'?'Offense':'Feat and Skill')+' slot only. Weapon proficiency type and weapon must still be chosen with verified parent race rules.',
     automation:'manual'});
    if(spec.id===GARLEAN_WEAPON&&option.value==='firearms-simple')effects.push({...base,kind:'proficiency',target:'proficiencies.weapon.firearms-simple',textValue:'Firearms (Simple)'});
@@ -159,7 +191,18 @@ export function racialChoiceIssues(b,race,traits,scores){
   const identities=spec.freeText?values.map(v=>languageName(v).toLowerCase()):values;
   if(new Set(identities).size!==values.length||values.some(v=>spec.freeText?!validLanguageChoice(v):!spec.options.some(o=>o.id===v)))errors.push('Invalid or duplicate '+spec.name+' selection.');
  }
- for(const [raceId,polyglotId,normalId,starting] of [
+ // A starting language is not also a valid high-INT bonus-language pick.
+  if([PALICO,KINDRED].includes(race?.id)){
+   const startingPool=race.id===PALICO?PALICO_START:KINDRED_START;
+   const chosen=byId.get(startingPool)?.options.find(o=>o.id===b.racialChoices?.[startingPool]?.[0])?.name?.toLowerCase();
+   const bonusPool=byId.get(languageBonusId(race.id));
+   if(chosen&&(b.racialChoices?.[bonusPool?.id]||[]).some(id=>bonusPool.options.find(o=>o.id===id)?.name?.toLowerCase()===chosen))
+    errors.push('The chosen starting language cannot be selected again as a bonus language.');
+  }
+  if(race?.id===GENOME&&byId.has(GENOME+':pool:bonus-languages')&&
+    (b.racialChoices?.[GENOME+':pool:bonus-languages']||[]).some(v=>languageName(v).toLowerCase()==='common'))
+    errors.push('Genome already starts with Common; bonus languages must be different.');
+  for(const [raceId,polyglotId,normalId,starting] of [
   [TARUTARU_ID,TARUTARU_POLYGLOT_LANGUAGE,TARUTARU_LANGUAGES,'lalafellan'],
   [LAMBKIN_ID,LAMBKIN_POLYGLOT_LANGUAGE,LAMBKIN_LANGUAGES,'lambkin']
  ])if(race?.id===raceId&&byId.has(polyglotId)){

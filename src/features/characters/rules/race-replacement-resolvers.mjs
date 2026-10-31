@@ -188,6 +188,29 @@ function replacementForBatch53(r,id){
   return [{...source,id:id+':language-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
    description:'Xenophobic modifies normal Languages to Albhedian only with no high-INT bonus language picks.'}];
  if(r.id==='ffd20:race:syricta'){
+   // These exact official swaps are not full Base Speed or Type removal.
+   // Retain the identity Type trait and the 20-ft land speed component.
+   if(exactly('dragon-type',['type','elemental-resistance','dragon-resistances','breath-weapon'],
+      'replace','partial_feature','unresolved'))
+    return [
+     {...source,id:id+':type-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+      targetFeatureIds:[p+'type'],addsFeatureIds:[],description:'Dragon Type changes the humanoid/reptilian creature type to dragon.'},
+     {...source,id:id+':defenses-and-breath-replacement',scope:'whole_feature',resolution:'manual',
+      targetFeatureIds:[p+'elemental-resistance',p+'dragon-resistances',p+'breath-weapon'],
+      description:'Dragon Type replaces Elemental Resistance, Dragon Resistances, and Breath Weapon.'}
+    ];
+   if(exactly('evasive-maneuvers',['darkvision','dragon-resistances'],'replace','partial_feature','unresolved'))
+    return [
+     {...source,id:id+':senses-and-defenses-replacement',scope:'whole_feature',resolution:'manual',
+      description:'Evasive Maneuvers replaces Darkvision and Dragon Resistances.'},
+     {...source,id:id+':maneuverability-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+      targetFeatureIds:[p+'base-speed'],addsFeatureIds:[],
+      description:'Evasive Maneuvers grants average fly maneuverability; retain land and fly speeds.'}
+    ];
+   if(exactly('memories-of-the-forgotten',['base-speed'],'replace','partial_feature','unresolved'))
+    return [{...source,id:id+':flight-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+     description:'Memories of the Forgotten removes only flight, preserves land speed, and requires two Knowledge choices.'}];
+
   if(exactly('wing-clipped',['base-speed','ability-score-racial-traits'],'replace','partial_feature','unresolved'))
    return [{...source,id:id+':component-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
     description:'Wing-Clipped modifies only fly speed, maneuverability and the -2 DEX racial penalty.'}];

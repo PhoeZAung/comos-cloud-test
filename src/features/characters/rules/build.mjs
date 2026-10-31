@@ -92,8 +92,12 @@ export function raceTraits(b){
   return f;
  }),effects=racialChoiceEffects(b,r,traits);
  const pick=(pool)=>r.choicePools.find(x=>x.id===pool)?.options.find(x=>x.id===b.racialChoices?.[pool]?.[0])?.name||'not selected';
- const note=r.id==='ffd20:race:syricta'?
-  'Chosen Elemental Resistance: '+pick(SYRICTA_ELEMENT)+' (resistance 5). Chosen Breath Weapon: '+pick(SYRICTA_BREATH)+' (3/day; damage/scaling and DC manual).':
+ const syrictaChoices=[
+   traits.some(f=>f.id===r.id+':trait:elemental-resistance')?'Chosen Elemental Resistance: '+pick(SYRICTA_ELEMENT)+' (resistance 5).':'',
+   traits.some(f=>f.id===r.id+':trait:breath-weapon')?'Chosen Breath Weapon: '+pick(SYRICTA_BREATH)+' (3/day; damage/scaling and DC manual).':'',
+   traits.some(f=>f.id===r.id+':trait:memories-of-the-forgotten')?'Memories of the Forgotten: two selected Knowledge skills have +2 racial bonuses and count as class skills.':''
+  ].filter(Boolean).join(' ');
+ const note=r.id==='ffd20:race:syricta'?syrictaChoices:
   r.id==='ffd20:race:half-breed'?'Ancestral Arms replaces the selected inherited '+(b.racialChoices?.[HALF_ANCESTRAL_SLOT]?.[0]?.endsWith(':option:offense')?'Offense':'Feat and Skill')+' slot, not both; inherited parent choices remain unverified.':
   'Your chosen racial benefits.';
  return {traits:effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:note,sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits,replaced:[...consumed],errors};
@@ -181,7 +185,6 @@ export function buildIssues(b,{complete=true}={}){
   if(active.has('ffd20:race:ixal:trait:elemental-summoner'))add(2,'Ixal Elemental Summoner requires choosing one elemental subtype; race-specific choice UI is unavailable and character saving is blocked.');
  }
  if(race?.id==='ffd20:race:kindred'){
-  add(2,'Kindred must choose exactly one Abyssal or Infernal starting language; current wizard cannot store this required racial choice, so character saving is blocked.');
   if(b.alternateIds.includes('ffd20:race:kindred:trait:maw-or-claw'))add(2,'Kindred Maw or Claw requires selecting one natural attack package, unsupported by the wizard; character saving is blocked.');
  }
  if(race?.id==='ffd20:race:lamia'){
@@ -277,6 +280,25 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
   if(original.raceId===raw?.raceId){
    if((original.heritageId||'')!==(raw.heritageId||''))bad('Race heritage is chosen at character creation and is permanent.');
    if(JSON.stringify([...(original.alternateIds||[])].sort())!==JSON.stringify([...(raw.alternateIds||[])].sort()))bad('Alternate racial traits are chosen at character creation and are permanent.');
+  }
+ }
+ // These starting and racial Knowledge choices are permanent once the character is saved.
+ if(previous.rulesBuild?.input&&previous.rulesBuild.input.raceId===raw?.raceId){
+  const raceId=raw.raceId,original=previous.rulesBuild.input;
+  const fixedPools={
+   'ffd20:race:genome':['bonus-languages'],
+   'ffd20:race:gria':['bonus-languages'],
+   'ffd20:race:guado':['bonus-languages'],
+   'ffd20:race:hypello':['bonus-languages'],
+   'ffd20:race:mandragora':['bonus-languages'],
+   'ffd20:race:palico':['starting-second-language','high-intelligence-bonus-languages'],
+   'ffd20:race:kindred':['languages-selection','high-intelligence-bonus-languages'],
+   'ffd20:race:syricta':['memories-knowledge-skills']
+  }[raceId]||[];
+  for(const suffix of fixedPools){
+   const pool=raceId+':pool:'+suffix;
+   if(JSON.stringify(original.racialChoices?.[pool]||[])!==JSON.stringify(raw.racialChoices?.[pool]||[]))
+    bad('Starting racial language and Knowledge choices cannot be changed after character creation.');
   }
  }
  if(previous.rulesBuild?.input?.raceId==='ffd20:race:quadav'){

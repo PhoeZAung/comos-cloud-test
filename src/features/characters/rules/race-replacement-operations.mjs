@@ -199,8 +199,26 @@ const isWholeTraitReplacement=(race,op)=>{
  }
  return true;
 };
+// Source-bound Syricta partial replacements retain non-replaced components.
+const verifiedSyrictaPartial=(race,op)=>{
+ if(race?.id!=='ffd20:race:syricta'||op?.operation!=='modify'||op.scope!=='part_of_feature'||op.resolution!=='manual')return false;
+ const p=race.id+':trait:',target=op.targetFeatureIds||[],adds=op.addsFeatureIds||[];
+ const eq=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
+ if((op.targetEventIds||[]).length||(op.addsEventIds||[]).length||(op.removesComponents||[]).length)return false;
+ const base=race.features.find(f=>f.id===p+'base-speed');
+ const speeds=(base?.effects||[]).some(e=>e.target==='identity.speed.land'&&e.value?.value===20)&&
+  (base?.effects||[]).some(e=>e.target==='identity.speed.fly'&&e.value?.value===40);
+ if(op.id===p+'dragon-type:type-modifier')return eq(target,[p+'type'])&&eq(adds,[])&&
+  race.features.some(f=>f.id===p+'type'&&f.effects?.some(e=>e.target==='identity.type'&&e.textValue==='humanoid'));
+ if(op.id===p+'evasive-maneuvers:maneuverability-modifier')
+  return speeds&&eq(target,[p+'base-speed'])&&eq(adds,[]);
+ if(op.id===p+'memories-of-the-forgotten:flight-modifier')
+  return speeds&&eq(target,[p+'base-speed'])&&eq(adds,[p+'memories-of-the-forgotten']);
+ return false;
+};
 export const isSupportedRaceOperation=(race,op)=>
  isWholeTraitReplacement(race,op)||
+ verifiedSyrictaPartial(race,op)||
  newBatchModifier(race,op)||
  isHalfSlot(race,op)||
  // PR #46 source-approved partial
@@ -251,6 +269,18 @@ export function isSupportedRaceHeritage(race,heritage){
 }
 
 export function applyRaceModification(race,feature,op){
+ if(verifiedSyrictaPartial(race,op)){
+  const p=race.id+':trait:';
+  if(op.id===p+'dragon-type:type-modifier'&&feature.id===p+'type')
+   return {...feature,description:'Dragon creature type, rather than humanoid (reptilian). Gain immunity to sleep and paralysis; effects targeting dragons apply to this Syricta (manual adjudication).',
+    effects:(feature.effects||[]).filter(e=>e.target!=='identity.subtypes').map(e=>e.target==='identity.type'?{...e,textValue:'dragon'}:e)};
+  if(op.id===p+'evasive-maneuvers:maneuverability-modifier'&&feature.id===p+'base-speed')
+   return {...feature,description:'20 ft land and 40 ft fly (average maneuverability with Evasive Maneuvers). +2 dodge AC and Reflex saving throws against siege weapons (situational/manual).'};
+  if(op.id===p+'memories-of-the-forgotten:flight-modifier'&&feature.id===p+'base-speed')
+   return {...feature,description:'20 ft base land speed; Memories of the Forgotten replaces only racial flight.',
+    effects:(feature.effects||[]).filter(e=>e.target!=='identity.speed.fly')};
+ }
+
  // PR #51 source-approved runtime effects
  if(sourceSylphSpeed(race)&&feature?.id===SYLPH_SPEED&&op?.id===SYLPH_IMPROVED+':speed-modifier'){
   return {...feature,description:'Improved Flight: base land speed 10 ft and fly speed 60 ft (good maneuverability); Camouflage and Beguiling Liar are lost.',
