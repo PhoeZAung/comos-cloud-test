@@ -104,7 +104,20 @@ export function raceTraits(b){
  const note=r.id==='ffd20:race:syricta'?syrictaChoices:
   r.id==='ffd20:race:half-breed'?'Ancestral Arms replaces the selected inherited '+(b.racialChoices?.[HALF_ANCESTRAL_SLOT]?.[0]?.endsWith(':option:offense')?'Offense':'Feat and Skill')+' slot, not both; inherited parent choices remain unverified.':
   'Your chosen racial benefits.';
- return {traits:effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:note,sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits,replaced:[...consumed],errors};
+ // Four source-defined Sylph Fey Magic spell-like abilities have separate
+ // usage pools: one daily and three independently tracked weekly. These are
+ // not learned class spells, and their recharge must not be guessed.
+ const sylphUses=r.id==='ffd20:race:sylph'&&traits.some(f=>f.id===r.id+':trait:fey-magic')?
+  [['hidden-presence','Hidden Presence',1,'day'],['charm','Charm',3,'week'],
+   ['lesser-confusion','Lesser Confusion',3,'week'],['sleep','Sleep',3,'week']]
+    .map(([slug,name,uses,period])=>({
+     id:r.id+':trait:fey-magic:uses:'+slug,
+     name:'Fey Magic · '+name+' ('+uses+'/'+period+')',
+     description:name+' spell-like ability '+uses+'/'+period+'. Caster level equals character level; save DC uses Charisma. Track uses manually; reset at the source-defined '+period+' boundary. No class spell known or MP cost is added.',
+     choicePoolIds:[],effects:[]
+    })): [];
+ const selected=effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:note,sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits;
+ return {traits:[...selected,...sylphUses],replaced:[...consumed],errors};
 }
 export function effectiveScores(b){const result={...b.baseScores};for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=buildLevel(b)&&stats.includes(key))result[key]++;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}if(b.archetypeId===DOOM_SLAYER_ID&&b.classId==='ffd20:class:gunbreaker'&&b.level===20)for(const key of ['str','dex','wis'])result[key]+=2;return result;}
 // Kindred's +2 applies only to mage-class spells and features, never to the
