@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { routeId } from '../src/ui/router.mjs';
+import { header } from '../src/layouts/site.mjs';
 
 test('soft navigation stays in the current live or fixture root and excludes the focused sheet',()=>{
  const live=new URL('https://example.test/');
@@ -55,4 +56,12 @@ test('install manifest has valid icons and same-origin shortcuts; live-only poli
  for(const item of manifest.shortcuts)assert.ok(item.url.startsWith('/')&&!item.url.startsWith('//'));
  const html=await readFile(new URL('dist/index.html',root),'utf8');
  assert.doesNotMatch(html,/rel="manifest"/);assert.match(html,/connect-src &#39;none&#39;/);
+});
+
+
+test('main navigation hides Languages page without removing language choices from wizard',()=>{
+ const html=header({layout:'app',activeMain:'characters'});
+ assert.match(html,/href="characters\.html"/);
+ assert.doesNotMatch(html,/href="languages\.html"/);
+ assert.doesNotMatch(html,/>Languages<\/a>/);
 });
