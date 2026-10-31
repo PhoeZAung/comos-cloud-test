@@ -11,6 +11,7 @@ test('All 63 races: structurally sound manual whole-feature replacements remove 
  assert.equal(registry.races.length,63);
  let count=0;const distinct=new Set();
  for(const r of registry.races)for(const id of r.data.alternateTraitIds){
+  if(r.id==='ffd20:race:half-breed'&&id==='ffd20:race:half-breed:trait:ancestral-arms')continue; // one-of-two chosen replacement has separate tests
   const ops=replacementFor(r,id);
   if(!ops.length||!ops.some(o=>o.resolution==='manual'&&o.scope==='whole_feature'&&o.operation==='replace')||!ops.every(o=>isSupportedRaceOperation(r,o)))continue;
   count++;distinct.add(r.id);
@@ -28,7 +29,7 @@ test('All 63 races: structurally sound manual whole-feature replacements remove 
  assert.ok(distinct.size>10,'race breadth: '+distinct.size);
 });
 test('Unresolved/partial replacements and source-unverified modifications remain unavailable',()=>{
- for(const [name,slug] of [['beastkin','alluring'],['namazu','fast'],['syricta','dragon-type'],['sylph','improved-flight'],['seto-lion','nimble-attacks'],['trollkin','faster-healing']]){
+ for(const [name,slug] of [['syricta','dragon-type']]){
   const r=race(name),id=r.id+':trait:'+slug,b={...newBuild(),raceId:r.id,alternateIds:[id]};
   assert.ok(raceTraits(b).errors.length>0,name);assert.ok(buildIssues(b).some(x=>/replacement/.test(x.message)),name);
   assert.match(renderBuild(b,2),new RegExp('data-rw-alternate="'+id+'" disabled'));

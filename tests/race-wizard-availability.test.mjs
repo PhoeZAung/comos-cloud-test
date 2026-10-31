@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {registry,newBuild,buildIssues,compileBuild} from '../src/features/characters/rules/build.mjs';
+import {registry,newBuild,buildIssues,compileBuild,raceTraits} from '../src/features/characters/rules/build.mjs';
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
 const get=key=>registry.races.find(r=>r.id==='ffd20:race:'+key);
@@ -34,13 +34,13 @@ test('unsupported standard trait choices and unavailable alternates cannot bypas
  const b=newBuild();b.raceId=get('ixal').id;
  assert(buildIssues(b).some(i=>/Elemental Summoner/.test(i.message)));
  b.raceId=get('sylph').id;b.alternateIds=[b.raceId+':trait:improved-flight'];
- assert(buildIssues(b).some(i=>/Improved Flight/.test(i.message)));
+ assert(!buildIssues(b).some(i=>/Improved Flight|replacement/.test(i.message)));assert.deepEqual(raceTraits(b).errors,[]);
 });
 
 test('Beastkin uses normal wizard name and greys out only unsupported alternates',()=>{
  const b=newBuild();b.raceId='ffd20:race:beastkin';const html=renderBuild(b,2);
  assert.match(html,/Official Beastkin rules/);assert.doesNotMatch(html,/Beastkin \(testing\)|Testing race/);
- for(const id of ['alluring','feral','light-build','loper'])assert.match(html,new RegExp('data-rw-alternate="ffd20:race:beastkin:trait:'+id+'" disabled'));
+ for(const id of ['alluring','light-build','loper']){assert.match(html,new RegExp('data-rw-alternate="ffd20:race:beastkin:trait:'+id+'"'));assert.doesNotMatch(html,new RegExp('data-rw-alternate="ffd20:race:beastkin:trait:'+id+'" disabled'));}assert.match(html,/data-rw-alternate="ffd20:race:beastkin:trait:feral" disabled/);
  assert.match(html,/data-rw-alternate="ffd20:race:beastkin:trait:civilized"/);
  assert.doesNotMatch(html,/data-rw-alternate="ffd20:race:beastkin:trait:civilized" disabled/);
 });

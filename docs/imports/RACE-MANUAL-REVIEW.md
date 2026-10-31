@@ -16,23 +16,23 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Race | Specific items | What to resolve |
 | --- | --- | --- |
 | Aegyl | Wing-Clipped | Replaces Emotionless but modifies only flight speed/maneuverability; retain land speed |
-| Beastkin | Alluring, Feral, Light Build, Loper | Partial ability/armor vectors; Feral has no explicit target |
-| Garlean | Xenophobia Extremis | Modifies score adjustment and Languages, rather than replacing the entire traits |
-| Al Bhed | Xenophobic | Replaces starting languages without a complete automatic language effect; must remove Common, disallow INT bonus languages and handle Linguistics progression |
-| Forgiven | Scion of Mortality | Changes language and dual-race identity/subtype rather than replacing Type/Languages as entirely removed fields |
-| Lambkin | Polyglot | Modifies Magic Expert and Languages |
+| Beastkin | Alluring, Feral, Light Build, Loper | **Draft:** Alluring/Light Build independent partial ability swaps (+2 CHA instead of WIS, +2 DEX instead of STR), combinable; Loper removes Natural Armor and increases base land 30→40 ft while keeping conditional Sprinter. **Feral remains blocked**: no clear stacking or replacement target |
+| Garlean | Xenophobia Extremis | **Draft:** retain +2 CON/+2 INT, replace -2 WIS with -2 CHA, keep Common but suppress INT-based bonus language pool; existing first-level and MP guards unchanged |
+| Al Bhed | Xenophobic | **Draft:** starting language Albhedian only (not Common), high-INT language pool removed, one language per two Linguistics ranks and conditional +1 saves remain manual; Magic Resistant SR 11 + level/manual lowering not fully automated |
+| Forgiven | Scion of Mortality | **Draft:** removes Celestial only and retains Common, outsider(native) identity, plus explicit manual humanoid(hume) race eligibility; broader conditional typing/spells remain manual |
+| Lambkin | Polyglot | **Draft implementation:** replaces Magic Expert; retains Common/Lambkin and the high-INT list; +2 Linguistics/class skill, plus one required freely chosen starting language. Await PR CI and explicit publishing; Auto-Float and other situational traits stay manual |
 | Moogle | Grounded | Partial Base Speed/flight modification |
-| Moomba | Climb | Climb speed 20 ft and land 30 ft but no formal old-trait replacement target |
-| Namazu | Fast, Focused Study | Partial speed, skills, or feature ownership |
-| Quadav | Water Tribe | Partial Full Withdrawal replacement |
-| Seto Lion | Faster, Nimble Attacks | Partial Claws/Bite/Fast replacements |
-| Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | Partial status, plating, score and speed adjustments |
-| Sylph | Improved Flight | Compound Camouflage/Beguiling Liar replacement; preserve correct flight mechanics |
-| Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | Conflicting or incomplete type, speed, vision, language and ability-score modifications |
+| Moomba | Climb | **Draft:** source-bounded component modification: land 40→30 ft, climb 20 ft and +8 Climb; broader Moomba speech/natural-attacks rules stay manual |
+| Namazu | Fast, Focused Study | **Fast draft:** replaces Skilled Traders, land 30→40 ft, swim stays 30 ft. **Focused Study remains blocked** until skill picks at levels 1/8/16 are supported |
+| Quadav | Water Tribe | **Draft implementation:** Full Withdrawal fully replaced, only Base Speed swim component increases from 30 to 50 ft (20-ft land unchanged), and Bond to the Land has a required swamp/underground choice; conditional AC remains manual. Await CI, manual signed-in validation and explicit publishing |
+| Seto Lion | Faster, Nimble Attacks | **Draft:** Faster replaces Claws (+10 speed); Nimble replaces Bite/Fast (-10 speed); together net baseline 50 ft; other features and Frost Wolf heritage remain guarded |
+| Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | **Draft:** Anomaly replaces Emotionless and modifies only Robotic Immunities (retains fatigue/exhaustion/sleep; loses fear/emotion immunity); grants Bluff/Sense Motive class skills and leaves situational -2 saves manual. Heavy Platform modifies land speed 30→20 ft, preserves other traits; weight and encumbrance conditions manual. **Hologram/Race Simulation remain blocked** |
+| Sylph | Improved Flight | **Draft:** removes Camouflage and Beguiling Liar, retains Base Speed with 10-ft land / 60-ft good flight (instead of 20/40 poor); other conditional mobility remains manual |
+| Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | **Draft:** elemental resistance and breath shape recorded as required source choices; Wing-Clipped preserves land 20 ft, changes fly 40 poor→20 clumsy, removes only −2 DEX and grants +2 Bluff/Climb/Diplomacy; Neglected Heritage removes only Draconic, keeps Common and manual +1 situational Diplomacy. Dragon Type, Evasive Maneuvers and Memories of the Forgotten remain blocked |
 | Tarutaru | Polyglot language modifier | **Implemented:** Magic Expert replaced; Languages retained; +2 Linguistics and class skill automated; required unrestricted extra language selected on Ability Scores, independently of high-INT bonus language pool. Verify signed-in save/reopen manually |
-| Tonkin | Dancing Lantern | Partial Lantern Bearer change |
-| Trollkin | Faster Healing | Combined Thick Skin/Fast Healing change; suppression and healing behavior |
-| Half-Breed | Ancestral Arms; inherited features | Parent races, feat/skill/offense choices and racial point budget must be validated |
+| Tonkin | Dancing Lantern | **Draft implementation:** retains Lantern Bearer light defenses, replaces only its conditional torchlight spell-like ability with Dancing Lantern at will; no new wizard page. Await CI and explicit publishing. Other Tonkin speech/casting limitations remain guarded/manual |
+| Trollkin | Faster Healing | **Draft:** replaces Thick Skin and normal Fast Healing 1 with one Fast Healing 2 rule card; HP turn ticks, suppression source conflict and attack particulars remain manual |
+| Half-Breed | Ancestral Arms; inherited features | **Draft staging only:** Ancestral Arms wizard selector chooses either feat/skill or offense inherited slot; source two-target replacement is rejected and one selected slot is retained. **Entire Half-Breed creation remains blocked** pending legal parents, RP metadata, inherited-trait options, selected weapon proficiency and favored-class reconciliation |
 | Dwarf | Saltbeard | **Already fixed:** Greed is modified, not removed. Confirm underwater treasure Appraise +2 and keep other conditional bonuses manual |
 
 Do **not** unblock these by simply marking their extracted mapping “resolved”. For each, verify precisely what survives and what is replaced or modified.

@@ -1,15 +1,21 @@
 import {fixedSkills} from '../../sheet/skills.mjs';
-import {DWARF_ID,DWARF_LANGUAGES,GARLEAN_ID,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,DRACOBALTIAN_LANGUAGES,BURMECIAN_ID,BURMECIAN_LANGUAGES,BEASTKIN_ID,BEASTKIN_LANGUAGES,BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
+import {QUADAV_ID,QUADAV_TERRAIN,LAMBKIN_ID,LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,DWARF_ID,DWARF_LANGUAGES,GARLEAN_ID,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,DRACOBALTIAN_LANGUAGES,BURMECIAN_ID,BURMECIAN_LANGUAGES,BEASTKIN_ID,BEASTKIN_LANGUAGES,BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
 
 const IMMORTAL='ffd20:race:immortal:pool:';
 const POLYGLOT=TARUTARU_ID+':trait:polyglot';
+const LAMBKIN_POLYGLOT=LAMBKIN_ID+':trait:polyglot';
 export const TARUTARU_POLYGLOT_LANGUAGE=TARUTARU_ID+':pool:polyglot-starting-language';
 const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
 const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
+const SYRICTA='ffd20:race:syricta';
+export const SYRICTA_ELEMENT=SYRICTA+':pool:elemental-resistance-selection';
+export const SYRICTA_BREATH=SYRICTA+':pool:breath-weapon-selection';
+const HALF='ffd20:race:half-breed';
+export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -32,13 +38,16 @@ const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-')
 // Some source definitions use older extraction target names. Keep the
 // source records intact and append only their verified unconditional sheet maps.
 export function mappedRaceTraits(race,traits){
- if(!['ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID,BURMECIAN_ID,DRACOBALTIAN_ID,GARIF_ID,GARLEAN_ID].includes(race.id))return traits;
+ if(![SYRICTA,LAMBKIN_ID,'ffd20:race:moomba','ffd20:race:shindroid','ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID,BURMECIAN_ID,DRACOBALTIAN_ID,GARIF_ID,GARLEAN_ID].includes(race.id))return traits;
  return traits.map(f=>{
   const mapped=[];
   const add=(e,target,value=e.value,textValue=e.textValue)=>mapped.push({...e,id:e.id+':sheet:'+mapped.length,target,value,textValue,automation:'automatic'});
   for(const e of f.effects||[]){
    if(e.condition)continue;
    if(e.automation==='automatic'&&e.kind==='skill_bonus'&&/^skills\.[a-z_-]+$/.test(e.target))add(e,'skills.skill:'+e.target.slice(7).replaceAll('_','-')+'.bonus');
+   if(race.id===LAMBKIN_ID&&f.id===LAMBKIN_ID+':trait:size'&&e.target==='skills.stealth'&&
+    e.kind==='skill_bonus'&&e.value?.kind==='constant'&&e.value.value===4)
+    add(e,'skills.skill:stealth.bonus');
    if(race.id===HUME_ID&&f.id.endsWith(':curiosity')&&e.kind==='class_skill')add(e,'skills.skill:'+e.target.slice(7)+'.class_skill',{kind:'constant',value:1});
    if(!race.data.standardTraitIds.includes(f.id))continue;
    if(e.target==='size_category')add(e,'identity.size_category');
@@ -54,7 +63,19 @@ export function mappedRaceTraits(race,traits){
    if([AU_RA_ID,BURMECIAN_ID].includes(race.id)&&e.target==='senses.darkvision')add(e,'identity.senses.darkvision',null,'Darkvision '+e.textValue);
    if(e.target==='senses.low_light_vision')add(e,'identity.senses.low_light_vision');
   }
-  if(race.id===TARUTARU_ID&&f.id===POLYGLOT)
+  if(race.id==='ffd20:race:moomba'&&f.id==='ffd20:race:moomba:trait:climb'&&
+   f.effects?.some(e=>e.target==='identity.speed.climb'&&e.value?.value===20))
+   mapped.push({id:f.id+':sheet:climb-speed-skill',kind:'skill_bonus',target:'skills.skill:climb.bonus',
+    operation:'add',value:{kind:'constant',value:8},bonusType:'racial',condition:null,automation:'automatic'});
+  if(race.id==='ffd20:race:shindroid'&&f.id==='ffd20:race:shindroid:trait:anomaly')
+   for(const name of ['bluff','sense-motive'])mapped.push({
+    id:f.id+':sheet:class-skill:'+name,kind:'class_skill',target:'skills.skill:'+name+'.class_skill',
+    operation:'add',value:{kind:'constant',value:1},bonusType:'racial',condition:null,automation:'automatic'});
+  if(race.id===SYRICTA&&f.id===SYRICTA+':trait:wing-clipped')
+   for(const skill of ['bluff','climb','diplomacy'])mapped.push({
+    id:f.id+':sheet:'+skill,kind:'skill_bonus',target:'skills.skill:'+skill+'.bonus',operation:'add',
+    value:{kind:'constant',value:2},bonusType:'racial',condition:null,automation:'automatic'});
+  if((race.id===TARUTARU_ID&&f.id===POLYGLOT)||(race.id===LAMBKIN_ID&&f.id===LAMBKIN_POLYGLOT))
    mapped.push({id:f.id+':sheet:linguistics-class-skill',kind:'class_skill',target:'skills.skill:linguistics.class_skill',operation:'add',value:{kind:'constant',value:1},bonusType:'racial',condition:null,automation:'automatic'});
   if(race.id===GARLEAN_ID&&f.id===GARLEAN_ID+':trait:noble-upbringing')for(const [row,label] of [[20,'history'],[23,'nobility']])mapped.push({id:f.id+':sheet:class-skill:'+label,kind:'class_skill',target:'skills.row.'+row+'.class_skill',operation:'add',value:{kind:'constant',value:1},bonusType:null,condition:null,automation:'automatic'});
   if(race.id===GARIF_ID&&f.id===GARIF_ID+':trait:weapon-familiarity')for(const name of ['Longspear','Shortspear','Javelin','Boar spear'])mapped.push({id:f.id+':sheet:weapon:'+name.toLowerCase().replaceAll(' ','-'),kind:'proficiency',target:'proficiencies.weapon.'+name.toLowerCase().replaceAll(' ','-'),operation:'grant',value:null,textValue:name,bonusType:null,condition:null,automation:'automatic'});
@@ -69,15 +90,20 @@ export function racialChoiceSpecs(race,traits){
  // canonical source unchanged; expose its existing list only while trait active.
  if(race.id===DWARF_ID&&traits.some(f=>f.id===DWARF_ID+':feature:languages'))active.add(DWARF_LANGUAGES);
  const specs=race.choicePools.filter(p=>active.has(p.id)&&supported.has(p.id)).map(pool=>{
+  if(pool.id===HALF_ANCESTRAL_SLOT)return {...pool,minimum:1,maximum:1,options:[
+    {id:pool.id+':option:feat-and-skill',name:'Replace inherited Feat and Skill slot',value:'feat-and-skill'},
+    {id:pool.id+':option:offense',name:'Replace inherited Offense slot',value:'offense'}]};
+  if([SYRICTA_ELEMENT,SYRICTA_BREATH].includes(pool.id))return {...pool,minimum:1,maximum:1};
   if(pool.id===GARLEAN_WEAPON)return {...pool,minimum:1,maximum:1,options:pool.options.filter(o=>o.value==='firearms-simple')};
   if(pool.id===GARLEAN_CRAFT)return {...pool,minimum:1,maximum:1,specialty:true,options:fixedSkills.flatMap((row,i)=>row.name==='Craft'?[{id:'skill-row:'+i,name:'Craft '+(i-3),value:i}]:[])};
   if(pool.id===GARIF_PASTORALIST)return {...pool,minimum:1,maximum:1,specialty:true,specialtyRequiredFor:[4,5,6,34,35,36].map(i=>'skill-row:'+i),options:fixedSkills.flatMap((row,i)=>[4,5,6,22,34,35,36,43].includes(i)?[{id:'skill-row:'+i,name:['Craft','Profession'].includes(row.name)?row.name+' '+(fixedSkills.slice(0,i).filter(r=>r.name===row.name).length+1):row.name,value:i}]:[])};
-  if(pool.id===GARIF_TERRAIN)return {...pool,minimum:1,maximum:1};
+  if([GARIF_TERRAIN,QUADAV_TERRAIN].includes(pool.id))return {...pool,minimum:1,maximum:1};
   if(pool.id===AL_BHED_GENIUS)return {...pool,minimum:1,maximum:1,specialty:true,specialtyRequiredFor:[4,5,6].map(i=>'skill-row:'+i),options:fixedSkills.flatMap((row,i)=>[4,5,6,8,18,34,35,36,45].includes(i)?[{id:'skill-row:'+i,name:row.name==='Profession'?'Profession (engineering) '+(i-33):row.name==='Craft'?'Craft '+(i-3):row.name,value:i}]:[])};
   if([HANDY,TARUTARU_TALENTED].includes(pool.id))return {...pool,minimum:1,maximum:1,specialty:true,options:fixedSkills.flatMap((row,i)=>['Craft','Profession'].includes(row.name)?[{id:'skill-row:'+i,name:row.name+' '+(fixedSkills.slice(0,i).filter(r=>r.name===row.name).length+1),value:i}]:[])};
   if(pool.id===IMMORTAL+'long-lived-knowledge')return {...pool,minimum:0,maximum:4,options:fixedSkills.filter(row=>row.name.startsWith('Knw: ')).map(row=>({id:skillId(row),name:row.name,value:skillId(row)}))};
   if(pool.id===ELVAAN_WEAPON)return {...pool,minimum:1,maximum:1,options:pool.options.filter(o=>traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&e.target==='proficiencies.weapon.'+o.value)))};
   if(pool.id===HUME_LANGUAGES)return {...pool,minimum:0,maximum:null,freeText:true};
+  if(pool.id===LAMBKIN_POLYGLOT_LANGUAGE)return {...pool,name:'Polyglot starting language',minimum:1,maximum:1,freeText:true};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
  // The seven high-INT bonus languages are unchanged; one unrestricted extra
@@ -94,6 +120,14 @@ export function racialChoiceEffects(b,race,traits){
   const options=spec.freeText?selected.filter(validLanguageChoice).map(id=>({id,name:languageName(id),value:languageName(id).toLowerCase().replace(/\s+/g,'-')})):selected.map(id=>spec.options.find(o=>o.id===id)).filter(Boolean);
   for(const option of options){
    const base={id:spec.id+':selected:'+option.id,operation:'add',automation:'automatic',condition:null,bonusType:'racial'};
+   if([SYRICTA_ELEMENT,SYRICTA_BREATH].includes(spec.id))
+    effects.push({...base,kind:'custom',target:'race.syricta.'+(spec.id===SYRICTA_ELEMENT?'elemental-resistance':'breath-shape'),
+     textValue:spec.id===SYRICTA_ELEMENT?'Chosen resistance '+option.name+': 5 (manual application)':
+      'Chosen breath weapon shape: '+option.name+'; 3/day, scales by character level (manual damage/uses)',
+     automation:'manual'});
+   if(spec.id===HALF_ANCESTRAL_SLOT)effects.push({...base,kind:'custom',target:'race.half-breed.ancestral-arms-slot',
+    textValue:'Ancestral Arms replaces '+(option.value==='offense'?'Offense':'Feat and Skill')+' slot only. Weapon proficiency type and weapon must still be chosen with verified parent race rules.',
+    automation:'manual'});
    if(spec.id===GARLEAN_WEAPON&&option.value==='firearms-simple')effects.push({...base,kind:'proficiency',target:'proficiencies.weapon.firearms-simple',textValue:'Firearms (Simple)'});
    if(spec.id===GARLEAN_CRAFT)effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2},specialty:b.racialSpecialties?.[spec.id]||''});
    if(spec.id===GARIF_PASTORALIST){
@@ -125,11 +159,14 @@ export function racialChoiceIssues(b,race,traits,scores){
   const identities=spec.freeText?values.map(v=>languageName(v).toLowerCase()):values;
   if(new Set(identities).size!==values.length||values.some(v=>spec.freeText?!validLanguageChoice(v):!spec.options.some(o=>o.id===v)))errors.push('Invalid or duplicate '+spec.name+' selection.');
  }
- if(race?.id===TARUTARU_ID&&byId.has(TARUTARU_POLYGLOT_LANGUAGE)){
-  const extra=languageName(b.racialChoices?.[TARUTARU_POLYGLOT_LANGUAGE]?.[0]).toLowerCase();
-  const standardPool=byId.get(TARUTARU_LANGUAGES);
-  const normal=new Set((b.racialChoices?.[TARUTARU_LANGUAGES]||[]).map(id=>standardPool?.options.find(o=>o.id===id)?.name?.toLowerCase()).filter(Boolean));
-  if(extra==='lalafellan'||normal.has(extra))errors.push('Polyglot extra language must be different from starting languages and selected bonus languages.');
+ for(const [raceId,polyglotId,normalId,starting] of [
+  [TARUTARU_ID,TARUTARU_POLYGLOT_LANGUAGE,TARUTARU_LANGUAGES,'lalafellan'],
+  [LAMBKIN_ID,LAMBKIN_POLYGLOT_LANGUAGE,LAMBKIN_LANGUAGES,'lambkin']
+ ])if(race?.id===raceId&&byId.has(polyglotId)){
+  const extra=languageName(b.racialChoices?.[polyglotId]?.[0]).toLowerCase();
+  const standardPool=byId.get(normalId);
+  const normal=new Set((b.racialChoices?.[normalId]||[]).map(id=>standardPool?.options.find(o=>o.id===id)?.name?.toLowerCase()).filter(Boolean));
+  if(extra===starting||normal.has(extra))errors.push('Polyglot extra language must be different from starting languages and selected bonus languages.');
  }
  for(const spec of specs){
   if(spec.id===ELVAAN_WEAPON&&!spec.options.length)errors.push('Martial Background requires a verified proficient weapon. Keep Elvaan Weapon Familiarity active for this limited integration.');

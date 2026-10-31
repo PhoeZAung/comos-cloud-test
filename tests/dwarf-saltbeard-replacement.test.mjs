@@ -62,7 +62,7 @@ test('Only source-verified partial modification is whitelisted; other unresolved
  const other=registry.races.find(r=>r.id==='ffd20:race:beastkin');
  const unresolved=other.data.alternateReplacements.find(op=>op.resolution!=='resolved');
  assert.ok(unresolved);assert.equal(isSupportedRaceOperation(other,unresolved),false);
- const b=newBuild();b.raceId=other.id;b.alternateIds=[other.id+':trait:alluring'];
+ const b=newBuild();b.raceId=other.id;b.alternateIds=[other.id+':trait:feral'];
  assert.ok(raceTraits(b).errors.some(x=>/precise replacement/.test(x)));
 });
 test('Saltbeard selection becomes permanent after creation, without a new terrain wizard',()=>{

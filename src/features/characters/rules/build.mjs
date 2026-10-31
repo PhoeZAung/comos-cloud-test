@@ -6,7 +6,7 @@ import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT
 import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions,RED_MAGERY_EVENT,redMageHasSpells,redMageArchetype,redMageCounter} from './red-mage-level-one.mjs';
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
-import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT} from './racial-choices.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage,applyRaceModification} from './race-replacement-operations.mjs';
 import {seedRacialMovement} from '../../sheet/movement.mjs';
 import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
@@ -30,19 +30,37 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
+import {replacementFor} from './race-replacement-resolvers.mjs';
+export {replacementFor};
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
  const heritage=r.data.heritages.find(h=>h.id===b.heritageId),heritageSafe=!heritage||isSupportedRaceHeritage(r,heritage);
  if(heritage&&!heritageSafe)errors.push('Selected heritage needs a verified replacement and automatic ability-score vector or required choice control.');
- const operations=[...(heritageSafe?heritage?.replacements||[]:[]),...b.alternateIds.flatMap(id=>replacementFor(r,id))];
+ const operations=[...(heritageSafe?heritage?.replacements||[]:[]),...b.alternateIds.flatMap(id=>{
+  const candidates=replacementFor(r,id);
+  if(r.id==='ffd20:race:half-breed'&&id==='ffd20:race:half-breed:trait:ancestral-arms'&&candidates.length===2){
+   const chosen=b.racialChoices?.['ffd20:race:half-breed:pool:ancestral-arms-selected-slot']?.[0];
+   return [candidates.find(op=>op.id===id+(chosen?.endsWith(':option:offense')?':slot-offense':':slot-feat-skill'))||candidates[0]];
+  }
+  return candidates;
+ })];
  for(const op of operations){
   if(!isSupportedRaceOperation(r,op)){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
   if(op.operation==='modify'){
    for(const id of op.targetFeatureIds){
-    if(modified.has(id)||consumed.has(id)||disabled.has(id))errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
-    modified.set(id,op);
+    const previous=modified.get(id)||[];
+    const beast='ffd20:race:beastkin:trait:',seto='ffd20:race:seto-lion:trait:';
+    const pair=[previous[0]?.id,op.id];
+    const independentBeast=r.id==='ffd20:race:beastkin'&&id===beast+'ability-score-racial-traits'&&
+     previous.length===1&&pair[0]!==pair[1]&&
+     pair.every(x=>[beast+'alluring:ability-modifier',beast+'light-build:ability-modifier'].includes(x));
+    const independentSeto=r.id==='ffd20:race:seto-lion'&&id===seto+'base-speed'&&
+     previous.length===1&&pair[0]!==pair[1]&&
+     pair.every(x=>[seto+'faster:speed-modifier',seto+'nimble-attacks:speed-modifier'].includes(x));
+    if(previous.length&&!independentBeast&&!independentSeto||consumed.has(id)||disabled.has(id))
+     errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
+    modified.set(id,[...previous,op]);
    }
    // Approved partial modifications may also introduce a named alternate
    // without deleting unaffected portions of the standard racial trait.
@@ -50,19 +68,35 @@ export function raceTraits(b){
     for(const id of op.addsFeatureIds||[])active.add(id);
    continue;
   }
-  for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
+  for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');if(disabled.has(id)&&b.alternateIds.some(aid=>op.addsFeatureIds.includes(aid)))errors.push('Cannot replace an already disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
   // A user-disabled score/trait stays disabled when a heritage replaces its vector.
   if(!op.targetFeatureIds.some(id=>disabled.has(id)))for(const id of op.addsFeatureIds)active.add(id);
  }
  for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
- const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?applyRaceModification(r,f,modified.get(f.id)):f)).map(f=>{
+ const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?modified.get(f.id).reduce((v,op)=>applyRaceModification(r,v,op),f):f)).map(f=>{
+  if(r.id==='ffd20:race:quadav'&&f.id==='ffd20:race:quadav:trait:bond-to-the-land'){
+   const pool='ffd20:race:quadav:pool:bond-to-the-land-selection';
+   const terrain=r.choicePools.find(p=>p.id===pool)?.options.find(o=>o.id===b.racialChoices?.[pool]?.[0])?.name;
+   return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. Apply its +2 dodge AC only in that terrain.':'')};
+  }
+  if(r.id==='ffd20:race:trollkin'&&f.id==='ffd20:race:trollkin:trait:faster-healing'&&
+   b.alternateIds.includes(f.id)&&consumed.has('ffd20:race:trollkin:trait:fast-healing')&&
+   consumed.has('ffd20:race:trollkin:trait:thick-skin'))
+   return {...f,description:'Fast Healing 2 HP each round replaces Fast Healing 1 and Thick Skin. Continues below 0 HP until death; cannot restore lost limbs, starvation, thirst or suffocation HP. Suppressed 1 minute by fire or earth damage as written in the detailed racial rule (element heading conflicts; adjudicate manually). No automatic HP ticking.'};
+  if(r.id==='ffd20:race:sylph'&&f.id==='ffd20:race:sylph:trait:improved-flight'&&b.alternateIds.includes(f.id))
+   return {...f,description:'Improved Flight: land speed becomes 10 ft, flight speed 60 ft (good maneuverability; two steps above poor). Replaces Camouflage and Beguiling Liar; all other traits remain.'};
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
   }
   return f;
  }),effects=racialChoiceEffects(b,r,traits);
- return {traits:effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:'Your chosen racial benefits.',sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits,replaced:[...consumed],errors};
+ const pick=(pool)=>r.choicePools.find(x=>x.id===pool)?.options.find(x=>x.id===b.racialChoices?.[pool]?.[0])?.name||'not selected';
+ const note=r.id==='ffd20:race:syricta'?
+  'Chosen Elemental Resistance: '+pick(SYRICTA_ELEMENT)+' (resistance 5). Chosen Breath Weapon: '+pick(SYRICTA_BREATH)+' (3/day; damage/scaling and DC manual).':
+  r.id==='ffd20:race:half-breed'?'Ancestral Arms replaces the selected inherited '+(b.racialChoices?.[HALF_ANCESTRAL_SLOT]?.[0]?.endsWith(':option:offense')?'Offense':'Feat and Skill')+' slot, not both; inherited parent choices remain unverified.':
+  'Your chosen racial benefits.';
+ return {traits:effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:note,sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits,replaced:[...consumed],errors};
 }
 export function effectiveScores(b){const result={...b.baseScores};for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=buildLevel(b)&&stats.includes(key))result[key]++;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}if(b.archetypeId===DOOM_SLAYER_ID&&b.classId==='ffd20:class:gunbreaker'&&b.level===20)for(const key of ['str','dex','wis'])result[key]+=2;return result;}
 export function racialClassSkill(b,id,index){return raceTraits(b).traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&(e.target===`skills.${id}.class_skill`||Number.isInteger(index)&&e.target===`skills.row.${index}.class_skill`)));}
@@ -165,9 +199,6 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id==='ffd20:race:orc'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:orc:trait:skill-bonus'))add(2,'Orc Skill Bonus requires choosing either +2 Acrobatics or +1 Climb and Jump. Race choice UI is unsupported and save is blocked until recorded.');
  }
- if(race?.id==='ffd20:race:quadav'){
-  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:quadav:trait:bond-to-the-land'))add(2,'Quadav Bond to the Land requires choosing swamp or underground terrain; race choice UI is unsupported, so save is blocked.');
- }
  if(race?.id==='ffd20:race:sahagin'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:sahagin:trait:tempered'))add(2,'Sahagin Tempered requires choosing either water or ice resistance. Race choice storage is not implemented; save is blocked.');
  }
@@ -247,6 +278,17 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
    if((original.heritageId||'')!==(raw.heritageId||''))bad('Race heritage is chosen at character creation and is permanent.');
    if(JSON.stringify([...(original.alternateIds||[])].sort())!==JSON.stringify([...(raw.alternateIds||[])].sort()))bad('Alternate racial traits are chosen at character creation and are permanent.');
   }
+ }
+ if(previous.rulesBuild?.input?.raceId==='ffd20:race:quadav'){
+  const pool='ffd20:race:quadav:pool:bond-to-the-land-selection';
+  if((raw?.racialChoices?.[pool]||[]).join('|')!==(previous.rulesBuild.input.racialChoices?.[pool]||[]).join('|'))
+   bad('Quadav Bond to the Land terrain is chosen at character creation and is permanent.');
+ }
+ if(previous.rulesBuild?.input?.raceId==='ffd20:race:syricta'){
+  const original=previous.rulesBuild.input;
+  for(const pool of [SYRICTA_ELEMENT,SYRICTA_BREATH])
+   if(JSON.stringify(original.racialChoices?.[pool]||[])!==JSON.stringify(raw?.racialChoices?.[pool]||[]))
+    bad('Syricta elemental resistance and breath shape are chosen at character creation and cannot be changed during editing.');
  }
  if(previous.rulesBuild?.input?.raceId===GARLEAN_ID){
   const initial=previous.rulesBuild.input;
