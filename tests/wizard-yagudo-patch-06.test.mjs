@@ -61,7 +61,7 @@ test('Saved Yagudo language picks persist and cannot be rewritten, but remaining
  b.racialChoices[YAGUDO_RANK_LANGUAGES]=['language:Elvaan','language:Draconic'];
  let d=compileBuild(completeFamilyBuild(b));
  assert.equal(d.skills[27].rulesBonus,4);
- assert(d.languages.some(s=>/Elvaan/i.test(String(s))));
+ assert.match(String(d.languages),/Elvaan/);
  assert.deepEqual(compileBuild(d.rulesBuild.input,d).rulesBuild.input.racialChoices,b.racialChoices);
  let changed=structuredClone(d.rulesBuild.input);
  changed.racialChoices[YAGUDO_RANK_LANGUAGES]=['language:Celestial','language:Draconic'];
