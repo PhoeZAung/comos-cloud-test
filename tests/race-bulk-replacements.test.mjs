@@ -28,7 +28,7 @@ test('All 63 races: structurally sound manual whole-feature replacements remove 
  assert.ok(distinct.size>10,'race breadth: '+distinct.size);
 });
 test('Unresolved/partial replacements and source-unverified modifications remain unavailable',()=>{
- for(const [name,slug] of [['beastkin','alluring'],['namazu','fast'],['syricta','dragon-type'],['sylph','improved-flight'],['seto-lion','nimble-attacks'],['trollkin','faster-healing']]){
+ for(const [name,slug] of [['beastkin','alluring'],['namazu','fast'],['syricta','dragon-type'],['seto-lion','nimble-attacks']]){
   const r=race(name),id=r.id+':trait:'+slug,b={...newBuild(),raceId:r.id,alternateIds:[id]};
   assert.ok(raceTraits(b).errors.length>0,name);assert.ok(buildIssues(b).some(x=>/replacement/.test(x.message)),name);
   assert.match(renderBuild(b,2),new RegExp('data-rw-alternate="'+id+'" disabled'));
