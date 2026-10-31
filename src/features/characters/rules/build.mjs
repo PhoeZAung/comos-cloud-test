@@ -6,7 +6,7 @@ import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT
 import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions,RED_MAGERY_EVENT,redMageHasSpells,redMageArchetype,redMageCounter} from './red-mage-level-one.mjs';
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
-import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT} from './racial-choices.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage,applyRaceModification} from './race-replacement-operations.mjs';
 import {seedRacialMovement} from '../../sheet/movement.mjs';
 import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
@@ -95,7 +95,12 @@ export function raceTraits(b){
   }
   return f;
  }),effects=racialChoiceEffects(b,r,traits);
- return {traits:effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:'Your chosen racial benefits.',sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits,replaced:[...consumed],errors};
+ const pick=(pool)=>r.choicePools.find(x=>x.id===pool)?.options.find(x=>x.id===b.racialChoices?.[pool]?.[0])?.name||'not selected';
+ const note=r.id==='ffd20:race:syricta'?
+  'Chosen Elemental Resistance: '+pick(SYRICTA_ELEMENT)+' (resistance 5). Chosen Breath Weapon: '+pick(SYRICTA_BREATH)+' (3/day; damage/scaling and DC manual).':
+  r.id==='ffd20:race:half-breed'?'Ancestral Arms replaces the selected inherited '+(b.racialChoices?.[HALF_ANCESTRAL_SLOT]?.[0]?.endsWith(':option:offense')?'Offense':'Feat and Skill')+' slot, not both; inherited parent choices remain unverified.':
+  'Your chosen racial benefits.';
+ return {traits:effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:note,sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits,replaced:[...consumed],errors};
 }
 export function effectiveScores(b){const result={...b.baseScores};for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=buildLevel(b)&&stats.includes(key))result[key]++;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}if(b.archetypeId===DOOM_SLAYER_ID&&b.classId==='ffd20:class:gunbreaker'&&b.level===20)for(const key of ['str','dex','wis'])result[key]+=2;return result;}
 export function racialClassSkill(b,id,index){return raceTraits(b).traits.some(f=>f.effects.some(e=>e.automation==='automatic'&&!e.condition&&(e.target===`skills.${id}.class_skill`||Number.isInteger(index)&&e.target===`skills.row.${index}.class_skill`)));}
@@ -280,6 +285,12 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
    if((original.heritageId||'')!==(raw.heritageId||''))bad('Race heritage is chosen at character creation and is permanent.');
    if(JSON.stringify([...(original.alternateIds||[])].sort())!==JSON.stringify([...(raw.alternateIds||[])].sort()))bad('Alternate racial traits are chosen at character creation and are permanent.');
   }
+ }
+ if(previous.rulesBuild?.input?.raceId==='ffd20:race:syricta'){
+  const original=previous.rulesBuild.input;
+  for(const pool of [SYRICTA_ELEMENT,SYRICTA_BREATH])
+   if(JSON.stringify(original.racialChoices?.[pool]||[])!==JSON.stringify(raw?.racialChoices?.[pool]||[]))
+    bad('Syricta elemental resistance and breath shape are chosen at character creation and cannot be changed during editing.');
  }
  if(previous.rulesBuild?.input?.raceId===GARLEAN_ID){
   const initial=previous.rulesBuild.input;
