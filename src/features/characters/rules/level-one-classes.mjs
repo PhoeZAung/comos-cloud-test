@@ -1,4 +1,4 @@
-import {redMageCounter} from './red-mage-level-one.mjs';
+import {redMageCounter,redMageArchetype} from './red-mage-level-one.mjs';
 import {DOOM_SLAYER_ID,GUNBREAKER_ID,martialDefinition,martialArchetype,supportsMartialProgression,martialChoicePools,martialSelectedFeatures,martialProgressionIssues,martialCounter} from './martial-progression.mjs';
 import {classCatalog} from './class-catalog.mjs';
 import {BEASTMASTER_ID,isBeastmaster,beastmasterClass,beastmasterFeatures,beastmasterIssues} from './beastmaster-level-one.mjs';
@@ -19,7 +19,7 @@ export const mogKnight=classCatalog.archetypeRecords.find(a=>a.id===MOG_KNIGHT_I
 
 export const deadlyLancer=classCatalog.archetypeRecords.find(a=>a.id===DEADLY_LANCER_ID&&a.adapter==='deadly-lancer-level-one');
 export const fellRider=classCatalog.archetypeRecords.find(a=>a.id===FELL_RIDER_ID&&a.adapter==='fell-rider-level-one');
-export const levelOneArchetype=b=>martialArchetype(b)||(b.classId===CHOCOBO_KNIGHT_ID?[mogKnight,deadlyLancer,fellRider].find(a=>a?.id===b.archetypeId&&(!a.data.requiredRaceId||a.data.requiredRaceId===b.raceId)):null);
+export const levelOneArchetype=b=>redMageArchetype(b)||martialArchetype(b)||(b.classId===CHOCOBO_KNIGHT_ID?[mogKnight,deadlyLancer,fellRider].find(a=>a?.id===b.archetypeId&&(!a.data.requiredRaceId||a.data.requiredRaceId===b.raceId)):null);
 
 export function levelOneFeatures(b){
  if(isBeastmaster(b))return beastmasterFeatures(b);

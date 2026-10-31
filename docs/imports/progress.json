@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 112,
+  "revision": 131,
   "schedule": [
     "class",
     "race",
@@ -604,11 +604,11 @@
     },
     "ffd20:class:red-mage": {
       "state": "live_partial",
-      "stage": "level-two-deployment-verified",
-      "cursor": "Red Mage levels 1–2 published and deployment verified in PR #39",
-      "nextAction": "User class priority: Red Mage level 3 Ruby Arcana and Ruby Knowledge. Continue locally in the class checkout until another publish request; preserve latest race changes.",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
       "scope": "Published standard Red Mage levels 1–2 with required Magery/Ruby Talent, CHA MP and spell learning, Arcane Pool and daily talent counters, manual Spellstrike/conditional effects. Later progression, archetypes and unsupported subchoices guarded.",
-      "note": "Integrated source: 449 tests and cloud build pass. PR/main CI successful. Railway ed8b759c SUCCESS, all 20 checked assets match, database ready and private read denied. No real account login or production character mutation. Martial polish published in same release; partial/manual rule limits retained.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -618,9 +618,300 @@
         "docs/extraction/red-mage-level-two-validation.json",
         "tests/red-mage-level-two.test.mjs",
         "docs/extraction/class-release-publication.md",
-        "docs/extraction/class-release-deployment-validation.json"
+        "docs/extraction/class-release-deployment-validation.json",
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
       ],
-      "updatedAt": "2026-10-31T16:08:46.500Z"
+      "updatedAt": "2026-10-31T18:27:37.062Z"
+    },
+    "ffd20:archetype:red-mage:animist": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.087Z"
+    },
+    "ffd20:archetype:red-mage:daemonic-flayer": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.100Z"
+    },
+    "ffd20:archetype:red-mage:elemental-knight": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.112Z"
+    },
+    "ffd20:archetype:red-mage:generalist": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.123Z"
+    },
+    "ffd20:archetype:red-mage:ishgardian-heretic": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.132Z"
+    },
+    "ffd20:archetype:red-mage:mystic-knight": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.145Z"
+    },
+    "ffd20:archetype:red-mage:outfitter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.155Z"
+    },
+    "ffd20:archetype:red-mage:paradigm-shifter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.166Z"
+    },
+    "ffd20:archetype:red-mage:red-warrior": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.178Z"
+    },
+    "ffd20:archetype:red-mage:reserve-mage": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.190Z"
+    },
+    "ffd20:archetype:red-mage:ruby-archer": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.203Z"
+    },
+    "ffd20:archetype:red-mage:ruby-fist": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.213Z"
+    },
+    "ffd20:archetype:red-mage:ruby-magister": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.226Z"
+    },
+    "ffd20:archetype:red-mage:ruby-wizard": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.238Z"
+    },
+    "ffd20:archetype:red-mage:shield-mage": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.256Z"
+    },
+    "ffd20:archetype:red-mage:spellblade": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.281Z"
+    },
+    "ffd20:archetype:red-mage:spell-dancer": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.300Z"
+    },
+    "ffd20:archetype:red-mage:vermilion-duelist": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "nextAction": "Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks.",
+      "scope": "LOCAL ONLY: levels 1–20 sheet progression, source replacement/choice cards, existing chassis fields. Complex effects, external prerequisites and subchoices manual; not deployed or fully reviewed.",
+      "note": "Red Mage full family now locally validated. Published Red Mage remains PR #39 levels 1–2; this checkpoint does not extend production scope. Animist has a disclosed source conflict; see evidence. Do not overwrite race chat checkpoints when integrating.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-family-progress.md",
+        "docs/extraction/red-mage-family-validation.json",
+        "tests/red-mage-family.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:27:37.319Z"
     }
   },
   "history": [
@@ -1622,6 +1913,177 @@
       "stage": "level-two-deployment-verified",
       "cursor": "Red Mage levels 1–2 published and deployment verified in PR #39",
       "time": "2026-10-31T16:08:46.500Z"
+    },
+    {
+      "revision": 113,
+      "itemId": "ffd20:class:red-mage",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.062Z"
+    },
+    {
+      "revision": 114,
+      "itemId": "ffd20:archetype:red-mage:animist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.087Z"
+    },
+    {
+      "revision": 115,
+      "itemId": "ffd20:archetype:red-mage:daemonic-flayer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.100Z"
+    },
+    {
+      "revision": 116,
+      "itemId": "ffd20:archetype:red-mage:elemental-knight",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.112Z"
+    },
+    {
+      "revision": 117,
+      "itemId": "ffd20:archetype:red-mage:generalist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.123Z"
+    },
+    {
+      "revision": 118,
+      "itemId": "ffd20:archetype:red-mage:ishgardian-heretic",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.132Z"
+    },
+    {
+      "revision": 119,
+      "itemId": "ffd20:archetype:red-mage:mystic-knight",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.145Z"
+    },
+    {
+      "revision": 120,
+      "itemId": "ffd20:archetype:red-mage:outfitter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.155Z"
+    },
+    {
+      "revision": 121,
+      "itemId": "ffd20:archetype:red-mage:paradigm-shifter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.166Z"
+    },
+    {
+      "revision": 122,
+      "itemId": "ffd20:archetype:red-mage:red-warrior",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.178Z"
+    },
+    {
+      "revision": 123,
+      "itemId": "ffd20:archetype:red-mage:reserve-mage",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.190Z"
+    },
+    {
+      "revision": 124,
+      "itemId": "ffd20:archetype:red-mage:ruby-archer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.203Z"
+    },
+    {
+      "revision": 125,
+      "itemId": "ffd20:archetype:red-mage:ruby-fist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.213Z"
+    },
+    {
+      "revision": 126,
+      "itemId": "ffd20:archetype:red-mage:ruby-magister",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.226Z"
+    },
+    {
+      "revision": 127,
+      "itemId": "ffd20:archetype:red-mage:ruby-wizard",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.238Z"
+    },
+    {
+      "revision": 128,
+      "itemId": "ffd20:archetype:red-mage:shield-mage",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.256Z"
+    },
+    {
+      "revision": 129,
+      "itemId": "ffd20:archetype:red-mage:spellblade",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.281Z"
+    },
+    {
+      "revision": 130,
+      "itemId": "ffd20:archetype:red-mage:spell-dancer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.300Z"
+    },
+    {
+      "revision": 131,
+      "itemId": "ffd20:archetype:red-mage:vermilion-duelist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
+      "time": "2026-10-31T18:27:37.319Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

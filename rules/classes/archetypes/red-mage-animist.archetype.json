@@ -1,0 +1,933 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:animist",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Animist",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/",
+      "title": "Animist",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "2a933a656c3388d6dfee31bb82c48ab659bacdcacb6c1d45531abb71d903a70a"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:diminished-spellcasting",
+        "name": "Diminished Spellcasting",
+        "atLevel": 1,
+        "description": "An animist gains fewer MP than normal equal to the spell level he gains. For example, an animist of 5th level would only have 5 MP excluding extra MP from Charisma bonus.\n\n## Table: Diminished 3/4ths MP Progression\n\n| Level | MP | Spell Level |\n| --- | --- | --- |\n| 1st | 1 | 1st |\n| 2nd | 2 | 1st |\n| 3rd | 3 | 1st |\n| 4th | 4 | 2nd |\n| 5th | 5 | 2nd |\n| 6th | 6 | 2nd |\n| 7th | 8 | 3rd |\n| 8th | 10 | 3rd |\n| 9th | 12 | 3rd |\n| 10th | 15 | 4th |\n| 11th | 18 | 4th |\n| 12th | 21 | 4th |\n| 13th | 25 | 5th |\n| 14th | 29 | 5th |\n| 15th | 33 | 5th |\n| 16th | 38 | 6th |\n| 17th | 43 | 6th |\n| 18th | 48 | 6th |\n| 19th | 53 | 6th |\n| 20th | 58 | 6th |\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diminished Spellcasting",
+            "locator": "diminished-spellcasting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:construct-companion",
+        "name": "Construct Companion",
+        "atLevel": 1,
+        "description": "An animist begins play with the ability to craft a powerful, magically-animated construct companion. A construct companion has the same alignment as the animist that creates it and can speak and understand all of his languages. Construct companions are treated as constructs under the animist\u2019s control, though unlike most constructs, the companion is intelligent and capable of independent thought and action. The construct companion\u2019s general appearance is up to the animist, though it is always in the form of a medium humanoid shape. The construct companion\u2019s Hit Dice, saving throws, skills, feats, and abilities are tied to the animist\u2019s class level and increase as the animist gains levels. An animist begins play with his construct companion already constructed. The construct companion does not heal naturally. If it is ever reduced to 0 hit points, the construct companion breaks and stops functioning (though it isn\u2019t completely destroyed). The animist must spend 24 hours repairing a broken construct companion to fix it, after which it is restored to its full function and hit points. If the construct companion is ever completely annihilated or is irretrievably lost, the animist can spend 1 week crafting a new construct companion to replace his old one. The new construct companion must have the same augmentation abilities as the old one (see below). An animist cannot have more than one construct companion at a time.\n\n**Base Forms:** Each construct companion has one of three base forms that determines its starting speed, AC, skills, and ability scores (including its primary and secondary ability scores). The companion also gains a slam attack that deals 1d4 damage, regardless of its form. It is a primary natural attack, meaning it uses the construct\u2019s full base attack bonus. The companion adds 1-1/2 times its Strength modifier to this attack\u2019s damage and must have both hands free to make this slam attack. A construct companion is always medium sized and humanoid in shape (two arms, two legs, head, and torso). The appearance of the companion outside of this shape is left to the animist to decide.\n\n*Combat Form*Starting Statistics  \n**Size:** Medium; **Speed:** 30 ft.; **AC:** +4 armor bonus; **Base Ability Scores:** Str 16, Dex 14, Con \u2013, Int 10, Wis 12, Cha 8; **Primary Ability Scores:** Strength, Dexterity; **Secondary Ability Score:** Wisdom; **Skills:** Climb (Str), Intimidate (Cha), Sense Motive (Wis), and Swim (Str).\n\n*Eldritch Form*Starting Statistics  \n**Size:** Medium; **Speed:** 20 ft.; **AC:** +1 armor bonus; **Base Ability Scores:** Str 8, Dex 12, Con \u2013, Int 14, Wis 10, Cha 16; **Primary Ability Scores:** Intelligence, Charisma; **Secondary Ability Score:** Dexterity; **Skills:** Knowledge (arcana) (Int), Knowledge (planes) (Int), Spellcraft (Int), and Use Magic Device (Cha).\n\n*Scouting Form*Starting Statistics  \n**Size:** Medium; **Speed:** 40 ft.; **AC:** +2 armor bonus; **Base Ability Scores:** Str 10, Dex 16, Con \u2013, Int 14, Wis 8, Cha 12; **Primary Ability Scores:** Dexterity, Intelligence; **Secondary Ability Score:** Charisma; **Skills:** Acrobatics (Dex), Bluff (Cha), Stealth (Dex), Survival (Wis).\n\n## Construct Companion\n\n| 2 | HD | BAB | Saving Throws | Skills | Feats | Armor Bonus | Primary Ability Bonus | Secondary Ability Bonus | Special |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 1st | 1 | +1 | +0 | 2 | 1 | +0 | +0 | +0 | Companion Traits, Integrated Equipment, Link, Share Spells |\n| 2nd | 2 | +2 | +0 | 4 | 1 | +1 | +1 | +0 | \u2014 |\n| 3rd | 3 | +3 | +1 | 6 | 2 | +1 | +1 | +0 | \u2014 |\n| 4th | 3 | +3 | +1 | 6 | 2 | +1 | +1 | +0 | Magic Attacks |\n| 5th | 4 | +4 | +1 | 8 | 2 | +2 | +2 | +1 | Ability score increase |\n| 6th | 5 | +5 | +1 | 10 | 3 | +2 | +2 | +1 | Devotion |\n| 7th | 6 | +6 | +2 | 12 | 3 | +3 | +3 | +1 | \u2014 |\n| 8th | 6 | +6 | +2 | 12 | 3 | +3 | +3 | +1 | \u2014 |\n| 9th | 7 | +7 | +2 | 14 | 4 | +3 | +3 | +1 | \u2014 |\n| 10th | 8 | +8 | +2 | 16 | 4 | +4 | +4 | +2 | Ability score increase |\n| 11th | 9 | +9 | +3 | 18 | 5 | +4 | +4 | +2 | \u2014 |\n| 12th | 9 | +9 | +3 | 18 | 5 | +5 | +5 | +2 | \u2014 |\n| 13th | 10 | +10 | +3 | 20 | 5 | +5 | +5 | +2 | \u2014 |\n| 14th | 11 | +11 | +3 | 22 | 6 | +5 | +5 | +2 | \u2014 |\n| 15th | 12 | +12 | +4 | 24 | 6 | +6 | +6 | +3 | Ability score increase |\n| 16th | 12 | +12 | +4 | 24 | 6 | +6 | +6 | +3 | \u2014 |\n| 17th | 13 | +13 | +4 | 26 | 7 | +7 | +7 | +3 | \u2014 |\n| 18th | 14 | +14 | +4 | 28 | 7 | +7 | +7 | +3 | Greater Link |\n| 19th | 15 | +15 | +5 | 30 | 8 | +7 | +7 | +3 | \u2014 |\n| 20th | 15 | +15 | +5 | 30 | 8 | +8 | +8 | +4 | \u2014 |\n\n* *Class Level:* This is the character\u2019s animist level.\n* *HD:* This is the total number of 10-sided (d10) Hit Dice Hit Dice the companion possesses. As the construct companion has no Constitution score, it does not get any bonus hit points from its Constitution modifier (treat its Constitution as 10 for determining its hit points), but it does get bonus hit points because on its size: **Medium** 20 HP.\n* *BAB:* This is the construct companion\u2019s base attack bonus. A construct companion\u2019s base attack bonus is equal to its Hit Dice. Construct companions do not gain additional attacks using their natural weapons for a high base attack bonus, though they do gain additional attacks when using manufactured weapons, as normal.\n* *Saving Throws:* This is the construct companion\u2019s base saving throw bonuses. As a construct, the companion has no good saving throws.\n* *Skills:* This lists the construct companion\u2019s total skill ranks. A companion can assign skill ranks to any skill. The values shown in Table: Construct Companion are the base value, assuming the companion has an Intelligence score of 10. Companions with Intelligence scores above the base value modify these totals as normal (a construct companion receives a number of skill ranks equal to 2 + its Intelligence modifier per HD). A companion cannot have more ranks in a skill than it has Hit Dice.\n  + *Construct Companion Skills:* The following skills are class skills for a construct companion: Craft (Int), Disable Device (Dex), Knowledge (engineering) (Int), and Perception (Wis). A construct companion\u2019s base form grants four additional skills, as listed in the form\u2019s entry. In addition, any construct companion that gains a fly speed receives Fly (Dex) as a class skill, regardless of what level it obtains its fly speed.\n* *Feats:* This is the total number of feats possessed by a construct companion. Companions can select any feat that they qualify for.\n* *Armor Bonus:* The number noted here is the construct companion\u2019s base armor bonus. A construct companion cannot wear armor of any kind, as the armor interferes with the animist\u2019s connection to the construct companion.\n* *Primary Ability Bonus:* Add this bonus to the construct companion\u2019s two primary ability scores. The construct\u2019s primary ability scores are determined by its base form.\n* *Secondary Ability Bonus:* Add this bonus to the construct companion\u2019s secondary ability score. The construct\u2019s secondary ability score is determined by its base form.\n\n*Special:* This includes a number of abilities gained by all construct companions as they increase in power. Each of these bonuses is described below.\n\n* *Companion Traits ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A construct companion is not built nor animated as a typical construct. It is powered by the animist\u2019s innate power and intuition rather than careful design, and as such has different abilities from a normal construct. A construct companion has all traits and immunities a normal construct has, except as noted here. Construct companions are not immune to mind-affecting effects, including charms, compulsions, illusions, and morale effects. A construct companion has an Intelligence score and gains feats and skill points as appropriate for its level, as shown in Table: Construct Companions, and has class skills. A construct companion has the same weapon proficiencies as the animist and can use shields (except tower shields).\n* *Integrated Equipment ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A construct companion can have its weapons or shield integrated into its body, rather than having to hold and stow them as a normal piece of equipment. Any manufactured weapon or shield that is of appropriate size for the construct companion can be integrated. Integrating equipment takes 1 hour of work by the animist. After doing so, the item is built directly into the construct\u2019s form. It can bring forth the weapon or shield and store it back in its body as if drawing it normally, including reductions in time from feats such as Quick Draw. When stored, the equipment is inside the companion\u2019s body and cannot be seen, and its magic aura (if any) cannot be found with spells such as *detect magic* unless the spell can penetrate through the construct\u2019s metallic body. When it draws an integrated weapon or shield, it replaces the hand(s) necessary to wield the item, at which point it can be used as if wielded normally. An integrated weapon or shield cannot be disarmed or stolen, as it\u2019s attached directly to the construct\u2019s body, though it can be sundered or attacked as normal. A construct companion can have up to three pieces of integrated equipment at once. If the companion has an integrated ranged weapon, the animist can integrate ammunition along with it. Up to 100 pieces of ammunition can be integrated with each ranged weapon. Reloading an integrated weapon is no faster than reloading the weapon as normal, and can be reduced by feats and abilities such as Rapid Reload possessed by the companion. Integrating more ammunition takes 10 minutes of work by the animist. Once a piece of equipment is integrated, it cannot be removed intact. Removing integrated equipment involves either destroying the equipment (though sunder checks and the like) or spending 1 hour removing the item, the process of which gives it the broken condition but leaves it intact enough to be repaired via make whole or similar magic. Removing a ranged weapon requires removing its integrated ammunition, if any.\n* *Link ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A construct companion is not made nor controlled as a normal construct; it is instead tied to the animist\u2019s own magical essence, and as such the animist shares a special link with his companion. The animist can communicate empathically with the companion, but cannot see through its eyes. Because of the link\u2019s limited nature, only general emotions can be shared. The animist has the same connection to an item or place that the companion does. However, such a link has its drawbacks. As the companion is powered by the animist\u2019s magic essence, the construct cannot move more than 100 feet away from the animist at any time. If it does, the construct companion immediately shuts down, rendering it helpless and unable to act. The animist must be able to exercise mental control to keep the companion functioning. If the animist is ever unconscious, asleep, killed, stunned, or confused, the companion cannot act and is considered helpless. In addition, magic items interfere with the animist\u2019s link to his companion. As a result, the animist and his companion share magic item slots. For example, if the animist is wearing a ring, the companion can wear no more than one ring. If there is a conflict, the item worn by the animist remains active while the item worn by the construct become dormant. Magic weapons do not interfere with the animist\u2019s link with his companion. Despite being animated by magic, the construct does not shut down in an anti-magic field, though some of its other abilities may be negated.\n* *Share Spells ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The animist may cast a spell with a target of \u201cyou\u201d on his construct companion (as a spell with a range of touch) instead of on himself. An animist may cast spells on his companion even if the spells normally do not affect creatures of the companion\u2019s type (construct). Spells cast in this way must come from the animist spell list. This ability does not allow the companion to share abilities that are not spells, even if they function like spells.\n* *Magic Attacks ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The animal companion treats its natural attacks as if they were magic for the purposes of overcoming damage reduction. If the beastmaster is 10th level or higher, all of the animal companion\u2019s natural weapons are treated as the alignment of the beastmaster for the purpose of overcoming damage reduction.\n* *Ability Score Increase ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The construct companion adds +1 to one of its ability scores.\n* *Devotion ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* A construct companion gains a +4 morale bonus on Will saves against enchantment spells and effects.\n* *Greater Link ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The construct\u2019s link with the animist improves. The companion can now move up to 200 feet away without any penalty. If it moves further than 200 feet away, but less than 500 feet away, the companion is staggered. If it moves more than 500 feet away, the companion shuts down and is considered helpless. In addition, the construct companion can still act normally whenever the animist is stunned or confused, though it still cannot act if the animist is unconscious, asleep, or killed.\n\nThis ability replaces red magery and spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Construct Companion",
+            "locator": "construct-companion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:imbue",
+        "name": "Imbue",
+        "atLevel": 2,
+        "description": "At 2nd level, an animist learns how to imbue his spells onto himself or his construct companion, binding the magic into a piece of equipment, a weapon, or even the construct\u2019s body to be triggered later under a specific condition. This functions similarly to using a [*contingency*](https://www.finalfantasyd20.com/magic/spells/c/contingency) spell, though the forms of spells that can be used and how they trigger are more flexible. There are two ways an animist can imbue a spell:\n\n* *Weapon Imbue:* The animist can imbue a spell on to a melee weapon, a thrown weapon, or a piece of ammunition. The imbued spell triggers when the weapon or ammunition hits a creature or object. A more specific trigger can be made, such as only discharging when striking an outsider or when striking an object as part of a sunder attempt, subject to GM discretion. If the spell requires an attack roll or has a specific target, it discharges onto the target struck with no further attack roll needed. The discharged spell cannot critically hit, even if it normally could. If the spell targets an area or creatures in an area (such as a fireball spell or a slow spell), the spell\u2019s area is centered on the target, even if the spell could normally be centered only on the caster. If a spell is imbued onto a piece of ammunition and the attack misses, the spell is lost. Spells imbued onto melee and thrown weapons last until they are triggered. An imbued spell only functions on weapons that are wielded by the animist or his construct companion. A spell can only be imbued into a weapon if it has a casting time of 1 [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) or less.\n* *Personal Imbue:* The animist can imbue a spell onto either himself or his construct companion. This functions more as a typical contingency effect, where the spell comes into effect on the animist or his companion under a specified condition. However, it is not limited to spells that only affect the recipient of the imbued spell. If the spell is normally delivered by touch or targets a creature, it comes into effect upon the recipient of the imbued spell. If the spell targets an area or creatures in an area (such as [*hastega*](https://www.finalfantasyd20.com/magic/spells/h/hastega) or [*mass galka\u2019s strength*](https://www.finalfantasyd20.com/magic/spells/g/galkas-strength-mass)), it comes into effect centered on the recipient of the imbued spell, with the recipient of the imbued spell being one of its targets (if any).\n\nA spell can only be imbued if it targets one or more creatures or objects or affects an area. Imbuing a spell takes at least 10 minutes, though it may take longer if the imbued spell has a longer casting time, as described in *contingency*. An animist can only have one spell imbued at a time, and it must be a spell of 2nd level or lower from the red mage spell list. Imbuing a spell costs MP as if the imbued spell had been cast normally. If the imbued spell is not triggered within 24 hours or before the animist regains his MP each day, the imbue discharges harmlessly.\n\nThis ability replaces spellstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Imbue",
+            "locator": "imbue"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:augmentation",
+        "name": "Augmentation",
+        "atLevel": 2,
+        "description": "As an animist grows in skill, he gains new ways to improve the abilities of his construct companion. Referred to as augmentations, these abilities allow the animist to bind additional magical and physical power to his companion, customizing its capabilities to his liking. At 2nd level, the animist gains one augmentation. At 4th level, and every two animist levels thereafter, the animist selects another augmentation to apply to his companion. An animist cannot select an augmentation more than once, unless otherwise stated.\n\n*Ability Augmentation ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The companion becomes stronger, faster, or more intelligent. Choose a single ability score (except for Constitution). That ability score increases by +2. At 15th level, the bonus increases by an additional +2. This augmentation can be chosen multiple times. Each time it is, it must be applied to a different ability score. **Resonance:** The strength of the construct resonates with those nearby. All allies within 30 feet of the construct companion receive a +2 enhancement bonus to the same ability score that was chosen with this augmentation. At 15th level, the enhancement bonus increases to +4. The resonance lasts for 1 minute. **Prerequisite:** Red Mage Level 6th\n\n*Ablative Shielding ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A magical barrier of force surrounds the construct companion, mitigating incoming damage. The barrier grants the construct companion temporary hit points equal to 3 times its total Hit Dice. As long as the barrier has at least 1 temporary hit point remaining, the barrier restores 5 temporary hit points each round, back up to the its normal maximum. If the barrier is ever reduced to 0 hit points, it breaks and does not regain hit points for 1 hour, after which it is restored to 1 hit point. **Resonance:** The barrier supercharges and can affect multiple allies. The temporary hit points of the barrier are restored to double its normal maximum. The barrier protects nearby allies; if an attack would harm an ally within 30 feet of the companion, half of the damage is redirected to the construct\u2019s barrier instead. The resonance lasts for either 1 minute or until the barrier runs out of hit points. This resonance cannot be used if the ablative shielding is already at 0 hit points. Once the resonance ends, any temporary hit points in the barrier over its normal maximum are lost. **Prerequisite:** Red Mage Level 9th\n\n*Armor Empowerment ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The construct companion\u2019s body becomes magically enhanced, as if it were enchanted armor. The companion\u2019s AC increases by +1. This bonus increases by +1 for every three levels past 6th, to a total of +5 at 18th level. **Resonance:** A field of energy hardens the armor of nearby allies, increasing the AC bonus of the armor they are wearing by +1. This bonus increases by +1 at 12th and 18th levels. This benefit lasts for 1 minute. Clothing counts as armor with an AC of 0 for the purpose of this ability. **Prerequisite:** Red Mage Level 6th\n\n*Disruption Field ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The construct emits a short-range field that disrupts magical energy. Creatures attempting to cast a spell while threatened by the companion take a -4 penalty to their concentration checks to cast defensively. **Resonance:** The disruption field grows larger and more potent, but only briefly. Any creature within 30 feet that attempts to cast a spell (including the animist or the companion) must make a Concentration check (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or lose the spell. The field lasts for only 1 round. **Prerequisite:** Red Mage Level 9th\n\n*Eldritch Caster ([Sp](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#spell-like)):* The companion gains the ability to cast a small number of low-level spells. Choose any three spells from the following list: [*burst of light*](https://www.finalfantasyd20.com/magic/spells/b/burst-of-light), [*detect magic*](https://www.finalfantasyd20.com/magic/spells/d/detect-magic), *[elemental orb](https://www.finalfantasyd20.com/magic/spells/e/elemental-orb), [message](https://www.finalfantasyd20.com/magic/spells/m/message), [read magic](https://www.finalfantasyd20.com/magic/spells/r/read-magic),* or [*torchlight*](https://www.finalfantasyd20.com/magic/spells/t/torchlight). The construct companion can cast these spells at-will. The caster level for these spells is equal to the companion\u2019s Hit Dice, and the save DC for these spells is equal to 10 + the companion\u2019s Charisma modifier. **Resonance:** The companion emits an energy that boosts magic casting. Allies within 30 feet receive a +1 bonus on caster level checks and concentration checks. This bonus increases by +1 at 5th level and every four levels thereafter. This resonance lasts for 1 minute. **Prerequisite:** Construct Companion\u2019s Charisma 10\n\n*Eldritch Might ([Sp](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#spell-like)):* The companion gains the ability to cast more potent magic. Choose any one spell from the following list: *[defensive shock](https://www.finalfantasyd20.com/magic/spells/d/defensive-shock), [fiery shuriken](https://www.finalfantasyd20.com/magic/spells/f/fiery-shuriken), [shield](https://www.finalfantasyd20.com/magic/spells/s/shield), [sure strike](https://www.finalfantasyd20.com/magic/spells/s/sure-strike), [temper](https://www.finalfantasyd20.com/magic/spells/t/temper)*, or [*wind barrier*](https://www.finalfantasyd20.com/magic/spells/w/wind-barrier). The construct companion can cast this spell once per day. For every four red mage levels past 6th, the construct can choose an additional spell to cast once each day. It can also choose a spell it already knows to gain an additional casting of that spell each day. The caster level for these spells is equal to the companion\u2019s Hit Dice, and the save DC for these spells is equal to 12 + the companion\u2019s Charisma modifier. **Resonance:** The companion emits a field of power that strengthens magic spells nearby. The DC of any spells cast by allies within 30 feet of the companion increases by +1. This increases by an additional +1 at 15th level. The resonance lasts for only 1 round. **Prerequisites:** Construct Companion\u2019s Charisma 12, Eldritch Caster, Red Mage Level 6th\n\n*Eldritch Power ([Sp](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#spell-like)):* The companion gains the ability to cast potent magic. Choose any one spell from the following list: *[barrier](https://www.finalfantasyd20.com/magic/spells/b/barrier), [dispel](https://www.finalfantasyd20.com/magic/spells/d/dispel), [fira](https://www.finalfantasyd20.com/magic/spells/f/fira), [fly](https://www.finalfantasyd20.com/magic/spells/f/fly), [haste](https://www.finalfantasyd20.com/magic/spells/h/haste), [hop](https://www.finalfantasyd20.com/magic/spells/h/hop), [thundara](https://www.finalfantasyd20.com/magic/spells/t/thundara)*, or [*slow*](https://www.finalfantasyd20.com/magic/spells/s/slow). The construct companion can cast this spell once per day. At 18th level, the construct can choose an additional spell to cast once each day. It can also choose a spell it already knows to gain an additional casting of that spell each day. The caster level for these spells is equal to the companion\u2019s Hit Dice, and the save DC for these spells is equal to 13 + the companion\u2019s Charisma modifier. **Resonance:** The companion creates a field that greatly strengthens the magic of allies. Upon creating the resonance, the animist must choose one of the following metamagic effects: [Enlarge Spell](https://www.finalfantasyd20.com/feats/metamagic-feats/enlarge-spell), [Extend Spell](https://www.finalfantasyd20.com/feats/metamagic-feats/extend-spell), [Piercing Spell](https://www.finalfantasyd20.com/feats/metamagic-feats/piercing-spell), [Silent Spell](https://www.finalfantasyd20.com/feats/metamagic-feats/silent-spell), or [Still Spell](https://www.finalfantasyd20.com/feats/metamagic-feats/still-spell). Spells cast by allies within 30 feet of the companion are affected by the chosen metamagic without increasing their level or casting time. This resonance lasts for 1 round. **Prerequisites:** Construct Companion\u2019s Charisma 13, Eldritch Might, Red Mage Level 12th\n\n*Energy Discharge ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The companion can create bolts of arcane energy to attack foes. Upon choosing this augmentation, the animist must select either earth, fire, ice, lightning, water, or wind. The companion can make a ranged touch attack with a range of 30 feet, dealing damage of the chosen energy type equal to 1d6 + the companion\u2019s Charisma modifier. Attacking with an energy discharge takes the place of one of the companion\u2019s normal attacks, and it can make a full attack using energy discharge. Energy discharge is treated as a light ranged weapon and a ray for all feats and abilities that affect light weapons, ranged weapons, or rays, such as Two-Weapon Fighting, Precise Shot, Weapon Focus (ray), and Ray Shield. This augmentation can be chosen more than once. Each time it is selected, the companion can use an additional energy type. **Resonance:** The companion discharges a large amount of energy towards the animist. The animist and his companion must be within 50 feet of each other and have line of effect to each other to use this resonance. When used, a blast of energy is fired towards the animist in a 5-foot line, harming all creatures caught in a line connecting both the animist and his companion. Each creature caught in the area takes 1d6 damage per two red mage levels (max 10d6) of the chosen energy type. A Reflex save halves the damage (DC 10 + half of the red mage\u2019s level + his Charisma modifier). The resonance ends once the damage is dealt.\n\n*Energy Shielding ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The companion is shielded from harmful energies. The animist must choose earth, fire, ice, lightning, water, or wind. The companion gains resistance 5 against that energy type. This resistance increases by 5 at 5th level and every five red mage levels thereafter. This augmentation can be chosen more than once. Each time it is gained, it must be applied to a different energy type. **Resonance:** The companion dampens energy effects nearby. Effects within 30 feet of the companion that deal damage of the chosen type have their damage reduced by half (50%), rounded down. This resonance lasts for 1 minute.\n\n*Energy Strike ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The companion\u2019s strikes are augmented with energy. The animist must choose one of the following weapon properties: corrosive, flaming, frost, or shock. The companion\u2019s natural attacks and weapon attacks are treated as having that weapon property. At 15th level, the corrosive, flaming, frost, and shock abilities improve to be corrosive burst, flaming burst, icy burst, and shocking burst, respectively. This augmentation can be chosen multiple times. Each time it is chosen, a different property must be selected. The companion can only apply one of the properties available to it to an individual attack. **Resonance:** The energy attack spreads to nearby allies. Natural attacks and weapon attacks made by allies within 30 feet are treated as having the same weapon property granted to the companion. This resonance lasts for 1 minute. **Prerequisite:** Red Mage Level 6th\n\n*Extradimensional Arsenal ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The companion gains an extradimensional storage space within its body. This functions as a [*bag of holding type I*](https://www.d20pfsrd.com/magic-items/wondrous-items/wondrous-items/a-b/bag-of-holding/). The companion can draw items from the space as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). It can allow others to reach into the space to retrieve an item, though doing so is a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) for the other creature. At 12th level, it is instead treated a *bag of holding type II*. If the companion is shut down or broken, the items within the arsenal are not destroyed but cannot be retrieved until the construct is functional again; if the companion is ever annihilated or replaced, items left in the arsenal are lost forever. **Resonance:** The animist can retrieve or store any item within the extradimensional arsenal. By using this resonance, the animist can teleport a single item to or from the arsenal weighing no more than 10 lbs. per animist level, as if by means of a teleport object spell. An object teleported out of the arsenal appears in the animist\u2019s hands or in the nearest open space (animist\u2019s choice). The animist must have line of effect to his companion to use this resonance. The resonance ends once the item is teleported. **Prerequisite:** Red Mage Level 6th\n\n*Mending Touch ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The companion can touch an object to restore its hit points. This functions as [*mending*](https://www.finalfantasyd20.com/magic/spells/m/mending), though it restores 1d6 hit points, plus an additional 1d6 hit points for every three Hit Dice possessed by the companion (max 6d6). The companion can use this three times per day, plus an additional time for every three hit dice it obtains (max 8 uses per day). This cannot be used to repair damage done to a construct (including itself), nor can it restore a destroyed magic item. **Resonance:** Restorative energy washes over the companion\u2019s frame, healing it for 1d6 hit points of damage, plus an additional 1d6 hit points for every two red mage levels past 3rd (max 10d6). The resonance ends once the companion is healed.\n\n*Mental Link ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The companion forms a magical link between itself and the animist, allowing them to communicate telepathically. This functions out to any range, including through walls, so long as the companion is not shut down. **Resonance:** The mental link expands to allies within 30 feet, letting them communicate telepathically. They do not need to remain within 30 feet to continue communicating. The resonance lasts for 10 minutes.\n\n*Reinforcement ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The companion\u2019s frame is hardened, granting it DR 5/adamantine. At 18th level, this increases to DR 10/adamantine. **Resonance:** A magical barrier protects a select few allies nearby. One ally within 30 feet gains the benefit of a [*stoneskin*](https://www.finalfantasyd20.com/magic/spells/s/stoneskin) spell. The ally must remain within 30 feet to benefit from the effect. An additional ally can be targeted at 15th and 18th levels. The resonance ends after 1 minute, though it ends on an individual once it has prevented enough damage (as outlined in *stoneskin*). **Prerequisite:** Red Mage Level 12th\n\n*Tactical Reposition ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The companion can rapidly teleport itself. As a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), the companion can teleport a distance equal to half its base speed. **Resonance:** The animist and the companion can teleport to each other or change places. This functions as a [*dimension door*](https://www.finalfantasyd20.com/magic/spells/d/dimension-door) spell. The animist can teleport to his companion or the companion can teleport to the animist; they must arrive as close as possible to the other. The animist and his companion can choose to swap places, instead: they must occupy the same space the other was just in, or as close as possible if not able. If the companion is out of range of the dimension door effect, the resonance is wasted. The resonance ends once the teleportation completes. **Prerequisite:** Red Mage Level 12th\n\n*Technical Knowledge ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The companion gains additional knowledge. The animist selects any three skills that are not already class skills for the companion: those skills become class skills for the companion. In addition, the companion gains 3 skill points per Hit Dice it has and an additional 3 skill points every time it gains a Hit Dice. This augmentation can be gained multiple times. Each time it is gained, the companion gains three new skills as class skills and gains three more skill points per Hit Dice. **Resonance:** The companion shares its knowledge with nearby allies. All allies within 30 feet of the companion gain a +2 bonus on checks made with a particular skill. This bonus increases to +3 at 6th level, +4 at 12th level, and +5 at 18th level. The skill must be one that the companion is trained in. The resonance lasts for 10 minutes. **Prerequisite:** Construct Companion\u2019s Intelligence 10\n\n*Terrain Adaptation ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* The companion gains a new form of movement. The animist chooses one of the following movement types: fly 30 feet (average), climb 50 feet, swim 60 feet, or +30 feet to ground speed. **Resonance:** The companion grants its form of movement to a nearby ally. A single ally within 60 feet gains the chosen form of movement. At 9th, 12th, 15th, and 18th levels, it can grant the movement form to an additional ally. The benefit lasts for 10 minutes. **Prerequisite:** Red Mage Level 6th\n\n*Weapon Empowerment ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The companion\u2019s weapons are filled with magical energy. All natural attacks and weapon attacks made by the companion are treated as magic for the purpose of bypassing damage reduction. At 9th level, the weapons are treated as silver and cold iron, and at 15th level they are treated as adamantine. **Resonance:** The construct companion empowers the weapons of nearby allies. All allies within 30 feet gain a +1 competence bonus to weapon attack and damage rolls. This bonus increases by +1 at 6th level and every six levels thereafter, to a maximum of +4 at 18th level. The resonance lasts for 1 minute.\n\nThese abilities replace ruby arcana.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.\nArchived source conflict: the replacement summary removes Ruby Talents, while Augmentation says it replaces Ruby Arcana. This sheet suppresses both tracks and grants the stated even-level augmentations. Ask your GM which parent track to restore manually on the existing sheet before play.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:resonance",
+        "name": "Resonance",
+        "atLevel": 3,
+        "description": "At 3rd level, the animist\u2019s augmentations do not only serve to enhance the strengths of his companion. The animist has the ability to create a secondary, more powerful effect by causing a resonance between the construct\u2019s augmentations and the animist\u2019s innate magical power. Causing a resonance is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that does not provoke attacks of opportunity. The types of resonance the animist can create are based on the augmentations he has bestowed upon his construct companion; each resonance effect is listed under its corresponding augmentation. He may only cause one resonance at a time, regardless of how many resonance effects he can use. If he wishes to use a different resonance, he must dismiss the current resonance (a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free)) before creating a new one. The animist can create resonances a number of times each day equal to half his red mage level + his Charisma modifier (minimum 1).\n\nAt 9th level, creating a resonance can be done as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), instead of a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). At 15th level, it can be done as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nResonances rely on the construct companion to function; if the construct companion is shut down or destroyed, the animist can still use a resonance, but it takes two of his daily uses. In this case, the resonance originates from himself (as if he were the construct companion). If the resonance uses both the construct and the animist in tandem (as with the resonance effects for energy discharge or tactical repositioning), he can\u2019t use that resonance at all until the construct is functional again.\n\nThis ability replaces fighter training, and doublecast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Resonance",
+            "locator": "resonance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:repurpose",
+        "name": "Repurpose",
+        "atLevel": 7,
+        "description": "At 7th level, the animist learns how to reconfigure the magical powers bestowed upon his construct companion. By spending 8 hours altering the magic used to animate his companion, he can exchange one of his augmentations for his companion with a different one. The new augmentation must be one he could have qualified for when he gained the exchanged augmentation; for example, if he removes the augmentation he gained at 6th level, he can replace it with any augmentation with a level requirement of 6th level or lower.\n\nThis ability replaces improved spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Repurpose",
+            "locator": "repurpose"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:improved-imbue",
+        "name": "Improved Imbue",
+        "atLevel": 14,
+        "description": "At 14th level, the animist can imbue more powerful magic. The animist can now maintain up to two imbued spells at once. One of these imbues can be of a spell up to 4th level, the other can only be of a spell up to 2nd level. The spells can be divided between different weapons, between the animist and his companion, or any combination therein. However, a single action or attack can only trigger one imbued spell at a time, even if both imbued spells have the same triggering condition. If multiple imbued spells would trigger simultaneously, the animist determines which of the two imbued spells trigger.\n\nThis ability replaces greater spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Imbue",
+            "locator": "improved-imbue"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:greater-imbue",
+        "name": "Greater Imbue",
+        "atLevel": 19,
+        "description": "At 19th level, the animist\u2019s imbue becomes even more powerful. The animist can now maintain up to three imbued spells at once. One of these imbues can be of a spell up to 6th level, one can be up to 4th level, and the third can only be of a spell up to 2nd level. The spells can be divided between different weapons, between the animist and his companion, or any combination therein. A single action or attack can still only trigger one imbued spell at a time, even if multiple imbued spells have the same triggering condition.\n\nThis ability replaces 1 mp spell.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Imbue",
+            "locator": "greater-imbue"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:feature:perfect-resonance",
+        "name": "Perfect Resonance",
+        "atLevel": 20,
+        "description": "At 20th level, an animist\u2019s magical resonance with his construct companion reaches new heights of power. Each day when the animist regains MP, he can choose a single augmentation his companion has. The animist gains the benefit of that augmentation for the entire day. Whenever he uses the resonance ability for that augmentation, he and his companion gain double the numerical effects.\n\nThis ability replaces red wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Resonance",
+            "locator": "perfect-resonance"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:construct-companion",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-combat",
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:animist:feature:construct-companion"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Construct Companion",
+            "locator": "construct-companion"
+          }
+        ],
+        "description": "This ability replaces red magery and spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:imbue",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spellstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:animist:feature:imbue"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Imbue",
+            "locator": "imbue"
+          }
+        ],
+        "description": "This ability replaces spellstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:augmentation",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:animist:feature:augmentation"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ],
+        "description": "These abilities replace ruby arcana."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:resonance",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:fighter-training",
+          "ffd20:class:red-mage:feature:doublecast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:animist:feature:resonance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Resonance",
+            "locator": "resonance"
+          }
+        ],
+        "description": "This ability replaces fighter training, and doublecast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:repurpose",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:improved-spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:animist:feature:repurpose"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Repurpose",
+            "locator": "repurpose"
+          }
+        ],
+        "description": "This ability replaces improved spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:improved-imbue",
+        "atClassLevel": 14,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:greater-spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:animist:feature:improved-imbue"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Imbue",
+            "locator": "improved-imbue"
+          }
+        ],
+        "description": "This ability replaces greater spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:greater-imbue",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:1-mp-spell"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:animist:feature:greater-imbue"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Imbue",
+            "locator": "greater-imbue"
+          }
+        ],
+        "description": "This ability replaces 1 mp spell."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:perfect-resonance",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:animist:feature:perfect-resonance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Resonance",
+            "locator": "perfect-resonance"
+          }
+        ],
+        "description": "This ability replaces red wizard."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:replacement:augmentation-track",
+        "atClassLevel": 2,
+        "operation": "remove",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents",
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "replacementFeatureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:red-mage:animist:pool:augmentation",
+        "name": "Augmentation",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:ability-augmentation",
+            "name": "Ability Augmentation",
+            "description": "The companion becomes stronger, faster, or more intelligent. Choose a single ability score (except for Constitution). That ability score increases by +2. At 15th level, the bonus increases by an additional +2. This augmentation can be chosen multiple times. Each time it is, it must be applied to a different ability score. Resonance: The strength of the construct resonates with those nearby. All allies within 30 feet of the construct companion receive a +2 enhancement bonus to the same ability score that was chosen with this augmentation. At 15th level, the enhancement bonus increases to +4. The resonance lasts for 1 minute. Prerequisite: Red Mage Level 6th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 5,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:ablative-shielding",
+            "name": "Ablative Shielding",
+            "description": "A magical barrier of force surrounds the construct companion, mitigating incoming damage. The barrier grants the construct companion temporary hit points equal to 3 times its total Hit Dice. As long as the barrier has at least 1 temporary hit point remaining, the barrier restores 5 temporary hit points each round, back up to the its normal maximum. If the barrier is ever reduced to 0 hit points, it breaks and does not regain hit points for 1 hour, after which it is restored to 1 hit point. Resonance: The barrier supercharges and can affect multiple allies. The temporary hit points of the barrier are restored to double its normal maximum. The barrier protects nearby allies; if an attack would harm an ally within 30 feet of the companion, half of the damage is redirected to the construct\u2019s barrier instead. The resonance lasts for either 1 minute or until the barrier runs out of hit points. This resonance cannot be used if the ablative shielding is already at 0 hit points. Once the resonance ends, any temporary hit points in the barrier over its normal maximum are lost. Prerequisite: Red Mage Level 9th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 9,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:armor-empowerment",
+            "name": "Armor Empowerment",
+            "description": "The construct companion\u2019s body becomes magically enhanced, as if it were enchanted armor. The companion\u2019s AC increases by +1. This bonus increases by +1 for every three levels past 6th, to a total of +5 at 18th level. Resonance: A field of energy hardens the armor of nearby allies, increasing the AC bonus of the armor they are wearing by +1. This bonus increases by +1 at 12th and 18th levels. This benefit lasts for 1 minute. Clothing counts as armor with an AC of 0 for the purpose of this ability. Prerequisite: Red Mage Level 6th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:disruption-field",
+            "name": "Disruption Field",
+            "description": "The construct emits a short-range field that disrupts magical energy. Creatures attempting to cast a spell while threatened by the companion take a -4 penalty to their concentration checks to cast defensively. Resonance: The disruption field grows larger and more potent, but only briefly. Any creature within 30 feet that attempts to cast a spell (including the animist or the companion) must make a Concentration check (DC 10 + half of the red mage\u2019s level + his Charisma modifier) or lose the spell. The field lasts for only 1 round. Prerequisite: Red Mage Level 9th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 9,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:eldritch-caster",
+            "name": "Eldritch Caster",
+            "description": "The companion gains the ability to cast a small number of low-level spells. Choose any three spells from the following list: burst of light, detect magic, elemental orb, message, read magic, or torchlight. The construct companion can cast these spells at-will. The caster level for these spells is equal to the companion\u2019s Hit Dice, and the save DC for these spells is equal to 10 + the companion\u2019s Charisma modifier. Resonance: The companion emits an energy that boosts magic casting. Allies within 30 feet receive a +1 bonus on caster level checks and concentration checks. This bonus increases by +1 at 5th level and every four levels thereafter. This resonance lasts for 1 minute. Prerequisite: Construct Companion\u2019s Charisma 10\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:eldritch-might",
+            "name": "Eldritch Might",
+            "description": "The companion gains the ability to cast more potent magic. Choose any one spell from the following list: defensive shock, fiery shuriken, shield, sure strike, temper, or wind barrier. The construct companion can cast this spell once per day. For every four red mage levels past 6th, the construct can choose an additional spell to cast once each day. It can also choose a spell it already knows to gain an additional casting of that spell each day. The caster level for these spells is equal to the companion\u2019s Hit Dice, and the save DC for these spells is equal to 12 + the companion\u2019s Charisma modifier. Resonance: The companion emits a field of power that strengthens magic spells nearby. The DC of any spells cast by allies within 30 feet of the companion increases by +1. This increases by an additional +1 at 15th level. The resonance lasts for only 1 round. Prerequisites: Construct Companion\u2019s Charisma 12, Eldritch Caster, Red Mage Level 6th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:animist:option:augmentation:eldritch-caster"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:eldritch-power",
+            "name": "Eldritch Power",
+            "description": "The companion gains the ability to cast potent magic. Choose any one spell from the following list: barrier, dispel, fira, fly, haste, hop, thundara, or slow. The construct companion can cast this spell once per day. At 18th level, the construct can choose an additional spell to cast once each day. It can also choose a spell it already knows to gain an additional casting of that spell each day. The caster level for these spells is equal to the companion\u2019s Hit Dice, and the save DC for these spells is equal to 13 + the companion\u2019s Charisma modifier. Resonance: The companion creates a field that greatly strengthens the magic of allies. Upon creating the resonance, the animist must choose one of the following metamagic effects: Enlarge Spell, Extend Spell, Piercing Spell, Silent Spell, or Still Spell. Spells cast by allies within 30 feet of the companion are affected by the chosen metamagic without increasing their level or casting time. This resonance lasts for 1 round. Prerequisites: Construct Companion\u2019s Charisma 13, Eldritch Might, Red Mage Level 12th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/",
+            "requiresOptionIds": [
+              "ffd20:archetype:red-mage:animist:option:augmentation:eldritch-might"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:energy-discharge",
+            "name": "Energy Discharge",
+            "description": "The companion can create bolts of arcane energy to attack foes. Upon choosing this augmentation, the animist must select either earth, fire, ice, lightning, water, or wind. The companion can make a ranged touch attack with a range of 30 feet, dealing damage of the chosen energy type equal to 1d6 + the companion\u2019s Charisma modifier. Attacking with an energy discharge takes the place of one of the companion\u2019s normal attacks, and it can make a full attack using energy discharge. Energy discharge is treated as a light ranged weapon and a ray for all feats and abilities that affect light weapons, ranged weapons, or rays, such as Two-Weapon Fighting, Precise Shot, Weapon Focus (ray), and Ray Shield. This augmentation can be chosen more than once. Each time it is selected, the companion can use an additional energy type. Resonance: The companion discharges a large amount of energy towards the animist. The animist and his companion must be within 50 feet of each other and have line of effect to each other to use this resonance. When used, a blast of energy is fired towards the animist in a 5-foot line, harming all creatures caught in a line connecting both the animist and his companion. Each creature caught in the area takes 1d6 damage per two red mage levels (max 10d6) of the chosen energy type. A Reflex save halves the damage (DC 10 + half of the red mage\u2019s level + his Charisma modifier). The resonance ends once the damage is dealt.\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:energy-shielding",
+            "name": "Energy Shielding",
+            "description": "The companion is shielded from harmful energies. The animist must choose earth, fire, ice, lightning, water, or wind. The companion gains resistance 5 against that energy type. This resistance increases by 5 at 5th level and every five red mage levels thereafter. This augmentation can be chosen more than once. Each time it is gained, it must be applied to a different energy type. Resonance: The companion dampens energy effects nearby. Effects within 30 feet of the companion that deal damage of the chosen type have their damage reduced by half (50%), rounded down. This resonance lasts for 1 minute.\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:energy-strike",
+            "name": "Energy Strike",
+            "description": "The companion\u2019s strikes are augmented with energy. The animist must choose one of the following weapon properties: corrosive, flaming, frost, or shock. The companion\u2019s natural attacks and weapon attacks are treated as having that weapon property. At 15th level, the corrosive, flaming, frost, and shock abilities improve to be corrosive burst, flaming burst, icy burst, and shocking burst, respectively. This augmentation can be chosen multiple times. Each time it is chosen, a different property must be selected. The companion can only apply one of the properties available to it to an individual attack. Resonance: The energy attack spreads to nearby allies. Natural attacks and weapon attacks made by allies within 30 feet are treated as having the same weapon property granted to the companion. This resonance lasts for 1 minute. Prerequisite: Red Mage Level 6th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:extradimensional-arsenal",
+            "name": "Extradimensional Arsenal",
+            "description": "The companion gains an extradimensional storage space within its body. This functions as a bag of holding type I. The companion can draw items from the space as a move action. It can allow others to reach into the space to retrieve an item, though doing so is a full-round action for the other creature. At 12th level, it is instead treated a bag of holding type II. If the companion is shut down or broken, the items within the arsenal are not destroyed but cannot be retrieved until the construct is functional again; if the companion is ever annihilated or replaced, items left in the arsenal are lost forever. Resonance: The animist can retrieve or store any item within the extradimensional arsenal. By using this resonance, the animist can teleport a single item to or from the arsenal weighing no more than 10 lbs. per animist level, as if by means of a teleport object spell. An object teleported out of the arsenal appears in the animist\u2019s hands or in the nearest open space (animist\u2019s choice). The animist must have line of effect to his companion to use this resonance. The resonance ends once the item is teleported. Prerequisite: Red Mage Level 6th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:mending-touch",
+            "name": "Mending Touch",
+            "description": "The companion can touch an object to restore its hit points. This functions as mending, though it restores 1d6 hit points, plus an additional 1d6 hit points for every three Hit Dice possessed by the companion (max 6d6). The companion can use this three times per day, plus an additional time for every three hit dice it obtains (max 8 uses per day). This cannot be used to repair damage done to a construct (including itself), nor can it restore a destroyed magic item. Resonance: Restorative energy washes over the companion\u2019s frame, healing it for 1d6 hit points of damage, plus an additional 1d6 hit points for every two red mage levels past 3rd (max 10d6). The resonance ends once the companion is healed.\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:mental-link",
+            "name": "Mental Link",
+            "description": "The companion forms a magical link between itself and the animist, allowing them to communicate telepathically. This functions out to any range, including through walls, so long as the companion is not shut down. Resonance: The mental link expands to allies within 30 feet, letting them communicate telepathically. They do not need to remain within 30 feet to continue communicating. The resonance lasts for 10 minutes.\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:reinforcement",
+            "name": "Reinforcement",
+            "description": "The companion\u2019s frame is hardened, granting it DR 5/adamantine. At 18th level, this increases to DR 10/adamantine. Resonance: A magical barrier protects a select few allies nearby. One ally within 30 feet gains the benefit of a stoneskin spell. The ally must remain within 30 feet to benefit from the effect. An additional ally can be targeted at 15th and 18th levels. The resonance ends after 1 minute, though it ends on an individual once it has prevented enough damage (as outlined in stoneskin). Prerequisite: Red Mage Level 12th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:tactical-reposition",
+            "name": "Tactical Reposition",
+            "description": "The companion can rapidly teleport itself. As a move action, the companion can teleport a distance equal to half its base speed. Resonance: The animist and the companion can teleport to each other or change places. This functions as a dimension door spell. The animist can teleport to his companion or the companion can teleport to the animist; they must arrive as close as possible to the other. The animist and his companion can choose to swap places, instead: they must occupy the same space the other was just in, or as close as possible if not able. If the companion is out of range of the dimension door effect, the resonance is wasted. The resonance ends once the teleportation completes. Prerequisite: Red Mage Level 12th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:technical-knowledge",
+            "name": "Technical Knowledge",
+            "description": "The companion gains additional knowledge. The animist selects any three skills that are not already class skills for the companion: those skills become class skills for the companion. In addition, the companion gains 3 skill points per Hit Dice it has and an additional 3 skill points every time it gains a Hit Dice. This augmentation can be gained multiple times. Each time it is gained, the companion gains three new skills as class skills and gains three more skill points per Hit Dice. Resonance: The companion shares its knowledge with nearby allies. All allies within 30 feet of the companion gain a +2 bonus on checks made with a particular skill. This bonus increases to +3 at 6th level, +4 at 12th level, and +5 at 18th level. The skill must be one that the companion is trained in. The resonance lasts for 10 minutes. Prerequisite: Construct Companion\u2019s Intelligence 10\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:terrain-adaptation",
+            "name": "Terrain Adaptation",
+            "description": "The companion gains a new form of movement. The animist chooses one of the following movement types: fly 30 feet (average), climb 50 feet, swim 60 feet, or +30 feet to ground speed. Resonance: The companion grants its form of movement to a nearby ally. A single ally within 60 feet gains the chosen form of movement. At 9th, 12th, 15th, and 18th levels, it can grant the movement form to an additional ally. The benefit lasts for 10 minutes. Prerequisite: Red Mage Level 6th\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:animist:option:augmentation:weapon-empowerment",
+            "name": "Weapon Empowerment",
+            "description": "The companion\u2019s weapons are filled with magical energy. All natural attacks and weapon attacks made by the companion are treated as magic for the purpose of bypassing damage reduction. At 9th level, the weapons are treated as silver and cold iron, and at 15th level they are treated as adamantine. Resonance: The construct companion empowers the weapons of nearby allies. All allies within 30 feet gain a +1 competence bonus to weapon attack and damage rolls. This bonus increases by +1 at 6th level and every six levels thereafter, to a maximum of +4 at 18th level. The resonance lasts for 1 minute.\n\nThese abilities replace ruby arcana.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Augmentation",
+                "locator": "augmentation"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:animist:event:augmentation:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:red-mage:animist:pool:augmentation"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Augmentation",
+            "locator": "augmentation"
+          }
+        ]
+      }
+    ],
+    "profile": {
+      "mpMode": "diminished",
+      "classSkills": [
+        "acrobatics",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "fly",
+        "knowledge:arcana",
+        "perception",
+        "profession:*",
+        "ride",
+        "spellcraft",
+        "swim",
+        "use-magic-device",
+        "repair",
+        "knowledge:engineering"
+      ]
+    },
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

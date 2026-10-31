@@ -1,0 +1,395 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:shield-mage",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Shield Mage",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/shield-mage/",
+      "title": "Shield Mage",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "48e83d45cd1754f282c0ab3379b002e7e1fb19aa21f7f5eb2271521938f6c09e"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:storing-shield",
+        "name": "Storing Shield",
+        "atLevel": 2,
+        "description": "At 2nd level, when the shield mage casts a spell with a range of melee or ranged touch, instead of making a free attack, she can choose to store the spell in her shield. If a creature would attack her, or an ally adjacent to her, she may make a melee touch attack against the attacking creature using her shield as an attack of opportunity, gaining a bonus to the attack roll equal to the shield\u2019s enhancement bonus to AC. On a hit, the creature is affected by the stored spell. Alternatively, she can deliver this spell using a shield bash in the same manner, using the shields critical threat range and critical damage modifier for both the shield bash and the spell. She can use a tower shield with the touch attack portion of this ability but cannot use it to deliver a spell with a shield bash. This stored spell remains stored until used, until the shield mage regains her MP for the day, until she stops wielding the shield, or until she chooses to store a different spell in the shield.\n\nThis ability replaces spellstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Storing Shield",
+            "locator": "storing-shield"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:shield-magery",
+        "name": "Shield Magery",
+        "atLevel": 3,
+        "description": "At 3rd level,\u00a0 a shield mage loses access to ruby knowledge mastery red magery and gains the following:\n\n* *Shield Magery:* A shield mage increases his shield bonus to AC by +1.\n\nThis ability replaces ruby knowledge mastery red magery.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Magery",
+            "locator": "shield-magery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:bulwark-style",
+        "name": "Bulwark Style",
+        "atLevel": 3,
+        "description": "At 3rd level, the shield mage gains proficiency in all shields (including tower shields) and does not incur spell failure chance from a wielded shield while casting red mage spells. The shield mage treats a hand wielding a shield as a free hand for the purposes of casting spells with somatic components and for the requirements of Spell Combat. She gains a bonus to her Reflex saving throws equal to her shield\u2019s bonus to AC (including its enhancement bonus if it has one). When using a buckler, the shield mage only benefits from this ability if the buckler is providing her a bonus to her armor class.\n\nThis ability replaces armored mage.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bulwark Style",
+            "locator": "bulwark-style"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:shield-block",
+        "name": "Shield Block",
+        "atLevel": 3,
+        "description": "Starting at 3rd level, the shield mage excels in using her armor and shield to frustrate her enemy\u2019s attacks. As a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), she can designate a single opponent as the target of this ability. Her shield bonus to AC against that foe increases by 1, as she moves her shield to deflect an incoming blow, possibly providing just enough protection to turn a telling swing into a near miss. This shield bonus increases to +2 at 9th level, and +3 at 15th level.\n\nThis ability replaces a ruby arcana gained at 3rd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Block",
+            "locator": "shield-block"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:arcane-combustion",
+        "name": "Arcane Combustion",
+        "atLevel": 6,
+        "description": "At 6th level, a shield mage\u2019s shield bashes now add its enhancement bonus to AC as an enhancement bonus to attack and damage rolls, and may use the higher of her Strength or Charisma when determining her attack bonus. Once per round, on a successful hit, the shield mage can choose to spend MP up to the highest spell level she can cast to have her shield bash deal an extra 1d8 damage per MP spent. This extra damage is magical in nature, bypassing her target\u2019s damage reduction, and is not multiplied on a critical hit.\n\nThis ability replaces a ruby arcana gained at 6th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Combustion",
+            "locator": "arcane-combustion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:shielding-emanation",
+        "name": "Shielding Emanation",
+        "atLevel": 9,
+        "description": "At 9th level, the shield mage adds her shield bonus to her touch AC. In addition, allies adjacent to her gain an enhancement bonus to their shield AC equal to her shield\u2019s enhancement bonus to AC, and applies this bonus to their touch AC as well.\n\nThis ability replaces a ruby arcana gained at 9th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shielding Emanation",
+            "locator": "shielding-emanation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:bulwark",
+        "name": "Bulwark",
+        "atLevel": 11,
+        "description": "At 11th level, when a shield mage is using a heavy or tower shield, she can, as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), provide partial cover (+2 cover bonus to AC, +1 bonus on Reflex saves) to himself and all adjacent allies until the beginning of her next turn.\n\nAt 15th level, she can instead provide cover (+4 cover bonus to AC, +2 bonus on Reflex saves) and evasion (as a thief) to one adjacent ally until the beginning of her next turn. This cover does not allow Stealth checks.\n\nAt 19th level, she can provide cover to herself and all adjacent allies, or she can provide improved cover (+8 cover bonus to AC, +4 bonus on Reflex saves, improved evasion) to a single adjacent ally. The shield mage ignores the armor limitation of evasion for herself.\n\nThis ability replaces jack-of-all-trades.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bulwark",
+            "locator": "bulwark"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:transpositional-aegis",
+        "name": "Transpositional Aegis",
+        "atLevel": 11,
+        "description": "At 11th level, the shield mage\u2019s shield is imbued by potent arcane energies. The shield mage\u2019s abilities now affect allies within 15 feet, rather than only affecting her adjacent allies. This includes her storing shield ability, allowing her to make a melee touch attack against a foe who attacks an ally within this range, even if it\u2019s not normally within her reach. If an ally within this area is targeted by an attack roll, as an attack of opportunity the shield mage and that willing ally can switch positions, with the shield mage becoming the target of this attack. This is a supernatural teleportation effect.\n\nThis ability replaces fighter training.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Transpositional Aegis",
+            "locator": "transpositional-aegis"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:feature:shield-mastery",
+        "name": "Shield Mastery",
+        "atLevel": 19,
+        "description": "At 19th level, a shield mage gains DR 5/\u2014 when wielding a shield. This DR stacks with other forms of DR.\n\nThis ability replaces 1 mp spell.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Mastery",
+            "locator": "shield-mastery"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:replacement:storing-shield",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spellstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:shield-mage:feature:storing-shield"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Storing Shield",
+            "locator": "storing-shield"
+          }
+        ],
+        "description": "This ability replaces spellstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:replacement:bulwark-style",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:armored-mage",
+          "ffd20:class:red-mage:feature:armored-mage-medium",
+          "ffd20:class:red-mage:feature:armored-mage-shield"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:shield-mage:feature:bulwark-style"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bulwark Style",
+            "locator": "bulwark-style"
+          }
+        ],
+        "description": "This ability replaces armored mage."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:replacement:shield-block",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:3"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:shield-mage:feature:shield-block"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Block",
+            "locator": "shield-block"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 3rd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:replacement:arcane-combustion",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:6"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:shield-mage:feature:arcane-combustion"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Combustion",
+            "locator": "arcane-combustion"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 6th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:replacement:shielding-emanation",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:9"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:shield-mage:feature:shielding-emanation"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shielding Emanation",
+            "locator": "shielding-emanation"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 9th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:replacement:bulwark",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:jack-of-all-trades"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:shield-mage:feature:bulwark"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bulwark",
+            "locator": "bulwark"
+          }
+        ],
+        "description": "This ability replaces jack-of-all-trades."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:replacement:transpositional-aegis",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:fighter-training"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:shield-mage:feature:transpositional-aegis"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Transpositional Aegis",
+            "locator": "transpositional-aegis"
+          }
+        ],
+        "description": "This ability replaces fighter training."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:shield-mage:replacement:shield-mastery",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:1-mp-spell"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:shield-mage:feature:shield-mastery"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Mastery",
+            "locator": "shield-mastery"
+          }
+        ],
+        "description": "This ability replaces 1 mp spell."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "excludedMageryOptions": [
+        "Ruby Knowledge Mastery"
+      ]
+    },
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

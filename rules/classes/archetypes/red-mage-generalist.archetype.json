@@ -1,0 +1,329 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:generalist",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Generalist",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/generalist/",
+      "title": "Generalist",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "a43b61c7231ec2f8a77d2c1ef53e0394b7b1d44b34fc518ed2207f5374c44556"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:generalist:feature:power-or-speed",
+        "name": "Power or Speed",
+        "atLevel": 1,
+        "description": "At 1st level, a generalist begins learning how to control herself and by extension, the flow of combat. The generalist can take a -2 penalty on attack, damage or AC and get an equal bonus to one of the others. The generalist\u00a0must choose to use this ability before making an attack roll, and its effects last until her next turn.\n\nThis ability replaces spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Power or Speed",
+            "locator": "power-or-speed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:feature:multitalented",
+        "name": "Multitalented",
+        "atLevel": 2,
+        "description": "At 2nd level, a generalist picks up on a little bit of everything, and can use sheer luck or force of will to appear competent at just about anything. The generalist can make skill checks untrained and may spend an arcane point to reroll a failed skill check with a bonus equal to her Charisma modifier once per round. The skill check cannot take more than 1 round.\n\nThis ability replaces spellstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Multitalented",
+            "locator": "multitalented"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:feature:magic-mastery",
+        "name": "Magic Mastery",
+        "atLevel": 5,
+        "description": "At 5th level, the generalist continues her mastery on controlling every aspect of her being, learning how to better utilize her magic. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) that lasts a number of rounds equal to the generalist\u2019s Charisma modifier (minimum 1) and costs an arcane point, the generalist can choose to take a penalty on healing or damaging spells equal to her Charisma modifier (minimum 1) and apply an equal bonus to the other.\n\nThis ability replaces convert.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magic Mastery",
+            "locator": "magic-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:feature:spellblade",
+        "name": "Spellblade",
+        "atLevel": 7,
+        "description": "At 7th level, the generalist learns to blend both styles of combat into one. When casting a damaging or enfeebling spell, she can make a single weapon attack on the same target as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). When casting a healing or enhancing spell on an ally, she can make a single weapon attack on the foe closest to her if within range. At 16th level, this ability gains an insight bonus on attack and damage equal to the level of the spell cast prior to it.\n\nThis ability replaces improved spell combat and counterstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spellblade",
+            "locator": "spellblade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:feature:aspect-of-the-ruby",
+        "name": "Aspect of the Ruby",
+        "atLevel": 11,
+        "description": "At 11th level, the generalist hits a new milestone when it comes to full coverage. At the cost of an arcane point, a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), and MP equal to the highest spell level she knows, the generalist can emulate one of three aspects perfectly for a number of rounds equal to her Charisma modifier.\n\n* *Shield ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The generalist gains a deflection bonus to AC equal to the MP expended when using this ability, and half that bonus (rounded down) to all saving throws.\n* *Staff ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The generalist gains a morale bonus to her ruby knowledge bonus equal to the MP expended when using this ability, and half this bonus is added to spell resistance checks and red mage spell save DCs.\n* *Sword ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The generalist gets a morale bonus to attack and damage rolls with a held weapon equal to the MP expended when using this ability. Her held weapons\u2019 critical threat range is increased by half this bonus (rounded down). This does not stack with other abilities that increase a weapon\u2019s critical threat range.\n\nThis ability replaces jack-of-all-trades.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aspect of the Ruby",
+            "locator": "aspect-of-the-ruby"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:feature:renaissance-man",
+        "name": "Renaissance Man",
+        "atLevel": 14,
+        "description": "At 14th level, the generalist makes \u2018Jack-of-all-Trades\u2019 look like a dunce and laughs in his face about it. When making an untrained skill check or using the multitalented ability, the generalist can act as if she had a number of ranks in the skill equal to half her class level, and benefits from a +3 bonus as if it were a class skill.\n\nThis ability replaces greater spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Renaissance Man",
+            "locator": "renaissance-man"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:feature:generalist-mastery",
+        "name": "Generalist Mastery",
+        "atLevel": 20,
+        "description": "At 20th level, the generalist doesn\u2019t care about any one aspect of their character to exemplify it above the rest. When using power or speed, magic mastery, or spellblade, the bonuses gained are all increased by +2.\n\nThis ability replaces red wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Generalist Mastery",
+            "locator": "generalist-mastery"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:generalist:replacement:power-or-speed",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:generalist:feature:power-or-speed"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Power or Speed",
+            "locator": "power-or-speed"
+          }
+        ],
+        "description": "This ability replaces spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:replacement:multitalented",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spellstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:generalist:feature:multitalented"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Multitalented",
+            "locator": "multitalented"
+          }
+        ],
+        "description": "This ability replaces spellstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:replacement:magic-mastery",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:convert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:generalist:feature:magic-mastery"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magic Mastery",
+            "locator": "magic-mastery"
+          }
+        ],
+        "description": "This ability replaces convert."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:replacement:spellblade",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:improved-spell-combat",
+          "ffd20:class:red-mage:feature:counterstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:generalist:feature:spellblade"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spellblade",
+            "locator": "spellblade"
+          }
+        ],
+        "description": "This ability replaces improved spell combat and counterstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:replacement:aspect-of-the-ruby",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:jack-of-all-trades"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:generalist:feature:aspect-of-the-ruby"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aspect of the Ruby",
+            "locator": "aspect-of-the-ruby"
+          }
+        ],
+        "description": "This ability replaces jack-of-all-trades."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:replacement:renaissance-man",
+        "atClassLevel": 14,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:greater-spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:generalist:feature:renaissance-man"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Renaissance Man",
+            "locator": "renaissance-man"
+          }
+        ],
+        "description": "This ability replaces greater spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:generalist:replacement:generalist-mastery",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:generalist:feature:generalist-mastery"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Generalist Mastery",
+            "locator": "generalist-mastery"
+          }
+        ],
+        "description": "This ability replaces red wizard."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

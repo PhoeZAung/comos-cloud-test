@@ -199,24 +199,24 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Animist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/) | queued · source-review | Start of source review |
-| [Daemonic Flayer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/daemonic-flayer/) | queued · source-review | Start of source review |
-| [Elemental Knight](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/elemental-knight/) | queued · source-review | Start of source review |
-| [Generalist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/generalist/) | queued · source-review | Start of source review |
-| [Ishgardian Heretic](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ishgardian-heretic/) | queued · source-review | Start of source review |
-| [Mystic Knight](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/) | queued · source-review | Start of source review |
-| [Outfitter](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/) | queued · source-review | Start of source review |
-| [Paradigm Shifter](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/) | queued · source-review | Start of source review |
-| [Red Warrior](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/red-warrior/) | queued · source-review | Start of source review |
-| [Reserve Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/reserve-mage/) | queued · source-review | Start of source review |
-| [Ruby Archer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-archer/) | queued · source-review | Start of source review |
-| [Ruby Fist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-fist/) | queued · source-review | Start of source review |
-| [Ruby Magister](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/) | queued · source-review | Start of source review |
-| [Ruby Wizard](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-wizard/) | queued · source-review | Start of source review |
-| [Shield Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/shield-mage/) | queued · source-review | Start of source review |
-| [Spellblade](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spellblade/) | queued · source-review | Start of source review |
-| [Spell Dancer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spell-dancer/) | queued · source-review | Start of source review |
-| [Vermilion Duelist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/) | queued · source-review | Start of source review |
+| [Animist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Daemonic Flayer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/daemonic-flayer/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Elemental Knight](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/elemental-knight/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Generalist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/generalist/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Ishgardian Heretic](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ishgardian-heretic/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Mystic Knight](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Outfitter](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Paradigm Shifter](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Red Warrior](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/red-warrior/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Reserve Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/reserve-mage/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Ruby Archer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-archer/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Ruby Fist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-fist/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Ruby Magister](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Ruby Wizard](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-wizard/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Shield Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/shield-mage/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Spellblade](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spellblade/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Spell Dancer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spell-dancer/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
+| [Vermilion Duelist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/) | queued · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths |
 
 ## Thief (25)
 

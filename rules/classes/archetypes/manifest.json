@@ -47,6 +47,114 @@
       "coverage": "partial",
       "status": "live",
       "adapter": "martial-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:animist",
+      "file": "rules/classes/archetypes/red-mage-animist.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:daemonic-flayer",
+      "file": "rules/classes/archetypes/red-mage-daemonic-flayer.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:elemental-knight",
+      "file": "rules/classes/archetypes/red-mage-elemental-knight.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:generalist",
+      "file": "rules/classes/archetypes/red-mage-generalist.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ishgardian-heretic",
+      "file": "rules/classes/archetypes/red-mage-ishgardian-heretic.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:mystic-knight",
+      "file": "rules/classes/archetypes/red-mage-mystic-knight.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:outfitter",
+      "file": "rules/classes/archetypes/red-mage-outfitter.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:paradigm-shifter",
+      "file": "rules/classes/archetypes/red-mage-paradigm-shifter.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:red-warrior",
+      "file": "rules/classes/archetypes/red-mage-red-warrior.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:reserve-mage",
+      "file": "rules/classes/archetypes/red-mage-reserve-mage.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ruby-archer",
+      "file": "rules/classes/archetypes/red-mage-ruby-archer.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ruby-fist",
+      "file": "rules/classes/archetypes/red-mage-ruby-fist.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ruby-magister",
+      "file": "rules/classes/archetypes/red-mage-ruby-magister.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:ruby-wizard",
+      "file": "rules/classes/archetypes/red-mage-ruby-wizard.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:shield-mage",
+      "file": "rules/classes/archetypes/red-mage-shield-mage.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:spell-dancer",
+      "file": "rules/classes/archetypes/red-mage-spell-dancer.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:spellblade",
+      "file": "rules/classes/archetypes/red-mage-spellblade.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
+    },
+    {
+      "id": "ffd20:archetype:red-mage:vermilion-duelist",
+      "file": "rules/classes/archetypes/red-mage-vermilion-duelist.archetype.json",
+      "status": "live",
+      "adapter": "red-mage-progression"
     }
   ]
 }

@@ -1,0 +1,125 @@
+{
+  "checkedAt": "2026-10-31T18:25:57.698283+00:00",
+  "scope": "Local Red Mage base plus all 18 archetypes, levels 1\u201320, sheet support with manual effects",
+  "testsPassed": 460,
+  "cloudBuild": "passed",
+  "automatedPaths": 19,
+  "routeLevelUpRequests": 361,
+  "automatedSQLiteCloseReopen": true,
+  "browserPaths": [
+    {
+      "name": "Fresh mystic-knight",
+      "archetype": "Mystic Knight",
+      "level": 2,
+      "hpClass": null,
+      "mpClass": 0,
+      "spellCount": 0,
+      "abilities": [
+        "Red Magery",
+        "Arcane Pool",
+        "Mystic Adrenaline",
+        "Mystic Overdrive",
+        "Mystic Swordplay",
+        "Stamina Pool",
+        "Blade Magic",
+        "Exploit Weakness",
+        "Talent Trees",
+        "Ruby Talents",
+        "Weapon and Armor Proficiencies",
+        "Mystic Prowess",
+        "Magical Knowledge",
+        "Used to Magic",
+        "Blind",
+        "Blade Magic Expertise"
+      ]
+    },
+    {
+      "name": "Fresh animist",
+      "archetype": "Animist",
+      "level": 2,
+      "hpClass": null,
+      "mpClass": 2,
+      "spellCount": 10,
+      "abilities": [
+        "Dual Spellcasting",
+        "Flexibility",
+        "Arcane Pool",
+        "Construct Companion",
+        "Imbue",
+        "Augmentation",
+        "Spells",
+        "Spell Proficiency",
+        "Cantrips",
+        "Armored Mage",
+        "Weapon and Armor Proficiency",
+        "Diminished Spellcasting",
+        "Mending Touch"
+      ]
+    },
+    {
+      "name": "Fresh outfitter",
+      "archetype": "Outfitter",
+      "level": 2,
+      "hpClass": null,
+      "mpClass": 3,
+      "spellCount": 10,
+      "abilities": [
+        "Flexibility",
+        "Red Magery",
+        "Illuminated Runway",
+        "Garment Grid",
+        "Thread Pool",
+        "Spells",
+        "Spell Proficiency",
+        "Cantrips",
+        "Armored Mage",
+        "Ruby Talents",
+        "Spellstrike",
+        "Weapon and Armor Proficiency",
+        "A Stitch in Time",
+        "Formal Wear",
+        "Replace Dual Spellcasting",
+        "Quick Mind"
+      ]
+    },
+    {
+      "name": "Fresh ruby-archer",
+      "archetype": "Ruby Archer",
+      "level": 2,
+      "hpClass": null,
+      "mpClass": 3,
+      "spellCount": 10,
+      "abilities": [
+        "Dual Spellcasting",
+        "Flexibility",
+        "Red Magery",
+        "Ranged Weapon Bond",
+        "Ranged Spellstrike",
+        "Concentrate",
+        "Spells",
+        "Cantrips",
+        "Armored Mage",
+        "Ruby Talents",
+        "Weapon and Armor Proficiency",
+        "Precise Shot",
+        "Ranged Spell Combat",
+        "Arcane Pool"
+      ]
+    }
+  ],
+  "browserLevels": [
+    1,
+    2
+  ],
+  "browserSavedAndSQLiteReopened": true,
+  "fixtureOnly": true,
+  "realFirebaseLogin": false,
+  "productionDataChanged": false,
+  "published": false,
+  "screenshot": "red-mage-family-local.png",
+  "limits": [
+    "No automatic combat effects, companions, crafting, equipment/feat/spell subchoices or external prerequisites.",
+    "Animist source conflicts about talent/arcana replacements; both tracks suppressed in favor of explicit augmentation schedule; GM should confirm before play.",
+    "Bonus spells granted by optional talents/archetypes recorded on existing manual spell rows."
+  ]
+}

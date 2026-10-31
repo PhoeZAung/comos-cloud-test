@@ -1,0 +1,571 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:ishgardian-heretic",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Ishgardian Heretic",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ishgardian-heretic/",
+      "title": "Ishgardian Heretic",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "df456800997167f297a779da815f05d0870e0aaeb20efe5f7c4f3ff3167951f4"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:prerequisite",
+        "name": "Prerequisite",
+        "atLevel": 1,
+        "description": "The ishgardian heretic must have the elemental resistance racial trait.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Prerequisite",
+            "locator": "prerequisite"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:blood-of-the-dragon",
+        "name": "Blood of the Dragon",
+        "atLevel": 1,
+        "description": "By drinking dragon blood, an ishgardian heretic awakens the power latent in his bloodline. At 1st level, he must choose a type of dragon \u2013 blue (water), brown (earth), green (wind), red (fire), white (ice), or yellow (lightning) \u2013 that he has drunk the blood of. This must match the element chosen for his racial elemental resistance.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blood of the Dragon",
+            "locator": "blood-of-the-dragon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:bleeding-spells",
+        "name": "Bleeding Spells",
+        "atLevel": 1,
+        "description": "Whenever an ishgardian heretic casts a spell that deals damage, the spell deals 1 point of bleed damage per spell level to any creatures of the dragon type damaged.\n\nThis ability replaces spell proficiency.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bleeding Spells",
+            "locator": "bleeding-spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:blood-drinking",
+        "name": "Blood Drinking",
+        "atLevel": 1,
+        "description": "Starting at 1st level, an ishgardian heretic gains the ability to drink dragon blood to alter or augment his spellcasting abilities. For the purposes of harvesting dragon\u2019s blood, treat the ishgardian heretic as though he has the [Dragoncrafting](https://www.d20pfsrd.com/feats/general-feats/dragoncrafting/) feat.\n\nIn the absence of true dragon\u2019s blood, the ishgardian heretic may tap into the draconic blood flowing through his veins to gain the temporary effects of having consumed dragon\u2019s blood. As a free action, he can activate this ability, healing 1d4 points of damage and gaining a +1 resistance bonus on Will and Fortitude saves for 1 round. This action may only be performed once per round, and can be performed a number of times per day equal to 3 + his Charisma modifier.\n\nAt 5th level, drinking a vial of dragon\u2019s blood is a standard action that provides the ishgardian heretic with the normal benefits of the item, as well as a +1 bonus to his caster level for the purposes of level-dependent spell effects on a single spell cast within 1 minute.\n\nAt 7th level, a consumed vial of dragon blood also heals 1d8 points of damage instead of the standard 1d4.\n\nAt 11th level, the resistance bonus on Fortitude and Reflex saves granted by the blood increases to +2.\n\nThis ability replaces a red magery gained at 1st level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blood Drinking",
+            "locator": "blood-drinking"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-magic",
+        "name": "Dravanian Magic",
+        "atLevel": 2,
+        "description": "At 2nd level, an ishgardian heretic learns [Fear](https://www.finalfantasyd20.com/magic/spells/f/fear/), treating it as a red mage spell for all purposes. At 10th level, he learns [Greater Fear](https://www.finalfantasyd20.com/magic/spells/f/fear-greater/), treating it as a red mage spell for all purposes.\n\nThis ability replaces a ruby talent gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Magic",
+            "locator": "dravanian-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-claws",
+        "name": "Dravanian Claws",
+        "atLevel": 3,
+        "description": "At 3rd level, an ishgardian heretic can expend 1 point from his arcane pool as a swift action to have his existing claws become sharper and more dangerous, for 1 minute. These claws are treated as natural weapons, allowing him to make two claw attacks as a full attack, using his full base attack bonus. These attacks deal 1d6 points of damage each, plus his Strength modifier. At 6th level, these claws are considered magic weapons for the purpose of overcoming damage reduction. At 10th level, the damage increases to 1d8 points. At 14th level, these claws deal an additional 1d6 points of damage of his element on a hit.\n\nThis ability replaces ruby knowledge.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Claws",
+            "locator": "dravanian-claws"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-resistance",
+        "name": "Dravanian Resistance",
+        "atLevel": 5,
+        "description": "At 5th level, the ishgardian heretic gains resistance 5 against his chosen element and a +1 natural armor bonus to AC. At 9th level, his element resistance increases to 10 and his natural armor bonus increases to +2. At 17th level, his natural armor bonus increases to +4. These bonuses stack with racial natural armor bonuses and racial elemental resistances, but not other sources of elemental resistance.\n\nThis ability replaces convert.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Resistance",
+            "locator": "dravanian-resistance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:energy-assimilation",
+        "name": "Energy Assimilation",
+        "atLevel": 6,
+        "description": "At 6th level, when the ishgardian heretic drinks dragon\u2019s blood from a dragon with a breath weapon that deals a different type of elemental damage than his chosen element, he may adopt the elemental resistance of the blood\u2019s source dragon as if it was the one he selected at first level. (Even if it is not normally an option \u2013 for instance, a black dragon\u2019s blood provides resistance to shadow damage, while a silver dragon\u2019s blood provides resistance to holy damage. Non-elemental resistance cannot be selected in any event.) This effect lasts for 1 minute per dose of dragon\u2019s blood, after which the ishgardian heretic\u2019s elemental resistance reverts back to his normal element.\n\nThis ability replaces a ruby arcana gained at 6th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Energy Assimilation",
+            "locator": "energy-assimilation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:breath-weapon",
+        "name": "Breath Weapon",
+        "atLevel": 9,
+        "description": "At 9th level, the ishgardian heretic gains a breath weapon that he can use once per day. This breath weapon deals 1d6 points of damage of his element per red mage level. Those caught in the area of the breath can attempt a Reflex saving throw for half damage. The DC of this save is equal to 10 + half his red mage level + his Charisma modifier. The shape of the breath weapon depends on his dragon type \u2013 blue, brown, and yellow dragons\u2019 breaths are 60-foot lines, while green, red, and white dragons\u2019 breaths are 30-foot cones. At 12th level, and every three red mage levels thereafter, he can use this ability an additional time per day.\n\nThis ability replaces a red magery gained at 9th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Breath Weapon",
+            "locator": "breath-weapon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:breath-mimicry",
+        "name": "Breath Mimicry",
+        "atLevel": 12,
+        "description": "At 12th level, when the ishgardian heretic drinks dragon\u2019s blood from a dragon with a breath weapon of a shape or element different from his own, he may use the shape and element of the blood\u2019s source dragon when he next uses his breath weapon. Regardless of the actual size of the breath weapons possessed by the source dragon, lines are 60-foot lines, and cones are 30-foot cones.\n\nThis ability replaces a ruby arcana gained at 12th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Breath Mimicry",
+            "locator": "breath-mimicry"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-wings",
+        "name": "Dravanian Wings",
+        "atLevel": 13,
+        "description": "At 13th level, an ishgardian heretic can expend 1 point from his arcane pool as a swift action to strengthen his existing wings, giving him a fly speed of 60 feet with average maneuverability for 1 minute. At 16th level, his fly speed increases to 80 feet with good maneuverability.\n\nThis ability replaces a red magery gained at 13th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Wings",
+            "locator": "dravanian-wings"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-form",
+        "name": "Dravanian Form",
+        "atLevel": 17,
+        "description": "At 17th level, an ishgardian heretic can expend 1 point from his arcane pool as a swift action to transform into a Large dragon of his associated type for 1 minute. He gains the dragon type, a +6 size bonus to Strength, a +4 size bonus to Constitution, a +6 natural armor bonus that stacks with racial natural armor, a fly speed of 90 feet (good), darkvision 60 feet, damage reduction 5/magic, and resistance 20 to his element that stacks with racial elemental resistance. He also gains one bite (2d6), two claws (2d6 plus an additional 1d6 damage of his element), two wing attacks (1d6), and one tail slap attack (1d8). All of his equipment is melded with his dragon form.\n\nHe also gains an additional breath weapon, which he can use twice during this transformation, dealing 8d8 points of elemental damage and allowing a Reflex save (DC 10 + half his red mage level + his Charisma modifier) for half damage. He must wait 1d4 rounds between uses. This breath weapon has the same shape as his normal one, but if it is a line, it is an 80-foot line instead, and if it is a cone, it is a 40-foot cone instead.\n\nFinally, he gains additional abilities based on his dragon type, as follows:\n\n* A blue dragon gains a swim speed of 60 feet and vulnerability to lightning.\n* A brown dragon gains a burrow speed of 30 feet and vulnerability to wind.\n* A green dragon gains an additional 10 wind resistance and vulnerability to ice.\n* A red dragon gains an additional 10 fire resistance and vulnerability to water.\n* A white dragon gains a swim speed of 60 feet and vulnerability to fire.\n* A yellow dragon gains an additional 10 lightning resistance and vulnerability to earth.\n\nThis ability replaces a red magery gained at 17th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Form",
+            "locator": "dravanian-form"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:blood-siphon",
+        "name": "Blood Siphon",
+        "atLevel": 18,
+        "description": "At 18th level, when the ishgardian heretic is within 60 feet of a creature of the dragon type that is suffering bleed damage, he can, as a swift action, draw a dose of its blood into himself as though he had consumed it from a vial. Additionally, when he consumes dragon\u2019s blood, it heals 3d8 points of damage and provides a +3 resistance bonus on Fortitude and Will saves for 1 minute in place of its normal effects.\n\nThis ability replaces a ruby arcana gained at 18th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blood Siphon",
+            "locator": "blood-siphon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:feature:power-of-wyrms",
+        "name": "Power of Wyrms",
+        "atLevel": 20,
+        "description": "At 20th level, an ishgardian heretic gains immunity to paralysis, sleep, and damage from his element. He also gains blindsense with a range of 60 feet.\n\nThis ability replaces red wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Power of Wyrms",
+            "locator": "power-of-wyrms"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:bleeding-spells",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:bleeding-spells"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bleeding Spells",
+            "locator": "bleeding-spells"
+          }
+        ],
+        "description": "This ability replaces spell proficiency."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:blood-drinking",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:red-magery:1"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:blood-drinking"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blood Drinking",
+            "locator": "blood-drinking"
+          }
+        ],
+        "description": "This ability replaces a red magery gained at 1st level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:dravanian-magic",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-talent:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-magic"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Magic",
+            "locator": "dravanian-magic"
+          }
+        ],
+        "description": "This ability replaces a ruby talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:dravanian-claws",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-claws"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Claws",
+            "locator": "dravanian-claws"
+          }
+        ],
+        "description": "This ability replaces ruby knowledge."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:dravanian-resistance",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:convert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-resistance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Resistance",
+            "locator": "dravanian-resistance"
+          }
+        ],
+        "description": "This ability replaces convert."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:energy-assimilation",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:6"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:energy-assimilation"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Energy Assimilation",
+            "locator": "energy-assimilation"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 6th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:breath-weapon",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:red-magery:9"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:breath-weapon"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Breath Weapon",
+            "locator": "breath-weapon"
+          }
+        ],
+        "description": "This ability replaces a red magery gained at 9th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:breath-mimicry",
+        "atClassLevel": 12,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:12"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:breath-mimicry"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Breath Mimicry",
+            "locator": "breath-mimicry"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 12th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:dravanian-wings",
+        "atClassLevel": 13,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:red-magery:13"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-wings"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Wings",
+            "locator": "dravanian-wings"
+          }
+        ],
+        "description": "This ability replaces a red magery gained at 13th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:dravanian-form",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:red-magery:17"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:dravanian-form"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dravanian Form",
+            "locator": "dravanian-form"
+          }
+        ],
+        "description": "This ability replaces a red magery gained at 17th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:blood-siphon",
+        "atClassLevel": 18,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:ruby-arcana:18"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:blood-siphon"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blood Siphon",
+            "locator": "blood-siphon"
+          }
+        ],
+        "description": "This ability replaces a ruby arcana gained at 18th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:ishgardian-heretic:replacement:power-of-wyrms",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:ishgardian-heretic:feature:power-of-wyrms"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Power of Wyrms",
+            "locator": "power-of-wyrms"
+          }
+        ],
+        "description": "This ability replaces red wizard."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

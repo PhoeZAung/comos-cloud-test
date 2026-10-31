@@ -4,8 +4,12 @@ Latest class release: PR #39, b4c63eb, is live with 449 integrated tests and
 verified Railway/public-asset evidence. See docs/extraction/class-release-publication.md.
 This chat owns classes/archetypes and uses the isolated classes/red-mage
 checkout; the race chat owns its separate checkout and RACES-ONLY.md plan.
-The next requested class milestone is Red Mage level 3; explicitly resume that
-partial class rather than taking an unrelated race or the general baseline queue.
+The Red Mage base + all 18 archetypes now have locally validated level 1–20
+sheet support (460 tests; unpublished). Read CLASSES-ONLY.md and
+docs/extraction/red-mage-family-progress.md for scope and the Animist source
+conflict. Next class priority is Thief plus its full archetype family. The user
+wants whole-family batches using existing controls and manual complex effects;
+do not take an unrelated race or split the class into one-level releases.
 Future gameplay changes remain local until another explicit publish request.
 
 
@@ -36,7 +40,7 @@ or assume the next item is still an unimplemented Garif.
 
 Before this pause, the standing user instruction was to continue through validated queue milestones
 without waiting for another "next", while the active run has capacity and the
-user has not stopped it. Push recoverable checkpoints as work progresses.
+user has not stopped it. Save recoverable local commits/bundles as work progresses; push only when publish is authorized.
 Codex does not perform this reasoning unattended after a run or runtime stops.
 
 This queue tracks **73 classes, 63 races and 579 archetypes**. It schedules and

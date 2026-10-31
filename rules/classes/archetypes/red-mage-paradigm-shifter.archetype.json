@@ -1,0 +1,418 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:paradigm-shifter",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Paradigm Shifter",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/",
+      "title": "Paradigm Shifter",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "fdf342a0b34061cb420bed761bed099995a781f65813aa65e61a5c6a762f61c9"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:feature:gestalt-mode",
+        "name": "Gestalt Mode",
+        "atLevel": 1,
+        "description": "At 1st level, the paradigm shifter receives the Limit Break (Gestalt Mode).\n\n*Gestalt Mode ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break makes the outfit of the paradigm shifter glow with light and pristine sparkles. For a duration of 1 round + 1 round per four red mage levels after 1st, the paradigm shifter treats her current Paradigm Shifts as providing double the bonuses. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nThis ability replaces the Limit Break (Flexibility).\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:feature:paradigm-shift",
+        "name": "Paradigm Shift",
+        "atLevel": 1,
+        "description": "At 1st level, the paradigm shifter can shift between one of the six paradigms that grants nearby allies and herself a special benefit. Paradigm shifting is a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), and can only shift into one paradigm at a time until 19th level (see *Paradigm Elite* ability). A paradigm shift remains in effect until she uses a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free) to dismiss it or shift into another paradigm. She can be in a paradigm continually; thus, a paradigm can be in effect at the start of an encounter even before she takes her first turn. The paradigm\u2019s abilities affect all allies within 30 feet (including the paradigm shifter) with line of effect to her. These abilities are dismissed if she becomes unconscious or is slain, but otherwise it remains in effect even if she is incapable of acting. The bonus granted by her paradigm begins at +1 and increases to +2 at 5th level, +3 at 9th level, +4 at 13th level, and +5 at 17th level. These are the six paradigms that a paradigm shifter can shift into:\n\n* **Commando:** This paradigm grants you and all nearby allies a morale bonus to Attack rolls.\n* **Medic:** This paradigm grants you and all nearby allies Fast Healing up to 50% health.\n* **Ravager:** This paradigm grants you and all nearby allies a morale bonus to melee damage rolls.\n* **Saboteur:** This paradigm grants you and all nearby allies a competence bonus to DC saving throws for any spells or abilities that deal Status effects.\n* **Sentinel:** This paradigm grants you and all nearby allies a deflection bonus to Armor Class.\n* **Synergist:** This paradigm grants you and all nearby allies a morale bonus to Saving Throws.\n\nAt 10th level, the range of Paradigm Shift increases to 60 feet.\n\nThis ability replaces red magery.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Paradigm Shift",
+            "locator": "paradigm-shift"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:feature:adaptability",
+        "name": "Adaptability",
+        "atLevel": 4,
+        "description": "Beginning at 4th level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the paradigm shifter can add a +2 enhancement bonus to an ability score of her choice for a number of rounds equal to her Charisma modifier, once per day. Adding the bonus to Charisma does not increase the duration of this ability.\n\nAt 12th level, the paradigm shifter can add two +2 enhancement bonuses to two different ability scores, or one +4 enhancement bonus to one ability score. Once this ability has been used, it cannot be used again until the current enhancement bonus expires.\n\nAt 8th, 12th, 16th, and 20th levels, the paradigm shifter may use this ability an additional time per day.\n\nThis ability replaces quick cast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Adaptability",
+            "locator": "adaptability"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:feature:focus",
+        "name": "Focus",
+        "atLevel": 5,
+        "description": "At 5th level, the paradigm shifter hones in on the role which most suits him. He chooses one of his six paradigms and gains its corresponding ability, which can be used once per encounter so long as he is currently in that paradigm:\n\n* *Commando: \u201cBlitz\u201d* *([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary))**:* The paradigm shifter may make a melee attack against all opponents in threatened squares as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). If an affected target had the Staggered condition, it becomes Disabled and the status effect\u2019s duration is prolonged by one round; likewise, if it was Shaken, it becomes Frightened; if it was Frightened, it becomes Panicked.\n* *Medic: \u201cCurasa\u201d* *([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))**:* The paradigm shifter may, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), activate a spell-like ability which functions like both Cure and Regen simultaneously on a target with 1-3 HD, like Cure II and Regen II for 4-6 HD, Cure III and Regen III for 7-9 HD, and Cure IV and Regen IV for 10 HD and beyond. The Regen duration is one round regardless of magnitude, stacking with the Medic paradigm\u2019s Fast Healing bonus.\n* *Ravager: \u201cOverwhelm\u201d* *([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* Upon successfully hitting an opponent with the spellstrike ability, the paradigm shifter may choose to inflict the Staggered status on that enemy with a duration of one round. While the enemy is Staggered, whenever it takes damage, it takes additional damage equal to the paradigm shifter\u2019s Charisma modifier.\n* *Saboteur: \u201cJinx\u201d* *([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The paradigm shifter may extend the duration of a debuff or negative status effect when he inflicts it by one round. When the paradigm shifter inflicts this debuff or negative status effect on an enemy, the duration of all existing debuffs or negative status effects on that enemy are refreshed, resetting duration as if re-cast.\n* *Sentinel: \u201cProvoke\u201d* *([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The paradigm shifter may, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), make an Intimidate skill check against all enemies within 30 feet as per the Intimidate use of the [Antagonize](https://www.d20pfsrd.com/feats/general-feats/antagonize/) feat. The paradigm shifter gains a bonus to this check equal to his red mage level. Additionally, when the paradigm shifter successfully antagonizes a creature with this ability, his deflection bonus to AC is doubled against attacks from that creature, and he cannot be flanked by that creature.\n* *Synergist: \u201cBoon\u201d* *([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The paradigm shifter may extend the duration of a buff or status enhancement when he confers it by one round. When the paradigm shifter confers this buff or status enhancement on a target, the duration of all existing buffs or status enhancements on that target are refreshed, resetting duration as if re-cast.\n\nAt 9th, 13th, and 17th levels, these abilities can be used an additional time per encounter, to a maximum of 4 at level 17. The ability\u2019s associated duration is also prolonged by one round, to a maximum of 4 at 17th level.\n\nThis ability replaces convert.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Focus",
+            "locator": "focus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:feature:quick-change",
+        "name": "Quick Change",
+        "atLevel": 11,
+        "description": "At 11th level, the paradigm shifter can switch roles as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) instead of as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). The paradigm shifter can use this ability a number of times per day equal to 1 + his Charisma modifier.\n\nThis ability replaces fighter training.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Change",
+            "locator": "quick-change"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:feature:paradigm-elite",
+        "name": "Paradigm Elite",
+        "atLevel": 19,
+        "description": "At 19th level, the paradigm shifter\u2019s shifting ability becomes legendary. She can combine two different paradigms, granting both set of bonuses to herself and nearby allies.\n\nThis ability replaces 1 mp spell.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Paradigm Elite",
+            "locator": "paradigm-elite"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:replacement:limit-break",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:paradigm-shifter:feature:gestalt-mode"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ],
+        "description": "This ability replaces the Limit Break (Flexibility)."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:replacement:paradigm-shift",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:paradigm-shifter:feature:paradigm-shift"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Paradigm Shift",
+            "locator": "paradigm-shift"
+          }
+        ],
+        "description": "This ability replaces red magery."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:replacement:adaptability",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:quick-cast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:paradigm-shifter:feature:adaptability"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Adaptability",
+            "locator": "adaptability"
+          }
+        ],
+        "description": "This ability replaces quick cast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:replacement:focus",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:convert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:paradigm-shifter:feature:focus"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Focus",
+            "locator": "focus"
+          }
+        ],
+        "description": "This ability replaces convert."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:replacement:quick-change",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:fighter-training"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:paradigm-shifter:feature:quick-change"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Change",
+            "locator": "quick-change"
+          }
+        ],
+        "description": "This ability replaces fighter training."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:replacement:paradigm-elite",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:1-mp-spell"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:paradigm-shifter:feature:paradigm-elite"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Paradigm Elite",
+            "locator": "paradigm-elite"
+          }
+        ],
+        "description": "This ability replaces 1 mp spell."
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:pool:focus",
+        "name": "Focus",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:paradigm-shifter:option:focus:commando",
+            "name": "Commando",
+            "description": "\u201cBlitz\u201d (Ex): The paradigm shifter may make a melee attack against all opponents in threatened squares as a standard action. If an affected target had the Staggered condition, it becomes Disabled and the status effect\u2019s duration is prolonged by one round; likewise, if it was Shaken, it becomes Frightened; if it was Frightened, it becomes Panicked.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Focus",
+                "locator": "focus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:paradigm-shifter:option:focus:medic",
+            "name": "Medic",
+            "description": "\u201cCurasa\u201d (Su): The paradigm shifter may, as a standard action, activate a spell-like ability which functions like both Cure and Regen simultaneously on a target with 1-3 HD, like Cure II and Regen II for 4-6 HD, Cure III and Regen III for 7-9 HD, and Cure IV and Regen IV for 10 HD and beyond. The Regen duration is one round regardless of magnitude, stacking with the Medic paradigm\u2019s Fast Healing bonus.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Focus",
+                "locator": "focus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:paradigm-shifter:option:focus:ravager",
+            "name": "Ravager",
+            "description": "\u201cOverwhelm\u201d (Ex): Upon successfully hitting an opponent with the spellstrike ability, the paradigm shifter may choose to inflict the Staggered status on that enemy with a duration of one round. While the enemy is Staggered, whenever it takes damage, it takes additional damage equal to the paradigm shifter\u2019s Charisma modifier.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Focus",
+                "locator": "focus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:paradigm-shifter:option:focus:saboteur",
+            "name": "Saboteur",
+            "description": "\u201cJinx\u201d (Su): The paradigm shifter may extend the duration of a debuff or negative status effect when he inflicts it by one round. When the paradigm shifter inflicts this debuff or negative status effect on an enemy, the duration of all existing debuffs or negative status effects on that enemy are refreshed, resetting duration as if re-cast.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Focus",
+                "locator": "focus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:paradigm-shifter:option:focus:sentinel",
+            "name": "Sentinel",
+            "description": "\u201cProvoke\u201d (Su): The paradigm shifter may, as a standard action, make an Intimidate skill check against all enemies within 30 feet as per the Intimidate use of the Antagonize feat. The paradigm shifter gains a bonus to this check equal to his red mage level. Additionally, when the paradigm shifter successfully antagonizes a creature with this ability, his deflection bonus to AC is doubled against attacks from that creature, and he cannot be flanked by that creature.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Focus",
+                "locator": "focus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:paradigm-shifter:option:focus:synergist",
+            "name": "Synergist",
+            "description": "\u201cBoon\u201d (Su): The paradigm shifter may extend the duration of a buff or status enhancement when he confers it by one round. When the paradigm shifter confers this buff or status enhancement on a target, the duration of all existing buffs or status enhancements on that target are refreshed, resetting duration as if re-cast.\n\nAt 9th, 13th, and 17th levels, these abilities can be used an additional time per encounter, to a maximum of 4 at level 17. The ability\u2019s associated duration is also prolonged by one round, to a maximum of 4 at 17th level.\n\nThis ability replaces convert.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Focus",
+                "locator": "focus"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:red-mage:paradigm-shifter:event:focus:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:archetype:red-mage:paradigm-shifter:pool:focus"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Focus",
+            "locator": "focus"
+          }
+        ]
+      }
+    ],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

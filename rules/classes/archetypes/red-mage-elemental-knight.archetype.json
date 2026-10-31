@@ -1,0 +1,184 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:elemental-knight",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Elemental Knight",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/elemental-knight/",
+      "title": "Elemental Knight",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "0c95dcd88f3365e0c2c55dd2ed386b48497811292887205ef72e0b5dbee498cb"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:elemental-knight:feature:elemental-arcana",
+        "name": "Elemental Arcana",
+        "atLevel": 3,
+        "description": "At 3rd level, elemental knights may select the following ruby arcana available only to them.\n\n*Assault Synergy ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the elemental knight can expend 1 round of duration from elemental assault to add +1d6 points of energy damage to an offensive spell he casts that round. The spell must have the earth, fire, ice, lightning, water, or wind descriptor. This extra energy damage matches the energy damage of the spell. At 10th level, he may expend 2 rounds instead of 1 to add +2d6 points of energy damage to the spell.\n\n*Energy Reflection ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):*\u00a0This functions like the reflection ruby arcana, except it only works on spells that deal earth, fire, ice, lightning, water, or wind damage. As long as the elemental knight spends at least 1 point from his arcane pool to activate this arcana, he may expend rounds of elemental assault as if they were arcane pool points. For example, the elemental knight could spend 1 arcane pool point and 3 rounds of elemental assault to reflect a spell of 4th-level or lower. The elemental knight must be at least 12th level before selecting this arcana.\n\n*Energy Resistance Boost ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the elemental knight can expend 1 point from his arcane pool or 1 round of elemental assault to increase all energy resistances by +5 for 1 round.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Elemental Arcana",
+            "locator": "elemental-arcana"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:elemental-knight:feature:elemental-assault",
+        "name": "Elemental Assault",
+        "atLevel": 4,
+        "description": "At 4th level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), an elemental knight can shroud his arms in earth, fire, ice, lightning, water, or wind energy. This lasts for one round per red mage level, and can be dismissed as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). These rounds do not have to be consecutive. Unarmed strikes with his arms or hands (or attacks with weapons held in those hands) deal +1d6 points of damage of the appropriate energy type. In addition, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), an elemental knight may expend rounds of duration from this ability. For every 2 rounds expended, he gains 1 arcane pool point.\n\nThis ability replaces quick cast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Elemental Assault",
+            "locator": "elemental-assault"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:elemental-knight:feature:ruby-arcana",
+        "name": "Ruby Arcana",
+        "atLevel": 3,
+        "description": "The following ruby arcana complement the elemental knight archetype: empowered magic, pool strike, spell shield.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Arcana",
+            "locator": "ruby-arcana"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:elemental-knight:replacement:elemental-assault",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:quick-cast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:elemental-knight:feature:elemental-assault"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Elemental Assault",
+            "locator": "elemental-assault"
+          }
+        ],
+        "description": "This ability replaces quick cast."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:red-mage:pool:ruby-arcana",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:elemental-knight:option:elemental-arcana:assault-synergy",
+            "name": "Assault Synergy",
+            "description": "As a swift action, the elemental knight can expend 1 round of duration from elemental assault to add +1d6 points of energy damage to an offensive spell he casts that round. The spell must have the earth, fire, ice, lightning, water, or wind descriptor. This extra energy damage matches the energy damage of the spell. At 10th level, he may expend 2 rounds instead of 1 to add +2d6 points of energy damage to the spell.\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Elemental Arcana",
+                "locator": "elemental-arcana"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/elemental-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:elemental-knight:option:elemental-arcana:energy-reflection",
+            "name": "Energy Reflection",
+            "description": "This functions like the reflection ruby arcana, except it only works on spells that deal earth, fire, ice, lightning, water, or wind damage. As long as the elemental knight spends at least 1 point from his arcane pool to activate this arcana, he may expend rounds of elemental assault as if they were arcane pool points. For example, the elemental knight could spend 1 arcane pool point and 3 rounds of elemental assault to reflect a spell of 4th-level or lower. The elemental knight must be at least 12th level before selecting this arcana.\n\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Elemental Arcana",
+                "locator": "elemental-arcana"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/elemental-knight/"
+          },
+          {
+            "id": "ffd20:archetype:red-mage:elemental-knight:option:elemental-arcana:energy-resistance-boost",
+            "name": "Energy Resistance Boost",
+            "description": "As a swift action, the elemental knight can expend 1 point from his arcane pool or 1 round of elemental assault to increase all energy resistances by +5 for 1 round.\nCheck stated prerequisites and record any extra choices/effects manually on the sheet.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Elemental Arcana",
+                "locator": "elemental-arcana"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/elemental-knight/"
+          }
+        ]
+      }
+    ]
+  }
+}

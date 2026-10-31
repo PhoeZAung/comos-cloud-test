@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:spell-dancer",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Spell Dancer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spell-dancer/",
+      "title": "Spell Dancer",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "e5e6a614abc697c6e0c60a536820d280d5bd086e27fe0060cdd2a5413d87ec7b"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:feature:spell-dance",
+        "name": "Spell Dance",
+        "atLevel": 2,
+        "description": "At 2nd level, a spell dancer gains the ability to expend 1 point from his arcane pool as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to gain a +10 enhancement bonus to his movement rate and a +2 dodge bonus to Armor Class against attacks of opportunity provoked by moving through threatened spaces for 1 minute. For every four levels beyond 2nd, the spell dancer gains another +10 enhancement bonus to movement and +2 to AC against attacks of opportunity provoked from movement. At 6th level, once per spell dance as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the spell dancer may use one of the following on himself as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift): [*blur*](https://www.finalfantasyd20.com/magic/spells/b/blur), [*fly*](https://www.finalfantasyd20.com/magic/spells/f/fly), or [*haste*](https://www.finalfantasyd20.com/magic/spells/h/haste). These abilities last for 1 round. At 10th level, the spell dancer may instead take a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to use [*hop*](https://www.finalfantasyd20.com/magic/spells/h/hop) as a spell-like ability once during a spelldance. At 14th level, the spell dancer may instead choose to take a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to gain [*freedom of movement*](https://www.finalfantasyd20.com/magic/spells/f/freedom-of-movement/) for 1d4 rounds.\n\nThis ability replaces the red mage\u2019s ability to expend points from his arcane pool as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to grant any weapon he is holding magic bonuses for 1 minute.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spell Dance",
+            "locator": "spell-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:feature:arcane-movement",
+        "name": "Arcane Movement",
+        "atLevel": 5,
+        "description": "At 5th level, whenever a spell dancer casts a red mage spell, he gains a competence bonus on Acrobatics, Climb, Escape Artist, and Stealth checks equal to the spell\u2019s level until the beginning of his next turn.\n\nThis ability replaces red magery gained at 5th level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Movement",
+            "locator": "arcane-movement"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:feature:dance-of-avoidance",
+        "name": "Dance of Avoidance",
+        "atLevel": 7,
+        "description": "At 7th level, while wearing light or no armor, a spell dancer gains a +2 insight bonus to Armor Class.\n\nThis ability replaces armored mage (medium).\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of Avoidance",
+            "locator": "dance-of-avoidance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:feature:greater-dance-of-avoidance",
+        "name": "Greater Dance of Avoidance",
+        "atLevel": 10,
+        "description": "At 10th level, while wearing light or no armor, a spell dancer\u2019s insight bonus to Armor Class increases to +4.\n\nThis ability replaces armored mage (shield).\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Dance of Avoidance",
+            "locator": "greater-dance-of-avoidance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:feature:ruby-arcana",
+        "name": "Ruby Arcana",
+        "atLevel": 3,
+        "description": "The following ruby arcana complement the spell dancer archetype: arcane cloak, prescient defense, close range, concentrate, hasted assault, spell shield.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ruby Arcana",
+            "locator": "ruby-arcana"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:replacement:spell-dance",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:arcane-pool"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:spell-dancer:feature:spell-dance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spell Dance",
+            "locator": "spell-dance"
+          }
+        ],
+        "description": "This ability replaces the red mage\u2019s ability to expend points from his arcane pool as a swift action to grant any weapon he is holding magic bonuses for 1 minute."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:replacement:arcane-movement",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [
+          "ffd20:class:red-mage:event:red-magery:5"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:spell-dancer:feature:arcane-movement"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Movement",
+            "locator": "arcane-movement"
+          }
+        ],
+        "description": "This ability replaces red magery gained at 5th level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:replacement:dance-of-avoidance",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:armored-mage-medium"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:spell-dancer:feature:dance-of-avoidance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of Avoidance",
+            "locator": "dance-of-avoidance"
+          }
+        ],
+        "description": "This ability replaces armored mage (medium)."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:spell-dancer:replacement:greater-dance-of-avoidance",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:armored-mage-shield"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:spell-dancer:feature:greater-dance-of-avoidance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Dance of Avoidance",
+            "locator": "greater-dance-of-avoidance"
+          }
+        ],
+        "description": "This ability replaces armored mage (shield)."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "fly",
+        "intimidate",
+        "knowledge:arcana",
+        "knowledge:planes",
+        "perception",
+        "profession:*",
+        "spellcraft",
+        "swim",
+        "use-magic-device",
+        "perform:*"
+      ]
+    },
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

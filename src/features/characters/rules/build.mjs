@@ -2,7 +2,7 @@ import {withBuildDefaults,sameBuildValue} from './build-compatibility.mjs';
 import {DOOM_SLAYER_ID,martialCounter,supportsMartialProgression,martialChoiceEvents,martialEligibleOptions} from './martial-progression.mjs';
 import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classes.mjs';
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
-import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions,RED_MAGERY_EVENT} from './red-mage-level-one.mjs';
+import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions,RED_MAGERY_EVENT,redMageHasSpells,redMageArchetype,redMageCounter} from './red-mage-level-one.mjs';
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
@@ -16,9 +16,9 @@ import {blackMageSummary} from '../rules-summary.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
 import {fixedSkills} from '../../sheet/skills.mjs';
 import {pointSpend,standardArray} from '../ability-generation.mjs';
-import {ARCHER_ID,BLACK_MAGE_ID,availableClasses,classFor,isArcher,classHitDie,classDefaultHp,className,classSkill,archerChoiceEvents,archerEligibleOptions,archerPreview,archerIssues,archerFeatureChanges,compileNoncastingBuild} from './class-adapters.mjs';
+import {ARCHER_ID,BLACK_MAGE_ID,availableClasses,classFor,classHasSpells,isArcher,classHitDie,classDefaultHp,className,classSkill,archerChoiceEvents,archerEligibleOptions,archerPreview,archerIssues,archerFeatureChanges,compileNoncastingBuild} from './class-adapters.mjs';
 export {registry,spells,availableClasses,classFor,className,classSkill};
-const isChaCaster=b=>isBard(b)||isRedMage(b);
+const isChaCaster=b=>isBard(b)||isRedMage(b)&&redMageHasSpells(b);
 export const spellsForBuild=b=>isRedMage(b)?redMageSpells:isBard(b)?bardSpellOptions():spells;
 export const stats=['str','dex','con','int','wis','cha'];
 export const steps=['Identity','Base scores','Race','Class','Choices','Spells','Review'];
@@ -54,7 +54,7 @@ export function calculated(value,b,effective=effectiveScores(b)){
  if(value.kind==='level_table'){const level=value.levelBasis==='ability_score'?effective.int:b.level;return value.rows.filter(r=>r.from<=level).at(-1)?.value??value.belowFirst;}
  if(value.kind!=='formula')return null;
  let expression=value.expression;
- const vars={CLASS_LEVEL:b.level,CHARACTER_LEVEL:buildLevel(b),CASTER_LEVEL:b.level,SPELL_LEVEL:Math.min(9,Math.ceil(b.level/2)),FAVORED_SELECTIONS:0,CHOICE_RANK:1};
+ const vars={CLASS_LEVEL:b.level,CHARACTER_LEVEL:buildLevel(b),CASTER_LEVEL:b.level,SPELL_LEVEL:isRedMage(b)?redMagePreview(b,{scores:effective,race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b)}).summary.spellLevel:Math.min(9,Math.ceil(b.level/2)),FAVORED_SELECTIONS:0,CHOICE_RANK:1};
  for(const key of stats){vars[key.toUpperCase()+'_MOD']=mod(effective[key]);vars[key.toUpperCase()+'_SCORE']=effective[key];}
  expression=expression.replace(/\b[A-Z_]+\b/g,key=>{if(!Object.hasOwn(vars,key))bad('Unknown formula variable.');return '('+vars[key]+')';});
  const tokens=expression.match(/\d+(?:\.\d+)?|floor|ceil|min|max|[()+*/,\-]/g)||[];
@@ -72,7 +72,7 @@ export function calculated(value,b,effective=effectiveScores(b)){
 export function choiceEvents(b){if(isRedMage(b))return redMageChoiceEvents(b);if(supportsMartialProgression(b))return martialChoiceEvents(b);if(isBeastmaster(b))return beastmasterChoiceEvents(b);if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
 export function eligibleOptions(b,event){if(isRedMage(b))return redMageChoiceEvents(b).some(e=>e.id===event.id)?redMageOptions(b,event,effectiveScores(b)):[];if(supportsMartialProgression(b))return martialEligibleOptions(b,event);if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
 export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?classHitDie(b):classDefaultHp(b)));}
-export function spellCounts(b){if(isRedMage(b))return redMageSpellCounts(effectiveScores(b),b.initialChaMod,b.level);if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
+export function spellCounts(b){if(isRedMage(b))return redMageSpellCounts(effectiveScores(b),b.initialChaMod,b.level,b);if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
  const errors=[];const add=(step,message)=>errors.push({step,message});
  if(!b.name.trim())add(0,'Enter a character name.');
@@ -119,10 +119,11 @@ export function buildIssues(b,{complete=true}={}){
  }
 
  if(race?.id==='ffd20:race:mutant')add(3,'Mutant requires random level-based ability increases and replaces standard fourth-level ability increases. The current wizard cannot safely calculate this progression, so automated character saving is disabled until its progression is implemented.');
- if(!isArcher(b)&&!isLevelOneClass(b)&&race?.id==='ffd20:race:immortal')add(3,'Immortal Magic Ineptitude forbids obtaining an MP pool; this casting class is not currently supported for this race. You can explore its rules, but cannot save this incompatible automated build.');
- if(!isArcher(b)&&!isLevelOneClass(b)&&race?.id==='ffd20:race:shindroid'&&!b.alternateIds.includes('ffd20:race:shindroid:trait:magitek-unit'))add(3,'Shindroid Magic Ineptitude forbids obtaining an MP pool without Magitek Unit; this casting build cannot be saved unless Magitek Unit is selected.');
- if(!isArcher(b)&&!isLevelOneClass(b)&&race?.id==='ffd20:race:antica')add(3,'Antica cannot normally cast spells without Silent Spell or Telepathic Spellcaster. The current casting wizard cannot verify this exception; you can inspect Antica rules but cannot save this automatic build.');
- if(!isArcher(b)&&!isLevelOneClass(b)&&race?.id==='ffd20:race:tonkin')add(3,'Tonkin cannot normally cast vocal-component spells, and Silent Spell/Telepathic Spellcaster compatibility is not yet verified in this casting wizard. Character saving is blocked until supported.');
+ if(b.archetypeId==='ffd20:archetype:red-mage:ishgardian-heretic'&&!raceTraits(b).traits.some(f=>f.name.toLowerCase()==='elemental resistance'))add(3,'Ishgardian Heretic requires the Elemental Resistance racial trait.');
+ if(classHasSpells(b)&&race?.id==='ffd20:race:immortal')add(3,'Immortal Magic Ineptitude forbids obtaining an MP pool; this casting class is not currently supported for this race. You can explore its rules, but cannot save this incompatible automated build.');
+ if(classHasSpells(b)&&race?.id==='ffd20:race:shindroid'&&!b.alternateIds.includes('ffd20:race:shindroid:trait:magitek-unit'))add(3,'Shindroid Magic Ineptitude forbids obtaining an MP pool without Magitek Unit; this casting build cannot be saved unless Magitek Unit is selected.');
+ if(classHasSpells(b)&&race?.id==='ffd20:race:antica')add(3,'Antica cannot normally cast spells without Silent Spell or Telepathic Spellcaster. The current casting wizard cannot verify this exception; you can inspect Antica rules but cannot save this automatic build.');
+ if(classHasSpells(b)&&race?.id==='ffd20:race:tonkin')add(3,'Tonkin cannot normally cast vocal-component spells, and Silent Spell/Telepathic Spellcaster compatibility is not yet verified in this casting wizard. Character saving is blocked until supported.');
  if(race?.id==='ffd20:race:ixal'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
   if(active.has('ffd20:race:ixal:trait:bond-to-the-ice'))add(2,'Ixal Bond to the Ice requires choosing one forest or icy terrain; race-specific choice UI is unavailable and character saving is blocked.');
@@ -241,16 +242,17 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  }
  if((isLevelOneClass(raw)&&!supportsMartialProgression(raw)||isBard(raw))&&raw.level!==1)bad('This class currently supports level-1 testing only.');
  if((supportsMartialProgression(raw)||isRedMage(raw))&&previous.rulesBuild&&!levelTransition&&raw.level!==previous.rulesBuild.input.level)bad('Use Level up to change the saved character level.');
+ if(isRedMage(raw)&&previous.rulesBuild?.input&&raw.archetypeId!==previous.rulesBuild.input.archetypeId)bad('A saved character cannot change archetypes.');
  if(isRedMage(raw)&&previous.rulesBuild?.input&&(!sameBuildValue(raw.choices?.[RED_MAGERY_EVENT],previous.rulesBuild.input.choices?.[RED_MAGERY_EVENT])||!levelTransition&&!sameBuildValue(raw.choices,previous.rulesBuild.input.choices)))bad('Saved Red Magery cannot be replaced in this builder.');
  if(previous.rulesBuild?.input&&supportsMartialProgression(previous.rulesBuild.input)&&raw.archetypeId!==previous.rulesBuild.input.archetypeId)bad('A saved character cannot change archetypes.');
  if(isChaCaster(raw)&&Array.isArray(raw.spellIds)&&new Set(raw.spellIds).size!==raw.spellIds.length)bad('Choose distinct starting spells.');
  if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==(raw?.classId||BLACK_MAGE_ID))bad('A saved character cannot change classes.');
- if(isArcher(raw)||isLevelOneClass(raw)||isChaCaster(raw)){
-  if((isLevelOneClass(raw)||isChaCaster(raw))&&Object.keys(previous).length&&!previous.rulesBuild)bad('Create a new first-level character; adopting an existing manual character is not supported for this class.');
+ if(isArcher(raw)||isLevelOneClass(raw)||isChaCaster(raw)||isRedMage(raw)){
+  if((isLevelOneClass(raw)||isChaCaster(raw)||isRedMage(raw))&&Object.keys(previous).length&&!previous.rulesBuild)bad('Create a new first-level character; adopting an existing manual character is not supported for this class.');
   if(append||raw.carry)bad('Archer multiclassing is not yet supported.');
   if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==raw.classId)bad('A saved character cannot change its class.');
   const priorCaster=isChaCaster(raw)?previous.rulesBuild?.input:null;
-  const startingCha=priorCaster?(priorCaster.initialChaMod??priorCaster.spellIds.filter(id=>spellsForBuild(priorCaster).some(s=>s.id===id&&s.level===1)).length-3-(isRedMage(priorCaster)?2*(priorCaster.level-1):0)):null;
+  const startingCha=priorCaster?(priorCaster.initialChaMod??priorCaster.spellIds.filter(id=>spellsForBuild(priorCaster).some(s=>s.id===id&&s.level>0)).length-3-(isRedMage(priorCaster)?2*(priorCaster.level-1):0)):null;
   const b=sanitizeBuild(priorCaster&&raw.initialChaMod==null?{...raw,initialChaMod:startingCha}:raw),p=previewBuild(b);
   if(isChaCaster(b)){
    const prior=previous.rulesBuild?.input;
@@ -344,7 +346,7 @@ export function levelUpBuild(raw,previous){
   const stored=previous.rulesBuild?.input;
   const old=stored?withBuildDefaults(stored,newBuild()):null,same=sameBuildValue;
   raw=withBuildDefaults(raw,newBuild());
-  if(!old||!(supportsMartialProgression(old)||isRedMage(old))||raw.level!==old.level+1||raw.level>(isRedMage(old)?2:20))bad(isRedMage(old)?'Red Mage currently supports levels 1–2 only.':'Level up adds exactly one level, up to level 20.');
+  if(!old||!(supportsMartialProgression(old)||isRedMage(old))||raw.level!==old.level+1||raw.level>20)bad('Level up adds exactly one level, up to level 20.');
   for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId','carry','favored','initialChaMod','abilityMethod','pointBudget','scorePool','scoreAssignments'])if(!same(raw[key],old[key]))bad('Level up cannot change '+({baseScores:'existing ability scores',initialChaMod:'the starting spell allowance',raceId:'race',heritageId:'heritage',disabledTraits:'standard racial traits',alternateIds:'alternate racial traits',archetypeId:'archetype',classId:'class',carry:'previous class data',favored:'favored-class rewards',abilityMethod:'the ability score method',pointBudget:'the point-buy budget',scorePool:'recorded ability rolls',scoreAssignments:'ability score assignments'}[key]||key)+'.');
   for(const key of ['racialChoices','racialSpecialties'])if(!same(raw[key]??{},old[key]??{}))bad('Level up cannot change racial choices.');
   const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose a +1 ability increase.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
@@ -389,6 +391,7 @@ export function levelUpBuild(raw,previous){
 }
 
 export function classFeatureChanges(build,baseline){
+ if(isRedMage(build)){const after=previewBuild(build),before=baseline?previewBuild(baseline):null,prior=new Map((before?.features||[]).map(f=>[f.id,f]));return after.features.map(feature=>({feature,kind:!prior.has(feature.id)?'new':!sameBuildValue(feature.state,prior.get(feature.id).state)?'upgrade':null})).filter(row=>row.kind);}
  if(isChaCaster(build))return previewBuild(build).features.filter(f=>!baseline||!previewBuild(baseline).features.some(old=>old.id===f.id)).map(feature=>({feature,kind:'new'}));
  if(isLevelOneClass(build)){
   const after=previewBuild(build),before=baseline?previewBuild(baseline):null,oldFeatures=new Map((before?.features||[]).map(f=>[f.id,f]));

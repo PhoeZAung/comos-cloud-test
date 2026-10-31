@@ -1,4 +1,4 @@
-import {isRedMage,redMageClass,redMageSpellRows} from './red-mage-level-one.mjs';
+import {isRedMage,redMageClass,redMageSpellRows,redMageDefinition,redMageHasSpells} from './red-mage-level-one.mjs';
 import {syncGunbreakerAmmo} from './gunbreaker-ammo.mjs';
 import {martialChoicePools,martialArchetype,martialCounter,AKIMBO_ID,GUNBREAKER_ID} from './martial-progression.mjs';
 import {MONK_ID,KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
@@ -37,16 +37,17 @@ function makeArcherClass(){
   data:{...archer.data,events},resources:[]};
 }
 export const archerClass=makeArcherClass();
-const isChaCaster=b=>isBard(b)||isRedMage(b);
+const isChaCaster=b=>isBard(b)||isRedMage(b)&&redMageHasSpells(b);
 export const availableClasses=[registry.class,archerClass,...levelOneClasses,...(bardClass?[bardClass]:[]),...(redMageClass?[redMageClass]:[])];
-export const classFor=b=>{const c=availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID));return c?{...c,choicePools:martialChoicePools(b).length?martialChoicePools(b):c.choicePools}:null;};
+export const classFor=b=>{if(isRedMage(b))return redMageDefinition(b);const c=availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID));return c?{...c,choicePools:martialChoicePools(b).length?martialChoicePools(b):c.choicePools}:null;};
 export const isArcher=b=>(b?.classId===ARCHER_ID);
 export const className=b=>classFor(b)?.name||'Unknown class';
 export const classHitDie=b=>Number.isInteger(classFor(b)?.data.hitDie)?classFor(b).data.hitDie:(isArcher(b)?8:6);
 export const classDefaultHp=b=>Math.floor(classHitDie(b)/2)+1;
-export const classHasSpells=b=>!isArcher(b)&&!isLevelOneClass(b);
+export const classHasSpells=b=>isRedMage(b)?redMageHasSpells(b):!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
+ if(isRedMage(b)&&b.level>=15&&!levelOneArchetype(b)?.data.replacements.some(r=>r.atClassLevel<=b.level&&!r.eventOnly&&r.targetFeatureIds.includes('ffd20:class:red-mage:feature:jack-of-all-trades')))return true;
  if(!isArcher(b)&&!isLevelOneClass(b)&&!isChaCaster(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
  if(isLevelOneClass(b)||isChaCaster(b)){const value=id.replace(/^skill:/,'');return (levelOneArchetype(b)?.data.classSkills||classFor(b).data.classSkills).some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
  const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
@@ -207,7 +208,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  next.favoredClassBonuses={};next.favored_class_options=p.race.data.favoredRewards.filter(x=>x.classId===definition.id).map(x=>x.description).join('\n')+'\nFavored rewards require manual adjudication.';
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
- next.castingProfiles=isChaCaster(b)?[{className:name,mode:'full',ability:'cha',casterLevel:b.level,highestSpellLevel:1}]:[];
+ next.castingProfiles=isChaCaster(b)?[{className:name,mode:'full',ability:'cha',casterLevel:b.level,highestSpellLevel:p.summary.spellLevel}]:[];
  if(!isChaCaster(b))next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
  if(oldManaged)for(const key of ownedKeys){

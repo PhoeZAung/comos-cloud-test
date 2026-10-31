@@ -1,0 +1,1439 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:red-mage:reserve-mage",
+  "parentClassId": "ffd20:class:red-mage",
+  "name": "Reserve Mage",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/reserve-mage/",
+      "title": "Reserve Mage",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "1cee5517a68250b112fb500673051a1941840916fb93764b4a6217d218773868"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and existing chassis fields. Complex prerequisites/subchoices/effects are manual per user direction; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:dual-reserve",
+        "name": "Dual Reserve",
+        "atLevel": 1,
+        "description": "At 1st level, the reserve mage receives the Limit Breaks (Dual Reserve and Flexible Arcane Pool).\n\n*Dual Reserve (*[Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)*):* This Limit Break allows the reserve mage to use any non-damaging reserve feat and 1 damaging reserve feat with the same standard action for a duration of 1 round + 1 round per four red mage levels after 1st. This limit break requires only a swift action.\n\n*Flexible Arcane Pool ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the reserve mage to change his current HP total and current arcane pool total on the fly. Once per round as a free action, for a duration of 1 round + 1 round per four red mage levels after 1st, the reserve mage can swap any number of points from HP to arcane points or from arcane points to HP on a 5 to 1 basis (5 HP to 1 arcane point or the reverse). The reserve mage cannot swap below 1 hit point. This limit break requires only a swift action.\n\nThese abilities replace the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:flexible-arcane-pool",
+        "name": "Flexible Arcane Pool",
+        "atLevel": 1,
+        "description": "At 1st level, the reserve mage receives the Limit Breaks (Dual Reserve and Flexible Arcane Pool).\n\n*Dual Reserve (*[Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)*):* This Limit Break allows the reserve mage to use any non-damaging reserve feat and 1 damaging reserve feat with the same standard action for a duration of 1 round + 1 round per four red mage levels after 1st. This limit break requires only a swift action.\n\n*Flexible Arcane Pool ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the reserve mage to change his current HP total and current arcane pool total on the fly. Once per round as a free action, for a duration of 1 round + 1 round per four red mage levels after 1st, the reserve mage can swap any number of points from HP to arcane points or from arcane points to HP on a 5 to 1 basis (5 HP to 1 arcane point or the reverse). The reserve mage cannot swap below 1 hit point. This limit break requires only a swift action.\n\nThese abilities replace the red mage\u2019s standard Limit Breaks.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:reserve-mayhem",
+        "name": "Reserve Mayhem",
+        "atLevel": 1,
+        "description": "Starting at 1st level, a reserve mage gains a Reserve Feat, without needing to meet the prerequisites. At 5th level and every four red mage levels thereafter, he gains another Reserve Feat. All reserve feats no longer requires MP, but now requires points from his arcane pool instead. The reserve mage must have a caster level high enough to cast a spell of the required level to use these feats.\n\nThis ability replaces red magery and ruby arcana.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Mayhem",
+            "locator": "reserve-mayhem"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:empowered-reserve-feats",
+        "name": "Empowered Reserve Feats",
+        "atLevel": 1,
+        "description": "Also at 1st level, all reserve feats the reserve mage has gains bonuses. Any variable effects (such as damage, duration, DC, or bonuses) increases by 1 (damage would increase by 1 die, duration would increase by 1 round, DC and any other bonuses increases by 1) plus an additional +1 per four red mage levels after 1st.\n\nThis ability replaces cantrips, spells, and MP Pool. Reserve mages do not gain any spells or spellcasting ability, and do not count as having a red mage spell list for spell trigger or spell completion magic items, but they do have a caster level (for reserve feats only, their spell level remains the same as a normal red mage would have).\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Empowered Reserve Feats",
+            "locator": "empowered-reserve-feats"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:arcane-pool",
+        "name": "Arcane Pool",
+        "atLevel": 1,
+        "description": "At 1st level, the reserve mage gains a reservoir of mystical arcane energy that he can draw upon to fuel his powers and enhance his weapon and shield. This arcane pool has a number of points equal to his red mage level + his Charisma modifier. The pool refreshes once per day when the reserve mage rests for a full 8 hours.\n\nAt 1st level, a reserve mage can increase the damage by 1 die or the DC by 1 by spending an arcane point. At 5th level and every four red mage levels thereafter, he may add an additional +1.\n\nThis ability replaces armored mage, ruby knowledge, and arcane pool gained at 2nd level.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:reserve-combat",
+        "name": "Reserve Combat",
+        "atLevel": 1,
+        "description": "Also at 1st level, a reserve mage can use a reserve feat and wield weapons at the same time, that functions like spell combat.\n\nThis ability modifies and replaces spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Combat",
+            "locator": "reserve-combat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:extra-arcane-pool",
+        "name": "Extra Arcane Pool",
+        "atLevel": 1,
+        "description": "At 1st level, a reserve mage gains the Extra Arcane Pool feat.\n\nThis ability replaces spell proficiency.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Extra Arcane Pool",
+            "locator": "extra-arcane-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:reserve-strike",
+        "name": "Reserve Strike",
+        "atLevel": 2,
+        "description": "At 2nd level, a reserve mage can use spellstrike with his reserve feats instead.\n\nThis ability modifies and replaces spellstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Strike",
+            "locator": "reserve-strike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:quick-reserve",
+        "name": "Quick Reserve",
+        "atLevel": 4,
+        "description": "At 4th level, once per day, a reserve mage may use his Reserve Feats as a swift action. He can use this ability an additional time per day for every four red mage levels thereafter.\n\nThis ability replaces quick cast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Reserve",
+            "locator": "quick-reserve"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:metamagic-reserves",
+        "name": "Metamagic Reserves",
+        "atLevel": 4,
+        "description": "Also at 4th level, a reserve mage can spend arcane points to empower metamagic feats to affect reserve feats. From 4th level to 7th level, he can spend 1 arcane point for metamagic feats, from 8th level to 11th level, he can spend 2 arcane points, from 12th level to 15th level, he can spend 3 arcane points, from 16th to 19th level, he can spend 4 arcane points, and finally at 20th level, he can spend 5 arcane points.\n\nThis ability replace spell power and counterstrike.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Metamagic Reserves",
+            "locator": "metamagic-reserves"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:clear-mind",
+        "name": "Clear Mind",
+        "atLevel": 5,
+        "description": "At 5th level, a reserve mage can regain his arcane pool quicker. The reserve mage must be relaxed and must be free from overt distractions, such as combat raging nearby or other loud noises. For example, he could be riding in the back of a carriage and benefit from this ability. The reserve mage does not gain this recovery if he is asleep or unconscious. The reserve mage regains 1 arcane point per hour.\n\nThis ability modifies and replaces clear mind.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Clear Mind",
+            "locator": "clear-mind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:convert",
+        "name": "Convert",
+        "atLevel": 5,
+        "description": "Beginning of 5th level, a reserve mage can convert hit points into arcane points as a free action. For every 5 hit points converted, the reserve mage receives 1 arcane point. The reserve mage cannot convert below 1 hit point and can only convert arcane points equal to his red mage level. The reserve mage can use this ability a number of times per day equal to his Charisma modifier.\n\nThis ability modifies and replaces convert.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Convert",
+            "locator": "convert"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:improved-reserve-combat",
+        "name": "Improved Reserve Combat",
+        "atLevel": 7,
+        "description": "As improved spell combat, but using a reserve mage\u2019s reserve feats instead.\n\nThis ability modifies and replaces improved spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Reserve Combat",
+            "locator": "improved-reserve-combat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:greater-reserve-combat",
+        "name": "Greater Reserve Combat",
+        "atLevel": 14,
+        "description": "As greater spell combat, but using a reserve mage\u2019s reserve feats instead.\n\nThis ability modifies and replaces greater spell combat.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Reserve Combat",
+            "locator": "greater-reserve-combat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:double-reserve",
+        "name": "Double Reserve",
+        "atLevel": 15,
+        "description": "At 15th level, a reserve mage can use two reserve feats using one standard action. The reserve mage can make any decisions concerning the feats independently of each other. Any target affected by both of the feats takes a \u20134 penalty on saves made against each feat. The reserve mage may use this ability once per day at 15th level and one additional time per day at 20th level.\n\nThis ability modifies and replaces doublecast.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Double Reserve",
+            "locator": "double-reserve"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:maximum-reserve",
+        "name": "Maximum Reserve",
+        "atLevel": 19,
+        "description": "At 19th level, three times per day, as a free action, a reserve mage can maximize the variables of a reserve feat. Additional metamagic cannot be applied.\n\nThis ability replaces 1 mp spell.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maximum Reserve",
+            "locator": "maximum-reserve"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:feature:reserve-wizard",
+        "name": "Reserve Wizard",
+        "atLevel": 20,
+        "description": "At 20th level, a reserve mage becomes a master of reserve feats and combat. Whenever the reserve mage uses reserve combat and his feat targets the same creature as his melee attacks, he can choose to either increase the DC to resist the feat by +2 or grant himself a +2 circumstance bonus on all attack rolls made against the target during his turn.\n\nThis ability modifies and replaces red wizard.\nManual sheet handling: record any stated choice, companion, weapon, spell, feat, temporary modifier or condition on the existing sheet entries; this card does not apply global combat effects.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Wizard",
+            "locator": "reserve-wizard"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:limit-breaks",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:dual-spellcasting",
+          "ffd20:class:red-mage:feature:flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:dual-reserve",
+          "ffd20:archetype:red-mage:reserve-mage:feature:flexible-arcane-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ],
+        "description": "These abilities replace the red mage\u2019s standard Limit Breaks."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:reserve-mayhem",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-arcana",
+          "ffd20:class:red-mage:feature:red-magery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:reserve-mayhem"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Mayhem",
+            "locator": "reserve-mayhem"
+          }
+        ],
+        "description": "This ability replaces red magery and ruby arcana."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:empowered-reserve-feats",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:cantrips",
+          "ffd20:class:red-mage:feature:spells"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:empowered-reserve-feats"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Empowered Reserve Feats",
+            "locator": "empowered-reserve-feats"
+          }
+        ],
+        "description": "This ability replaces cantrips, spells, and MP Pool. Reserve mages do not gain any spells or spellcasting ability, and do not count as having a red mage spell list for spell trigger or spell completion magic items, but they do have a caster level (for reserve feats only, their spell level remains the same as a normal red mage would have)."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:arcane-pool",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:ruby-knowledge",
+          "ffd20:class:red-mage:feature:armored-mage",
+          "ffd20:class:red-mage:feature:arcane-pool",
+          "ffd20:class:red-mage:feature:armored-mage-medium",
+          "ffd20:class:red-mage:feature:armored-mage-shield"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:arcane-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arcane Pool",
+            "locator": "arcane-pool"
+          }
+        ],
+        "description": "This ability replaces armored mage, ruby knowledge, and arcane pool gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:reserve-combat",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:reserve-combat"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Combat",
+            "locator": "reserve-combat"
+          }
+        ],
+        "description": "This ability modifies and replaces spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:extra-arcane-pool",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spell-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:extra-arcane-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Extra Arcane Pool",
+            "locator": "extra-arcane-pool"
+          }
+        ],
+        "description": "This ability replaces spell proficiency."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:reserve-strike",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spellstrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:reserve-strike"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Strike",
+            "locator": "reserve-strike"
+          }
+        ],
+        "description": "This ability modifies and replaces spellstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:quick-reserve",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:quick-cast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:quick-reserve"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Reserve",
+            "locator": "quick-reserve"
+          }
+        ],
+        "description": "This ability replaces quick cast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:metamagic-reserves",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:counterstrike",
+          "ffd20:class:red-mage:feature:spell-power"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:metamagic-reserves"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Metamagic Reserves",
+            "locator": "metamagic-reserves"
+          }
+        ],
+        "description": "This ability replace spell power and counterstrike."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:clear-mind",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:clear-mind"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:clear-mind"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Clear Mind",
+            "locator": "clear-mind"
+          }
+        ],
+        "description": "This ability modifies and replaces clear mind."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:convert",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:convert"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:convert"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Convert",
+            "locator": "convert"
+          }
+        ],
+        "description": "This ability modifies and replaces convert."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:improved-reserve-combat",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:improved-spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:improved-reserve-combat"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Reserve Combat",
+            "locator": "improved-reserve-combat"
+          }
+        ],
+        "description": "This ability modifies and replaces improved spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:greater-reserve-combat",
+        "atClassLevel": 14,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:greater-spell-combat"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:greater-reserve-combat"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Reserve Combat",
+            "locator": "greater-reserve-combat"
+          }
+        ],
+        "description": "This ability modifies and replaces greater spell combat."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:double-reserve",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:doublecast"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:double-reserve"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Double Reserve",
+            "locator": "double-reserve"
+          }
+        ],
+        "description": "This ability modifies and replaces doublecast."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:maximum-reserve",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:1-mp-spell"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:maximum-reserve"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Maximum Reserve",
+            "locator": "maximum-reserve"
+          }
+        ],
+        "description": "This ability replaces 1 mp spell."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:reserve-wizard",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:red-wizard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:red-mage:reserve-mage:feature:reserve-wizard"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Wizard",
+            "locator": "reserve-wizard"
+          }
+        ],
+        "description": "This ability modifies and replaces red wizard."
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:replacement:noncasting",
+        "atClassLevel": 1,
+        "operation": "remove",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:red-mage:feature:spells",
+          "ffd20:class:red-mage:feature:cantrips"
+        ],
+        "replacementFeatureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Empowered Reserve Feats",
+            "locator": "empowered-reserve-feats"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:pool:reserve-mayhem",
+        "name": "Reserve Mayhem",
+        "options": [
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:acidic-splatter",
+            "name": "Acidic Splatter",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Acidic Splatter\n\nTable of Contents\n\n*You can channel magical energy into orbs of acid.*\n\n**Prerequisite(s):** Ability to cast 2nd-level spells, Elemental Focus (Earth).\n\n##### BENEFIT\n\nAs long as you have an elemental (earth) spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can throw an orb of acid as a ranged touch attack. The attack has a range of 5 feet per level of the highest-level earth spell you can cast and deals 1d6 points of earth damage per level of that earth spell. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (earth) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:aquatic-breath",
+            "name": "Aquatic Breath",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Aquatic Breath\n\nTable of Contents\n\n*Your reservoir of magic allows you to breathe normally even underwater.*\n\n**Prerequisite(s):** Ability to cast 3rd-level spells, Elemental Focus (Water).\n\n##### BENEFIT\n\nAs long as you have an elemental (water) spell of 3rd level or higher in your known spells and have at least 3 MP in your MP pool, you can breathe normally in both air and water. This supernatural quality requires no activation. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (water) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:blockout",
+            "name": "Blockout",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Blockout\n\nTable of Contents\n\n*The Tetris theme is now playing in your head.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Elemental Focus (Earth).\n\n##### BENEFIT\n\nAs long as you have an elemental (earth) spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, as a standard action, you may create a 5 by 5 by 5 ft block of material in an unoccupied space adjacent to you, which remains in place for up to 5 rounds before vanishing. The type of material the block is made out of depends on the highest level earth spell you can cast. At 1st level, it is made of paper (effectively no weight, no hardness, 10 hp). 3rd level is a hollow block of wood (200 lbs, hardness 5, 60 hp). 5th level is a block of solid wood (2000 lbs, hardness 5, 600 hp). 7th level is a block of stone (9 tons, hardness 8, 900 hp). 9th level creates a block of iron (30 tons, hardness 10, 1800 hp). You can always choose to make a block of lesser value if desired. The usual rules about summoning into a place which can support the cube applies, and you may dismiss any and all cubes as a standard action. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (earth) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:borne-aloft",
+            "name": "Borne Aloft",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Borne Aloft\n\nTable of Contents\n\n*You can channel the magic of the winds to briefly grant you flight.*\n\n**Prerequisite(s):** Ability to cast 5th-level spells, Elemental Focus (Wind).\n\n##### BENEFIT\n\nAs long as you have an elemental (wind) spell of 5th level or higher in your known spells and at least 5 MP in your MP pool, you can fly up to 30 feet (perfect maneuverability) as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) once per round. You must begin and end this flight solidly supported, or you fall. You can\u2019t use this ability if you wear heavy armor or carry a heavy load. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (wind) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:clutch-of-earth",
+            "name": "Clutch of Earth",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Clutch of Earth\n\nTable of Contents\n\n*You briefly increase the earth\u2019s pull on the target creature.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Elemental Focus (Earth).\n\n##### BENEFIT\n\nAs long as you have an elemental (earth) spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can spend a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to reduce the speed of any land bound creature within 30 feet of you. The creature\u2019s normal land speed, as well as its burrow and climb speeds, decrease by 5 feet per level of the highest level earth spell you can cast, to a minimum speed of 5 feet. This effect lasts for 1 round. A successful Fortitude (DC 10 + half caster level + caster modifier) save negates this effect and renders the target immune to the feat\u2019s effect for 24 hours. Creatures currently swimming or flying are immune to this effect. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (earth) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:drowning-glance",
+            "name": "Drowning Glance",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Drowning Glance\n\nTable of Contents\n\n*With a look, you create a small but incapacitating amount of water in the subject\u2019s lungs.*\n\n**Prerequisite(****s)****:** Ability to cast 4th-level spells, Elemental Focus (Water).\n\n##### BENEFIT\n\nAs long as you have an elemental (water) spell of 4th level or higher in your known spells and at least 4 MP in your MP pool, you can use a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to transform a small portion of the air in a living creature\u2019s lungs to water, making it difficult for the creature to breathe. The subject must be within 30 feet. The target becomes exhausted for 1 round; if it succeeds on a Fortitude (DC 10 + half caster level + caster modifier) save, it is instead fatigued for 1 round. Whether or not a targeted creature successfully saves, it is immune to any further uses of your drowning glance for 24 hours. Creatures that can breathe water (or who don\u2019t breathe) are immune to this effect. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (water) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:emergency-health",
+            "name": "Emergency Health",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Emergency Health\n\nTable of Contents\n\n*You imbue yourself with temporary protection from harm.*\n\n**Prerequisite(****s)****:** Ability to cast 3rd-level spells.\n\n##### BENEFIT\n\nSometimes you just take a few more hits than you intended to. Whenever you cast an enhancing spell of 3rd level or higher, you can spend an immediate action to gain temporary HP equal to 10% of your maximum HP, +1 additional temporary hit point per level of the highest-level enhancing spell you can cast. These temporary hit points last for 1 minute and stack with other sources of temporary hit points. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting enhancing spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:face-changer",
+            "name": "Face-Changer",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Face-Changer\n\nTable of Contents\n\n*Your mastery of illusions allows you to subtly alter your appearance at a whim.*\n\n**Prerequisite(s):** Ability to cast 3rd-level spells, Spell Focus (Illusion).\n\n##### BENEFIT\n\nAs long as you have an illusion spell of 3rd level or higher in your known spells and have at least 3 MP in your MP pool, you can alter your appearance as the spell [disguise self](https://www.finalfantasyd20.com/magic/spells/d/disguise-self/), except that the duration lasts 1 minute per level of the highest level illusion spell you can cast. This illusory transformation requires a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) to activate. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting illusion spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:fiery-burst",
+            "name": "Fiery Burst",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Fiery Burst\n\nTable of Contents\n\n*You channel your magical talent into a blast of fire.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Elemental Focus (Fire).\n\n##### BENEFIT\n\nAs long as you have an elemental (fire) spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can spend a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to create a 5-foot-radius burst of fire at a range of 30 feet. This burst deals 1d6 points of fire damage per level of the highest level fire spell you can cast. A successful Reflex (DC 10 + half caster level + caster modifier) save halves the damage. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (fire) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:fog-stalker",
+            "name": "Fog Stalker",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Fog Stalker\n\nTable of Contents\n\n*Your eyes pierced through the fog and you are able to strike creatures in fog with sneaky intent.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Spell Focus (Illusion).\n\n##### BENEFIT\n\nAs long as you have an illusion spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can *see through fog*. This is a supernatural ability. Additionally, creatures inside of cloud or fog effect are flat-footed against your melee attacks and spells, unless they possess blindsense (or other extrasensory ability) which is able to perceive you. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting illusion spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:future-foresight",
+            "name": "Future Foresight",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Future Foresight\n\nTable of Contents\n\n*You harness time to improve your dodging ability.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Spell Focus (Chronomancy).\n\n##### BENEFIT\n\nAs long as you have a chronomancy spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you gain the benefit of Uncanny Dodge as a thief of your level. If you already possess Uncanny Dodge, you gain Improved Uncanny Dodge instead. Additionally, as a swift action, you may grant yourself a dodge bonus to AC equal to the highest-level chronomancy spell you can cast against the next attack made against you until the start of your next turn. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting chronomancy spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:hostile-figment",
+            "name": "Hostile Figment",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Hostile Figment\n\nTable of Contents\n\n*You create figments of imagination that can strike creatures.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Spell Focus (Illusion).\n\n##### BENEFIT\n\nAs long as you have an illusion spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you are able to produce threatening figments. As a swift action, you can choose a 5-ft square within 5 ft per highest-level illusion spell you can cast, to be the originating point of an hostile figment. The hostile figment threaten opponents, although it is unable to attack on its own (see below), it does allow allies to flank. The hostile figment lasts for 1 round before disappearing. A threatened creature is allowed a Will save (DC 10 + half caster level + caster modifier) to disbelieve the figment, negating its effect against that creature.\n\nAs a standard action, you can have the hostile figment lash out at an opponent it threatens. This deals 1d4 damage per level of the highest-level illusion spell you can cast and deal\u00a0 bludgeoning, earth, fire, piercing, ice, lightning, slashing, water, or wind damage, as appropriate to the illusion. You cannot target an opponent that has successfully disbelieved the hostile figment.\n\nAs a secondary benefit, you gain a +1 competence bonus to your caster level when casting illusion spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:hurricane-breath",
+            "name": "Hurricane Breath",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Hurricane Breath\n\nTable of Contents\n\n*The power of elemental wind you hold in your mind allows you to exhale the wind.*\n\n**Prerequisite(s):** Ability to cast 2nd-level spells, Elemental Focus (Wind).\n\n##### BENEFIT\n\nAs long as you have an elemental (wind) spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can attempt to knock a single creature within 30 feet back with a blast of wind. This requires a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) and functions much like a bull rush; roll 1d20 + the level of the highest-level wind spell you can cast opposed by your opponent\u2019s Strength check. If you succeed, you push the creature back 5 feet. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (wind) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:hydromancy",
+            "name": "Hydromancy",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Hydromancy\n\nTable of Contents\n\n*Your mastery of water magic beckons at your command.*\n\n**Prerequisite(****s)****:** Ability to cast 4th-level spells, Elemental Focus (Water).\n\n##### BENEFIT\n\n\u00a0As long as you have an elemental (water) spell of 4th level or higher in your known spells and have at least 4 MP in your MP pool, you may [control water](https://www.finalfantasyd20.com/magic/spells/c/control-water/) at-will using half your caster level. When you cast [*control water*](https://www.finalfantasyd20.com/magic/spells/c/control-water/) (whether at will or using MP to cast it), you may even sculpt the water into any shape you desire, although it is still water. While you could make a pillar of water to raise yourself given a sufficient amount, making a water ladder is probably not a good idea. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (water) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:instantaneous-jaunting",
+            "name": "Instantaneous Jaunting",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Instantaneous Jaunting\n\nTable of Contents\n\n*Your mastery of teleportation allows you to jump around.*\n\n**Prerequisite(****s)****:** Ability to cast 5th-level spells, Spell Focus (Chronomancy).\n\n##### BENEFIT\n\n\u00a0As long as you have a chronomancy [teleportation] spell of 5th level or higher in your known spells and have at least 5 MP in your MP pool, you may teleport as a move action 10 + 10 feet times the highest-level chronomancy [teleportation] spell you can cast. You need both line of sight and effect to teleport through this feat. Once used, you must wait 1d4 rounds before teleporting this way again. You may only carry yourself and up to your maximum load. \u00a0As a secondary benefit, you gain a +1 competence bonus to your caster level when casting chronomancy [teleportation] spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:lightbending",
+            "name": "Lightbending",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Lightbending\n\nTable of Contents\n\n*You bend the light to your will, making you invisible to the naked eye.*\n\n**Prerequisite(****s)****:** Ability to cast 4th-level spells, Light Focus.\n\n##### BENEFIT\n\nAs long as you have a light spell of 4th level or higher in your known spells and have at least 4 MP in your MP pool, whenever you cast a Light spell, you act as if under the effects of [*Vanish*](https://www.google.com/url?client=internal-element-cse&cx=008293744137546658687:5ojthtgxuhe&q=https://www.finalfantasyd20.com/magic/spells/v/vanish/&sa=U&ved=2ahUKEwid_IWoypf6AhVHGFkFHfB6CdkQFnoECAEQAQ&usg=AOvVaw0wjCjG1EetM5w3Ls4n-SW1) by bending the light to impair vision, but only against creatures that rely on sight to see you. This effect lasts one round per spell level of the highest-level light spell you can cast. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting light spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:magic-gun",
+            "name": "Magic Gun",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Magic Gun\n\nTable of Contents\n\n*You conjure a magical gun that shoots raw energy.*\n\n**Prerequisite(****s)****:** Ability to cast 1st-level spells.\n\n##### BENEFIT\n\nWhile you have a non-elemental spell of 1st level or higher in your known spells and have at least 1 MP in your MP pool, you can form a magic gun in a free hand as a move action. You can use this gun to attack as an [attack action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), dealing 1d3 points of non-elemental damage per level of the highest-level non-elemental spell you can cast. The attack is a ranged touch attack, and the max range is 120 ft. A magic gun is a light weapon. The magic gun dissipates when it leaves your hand.\n\nAs a secondary benefit, you gain a +1 [competence bonus](https://www.d20pfsrd.com/basics-ability-scores/glossary#TOC-Competence-Bonus) to your caster level when casting non-elemental spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:mark-of-retrieval",
+            "name": "Mark of Retrieval",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Mark of Retrieval\n\nTable of Contents\n\n*You mark items for easy retrieval.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Spell Focus (Summoning).\n\n##### BENEFIT\n\nWhile you have a summoning spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you may mark a number of objects equal to the highest-level summoning spell you can cast, at any one time, with a range of touch as a standard action. This bonds you with the item until the next time you regain your MP for the day. At any time afterward, you may summon the object to your hand as a free action, as long as it is within 1 mile. If it is outside of this range you know the direction, but not the distance, the object is present. Attended objects get a Will save (DC 10 + half of your caster level + your highest mental ability modifier) to resist. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting summoning spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:mystic-backlash",
+            "name": "Mystic Backlash",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Mystic Backlash\n\nTable of Contents\n\n*With a touch, your magic corrupts the spells of your enemy.*\n\n**Prerequisite(****s)****:** Ability to cast 5th-level spells, Spell Focus (Enfeebling).\n\n##### BENEFIT\n\nAs long as you have an enfeebling spell of 5th level or higher in your known spells and have at least 5 MP in your MP pool, you can make another creature\u2019s spellcasting harmful to itself. Use of this feat requires a melee touch attack that does not provoke attacks of opportunity. As a standard action, with a successful touch you can infuse another creature with baneful magic for a number of rounds equal to the level of the highest-level enfeebling spell you can cast. A successful Will save (DC 10 + half your caster level + your highest mental stat modifier) reduces this duration to 1 round. For the duration of the effect, each time the target completes the casting of a spell, it takes damage equal to the highest-level enfeebling spell you can cast, that determined the effect\u2019s duration. Since the spell\u2019s casting has already been completed, this doesn\u2019t count as damage dealt during casting. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting enfeebling spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:mystic-shield",
+            "name": "Mystic Shield",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Mystic Shield\n\nTable of Contents\n\n*You conjure a floating mystical shield to defend you.*\n\n**Prerequisite(****s)****:** Ability to cast 3rd-level spells.\n\n##### BENEFIT\n\nWhile you have an enhancing spell of 3rd level or higher in your known spells and have at least 3 MP in your MP pool, you can conjure a floating force shield to protect you as a standard action. The force shield provides a shield bonus to AC equal to the highest-level enhancing spell you can cast and lasts a number of rounds equal to the highest-level enhancing spell you can cast. You cannot shield bash or enhance the shield, but it cannot take damage except by ruin spells. This feat acts like the [Shield](https://www.finalfantasyd20.com/magic/spells/s/shield/) spell against ruin spells. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting enhancing spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:protective-ward",
+            "name": "Protective Ward",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Protective Ward\n\nTable of Contents\n\n*Your connection to your magic shields you or an ally from attacks.*\n\n**Prerequisite(****s)****:** Ability to cast 1st-level spells.\n\n##### BENEFIT\n\nAs long as you have an enhancing spell of 1st level or higher in your known spells and have at least 1 MP in your MP pool, you can use a standard action to provide a circumstance bonus to AC equal to the level of the highest-level enhancing spell you can cast. You can apply this bonus either to your AC or to that of a single ally within 30 feet, and it persists until the beginning of your next turn. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting enhancing spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:shadow-veil",
+            "name": "Shadow Veil",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Shadow Veil\n\nTable of Contents\n\n*You draw wisps of darkness across your enemy\u2019s eyes, obscuring the world around him.*\n\n**Prerequisite(s):** Ability to cast 2nd-level spells, Dark Focus.\n\n##### BENEFIT\n\nAs long as you have a dark spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can obscure the vision of a subject within 30 feet as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). If the subject fails a Will (DC 10 + half caster level + caster modifier) save, it treats all other creatures and objects as though they had concealment and takes a -5 penalty on Perception checks for 1 round. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting dark spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:sickening-grasp",
+            "name": "Sickening Grasp",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Sickening Grasp\n\nTable of Contents\n\n*You wreak havoc with the inner organs of a target, causing it to grow ill.*\n\n**Prerequisite(****s)****:** Ability to cast 3rd-level spells, Spell Focus (Necromancy).\n\n##### BENEFIT\n\nAs long as you have a necromancy spell of 3rd level or higher in your spells known and have at least 3 MP in your MP pool,, any living creature you hit with a melee touch attack becomes sickened for a number of rounds equal to the level of the highest-level necromancy spell you can cast. The subject can reduce this duration to 1 round with a successful Fortitude save (DC 10 + half your caster level + your highest mental stat modifier). As a secondary benefit, you gain a +1 competence bonus to your caster level when casting necromancy spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:status-remover",
+            "name": "Status Remover",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Status Remover\n\nTable of Contents\n\n*You remove the status effect from a target creature.*\n\n**Prerequisite(****s)****:** Ability to cast 4th-level spells.\n\n##### BENEFIT\n\nAs long as you have a healing spell of 4th level or higher in your known spells and have at least 4 MP in your MP pool, you can spend a standard action to remove a status effect from a creature within 30 feet. The level of the status effect removal is based on your highest level healing spell you can cast. For example, if you can cast 3rd level spells, then you could remove 3rd level and lower status effects. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting healing spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:storm-bolt",
+            "name": "Storm Bolt",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Storm Bolt\n\nTable of Contents\n\n*The lightning energy contained within your magic rages inside you, begging to be released.*\n\n**Prerequisite(s):**Ability to cast 3rd level spells, Elemental Focus (Lightning).\n\n##### BENEFIT\n\nAs long as you have an elemental (lightning) spell of 3rd level or higher in your known spells and have at least 3 MP in your MP pool, you can fire a 20-foot line of lightning as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). This bolt deals 1d6 points of lightning damage per level of the highest-level lightning spell you can cast. A successful Reflex (DC 10 + half caster level + caster modifier) save halves damage. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (lightning) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:summon-elemental",
+            "name": "Summon Elemental",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Summon Elemental\n\nTable of Contents\n\n*You can channel the summoning power you hold to briefly bring forth an elemental servant.*\n\n**Prerequisite(s):**Ability to cast 4th-level spells, [Spell Focus](https://www.d20pfsrd.com/feats/general-feats/spell-focus/) (Summoning).\n\n##### BENEFIT\n\nAs long as you have a summoning spell of 4th level or higher in your known spells and have at least 4 MP in your MP pool, you can summon a Small elemental (any element; your choice) within a range of 30 feet. The elemental acts as if summoned by a summon monster spell. The duration of the summoning is equal to 1 round per level of the highest-level summoning spell you can cast. You can have only one summoned elemental from this feat at a time; if you use the ability a second time, the first elemental disappears. Also, you must remain close to the elemental you summon. If at the end of your turn you are more than 30 feet from the elemental, it disappears.\n\nIf you have a summoning spell of 6th level or higher available to cast, you can summon a Medium elemental instead. If you have a summoning spell of 8th level or higher available to cast, you can summon a Large elemental instead.\n\nAs a secondary benefit, you gain a +1 competence bonus to your caster level when casting summoning spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:summon-undead",
+            "name": "Summon Undead",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Summon Undead\n\nTable of Contents\n\n*You can channel the necromancy power you hold to briefly bring forth an undead servant.*\n\n**Prerequisite(****s)****:** Ability to cast 4th-level spells,\u00a0[Spell Focus](https://www.d20pfsrd.com/feats/general-feats/spell-focus/) (Necromancy).\n\n##### BENEFIT\n\nAs long as you have a necromancy spell of 4th level or higher in your known spells and have at least 4 MP in your MP pool, you can summon any CR 2 or less undead creature (your choice) within a range of 30 feet. The undead acts as if summoned by a summon undead spell. The duration of the summoning is equal to 1 round per level of the highest-level necromancy spell you can cast. You can have only one summoned undead from this feat at a time; if you use the ability a second time, the first undead disappears. Also, you must remain close to the undead you summon. If at the end of your turn you are more than 30 feet from the undead, it disappears.\n\nIf you have a necromancy spell of 6th level or higher available to cast, you can summon any CR 6 or less undead creature (your choice) instead. If you have a necromancy spell of 8th level or higher available to cast, you can summon any CR 8 or less undead creature (your choice) instead.\n\nAs a secondary benefit, you gain a +1 competence bonus to your caster level when casting necromancy spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:sunlight-eyes",
+            "name": "Sunlight Eyes",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Sunlight Eyes\n\nTable of Contents\n\n*The bright magic within you allows you to see through the darkest shadow.*\n\n**Prerequisite(s):**Ability to cast 2nd-level spells, Light Focus.\n\n##### BENEFIT\n\nAs long as you have a light spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can take a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to grant yourself the ability to see normally in any conditions of illumination (shadowy illumination, darkness, and magical shadow or darkness). The range of this vision is 10 feet per level of the highest-level light spell you can cast, and the effect lasts for 1 round. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting light spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:superconductivity",
+            "name": "Superconductivity",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Superconductivity\n\nTable of Contents\n\n*You weave lightning about you, turning other peoples\u2019 lightning spells back at them.*\n\n**Prerequisite(****s)****:** Ability to cast 3rd-level spells, Elemental Focus (Lightning).\n\n##### BENEFIT\n\nWhile you have an elemental (lightning) spell of 3rd level or higher in your known spells and have at least 3 MP in your MP pool, as an immediate action, you can redirect one lightning spell or effect with ease, either back at the caster or other targets, using the original save DC or 10 + half your caster level + your highest mental ability score modifier, whichever is higher. Furthermore, you gain Evasion against Elemental [Lightning] effects. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (lightning) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:the-fire-within",
+            "name": "The Fire Within",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# The Fire Within\n\nTable of Contents\n\n*You absorb a fire effect and imbue the next fire spell with its effects or burst with flames to creatures near you.*\n\n**Prerequisite(****s)****:** Ability to cast 3rd-level spells, [Elemental Focus](https://www.finalfantasyd20.com/feats/general-feats/elemental-focus/) (Fire).\n\n##### BENEFIT\n\nAs long as you have an elemental (fire) spell of 3rd level or higher in your known spells and have at least 3 MP in your MP pool, while you are subject to a ([fire](https://www.finalfantasyd20.com/magic/#elemental)) effect, you can forfeit your normal [Reflex save](https://www.d20pfsrd.com/gamemastering/combat#TOC-Reflex) against the effect (Or lose your Dexterity bonus against the effect if it requires an attack roll instead of allowing a save). You cannot absorb extra damage granted by this feat. Instead, you make a [Will save](https://www.d20pfsrd.com/basics-ability-scores/ability-scores#TOC-Wisdom-Wis-) against the effect. If the save is successful, you absorb the effect, recording its damage and its DC, if any; During this time, you create [light as a torch](https://www.finalfantasyd20.com/magic/spells/t/torchlight/).\n\nYou can only hold one ([fire](https://www.finalfantasyd20.com/magic/#elemental)) effect within yourself at a time, and you can only hold it for a number of minutes equal to the highest-level fire spell you can cast. After this duration is up, the absorbed effect dissipates.\n\nDuring this duration, any ice attacks used against you don\u2019t damage you, instead, they siphon away the fire within. However, during this duration, when you create a ([fire](https://www.finalfantasyd20.com/magic/#elemental)) effect (Such as casting a 1st level spell or higher, such as the [Fire](https://www.finalfantasyd20.com/magic/spells/f/fire/) spell), you may add the damage of the absorbed effect to the damage of the effect you just created, which consumes the effect, and you may use the DC of the absorbed effect if it was higher than the DC of the effect you just created.\n\nAs a secondary benefit, you may instead choose to release this fire as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate); Doing so subjects all targets within a 20-ft.-radius of you to the full fire damage, with a [Reflex save](https://www.d20pfsrd.com/gamemastering/combat#TOC-Reflex) for half. Once you release the fire within in any manner, your [torchlight](https://www.finalfantasyd20.com/magic/spells/t/torchlight/) effect fades.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:thread-of-fate",
+            "name": "Thread of Fate",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Thread of Fate\n\nTable of Contents\n\n*You alter the events of fate for one roll.*\n\n**Prerequisite(****s)****:** Ability to cast 4th-level spells, Spell Focus (Chronomancy).\n\n##### BENEFIT\n\nAs long as you have a chronomancy spell of 4th level or higher in your known spells and have at least 4 MP in your MP pool, you gain the ability to alter the threads of fate. As a free action usable outside of your turn, you may take 1 point of Ability Burn to your casting ability score, upon doing so you may have any d20 re-rolled. You may use this ability multiple times but never more than once per roll. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting chronomancy spells.\n\n**Ability Burn:** Take 1 point of ability damage to your casting attribute for your primary spellcasting class. This ability damage cannot be healed by magical means or supernatural means. It may only be healed with time and rest.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:touch-of-distraction",
+            "name": "Touch of Distraction",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Touch of Distraction\n\nTable of Contents\n\n*Your touch briefly clouds the mind of a foe, impeding its efforts.*\n\n**Prerequisite(****s)****:** Ability to cast 3rd-level spells, [Spell Focus](https://www.d20pfsrd.com/feats/general-feats/spell-focus/) (Enfeebling).\n\n##### BENEFIT\n\nAs long as you have an enfeebling spell of 3rd level or higher in your known spells and have at least 3 MP in your MP pool, you can cloud the mind of a creature within 30 feet as a standard action. The target takes a -2 penalty on its next single attack roll or Reflex saving throw. If the target makes no attacks or Reflex saves within a number of rounds equal to the level of the highest-level enfeebling spell you can cast, the effect ends. Multiple uses of this feat don\u2019t stack. This is an enfeebling (compulsion), mind-affecting effect. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting enfeebling spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:touch-of-healing",
+            "name": "Touch of Healing",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Touch of Healing\n\nTable of Contents\n\n*You can channel energy into healing with a touch.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells.\n\n##### BENEFIT\n\nAs long as you have a healing spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can spend a standard action to touch a target creature and heal 3 points of damage per level of the highest-level healing spell you can cast. You can use this ability only on a target that has been reduced to one-half or fewer of its total hit points. The effect ends once you\u2019ve healed the subject up to half its normal maximum hit points. This ability has no effect on creatures that can\u2019t be healed by cure spells. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting healing spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:umbral-shroud",
+            "name": "Umbral Shroud",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Umbral Shroud\n\nTable of Contents\n\n*You control darkness and shadows.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Dark Focus.\n\n##### BENEFIT\n\nAs long as you have a dark spell of 3rd level or higher in your known spells and have at least 3MP in your MP pool, shadows and darkness appear to obey your will. As a standard action, you can direct these shadows to obscure the vision of one foe within 30 feet. If your target fails a Will save (DC 10 + half your caster level + your highest mental stat modifier), its attacks have a miss chance equal to 5% per level of the highest-level dark spell you can cast. This effect lasts until the beginning of your next action. Creatures that do not rely on sight are unaffected by this effect, and those with Blind-Fight or similar abilities can fight as they normally would. As a secondary benefit, you gain darkvision out to 10 feet. If you already have darkvision, its range increases by 10 feet.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:water-shield",
+            "name": "Water Shield",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Water Shield\n\nTable of Contents\n\n*Your mastery of water magic blocks an incoming attack.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Elemental Focus (Water).\n\n##### BENEFIT\n\nAs long as you have an elemental (water) spell of 2nd level or higher in your known spells, have at least 2 MP in your MP pool, and a reasonable amount of water for your size, adjacent to you or on you, you can use a move action to raise a water shield. This shield remains until your next round after which it disappears. If, before your next round, you are targeted by an attack that requires an attack roll, that attack suffers a -2 and deals only half the damage it would deal (unless it\u2019s specifically made to hit through water or a lightning spell, but a simple piercing weapon doesn\u2019t benefit from this). After that the shield immediately disappears.\n\nIf you are targeted by an fire or ice effect (whether it\u2019s an attack or something else), such as a red dragon\u2019s\u00a0fire breath, a sword with the\u00a0frost enchantment or a fire spell, the effect doesn\u2019t deal any elemental damage, leaving you unharmed, but consuming the shield. A non-elemental effect is unaffected by this property, while a lightning effect deals 1 extra damage per damage die and you have a -2 to the saving throw against it. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (water) spells.\n\n**Special:**\u00a0If you have the\u00a0Hydromancy feat, you can create the shield at a moment notice, with a swift action during your turn, or with an immediate action in response to an attack. You may still do it only once per round though.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:wind-guided-arrows",
+            "name": "Wind-Guided Arrows",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Wind-Guided Arrows\n\nTable of Contents\n\n*Your mastery of the wind allows you to alter the flight of a ranged weapon.*\n\n**Prerequisite(****s)****:** Ability to cast 2nd-level spells, Elemental Focus (Wind).\n\n##### BENEFIT\n\n\u00a0As long as you have an elemental (wind) spell of 3rd level or higher in your known spells and have at least 3 MP in your MP pool, you can spend an immediate action to alter slightly the course of an arrow, crossbow bolt, spear, or other ranged weapon already in flight. You can\u2019t change the weapon\u2019s target, but you can apply a +2 bonus or -2 penalty on its attack roll. You and the target can be no farther apart than 10 feet per level of the highest level wind spell you can cast, since the guidance occurs at the end of the weapon\u2019s flight. This feat works only on thrown or projectile weapons; it can\u2019t affect spells, powers, energy attacks, or the like. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (wind) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:winters-blast",
+            "name": "Winter\u2019s Blast",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Winter\u2019s Blast\n\nTable of Contents\n\n*The frozen magic within you can burst forth in a hail of frost.*\n\n**Prerequisite(s):**Ability to cast 2nd-level spells, Elemental Focus (Ice).\n\n##### BENEFIT\n\nAs long as you have an elemental (ice) spell of 2nd level or higher in your known spells and have at least 2 MP in your MP pool, you can create a 15-foot cone-shaped burst of ice. This cone deals 1d6 points of ice damage per level of the highest-level ice spell you can cast. A successful Reflex (DC 10 + half caster level + caster modifier) save halves the damage. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (ice) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:archetype:red-mage:reserve-mage:reserve-feat:wintersmith",
+            "name": "Wintersmith",
+            "description": "\n[Home](https://finalfantasyd20.com/) >\n[Feats](https://finalfantasyd20.com/feats/) >\n[Reserve Feats](https://finalfantasyd20.com/feats/reserve-feats/) >\n\n# Wintersmith\n\nTable of Contents\n\n*You conjure a weapon made of ice.*\n\n**Prerequisite(****s)****:** Ability to cast 1st-level spells, Elemental Focus (Ice).\n\n##### BENEFIT\n\nAs long as you have an elemental (ice) spell of 1st level or higher in your known spells and have at least 1 MP in your MP pool, you can call forth a weapon made of ice as a move action, the weapon may be any weapon you are proficient with. The weapon deals an additional amount of ice damage equal to the level of the highest-level ice spell you can cast. A weapon created through wintersmith lasts for as long as you hold it and 1 round thereafter. As a secondary benefit, you gain a +1 competence bonus to your caster level when casting elemental (ice) spells.\n",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "manualPrerequisites": true,
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Reserve Mayhem",
+                "locator": "reserve-mayhem"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:event:reserve-mayhem:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:red-mage:reserve-mage:pool:reserve-mayhem"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Mayhem",
+            "locator": "reserve-mayhem"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:event:reserve-mayhem:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:archetype:red-mage:reserve-mage:pool:reserve-mayhem"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Mayhem",
+            "locator": "reserve-mayhem"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:event:reserve-mayhem:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:archetype:red-mage:reserve-mage:pool:reserve-mayhem"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Mayhem",
+            "locator": "reserve-mayhem"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:event:reserve-mayhem:13",
+        "type": "choose",
+        "atClassLevel": 13,
+        "poolIds": [
+          "ffd20:archetype:red-mage:reserve-mage:pool:reserve-mayhem"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Mayhem",
+            "locator": "reserve-mayhem"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:red-mage:reserve-mage:event:reserve-mayhem:17",
+        "type": "choose",
+        "atClassLevel": 17,
+        "poolIds": [
+          "ffd20:archetype:red-mage:reserve-mage:pool:reserve-mayhem"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reserve Mayhem",
+            "locator": "reserve-mayhem"
+          }
+        ]
+      }
+    ],
+    "profile": {
+      "spellcasting": false,
+      "reserveCaster": true,
+      "arcanePoolMode": "full",
+      "arcanePoolBonus": 2
+    },
+    "manualChoices": true,
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}
