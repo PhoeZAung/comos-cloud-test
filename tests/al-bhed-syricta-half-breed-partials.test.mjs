@@ -50,7 +50,7 @@ test('runtime reconciliation is restricted to exact source operations and baseli
  assert.equal(isSupportedRaceOperation(half,unsafe),false,'old two-target source cannot consume both inherited trait slots');
  for(const slug of ['dragon-type','memories-of-the-forgotten','evasive-maneuvers']){
   const b=fixture('syricta',[slug]);
-  assert.ok(raceTraits(b).errors.some(x=>/precise replacement/.test(x)),slug+' remains guarded');
+  assert.deepEqual(raceTraits(b).errors,[],slug+' has source-reviewed replacements');
  }
 });
 
