@@ -5,6 +5,10 @@ const AEGYL='ffd20:race:aegyl';
 const WING_CLIPPED=AEGYL+':trait:wing-clipped';
 const AEGYL_SPEED=AEGYL+':trait:base-speed';
 const WING_FLIGHT_MODIFIER=WING_CLIPPED+':flight-modifier';
+const LAMBKIN='ffd20:race:lambkin';
+const LAMBKIN_POLYGLOT=LAMBKIN+':trait:polyglot';
+const LAMBKIN_LANGUAGES=LAMBKIN+':trait:languages';
+const LAMBKIN_POLYGLOT_MODIFIER=LAMBKIN_POLYGLOT+':language-modifier';
 const TARUTARU='ffd20:race:tarutaru';
 const POLYGLOT=TARUTARU+':trait:polyglot';
 const TARUTARU_LANGUAGES=TARUTARU+':trait:languages';
@@ -49,7 +53,9 @@ export const isSupportedRaceOperation=(race,op)=>
  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===MOOGLE_BASE_SPEED&&
  op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===GROUNDED)||
  (race?.id===TARUTARU&&op.id===POLYGLOT_LANGUAGE_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
- op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===TARUTARU_LANGUAGES&&!(op.addsFeatureIds||[]).length);
+ op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===TARUTARU_LANGUAGES&&!(op.addsFeatureIds||[]).length)||
+ (race?.id===LAMBKIN&&op.id===LAMBKIN_POLYGLOT_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
+ op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===LAMBKIN_LANGUAGES&&!(op.addsFeatureIds||[]).length);
 
 // A replacement-only heritage is safe to enable when all its affected ability
 // score vectors already have exact automatic effects. Otherwise leaving the
@@ -69,6 +75,8 @@ export function isSupportedRaceHeritage(race,heritage){
 }
 
 export function applyRaceModification(race,feature,op){
+ if(race?.id===LAMBKIN&&feature?.id===LAMBKIN_LANGUAGES&&op?.id===LAMBKIN_POLYGLOT_MODIFIER)
+  return {...feature,description:'Polyglot: starts with Common, Lambkin and one freely chosen additional language; retains the normal high-Intelligence bonus-language options (Galkan, Giant, Goblin, Lalafellan and Orc).'};
  if(race?.id===TARUTARU&&feature?.id===TARUTARU_LANGUAGES&&op?.id===POLYGLOT_LANGUAGE_MODIFIER)
   return {...feature,description:'Polyglot: starts with Common, Lalafellan, and one freely chosen additional starting language; retains all normal high-Intelligence bonus languages (Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin and Orc).'};
 
