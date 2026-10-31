@@ -24,12 +24,16 @@ const optionalLangs={
 };
 const languageBonusId=id=>id+':pool:high-intelligence-bonus-languages';
 
+const MUTANT='ffd20:race:mutant';
+const MUTANT_PHYSICAL=MUTANT+':pool:physical-2',MUTANT_MENTAL=MUTANT+':pool:mental-2',MUTANT_PENALTY=MUTANT+':pool:penalty-2';
+const mutantScorePools=new Set([MUTANT_PHYSICAL,MUTANT_MENTAL,MUTANT_PENALTY]);
+
 const HALF='ffd20:race:half-breed';
 export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -172,7 +176,12 @@ export function racialChoiceEffects(b,race,traits){
     if(profession)effects.push({...base,id:base.id+':class-skill',kind:'class_skill',target:'skills.row.'+option.value+'.class_skill',value:{kind:'constant',value:1}});
    }
    if([HANDY,TARUTARU_TALENTED].includes(spec.id))effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2},specialty:b.racialSpecialties?.[spec.id]||''});
-   if([IMMORTAL+'flexible-score',HUME_SCORE].includes(spec.id)){
+    if(mutantScorePools.has(spec.id)){
+    const key=option.value,delta=spec.id===MUTANT_PENALTY?-2:2;
+    if(['str','dex','con','int','wis','cha'].includes(key))
+     effects.push({...base,kind:'ability_score',target:'ability_scores.'+key,value:{kind:'constant',value:delta}});
+   }
+  if([IMMORTAL+'flexible-score',HUME_SCORE].includes(spec.id)){
     const key={strength:'str',dexterity:'dex',constitution:'con',intelligence:'int',wisdom:'wis',charisma:'cha'}[option.value];
     if(key)effects.push({...base,kind:'ability_score',target:'ability_scores.'+key,value:{kind:'constant',value:2}});
    }
