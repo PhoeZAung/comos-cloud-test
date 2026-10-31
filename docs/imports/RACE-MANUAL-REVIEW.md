@@ -16,8 +16,8 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Race | Specific items | What to resolve |
 | --- | --- | --- |
 | Aegyl | Wing-Clipped | Replaces Emotionless but modifies only flight speed/maneuverability; retain land speed |
-| Beastkin | Alluring, Feral, Light Build, Loper | Partial ability/armor vectors; Feral has no explicit target |
-| Garlean | Xenophobia Extremis | Modifies score adjustment and Languages, rather than replacing the entire traits |
+| Beastkin | Alluring, Feral, Light Build, Loper | **Draft:** Alluring/Light Build independent partial ability swaps (+2 CHA instead of WIS, +2 DEX instead of STR), combinable; Loper removes Natural Armor and increases base land 30→40 ft while keeping conditional Sprinter. **Feral remains blocked**: no clear stacking or replacement target |
+| Garlean | Xenophobia Extremis | **Draft:** retain +2 CON/+2 INT, replace -2 WIS with -2 CHA, keep Common but suppress INT-based bonus language pool; existing first-level and MP guards unchanged |
 | Al Bhed | Xenophobic | Replaces starting languages without a complete automatic language effect; must remove Common, disallow INT bonus languages and handle Linguistics progression |
 | Forgiven | Scion of Mortality | Changes language and dual-race identity/subtype rather than replacing Type/Languages as entirely removed fields |
 | Lambkin | Polyglot | Modifies Magic Expert and Languages |
@@ -26,7 +26,7 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Namazu | Fast, Focused Study | Partial speed, skills, or feature ownership |
 | Quadav | Water Tribe | Partial Full Withdrawal replacement |
 | Seto Lion | Faster, Nimble Attacks | Partial Claws/Bite/Fast replacements |
-| Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | Partial status, plating, score and speed adjustments |
+| Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | **Draft:** Anomaly replaces Emotionless and modifies only Robotic Immunities (retains fatigue/exhaustion/sleep; loses fear/emotion immunity); grants Bluff/Sense Motive class skills and leaves situational -2 saves manual. Heavy Platform modifies land speed 30→20 ft, preserves other traits; weight and encumbrance conditions manual. **Hologram/Race Simulation remain blocked** |
 | Sylph | Improved Flight | Compound Camouflage/Beguiling Liar replacement; preserve correct flight mechanics |
 | Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | Conflicting or incomplete type, speed, vision, language and ability-score modifications |
 | Tarutaru | Polyglot language modifier | **Implemented:** Magic Expert replaced; Languages retained; +2 Linguistics and class skill automated; required unrestricted extra language selected on Ability Scores, independently of high-INT bonus language pool. Verify signed-in save/reopen manually |
