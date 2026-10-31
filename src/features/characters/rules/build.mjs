@@ -30,33 +30,8 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){
- const ops=r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));
- if(ops.length!==1)return ops;
- const source=ops[0],p=r.id+':trait:';
- const exactly=(slug,targets,operation,scope,resolution)=> id===p+slug&&
-  source.id===id+':replacement'&&source.operation===operation&&source.scope===scope&&
-  source.resolution===resolution&&JSON.stringify(source.targetFeatureIds)===JSON.stringify(targets.map(x=>p+x))&&
-  source.addsFeatureIds?.length===1&&source.addsFeatureIds[0]===id&&
-  !(source.targetEventIds||[]).length&&!(source.addsEventIds||[]).length&&!(source.removesComponents||[]).length;
- if(r.id==='ffd20:race:al-bhed'&&exactly('xenophobic',['languages'],'replace','whole_feature','manual'))
-  return [{...source,id:id+':language-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
-   description:'Xenophobic modifies normal Languages to Albhedian only with no high-INT bonus language picks.'}];
- if(r.id==='ffd20:race:syricta'){
-  if(exactly('wing-clipped',['base-speed','ability-score-racial-traits'],'replace','partial_feature','unresolved'))
-   return [{...source,id:id+':component-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
-    description:'Wing-Clipped modifies only fly speed, maneuverability and the -2 DEX racial penalty.'}];
-  if(exactly('neglected-heritage',['languages'],'replace','partial_feature','unresolved'))
-   return [{...source,id:id+':language-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
-    description:'Neglected Heritage removes Draconic starting language, preserving Common.'}];
- }
- if(r.id==='ffd20:race:half-breed'&&exactly('ancestral-arms',
-  ['feat-and-skill-trait-selection','offense-trait-selection'],'replace','whole_feature','manual'))
-  return ['feat-and-skill-trait-selection','offense-trait-selection'].map((slug,i)=>({
-   ...source,id:id+':slot-'+(i?'offense':'feat-skill'),targetFeatureIds:[p+slug],
-   description:'Ancestral Arms replaces the chosen '+(i?'Offense':'Feat and Skill')+' Trait Selection slot only.'}));
- return ops;
-}
+import {replacementFor} from './race-replacement-resolvers.mjs';
+export {replacementFor};
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
