@@ -40,7 +40,7 @@ test('unsupported standard trait choices and unavailable alternates cannot bypas
 test('Beastkin uses normal wizard name and greys out only unsupported alternates',()=>{
  const b=newBuild();b.raceId='ffd20:race:beastkin';const html=renderBuild(b,2);
  assert.match(html,/Official Beastkin rules/);assert.doesNotMatch(html,/Beastkin \(testing\)|Testing race/);
- for(const id of ['alluring','feral','light-build','loper'])assert.match(html,new RegExp('data-rw-alternate="ffd20:race:beastkin:trait:'+id+'" disabled'));
+ for(const id of ['alluring','light-build','loper']){assert.match(html,new RegExp('data-rw-alternate="ffd20:race:beastkin:trait:'+id+'"'));assert.doesNotMatch(html,new RegExp('data-rw-alternate="ffd20:race:beastkin:trait:'+id+'" disabled'));}assert.match(html,/data-rw-alternate="ffd20:race:beastkin:trait:feral" disabled/);
  assert.match(html,/data-rw-alternate="ffd20:race:beastkin:trait:civilized"/);
  assert.doesNotMatch(html,/data-rw-alternate="ffd20:race:beastkin:trait:civilized" disabled/);
 });
