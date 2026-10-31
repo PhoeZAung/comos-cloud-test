@@ -24,7 +24,7 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Moogle | Grounded | Partial Base Speed/flight modification |
 | Moomba | Climb | Climb speed 20 ft and land 30 ft but no formal old-trait replacement target |
 | Namazu | Fast, Focused Study | Partial speed, skills, or feature ownership |
-| Quadav | Water Tribe | Partial Full Withdrawal replacement |
+| Quadav | Water Tribe | **Draft implementation:** Full Withdrawal fully replaced, only Base Speed swim component increases from 30 to 50 ft (20-ft land unchanged), and Bond to the Land has a required swamp/underground choice; conditional AC remains manual. Await CI, manual signed-in validation and explicit publishing |
 | Seto Lion | Faster, Nimble Attacks | Partial Claws/Bite/Fast replacements |
 | Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | Partial status, plating, score and speed adjustments |
 | Sylph | Improved Flight | Compound Camouflage/Beguiling Liar replacement; preserve correct flight mechanics |
