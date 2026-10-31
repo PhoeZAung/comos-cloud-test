@@ -24,7 +24,7 @@ const raceCategories=[
  {id:'beastman_tribe',label:'Beastman Tribes'},
  {id:'monstrous',label:'Monstrous Races'}
 ];
-const categoryForRace=r=>raceCategories.some(c=>c.id===r?.data?.raceType)?r.data.raceType:'core';
+const categoryForRace=r=>r?.data?.raceType==='beastman'?'beastman_tribe':raceCategories.some(c=>c.id===r?.data?.raceType)?r.data.raceType:'core';
 const opt=(id,label,current,disabled=false)=>`<option value="${e(id)}" ${id===current?'selected':''} ${disabled?'disabled':''}>${e(label)}</option>`;
 
 // Source review state remains unchanged. Availability applies only to individual wizard controls.
