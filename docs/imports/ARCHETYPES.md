@@ -15,7 +15,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 | [Ghost Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/ghost-rider/) | queued · source-review | Start of source review |
 | [Magitek Pilot](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/magitek-pilot/) | queued · source-review | Start of source review |
 | [Mikoshi Leader](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/mikoshi-leader/) | queued · source-review | Start of source review |
-| [Mog Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/mog-knight/) | live_partial · local-validation | Requested level 1–20 sheet support locally validated |
+| [Mog Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/mog-knight/) | live_partial · deployment-verified | Requested bounded scope published in PR #33 and verified within current release b864d2a |
 | [Order of the Bird](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/order-of-the-bird/) | queued · source-review | Start of source review |
 | [Pegasus Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/pegasus-knight/) | queued · source-review | Start of source review |
 | [Tactician](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/tactician/) | queued · source-review | Start of source review |
@@ -27,7 +27,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Akimbo](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/akimbo/) | queued · local-validation | Follow-up talent selections and owned resource bonuses validated |
+| [Akimbo](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/akimbo/) | live_partial · deployment-verified | Requested bounded scope published in PR #33 and verified within current release b864d2a |
 | [Coryphee](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/coryphee/) | queued · source-review | Start of source review |
 | [Dance Performer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/dance-performer/) | queued · source-review | Start of source review |
 | [Geodancer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/geodancer/) | queued · source-review | Start of source review |
@@ -684,7 +684,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 | [Professional Duelist](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/professional-duelist/) | queued · source-review | Start of source review |
 | [Shieldbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/shieldbreaker/) | queued · source-review | Start of source review |
 | [Sorceress Knight](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/sorceress-knight/) | queued · source-review | Start of source review |
-| [Doom Slayer](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/) | queued · local-validation | Source-capacity ammo tracker and shared ability costs validated |
+| [Doom Slayer](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/) | live_partial · deployment-verified | Requested bounded scope published in PR #33 and verified within current release b864d2a |
 | [Space Marine](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/space-marine/) | queued · source-review | Start of source review |
 
 ## Ninja (15)

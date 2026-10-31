@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 93,
+  "revision": 103,
   "schedule": [
     "class",
     "race",
@@ -8,33 +8,35 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 2,
+  "schedulePosition": 0,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
       "state": "live_partial",
-      "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
-      "scope": "New level-1 characters; conditional mechanics manual; later progression unsupported.",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Levels 1–20 sheet progression and source-bound talent choices; mounts, conditional combat and external prerequisites manual/guarded.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
         "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T05:50:31.260Z"
+      "updatedAt": "2026-10-31T14:53:32.621Z"
     },
     "ffd20:class:dancer": {
       "state": "live_partial",
-      "stage": "local-validation",
-      "cursor": "Follow-up talent selections and owned resource bonuses validated",
-      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
-      "scope": "New level-1 characters; conditional mechanics manual; later progression unsupported.",
-      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Levels 1–20 sheet progression, dance/talent choices and Ki/Aurora scaling; conditional combat, feat subchoices and external prerequisites manual/guarded.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -43,9 +45,11 @@
         "docs/extraction/requested-martial-progression.md",
         "tests/martial-progression.test.mjs",
         "docs/extraction/martial-follow-up-choices.md",
-        "tests/martial-follow-up-choices.test.mjs"
+        "tests/martial-follow-up-choices.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T06:10:11.405Z"
+      "updatedAt": "2026-10-31T14:53:32.715Z"
     },
     "ffd20:class:archer": {
       "state": "live_partial",
@@ -71,37 +75,41 @@
     },
     "ffd20:race:moogle": {
       "state": "live_partial",
-      "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
-      "scope": "Standard test builds; unsupported alternates, heritages and favored rewards guarded/manual.",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Standard Moogle racial choices with requested martial levels 1–20 fixture coverage; unsupported alternates, heritages and favored rewards guarded/manual.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
         "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T05:50:31.782Z"
+      "updatedAt": "2026-10-31T14:53:33.163Z"
     },
     "ffd20:race:immortal": {
       "state": "live_partial",
-      "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
-      "scope": "Standard test builds; unsupported alternates, heritages and favored rewards guarded/manual.",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Standard Immortal racial choices with requested martial levels 1–20 fixture coverage; unsupported alternates, heritages and favored rewards guarded/manual.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
         "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T05:50:31.955Z"
+      "updatedAt": "2026-10-31T14:53:33.334Z"
     },
     "ffd20:race:dwarf": {
       "state": "live_partial",
@@ -117,20 +125,22 @@
     },
     "ffd20:archetype:chocobo-knight:mog-knight": {
       "state": "live_partial",
-      "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
-      "scope": "Moogle/Chocobo Knight at level 1 only.",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Moogle-only Chocobo Knight/Mog Knight levels 1–20 sheet progression and replacement ownership; mount/companion operation and conditional mechanics manual.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
         "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T05:50:31.521Z"
+      "updatedAt": "2026-10-31T14:53:32.905Z"
     },
     "ffd20:class:bard": {
       "state": "live_partial",
@@ -177,11 +187,11 @@
     },
     "ffd20:race:galka": {
       "state": "live_partial",
-      "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
-      "scope": "Standard Galka traits within existing class support, Intelligence-bounded bonus languages; Profession (miner), conditional effects, Ferocity/recovery and reincarnation remain manual. Alternates and favored rewards require later review.",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Existing standard Galka and newer alternate traits retained with requested martial levels 1–20 fixture coverage; unreviewed conditional rules and favored rewards manual/guarded.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -192,9 +202,11 @@
         "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41025317270",
         "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41025475504",
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T05:50:31.869Z"
+      "updatedAt": "2026-10-31T14:53:33.249Z"
     },
     "ffd20:race:half-breed": {
       "state": "blocked",
@@ -507,12 +519,12 @@
       "updatedAt": "2026-10-30T19:53:41.385Z"
     },
     "ffd20:class:gunbreaker": {
-      "state": "queued",
-      "stage": "local-validation",
-      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
-      "nextAction": "Review remaining Gunsmith modifications, multi-magazine and special-mode limits",
-      "scope": "",
-      "note": "October 31: 417 tests and cloud build pass. Optional one-magazine tracker, source capacities, levels 19–20, loaded/infused costs, stale/forged saves and idempotent receipts verified. User requires local-only work until explicit publish; no push or deployment.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Levels 1–20 sheet progression, talents/techniques, owned resources and optional source-capacity single-magazine ammo tracker; modified weapons, equipment and conditional combat manual/guarded.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -521,34 +533,38 @@
         "docs/extraction/martial-follow-up-choices.md",
         "tests/martial-follow-up-choices.test.mjs",
         "docs/extraction/gunbreaker-ammunition-tracker.md",
-        "tests/gunbreaker-ammunition.test.mjs"
+        "tests/gunbreaker-ammunition.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T06:36:39.290Z"
+      "updatedAt": "2026-10-31T14:53:32.809Z"
     },
     "ffd20:archetype:dancer:akimbo": {
-      "state": "queued",
-      "stage": "local-validation",
-      "cursor": "Follow-up talent selections and owned resource bonuses validated",
-      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
-      "scope": "",
-      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Dancer/Akimbo levels 1–20 sheet progression, rune/talent and optional Ki choices; equipment, external prerequisites and conditional combat manual/guarded.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/requested-martial-progression.md",
         "tests/martial-progression.test.mjs",
         "docs/extraction/martial-follow-up-choices.md",
-        "tests/martial-follow-up-choices.test.mjs"
+        "tests/martial-follow-up-choices.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T06:10:12.214Z"
+      "updatedAt": "2026-10-31T14:53:32.992Z"
     },
     "ffd20:archetype:gunbreaker:doom-slayer": {
-      "state": "queued",
-      "stage": "local-validation",
-      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
-      "nextAction": "Review remaining Gunsmith modifications, multi-magazine and special-mode limits",
-      "scope": "",
-      "note": "October 31: 417 tests and cloud build pass. Optional one-magazine tracker, source capacities, levels 19–20, loaded/infused costs, stale/forged saves and idempotent receipts verified. User requires local-only work until explicit publish; no push or deployment.",
+      "state": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "scope": "Gunbreaker/Doom Slayer levels 1–20 sheet progression and optional level-gated Doom mode ammo capacities; special cooldowns, BFG and modified equipment manual.",
+      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -557,17 +573,19 @@
         "docs/extraction/martial-follow-up-choices.md",
         "tests/martial-follow-up-choices.test.mjs",
         "docs/extraction/gunbreaker-ammunition-tracker.md",
-        "tests/gunbreaker-ammunition.test.mjs"
+        "tests/gunbreaker-ammunition.test.mjs",
+        "docs/extraction/martial-progression-publication.md",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T06:36:39.679Z"
+      "updatedAt": "2026-10-31T14:53:33.075Z"
     },
     "ffd20:race:garif": {
       "state": "in_progress",
-      "stage": "ci-validated-awaiting-railway",
-      "cursor": "Garif standard level-one scope merged to main in PR #34; Node 24 CI tests 420/420 and cloud build passed on PR and main.",
-      "nextAction": "Check Railway deployment of b864d2ac7acf73d2eeb7799ab6497a4909622c65. Confirm SUCCESS, health/database and signed-in Garif creation/save/reopen before recording a live_partial milestone. Until then keep status in_progress. After deployment, continue next race from queue.",
+      "stage": "deployed-awaiting-account-verification",
+      "cursor": "Garif release b864d2a deployed successfully; public module hashes and health verified",
+      "nextAction": "Verify real signed-in Garif creation/save/reopen before its required live_partial milestone; do not repeat completed implementation. Future gameplay changes stay local until publish authorization.",
       "scope": "Standard Garif level-1 creation/edit only. Terrain AC and mask saves conditional/manual. No higher-level Pastoralist, alternates, favored rewards or fully reviewed rules.",
-      "note": "PR #34 merged as b864d2a; GitHub Actions PR 41180072037 and main 41180154151 passed 420/420 tests and npm run build:cloud. Railway deployment 88631e23 is still QUEUED; earlier martial deployment a50286b9 also QUEUED, last SUCCESS 46f63ee. No real Firebase login or live Garif gameplay verification. Conditions/manual limits remain.",
+      "note": "Railway 88631e23 SUCCESS; 16 checked assets match current build; health/database ready and private read denied. Main CI 420 tests and cloud build passed. No real Firebase login, production character creation or save/reopen performed. Earlier queued status superseded.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -575,9 +593,10 @@
         "docs/extraction/garif-standard-creation.md",
         "https://github.com/PhoeZAung/comos-cloud-test/pull/34",
         "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41180072037",
-        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41180154151"
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41180154151",
+        "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T07:19:36.273Z"
+      "updatedAt": "2026-10-31T14:53:33.433Z"
     }
   },
   "history": [
@@ -1408,6 +1427,96 @@
       "stage": "ci-validated-awaiting-railway",
       "cursor": "Garif standard level-one scope merged to main in PR #34; Node 24 CI tests 420/420 and cloud build passed on PR and main.",
       "time": "2026-10-31T07:19:36.273Z"
+    },
+    {
+      "revision": 94,
+      "itemId": "ffd20:class:chocobo-knight",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:32.621Z"
+    },
+    {
+      "revision": 95,
+      "itemId": "ffd20:class:dancer",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:32.715Z"
+    },
+    {
+      "revision": 96,
+      "itemId": "ffd20:class:gunbreaker",
+      "from": "queued",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:32.809Z"
+    },
+    {
+      "revision": 97,
+      "itemId": "ffd20:archetype:chocobo-knight:mog-knight",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:32.905Z"
+    },
+    {
+      "revision": 98,
+      "itemId": "ffd20:archetype:dancer:akimbo",
+      "from": "queued",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:32.992Z"
+    },
+    {
+      "revision": 99,
+      "itemId": "ffd20:archetype:gunbreaker:doom-slayer",
+      "from": "queued",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:33.075Z"
+    },
+    {
+      "revision": 100,
+      "itemId": "ffd20:race:moogle",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:33.163Z"
+    },
+    {
+      "revision": 101,
+      "itemId": "ffd20:race:galka",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:33.249Z"
+    },
+    {
+      "revision": 102,
+      "itemId": "ffd20:race:immortal",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "deployment-verified",
+      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
+      "time": "2026-10-31T14:53:33.334Z"
+    },
+    {
+      "revision": 103,
+      "itemId": "ffd20:race:garif",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "deployed-awaiting-account-verification",
+      "cursor": "Garif release b864d2a deployed successfully; public module hashes and health verified",
+      "time": "2026-10-31T14:53:33.433Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

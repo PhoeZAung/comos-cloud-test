@@ -17,3 +17,12 @@ Next: resume active Garif checkpoint, validate against the latest remote main, r
 PR [#34](https://github.com/PhoeZAung/comos-cloud-test/pull/34) merged to main as `b864d2ac7acf73d2eeb7799ab6497a4909622c65`. On Node 24, [PR Actions run 41180072037](https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41180072037) passed **420/420** tests and `npm run build:cloud`; [main Actions run 41180154151](https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41180154151) also succeeded. This supersedes the earlier isolated Node 22 missing-package validation limitation.
 
 **Not confirmed live**: Railway production deployment `88631e23-6f00-417f-a05f-627f516fc901` for `b864d2a` remains QUEUED with no build/deploy logs, as does earlier martial deployment `a50286b9-93e8-42f6-9952-fe4e7dd2499d`; last successful live deployment is `46f63ee`. Existing Railway main service, Firebase Auth and SQLite `/data` volume were not changed. After Railway success, verify health and signed-in Garif creation/save/reopen before marking this race live_partial.
+
+## Production rollout verification
+Railway deployment `88631e23-6f00-417f-a05f-627f516fc901` is now SUCCESS
+for b864d2a. All 16 checked current-release assets (including Garif builder,
+wizard, racial-choice and progression modules) match the cloud build. Health
+is ready and unauthenticated private access returns 401. Evidence:
+`martial-progression-deployment-validation.json`. This supersedes the queued
+status above. Real signed-in Garif creation/save/reopen remains unverified, so
+its checkpoint stays in_progress pending that specifically required check.

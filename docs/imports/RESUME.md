@@ -7,23 +7,23 @@ prepare definitions and adapters that can be validated from the saved sources.
 
 The latest user request (2026-10-30, local Codex) prioritizes Moogle, Chocobo
 Knight, Mog Knight, Galka, Gunbreaker, Doom Slayer, Immortal, Dancer and Akimbo,
-including progression through level 20. That named batch is now locally validated:
-417 tests and build:cloud pass as of the October 31 continuation. See
-`docs/extraction/requested-martial-progression.md` for scope, source limits and
-compatibility, and `docs/extraction/martial-follow-up-choices.md` for the latest
-follow-up choice/resource batch. Newer origin/main through 46f63ee was preserved and merged.
-The latest Gunbreaker/Doom Slayer ammo batch is recorded in
-`docs/extraction/gunbreaker-ammunition-tracker.md`.
+including progression through level 20. The named batch is published in PR #33
+as 49f46b5, included in the successful current release b864d2a (Garif PR #34).
+417 tests passed for the requested batch; current main CI passed 420 tests and
+build:cloud. All 16 checked public files match the current release, health is
+ready and unauthenticated private access is denied. See
+`docs/extraction/martial-progression-publication.md` and its deployment JSON.
+Manual/guarded rule limits remain; real Firebase login was not performed.
 
 Current user preferences: name the affected class when discussing mechanics.
-Keep work local; do not push or publish until the user explicitly says "publish".
-GitHub authentication is now configured, which is not publishing authorization.
+The October 31 explicit "publish" request authorized the completed release.
+Future gameplay work stays local until another explicit "publish" request.
+GitHub sign-in alone does not authorize publication.
 
-No deployment or real provider login was performed. Prior queue deployment states
-are retained; local validation does not certify full rule coverage.
-
-The old Garif-first handoff is background context, not a request to run additional
-queue entries after this named batch. Garif remains the next general queue entry.
+Garif PR #34 is also deployed, but its active checkpoint still requires real
+signed-in creation/save/reopen verification before its requested live_partial
+milestone. Consult the current queue; do not restart its completed adapter work
+or assume the next item is still an unimplemented Garif.
 
 Before this pause, the standing user instruction was to continue through validated queue milestones
 without waiting for another "next", while the active run has capacity and the
@@ -89,7 +89,7 @@ are also deployed; see `docs/extraction/mithra-standard-creation.md`.
 Tarutaru standard traits, Talented's specialty and bonus languages are deployed;
 see `docs/extraction/tarutaru-standard-creation.md`. Beast Rider source data is
 staged/blocked on verified druid-style mount rules and its specialized adapter;
-do not substitute the different FFd20 Beastmaster table. Dragoon first-level creation/editing is deployed with six source reference abilities, shared Limit Break expenditure and manual jump mechanics. See `docs/extraction/dragoon-level-one-import.md`. Aegyl standard traits, source-listed languages and the manual Eternal Hope counter are deployed; see `docs/extraction/aegyl-standard-creation.md`. Al Bhed first-level standard traits and required Mechanical Genius selection are deployed; see `docs/extraction/al-bhed-standard-creation.md`. Au Ra standard Xaela traits, owned natural armor and manual Ferocity tracking are deployed; see `docs/extraction/au-ra-standard-creation.md`. Deadly Lancer first-level proficiency/aura replacements and qualifying charge reference are deployed; see `docs/extraction/deadly-lancer-level-one-import.md`. Knight lawful first-level creation, Defensive Stance counter and manual defensive effects are deployed; see `docs/extraction/knight-level-one-import.md`. Bangaa standard traits, reptilian subtype and owned natural armor are deployed; see `docs/extraction/bangaa-standard-creation.md`. Beastkin standard senses, Hunter class skills, initiative/natural armor and manual Run card are deployed; see `docs/extraction/beastkin-standard-creation.md`. Burmecian standard traits, owned CMD contribution and manual Improved Initiative card are deployed; see `docs/extraction/burmecian-standard-creation.md`. Complete CMD/CMB totals require manual verification pending `docs/review/combat-maneuver-formulas.md`. Fell Rider first-level Brute Steed and its parent mount reference are deployed; see `docs/extraction/fell-rider-level-one-import.md`. Monk first-level any-alignment d12/full-BAB baseline, Bodybuilding HP and manual martial references are deployed; see `docs/extraction/monk-level-one-import.md`. Dracobaltian standard traits and natural-blindness/Lesser Blindsight references are deployed; see `docs/extraction/dracobaltian-standard-creation.md`. There is no active item at the user-requested pause. **Garif** is next: its immutable creation terrain and restricted Pastoralist rank need an adapter and validation. Always read
+do not substitute the different FFd20 Beastmaster table. Dragoon first-level creation/editing is deployed with six source reference abilities, shared Limit Break expenditure and manual jump mechanics. See `docs/extraction/dragoon-level-one-import.md`. Aegyl standard traits, source-listed languages and the manual Eternal Hope counter are deployed; see `docs/extraction/aegyl-standard-creation.md`. Al Bhed first-level standard traits and required Mechanical Genius selection are deployed; see `docs/extraction/al-bhed-standard-creation.md`. Au Ra standard Xaela traits, owned natural armor and manual Ferocity tracking are deployed; see `docs/extraction/au-ra-standard-creation.md`. Deadly Lancer first-level proficiency/aura replacements and qualifying charge reference are deployed; see `docs/extraction/deadly-lancer-level-one-import.md`. Knight lawful first-level creation, Defensive Stance counter and manual defensive effects are deployed; see `docs/extraction/knight-level-one-import.md`. Bangaa standard traits, reptilian subtype and owned natural armor are deployed; see `docs/extraction/bangaa-standard-creation.md`. Beastkin standard senses, Hunter class skills, initiative/natural armor and manual Run card are deployed; see `docs/extraction/beastkin-standard-creation.md`. Burmecian standard traits, owned CMD contribution and manual Improved Initiative card are deployed; see `docs/extraction/burmecian-standard-creation.md`. Complete CMD/CMB totals require manual verification pending `docs/review/combat-maneuver-formulas.md`. Fell Rider first-level Brute Steed and its parent mount reference are deployed; see `docs/extraction/fell-rider-level-one-import.md`. Monk first-level any-alignment d12/full-BAB baseline, Bodybuilding HP and manual martial references are deployed; see `docs/extraction/monk-level-one-import.md`. Dracobaltian standard traits and natural-blindness/Lesser Blindsight references are deployed; see `docs/extraction/dracobaltian-standard-creation.md`. Garif now has a deployed bounded creation adapter; its active checkpoint retains the pending signed-in verification. Always read
 the current queue instead of restarting these completed milestones. A blocked entry
 is skipped without deleting its last section or evidence.
 
