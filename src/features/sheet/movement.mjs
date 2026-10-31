@@ -11,11 +11,12 @@ export function seedRacialMovement(next,previous,raceId,traits){
  // Only fill missing fields. User-entered values, including zero, are preserved.
  if(raceId==='ffd20:race:syricta'){
   const clipped=traits.some(t=>t.id==='ffd20:race:syricta:trait:wing-clipped');
+   const evasive=traits.some(t=>t.id==='ffd20:race:syricta:trait:evasive-maneuvers');
   const flying=traits.some(t=>t.id==='ffd20:race:syricta:trait:base-speed')&&
    !traits.some(t=>t.id==='ffd20:race:syricta:trait:memories-of-the-forgotten');
   if(!Object.hasOwn(previous,'speed_fly'))next.speed_fly=flying?(clipped?20:40):0;
   if(!Object.hasOwn(previous,'speed_fly_maneuverability'))
-   next.speed_fly_maneuverability=flying?(clipped?'clumsy':'poor'):'';
+   next.speed_fly_maneuverability=flying?(evasive?'average':clipped?'clumsy':'poor'):'';
   return;
  }
  if(raceId==='ffd20:race:sylph'){
