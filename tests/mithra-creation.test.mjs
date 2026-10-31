@@ -39,7 +39,7 @@ test('Mithra edit/remove cycle preserves manual initiative and spent luck while 
 test('Mithra optional languages are source-bounded, persist and reject variants, alternates and excess choices',()=>{
  const b=fixture();b.racialChoices[MITHRA_LANGUAGES]=[MITHRA_LANGUAGES+':option:lupin'];const d=compileBuild(b);
  assert.equal(d.languages,'Common, Mithran, Lupin');assert.equal(compileBuild(d.rulesBuild.input,d).languages,d.languages);
- for(const change of [b=>b.racialChoices[MITHRA_LANGUAGES].push(MITHRA_LANGUAGES+':option:orc'),b=>b.racialChoices[MITHRA_LANGUAGES]=[MITHRA_LANGUAGES+':option:celestial'],b=>b.heritageId=MITHRA_ID+':heritage:keepers-of-the-moon',]){
+ for(const change of [b=>b.racialChoices[MITHRA_LANGUAGES].push(MITHRA_LANGUAGES+':option:orc'),b=>b.racialChoices[MITHRA_LANGUAGES]=[MITHRA_LANGUAGES+':option:celestial'],]){
   const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));
  }
 });

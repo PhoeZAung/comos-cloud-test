@@ -6,7 +6,7 @@ import {renderBuild} from '../src/ui/rules-wizard.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
 import {classHitDie} from '../src/features/characters/rules/class-adapters.mjs';
 const race=name=>registry.races.find(r=>r.id==='ffd20:race:'+name);
-function fixture(id,heritageId=''){const b=newBuild();Object.assign(b,{name:'Race audit',alignment:'True Neutral',raceId:id,classId:'ffd20:class:dancer',heritageId,reviewed:true});b.hpRolls=[classHitDie(b)];b.skillRanks=fixedSkills.map(()=>0);let n=previewBuild(b).skillBudget;for(let i=0;i<fixedSkills.length&&n>0;i++){b.skillRanks[i]=1;n--;}return b;}
+function fixture(id,heritageId=''){const b=newBuild();Object.assign(b,{name:'Race audit',alignment:'True Neutral',raceId:id,classId:'ffd20:class:dancer',heritageId,reviewed:true});if(id==='ffd20:race:elvaan'){const weapon='ffd20:race:elvaan:pool:martial-background-weapon';b.racialChoices={[weapon]:[weapon+':option:longsword']};}b.hpRolls=[classHitDie(b)];b.skillRanks=fixedSkills.map(()=>0);let n=previewBuild(b).skillBudget;for(let i=0;i<fixedSkills.length&&n>0;i++){b.skillRanks[i]=1;n--;}return b;}
 test('All 63 races: structurally sound manual whole-feature replacements remove only specified original traits',()=>{
  assert.equal(registry.races.length,63);
  let count=0;const distinct=new Set();
