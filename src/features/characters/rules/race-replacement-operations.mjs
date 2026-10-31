@@ -40,6 +40,19 @@ const newBatchModifier=(race,op)=>{
  }
  return false;
 };
+// Source-verified Syricta partials: only creature type and flight components.
+const SYRICTA_DRAGON=SYRICTA+':trait:dragon-type';
+const SYRICTA_MEMORIES=SYRICTA+':trait:memories-of-the-forgotten';
+const isSyrictaModifier=(race,op)=>{
+ if(race?.id!==SYRICTA)return false;
+ if(isExactScoped(op,SYRICTA_DRAGON+':type-modifier',[SYRICTA+':trait:type'],[])){
+  const effects=sr(race,'type')?.effects||[];
+  return effects.some(e=>e.target==='identity.type'&&e.textValue==='humanoid'&&e.automation==='automatic')&&
+   effects.some(e=>e.target==='identity.subtypes'&&e.textValue==='reptilian'&&e.automation==='automatic');
+ }
+ return isExactScoped(op,SYRICTA_MEMORIES+':flight-modifier',[SYRICTA+':trait:base-speed'],[SYRICTA_MEMORIES])&&
+  baseSpeed(race,20,40);
+};
 const isHalfSlot=(race,op)=>{
  if(race?.id!==HALF||!op)return false;
  const source=race.data.alternateReplacements.find(x=>x.id===HALF_A+':replacement');
@@ -201,6 +214,7 @@ const isWholeTraitReplacement=(race,op)=>{
 };
 export const isSupportedRaceOperation=(race,op)=>
  isWholeTraitReplacement(race,op)||
+ isSyrictaModifier(race,op)||
  newBatchModifier(race,op)||
  isHalfSlot(race,op)||
  // PR #46 source-approved partial
@@ -251,6 +265,17 @@ export function isSupportedRaceHeritage(race,heritage){
 }
 
 export function applyRaceModification(race,feature,op){
+ if(isSyrictaModifier(race,op)){
+  if(op.id===SYRICTA_DRAGON+':type-modifier'){
+   return {...feature,description:'Dragon Type: creature type Dragon with sleep and paralysis immunity; no reptilian subtype. Elemental Resistance, Dragon Resistances and Breath Weapon are replaced.',
+    effects:(feature.effects||[]).filter(e=>e.target!=='identity.subtypes').map(e=>e.target==='identity.type'?
+     {...e,textValue:'Dragon'}:e)};
+  }
+  if(op.id===SYRICTA_MEMORIES+':flight-modifier')
+   return {...feature,description:'Memories of the Forgotten retains 20-foot land speed but replaces flight. The alternate grants two Knowledge specialties (class skills and +2 each); record those choices manually.',
+    effects:(feature.effects||[]).filter(e=>e.target!=='identity.speed.fly')};
+ }
+
  // PR #51 source-approved runtime effects
  if(sourceSylphSpeed(race)&&feature?.id===SYLPH_SPEED&&op?.id===SYLPH_IMPROVED+':speed-modifier'){
   return {...feature,description:'Improved Flight: base land speed 10 ft and fly speed 60 ft (good maneuverability); Camouflage and Beguiling Liar are lost.',
