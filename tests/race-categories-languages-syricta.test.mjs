@@ -30,7 +30,7 @@ test('all 63 official races are partitioned into four category dropdowns without
   const select=options(newBuild(),group);
   for(const race of registry.races){
    const found=select.includes('value="'+race.id+'"');
-   assert.equal(found,race.data.raceType===group,'category filter for '+race.name);
+   assert.equal(found,(race.data.raceType===group||(race.data.raceType==='beastman'&&group==='beastman_tribe')),'category filter for '+race.name);
   }
  }
  assert.equal(new Set(ids).size,63);
@@ -53,9 +53,9 @@ test('Genome, Gria, Guado, Hypello, Mandragora have supported bonus languages; G
   assert.ok(scoreHtml.includes('data-rw-bonus-languages'),slug);
  }
  const g=build('genome');g.baseScores.int=14;
- g.racialChoices={[pool(get('genome'),'bonus-languages')]:['draconic','sylvan']};
+ g.racialChoices={[pool(get('genome'),'bonus-languages')]:['language:Draconic','language:Sylvan']};
  assert.ok(!buildIssues(g).some(x=>/racial choice|bonus languages|Genome already starts/.test(x.message)));
- g.racialChoices[pool(get('genome'),'bonus-languages')]=['common'];
+ g.racialChoices[pool(get('genome'),'bonus-languages')]=['language:Common'];
  assert.ok(buildIssues(g).some(x=>/already starts with Common/.test(x.message)));
 });
 
