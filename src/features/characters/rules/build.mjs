@@ -6,7 +6,7 @@ import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT
 import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions,RED_MAGERY_EVENT,redMageHasSpells,redMageArchetype,redMageCounter} from './red-mage-level-one.mjs';
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
-import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT} from './racial-choices.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,GRIA_WEAPON,NAMAZU_FOCUS_LEVELS,namazuFocusSlot} from './racial-choices.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage,applyRaceModification} from './race-replacement-operations.mjs';
 import {seedRacialMovement} from '../../sheet/movement.mjs';
 import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
@@ -268,6 +268,17 @@ function classPreview(b){
  const carriedHp=Number(b.carry?.hpMax||0)+carriedLevels(b)*(mod(scores.con)-mod(b.carry?.con||scores.con));
  return {scores,summary,race,racial,features,hp:hp+carriedHp,skillBudget:Number(b.carry?.skillBudget||0)+carriedLevels(b)*(mod(scores.int)-mod(b.carry?.int??scores.int))+summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
+function allowedNamazuNewMilestone(old,raw){
+ if(old?.raceId!=='ffd20:race:namazu'||raw?.raceId!==old.raceId||
+    !old.alternateIds?.includes('ffd20:race:namazu:trait:focused-study')||
+    !raw.alternateIds?.includes('ffd20:race:namazu:trait:focused-study'))return false;
+ const now=buildLevel(raw),before=buildLevel(old);
+ if(now!==before+1||![8,16].includes(now))return false;
+ const pool=namazuFocusSlot(now),original=old.racialChoices||{},updated=raw.racialChoices||{};
+ if((original[pool]||[]).length||!Array.isArray(updated[pool])||updated[pool].length!==1)return false;
+ const strip=choices=>Object.fromEntries(Object.entries(choices).filter(([id])=>id!==pool));
+ return JSON.stringify(strip(original))===JSON.stringify(strip(updated));
+}
 export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false,levelTransition=false}={}){
  if(previous.rulesBuild?.input){
   const original=previous.rulesBuild.input;
@@ -281,7 +292,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
   const raceId=raw.raceId,original=previous.rulesBuild.input;
   const fixedPools={
    'ffd20:race:genome':['bonus-languages'],
-   'ffd20:race:gria':['bonus-languages'],
+   'ffd20:race:gria':['bonus-languages','weapon-focus-weapon'],
    'ffd20:race:guado':['bonus-languages'],
    'ffd20:race:hypello':['bonus-languages'],
    'ffd20:race:mandragora':['bonus-languages'],
@@ -293,6 +304,15 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
    const pool=raceId+':pool:'+suffix;
    if(JSON.stringify(original.racialChoices?.[pool]||[])!==JSON.stringify(raw.racialChoices?.[pool]||[]))
     bad('Starting racial language and Knowledge choices cannot be changed after character creation.');
+  }
+ }
+ if(previous.rulesBuild?.input?.raceId==='ffd20:race:namazu'){
+  const original=previous.rulesBuild.input;
+  for(const at of NAMAZU_FOCUS_LEVELS){
+   const slot=namazuFocusSlot(at),oldChoices=original.racialChoices?.[slot]||[],newChoices=raw?.racialChoices?.[slot]||[];
+   if(JSON.stringify(oldChoices)!==JSON.stringify(newChoices)&&
+       !(at===buildLevel(raw)&&allowedNamazuNewMilestone(original,raw)))
+    bad('Namazu Focused Study choices cannot be changed after their level is completed.');
   }
  }
  if(previous.rulesBuild?.input?.raceId==='ffd20:race:quadav'){
@@ -425,7 +445,7 @@ export function levelUpBuild(raw,previous){
   raw=withBuildDefaults(raw,newBuild());
   if(!old||!(supportsSheetProgression(old)||isRedMage(old))||raw.level!==old.level+1||raw.level>20)bad('Level up adds exactly one level, up to level 20.');
   for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId','carry','favored','initialChaMod','abilityMethod','pointBudget','scorePool','scoreAssignments'])if(!same(raw[key],old[key]))bad('Level up cannot change '+({baseScores:'existing ability scores',initialChaMod:'the starting spell allowance',raceId:'race',heritageId:'heritage',disabledTraits:'standard racial traits',alternateIds:'alternate racial traits',archetypeId:'archetype',classId:'class',carry:'previous class data',favored:'favored-class rewards',abilityMethod:'the ability score method',pointBudget:'the point-buy budget',scorePool:'recorded ability rolls',scoreAssignments:'ability score assignments'}[key]||key)+'.');
-  for(const key of ['racialChoices','racialSpecialties'])if(!same(raw[key]??{},old[key]??{}))bad('Level up cannot change racial choices.');
+  for(const key of ['racialChoices','racialSpecialties'])if(!same(raw[key]??{},old[key]??{})&&!(key==='racialChoices'&&allowedNamazuNewMilestone(old,raw)))bad('Level up cannot change racial choices.');
   const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose a +1 ability increase.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
   if(!same(raw.abilityIncreases||{},boosts))bad('Only the current milestone grants a boost.');
   if(!same(raw.hpRolls,[...hpHistory(old),classDefaultHp(raw)]))bad('Record the class default HP for the new level.');
@@ -439,7 +459,7 @@ export function levelUpBuild(raw,previous){
   if(raw.level!==old.level+1||raw.level>20)bad('Archer level up adds exactly one level.');
   const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
   for(const k of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId'])if(!same(raw[k],old[k]))bad('Level up cannot change '+k+'.');
-  for(const k of ['racialChoices','racialSpecialties'])if(!same(raw[k]??{},old[k]??{}))bad('Level up cannot change racial choices.');
+  for(const k of ['racialChoices','racialSpecialties'])if(!same(raw[k]??{},old[k]??{})&&!(k==='racialChoices'&&allowedNamazuNewMilestone(old,raw)))bad('Level up cannot change racial choices.');
   const boosted={...(old.abilityIncreases||{})};
   if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose a +1 ability increase.');boosted[raw.level]=raw.abilityIncreases[raw.level];}
   if(!same(raw.abilityIncreases||{},boosted))bad('Only the current milestone grants a boost.');
@@ -454,7 +474,7 @@ export function levelUpBuild(raw,previous){
  if(buildLevel(old)>=20||raw.level!==old.level+1)bad('Level up adds exactly one level, up to level 20.');
  const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
  for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId'])if(!same(raw[key],old[key]))bad('Level up cannot change '+key+'. Use Edit instead.');
- for(const k of ['racialChoices','racialSpecialties'])if(!same(raw[k]??{},old[k]??{}))bad('Level up cannot change racial choices.');
+ for(const k of ['racialChoices','racialSpecialties'])if(!same(raw[k]??{},old[k]??{})&&!(k==='racialChoices'&&allowedNamazuNewMilestone(old,raw)))bad('Level up cannot change racial choices.');
  const boosts={...(old.abilityIncreases||{})};if(buildLevel(raw)%4===0){if(!stats.includes(raw.abilityIncreases?.[buildLevel(raw)]))bad('Choose one ability to increase by +1.');boosts[buildLevel(raw)]=raw.abilityIncreases[buildLevel(raw)];}
  if(!same(raw.abilityIncreases||{},boosts))bad('Only the current milestone grants a new +1 ability increase.');
  if(!same(raw.hpRolls,[...hpHistory(old),4]))bad('Black Mage gains 4 base HP at this level.');

@@ -5,7 +5,7 @@ import {isBard} from '../features/characters/rules/bard-level-one.mjs';
 import {isBeastmaster,beastmasterSkillBonus} from '../features/characters/rules/beastmaster-level-one.mjs';
 import {isLevelOneClass,FELL_RIDER_ID,DEADLY_LANCER_ID,MOG_KNIGHT_ID,CHOCOBO_KNIGHT_ID} from '../features/characters/rules/level-one-classes.mjs';
 import {classHitDie,classDefaultHp} from '../features/characters/rules/class-adapters.mjs';
-import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices} from '../features/characters/rules/racial-choices.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices,namazuFocusSlot} from '../features/characters/rules/racial-choices.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
@@ -108,10 +108,10 @@ function racialSelections(b,specs,scores){
 // Ability-score racial choices live with score generation, not in the Race traits list.
 const isRacialScoreChoice=spec=>spec.choiceType==='ability_score'||spec.id==='ffd20:race:immortal:pool:flexible-score';
 function racialScoreSelections(b){
- return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits).filter(isRacialScoreChoice),effectiveScores(b));
+ return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b)).filter(isRacialScoreChoice),effectiveScores(b));
 }
 function bonusLanguageSelections(b){
- return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits).filter(s=>s.choiceType==='language'),effectiveScores(b));
+ return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b)).filter(s=>s.choiceType==='language'),effectiveScores(b));
 }
 export function renderBuild(b,step,{query='',level='all',message='',legacy=false,mode='edit',baseline=null,displayStep=step,displaySteps=steps,rankFloor=null,archerPreviewLevel=1,ownerName='',raceCategory=null}={}){
  const race=raceFor(b),racial=raceTraits(b),scores=effectiveScores(b);let body='';
@@ -120,7 +120,11 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
  if(step===7)body=skillPanel(b,['levelup','multiclass'].includes(mode)?baseline:null,{editable:mode==='edit'||mode==='create'});
  if(step===8)body=panel('Feats',Array.from({length:Math.ceil(buildLevel(b)/2)},(_,i)=>i*2+1).filter(level=>baseline?level>buildLevel(baseline):mode==='multiclass'?level===buildLevel(b):true).map(level=>'<div class="rw-slot"><span>Level '+level+'</span><strong>Feat slot</strong><span>—</span></div>').join('')+'<p>Choose feats later on your sheet.</p>');
  if(step===8&&humeTraitActive(b,'bonus-feat'))body+='<div class="rw-slot"><span>Hume</span><strong>Extra bonus feat</strong><span>—</span></div>';
- if(step===9){const before=baseline?previewBuild(baseline):b.carry?{hp:b.carry.hpMax,skillBudget:b.carry.skillBudget,summary:{mp:b.carry.mpClass+b.carry.mpBonus,bab:b.carry.bab,fort:b.carry.fort,ref:b.carry.ref,will:b.carry.will},scores:effectiveScores(b)}:null,after=previewBuild(b);body='<div class="rw-growth">'+[['HP',before?.hp,after.hp],['MP',before?.summary.mp,after.summary.mp],['Skill points',before?.skillBudget,after.skillBudget],['BAB',before?.summary.bab,after.summary.bab],['Fortitude',before?before.summary.fort+Math.floor((before.scores.con-10)/2):0,after.summary.fort+Math.floor((after.scores.con-10)/2)],['Reflex',before?before.summary.ref+Math.floor((before.scores.dex-10)/2):0,after.summary.ref+Math.floor((after.scores.dex-10)/2)],['Will',before?before.summary.will+Math.floor((before.scores.wis-10)/2):0,after.summary.will+Math.floor((after.scores.wis-10)/2)]].map(([name,old,value])=>'<section class="rw-panel"><h2>'+name+'</h2><strong>'+(old??0)+' → '+value+'</strong></section>').join('')+'</div>';}
+ if(step===9){const before=baseline?previewBuild(baseline):b.carry?{hp:b.carry.hpMax,skillBudget:b.carry.skillBudget,summary:{mp:b.carry.mpClass+b.carry.mpBonus,bab:b.carry.bab,fort:b.carry.fort,ref:b.carry.ref,will:b.carry.will},scores:effectiveScores(b)}:null,after=previewBuild(b);body='<div class="rw-growth">'+[['HP',before?.hp,after.hp],['MP',before?.summary.mp,after.summary.mp],['Skill points',before?.skillBudget,after.skillBudget],['BAB',before?.summary.bab,after.summary.bab],['Fortitude',before?before.summary.fort+Math.floor((before.scores.con-10)/2):0,after.summary.fort+Math.floor((after.scores.con-10)/2)],['Reflex',before?before.summary.ref+Math.floor((before.scores.dex-10)/2):0,after.summary.ref+Math.floor((after.scores.dex-10)/2)],['Will',before?before.summary.will+Math.floor((before.scores.wis-10)/2):0,after.summary.will+Math.floor((after.scores.wis-10)/2)]].map(([name,old,value])=>'<section class="rw-panel"><h2>'+name+'</h2><strong>'+(old??0)+' → '+value+'</strong></section>').join('')+'</div>';
+  const milestone=buildLevel(b);
+  if(['levelup','multiclass'].includes(mode)&&b.raceId==='ffd20:race:namazu'&&[8,16].includes(milestone))
+   body+=racialSelections(b,racialChoiceSpecs(race,racial.traits,milestone).filter(spec=>spec.id===namazuFocusSlot(milestone)),scores);
+ }
  if(step===2){
   const selectedCategory=raceCategory||categoryForRace(race);
   body=field('Race category',`<select data-rw-race-category aria-label="Race category">${raceCategories.map(c=>opt(c.id,c.label,selectedCategory)).join('')}</select>`)+
@@ -131,7 +135,7 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
   if(race?.id==='ffd20:race:half-breed')body+='<p class="rw-notice" role="status">Half-Breed needs two parent races and eligible inherited traits. These choices are not available yet; choose another race to create a character.</p>';
   if(race){body+='<p><a href="'+e(race.sources[0].url)+'" target="_blank" rel="noopener">Official '+e(race.name)+' rules ↗</a></p>';body+=field('Heritage',`<select data-rw-field="heritageId">${opt('','Standard heritage',b.heritageId)}${race.data.heritages.map(h=>opt(h.id,h.name+(heritageReview(h,race)?' · Needs review':''),b.heritageId,Boolean(heritageReview(h,race)))).join('')}</select>`);const h=race.data.heritages.find(h=>h.id===b.heritageId);if(h)body+='<p class="field-help">'+e(h.description)+'</p><p class="field-help">Effective racial ability adjustments: '+stats.map(key=>key.toUpperCase()+' '+(racialAdjust(b,key)>=0?'+':'')+racialAdjust(b,key)).join(' · ')+'. These carry into the saved character sheet.</p>';
    body+=racialGroup('Standard racial traits',race.data.standardTraitIds.map(id=>{const f=race.features.find(f=>f.id===id),replaced=racial.replaced.includes(id),reason=traitReview(race,id);return `<div class="rw-trait rw-trait-compact ${reason?'rw-trait--review':''}"><input type="checkbox" aria-label="${e(f.name)}" data-rw-trait="${e(id)}" ${replaced||reason?'disabled':''} ${!b.disabledTraits.includes(id)?'checked':''}><details><summary>${e(f.name)}${reason?'<small class="rw-trait-status">Needs review</small>':''}</summary><p>${e(f.description)}</p>${reason?'<p class="rw-trait-reason">'+e(reason)+'</p>':''}</details></div>`;}).join(''));
-   body+=racialSelections(b,racialChoiceSpecs(race,racial.traits).filter(spec=>spec.choiceType!=='language'&&!isRacialScoreChoice(spec)),scores);
+   body+=racialSelections(b,racialChoiceSpecs(race,racial.traits,buildLevel(b)).filter(spec=>spec.choiceType!=='language'&&!isRacialScoreChoice(spec)),scores);
    body+=racialGroup('Alternate racial traits',race.data.alternateTraitIds.map(id=>{const f=race.features.find(f=>f.id===id),ops=replacementFor(race,id),reason=traitReview(race,id),manualChoices=(f.choicePoolIds||[]).filter(pool=>!supportsRacialPool(pool)).map(pool=>race.choicePools.find(p=>p.id===pool)).filter(Boolean);return `<div class="rw-trait rw-trait-compact ${reason?'rw-trait--review':''}"><input type="checkbox" aria-label="${e(f.name)}" data-rw-alternate="${e(id)}" ${reason?'disabled':''} ${b.alternateIds.includes(id)?'checked':''}><details><summary>${e(f.name)}${reason?'<small class="rw-trait-status">Needs review</small>':''}</summary><p>${e(f.description)}</p><p>${e(ops.map(o=>o.description).join(' '))}</p>${manualChoices.length&&!reason?'<p class="field-help">Record this choice on your sheet: '+e(manualChoices.map(p=>p.name+(p.options.length?' ('+p.options.map(o=>o.name).join(' / ')+')':'')).join('; '))+'. No extra wizard step is needed for this manual effect.</p>':''}${reason?'<p class="rw-trait-reason">'+e(reason)+'</p>':''}</details></div>`;}).join(''));
   }
  }
@@ -233,7 +237,7 @@ export function mountRulesWizard(){
     changed();draw();return;
    }
    if(t.matches('[data-rw-language-slot]')){
-     const key=t.dataset.rwLanguageSlot,index=Number(t.dataset.languageIndex),spec=racialChoiceSpecs(raceFor(b),raceTraits(b).traits).find(s=>s.id===key);
+     const key=t.dataset.rwLanguageSlot,index=Number(t.dataset.languageIndex),spec=racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b)).find(s=>s.id===key);
      if(!spec||spec.choiceType!=='language'||!Number.isInteger(index)||index<0)return;
      const maximum=spec.maximum??Math.max(0,Math.floor((effectiveScores(b).int-10)/2));if(index>=maximum)return;
      const value=spec.freeText?(t.value.trim()?languageChoice(t.value):''):t.value;

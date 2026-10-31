@@ -78,6 +78,17 @@ function replacementForBatch49(r,id){
  };
  if(r.id===moomba&&id===moomba+':trait:climb')
   return pair('climb',[],{scope:'whole_feature',resolution:'manual',replaced:[],speed:'base-speed',adds:true});
+ if(r.id===namazu&&id===namazu+':trait:focused-study'){
+  const prefix=namazu+':trait:',focus=prefix+'focused-study';
+  const source=ops.find(o=>o.id===focus+':replacement'&&o.operation==='replace'&&
+   o.scope==='partial_feature'&&o.resolution==='unresolved'&&
+   JSON.stringify(o.targetFeatureIds)===JSON.stringify([prefix+'festive-culture',prefix+'skilled-traders'])&&
+   JSON.stringify(o.addsFeatureIds)===JSON.stringify([focus])&&
+   !(o.targetEventIds||[]).length&&!(o.addsEventIds||[]).length&&!(o.removesComponents||[]).length);
+  // The official detailed rule explicitly replaces BOTH complete standard traits.
+  return source&&ops.length===1?[{...source,scope:'whole_feature',resolution:'manual',
+   description:'Focused Study replaces Festive Culture and Skilled Traders completely.'}]:ops;
+ }
  if(r.id===namazu&&id===namazu+':trait:fast')
   return pair('fast',['skilled-traders','base-speed'],{scope:'partial_feature',resolution:'unresolved',replaced:['skilled-traders'],speed:'base-speed',adds:true});
  if(r.id===seto&&id===seto+':trait:faster')
