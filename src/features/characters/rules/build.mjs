@@ -28,7 +28,59 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
+export function replacementFor(r,id){
+ const ops=r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));
+ const base='ffd20:race:',trait=base+(r.id.slice(base.length))+':trait:';
+ const exact=(slug,target,operation,scope,resolution)=>{
+  const source=ops.find(x=>x.id===trait+slug+':replacement'&&x.operation===operation&&
+   x.scope===scope&&x.resolution===resolution&&
+   JSON.stringify(x.targetFeatureIds)===JSON.stringify(target.map(t=>trait+t))&&
+   x.addsFeatureIds?.length===1&&x.addsFeatureIds[0]===trait+slug&&
+   !(x.targetEventIds||[]).length&&!(x.addsEventIds||[]).length&&!(x.removesComponents||[]).length);
+  return source&&ops.length===1?source:null;
+ };
+ if(r.id==='ffd20:race:beastkin'){
+  for(const [slug,target] of [['alluring','ability-score-racial-traits'],['light-build','ability-score-racial-traits']]){
+   if(id!==trait+slug)continue;
+   const op=exact(slug,[target],'replace','partial_feature','unresolved');
+   return op?[{...op,id:id+':ability-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+    description:slug+' modifies one ability bonus; the other racial ability effects remain.'}]:ops;
+  }
+  if(id===trait+'loper'){
+   const op=exact('loper',['natural-armor'],'replace','partial_feature','unresolved');
+   return op?[
+    {...op,id:id+':armor-replacement',scope:'whole_feature',resolution:'manual',
+     description:'Loper replaces Natural Armor.'},
+    {...op,id:id+':speed-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+     targetFeatureIds:[trait+'base-speed'],addsFeatureIds:[],
+     description:'Loper increases land speed from 30 to 40 feet without removing Sprinter.'}
+   ]:ops;
+  }
+ }
+ if(r.id==='ffd20:race:garlean'&&id===trait+'xenophobia-extremis'){
+  const op=exact('xenophobia-extremis',['ability-score-adjustment','languages'],'modify','whole_feature','manual');
+  return op?[{...op,id:id+':component-modifier',scope:'part_of_feature',
+   description:'Change -2 Wisdom to -2 Charisma and prevent high-Intelligence bonus languages; keep Common.'}]:ops;
+ }
+ if(r.id==='ffd20:race:shindroid'){
+  if(id===trait+'heavy-platform'){
+   const op=exact('heavy-platform',['base-speed'],'replace','partial_feature','unresolved');
+   return op?[{...op,id:id+':speed-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+    description:'Change only land speed 30 to 20 feet, retain the base-speed feature; ignore armor and encumbrance penalties.'}]:ops;
+  }
+  if(id===trait+'anomaly'){
+   const op=exact('anomaly',['emotionless'],'replace','partial_feature','unresolved');
+   return op?[
+    {...op,id:id+':emotionless-replacement',scope:'whole_feature',resolution:'manual',
+     description:'Anomaly replaces Emotionless.'},
+    {...op,id:id+':immunity-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+     targetFeatureIds:[trait+'robotic-immunities'],addsFeatureIds:[],
+     description:'Anomaly changes the emotion/fear immunities but retains other robotic immunities.'}
+   ]:ops;
+  }
+ }
+ return ops;
+}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
@@ -39,8 +91,14 @@ export function raceTraits(b){
   if(!isSupportedRaceOperation(r,op)){errors.push('This trait needs a precise replacement mapping: '+op.description);continue;}
   if(op.operation==='modify'){
    for(const id of op.targetFeatureIds){
-    if(modified.has(id)||consumed.has(id)||disabled.has(id))errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
-    modified.set(id,op);
+    const previous=modified.get(id)||[];
+    const beast='ffd20:race:beastkin:trait:';
+    const independent= id===beast+'ability-score-racial-traits'&&previous.length===1&&
+     new Set([previous[0].id,op.id]).size===2&&
+     [previous[0].id,op.id].every(x=>[beast+'alluring:ability-modifier',beast+'light-build:ability-modifier'].includes(x));
+    if(previous.length&&!independent||consumed.has(id)||disabled.has(id))
+     errors.push('Cannot modify an already replaced or disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
+    modified.set(id,[...previous,op]);
    }
    // Approved partial modifications may also introduce a named alternate
    // without deleting unaffected portions of the standard racial trait.
@@ -53,7 +111,7 @@ export function raceTraits(b){
   if(!op.targetFeatureIds.some(id=>disabled.has(id)))for(const id of op.addsFeatureIds)active.add(id);
  }
  for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
- const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?applyRaceModification(r,f,modified.get(f.id)):f)).map(f=>{
+ const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?modified.get(f.id).reduce((value,op)=>applyRaceModification(r,value,op),f):f)).map(f=>{
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
