@@ -13,15 +13,20 @@ export function shindroidSimulationOptions(){
  return registry.races.filter(r=>{
   if(r.id===SHINDROID)return false;
   const type=r.features.find(f=>f.id===r.id+':trait:type'||f.name==='Type');
-  const identity=type?.effects?.find(e=>['identity.type','creature_type'].includes(e.target)&&e.automation==='automatic');
+  // Generated race catalog changes legacy creature_type/size_category
+  // effect automation to manual because the generic runtime does not own those
+  // raw target paths. Their explicit source type/size text remains authoritative.
+  const identity=type?.effects?.find(e=>!e.condition&&
+   (e.target==='identity.type'&&e.automation==='automatic'||e.target==='creature_type'&&e.textValue));
   const size=r.features.find(f=>f.id===r.id+':trait:size'||f.name==='Size');
-  const sz=size?.effects?.find(e=>['identity.size_category','size_category'].includes(e.target)&&e.automation==='automatic');
+  const sz=size?.effects?.find(e=>!e.condition&&
+   (e.target==='identity.size_category'&&e.automation==='automatic'||e.target==='size_category'&&e.textValue));
   return /^humanoid(?:\s|\(|$)/i.test(identity?.textValue||'')&&
    ['Fine','Diminutive','Tiny','Small','Medium','Large','Huge'].includes(
     (sz?.textValue||'').replace(/^./,ch=>ch.toUpperCase()));
  }).map(r=>{
   const sz=r.features.find(f=>f.id===r.id+':trait:size'||f.name==='Size').effects
-   .find(e=>['identity.size_category','size_category'].includes(e.target)&&e.automation==='automatic');
+   .find(e=>!e.condition&&(e.target==='identity.size_category'&&e.automation==='automatic'||e.target==='size_category'&&e.textValue));
   return {id:SHINDROID_SIMULATED_RACE+':option:'+r.id.split(':').at(-1),
    name:r.name,value:r.id,size:sz.textValue.replace(/^./,ch=>ch.toUpperCase())};
  }).sort((a,b)=>a.name.localeCompare(b.name));
