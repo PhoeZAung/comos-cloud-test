@@ -5,6 +5,26 @@ const AEGYL='ffd20:race:aegyl';
 const WING_CLIPPED=AEGYL+':trait:wing-clipped';
 const AEGYL_SPEED=AEGYL+':trait:base-speed';
 const WING_FLIGHT_MODIFIER=WING_CLIPPED+':flight-modifier';
+const MOOMBA='ffd20:race:moomba';
+const NAMAZU='ffd20:race:namazu';
+const SETO='ffd20:race:seto-lion';
+const speedOps=new Map([
+ [MOOMBA+':trait:climb:speed-modifier',{race:MOOMBA,slug:'climb',speed:MOOMBA+':trait:base-speed',adds:true,starting:40,delta:-10}],
+ [NAMAZU+':trait:fast:speed-modifier',{race:NAMAZU,slug:'fast',speed:NAMAZU+':trait:base-speed',adds:true,starting:30,delta:10}],
+ [SETO+':trait:faster:speed-modifier',{race:SETO,slug:'faster',speed:SETO+':trait:base-speed',adds:true,starting:50,delta:10}],
+ [SETO+':trait:nimble-attacks:speed-modifier',{race:SETO,slug:'nimble-attacks',speed:SETO+':trait:base-speed',adds:true,starting:50,delta:-10}]
+]);
+const speedSourceReady=(race,config)=>race?.id===config?.race&&
+ race?.features.some(f=>f.id===config.speed&&f.effects?.some(e=>e.target==='identity.speed.land'&&
+ e.automation==='automatic'&&!e.condition&&e.value?.kind==='constant'&&e.value.value===config.starting));
+const supportedSpeedModifier=(race,op)=>{
+ const config=speedOps.get(op?.id);
+ return Boolean(config&&speedSourceReady(race,config)&&op.operation==='modify'&&
+  op.scope==='part_of_feature'&&op.resolution==='manual'&&
+  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===config.speed&&
+  (op.addsFeatureIds||[]).length===1&&op.addsFeatureIds[0]===config.race+':trait:'+config.slug&&
+  !(op.targetEventIds||[]).length&&!(op.addsEventIds||[]).length&&!(op.removesComponents||[]).length);
+};
 const TARUTARU='ffd20:race:tarutaru';
 const POLYGLOT=TARUTARU+':trait:polyglot';
 const TARUTARU_LANGUAGES=TARUTARU+':trait:languages';
@@ -41,6 +61,7 @@ const isWholeTraitReplacement=(race,op)=>{
 };
 export const isSupportedRaceOperation=(race,op)=>
  isWholeTraitReplacement(race,op)||
+ supportedSpeedModifier(race,op)||
  (race?.id===DWARF&&op.id===SALTBEARD_GREED&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===GREED&&op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===SALTBEARD)||
  (race?.id===AEGYL&&op.id===WING_FLIGHT_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
@@ -69,6 +90,16 @@ export function isSupportedRaceHeritage(race,heritage){
 }
 
 export function applyRaceModification(race,feature,op){
+ if(supportedSpeedModifier(race,op)&&feature?.id===speedOps.get(op.id).speed){
+  const config=speedOps.get(op.id);
+  return {...feature,
+   description:race.id===MOOMBA?'Land speed 30 ft with Climb; Climb 20 ft and its +8 skill bonus are granted separately.':
+    race.id===NAMAZU?'Fast: land speed 40 ft, swim speed remains 30 ft; Skilled Traders is lost.':
+    'Seto Lion land speed includes Quadruped and the remaining Fast/Faster benefits; apply both chosen alternates once.',
+   effects:(feature.effects||[]).map(e=>e.target==='identity.speed.land'&&e.automation==='automatic'&&e.value?.kind==='constant'?
+    {...e,value:{...e.value,value:e.value.value+config.delta}}:e)};
+ }
+
  if(race?.id===TARUTARU&&feature?.id===TARUTARU_LANGUAGES&&op?.id===POLYGLOT_LANGUAGE_MODIFIER)
   return {...feature,description:'Polyglot: starts with Common, Lalafellan, and one freely chosen additional starting language; retains all normal high-Intelligence bonus languages (Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin and Orc).'};
 
