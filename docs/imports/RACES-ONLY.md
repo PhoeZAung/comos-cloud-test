@@ -33,3 +33,7 @@ Heritage availability now uses source-backed structure: complete replacement map
 ## Aegyl Wing-Clipped and editable movement (2026-10-31)
 
 Wing-Clipped replaces Emotionless and specifically modifies the fly portion of Base Speed: fly 20 ft (poor), upward Fly DC 30, unchanged land 30 ft. Its +2 racial Bluff, Climb and Diplomacy skill bonuses are automatic and tested against saved sheet rows. No wizard picker added. Every character's Identity edit popup offers land, burrow, climb, fly (with maneuverability), and swim speed; available speeds show beneath land speed in Identity, with manual field edits preserved across saves and rule recompile. Ordinary Aegyl start with Fly 40 ft poor; Wing-Clipped Aegyl with 20 ft poor.
+
+## Identity popup layout cleanup (2026-10-31)
+
+Only one Identity Edit button remains in the card header. The Identity card shows Land Speed without extra speed descriptions or redundant racial rules. The popup groups Size/Languages/Senses under Character details and Land/Burrow/Climb/Fly/Swim under Movement speeds, with compact responsive fields and no Fly Maneuverability selector. Existing stored maneuverability and all manual speeds are preserved.
