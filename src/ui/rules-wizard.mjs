@@ -5,7 +5,7 @@ import {isBard} from '../features/characters/rules/bard-level-one.mjs';
 import {isBeastmaster,beastmasterSkillBonus} from '../features/characters/rules/beastmaster-level-one.mjs';
 import {isLevelOneClass,FELL_RIDER_ID,DEADLY_LANCER_ID,MOG_KNIGHT_ID,CHOCOBO_KNIGHT_ID} from '../features/characters/rules/level-one-classes.mjs';
 import {classHitDie,classDefaultHp} from '../features/characters/rules/class-adapters.mjs';
-import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices,namazuFocusSlot} from '../features/characters/rules/racial-choices.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices,namazuFocusSlot,YAGUDO_RANK_LANGUAGES,YAGUDO_LINGUISTICS_ROW,YAGUDO_RELIGION_ROW} from '../features/characters/rules/racial-choices.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
@@ -30,8 +30,6 @@ const opt=(id,label,current,disabled=false)=>`<option value="${e(id)}" ${id===cu
 // Source review state remains unchanged. Availability applies only to individual wizard controls.
 const manualReviewTraits=new Map([
  ['ffd20:race:trollkin:trait:acid-or-fire','The source disagrees about which element suppresses healing.'],
- ['ffd20:race:yagudo:trait:zealot-devotee','The extra bonus per five skill ranks needs a calculation rule.'],
- ['ffd20:race:yagudo:trait:valiant-linguist','Extra languages per Linguistics rank need a language chooser.'],
  ['ffd20:race:kindred:trait:fiendish-magery','The Intelligence bonus applies to mage abilities only.'],
  ['ffd20:race:sylph:trait:fey-magic','Daily and weekly spell-like ability uses require tracking.']
 ]);
@@ -97,6 +95,9 @@ function racialSelections(b,specs,scores){
    }).join('');
    const polyglot=spec.id==='ffd20:race:tarutaru:pool:polyglot-starting-language'||spec.id==='ffd20:race:lambkin:pool:polyglot-language';
     const requiredStarting=spec.minimum===1&&spec.maximum===1&&!polyglot;
+   if(spec.id===YAGUDO_RANK_LANGUAGES)return panel('Valiant Linguist · languages',
+    '<p>Choose up to '+maximum+' languages from '+(maximum/2)+' Linguistics rank(s): two per rank. Common and Yagudo are already known. Previously chosen languages are permanent; add new languages when ranks increase.</p>'+slots+
+    '<datalist id="rw-ffd20-languages">'+ffd20LanguageNames.filter(x=>!['Common','Yagudo'].includes(x)).map(x=>'<option value="'+e(x)+'"></option>').join('')+'</datalist>');
    return panel(polyglot?'Polyglot starting language':requiredStarting?'Required starting language':'Bonus languages','<p>'+(polyglot?'Choose one extra starting language, regardless of Intelligence. This does not replace any high-Intelligence bonus languages.':requiredStarting?'Choose one additional starting language for your race.':'Choose up to '+maximum+' additional language'+(maximum===1?'':'s')+' based on your effective Intelligence. Each language can be selected once.')+'</p>'+slots+(spec.freeText?'<datalist id="rw-ffd20-languages">'+ffd20LanguageNames.filter(x=>x!=='Common').map(x=>'<option value="'+e(x)+'"></option>').join('')+'</datalist>':'')+'<p><a href="languages.html" target="_blank" rel="noopener noreferrer">View all FFd20 languages</a></p>');
   }
   const help=spec.minimum===maximum?'Choose '+maximum+'.':'Choose up to '+maximum+'.';
@@ -111,13 +112,17 @@ function racialScoreSelections(b){
  return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b)).filter(isRacialScoreChoice),effectiveScores(b));
 }
 function bonusLanguageSelections(b){
- return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b)).filter(s=>s.choiceType==='language'),effectiveScores(b));
+ return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b),b).filter(s=>s.choiceType==='language'&&s.id!==YAGUDO_RANK_LANGUAGES),effectiveScores(b));
 }
 export function renderBuild(b,step,{query='',level='all',message='',legacy=false,mode='edit',baseline=null,displayStep=step,displaySteps=steps,rankFloor=null,archerPreviewLevel=1,ownerName='',raceCategory=null}={}){
  const race=raceFor(b),racial=raceTraits(b),scores=effectiveScores(b);let body='';
  if(step===0)body=`<p class="rw-source">FFD20</p>${field('Character name',input(b.name,'data-rw-field="name" maxlength="80" autocomplete="off"'))}${field('Alignment',`<select data-rw-field="alignment">${opt('','Choose',b.alignment)}${['Lawful Good','Neutral Good','Chaotic Good','Lawful Neutral','True Neutral','Chaotic Neutral','Lawful Evil','Neutral Evil','Chaotic Evil',...(!['Lawful Good','Neutral Good','Chaotic Good','Lawful Neutral','True Neutral','Chaotic Neutral','Lawful Evil','Neutral Evil','Chaotic Evil',''].includes(b.alignment)?[b.alignment]:[])].map(a=>opt(a,a,b.alignment)).join('')}</select>`)}${field('Biography',`<textarea data-rw-field="bio" maxlength="2000" rows="4">${e(b.bio)}</textarea>`)}${field('Portrait',`<input type="file" data-rw-portrait accept="image/png,image/jpeg,image/webp">`)}${b.portrait?'<img class="rw-portrait" src="'+e(b.portrait)+'" alt="Character portrait">':''}`;
  if(step===1)body=abilityPanel(b,{mode,baseline,legacy})+(['create','edit'].includes(mode)?'<div data-rw-racial-scores>'+racialScoreSelections(b)+'</div><div data-rw-bonus-languages>'+bonusLanguageSelections(b)+'</div>':'');
- if(step===7)body=skillPanel(b,['levelup','multiclass'].includes(mode)?baseline:null,{editable:mode==='edit'||mode==='create'});
+ if(step===7){
+  body=skillPanel(b,['levelup','multiclass'].includes(mode)?baseline:null,{editable:mode==='edit'||mode==='create'});
+  if(b.raceId==='ffd20:race:yagudo'&&racial.traits.some(f=>f.id===b.raceId+':trait:valiant-linguist'))
+   body+='<div data-rw-yagudo-languages>'+racialSelections(b,racialChoiceSpecs(race,racial.traits,buildLevel(b),b).filter(spec=>spec.id===YAGUDO_RANK_LANGUAGES),scores)+'</div>';
+}
  if(step===8)body=panel('Feats',Array.from({length:Math.ceil(buildLevel(b)/2)},(_,i)=>i*2+1).filter(level=>baseline?level>buildLevel(baseline):mode==='multiclass'?level===buildLevel(b):true).map(level=>'<div class="rw-slot"><span>Level '+level+'</span><strong>Feat slot</strong><span>—</span></div>').join('')+'<p>Choose feats later on your sheet.</p>');
  if(step===8&&humeTraitActive(b,'bonus-feat'))body+='<div class="rw-slot"><span>Hume</span><strong>Extra bonus feat</strong><span>—</span></div>';
  if(step===9){const before=baseline?previewBuild(baseline):b.carry?{hp:b.carry.hpMax,skillBudget:b.carry.skillBudget,summary:{mp:b.carry.mpClass+b.carry.mpBonus,bab:b.carry.bab,fort:b.carry.fort,ref:b.carry.ref,will:b.carry.will},scores:effectiveScores(b)}:null,after=previewBuild(b);body='<div class="rw-growth">'+[['HP',before?.hp,after.hp],['MP',before?.summary.mp,after.summary.mp],['Skill points',before?.skillBudget,after.skillBudget],['BAB',before?.summary.bab,after.summary.bab],['Fortitude',before?before.summary.fort+Math.floor((before.scores.con-10)/2):0,after.summary.fort+Math.floor((after.scores.con-10)/2)],['Reflex',before?before.summary.ref+Math.floor((before.scores.dex-10)/2):0,after.summary.ref+Math.floor((after.scores.dex-10)/2)],['Will',before?before.summary.will+Math.floor((before.scores.wis-10)/2):0,after.summary.will+Math.floor((after.scores.wis-10)/2)]].map(([name,old,value])=>'<section class="rw-panel"><h2>'+name+'</h2><strong>'+(old??0)+' → '+value+'</strong></section>').join('')+'</div>';
@@ -132,6 +137,7 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
   if(race?.id==='ffd20:race:garlean')body+='<p class="field-help">Garlean standard level 1: choose Firearms (Simple) proficiency, a named technology-related Craft specialty, and eligible bonus languages. One specific exotic Gun Arm requires a verified equipment catalog, so it is not enabled. Magic Ineptitude forbids MP pools; third-eye magic, item exceptions, and situational AC/saving throws remain manual. Heritages and alternate traits require another review.</p>';
   if(race?.id==='ffd20:race:garif')body+='<p class="field-help">Garif standard level-1 creation: permanently choose desert or plains and one Pastoralist skill. Assign one of your skill ranks to that skill. The selected terrain AC bonus, Masked saving throw bonus and conditional combat effects remain manual; source-listed weapon proficiencies appear on the sheet. Higher levels and alternate traits are not yet supported.</p>';
   if(race?.id===HUME_ID)body+='<p class="field-help">Hume standard traits support first-level testing. Curiosity’s situational check bonuses and Sociable are manual. Your extra racial feat has its own slot on the sheet.</p>';
+  if(race?.id==='ffd20:race:yagudo')body+='<p class="field-help">Valiant Linguist: +4 Linguistics and two selectable languages per Linguistics rank, recorded in Skills. Zealot Devotee: +2 Knowledge (Religion) and another +1 per five ranks, calculated automatically. Replacing these traits removes their benefits.</p>';
   if(race?.id==='ffd20:race:trollkin')body+='<p class="rw-notice" role="status">Trollkin healing weakness is a source conflict, not an Acid/Fire picker: the official heading says Acid or Fire, while its detailed text says FIRE or EARTH damage suppresses fast healing for 1 minute. Ask the GM to decide which element applies. HP recovery and suppression remain manual; Faster Healing replaces rather than stacks with normal Fast Healing.</p>';
   if(race?.id==='ffd20:race:half-breed')body+='<p class="rw-notice" role="status">Half-Breed needs two parent races and eligible inherited traits. These choices are not available yet; choose another race to create a character.</p>';
   if(race){body+='<p><a href="'+e(race.sources[0].url)+'" target="_blank" rel="noopener">Official '+e(race.name)+' rules ↗</a></p>';body+=field('Heritage',`<select data-rw-field="heritageId">${opt('','Standard heritage',b.heritageId)}${race.data.heritages.map(h=>opt(h.id,h.name+(heritageReview(h,race)?' · Needs review':''),b.heritageId,Boolean(heritageReview(h,race)))).join('')}</select>`);const h=race.data.heritages.find(h=>h.id===b.heritageId);if(h)body+='<p class="field-help">'+e(h.description)+'</p><p class="field-help">Effective racial ability adjustments: '+stats.map(key=>key.toUpperCase()+' '+(racialAdjust(b,key)>=0?'+':'')+racialAdjust(b,key)).join(' · ')+'. These carry into the saved character sheet.</p>';
@@ -188,7 +194,14 @@ export function mountRulesWizard(){
  function scoreFeedback(){for(const caption of main.querySelectorAll('[data-rw-caption]'))caption.innerHTML=scoreCaption(b,caption.dataset.rwCaption);const spent=main.querySelector('[data-rw-spent]');if(spent)spent.textContent=pointSpend(b.baseScores)+' / '+b.pointBudget;const slots=main.querySelector('[data-rw-score-spells]');if(slots)slots.innerHTML=spellSlots(b,baseline,{bonusOnly:true});const languages=main.querySelector('[data-rw-bonus-languages]');if(languages)languages.innerHTML=bonusLanguageSelections(b);}
  function assignToken(i){if(selectedToken===null)return;b.scoreAssignments=moveScoreToken(b.scoreAssignments,selectedToken,i);assignPool();selectedToken=null;changed();draw();}
 
- function setRank(i,value){const min=['levelup','multiclass'].includes(mode)?baseline?.skillRanks?.[i]??b.carry?.ranks?.[i]??character?.data.skills?.[i]?.lvl??0:0,rank=Math.max(min,Math.min(buildLevel(b),previewBuild(b).skillBudget-b.skillRanks.reduce((n,v,j)=>n+(j===i?0:v),0),Number.isFinite(value)?Math.trunc(value):min));b.skillRanks[i]=rank;const input=main.querySelector(`[data-rw-rank="${i}"]`),row=input.closest('.rw-skill'),total=rank+Math.floor((effectiveScores(b)[fixedSkills[i].stat]-10)/2)+(row.classList.contains('rw-class-skill')&&rank>0?3:0)+Number(row.dataset.rankBonus||0);input.value=rank;row.querySelector('strong').textContent=(total>=0?'+':'')+total;main.querySelector('.rw-skill-budget strong').textContent=b.skillRanks.reduce((n,v)=>n+v,0)+' / '+previewBuild(b).skillBudget;changed();}
+ function setRank(i,value){const min=['levelup','multiclass'].includes(mode)?baseline?.skillRanks?.[i]??b.carry?.ranks?.[i]??character?.data.skills?.[i]?.lvl??0:0,rank=Math.max(min,Math.min(buildLevel(b),previewBuild(b).skillBudget-b.skillRanks.reduce((n,v,j)=>n+(j===i?0:v),0),Number.isFinite(value)?Math.trunc(value):min));const priorRank=b.skillRanks[i]||0;b.skillRanks[i]=rank;const input=main.querySelector(`[data-rw-rank="${i}"]`),row=input.closest('.rw-skill'),total=rank+Math.floor((effectiveScores(b)[fixedSkills[i].stat]-10)/2)+(row.classList.contains('rw-class-skill')&&rank>0?3:0)+Number(row.dataset.rankBonus||0)+(b.raceId==='ffd20:race:yagudo'&&i===YAGUDO_RELIGION_ROW?Math.floor(rank/5)-Math.floor(priorRank/5):0);
+ if(b.raceId==='ffd20:race:yagudo'&&i===YAGUDO_RELIGION_ROW)row.dataset.rankBonus=String(Number(row.dataset.rankBonus||0)+Math.floor(rank/5)-Math.floor(priorRank/5));
+ input.value=rank;row.querySelector('strong').textContent=(total>=0?'+':'')+total;main.querySelector('.rw-skill-budget strong').textContent=b.skillRanks.reduce((n,v)=>n+v,0)+' / '+previewBuild(b).skillBudget;changed();
+ if(b.raceId==='ffd20:race:yagudo'&&i===YAGUDO_LINGUISTICS_ROW){
+  const languages=main.querySelector('[data-rw-yagudo-languages]');
+  if(languages)languages.innerHTML=racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b),b).filter(spec=>spec.id===YAGUDO_RANK_LANGUAGES),effectiveScores(b));
+ }
+ }
  function failure(error){message=error.message||'Could not save your build.';draw();}
  function assignPool(){if(!['array','rolled'].includes(b.abilityMethod))return;const pool=b.abilityMethod==='array'?standardArray:b.scorePool;if(pool?.length===6)stats.forEach((k,i)=>b.baseScores[k]=Number.isInteger(b.scoreAssignments[i])?pool[b.scoreAssignments[i]]:10);}
  function syncSpells(){b.spellIds=[...b.spellSelections.cantrips,...b.spellSelections.leveled].filter(Boolean);}
@@ -238,7 +251,7 @@ export function mountRulesWizard(){
     changed();draw();return;
    }
    if(t.matches('[data-rw-language-slot]')){
-     const key=t.dataset.rwLanguageSlot,index=Number(t.dataset.languageIndex),spec=racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b)).find(s=>s.id===key);
+     const key=t.dataset.rwLanguageSlot,index=Number(t.dataset.languageIndex),spec=racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b),b).find(s=>s.id===key);
      if(!spec||spec.choiceType!=='language'||!Number.isInteger(index)||index<0)return;
      const maximum=spec.maximum??Math.max(0,Math.floor((effectiveScores(b).int-10)/2));if(index>=maximum)return;
      const value=spec.freeText?(t.value.trim()?languageChoice(t.value):''):t.value;
