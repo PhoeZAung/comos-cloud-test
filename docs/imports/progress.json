@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 92,
+  "revision": 93,
   "schedule": [
     "class",
     "race",
@@ -563,18 +563,21 @@
     },
     "ffd20:race:garif": {
       "state": "in_progress",
-      "stage": "targeted-validation",
-      "cursor": "Standard Garif level-1 creation, source choices, restricted rank, proficiencies and edit guards implemented; focused 3/3 tests pass on archived snapshot",
-      "nextAction": "Rebase/check against latest main, install Node 24 dependencies, run npm test and npm run build:cloud; then review PR and publish only after validation",
+      "stage": "ci-validated-awaiting-railway",
+      "cursor": "Garif standard level-one scope merged to main in PR #34; Node 24 CI tests 420/420 and cloud build passed on PR and main.",
+      "nextAction": "Check Railway deployment of b864d2ac7acf73d2eeb7799ab6497a4909622c65. Confirm SUCCESS, health/database and signed-in Garif creation/save/reopen before recording a live_partial milestone. Until then keep status in_progress. After deployment, continue next race from queue.",
       "scope": "Standard Garif level-1 creation/edit only. Terrain AC and mask saves conditional/manual. No higher-level Pastoralist, alternates, favored rewards or fully reviewed rules.",
-      "note": "Isolated sandbox used Node 22.16 and older source snapshot. 372/382 suite checks passed, 10 failed due missing sharp/esbuild/live bundle. Cloud build blocked by missing esbuild. Do not mark live or publish until integrated checks pass.",
+      "note": "PR #34 merged as b864d2a; GitHub Actions PR 41180072037 and main 41180154151 passed 420/420 tests and npm run build:cloud. Railway deployment 88631e23 is still QUEUED; earlier martial deployment a50286b9 also QUEUED, last SUCCESS 46f63ee. No real Firebase login or live Garif gameplay verification. Conditions/manual limits remain.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "tests/garif-standard-creation.test.mjs",
-        "docs/extraction/garif-standard-creation.md"
+        "docs/extraction/garif-standard-creation.md",
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/34",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41180072037",
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41180154151"
       ],
-      "updatedAt": "2026-10-31T07:10:00.000Z"
+      "updatedAt": "2026-10-31T07:19:36.273Z"
     }
   },
   "history": [
@@ -1396,6 +1399,15 @@
       "stage": "targeted-validation",
       "cursor": "Standard Garif level-1 creation, source choices, restricted rank, proficiencies and edit guards implemented; focused 3/3 tests pass on archived snapshot",
       "time": "2026-10-31T07:10:00.000Z"
+    },
+    {
+      "revision": 93,
+      "itemId": "ffd20:race:garif",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "ci-validated-awaiting-railway",
+      "cursor": "Garif standard level-one scope merged to main in PR #34; Node 24 CI tests 420/420 and cloud build passed on PR and main.",
+      "time": "2026-10-31T07:19:36.273Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

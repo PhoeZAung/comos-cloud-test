@@ -12,7 +12,7 @@ Partial-live support, testing availability, source archiving and full completion
 | race | 63/63 | 63 | 63 | 46 | 15 | 0 | 0 |
 | archetype | 579/579 | 7 | 5 | 574 | 3 | 0 | 420 |
 
-Checkpoint revision: **92**. Active: **ffd20:race:garif**. Next: **ffd20:race:garif**.
+Checkpoint revision: **93**. Active: **ffd20:race:garif**. Next: **ffd20:race:garif**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -115,7 +115,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 13 | [Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard senses/Hunter skills, source languages, owned flat stats and manual Run deployed; five public assets verified; Alternates and conditional movement, saves/immunity and feat automation require separate reviewed batches |
 | 14 | [Burmecian](https://finalfantasyd20.com/races/base-races/burmecian/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits/languages, owned CMD contribution and manual Improved Initiative deployed; five public assets verified; Core CMD/CMB migration and later variants/alternates/conditional effects need separate reviewed batches |
 | 15 | [Dracobaltian](https://finalfantasyd20.com/races/base-races/dracobaltian/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits, explicit sensory limits, source languages and owned natural armor deployed; five public assets verified. Paused here at user request.; Await user resume; then Garif terrain/Pastoralist choices. Source reviewed only; no Garif application changes applied. |
-| 16 | [Garif](https://finalfantasyd20.com/races/base-races/garif/) | testing option; saving can be guarded | in_progress · targeted-validation | Standard level-1 code and targeted tests prepared; full Node 24 validation remains |
+| 16 | [Garif](https://finalfantasyd20.com/races/base-races/garif/) | testing option; saving can be guarded | in_progress · ci-validated-awaiting-railway | Merged PR #34; 420 tests and build passed. Railway queued; not live verified |
 | 17 | [Garlean](https://finalfantasyd20.com/races/base-races/garlean/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 18 | [Genome](https://finalfantasyd20.com/races/base-races/genome/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 19 | [Gria](https://finalfantasyd20.com/races/base-races/gria/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
