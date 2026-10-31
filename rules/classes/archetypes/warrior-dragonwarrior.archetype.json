@@ -1,0 +1,249 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:dragonwarrior",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Dragonwarrior",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/dragonwarrior/",
+      "title": "Dragonwarrior",
+      "archiveSha256": "4f76b96221bfec82e7245e1542f7e7cabcd219df42981cbb5b6898bf74cfc2a9",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:feature:prerequisite",
+        "name": "Prerequisite",
+        "atLevel": 1,
+        "description": "The dragonwarrior must worship Althena.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Prerequisite",
+            "locator": "prerequisite"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:feature:dragonwarrior-techniques",
+        "name": "Dragonwarrior Techniques",
+        "atLevel": 3,
+        "description": "At 3rd level, the dragonwarrior gains the following techniques instead of the warrior techniques gained at 3rd level:\n\n* **Power Up:** As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) that costs 1 stamina, the dragonwarrior gains a +1 bonus to melee damage rolls for 1 round. This bonus increases by +1 for every 5 warrior levels beyond 3rd.\n* **Vigor:** As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) that costs 1 stamina, the dragonwarrior gains a +1 bonus to melee attack rolls for 1 round. This bonus increases by +1 for every 5 warrior levels beyond 3rd.\n\nThis ability alters warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonwarrior Techniques",
+            "locator": "dragonwarrior-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:feature:dragonmaster",
+        "name": "Dragonmaster",
+        "atLevel": 5,
+        "description": "At 5th level, a dragonwarrior may qualify for the [dragonmaster](https://finalfantasyd20.com/classes/prestige-classes/dragonmaster/) prestige class, ignoring the base attack bonus and skill rank prerequisites.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonmaster",
+            "locator": "dragonmaster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:feature:dragonwarrior-techs-ii",
+        "name": "Dragonwarrior Techs II",
+        "atLevel": 5,
+        "description": "At 5th level, the dragonwarrior can make use of the following dragonwarrior techniques:\n\n* **Power Slash:** As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that costs 1 stamina, the dragonwarrior deals double weapon damage (including Strength and applicable feat bonuses) to one target within melee range. If this attack would confirm a critical hit, the dragonwarrior does not apply the weapon\u2019s critical multiplier. Instead, the attack deals an additional 1d6 damage per point of the weapon\u2019s critical multiplier, plus 1d6 per two warrior levels (minimum +2d6).\n* **Sword Dance:** As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that costs 2 stamina, the dragonwarrior makes a full attack using a single weapon against a one creature within melee range. All attacks granted by this effect must target the same creature. The dragonwarrior makes one additional attack at his highest base attack bonus as part of this sequence.\n\nThis ability replaces additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonwarrior Techs II",
+            "locator": "dragonwarrior-techs-ii"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:feature:dragonwarrior-techs-iii",
+        "name": "Dragonwarrior Techs III",
+        "atLevel": 7,
+        "description": "At 7th level, the dragonwarrior can make use of the following dragonwarrior techniques:\n\n* **Flash Cut:** As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that costs 1 stamina, the dragonwarrior moves up to 30 feet in a straight line, passing through allies and enemies without provoking attacks of opportunity. He makes a single attack roll at his highest base attack bonus and applies the result against each enemy within his melee reach during this movement.\n* **Power Sweep:** As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that costs 1 stamina, the dragonwarrior makes a single attack at his highest base attack bonus against all enemies within his melee reach.\n\nThis ability replaces additional techs III.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonwarrior Techs III",
+            "locator": "dragonwarrior-techs-iii"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:feature:dragonwarrior-techs-iv",
+        "name": "Dragonwarrior Techs IV",
+        "atLevel": 9,
+        "description": "At 9th level, the dragonwarrior can make use of the following dragonwarrior techniques:\n\n* **Explosion Staff:** As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that costs 2 stamina, the dragonwarrior leaps 15 feet forward, landing in a burst of flame. All enemies within 5 feet of his landing square take 1d6 points of fire damage per warrior level. A successful Reflex save (DC 10 + half the warrior\u2019s level + his Strength modifier) halves this damage.\n* **Sonic Riser:** As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) that costs 2 stamina, the dragonwarrior cuts the very air with his weapon. All enemies in a 30-foot line take 1d6 points of wind damage per warrior level. A successful Reflex save (DC 10 + half the warrior\u2019s level + his Strength modifier) halves this damage.\n\nThis ability replaces additional techs IV.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonwarrior Techs IV",
+            "locator": "dragonwarrior-techs-iv"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:replacement:dragonwarrior-techniques:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-techniques",
+          "ffd20:class:warrior:feature:delay-fatigue",
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:dragonwarrior:feature:dragonwarrior-techniques"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonwarrior Techniques",
+            "locator": "dragonwarrior-techniques"
+          }
+        ],
+        "description": "This ability alters warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:replacement:dragonwarrior-techs-ii:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:dragonwarrior:feature:dragonwarrior-techs-ii"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonwarrior Techs II",
+            "locator": "dragonwarrior-techs-ii"
+          }
+        ],
+        "description": "This ability replaces additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:replacement:dragonwarrior-techs-iii:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:dragonwarrior:feature:dragonwarrior-techs-iii"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonwarrior Techs III",
+            "locator": "dragonwarrior-techs-iii"
+          }
+        ],
+        "description": "This ability replaces additional techs III."
+      },
+      {
+        "id": "ffd20:archetype:warrior:dragonwarrior:replacement:dragonwarrior-techs-iv:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:dragonwarrior:feature:dragonwarrior-techs-iv"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dragonwarrior Techs IV",
+            "locator": "dragonwarrior-techs-iv"
+          }
+        ],
+        "description": "This ability replaces additional techs IV."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "prerequisiteText": "The dragonwarrior must worship Althena."
+    },
+    "resources": [],
+    "extraOptions": []
+  }
+}

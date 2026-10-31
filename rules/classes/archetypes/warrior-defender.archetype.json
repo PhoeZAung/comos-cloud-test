@@ -1,0 +1,420 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:defender",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Defender",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/defender/",
+      "title": "Defender",
+      "archiveSha256": "01305452db918a2fca8180192671908d20c60da7e4f149c180597e88eb8ab5de",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:armor-proficiency",
+        "name": "Armor Proficiency",
+        "atLevel": 1,
+        "description": "A defender is proficient with tower shields.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armor Proficiency",
+            "locator": "armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:shield-warrior",
+        "name": "Shield Warrior",
+        "atLevel": 1,
+        "description": "At 1st level, a defender must pick Close Weapons as his chosen weapon group. He gains a +1 bonus on attack and damage rolls when making a shield bash. These bonuses increase by +1 every four levels beyond 1st. With a full-attack action, a defender may alternate between using his weapon or his shield for each attack. When using the shield this way, the defender gains this bonus as a shield bonus to AC (which stacks with other forms of shield bonus to AC). This action does not grant additional attacks or incur penalties as two-weapon fighting does.\n\nThis ability modifies chosen weapon.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Warrior",
+            "locator": "shield-warrior"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:deflective-shield",
+        "name": "Deflective Shield",
+        "atLevel": 2,
+        "description": "At 2nd level, a defender specializes in using his shield to deflect attacks. He gains a +1 bonus to his touch AC, and this bonus increases for every four levels beyond 2nd (to a maximum of +5 at 18th level); however, this bonus cannot exceed the sum of the armor and enhancement bonus to AC provided by the shield that the defender is currently carrying.\n\nThis ability replaces a warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deflective Shield",
+            "locator": "deflective-shield"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:active-defense",
+        "name": "Active Defense",
+        "atLevel": 3,
+        "description": "At 3rd level, a defender gains a +1 dodge bonus to AC when wielding a shield and fighting defensively, using Combat Expertise, or using total defense. This bonus increases by +1 for every four levels beyond 3rd. As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), he may share this bonus with one adjacent ally, or half of the bonus (minimum +0) with all adjacent allies, until the beginning of his next turn.\n\nThis ability replaces warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Active Defense",
+            "locator": "active-defense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:armored-defense",
+        "name": "Armored Defense",
+        "atLevel": 5,
+        "description": "At 5th level, a defender gains DR 1/\u2014 when wearing light armor, DR 2/\u2014 when wearing medium armor, and DR 3/\u2014 when wearing heavy armor. At 15th level, this damage reduction increases to DR 4/\u2014 when wearing light armor, DR 8/\u2014 when wearing medium armor, and DR 12/\u2014 when wearing heavy armor. This damage reduction stacks with that provided by adamantine armor, but not with other forms of damage reduction. This damage reduction does not apply if the defender is stunned, unconscious, or helpless.\n\nThis ability replaces additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armored Defense",
+            "locator": "armored-defense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:shield-buffet",
+        "name": "Shield Buffet",
+        "atLevel": 7,
+        "description": "At 7th level, as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), a defender may make a combat maneuver check to use his shield to impede an adjacent enemy. If successful, the target suffers a \u20132 penalty on its attack rolls against the defender and a \u20132 penalty to AC on attacks made by the defender until the beginning of his next turn. At 13th level, a defender may use this ability as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\n\nAt 10th level, a defender can use War Cry a number of times per day equal to 3 + his Constitution modifier, instead of spending stamina.\n\nThis ability replaces additional techs III, and changes war cry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Buffet",
+            "locator": "shield-buffet"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:fortification",
+        "name": "Fortification",
+        "atLevel": 9,
+        "description": "At 9th level, a defender can use his armor to shield critical areas from injury. He treats any armor he wears as if it had the light fortification special ability. At 15th level, his armor gains the moderate fortification special ability. This fortification does not stack in any way with armor that has these special abilities. In these cases the defender takes the better of the two fortifications.\n\nThis ability replaces additional techs IV.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fortification",
+            "locator": "fortification"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:shield-guard",
+        "name": "Shield Guard",
+        "atLevel": 17,
+        "description": "At 17th level, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), a defender may designate one square adjacent to him. He may designate two squares if using a heavy shield or three squares if using a tower shield, but these squares must be contiguous. Enemies in these squares cannot flank the defender and do not count for flanking with other creatures. This effect lasts until he moves from his position or uses another [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to change the affected squares.\n\nThis ability replaces devastating blow.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Guard",
+            "locator": "shield-guard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:feature:indestructible",
+        "name": "Indestructible",
+        "atLevel": 20,
+        "description": "At 20th level, a defender gains complete immunity to critical hits and sneak attacks while he is wearing armor. In addition, unless his armor has the fragile armor quality, it cannot be sundered while he is wearing it.\n\nThis ability replaces weapon mastery.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Indestructible",
+            "locator": "indestructible"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:defender:replacement:shield-warrior:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-weapon"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:defender:feature:shield-warrior"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Warrior",
+            "locator": "shield-warrior"
+          }
+        ],
+        "description": "This ability modifies chosen weapon."
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:replacement:deflective-shield:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:defender:feature:deflective-shield"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deflective Shield",
+            "locator": "deflective-shield"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:replacement:active-defense:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-techniques",
+          "ffd20:class:warrior:feature:stamina-pool",
+          "ffd20:class:warrior:feature:delay-fatigue",
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:defender:feature:active-defense"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Active Defense",
+            "locator": "active-defense"
+          }
+        ],
+        "description": "This ability replaces warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:replacement:armored-defense:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:defender:feature:armored-defense"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armored Defense",
+            "locator": "armored-defense"
+          }
+        ],
+        "description": "This ability replaces additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:replacement:shield-buffet:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:defender:feature:shield-buffet"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Buffet",
+            "locator": "shield-buffet"
+          }
+        ],
+        "description": "This ability replaces additional techs III"
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:replacement:fortification:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:defender:feature:fortification"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fortification",
+            "locator": "fortification"
+          }
+        ],
+        "description": "This ability replaces additional techs IV."
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:replacement:shield-guard:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:devastating-blow"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:defender:feature:shield-guard"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shield Guard",
+            "locator": "shield-guard"
+          }
+        ],
+        "description": "This ability replaces devastating blow."
+      },
+      {
+        "id": "ffd20:archetype:warrior:defender:replacement:indestructible:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-mastery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:defender:feature:indestructible"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Indestructible",
+            "locator": "indestructible"
+          }
+        ],
+        "description": "This ability replaces weapon mastery."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Light armor",
+        "Medium armor",
+        "Heavy armor",
+        "Shields except tower shields",
+        "Tower shields"
+      ],
+      "excludedOptionNames": [
+        "Axes",
+        "Blades, Heavy",
+        "Blades, Light",
+        "Double",
+        "Flails",
+        "Hammers",
+        "Natural",
+        "Polearms",
+        "Spears",
+        "Tribal"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:class:warrior:feature:war-cry",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "con",
+        "minimum": 0
+      }
+    ],
+    "extraOptions": []
+  }
+}

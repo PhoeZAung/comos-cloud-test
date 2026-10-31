@@ -1,0 +1,1561 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:merchant",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Merchant",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/",
+      "title": "Merchant",
+      "archiveSha256": "1529ac5b781d4d6186f12cfbac316e9263fd963136bcbf079d23aab7ed47a36f",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:dont-touch-the-goods",
+        "name": "Don\u2019t Touch the Goods",
+        "atLevel": 1,
+        "description": "*Don\u2019t Touch the Goods ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):*This Limit Break allows the merchant to make ample use of the battlefield to avoid attacks. For the duration of 1 round + 1 round per four thief levels after 1st, the merchant may make a 5-ft.-step as a\u00a0[free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free)\u00a0that doesn\u2019t take away from or stop his normal movement, at every four thief levels after 1st, the merchant can make an additional 5-ft.-step. This limit break requires only a\u00a0[swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Don\u2019t Touch the Goods",
+            "locator": "dont-touch-the-goods"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:gold-dust",
+        "name": "Gold Dust",
+        "atLevel": 1,
+        "description": "*Gold Dust ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the merchant to be more efficient with his gil toss and gil rain abilities. For a duration of 1 round + 1 round per four thief levels after 1st, the merchant doesn\u2019t need to spend gil while using these abilities and gains an additional die of damage plus an extra die of damage per four thief levels after 1st. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gold Dust",
+            "locator": "gold-dust"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:hired-help",
+        "name": "Hired Help",
+        "atLevel": 1,
+        "description": "At 1st level, the merchant gains access to the\u00a0[Leadership](https://www.d20pfsrd.com/feats/general-feats/leadership/)\u00a0feat and begins play with a cohort that begins at 1st level. At 3rd level, the merchant\u2019s cohort becomes 2nd level and at 5th level, the cohort becomes 3rd level. At 7th level, the cohort begins leveling normally. To keep this cohort, the merchant must pay the cohort 100 gil a month per cohort level. Regardless of leadership score, a merchant cannot gain anymore than a single cohort until 7th level.\n\nAt 7th level, this functions as the Leadership feat as normal. The merchant can increase her leadership score by spending 1,000 gil to gain a +2 bonus to her score for one month. She can increase this by spending even more gil up to 10,000 gil (+20)\n\nThis ability replaces mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hired Help",
+            "locator": "hired-help"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:gil-toss",
+        "name": "Gil Toss",
+        "atLevel": 1,
+        "description": "At 1st level, a merchant can place his material fortunes on the line to make an attack. The merchant can turn coins into deadly projectiles that gain the velocity of a bullet when thrown. These coins can be used as simple thrown weapons with a range increment of 20 feet, deal bludgeoning and piercing damage, and have a critical multiplier of \u00d72. Gil coins retain their normal appearance and are treated as ammunition for the purposes of drawing them. The merchant transmutes coins with the same action used to draw them. Regardless of whether the coin hits or misses the target, it is destroyed after the attack. Different types of coins create different effects when thrown.\n\nHigher value coins have larger damage die but keep the bonuses and effects granted by lower value coins. 1-gil coins deal 2d4 points of damage and count as silver for the purpose of overcoming damage reduction. 10-gil coins deal 2d6 points of damage and count as +1 weapons (that improves by 1 for every four merchant levels after 1st). 100-gil coins deal 2d8 points of damage, plus an additional point of damage per merchant level (to a maximum of an extra 20 points of damage at 20th level), and are treated as adamantine weapons for the purposes of overcoming damage reduction and bypassing hardness. 1,000-gil coins deal 2d10 points of damage and ignores armor, natural armor, and shield bonuses.\n\nThis ability replaces sneak attack.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gil Toss",
+            "locator": "gil-toss"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:silver-tongued-haggler",
+        "name": "Silver-Tongued Haggler",
+        "atLevel": 1,
+        "description": "Also at 1st level, whenever a merchant makes a Bluff, Diplomacy, or Sense Motive check, he can, as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), grant himself a bonus on the roll equal to half his thief level (minimum +1). The merchant can use this ability a number of times per day equal to 3 + his Charisma modifier.\n\nThis ability replaces trapfinding.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Silver-Tongued Haggler",
+            "locator": "silver-tongued-haggler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:blessing-of-prosperity",
+        "name": "Blessing of Prosperity",
+        "atLevel": 1,
+        "description": "A merchant is a patron of wealth and seeks to even the playing field for those who have unfair economic disadvantages. At 1st level and every 6 levels thereafter, the merchant can select a blessing (see Blessings below). The merchant can grant a boon to himself or a creature touched as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). These boons do not stack with themselves or with blessings from another merchant. A blessing of prosperity lasts up to 1 hour, though the merchant who bestowed it can end a blessing\u2019s benefits early (whether it affects him or another creature) as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). Using this ability requires only one free hand and is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), unless the merchant targets himself, in which case, it is a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). A merchant can use this ability a number of times per day equal to 3 + his Charisma modifier.\n\nIf he knows multiple blessings of prosperity, the merchant can bestow multiple blessings on a single target as part of the action and the expenditure of a use required to use this ability. If he bestows multiple different blessings, these blessings are cumulative. For example, a 7th-level merchant\u2019s blessing of prosperity ability might grant a +4 circumstance bonus on Appraise and Sense Motive checks as well as a +4 circumstance bonus on Perception checks and to CMD against disarm and steal combat maneuvers.\n\nOnce a blessing of prosperity is chosen, it can\u2019t be changed.\n\nA character who has benefited from a blessing of prosperity cannot benefit from that same blessing again (whether bestowed by the same merchant or another merchant) for 24 hours.\n\n*Blessings:* The following blessings are available to a merchant.\n\n* The target adds an extra 10% to the gil value gained when selling off treasure (normally 50% of the item\u2019s original value). This blessing cannot result in selling treasure for more than 100% of its original value.\n* The target gains a +4 circumstance bonus on Appraise and Sense Motive checks.\n* The target gains a +4 circumstance bonus on Perception checks and to CMD against disarm and steal combat maneuvers.\n* The target gains a +4 circumstance bonus on Craft, Perform, and Profession checks.\n* The target can use [*locate object*](https://www.finalfantasyd20.com/magic/spells/l/locate-object/) as a spell-like ability once, using the merchant\u2019s thief level as the caster level.\n* The target can treat one settlement as having its base value and purchase limit increased by 30%. The target must choose the affected settlement when the merchant bestows this blessing.\n* The target can treat one settlement as being one size category larger for the purposes of determining available magic items. The target must choose the affected settlement when the merchant bestows this blessing.\n\nThis ability replaces finesse training.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blessing of Prosperity",
+            "locator": "blessing-of-prosperity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:collect",
+        "name": "Collect",
+        "atLevel": 2,
+        "description": "At 2nd level, the merchant is adept at taking and grabbing items from others to inspect or use. She gains [Improved Steal](https://www.d20pfsrd.com/feats/combat-feats/improved-steal-combat/)\u00a0as a bonus feat even if she don\u2019t meet the prerequisite. She is treated as meeting the prerequisites for\u00a0[Quick Steal](https://www.d20pfsrd.com/feats/combat-feats/quick-steal-combat/)\u00a0and\u00a0[Greater Steal](https://www.d20pfsrd.com/feats/combat-feats/greater-steal-combat/)\u00a0feats at any time but still must take the feats normally.\n\nThis ability replaces evasion.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Collect",
+            "locator": "collect"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:black-market-connections",
+        "name": "Black Market Connections",
+        "atLevel": 2,
+        "description": "At 2nd level, a merchant gains the black market connections thief talent.\n\nThis ability replaces a thief talent gained at 2nd level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Black Market Connections",
+            "locator": "black-market-connections"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:businessman",
+        "name": "Businessman",
+        "atLevel": 3,
+        "description": "A merchant gains a +1 morale bonus to Diplomacy and Sense Motive checks at 3rd level. This bonus increases by 1 at 6th level, and again every 3 levels thereafter, to a total of +6 at 18th level.\n\nThis ability replaces danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Businessman",
+            "locator": "businessman"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:trade-wind",
+        "name": "Trade Wind",
+        "atLevel": 3,
+        "description": "The merchant is adept at spreading promotion about sales of her own in a town. At 3rd level, the merchant can spread promotion of her wares by spending 30 minutes in a single spot in a town to declare her wares and prices. These spread throughout the town within 1 hour. This gives the merchant a 25% chance plus 5% chance per three thief levels after 3rd to gain a customer who is willing to buy her wares and attempt to bargain for the item. She can use Diplomacy instead of Bluff to bargain and gains a circumstance bonus equal to her thief level to bargain with either checks. She can also use this ability to search for items to buy as well calling out for the specific item, and gain a circumstance bonus equal to her thief level to appraise and sense motive checks while bargaining.\n\nThis ability replaces measure the mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trade Wind",
+            "locator": "trade-wind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:organization",
+        "name": "Organization",
+        "atLevel": 3,
+        "description": "At 3rd level, the merchant\u2019s network of contacts, connections, and informants gives him an organization in a community. A merchant always succeeds at checks to sell stolen goods (via his black market connections thief talent) when in a community where he has an organization, and he gains 1d6 (minimum: the merchant\u2019s Charisma modifier) 1st level thieves to serve as underlings in that community.\n\nUnderlings are neither hirelings, nor henchmen, nor followers, but are instead professional thieves who buy and sell goods through the merchant\u2019s organization. While these NPCs may be customized by the GM, assume they have 1 archetype and a +10 modifier in one skill (1 rank + class training + 3 from their attribute modifier + 3 from the Skill Focus feat).\n\nFor every underling a merchant has, he gains 15 gil a week as his cut of his organization\u2019s business. This cut is either delivered directly to the merchant, or stored in a secure location for him to retrieve later if such a delivery would be impossible.\n\nA merchant may ask a favor of each of his underlings once per week. A favor may be used to give the merchant a +2 bonus on Diplomacy checks to gather information, Knowledge (local) checks, or Diplomacy checks made to use the merchant\u2019s black market connections. The merchant may ask favors from multiple underlings for the same check. These bonuses stack.\n\nThe merchant may also hire his underlings to do specific jobs for him, such as follow a suspect, break into a building, cause a distraction, forge a document, or anything else relating to the underling\u2019s skills or archetypal abilities. Hiring an underling for a job usually costs 10 gil, with extended jobs costing 25 gil per week, or 100 gil per month. An underling will usually only accompany the merchant on an adventure (thus becoming a temporary henchmen) if his safety can be assured, and may demand more payment for dangerous work. If an underling is caught or injured on a job for the merchant, the merchant is expected to pay the underling\u2019s fines and bills, or the merchant might find his other underlings reluctant to take on similar jobs. If an underling is incarcerated, killed, or on adventure, the merchant does not gain that underling\u2019s gil per week. Replacing underlings must be done through adventuring, gaining levels, or making new contacts.\n\nAt 7th level, and every four levels thereafter, a merchant gains 1d6 (minimum: the merchant\u2019s Charisma modifier) new underlings, that may be added to an existing organization or used to form a new organization in a new community. Alternately, the merchant may instead increase the level of 1d6 underlings (minimum: the merchant\u2019s Charisma modifier) by 2. Higher level underlings bring the merchant 15 gil per level per week. Asking a favor of a higher-level underling grants a bonus equal to the underling\u2019s level for the check in question. When hiring a higher-level underling to do a specific job, multiply the cost by the underling\u2019s level.\n\nFor the purposes of this ability, a community is any settlement consisting of 100 or more individuals. The community may be larger than this minimum. Outlying farms, fields, and houses are not considered part of a community.\n\nThis ability replaces uncanny dodge and improved uncanny dodge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Organization",
+            "locator": "organization"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:fence",
+        "name": "Fence",
+        "atLevel": 4,
+        "description": "At 4th level, a merchant loots a dungeon or other adventuring complex of its mundane goods and sells them to his various contacts. These mundane goods include things like brass fittings, stewpots, scrap metal, and so on. The merchant automatically loots this junk while in the dungeon, and must spend 8 uninterrupted hours selling the objects in town. The amount typically equals 1d100 gil per thief level per dungeon.\n\nThis ability replaces debilitating injury.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fence",
+            "locator": "fence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:rest",
+        "name": "Rest",
+        "atLevel": 4,
+        "description": "At 4th level, the merchant is able to take a moment of reprieve as a\u00a0[standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard)\u00a0and end any of the following status effects: Blind, Confuse, Deafened, Entangled, Fatigue, Immobilized, Shaken, Slowed, and Sickened.\n\nThis ability replaces a thief talent gained at 4th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rest",
+            "locator": "rest"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:bargain",
+        "name": "Bargain",
+        "atLevel": 6,
+        "description": "At 6th level, a merchant is a cunning businessman that he can effectively con a person out of an item they have. The merchant makes a Bluff skill check. The DC of this check for the merchant is equal to 10 + his opponent\u2019s hit dice + his opponent\u2019s Wisdom modifier. If his opponent is trained in Sense Motive, the DC is instead equal to 10 + his opponent\u2019s Sense Motive bonus, if higher. If the merchant wins, the merchant must pay 100% of the value of the item. For every 5 points the merchant beats his opponent, he pays 10% less (to a maximum of 50%). If the merchant fails the check by 4 or less, the character\u2019s attitude toward him is unchanged. If he fails by 5 or more, the character\u2019s attitude toward him is decreased by one step.\n\nThis ability replaces a thief talent gained at 6th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bargain",
+            "locator": "bargain"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:appraising-eye",
+        "name": "Appraising Eye",
+        "atLevel": 7,
+        "description": "At 7th level, a merchant has such vast experience with stolen items and trade goods used in bribes, he can instinctively and immediately determine the value of objects he sees. The merchant may make an Appraise skill check (to determine an item\u2019s value, or determine the most valuable item of a hoard) as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). If a merchant chooses to make such an Appraise check as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), he may roll the check twice and take the better of the two results.\n\nThis ability replaces skilled liar.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Appraising Eye",
+            "locator": "appraising-eye"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:hang-tough",
+        "name": "Hang Tough",
+        "atLevel": 9,
+        "description": "At 9th level, the merchant gains the\u00a0[Diehard](https://www.d20pfsrd.com/feats/general-feats/diehard/)\u00a0feat even if she doesn\u2019t meet the prerequisites. Additionally, once per day, if she suffers an attack that would kill her, she is instead left at 1 from death and stabilized. If the merchant already has this feat, she may pick another Non-Combat feat for which she must meet the prerequisites for.\n\nThis ability replaces distraction.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hang Tough",
+            "locator": "hang-tough"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:gil-rain",
+        "name": "Gil Rain",
+        "atLevel": 10,
+        "description": "At 10th level, a merchant can use his gil toss ability to hit any number of creatures within 30 feet by spending gil (must use the same type of coins) and making a ranged touch attack for each creature. However, he cannot make multiple attacks with his gil toss ability through the gil rain ability.\n\nThis ability replaces mug.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gil Rain",
+            "locator": "gil-rain"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:side-step",
+        "name": "Side Step",
+        "atLevel": 13,
+        "description": "At 13th level, the merchant, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), can make a 5-ft.-step when an opponent makes an attack against her, gaining a +4 dodge bonus against the attack.\n\nThis ability replaces skirmisher.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Side Step",
+            "locator": "side-step"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:trade-tempest",
+        "name": "Trade Tempest",
+        "atLevel": 16,
+        "description": "At 16th level, the merchant\u2019s voice and renown is known far and wide. Her trade wind ability now only takes 10 minutes to promote. In addition, it has a chance to gain a customer in 30 minutes and can sell an item at 150% price without them refusing.\n\nThis ability replaces master of all.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trade Tempest",
+            "locator": "trade-tempest"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:skew-favor",
+        "name": "Skew Favor",
+        "atLevel": 17,
+        "description": "At 17th level, a merchant learns how to twist the odds of fate more into his favor. Up to 3 times per day, he can maximize the damage dealt from gil toss and gil rain abilities.\n\nThis ability replaces hide in plain sight.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Skew Favor",
+            "locator": "skew-favor"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:money-saver",
+        "name": "Money Saver",
+        "atLevel": 19,
+        "description": "At 19th level, the merchant can commission items for her allies that they attempt to craft to be made at 25% of the cost.\n\nThis ability replaces shadow step.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Money Saver",
+            "locator": "money-saver"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:more-than-you-bargained-for",
+        "name": "More Than You Bargained For",
+        "atLevel": 20,
+        "description": "At 20th level, the merchant is a master of the tongue and getting people to buy her wares at ridiculous prices, able to bargain stuff up to 200% of the price without them refusing.\n\nThis ability replaces an advanced thief talent gained at 20th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "More Than You Bargained For",
+            "locator": "more-than-you-bargained-for"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:master-merchant",
+        "name": "Master Merchant",
+        "atLevel": 20,
+        "description": "At 20th level, the merchant becomes the pinnacle of wheeling and dealing. He can sell treasure and items at 100% of value, regardless of condition. In addition, he gains a bonus to all gil toss and gil rain damage rolls equal to his Charisma modifier.\n\nThis ability replaces master strike.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Merchant",
+            "locator": "master-merchant"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:thief-talents",
+        "name": "Thief Talents",
+        "atLevel": 2,
+        "description": "While the merchant is unable to pick thief talents that enhance sneak attack, the following thief talents complement the merchant archetype: false friend, obfuscate story, steal the story; charmer, coax information, honeyed words; convincing lie.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thief Talents",
+            "locator": "thief-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:feature:advanced-thief-talents",
+        "name": "Advanced Thief Talents",
+        "atLevel": 12,
+        "description": "While the merchant is unable to pick advanced thief talents that enhance sneak attack, the following advanced thief talents complement the merchant archetype: skill mastery, hard minded; master of disguise; rumormonger.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Thief Talents",
+            "locator": "advanced-thief-talents"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:limit-breaks:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:perfect-dodge",
+          "ffd20:class:thief:feature:shroud-in-darkness"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:dont-touch-the-goods",
+          "ffd20:archetype:thief:merchant:feature:gold-dust"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "the thief\u2019s standard Limit Breaks",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:hired-help:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:hired-help"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hired Help",
+            "locator": "hired-help"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:gil-toss:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:sneak-attack"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:gil-toss"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "sneak attack",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gil Toss",
+            "locator": "gil-toss"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:silver-tongued-haggler:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:trapfinding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:silver-tongued-haggler"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "trapfinding",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Silver-Tongued Haggler",
+            "locator": "silver-tongued-haggler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:blessing-of-prosperity:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:finesse-training"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:blessing-of-prosperity"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "finesse training",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blessing of Prosperity",
+            "locator": "blessing-of-prosperity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:collect:1",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:evasion"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:collect"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "evasion",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Collect",
+            "locator": "collect"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:black-market-connections:1",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:black-market-connections"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:2"
+        ],
+        "eventOnly": true,
+        "description": "a thief talent gained at 2nd level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Black Market Connections",
+            "locator": "black-market-connections"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:businessman:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:businessman"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Businessman",
+            "locator": "businessman"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:trade-wind:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:measure-the-mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:trade-wind"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "measure the mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trade Wind",
+            "locator": "trade-wind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:organization:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-uncanny-dodge",
+          "ffd20:class:thief:feature:uncanny-dodge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:organization"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "uncanny dodge and improved uncanny dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Organization",
+            "locator": "organization"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:fence:1",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:debilitating-injury"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:fence"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "debilitating injury",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fence",
+            "locator": "fence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:rest:1",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:rest"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:4"
+        ],
+        "eventOnly": true,
+        "description": "a thief talent gained at 4th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rest",
+            "locator": "rest"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:bargain:1",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:bargain"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:6"
+        ],
+        "eventOnly": true,
+        "description": "a thief talent gained at 6th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bargain",
+            "locator": "bargain"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:appraising-eye:1",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:skilled-liar"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:appraising-eye"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "skilled liar",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Appraising Eye",
+            "locator": "appraising-eye"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:hang-tough:1",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:distraction"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:hang-tough"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "distraction",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hang Tough",
+            "locator": "hang-tough"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:gil-rain:1",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mug"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:gil-rain"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mug",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gil Rain",
+            "locator": "gil-rain"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:side-step:1",
+        "atClassLevel": 13,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:skirmisher"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:side-step"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "skirmisher",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Side Step",
+            "locator": "side-step"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:trade-tempest:1",
+        "atClassLevel": 16,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:master-of-all"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:trade-tempest"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "master of all",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trade Tempest",
+            "locator": "trade-tempest"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:skew-favor:1",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:hide-in-plain-sight"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:skew-favor"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "hide in plain sight",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Skew Favor",
+            "locator": "skew-favor"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:money-saver:1",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:shadow-step"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:money-saver"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "shadow step",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Money Saver",
+            "locator": "money-saver"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:more-than-you-bargained-for:1",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-advanced-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:more-than-you-bargained-for"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-advanced-talents:20"
+        ],
+        "eventOnly": true,
+        "description": "an advanced thief talent gained at 20th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "More Than You Bargained For",
+            "locator": "more-than-you-bargained-for"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:replacement:master-merchant:1",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:master-strike"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:merchant:feature:master-merchant"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "master strike",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Merchant",
+            "locator": "master-merchant"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:merchant:event:blessing-of-prosperity:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:thief:merchant:pool:blessing-of-prosperity"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "blessing-of-prosperity",
+            "locator": "blessing-of-prosperity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:blessing-of-prosperity:7",
+        "type": "choose",
+        "atClassLevel": 7,
+        "poolIds": [
+          "ffd20:archetype:thief:merchant:pool:blessing-of-prosperity"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "blessing-of-prosperity",
+            "locator": "blessing-of-prosperity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:blessing-of-prosperity:13",
+        "type": "choose",
+        "atClassLevel": 13,
+        "poolIds": [
+          "ffd20:archetype:thief:merchant:pool:blessing-of-prosperity"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "blessing-of-prosperity",
+            "locator": "blessing-of-prosperity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:blessing-of-prosperity:19",
+        "type": "choose",
+        "atClassLevel": 19,
+        "poolIds": [
+          "ffd20:archetype:thief:merchant:pool:blessing-of-prosperity"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "blessing-of-prosperity",
+            "locator": "blessing-of-prosperity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:dont-touch-the-goods",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:dont-touch-the-goods",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Don\u2019t Touch the Goods",
+            "locator": "dont-touch-the-goods"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:gold-dust",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:gold-dust",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gold Dust",
+            "locator": "gold-dust"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:hired-help",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:hired-help",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hired Help",
+            "locator": "hired-help"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:gil-toss",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:gil-toss",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gil Toss",
+            "locator": "gil-toss"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:silver-tongued-haggler",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:silver-tongued-haggler",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Silver-Tongued Haggler",
+            "locator": "silver-tongued-haggler"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:blessing-of-prosperity",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:blessing-of-prosperity",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blessing of Prosperity",
+            "locator": "blessing-of-prosperity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:collect",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:collect",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Collect",
+            "locator": "collect"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:black-market-connections",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:black-market-connections",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Black Market Connections",
+            "locator": "black-market-connections"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:businessman",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:businessman",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Businessman",
+            "locator": "businessman"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:trade-wind",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:trade-wind",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trade Wind",
+            "locator": "trade-wind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:organization",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:organization",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Organization",
+            "locator": "organization"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:fence",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:fence",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fence",
+            "locator": "fence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:rest",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:rest",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rest",
+            "locator": "rest"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:bargain",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:bargain",
+        "atClassLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bargain",
+            "locator": "bargain"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:appraising-eye",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:appraising-eye",
+        "atClassLevel": 7,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Appraising Eye",
+            "locator": "appraising-eye"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:hang-tough",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:hang-tough",
+        "atClassLevel": 9,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hang Tough",
+            "locator": "hang-tough"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:gil-rain",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:gil-rain",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gil Rain",
+            "locator": "gil-rain"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:side-step",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:side-step",
+        "atClassLevel": 13,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Side Step",
+            "locator": "side-step"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:trade-tempest",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:trade-tempest",
+        "atClassLevel": 16,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trade Tempest",
+            "locator": "trade-tempest"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:skew-favor",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:skew-favor",
+        "atClassLevel": 17,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Skew Favor",
+            "locator": "skew-favor"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:money-saver",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:money-saver",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Money Saver",
+            "locator": "money-saver"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:more-than-you-bargained-for",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:more-than-you-bargained-for",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "More Than You Bargained For",
+            "locator": "more-than-you-bargained-for"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:master-merchant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:master-merchant",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Merchant",
+            "locator": "master-merchant"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:thief-talents",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:thief-talents",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thief Talents",
+            "locator": "thief-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:merchant:event:grant:advanced-thief-talents",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:merchant:feature:advanced-thief-talents",
+        "atClassLevel": 12,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Thief Talents",
+            "locator": "advanced-thief-talents"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:thief:merchant:pool:blessing-of-prosperity",
+        "name": "Blessing of Prosperity",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:merchant:option:blessing:treasure-sale-value",
+            "name": "Treasure sale value",
+            "description": "The target adds an extra 10% to the gil value gained when selling off treasure (normally 50% of the item\u2019s original value). This blessing cannot result in selling treasure for more than 100% of its original value.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blessing of Prosperity",
+                "locator": "blessing-of-prosperity"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/"
+          },
+          {
+            "id": "ffd20:archetype:thief:merchant:option:blessing:appraise-and-sense-motive",
+            "name": "Appraise and Sense Motive",
+            "description": "The target gains a +4 circumstance bonus on Appraise and Sense Motive checks.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blessing of Prosperity",
+                "locator": "blessing-of-prosperity"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/"
+          },
+          {
+            "id": "ffd20:archetype:thief:merchant:option:blessing:perception-and-maneuver-defense",
+            "name": "Perception and maneuver defense",
+            "description": "The target gains a +4 circumstance bonus on Perception checks and to CMD against disarm and steal combat maneuvers.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blessing of Prosperity",
+                "locator": "blessing-of-prosperity"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/"
+          },
+          {
+            "id": "ffd20:archetype:thief:merchant:option:blessing:craft-perform-profession",
+            "name": "Craft Perform Profession",
+            "description": "The target gains a +4 circumstance bonus on Craft, Perform, and Profession checks.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blessing of Prosperity",
+                "locator": "blessing-of-prosperity"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/"
+          },
+          {
+            "id": "ffd20:archetype:thief:merchant:option:blessing:locate-object",
+            "name": "Locate Object",
+            "description": "The target can use [*locate object*](https://www.finalfantasyd20.com/magic/spells/l/locate-object/) as a spell-like ability once, using the merchant\u2019s thief level as the caster level.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blessing of Prosperity",
+                "locator": "blessing-of-prosperity"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/"
+          },
+          {
+            "id": "ffd20:archetype:thief:merchant:option:blessing:settlement-value-and-purchase-limit",
+            "name": "Settlement value and purchase limit",
+            "description": "The target can treat one settlement as having its base value and purchase limit increased by 30%. The target must choose the affected settlement when the merchant bestows this blessing.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blessing of Prosperity",
+                "locator": "blessing-of-prosperity"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/"
+          },
+          {
+            "id": "ffd20:archetype:thief:merchant:option:blessing:settlement-magic-item-availability",
+            "name": "Settlement magic item availability",
+            "description": "The target can treat one settlement as being one size category larger for the purposes of determining available magic items. The target must choose the affected settlement when the merchant bestows this blessing.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Blessing of Prosperity",
+                "locator": "blessing-of-prosperity"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:thief:merchant:feature:blessing-of-prosperity",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "cha",
+        "minimum": 0
+      },
+      {
+        "featureId": "ffd20:archetype:thief:merchant:feature:silver-tongued-haggler",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "cha",
+        "minimum": 0
+      },
+      {
+        "featureId": "ffd20:archetype:thief:merchant:feature:skew-favor",
+        "base": 3,
+        "perLevel": 0,
+        "ability": null,
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "skillRanksPerLevel": 6,
+      "excludedOptionNames": [
+        "Assault Leader",
+        "Bomber",
+        "Chink in the Armor",
+        "Demand Attention",
+        "Duelist\u2019s Precision",
+        "Extreme Prejudice",
+        "Fast Getaway",
+        "Mage Hunter II",
+        "Set-Up",
+        "Surprise Attack",
+        "Masterful Strike",
+        "Agonizing Attack",
+        "Befuddling Strike",
+        "Bleeding Attack",
+        "Brutal Beating",
+        "Distracting Attack",
+        "Emboldening Strike",
+        "Enhanced Delivery",
+        "Extinguishing Strike",
+        "Focusing Attack",
+        "Obscuring Blow",
+        "Offensive Defense",
+        "Powerful Sneak",
+        "Shadow\u2019s Chill",
+        "Silencing Attack",
+        "Slow Reactions",
+        "Sneaky Maneuver",
+        "Stem the Flow",
+        "Underhanded",
+        "Confounding Blades",
+        "Devastating Sneak",
+        "Hunter\u2019s Surprise",
+        "Knock-Out Blow",
+        "Merciless Butchery",
+        "Crippling Strike",
+        "Deadly Sneak",
+        "Dispelling Attack",
+        "Entanglement of Blades",
+        "Hamstring Strike",
+        "Leg Strike",
+        "Magebane Attack"
+      ],
+      "restrictionNotes": "Merchant cannot select talents enhancing sneak attack. The catalog conservatively hides talents mentioning sneak attack; consult source manually for exceptions."
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

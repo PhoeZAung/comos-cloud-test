@@ -1,0 +1,292 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:weapon-collector",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Weapon Collector",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/weapon-collector/",
+      "title": "Weapon Collector",
+      "archiveSha256": "b742311f72dccd8782d5c0b89301117eaa4ebd8d4202a2e26824e10829d4f7d7",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:feature:swords-of-chance",
+        "name": "Swords of Chance",
+        "atLevel": 1,
+        "description": "This Limit Break allows the weapon collector to summon one of the four legendary swords to attack his foes. The weapon collector rolls a d4 for a chance to summon Excalipoor on a 1, Masamune on a 2, Excalibur on a 3, or Zantesuken on a 4 of a d4.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:feature:mastery-of-collection",
+        "name": "Mastery of Collection",
+        "atLevel": 1,
+        "description": "The weapon collector is a master with weapons he wields and collects. At 1st level, he gains the [Weapon Focus](https://www.d20pfsrd.com/feats/combat-feats/weapon-focus-combat/) feat and it applies to all manufactured weapons.\n\nAt 4th level, the weapon collector gains the [Weapon Specialization](https://www.d20pfsrd.com/feats/combat-feats/weapon-specialization-combat/) feat with all manufactured weapons.\n\nAt 8th level, the weapon collector gains the [Greater Weapon Focus](https://www.d20pfsrd.com/feats/combat-feats/greater-weapon-focus-combat/) feat for all manufactured weapons.\n\nAt 12th level, the weapon collector gains the [Greater Weapon Specialization](https://www.d20pfsrd.com/feats/combat-feats/greater-weapon-specialization-combat/) feat for all manufactured weapons.\n\nAt 16th level, the weapon collector gains the [Improved Critical](https://www.d20pfsrd.com/feats/combat-feats/improved-critical-combat/) feat for all manufactured weapons.\n\nAt 20th level, the weapon collector gains any [Critical](https://www.d20pfsrd.com/feats/combat-feats/critical-feats/) feat, ignoring any prerequisites, for all manufactured weapons.\n\nThis ability replaces martial flexibility.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mastery of Collection",
+            "locator": "mastery-of-collection"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:feature:genji-stance",
+        "name": "Genji Stance",
+        "atLevel": 5,
+        "description": "At 5th level, the weapon collector gains [Multiweapon Fighting](https://www.d20pfsrd.com/feats/combat-feats/multiweapon-fighting-combat/) and [Multiweapon Specialist](https://www.d20pfsrd.com/feats/monster-feats/multiweapon-specialist/) as bonus feats. He also does not need to meet any requirements for these two feats.\n\nThis ability replaces weapon guard and additional techs III.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Genji Stance",
+            "locator": "genji-stance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:feature:arms-of-gilgamesh",
+        "name": "Arms of Gilgamesh",
+        "atLevel": 5,
+        "description": "Also, at 5th level, the weapon collector can spend a stamina point to form an extra pair of arms that can wield any light or 1-handed manufactured weapons. These extra arms formed over clothing and armor. They last a number of rounds equal to 1 + his Constitution modifier. The arms fade away when the duration ends and any weapons being wielded fall to the ground. The weapon collector can spend an additional stamina point to extend the duration by a number of rounds equal to his Constitution modifier. At 15th level, by spending 2 stamina points, he can form four arms instead.\n\nThis ability replaces additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arms of Gilgamesh",
+            "locator": "arms-of-gilgamesh"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:feature:heavy-weapon-training",
+        "name": "Heavy Weapon Training",
+        "atLevel": 9,
+        "description": "At 9th level, the weapon collector treats all manufactured weapons as one category lighter for the purpose of being able to be held in one hand, and multiweapon fighting penalties. One handed weapons are treated as light weapons and two handed weapons are treated as one handed weapons. This does not affect weapons that are not the same size category as the weapon collector.\n\nThis ability replaces additional techs IV and improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heavy Weapon Training",
+            "locator": "heavy-weapon-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:feature:weapon-master",
+        "name": "Weapon Master",
+        "atLevel": 20,
+        "description": "At 20th level, the weapon collector has mastered all weapons in the known world. When fighting with multiple weapons, he suffers no penalties and when making a full attack with multiple weapons, his critical threat range is increased by 1 (that stacks after any feats and class features that increase the critical threat range). In addition, he can never be disarmed and his weapons can never be sundered.\n\nThis ability replaces weapon mastery.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Master",
+            "locator": "weapon-master"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:replacement:limit-break:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:omnistrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:weapon-collector:feature:swords-of-chance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Break",
+            "locator": "limit-break"
+          }
+        ],
+        "description": "This ability replaces the Limit Break (Omnistrike)."
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:replacement:mastery-of-collection:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:martial-flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:weapon-collector:feature:mastery-of-collection"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mastery of Collection",
+            "locator": "mastery-of-collection"
+          }
+        ],
+        "description": "This ability replaces martial flexibility."
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:replacement:genji-stance:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii",
+          "ffd20:class:warrior:feature:weapon-guard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:weapon-collector:feature:genji-stance"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Genji Stance",
+            "locator": "genji-stance"
+          }
+        ],
+        "description": "This ability replaces weapon guard and additional techs III."
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:replacement:arms-of-gilgamesh:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:weapon-collector:feature:arms-of-gilgamesh"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Arms of Gilgamesh",
+            "locator": "arms-of-gilgamesh"
+          }
+        ],
+        "description": "This ability replaces additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:replacement:heavy-weapon-training:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv",
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:weapon-collector:feature:heavy-weapon-training"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heavy Weapon Training",
+            "locator": "heavy-weapon-training"
+          }
+        ],
+        "description": "This ability replaces additional techs IV and improved rush."
+      },
+      {
+        "id": "ffd20:archetype:warrior:weapon-collector:replacement:weapon-master:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-mastery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:weapon-collector:feature:weapon-master"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon Master",
+            "locator": "weapon-master"
+          }
+        ],
+        "description": "This ability replaces weapon mastery."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "resources": [],
+    "extraOptions": []
+  }
+}

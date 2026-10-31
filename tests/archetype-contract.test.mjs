@@ -6,7 +6,8 @@ import {buildClassCatalog} from '../scripts/generate-class-catalog.mjs';
 const read=async path=>JSON.parse(await readFile(new URL('../'+path,import.meta.url),'utf8'));
 test('archetype index is a separate batchable manifest and cannot silently go live',async()=>{
  const m=validateArchetypeManifest(await read('rules/classes/archetypes/manifest.json'));
- assert.deepEqual(m.archetypes.filter(a=>!a.id.startsWith('ffd20:archetype:red-mage:')).map(a=>[a.id,a.adapter]),[['ffd20:archetype:chocobo-knight:mog-knight','martial-progression'],['ffd20:archetype:chocobo-knight:antrider',null],['ffd20:archetype:chocobo-knight:beast-rider',null],['ffd20:archetype:chocobo-knight:deadly-lancer','deadly-lancer-level-one'],['ffd20:archetype:chocobo-knight:fell-rider','fell-rider-level-one'],['ffd20:archetype:gunbreaker:doom-slayer','martial-progression'],['ffd20:archetype:dancer:akimbo','martial-progression']]);
+ assert.deepEqual(m.archetypes.filter(a=>!a.id.startsWith('ffd20:archetype:red-mage:')&&a.adapter!=='sheet-family-progression').map(a=>[a.id,a.adapter]),[['ffd20:archetype:chocobo-knight:mog-knight','martial-progression'],['ffd20:archetype:chocobo-knight:antrider',null],['ffd20:archetype:chocobo-knight:beast-rider',null],['ffd20:archetype:chocobo-knight:deadly-lancer','deadly-lancer-level-one'],['ffd20:archetype:chocobo-knight:fell-rider','fell-rider-level-one'],['ffd20:archetype:gunbreaker:doom-slayer','martial-progression'],['ffd20:archetype:dancer:akimbo','martial-progression']]);
+ const sheet=m.archetypes.filter(a=>a.adapter==='sheet-family-progression');assert.equal(sheet.length,70);
  const red=m.archetypes.filter(a=>a.id.startsWith('ffd20:archetype:red-mage:'));assert.equal(red.length,18);assert(red.every(a=>a.adapter==='red-mage-progression'));
  const [mog]=(await buildClassCatalog()).archetypeRecords;
  assert.equal(mog.name,'Mog Knight');assert.deepEqual(mog.data.supportedLevels,Array.from({length:20},(_,i)=>i+1));

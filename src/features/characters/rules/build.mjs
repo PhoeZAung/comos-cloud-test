@@ -1,3 +1,4 @@
+import {isSheetFamily,sheetFamilyEvents,sheetFamilyOptions,sheetFamilyCounter} from './sheet-family-progression.mjs';
 import {withBuildDefaults,sameBuildValue} from './build-compatibility.mjs';
 import {DOOM_SLAYER_ID,martialCounter,supportsMartialProgression,martialChoiceEvents,martialEligibleOptions} from './martial-progression.mjs';
 import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classes.mjs';
@@ -18,6 +19,7 @@ import {fixedSkills} from '../../sheet/skills.mjs';
 import {pointSpend,standardArray} from '../ability-generation.mjs';
 import {ARCHER_ID,BLACK_MAGE_ID,availableClasses,classFor,classHasSpells,isArcher,classHitDie,classDefaultHp,className,classSkill,archerChoiceEvents,archerEligibleOptions,archerPreview,archerIssues,archerFeatureChanges,compileNoncastingBuild} from './class-adapters.mjs';
 export {registry,spells,availableClasses,classFor,className,classSkill};
+const supportsSheetProgression=b=>isSheetFamily(b)||supportsMartialProgression(b);
 const isChaCaster=b=>isBard(b)||isRedMage(b)&&redMageHasSpells(b);
 export const spellsForBuild=b=>isRedMage(b)?redMageSpells:isBard(b)?bardSpellOptions():spells;
 export const stats=['str','dex','con','int','wis','cha'];
@@ -69,8 +71,8 @@ export function calculated(value,b,effective=effectiveScores(b)){
  let v=sum();if(at!==tokens.length||!Number.isFinite(v)||Math.abs(v)>1000000)bad('Invalid formula result.');
  v=value.rounding==='ceil'?Math.ceil(v):value.rounding==='none'?v:Math.floor(v);if(value.minimum!==null)v=Math.max(v,value.minimum);if(value.maximum!==null)v=Math.min(v,value.maximum);return v;
 }
-export function choiceEvents(b){if(isRedMage(b))return redMageChoiceEvents(b);if(supportsMartialProgression(b))return martialChoiceEvents(b);if(isBeastmaster(b))return beastmasterChoiceEvents(b);if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
-export function eligibleOptions(b,event){if(isRedMage(b))return redMageChoiceEvents(b).some(e=>e.id===event.id)?redMageOptions(b,event,effectiveScores(b)):[];if(supportsMartialProgression(b))return martialEligibleOptions(b,event);if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
+export function choiceEvents(b){if(isSheetFamily(b))return sheetFamilyEvents(b);if(isRedMage(b))return redMageChoiceEvents(b);if(supportsMartialProgression(b))return martialChoiceEvents(b);if(isBeastmaster(b))return beastmasterChoiceEvents(b);if(isLevelOneClass(b)||isBard(b))return [];if(isArcher(b))return archerChoiceEvents(b);return registry.class.data.events.filter(e=>e.type==='choose'&&e.atClassLevel<=b.level&&registry.class.choicePools.some(p=>e.poolIds.includes(p.id)&&p.options.length));}
+export function eligibleOptions(b,event){if(isSheetFamily(b))return sheetFamilyOptions(b,event,effectiveScores(b));if(isRedMage(b))return redMageChoiceEvents(b).some(e=>e.id===event.id)?redMageOptions(b,event,effectiveScores(b)):[];if(supportsMartialProgression(b))return martialEligibleOptions(b,event);if(isBeastmaster(b))return beastmasterOptions(event);if(isArcher(b))return archerEligibleOptions(b,event);const pool=registry.class.choicePools.find(p=>event.poolIds.includes(p.id)&&p.options.length);return pool?.options||[];}
 export function hpHistory(b){return Array.from({length:Math.max(1,Math.min(20,b.level||1))},(_,i)=>b.hpRolls?.[i]??(i===0&&!carriedLevels(b)?classHitDie(b):classDefaultHp(b)));}
 export function spellCounts(b){if(isRedMage(b))return redMageSpellCounts(effectiveScores(b),b.initialChaMod,b.level,b);if(isBard(b))return bardSpellCounts(effectiveScores(b),b.initialChaMod);if(isArcher(b)||isLevelOneClass(b))return {cantrips:0,leveled:0};const int=b.initialIntMod??mod(effectiveScores(b).int);return {cantrips:4+Math.floor((b.level-1)/3),leveled:Math.max(3,3+int)+2*(b.level-1)+(b.level>=7?1:0)+(b.level>=12?1:0)+(b.level>=17?1:0)};}
 export function buildIssues(b,{complete=true}={}){
@@ -161,7 +163,7 @@ export function buildIssues(b,{complete=true}={}){
  }
  if(isRedMage(b)){for(const issue of redMageIssues(b,effectiveScores(b),{complete}))add(issue.step,issue.message);return errors;}
  if(isBard(b)){for(const issue of bardIssues(b,effectiveScores(b),{complete}))add(issue.step,issue.message);return errors;}
- if(isLevelOneClass(b)){for(const issue of levelOneIssues(b,{complete}))add(issue.step,issue.message);return errors;}
+ if(isLevelOneClass(b)){for(const issue of levelOneIssues(b,{complete,scores:effectiveScores(b),race:raceFor(b),racial:raceTraits(b)}))add(issue.step,issue.message);return errors;}
  if(isArcher(b)){for(const issue of archerIssues(b,{complete}))add(issue.step,issue.message);return errors;}
  if(!classFor(b))add(3,'Unknown or unavailable class.');
  if(!Number.isInteger(b.level)||b.level<1||b.level>20||buildLevel(b)>20)add(3,'Choose a Black Mage level from 1 to 20.');
@@ -240,11 +242,11 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
   const original=previous.rulesBuild.input;
   for(const pool of [GARIF_TERRAIN,GARIF_PASTORALIST])if((raw?.racialChoices?.[pool]||[]).join('|')!==(original.racialChoices?.[pool]||[]).join('|'))bad('Existing Garif terrain and first-level Pastoralist allocation cannot be changed during editing.');
  }
- if((isLevelOneClass(raw)&&!supportsMartialProgression(raw)||isBard(raw))&&raw.level!==1)bad('This class currently supports level-1 testing only.');
- if((supportsMartialProgression(raw)||isRedMage(raw))&&previous.rulesBuild&&!levelTransition&&raw.level!==previous.rulesBuild.input.level)bad('Use Level up to change the saved character level.');
- if(isRedMage(raw)&&previous.rulesBuild?.input&&raw.archetypeId!==previous.rulesBuild.input.archetypeId)bad('A saved character cannot change archetypes.');
+ if((isLevelOneClass(raw)&&!supportsSheetProgression(raw)||isBard(raw))&&raw.level!==1)bad('This class currently supports level-1 testing only.');
+ if((supportsSheetProgression(raw)||isRedMage(raw))&&previous.rulesBuild&&!levelTransition&&raw.level!==previous.rulesBuild.input.level)bad('Use Level up to change the saved character level.');
+ if((isRedMage(raw)||isSheetFamily(raw))&&previous.rulesBuild?.input&&raw.archetypeId!==previous.rulesBuild.input.archetypeId)bad('A saved character cannot change archetypes.');
  if(isRedMage(raw)&&previous.rulesBuild?.input&&(!sameBuildValue(raw.choices?.[RED_MAGERY_EVENT],previous.rulesBuild.input.choices?.[RED_MAGERY_EVENT])||!levelTransition&&!sameBuildValue(raw.choices,previous.rulesBuild.input.choices)))bad('Saved Red Magery cannot be replaced in this builder.');
- if(previous.rulesBuild?.input&&supportsMartialProgression(previous.rulesBuild.input)&&raw.archetypeId!==previous.rulesBuild.input.archetypeId)bad('A saved character cannot change archetypes.');
+ if(previous.rulesBuild?.input&&supportsSheetProgression(previous.rulesBuild.input)&&raw.archetypeId!==previous.rulesBuild.input.archetypeId)bad('A saved character cannot change archetypes.');
  if(isChaCaster(raw)&&Array.isArray(raw.spellIds)&&new Set(raw.spellIds).size!==raw.spellIds.length)bad('Choose distinct starting spells.');
  if(previous.rulesBuild?.input&&(previous.rulesBuild.input.classId||BLACK_MAGE_ID)!==(raw?.classId||BLACK_MAGE_ID))bad('A saved character cannot change classes.');
  if(isArcher(raw)||isLevelOneClass(raw)||isChaCaster(raw)||isRedMage(raw)){
@@ -262,6 +264,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
    b.initialChaMod=starting;
    const issues=isRedMage(b)?redMageIssues(b,p.scores):bardIssues(b,p.scores);if(issues.length)bad(issues[0].message);
   }
+  if(isSheetFamily(b)&&previous.rulesBuild?.input&&!levelTransition&&!sameBuildValue(b.choices,previous.rulesBuild.input.choices))bad('Saved class choices cannot be replaced in this builder.');
   if(supportsMartialProgression(b)&&previous.rulesBuild?.input){const old=previous.rulesBuild.input;if(old.archetypeId!==b.archetypeId)bad('A saved character cannot change archetypes.');for(const event of martialChoiceEvents({...b,level:1}))if(old.choices?.[event.id]&&JSON.stringify(old.choices[event.id])!==JSON.stringify(b.choices?.[event.id]))bad('The starting gun arm cannot be replaced in the builder.');}
   if(isBeastmaster(b)&&previous.rulesBuild&&JSON.stringify(b.choices[COMPANION_EVENT])!==JSON.stringify(previous.rulesBuild.input.choices?.[COMPANION_EVENT]))bad('The starting companion cannot be replaced in this builder. The 24-hour companion ceremony and replacement are handled manually.');
   if(!allowRankReduction&&previous.rulesBuild&&b.skillRanks?.some((n,i)=>n<Number(previous.rulesBuild.rankFloor?.[i]??previous.rulesBuild.input.skillRanks?.[i]??0)))bad('Confirmed skill ranks cannot be reduced.');
@@ -340,13 +343,13 @@ export function prepareLevelUp(previous){
 }
 export function levelUpBuild(raw,previous){
  if(isBard(raw)||isBard(previous.rulesBuild?.input))bad('Bard currently supports level-1 testing only; level-up is not enabled.');
- if((isLevelOneClass(raw)||isLevelOneClass(previous.rulesBuild?.input))&&!supportsMartialProgression(raw))bad('This class currently supports level-1 testing only; level-up is not enabled.');
- if(supportsMartialProgression(raw)||isRedMage(raw)||isRedMage(previous.rulesBuild?.input)){
+ if((isLevelOneClass(raw)||isLevelOneClass(previous.rulesBuild?.input))&&!supportsSheetProgression(raw))bad('This class currently supports level-1 testing only; level-up is not enabled.');
+ if(supportsSheetProgression(raw)||isRedMage(raw)||isRedMage(previous.rulesBuild?.input)){
   const raceLimits=buildIssues(raw,{complete:false}).filter(i=>i.step===3);if(raceLimits.length)bad(raceLimits[0].message);
   const stored=previous.rulesBuild?.input;
   const old=stored?withBuildDefaults(stored,newBuild()):null,same=sameBuildValue;
   raw=withBuildDefaults(raw,newBuild());
-  if(!old||!(supportsMartialProgression(old)||isRedMage(old))||raw.level!==old.level+1||raw.level>20)bad('Level up adds exactly one level, up to level 20.');
+  if(!old||!(supportsSheetProgression(old)||isRedMage(old))||raw.level!==old.level+1||raw.level>20)bad('Level up adds exactly one level, up to level 20.');
   for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId','carry','favored','initialChaMod','abilityMethod','pointBudget','scorePool','scoreAssignments'])if(!same(raw[key],old[key]))bad('Level up cannot change '+({baseScores:'existing ability scores',initialChaMod:'the starting spell allowance',raceId:'race',heritageId:'heritage',disabledTraits:'standard racial traits',alternateIds:'alternate racial traits',archetypeId:'archetype',classId:'class',carry:'previous class data',favored:'favored-class rewards',abilityMethod:'the ability score method',pointBudget:'the point-buy budget',scorePool:'recorded ability rolls',scoreAssignments:'ability score assignments'}[key]||key)+'.');
   for(const key of ['racialChoices','racialSpecialties'])if(!same(raw[key]??{},old[key]??{}))bad('Level up cannot change racial choices.');
   const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose a +1 ability increase.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
@@ -395,8 +398,8 @@ export function classFeatureChanges(build,baseline){
  if(isChaCaster(build))return previewBuild(build).features.filter(f=>!baseline||!previewBuild(baseline).features.some(old=>old.id===f.id)).map(feature=>({feature,kind:'new'}));
  if(isLevelOneClass(build)){
   const after=previewBuild(build),before=baseline?previewBuild(baseline):null,oldFeatures=new Map((before?.features||[]).map(f=>[f.id,f]));
-  const signature=(f,b,scores)=>({name:f.name,state:f.state||{},description:(f.progressionDescription||f.description).replace(/Current at level \d+:/g,'Current:'),counter:martialCounter(b,f,scores)});
-  return after.features.map(feature=>{const old=oldFeatures.get(feature.id),current=martialCounter(build,feature,after.scores)?.maximum,previous=old?martialCounter(baseline,old,before.scores)?.maximum:undefined;return {feature,kind:!old?'new':!sameBuildValue(signature(feature,build,after.scores),signature(old,baseline,before.scores))?'upgrade':null,...(Number.isFinite(current)&&current!==previous?{resourceChange:{previous,current}}:{})};}).filter(row=>row.kind);
+  const signature=(f,b,scores)=>({name:f.name,state:f.state||{},description:(f.progressionDescription||f.description).replace(/Current at level \d+:/g,'Current:'),counter:sheetFamilyCounter(b,f,scores)||martialCounter(b,f,scores)});
+  return after.features.map(feature=>{const old=oldFeatures.get(feature.id),current=(sheetFamilyCounter(build,feature,after.scores)||martialCounter(build,feature,after.scores))?.maximum,previous=old?(sheetFamilyCounter(baseline,old,before.scores)||martialCounter(baseline,old,before.scores))?.maximum:undefined;return {feature,kind:!old?'new':!sameBuildValue(signature(feature,build,after.scores),signature(old,baseline,before.scores))?'upgrade':null,...(Number.isFinite(current)&&current!==previous?{resourceChange:{previous,current}}:{})};}).filter(row=>row.kind);
  }
  if(isArcher(build))return archerFeatureChanges(build,baseline);
  const after=previewBuild(build).features,before=baseline?previewBuild(baseline).features:[],oldIds=new Set(before.map(f=>f.id));

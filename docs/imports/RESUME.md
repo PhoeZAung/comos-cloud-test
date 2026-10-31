@@ -4,12 +4,13 @@ Latest class release: PR #39, b4c63eb, is live with 449 integrated tests and
 verified Railway/public-asset evidence. See docs/extraction/class-release-publication.md.
 This chat owns classes/archetypes and uses the isolated classes/red-mage
 checkout; the race chat owns its separate checkout and RACES-ONLY.md plan.
-The Red Mage base + all 18 archetypes now have locally validated level 1–20
-sheet support (460 tests; unpublished). Read CLASSES-ONLY.md and
-docs/extraction/red-mage-family-progress.md for scope and the Animist source
-conflict. Next class priority is Thief plus its full archetype family. The user
-wants whole-family batches using existing controls and manual complex effects;
-do not take an unrelated race or split the class into one-level releases.
+Latest LOCAL batch: Thief+25archetypes, Warrior+25archetypes and Monk+20archetypes
+through20.493tests,1387savedroutelevel-ups and8browserfixture records pass;see
+CLASSES-ONLY.md and docs/extraction/three-class-families-progress.md. Earlier
+Red Mage+18archetypes1–20 work remains included and unpublished. Complex effects
+stay manual; source conflicts and incomplete racial choices are disclosed.
+Next candidate class batch is White Mage, then Knight/Dragoon full families.
+Use the user's whole-family/parallel-batch preference; do not take unrelated races.
 Future gameplay changes remain local until another explicit publish request.
 
 

@@ -1,0 +1,239 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:airborne-ambusher",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Airborne Ambusher",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/airborne-ambusher/",
+      "title": "Airborne Ambusher",
+      "archiveSha256": "fa1578974808e36825bb8db42d728bfa7cff407c97beaaa90aac65f5c6b01b8e",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:airborne-ambusher:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "An airborne ambusher is not proficient with heavy armor.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:airborne-ambusher:feature:combat-flyer",
+        "name": "Combat Flyer",
+        "atLevel": 2,
+        "description": "At 2nd level, an airborne ambusher may choose to select [Flyby Attack](https://www.d20pfsrd.com/feats/monster-feats/flyby-attack/) and [Hover](https://www.d20pfsrd.com/feats/monster-feats/hover/) feats instead of a warrior talent.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Combat Flyer",
+            "locator": "combat-flyer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:airborne-ambusher:feature:aerobatics",
+        "name": "Aerobatics",
+        "atLevel": 5,
+        "description": "At 5th level, an airborne ambusher may make a Fly check instead of an Acrobatics check to move through a threatened area or an enemy\u2019s space.\n\nThis ability replaces additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aerobatics",
+            "locator": "aerobatics"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:airborne-ambusher:feature:flying-dodger",
+        "name": "Flying Dodger",
+        "atLevel": 9,
+        "description": "At 9th level, when an airborne ambusher flies at least half its fly speed on its turn, it gains a +1 dodge bonus to AC for 1 round. This bonus increases to +2 at 11th level and +4 at 17th level.\n\nThis ability replaces additional techs IV.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Flying Dodger",
+            "locator": "flying-dodger"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:airborne-ambusher:feature:plummeting-charge",
+        "name": "Plummeting Charge",
+        "atLevel": 13,
+        "description": "At 13th level, if an airborne ambusher flies at least half its fly speed as part of a charge, it gains a +2 racial bonus on the attack roll (in addition to the normal charge bonus) and a +4 bonus on its critical confirmation roll. These bonuses improve to +4 and +6 at 17th level.\n\nThis ability replaces improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Plummeting Charge",
+            "locator": "plummeting-charge"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:airborne-ambusher:replacement:aerobatics:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:airborne-ambusher:feature:aerobatics"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aerobatics",
+            "locator": "aerobatics"
+          }
+        ],
+        "description": "This ability replaces additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:airborne-ambusher:replacement:flying-dodger:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:airborne-ambusher:feature:flying-dodger"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Flying Dodger",
+            "locator": "flying-dodger"
+          }
+        ],
+        "description": "This ability replaces additional techs IV."
+      },
+      {
+        "id": "ffd20:archetype:warrior:airborne-ambusher:replacement:plummeting-charge:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:airborne-ambusher:feature:plummeting-charge"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Plummeting Charge",
+            "locator": "plummeting-charge"
+          }
+        ],
+        "description": "This ability replaces improved rush."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Light armor",
+        "Medium armor",
+        "Shields except tower shields"
+      ]
+    },
+    "resources": [],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:warrior:pool:warrior-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:airborne-ambusher:option:combat-flyer-feat-manual-choice",
+            "name": "Combat Flyer feat (manual choice)",
+            "description": "At 2nd level, an airborne ambusher may choose to select [Flyby Attack](https://www.d20pfsrd.com/feats/monster-feats/flyby-attack/) and [Hover](https://www.d20pfsrd.com/feats/monster-feats/hover/) feats instead of a warrior talent.\nManual selection: write the exact selected option/feat and verify its prerequisites on existing sheet entries.",
+            "minimumLevel": 2,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Combat Flyer feat (manual choice)",
+                "locator": "combat-flyer-feat-manual-choice"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/airborne-ambusher/",
+            "manualPrerequisites": true,
+            "allowedLevels": [
+              2
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -174,26 +174,26 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Diminutive Adept](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/diminutive-adept/) | queued · source-review | Start of source review |
-| [Elemental Fist Disciple](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/elemental-fist-disciple/) | queued · source-review | Start of source review |
-| [Featherweight](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/featherweight/) | queued · source-review | Start of source review |
-| [Fist of Rhalgr](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/) | queued · source-review | Start of source review |
-| [Heavyweight](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/heavyweight/) | queued · source-review | Start of source review |
-| [Ironskin Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ironskin-monk/) | queued · source-review | Start of source review |
-| [Ki Master](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/) | queued · source-review | Start of source review |
-| [Life Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/life-monk/) | queued · source-review | Start of source review |
-| [Master of Many Styles](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/master-of-many-styles/) | queued · source-review | Start of source review |
-| [Meowfist](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/meowfist/) | queued · source-review | Start of source review |
-| [Monk of the Wild](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/monk-of-the-wild/) | queued · source-review | Start of source review |
-| [Nimble Guardian](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/nimble-guardian/) | queued · source-review | Start of source review |
-| [Peacekeeper](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/peacekeeper/) | queued · source-review | Start of source review |
-| [Scaled Fist](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/scaled-fist/) | queued · source-review | Start of source review |
-| [Streak](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/streak/) | queued · source-review | Start of source review |
-| [Student of the Stone](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/student-of-the-stone/) | queued · source-review | Start of source review |
-| [Treetop Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/treetop-monk/) | queued · source-review | Start of source review |
-| [Wanderer](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/wanderer/) | queued · source-review | Start of source review |
-| [Weapon Adept](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/weapon-adept/) | queued · source-review | Start of source review |
-| [White Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/white-monk/) | queued · source-review | Start of source review |
+| [Diminutive Adept](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/diminutive-adept/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Elemental Fist Disciple](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/elemental-fist-disciple/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Featherweight](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/featherweight/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Fist of Rhalgr](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/fist-of-rhalgr/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Heavyweight](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/heavyweight/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Ironskin Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ironskin-monk/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Ki Master](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Life Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/life-monk/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Master of Many Styles](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/master-of-many-styles/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Meowfist](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/meowfist/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Monk of the Wild](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/monk-of-the-wild/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Nimble Guardian](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/nimble-guardian/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Peacekeeper](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/peacekeeper/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Scaled Fist](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/scaled-fist/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Streak](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/streak/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Student of the Stone](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/student-of-the-stone/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Treetop Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/treetop-monk/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Wanderer](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/wanderer/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Weapon Adept](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/weapon-adept/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [White Monk](https://finalfantasyd20.com/classes/core-classes/monk/archetypes/white-monk/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
 
 ## Red Mage (18)
 
@@ -222,61 +222,61 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Agent](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/agent/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Assassin](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/assassin/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Bounty Hunter](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/bounty-hunter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Deadly Courtesan](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/deadly-courtesan/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Festivalist](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/festivalist/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Filcher](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/filcher/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Keyblade Master](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/keyblade-master/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Knife Master](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/knife-master/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Merchant](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Prowler](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/prowler/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Raptor](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/raptor/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Rogue](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/rogue/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Saboteur](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Skulking Slayer](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/skulking-slayer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Sky Pirate](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/sky-pirate/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Spellthief](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/spellthief/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Street Magician](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/street-magician/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Thug](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/thug/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Time Bandit](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/time-bandit/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Treasure Hunter](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/treasure-hunter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Trickster](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/trickster/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Burglar](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Combatant](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/combatant/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Solid Snake](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/solid-snake/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Streetrat](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/streetrat/) | queued · source-review | Start of source review · waiting for parent definition |
+| [Agent](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/agent/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Assassin](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/assassin/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Bounty Hunter](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/bounty-hunter/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Deadly Courtesan](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/deadly-courtesan/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Festivalist](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/festivalist/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Filcher](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/filcher/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Keyblade Master](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/keyblade-master/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Knife Master](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/knife-master/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Merchant](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/merchant/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Prowler](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/prowler/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Raptor](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/raptor/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Rogue](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/rogue/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Saboteur](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/saboteur/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Skulking Slayer](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/skulking-slayer/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Sky Pirate](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/sky-pirate/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Spellthief](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/spellthief/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Street Magician](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/street-magician/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Thug](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/thug/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Time Bandit](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/time-bandit/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Treasure Hunter](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/treasure-hunter/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Trickster](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/trickster/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Burglar](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/burglar/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Combatant](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/combatant/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Solid Snake](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/solid-snake/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Streetrat](https://finalfantasyd20.com/classes/core-classes/thief/archetypes/streetrat/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
 
 ## Warrior (25)
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Airborne Ambusher](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/airborne-ambusher/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Cyberpunk Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/cyberpunk-warrior/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Defender](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/defender/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Dirty Fighter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/dirty-fighter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Draconic Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/draconic-warrior/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Dragonwarrior](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/dragonwarrior/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Elemental Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/elemental-warrior/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Feral Guardian](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/feral-guardian/) | queued · source-review | Start of source review · waiting for parent definition |
-| [First Shield](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/first-shield/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Foehammer](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/foehammer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Gladiator](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/gladiator/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Lanista](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/lanista/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Mercenary](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/mercenary/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Nimble Striker](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/nimble-striker/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Sea Wolf](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/sea-wolf/) | queued · source-review | Start of source review · waiting for parent definition |
-| [ShinSect](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/shinsect/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Squire](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/squire/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Stylish Fighter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/stylish-fighter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Swarm Fighter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/swarm-fighter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Talekeeper](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/talekeeper/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Viking](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/viking/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Weapon Collector](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/weapon-collector/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Demon Hunter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/demon-hunter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Monster Hunter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/monster-hunter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Stormbreaker](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/stormbreaker/) | queued · source-review | Start of source review · waiting for parent definition |
+| [Airborne Ambusher](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/airborne-ambusher/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Cyberpunk Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/cyberpunk-warrior/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Defender](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/defender/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Dirty Fighter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/dirty-fighter/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Draconic Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/draconic-warrior/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Dragonwarrior](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/dragonwarrior/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Elemental Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/elemental-warrior/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Feral Guardian](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/feral-guardian/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [First Shield](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/first-shield/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Foehammer](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/foehammer/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Gladiator](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/gladiator/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Lanista](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/lanista/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Mercenary](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/mercenary/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Nimble Striker](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/nimble-striker/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Sea Wolf](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/sea-wolf/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [ShinSect](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/shinsect/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Squire](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/squire/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Stylish Fighter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/stylish-fighter/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Swarm Fighter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/swarm-fighter/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Talekeeper](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/talekeeper/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Viking](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/viking/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Weapon Collector](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/weapon-collector/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Demon Hunter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/demon-hunter/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Monster Hunter](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/monster-hunter/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
+| [Stormbreaker](https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/stormbreaker/) | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted |
 
 ## White Mage (14)
 

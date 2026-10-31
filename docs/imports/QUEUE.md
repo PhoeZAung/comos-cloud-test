@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 11 | 11 | 62 | 11 | 0 | 0 |
+| class | 73/73 | 13 | 13 | 62 | 11 | 0 | 0 |
 | race | 63/63 | 63 | 63 | 47 | 15 | 0 | 0 |
-| archetype | 579/579 | 25 | 23 | 572 | 5 | 0 | 402 |
+| archetype | 579/579 | 95 | 93 | 572 | 5 | 0 | 352 |
 
-Checkpoint revision: **131**. Active: **none**. Next: **ffd20:race:garif**.
+Checkpoint revision: **204**. Active: **none**. Next: **ffd20:race:garif**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -30,10 +30,10 @@ The race count includes testing options whose mandatory choices can still preven
 | 6 | [Black Mage](https://finalfantasyd20.com/classes/core-classes/black-mage/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | live_partial · deployment-verified | Six first-level abilities, class stats and proficiencies deployed and verified; Later class talents, progression, archetypes and multiclassing require separate source-reviewed adapters |
 | 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | existing live adapter · levels 1 | live_partial · deployment-verified | Lawful first-level Knight, stance counter and manual defensive references deployed; five public assets verified; Later talents/progression/archetypes, code adjudication and defensive effect/recovery automation require separate reviewed batches |
-| 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | existing live adapter · levels 1 | live_partial · deployment-verified | First-level FFd20 Monk, Bodybuilding HP and manual martial references deployed; five public assets verified; Later Ki/talents/blitz/progression/archetypes, conditional martial effects and feat interactions require separate reviewed batches |
+| 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | live_partial · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted; Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation. |
 | 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | live_partial · local-family-validated | Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths; Keep local until publish; next class batch Thief plus all archetypes. Before release integrate current race main and rerun checks. |
-| 11 | [Thief](https://finalfantasyd20.com/classes/core-classes/thief/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
-| 12 | [Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
+| 11 | [Thief](https://finalfantasyd20.com/classes/core-classes/thief/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted; Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation. |
+| 12 | [Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | queued · local-family-validated | Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted; Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation. |
 | 13 | [White Mage](https://finalfantasyd20.com/classes/core-classes/white-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 14 | [Astrologian](https://finalfantasyd20.com/classes/base-classes/astrologian/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 15 | [Berserker](https://finalfantasyd20.com/classes/base-classes/berserker/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |

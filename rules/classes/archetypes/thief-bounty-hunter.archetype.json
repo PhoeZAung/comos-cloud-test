@@ -1,0 +1,283 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:bounty-hunter",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Bounty Hunter",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/bounty-hunter/",
+      "title": "Bounty Hunter",
+      "archiveSha256": "18f61f40643ae27903048551f751025f99d69ead63305225f6d0212fd3a1a841",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "A bounty hunter is proficient with all simple and martial weapons plus the aklys, bolas, dan bong, lasso, and net. bounty hunters are proficient with light armor, light shields, and bucklers, but not heavy shields or tower shields.\n\nThis ability replaces the thief\u2019s weapon and armor proficiencies.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:feature:dirty-trick",
+        "name": "Dirty Trick",
+        "atLevel": 2,
+        "description": "At 2nd level, anytime a bounty hunter is able to deal sneak attack damage to a target, he can instead attempt to hamper the target. The bounty hunter must declare that he\u2019s using this ability before the attack roll is made. If the attack hits, it deals damage normally, but instead of rolling sneak attack damage, the bounty hunter can attempt a dirty trick combat maneuver against the target as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), adding 1 to the combat maneuver check for each die of the bounty hunter\u2019s sneak attack damage. This combat maneuver does not provoke attacks of opportunity.\n\nThis ability replaces the thief talent gained at 2nd level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Trick",
+            "locator": "dirty-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:feature:submission-hold",
+        "name": "Submission Hold",
+        "atLevel": 6,
+        "description": "At 6th level, when a bounty hunter attempts a grapple combat maneuver check to deal damage, he can choose to add his sneak attack damage to the grapple damage for that attack. He takes a \u20135 penalty on the combat maneuver check if he does this. This sneak attack damage is nonlethal damage, unless the bounty hunter is able to deal normal damage with a grapple and chooses to do so.\n\nThis ability replaces the thief talent gained at 6th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Submission Hold",
+            "locator": "submission-hold"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:feature:incapacitate",
+        "name": "Incapacitate",
+        "atLevel": 12,
+        "description": "At 12th level, a bounty hunter can incapacitate a target. This functions like the *assassinate* ninja trick, except instead of killing the target, the bounty hunter\u2019s successful attack knocks the target unconscious for 1d6 rounds unless it succeeds at its saving throw. If the target does succeed at its saving throw, it still takes the sneak attack damage as normal, but the damage is nonlethal, and the target is immune to that bounty hunter\u2019s incapacitate ability for 24 hours.\n\nThis ability replaces the advanced thief talent gained at 12th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Incapacitate",
+            "locator": "incapacitate"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:replacement:weapon-and-armor-proficiency:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:weapon-and-armor-proficiency"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:bounty-hunter:feature:weapon-and-armor-proficiency"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "the thief\u2019s weapon and armor proficiencies",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:replacement:dirty-trick:1",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:bounty-hunter:feature:dirty-trick"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:2"
+        ],
+        "eventOnly": true,
+        "description": "the thief talent gained at 2nd level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Trick",
+            "locator": "dirty-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:replacement:submission-hold:1",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:bounty-hunter:feature:submission-hold"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:6"
+        ],
+        "eventOnly": true,
+        "description": "the thief talent gained at 6th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Submission Hold",
+            "locator": "submission-hold"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:replacement:incapacitate:1",
+        "atClassLevel": 12,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-advanced-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:bounty-hunter:feature:incapacitate"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-advanced-talents:12"
+        ],
+        "eventOnly": true,
+        "description": "the advanced thief talent gained at 12th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Incapacitate",
+            "locator": "incapacitate"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:event:grant:weapon-and-armor-proficiency",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:bounty-hunter:feature:weapon-and-armor-proficiency",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:event:grant:dirty-trick",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:bounty-hunter:feature:dirty-trick",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Trick",
+            "locator": "dirty-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:event:grant:submission-hold",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:bounty-hunter:feature:submission-hold",
+        "atClassLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Submission Hold",
+            "locator": "submission-hold"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:bounty-hunter:event:grant:incapacitate",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:bounty-hunter:feature:incapacitate",
+        "atClassLevel": 12,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Incapacitate",
+            "locator": "incapacitate"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {
+      "proficiencies": [
+        "Simple weapons",
+        "Martial weapons",
+        "Aklys",
+        "Bolas",
+        "Dan bong",
+        "Lasso",
+        "Net",
+        "Light armor",
+        "Light shields",
+        "Bucklers"
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

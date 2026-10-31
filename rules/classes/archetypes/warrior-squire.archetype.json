@@ -1,0 +1,343 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:squire",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Squire",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/squire/",
+      "title": "Squire",
+      "archiveSha256": "b8a9a425ec4bfdbe35e06b65878ba95083959857ccfec4caa1e6950562ffdbb1",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:squire:feature:stamina-pool",
+        "name": "Stamina Pool",
+        "atLevel": 1,
+        "description": "At 1st level, the squire gains a reservoir of stamina that he can draw upon to fuel his talents that he gains below. This stamina pool has a number of points equal to half his warrior level + his Constitution modifier (minimum 1). The pool refreshes once per day when the squire rests for a full 8 hours.\n\nBy spending 1 stamina point as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the squire can do one of the following:\n\n* Increase his speed by 10 feet for 1 round, or\n* Delay and suppress his fatigue or exhaustion for 1 round, or\n* Increase one saving throw by +1 for 1 round.\n\nThis ability replaces combat defenses, combat offenses, and the stamina pool of warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stamina Pool",
+            "locator": "stamina-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:feature:guts-techniques",
+        "name": "Guts Techniques",
+        "atLevel": 3,
+        "description": "At 3rd level, a squire can spend stamina to perform the following techniques, in addition to the abilities gained from his stamina pool:\n\n* **Cheer:**\u00a0 At the cost of 1 stamina point, as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), the squire can let out a cheer to rally his allies, granting the squire\u2019s allies within a 30-ft.-radius, a +1 morale bonus to Attack rolls and an additional +1 bonus for every four warrior levels after 3rd. If the squire is in the Accumulate sustained mode, he also grants his allies the effects of that mode. Cheer lasts for a number of rounds equal to the squire\u2019s Charisma modifier (minimum 1).\n* **Stone Throw:** At the cost of 1 stamina point, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the squire can take a small stone from nearby or in his pouch and throw it at an enemy within 30 feet as a ranged attack. If successful, the squire deals 1d4 points of bludgeoning damage + his Strength modifier. The enemy must make a Will save (DC 10 + half of the warrior\u2019s level + his Strength modifier) or be *dazed* until the end of the squire\u2019s next turn. At 5th level, the squire deals 1d6 points of bludgeoning damage + his Strength modifier.\n* **Tackle:** At the cost of 1 stamina point, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the squire can slam an enemy adjacent to him by making a melee attack against the target\u2019s CMD. If successful, the target is knocked prone. This ability doesn\u2019t affect creatures of a size category larger than the squire.\n\nThese abilities replace warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guts Techniques",
+            "locator": "guts-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:feature:guts-techniques-ii",
+        "name": "Guts Techniques II",
+        "atLevel": 5,
+        "description": "At 5th level, the squire can make use of the following guts techniques:\n\n* **Counter Tackle:** Once per round, as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), if an opponent attacks the squire in melee combat, he can use Tackle as an attack of opportunity. He still must spend the stamina points to use Tackle.\n* **Tailwind:** At a cost of 1 stamina point, as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the squire can boost an ally\u2019s movement speed by 30 feet for 1 round.\n\nThese abilities replace additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guts Techniques II",
+            "locator": "guts-techniques-ii"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:feature:guts-techniques-iii",
+        "name": "Guts Techniques III",
+        "atLevel": 7,
+        "description": "At 7th level, the squire can make use of the following guts techniques:\n\n* **Bashing Throw:** When using Stone Throw, the squire can take a \u20132 penalty to attack rolls to aim for the head. If successful, it also inflicts the *confused* status for 1 round after the *dazed* status ends if the target fails the save.\n* **Focus:** At the cost of 1 stamina point, as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), the squire gains a +4 morale bonus to Strength plus an additional +2 Strength per four warrior levels after 7th. This ability lasts for a number of rounds equal to the squire\u2019s Constitution modifier.\n* **Invigorating Salve:** At the cost of 1 stamina point, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the squire can prepare and apply a salve to restore the body\u2019s energy. This removes fatigue from himself or an adjacent ally, or reduces the effects of exhaustion to fatigue.\n\nThese abilities replace additional techs III.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guts Techniques III",
+            "locator": "guts-techniques-iii"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:feature:guts-techniques-iv",
+        "name": "Guts Techniques IV",
+        "atLevel": 9,
+        "description": "At 9th level, the squire can make use of the following guts techniques:\n\n* **Accumulate:** As a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift), the squire can activate this technique as a sustained mode. For every round in the current combat encounter, the squire gains a +1 bonus on melee damage rolls to the maximum of +2 per warrior level. This mode uses up 2 stamina points of the squire\u2019s current and maximum stamina pool.\n* **Evasive Stance:** At the cost of 1 stamina point, as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the squire takes up a defensive stance, ready to evade incoming attacks. He gains a +3 dodge bonus to AC and a +3 morale bonus to Reflex saves, increasing by +1 for every four warrior levels after 9th. These bonuses last until the start of his next turn, and this ability counts as the Total Defense action for the purpose of feats and other abilities. Having 3 ranks in Acrobatics increases the dodge bonus to AC by +2.\n* **Hail of Stones:** At the cost of 2 stamina points, as a [full-round action](https://finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), the squire may throw a stone for each attack that he could make in a full attack against enemies within 30 feet, as if using Throw Stone. He takes iterative attack penalties as normal. Effects such as *haste* allow the squire to make additional attacks, but Rapid Shot and Two-Weapon Fighting cannot be used with this technique. By taking a -4 penalty to attack rolls instead of the normal -2, the squire may use Bashing Throw with this ability.\n\nThese abilities replace additional techs IV.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guts Techniques IV",
+            "locator": "guts-techniques-iv"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:feature:shout",
+        "name": "Shout",
+        "atLevel": 10,
+        "description": "At 10th level, a squire may increase the cost of Cheer to 2 stamina points. If he does so, it now grants its morale bonus to his allies\u2019 caster levels, increasing the potency of their spells. In addition, Cheer also grants Fast Healing 2 and the effects of Tailwind to all allies within the area of effect.\u00a0\n\nThis ability replaces war cry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shout",
+            "locator": "shout"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:feature:improved-tackle",
+        "name": "Improved Tackle",
+        "atLevel": 13,
+        "description": "At 13th level, at the cost of 1 stamina point, the squire may move up to his speed and then use Tackle on an adjacent enemy as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). The squire must end his movement adjacent to an enemy. This movement provokes attacks of opportunity as normal. Tackle can only be used in this manner once per round.\n\nThis ability replaces improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Tackle",
+            "locator": "improved-tackle"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:squire:replacement:stamina-pool:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-defenses",
+          "ffd20:class:warrior:feature:combat-offenses",
+          "ffd20:class:warrior:feature:stamina-pool"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:squire:feature:stamina-pool"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stamina Pool",
+            "locator": "stamina-pool"
+          }
+        ],
+        "description": "This ability replaces combat defenses, combat offenses, and the stamina pool of warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:replacement:guts-techniques:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-techniques",
+          "ffd20:class:warrior:feature:stamina-pool",
+          "ffd20:class:warrior:feature:delay-fatigue",
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:squire:feature:guts-techniques"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guts Techniques",
+            "locator": "guts-techniques"
+          }
+        ],
+        "description": "These abilities replace warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:replacement:guts-techniques-ii:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:squire:feature:guts-techniques-ii"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guts Techniques II",
+            "locator": "guts-techniques-ii"
+          }
+        ],
+        "description": "These abilities replace additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:replacement:guts-techniques-iii:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:squire:feature:guts-techniques-iii"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guts Techniques III",
+            "locator": "guts-techniques-iii"
+          }
+        ],
+        "description": "These abilities replace additional techs III."
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:replacement:guts-techniques-iv:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:squire:feature:guts-techniques-iv"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guts Techniques IV",
+            "locator": "guts-techniques-iv"
+          }
+        ],
+        "description": "These abilities replace additional techs IV."
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:replacement:shout:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:war-cry"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:squire:feature:shout"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shout",
+            "locator": "shout"
+          }
+        ],
+        "description": "This ability replaces war cry."
+      },
+      {
+        "id": "ffd20:archetype:warrior:squire:replacement:improved-tackle:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:squire:feature:improved-tackle"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Tackle",
+            "locator": "improved-tackle"
+          }
+        ],
+        "description": "This ability replaces improved rush."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {},
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:warrior:squire:feature:stamina-pool",
+        "base": 0,
+        "perLevel": 0.5,
+        "ability": "con",
+        "minimum": 1
+      }
+    ],
+    "extraOptions": []
+  }
+}

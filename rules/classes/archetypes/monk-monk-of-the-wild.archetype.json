@@ -1,0 +1,802 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:monk-of-the-wild",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Monk of the Wild",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/monk-of-the-wild/",
+      "title": "Monk of the Wild",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "ddb0ad0795a88b4aae9eb82d74ad988aea7a32ad76110930cc744ba90e32e324"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:rage",
+        "name": "Rage",
+        "atLevel": 1,
+        "description": "A monk of the wild can call upon inner reserves of strength and ferocity, granting her additional combat prowess. At 1st level, a monk of the wild can rage for a number of rounds per day equal to 4 + her Constitution modifier. For each level after 1st she possesses, the monk of the wild can rage for 2 additional rounds per day. Temporary increases to Constitution, such as that gained from [*dwarf\u2019s endurance*](https://www.finalfantasyd20.com/magic/spells/d/dwarfs-endurance/), do not increase the total number of rounds that a monk of the wild can rage per day. A monk of the wild can enter a rage as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). The total number of rounds of rage per day is renewed after resting for 8 hours, although these hours need not be consecutive.\n\nWhile in a rage, a monk of the wild gains a +2 bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, and Will saving throws. In addition, she takes a \u20132 penalty to Armor Class. She also gains 2 temporary hit points per monk level. These temporary hit points are lost first when a character takes damage, disappear when the rage ends, and are not replenished if the monk of the wild enters a rage again within 1 minute of her previous rage. While in a rage, a monk of the wild cannot use any Charisma-, Dexterity-, or Intelligence-based skill (except Acrobatics, Fly, Intimidate, and Ride) or any ability that requires patience or concentration (such as spellcasting).\n\nA monk of the wild can end her rage as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), and is fatigued for 1 minute after a rage ends. This fatigue cannot be reduced or mitigated in any way and applies even to normally fatigue-immune characters, but can be cured as normal. A monk of the wild can\u2019t enter a new rage while fatigued or exhausted, but can otherwise enter a rage multiple times per day. If a monk of the wild falls unconscious, her rage immediately ends.\n\nThis ability replaces flying kick and boost.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage",
+            "locator": "rage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:rage-powers",
+        "name": "Rage Powers",
+        "atLevel": 2,
+        "description": "As a monk of the wild gains levels, he learns to use his rage in new ways. Starting at 2nd level, a monk of the wild gains a rage power from the berserker\u2019s [rage power list](https://www.finalfantasyd20.com/classes/base-classes/berserker/rage-powers/). He gains another rage power for every two levels of monk attained after 2nd level. A monk of the wild gains the benefits of rage powers only while raging, and some of these powers require the monk of the wild to take an action first. Unless otherwise noted, a monk of the wild cannot select an individual power more than once. Some of the following rage powers are stances. Activating a stance rage power is a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). A monk of the wild can\u2019t have more than one stance rage power active at a time. If he activates a stance rage power while another one is active, the current stance immediately ends. The stance can be intentionally ended at the beginning of the monk of the wild\u2019s turn as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free); otherwise, it lasts until the rage ends.\n\nThese abilities replace monk talents.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:uncanny-dodge",
+        "name": "Uncanny Dodge",
+        "atLevel": 2,
+        "description": "At 2nd level, a monk of the wild gains the ability to react to danger before his senses would normally allow him to do so. He cannot be caught flat-footed, nor does he lose his Dexterity bonus to AC if the attacker is invisible. He still loses his Dexterity bonus to armor class if immobilized. A monk of the wild with this ability can still lose his Dexterity bonus to armor class if an opponent successfully uses the feint action against him.\n\nThis ability replaces ki pool.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Dodge",
+            "locator": "uncanny-dodge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:martial-arts-style-mastery",
+        "name": "Martial Arts Style Mastery",
+        "atLevel": 3,
+        "description": "Beginning at 3rd level and every three monk levels thereafter, a monk of the wild begins learning different martial arts styles based on animal fighting forms. The monk of the wild can choose between Ape, Bear, Bull, Panther, or Tiger. Each style has three tiers (Novice, Expert, and Master) and must be taken in order. To be able to take the Dragon martial arts style, the monk of the wild must have a Master in one other martial arts style.\n\n*Ape Martial Arts Style (Ex):* The ape martial arts style\u2019s main focus is the ability to disable an opponent instead of killing him. This style focuses on punches, jabs, and throws.\n\n* *Novice (Ex):* As a practitioner of the ape martial arts style, a monk of the wild is sometimes forced to make that one attack count to end conflict. When you use the attack action, the monk of the wild may make a single unarmed attack against one opponent, adding two times her Strength bonus to damage.\n* *Expert (Ex):* A monk of the ape martial arts style learns that the quickest way to down an opponent is to use her full strength in one blow. As a full-attack action, the monk of the wild can attempt to stun her target with an unarmed strike. If she scores a hit that deals damage and exceeds the target\u2019s AC by 10 or more, the target must succeed at a Fortitude save (DC 10 + half of the monk\u2019s level + her Wisdom modifier) or become stunned for 1d4 rounds.\n* *Master (Ex):* As a master of the ape martial arts style, the monk of the wild can make a killing strike. Once per day, the monk of the wild may attempt to deal a killing blow to an opponent. She declares her intention to deal a killing blow, and then makes a normal unarmed attack roll. If she strikes successfully and the target takes damage from the blow, the target must make a Fortitude saving throw (DC 10 + half of the monk\u2019s level + her Wisdom modifier) or die. Creatures immune to critical hits cannot be affected.\n\n*Bear Martial Arts Style (Ex):* The brutal bear style is full of jabs, chops, kicks, and other quick and dangerous strikes, focusing on deadliness over finesse.\n\n* *Novice (Ex):* As a practitioner of the bear martial arts style, a monk of the wild learns to quickly take advantage of a fallen opponent. When a monk of the wild makes melee attacks against a prone target, she gains a +2 damage bonus (which is not multiplied on a crit) and increases the critical threat range of her attacks by 1 (for example, from 19-20 to 18-20). This bonus is applied after Improved Critical or Keen effects, but otherwise stacks.\n* *Expert (Ex):* As an expert in bear martial arts, the monk of the wild is adept at making her most effective strikes even more potent. Any time the monk of the wild scores a threat on an unarmed attack, she gains a +4 bonus on her attack roll to confirm the critical hit.\n* *Master (Ex):* As a master in the bear martial arts style, the monk of the wild\u2019s knowledge of the bear style allows her to inflict deadly damage to grappled opponents. As a full-round action, the monk of the wild may attempt a single coup de grace attack on a character she has pinned in a grapple as though the target were helpless. She deals her maximum unarmed combat damage when making the coup de grace. If she fails to kill the target, he automatically escapes the grapple.\n\n*Bull Martial Arts Style (Ex):* The bull martial arts style is very physical, often bringing the combatants into close contact. Bull combat utilizes full-body tackles, throws, and full-arm blows, as well as the powerful jabs and snap kicks commonly used in instances where close combat is ineffective.\n\n* *Novice (Ex):* As a practitioner of the bull martial arts style, a monk of the wild is often quick to make a swift jab after making a charge. When executing a charge attack action while unarmed, the monk of the wild gains one additional attack, at a -5 penalty.\n* *Expert (Ex):* Using the bull martial arts style, the monk of the wild can charge an opponent with great force. When the monk of the wild makes a successful unarmed attack against an opponent during a charge attack action, the monk of the wild\u2019s Strength bonus is doubled when calculating damage.\n* *Master (Ex):* As a master of the bull martial arts style, the monk of the wild can deal a devastating blow to an opponent. As a full-round action, instead of making a full attack, the monk of the wild may make a single unarmed attack against an opponent. If the attack is successful, she deals the maximum unarmed damage on the attack. For every 1 point of base attack bonus, she gains an additional +1 bonus on damage. (A 15th level monk of the wild would deal +15 points of damage to her unarmed attack.)\n\n*Panther Martial Arts Style (Ex):* The panther martial arts style is often practiced by monk of the wilds in order to maximize damage to an opponent while minimizing the amount of noise made by the attack. It focuses on short, quick motions and emphasizes on stealth.\n\n* *Novice (Ex):* As a practitioner of the panther martial arts style, a monk of the wild learns to silent her unknowing opponents quietly with an unarmed strike. If the monk of the wild successfully hits a flat-footed opponent with an unarmed attack, the opponent is unable to speak or make any kind of noise with his vocal cords for 2d4 rounds; this includes shouting warnings or raising alarms. A successful Fortitude save (DC 10 + half of the monk\u2019s level + her Wisdom modifier) reduces the number of rounds the victim is unable to speak by half (round down). Creatures immune to critical hits and creatures without vocal cords cannot be affected.\n* *Expert (Ex):* The monk of the wild\u2019s knowledge of the panther style of fighting lets her disarm opponents with ease. The monk of the wild gains the +4 bonus on her combat maneuvers when attempting to disarm an opponent with an unarmed attack.\n* *Master (Ex):* As a master in the panther martial arts form, the monk of the wild may use an unarmed attack to attempt to daze an opponent. The monk of the wild must declare that she is using this ability before she makes her attack roll (thus, a missed attack roll ruins the attempt). It forces a foe damaged by her unarmed attack to make a Fortitude saving throw (DC 10 + half of the monk\u2019s level + her Wisdom modifier), in addition to dealing damage normally. If the defender fails his saving throw, he is dazed for 1 round. A dazed character can take no actions but can defend against attacks normally. The monk of the wild may attempt a daze attack once per level per day, and no more than once per round. Multiple daze attacks against the same creature do not stack (but the creature can be dazed again once the effect wears off). Creatures immune to critical hits cannot be dazed by the monk of the wild\u2019s panther mastery attack.\n\n*Tiger Martial Arts Style (Ex):* The tiger martial arts style focuses on power and strength, including varying levels of damage depending on the force that is applied to the attacks.\n\n* *Novice (Ex):* As a practitioner of the tiger martial arts style, the monk of the wild learns to put more power into her unarmed strikes to bypass damage reduction. Once per day, the monk of the wild may ignore an opponent\u2019s damage reduction when calculating damage of all her unarmed attacks for 1 round.\n* *Expert (Ex):* The monk of the wild\u2019s knowledge of the tiger fighting style learns to block melee weapons with her bare hands. Once per round, when the monk of the wild has at least one hand free and is fighting unarmed, she can deflect one melee weapon attack that would normally hit her. She expends no action to deflect the attack, but she must be aware of it and not flat-footed. An attack so deflected deals no damage to her.\n* *Master (Ex):* As a master of the tiger martial arts style, the monk of the wild learns to pounce like a fierce tiger, raining down powerful unarmed strikes. The monk of the wild can charge at an opponent and make a full attack.\n\n*Dragon Martial Arts Style (Ex):* The dragon martial arts style\u2019s main focus is the ability to make leaping attacks that causes great harm to the enemy. This style focuses on devastating punches and kicks.\n\n* *Novice (Ex):* As a practitioner of the dragon martial arts style, a monk of the wild is able to make Acrobatics checks for jumping as a swift action. Doing so enables the monk of the wild to move the distance determined by her check result. The monk of the wild provokes attacks of opportunity with this movement, and she must move in a straight line. As with any movement, she can attempt an Acrobatics check to tumble and avoid any attacks she provokes with this sudden leap. The monk of the wild can\u2019t move through enemies, unless she succeeds on the appropriate Acrobatics check. In addition, a monk of the wild gains a competence bonus on Acrobatics checks equal to her monk level for jumping and any jumps she makes are considered running jumps.\n* *Expert (Ex):* A monk of the dragon martial arts style is swift to unleash a flurry of attacks upon an opponent who has taken solid hits from a full-attack action. A monk of the dragon martial arts style is swift to unleash a flurry of attacks upon an opponent who has taken solid hits from a full-attack action. As a swift action, as long as she hits with a single attack in a round, she can make two additional attacks made at her highest attack bonus.\n* *Master (Ex):* As a master of the dragon martial arts style, the monk of the wild can make a leap over an opponent and chop down at him, ruining his defenses and striking with a critical blow. As a full-round action, the monk of the wild attempts an Acrobatics check to leap over her target. The result of this Acrobatics check must be sufficient to allow her to move through an opponent\u2019s space and over him. If she fails the Acrobatics check needed to jump over her foe, she provokes attacks of opportunity for the distance she jumps, if applicable. If her jump was too short to clear her opponent but far enough that she would land in a space he occupies, she lands adjacent to her opponent in the square closest to her starting square. If her check is insufficient to jump over her target, she can also make a single attack against her foe with no special benefits or penalties, as long as her target is within reach. If the check succeeds, the monk of the wild does not provoke attacks of opportunity for leaving threatened squares during her jump. Her foe loses his Dexterity bonus to AC against the monk of the wild\u2019s melee attack. This attack deals an extra 1d6 points of damage + an additional 1d6 per three monk levels after 1st, and the target must succeed on a Fortitude save (DC 10 + half of the monk\u2019s level + her Wisdom modifier) or be stunned for 1 round.\n\nThese abilities replace blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:greater-rage",
+        "name": "Greater Rage",
+        "atLevel": 11,
+        "description": "At 11th level, a monk of the wild\u2019s bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, and Will saves while raging increases to +3. In addition, the amount of temporary hit points gained when entering a rage increases to 3 per monk level.\n\nThis ability replaces a lifefont.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Rage",
+            "locator": "greater-rage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:tireless-rage",
+        "name": "Tireless Rage",
+        "atLevel": 17,
+        "description": "At 17th level and higher, a monk of the wild no longer becomes fatigued at the end of her rage. If she enters a rage again within 1 minute of ending a rage, she doesn\u2019t gain any temporary hit points from her rage.\n\nThis ability replaces fleet footwork.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tireless Rage",
+            "locator": "tireless-rage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:mighty-rage",
+        "name": "Mighty Rage",
+        "atLevel": 20,
+        "description": "At 20th level, a monk of the wild\u2019s bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, and Will saves while raging increases to +4. In addition, the amount of temporary hit points gained when entering a rage increases to 4 per monk level.\n\nThis ability replaces perfect self.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Rage",
+            "locator": "mighty-rage"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:replacement:rage",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick",
+          "ffd20:class:monk:feature:boost"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:feature:rage"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage",
+            "locator": "rage"
+          }
+        ],
+        "description": "flying kick and boost"
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:replacement:rage-powers",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:monk-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:feature:rage-powers"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ],
+        "description": "monk talents"
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:replacement:uncanny-dodge",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:ki-pool"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:feature:uncanny-dodge"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Dodge",
+            "locator": "uncanny-dodge"
+          }
+        ],
+        "description": "ki pool"
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:replacement:martial-arts-style-mastery",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:feature:martial-arts-style-mastery"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ],
+        "description": "blitz techniques"
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:replacement:greater-rage",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:lifefont"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:feature:greater-rage"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Rage",
+            "locator": "greater-rage"
+          }
+        ],
+        "description": "a lifefont"
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:replacement:tireless-rage",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:fleet-footwork"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:feature:tireless-rage"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tireless Rage",
+            "locator": "tireless-rage"
+          }
+        ],
+        "description": "fleet footwork"
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:replacement:mighty-rage",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:perfect-self"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:feature:mighty-rage"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Rage",
+            "locator": "mighty-rage"
+          }
+        ],
+        "description": "perfect self"
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:replacement:base-chakra",
+        "atClassLevel": 2,
+        "operation": "remove",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:chakra"
+        ],
+        "replacementFeatureIds": [],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Dodge",
+            "locator": "uncanny-dodge"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers",
+        "name": "Rage Powers",
+        "options": [
+          {
+            "id": "ffd20:archetype:monk:monk-of-the-wild:option:rage-powers:manual-selection",
+            "name": "Rage Powers (manual selection)",
+            "description": "Choose a legal Rage Powers option from the reference card and record its exact name, prerequisite checks and effects on the existing ability/feat entries.\nAs a monk of the wild gains levels, he learns to use his rage in new ways. Starting at 2nd level, a monk of the wild gains a rage power from the berserker\u2019s [rage power list](https://www.finalfantasyd20.com/classes/base-classes/berserker/rage-powers/). He gains another rage power for every two levels of monk attained after 2nd level. A monk of the wild gains the benefits of rage powers only while raging, and some of these powers require the monk of the wild to take an action first. Unless otherwise noted, a monk of the wild cannot select an individual power more than once. Some of the following rage powers are stances. Activating a stance rage power is a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). A monk of the wild can\u2019t have more than one stance rage power active at a time. If he activates a stance rage power while another one is active, the current stance immediately ends. The stance can be intentionally ended at the beginning of the monk of the wild\u2019s turn as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free); otherwise, it lasts until the rage ends.\n\nThese abilities replace monk talents.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Rage Powers",
+                "locator": "rage-powers"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/monk-of-the-wild/",
+            "manualPrerequisites": true
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:pool:martial-arts-style-mastery",
+        "name": "Martial Arts Style Mastery",
+        "options": [
+          {
+            "id": "ffd20:archetype:monk:monk-of-the-wild:option:martial-arts-style-mastery:manual-selection",
+            "name": "Martial Arts Style Mastery (manual selection)",
+            "description": "Choose a legal Martial Arts Style Mastery option from the reference card and record its exact name, prerequisite checks and effects on the existing ability/feat entries.\nBeginning at 3rd level and every three monk levels thereafter, a monk of the wild begins learning different martial arts styles based on animal fighting forms. The monk of the wild can choose between Ape, Bear, Bull, Panther, or Tiger. Each style has three tiers (Novice, Expert, and Master) and must be taken in order. To be able to take the Dragon martial arts style, the monk of the wild must have a Master in one other martial arts style.\n\n*Ape Martial Arts Style (Ex):* The ape martial arts style\u2019s main focus is the ability to disable an opponent instead of killing him. This style focuses on punches, jabs, and throws.\n\n* *Novice (Ex):* As a practitioner of the ape martial arts style, a monk of the wild is sometimes forced to make that one attack count to end conflict. When you use the attack action, the monk of the wild may make a single unarmed attack against one opponent, adding two times her Strength bonus to damage.\n* *Expert (Ex):* A monk of the ape martial arts style learns that the quickest way to down an opponent is to use her full strength in one blow. As a full-attack action, the monk of the wild can attempt to stun her target with an unarmed strike. If she scores a hit that deals damage and exceeds the target\u2019s AC by 10 or more, the target must succeed at a Fortitude save (DC 10 + half of the monk\u2019s level + her Wisdom modifier) or become stunned for 1d4 rounds.\n* *Master (Ex):* As a master of the ape martial arts style, the monk of the wild can make a killing strike. Once per day, the monk of the wild may attempt to deal a killing blow to an opponent. She declares her intention to deal a killing blow, and then makes a normal unarmed attack roll. If she strikes successfully and the target takes damage from the blow, the target must make a Fortitude saving throw (DC 10 + half of the monk\u2019s level + her Wisdom modifier) or die. Creatures immune to critical hits cannot be affected.\n\n*Bear Martial Arts Style (Ex):* The brutal bear style is full of jabs, chops, kicks, and other quick and dangerous strikes, focusing on deadliness over finesse.\n\n* *Novice (Ex):* As a practitioner of the bear martial arts style, a monk of the wild learns to quickly take advantage of a fallen opponent. When a monk of the wild makes melee attacks against a prone target, she gains a +2 damage bonus (which is not multiplied on a crit) and increases the critical threat range of her attacks by 1 (for example, from 19-20 to 18-20). This bonus is applied after Improved Critical or Keen effects, but otherwise stacks.\n* *Expert (Ex):* As an expert in bear martial arts, the monk of the wild is adept at making her most effective strikes even more potent. Any time the monk of the wild scores a threat on an unarmed attack, she gains a +4 bonus on her attack roll to confirm the critical hit.\n* *Master (Ex):* As a master in the bear martial arts style, the monk of the wild\u2019s knowledge of the bear style allows her to inflict deadly damage to grappled opponents. As a full-round action, the monk of the wild may attempt a single coup de grace attack on a character she has pinned in a grapple as though the target were helpless. She deals her maximum unarmed combat damage when making the coup de grace. If she fails to kill the target, he automatically escapes the grapple.\n\n*Bull Martial Arts Style (Ex):* The bull martial arts style is very physical, often bringing the combatants into close contact. Bull combat utilizes full-body tackles, throws, and full-arm blows, as well as the powerful jabs and snap kicks commonly used in instances where close combat is ineffective.\n\n* *Novice (Ex):* As a practitioner of the bull martial arts style, a monk of the wild is often quick to make a swift jab after making a charge. When executing a charge attack action while unarmed, the monk of the wild gains one additional attack, at a -5 penalty.\n* *Expert (Ex):* Using the bull martial arts style, the monk of the wild can charge an opponent with great force. When the monk of the wild makes a successful unarmed attack against an opponent during a charge attack action, the monk of the wild\u2019s Strength bonus is doubled when calculating damage.\n* *Master (Ex):* As a master of the bull martial arts style, the monk of the wild can deal a devastating blow to an opponent. As a full-round action, instead of making a full attack, the monk of the wild may make a single unarmed attack against an opponent. If the attack is successful, she deals the maximum unarmed damage on the attack. For every 1 point of base attack bonus, she gains an additional +1 bonus on damage. (A 15th level monk of the wild would deal +15 points of damage to her unarmed attack.)\n\n*Panther Martial Arts Style (Ex):* The panther martial arts style is often practiced by monk of the wilds in order to maximize damage to an opponent while minimizing the amount of noise made by the attack. It focuses on short, quick motions and emphasizes on stealth.\n\n* *Novice (Ex):* As a practitioner of the panther martial arts style, a monk of the wild learns to silent her unknowing opponents quietly with an unarmed strike. If the monk of the wild successfully hits a flat-footed opponent with an unarmed attack, the opponent is unable to speak or make any kind of noise with his vocal cords for 2d4 rounds; this includes shouting warnings or raising alarms. A successful Fortitude save (DC 10 + half of the monk\u2019s level + her Wisdom modifier) reduces the number of rounds the victim is unable to speak by half (round down). Creatures immune to critical hits and creatures without vocal cords cannot be affected.\n* *Expert (Ex):* The monk of the wild\u2019s knowledge of the panther style of fighting lets her disarm opponents with ease. The monk of the wild gains the +4 bonus on her combat maneuvers when attempting to disarm an opponent with an unarmed attack.\n* *Master (Ex):* As a master in the panther martial arts form, the monk of the wild may use an unarmed attack to attempt to daze an opponent. The monk of the wild must declare that she is using this ability before she makes her attack roll (thus, a missed attack roll ruins the attempt). It forces a foe damaged by her unarmed attack to make a Fortitude saving throw (DC 10 + half of the monk\u2019s level + her Wisdom modifier), in addition to dealing damage normally. If the defender fails his saving throw, he is dazed for 1 round. A dazed character can take no actions but can defend against attacks normally. The monk of the wild may attempt a daze attack once per level per day, and no more than once per round. Multiple daze attacks against the same creature do not stack (but the creature can be dazed again once the effect wears off). Creatures immune to critical hits cannot be dazed by the monk of the wild\u2019s panther mastery attack.\n\n*Tiger Martial Arts Style (Ex):* The tiger martial arts style focuses on power and strength, including varying levels of damage depending on the force that is applied to the attacks.\n\n* *Novice (Ex):* As a practitioner of the tiger martial arts style, the monk of the wild learns to put more power into her unarmed strikes to bypass damage reduction. Once per day, the monk of the wild may ignore an opponent\u2019s damage reduction when calculating damage of all her unarmed attacks for 1 round.\n* *Expert (Ex):* The monk of the wild\u2019s knowledge of the tiger fighting style learns to block melee weapons with her bare hands. Once per round, when the monk of the wild has at least one hand free and is fighting unarmed, she can deflect one melee weapon attack that would normally hit her. She expends no action to deflect the attack, but she must be aware of it and not flat-footed. An attack so deflected deals no damage to her.\n* *Master (Ex):* As a master of the tiger martial arts style, the monk of the wild learns to pounce like a fierce tiger, raining down powerful unarmed strikes. The monk of the wild can charge at an opponent and make a full attack.\n\n*Dragon Martial Arts Style (Ex):* The dragon martial arts style\u2019s main focus is the ability to make leaping attacks that causes great harm to the enemy. This style focuses on devastating punches and kicks.\n\n* *Novice (Ex):* As a practitioner of the dragon martial arts style, a monk of the wild is able to make Acrobatics checks for jumping as a swift action. Doing so enables the monk of the wild to move the distance determined by her check result. The monk of the wild provokes attacks of opportunity with this movement, and she must move in a straight line. As with any movement, she can attempt an Acrobatics check to tumble and avoid any attacks she provokes with this sudden leap. The monk of the wild can\u2019t move through enemies, unless she succeeds on the appropriate Acrobatics check. In addition, a monk of the wild gains a competence bonus on Acrobatics checks equal to her monk level for jumping and any jumps she makes are considered running jumps.\n* *Expert (Ex):* A monk of the dragon martial arts style is swift to unleash a flurry of attacks upon an opponent who has taken solid hits from a full-attack action. A monk of the dragon martial arts style is swift to unleash a flurry of attacks upon an opponent who has taken solid hits from a full-attack action. As a swift action, as long as she hits with a single attack in a round, she can make two additional attacks made at her highest attack bonus.\n* *Master (Ex):* As a master of the dragon martial arts style, the monk of the wild can make a leap over an opponent and chop down at him, ruining his defenses and striking with a critical blow. As a full-round action, the monk of the wild attempts an Acrobatics check to leap over her target. The result of this Acrobatics check must be sufficient to allow her to move through an opponent\u2019s space and over him. If she fails the Acrobatics check needed to jump over her foe, she provokes attacks of opportunity for the distance she jumps, if applicable. If her jump was too short to clear her opponent but far enough that she would land in a space he occupies, she lands adjacent to her opponent in the square closest to her starting square. If her check is insufficient to jump over her target, she can also make a single attack against her foe with no special benefits or penalties, as long as her target is within reach. If the check succeeds, the monk of the wild does not provoke attacks of opportunity for leaving threatened squares during her jump. Her foe loses his Dexterity bonus to AC against the monk of the wild\u2019s melee attack. This attack deals an extra 1d6 points of damage + an additional 1d6 per three monk levels after 1st, and the target must succeed on a Fortitude save (DC 10 + half of the monk\u2019s level + her Wisdom modifier) or be stunned for 1 round.\n\nThese abilities replace blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Martial Arts Style Mastery",
+                "locator": "martial-arts-style-mastery"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/monk-of-the-wild/",
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:2:0",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:4:1",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:6:2",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:8:3",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:10:4",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:12:5",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:14:6",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:16:7",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:18:8",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:rage-powers:20:9",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:rage-powers"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:martial-arts-style-mastery:3:0",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:martial-arts-style-mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:martial-arts-style-mastery:6:1",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:martial-arts-style-mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:martial-arts-style-mastery:9:2",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:martial-arts-style-mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:martial-arts-style-mastery:12:3",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:martial-arts-style-mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:martial-arts-style-mastery:15:4",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:martial-arts-style-mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:event:martial-arts-style-mastery:18:5",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:monk:monk-of-the-wild:pool:martial-arts-style-mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:rage:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:monk-of-the-wild:feature:rage",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage",
+            "locator": "rage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:rage-powers:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:monk-of-the-wild:feature:rage-powers",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rage Powers",
+            "locator": "rage-powers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:uncanny-dodge:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:monk-of-the-wild:feature:uncanny-dodge",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Dodge",
+            "locator": "uncanny-dodge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:martial-arts-style-mastery:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:monk-of-the-wild:feature:martial-arts-style-mastery",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Martial Arts Style Mastery",
+            "locator": "martial-arts-style-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:greater-rage:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:monk-of-the-wild:feature:greater-rage",
+        "atClassLevel": 11,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Rage",
+            "locator": "greater-rage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:tireless-rage:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:monk-of-the-wild:feature:tireless-rage",
+        "atClassLevel": 17,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tireless Rage",
+            "locator": "tireless-rage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:monk-of-the-wild:feature:mighty-rage:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:monk-of-the-wild:feature:mighty-rage",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Rage",
+            "locator": "mighty-rage"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:monk:monk-of-the-wild:feature:rage",
+        "base": 2,
+        "perLevel": 2,
+        "ability": "con",
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "escape-artist",
+        "intimidate",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "ride",
+        "sense-motive",
+        "stealth",
+        "swim",
+        "knowledge:nature",
+        "survival"
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

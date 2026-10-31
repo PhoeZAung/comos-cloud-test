@@ -1,0 +1,828 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:street-magician",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Street Magician",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/street-magician/",
+      "title": "Street Magician",
+      "archiveSha256": "1042f97921aac924b52a736ac350d0634a652b5b2b1eded8b16a792bff2e0363",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:street-magician:feature:magic-pool",
+        "name": "Magic Pool",
+        "atLevel": 1,
+        "description": "A street magician gains a magic point pool equal to half her thief level plus her Intelligence modifier, which may be spent when using a street magician ability or a street magician-specific thief talent.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magic Pool",
+            "locator": "magic-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:feature:minor-magician",
+        "name": "Minor Magician",
+        "atLevel": 1,
+        "description": "A street magician gains the use of [*read magic*](https://www.finalfantasyd20.com/magic/spells/r/read-magic) as an at-will spell-like ability, using her thief level as her caster level. This ability counts as possessing the minor magic thief talent for purpose of qualifying for other thief talents. The DC is Intelligence-based.\n\nThis ability replaces mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Minor Magician",
+            "locator": "minor-magician"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:feature:thief-magic",
+        "name": "Thief Magic",
+        "atLevel": 1,
+        "description": "As a street magician levels, she gains spell-like abilities chosen from the [black mage spell list](https://www.finalfantasyd20.com/magic/spells-by-class/black-mage/). She gains the use of one spell at 1st level, plus another at 2nd, 4th, and every 2 levels thereafter. Each of these spell- like abilities is usable twice per day, and is Intelligence- based. The street magician must possess an Intelligence score of 10 + the spell\u2019s spell level to select it as a spell-like ability. In all cases, the street magician\u2019s caster level is equal to her thief level.\n\nAt 1st level, the street magician may choose her spell-like abilities from the 0-level spell list. She may choose spells of 1st level or below at 4th level, spells of 2nd level or below at 8th level, spells of 3rd level or below at 12th level, spells of 4th level or below at 16th level, and spells of 5th level or below at 20th level.\n\nStarting at 4th level, she counts as having the major magic thief talent for the purpose of qualifying for other thief talents.\n\nThis ability replaces measure the mark, improved theft, and mug.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thief Magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:feature:thief-talents",
+        "name": "Thief Talents",
+        "atLevel": 2,
+        "description": "A street magician may gain the following thief talents. She may not select any thief talent more than once unless otherwise specified.\n\n*Additional Magic:*\u00a0The street magician selects a spell from the [black mage spell list](https://www.finalfantasyd20.com/magic/spells-by-class/black-mage/) that is of a spell level equal to or lower than the highest spell-like ability she possesses through her thief magic class feature. She may use this spell twice per day as a spell-like ability, in all ways similar to the other spell-like abilities gained through her thief magic class feature. This talent may be selected multiple times. The effects do not stack. Each time this talent is selected, the street magician chooses another spell.\n\n*Extra Magic:*\u00a0The street magician chooses one spell-like ability gained through thief talents or her thief magic class feature. She may use this ability an additional 2 times per day. This talent may be selected multiple times. Whenever the street magician gains this thief talent, she may select the same or a different spell-like ability.\n\n*Familiar ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):*\u00a0The street magician forms a powerful bond with a familiar. A familiar is a magical pet that enhances the street magician\u2019s skills and senses and can aid her in magic. See this link for more information on familiars: <http://www.d20pfsrd.com/classes/core-classes/wizard/familiar>\n\n*Improved Magic:*\u00a0The street magician chooses a metamagic feat when she selects this talent. She may alter a spell-like ability she possesses with the effects of that feat by spending a number of MP equal to the level increase of that feat. She may alter a spell-like ability with the effects of multiple metamagic feats by spending MP for each metamagic feat applied. Altering a metamagic feat in this way increases the casting time to a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), with the exception of Quicken Spell. This talent may be selected multiple times. Its effects do not stack. Each time it is selected, the street magician chooses another metamagic feat.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thief Talents",
+            "locator": "thief-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:feature:impromptu-sneak-attack",
+        "name": "Impromptu Sneak Attack",
+        "atLevel": 9,
+        "description": "Beginning at 9th level, once per day, a street magician can declare any melee or ranged attack she makes against a target within 30 feet to ignore their Dexterity bonus to AC. Every three levels after 9th level, the street magician can use this ability an additional time per day.\n\nThis ability replaces distraction.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Impromptu Sneak Attack",
+            "locator": "impromptu-sneak-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:feature:advanced-thief-talents",
+        "name": "Advanced Thief Talents",
+        "atLevel": 12,
+        "description": "Starting at 12th level, a street magician may select this advanced thief talent.\n\n*Ambush Spell:* You may add your sneak attack damage to any one flat-footed target when using a spell-like ability that deals damage. If the spell-like ability deals damage to multiple flat-footed targets, only one is dealt this sneak attack damage. The additional damage is of the same type as the spell. If the spell allows a saving throw to negate or halve the damage, it also negates or halves the sneak attack damage.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Thief Talents",
+            "locator": "advanced-thief-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:feature:invisible-thief",
+        "name": "Invisible Thief",
+        "atLevel": 15,
+        "description": "At 15th level, a street magician can become invisible, as if under the effects of [*greater vanish*](https://www.finalfantasyd20.com/magic/spells/v/vanish-greater), as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). She can remain invisible for a number of rounds per day equal to her street magician level. Her caster level for this effect is equal to her caster level. These rounds need not be consecutive.\n\nThis ability replaces theft mastery.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Invisible Thief",
+            "locator": "invisible-thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:feature:surprise-spells",
+        "name": "Surprise Spells",
+        "atLevel": 17,
+        "description": "At 17th level, a street magician can add her sneak attack damage to any spell-like ability that deals damage, even if it doesn\u2019t have an attack roll. This only applies against targets that are denied their Dexterity bonus to AC. This additional damage only applies to spells that deal hit-point damage. If the spell allows a saving throw to negate or halve the damage, it also negates or halves the sneak attack damage. If the spell has multiple missiles (such as the *ruin* spell), the sneak attack only applies to the first missile.\n\nThis ability replaces hide in plain sight.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Surprise Spells",
+            "locator": "surprise-spells"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:street-magician:replacement:minor-magician:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:street-magician:feature:minor-magician"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Minor Magician",
+            "locator": "minor-magician"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:replacement:thief-magic:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:measure-the-mark",
+          "ffd20:class:thief:feature:improved-theft",
+          "ffd20:class:thief:feature:mug"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:street-magician:feature:thief-magic"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "measure the mark, improved theft, and mug",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thief Magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:replacement:impromptu-sneak-attack:1",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:distraction"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:street-magician:feature:impromptu-sneak-attack"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "distraction",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Impromptu Sneak Attack",
+            "locator": "impromptu-sneak-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:replacement:invisible-thief:1",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:theft-mastery"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:street-magician:feature:invisible-thief"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "theft mastery",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Invisible Thief",
+            "locator": "invisible-thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:replacement:surprise-spells:1",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:hide-in-plain-sight"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:street-magician:feature:surprise-spells"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "hide in plain sight",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Surprise Spells",
+            "locator": "surprise-spells"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:thief-magic:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:archetype:thief:street-magician:pool:thief-magic"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "thief-magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:grant:magic-pool",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:street-magician:feature:magic-pool",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magic Pool",
+            "locator": "magic-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:grant:minor-magician",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:street-magician:feature:minor-magician",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Minor Magician",
+            "locator": "minor-magician"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:grant:thief-magic",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:street-magician:feature:thief-magic",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thief Magic",
+            "locator": "thief-magic"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:grant:thief-talents",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:street-magician:feature:thief-talents",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thief Talents",
+            "locator": "thief-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:grant:impromptu-sneak-attack",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:street-magician:feature:impromptu-sneak-attack",
+        "atClassLevel": 9,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Impromptu Sneak Attack",
+            "locator": "impromptu-sneak-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:grant:advanced-thief-talents",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:street-magician:feature:advanced-thief-talents",
+        "atClassLevel": 12,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Thief Talents",
+            "locator": "advanced-thief-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:grant:invisible-thief",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:street-magician:feature:invisible-thief",
+        "atClassLevel": 15,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Invisible Thief",
+            "locator": "invisible-thief"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:street-magician:event:grant:surprise-spells",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:street-magician:feature:surprise-spells",
+        "atClassLevel": 17,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Surprise Spells",
+            "locator": "surprise-spells"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:thief:street-magician:pool:thief-magic",
+        "name": "Thief Magic",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-magic:manual-selection",
+            "name": "Thief Magic (record selection on sheet)",
+            "description": "Make the stated legal Thief Magic choice from its source card and record the exact choice on existing sheet rows. As a street magician levels, she gains spell-like abilities chosen from the [black mage spell list](https://www.finalfantasyd20.com/magic/spells-by-class/black-mage/). She gains the use of one spell at 1st level, plus another at 2nd, 4th, and every 2 levels thereafter. Each of these spell- like abilities is usable twice per day, and is Intelligence- based. The street magician must possess an Intelligence score of 10 + the spell\u2019s spell level to select it as a spell-like ability. In all cases, the street magician\u2019s caster level is equal to her thief level.\n\nAt 1st level, the street magician may choose her spell-like abilities from the 0-level spell list. She may choose spells of 1st level or below at 4th level, spells of 2nd level or below at 8th level, spells of 3rd level or below at 12th level, spells of 4th level or below at 16th level, and spells of 5th level or below at 20th level.\n\nStarting at 4th level, she counts as having the major magic thief talent for the purpose of qualifying for other thief talents.\n\nThis ability replaces measure the mark, improved theft, and mug.",
+            "minimumLevel": 1,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Magic",
+                "locator": "thief-magic"
+              }
+            ],
+            "manualPrerequisites": true,
+            "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/street-magician/"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:thief:street-magician:feature:magic-pool",
+        "base": 0,
+        "perLevel": 0.5,
+        "ability": "int",
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "skillRanksPerLevel": 6,
+      "classSkills": [
+        "acrobatics",
+        "appraise",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "disable-device",
+        "disguise",
+        "intimidate",
+        "knowledge:local",
+        "linguistics",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "sense-motive",
+        "sleight-of-hand",
+        "stealth",
+        "swim",
+        "use-magic-device",
+        "knowledge:arcana",
+        "spellcraft"
+      ],
+      "classSkillSourceText": "A street magician adds Spellcraft and Knowledge (arcana) to her list of class skills. This replaces Escape Artist and Knowledge (dungeoneering) as class skills."
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:thief:pool:thief-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-talents:additional-magic",
+            "name": "Additional Magic",
+            "description": "The street magician selects a spell from the black mage spell list that is of a spell level equal to or lower than the highest spell-like ability she possesses through her thief magic class feature. She may use this spell twice per day as a spell-like ability, in all ways similar to the other spell-like abilities gained through her thief magic class feature. This talent may be selected multiple times. The effects do not stack. Each time this talent is selected, the street magician chooses another spell.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Talents",
+                "locator": "thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-talents:extra-magic",
+            "name": "Extra Magic",
+            "description": "The street magician chooses one spell-like ability gained through thief talents or her thief magic class feature. She may use this ability an additional 2 times per day. This talent may be selected multiple times. Whenever the street magician gains this thief talent, she may select the same or a different spell-like ability.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Talents",
+                "locator": "thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-talents:familiar",
+            "name": "Familiar",
+            "description": "The street magician forms a powerful bond with a familiar. A familiar is a magical pet that enhances the street magician\u2019s skills and senses and can aid her in magic. See this link for more information on familiars: <http://www.d20pfsrd.com/classes/core-classes/wizard/familiar>\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Talents",
+                "locator": "thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-talents:improved-magic",
+            "name": "Improved Magic",
+            "description": "The street magician chooses a metamagic feat when she selects this talent. She may alter a spell-like ability she possesses with the effects of that feat by spending a number of MP equal to the level increase of that feat. She may alter a spell-like ability with the effects of multiple metamagic feats by spending MP for each metamagic feat applied. Altering a metamagic feat in this way increases the casting time to a full-round action, with the exception of Quicken Spell. This talent may be selected multiple times. Its effects do not stack. Each time it is selected, the street magician chooses another metamagic feat.\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Talents",
+                "locator": "thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          }
+        ]
+      },
+      {
+        "poolId": "ffd20:class:thief:pool:thief-advanced-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-talents:additional-magic",
+            "name": "Additional Magic",
+            "description": "The street magician selects a spell from the black mage spell list that is of a spell level equal to or lower than the highest spell-like ability she possesses through her thief magic class feature. She may use this spell twice per day as a spell-like ability, in all ways similar to the other spell-like abilities gained through her thief magic class feature. This talent may be selected multiple times. The effects do not stack. Each time this talent is selected, the street magician chooses another spell.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Talents",
+                "locator": "thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-talents:extra-magic",
+            "name": "Extra Magic",
+            "description": "The street magician chooses one spell-like ability gained through thief talents or her thief magic class feature. She may use this ability an additional 2 times per day. This talent may be selected multiple times. Whenever the street magician gains this thief talent, she may select the same or a different spell-like ability.\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Talents",
+                "locator": "thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-talents:familiar",
+            "name": "Familiar",
+            "description": "The street magician forms a powerful bond with a familiar. A familiar is a magical pet that enhances the street magician\u2019s skills and senses and can aid her in magic. See this link for more information on familiars: <http://www.d20pfsrd.com/classes/core-classes/wizard/familiar>\n\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Talents",
+                "locator": "thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:thief-talents:improved-magic",
+            "name": "Improved Magic",
+            "description": "The street magician chooses a metamagic feat when she selects this talent. She may alter a spell-like ability she possesses with the effects of that feat by spending a number of MP equal to the level increase of that feat. She may alter a spell-like ability with the effects of multiple metamagic feats by spending MP for each metamagic feat applied. Altering a metamagic feat in this way increases the casting time to a full-round action, with the exception of Quicken Spell. This talent may be selected multiple times. Its effects do not stack. Each time it is selected, the street magician chooses another metamagic feat.\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Thief Talents",
+                "locator": "thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:thief:street-magician:option:advanced-thief-talents:ambush-spell",
+            "name": "Ambush Spell",
+            "description": "You may add your sneak attack damage to any one flat-footed target when using a spell-like ability that deals damage. If the spell-like ability deals damage to multiple flat-footed targets, only one is dealt this sneak attack damage. The additional damage is of the same type as the spell. If the spell allows a saving throw to negate or halve the damage, it also negates or halves the sneak attack damage.\nCheck stated prerequisites manually; record any extra choices on the existing sheet.",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Advanced Thief Talents",
+                "locator": "advanced-thief-talents"
+              }
+            ],
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ]
+  }
+}

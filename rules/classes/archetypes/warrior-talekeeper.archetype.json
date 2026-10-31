@@ -1,0 +1,290 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:talekeeper",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Talekeeper",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/talekeeper/",
+      "title": "Talekeeper",
+      "archiveSha256": "e8342f4fd629aa984b0ff86a251874631e7de034e32e67559137f3afd7cd3db4",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:feature:class-skills",
+        "name": "Class Skills",
+        "atLevel": 1,
+        "description": "A talekeeper adds Knowledge (History) and Perform to his list of class skills, but loses Knowledge (Dungeoneering) and Handle Animal.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Skills",
+            "locator": "class-skills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:feature:galkan-tales",
+        "name": "Galkan Tales",
+        "atLevel": 1,
+        "description": "At 1st level, a talekeeper is trained to use the Perform skill to create magical effects on those around him, including himself if desired. He can use this ability for a number of rounds per day equal to 4 + his Wisdom modifier. At each level after 1st, a talekeeper can use galkan tales for 2 additional rounds per day. Each round, the talekeeper can produce any one of the types of galkan tales that he has mastered, as indicated by his level.\n\nStarting a galkan tale is a standard action, but it can be maintained each round as a free action. Changing a galkan tale from one effect to another requires the talekeeper to stop the previous performance and start a new one as a standard action. A galkan tale cannot be disrupted, but it ends immediately if the talekeeper is killed, paralyzed, stunned, knocked unconscious, or otherwise prevented from taking a free action to maintain it each round. A talekeeper cannot have more than one galkan tale in effect at one time.\n\nAt 7th level, a talekeeper can start a galkan tale as a move action instead of a standard action. At 13th level, a talekeeper can start a galkan tale as a swift action.\n\nEach galkan tale has audible components, visual components, or both.\n\nIf a galkan tale has audible components, the targets must be able to hear the talekeeper for the performance to have any effect, and such performances are language dependent. A deaf talekeeper has a 20% chance to fail when attempting to use a galkan tale with an audible component. If he fails this check, the attempt still counts against his daily limit. Deaf creatures are immune to galkan tales with audible components.\n\nIf a galkan tale has a visual component, the targets must have line of sight to the talekeeper for the performance to have any effect. A blind talekeeper has a 50% chance to fail when attempting to use a galkan tale with a visual component. If he fails this check, the attempt still counts against his daily limit. Blind creatures are immune to galkan tales with visual components.\n\nThis ability counts as bardic performance for all purposes, but can only be used with Perform (Oratory).\n\n**List of Galkan Tales**:\n\n*Pagdako\u2019s Mastery (Su)*: At 1st level, a talekeeper recites Pagdako\u2019s \u2013 or Iron Eater as non-Galka know him \u2013 mastery with the blade. The talekeeper selects a single weapon in his chosen weapon group. A creature of his choice wielding the selected weapon may use the talekeeper\u2019s ranks in Perform (Oratory) instead of their Base Attack Bonus for any attacks they make with it. If the talekeeper uses this tale on himself, he instead gains a competence bonus equal to his Wisdom modifier to all attack rolls made with that weapon. This tale has auditory components\n\n*Hemborok\u2019s Elemental Ward (Su)*: At 6th level, a talekeeper can channel the elements through his weapon by tapping into the memories of the renowned geomancer, Hemborok, in order to shield him and his allies. Choose an element. All affected allies within 30 feet gain resistance to that element equal to his Wisdom modifier. This is multiplied by his chosen weapon bonus if he is currently holding a weapon in his chosen weapon group. A creature must start its turn in range of this ability in order to continue to benefit from it. This tale has visual components.\n\n*Zeid\u2019s Vengeance (Su)*: At 10th level, a talekeeper can invoke the story of Zeid\u2019s search for revenge and the dark powers he gained in order to enfold his weapon and those of his allies in shadow. Any weapon he and his allies wield become magical if they aren\u2019t already and gain the Abyssal ability. This tale has auditory and visual components.\n\n*The Thousand Steps of Olgald (Su)*: At 12th level, a talekeeper regales the story of the renowned dancer, Olgald, inspiring his allies to be light on their feet. The talekeeper and his allies that start their turn within 30 feet of him gain an enhancement bonus to their movement speed of 5 feet. This is multiplied by the talekeeper\u2019s chosen weapon bonus if he is currently wielding a weapon in his chosen weapon group. This tale has auditory and visual components.\n\n*Raogrimm\u2019s Eternal Vigil (Su)*: At 20th level, a talekeeper retells the legendary fall and redemption of the greatest talekeeper, and how he and his allies stood tall against the demons who would unmake creation even to this day. The talekeeper and his allies cannot be bought below 1 hit points, however, every time any of the affected creatures takes damage the talekeeper must make a Perform (Oratory) check to maintain the tale (no action required). The DC for this check is equal to the damage before all forms of mitigation or 30, whichever is higher. This tale has auditory components\n\nThis ability replaces martial flexibility.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Galkan Tales",
+            "locator": "galkan-tales"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:feature:story-song-and-sword",
+        "name": "Story, Song, and Sword",
+        "atLevel": 2,
+        "description": "At 2nd level and every two warrior levels thereafter, a talekeeper\u2019s ability to inspire by word and deed grows. He gains either a warrior talent or song talent. Talents that affect or require bardic performance apply to galkan tales instead. A talekeeper treats his warrior level as his bard level and gains access to advanced talents at the appropriate level. Any talents that make use of his Charisma modifier instead use his Wisdom modifier.\n\nAlternatively, a talekeeper may instead choose to expand his repertoire of tales. Instead of taking a talent he can instead learn a bardic performance as a bard equal to his warrior level -4 (minimum of 1). These bardic performances are added to his galkan tales and so can only be used with Perform (Oratory).\n\nThis ability may replace warrior talents.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Story, Song, and Sword",
+            "locator": "story-song-and-sword"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:feature:galkan-historian",
+        "name": "Galkan Historian",
+        "atLevel": 3,
+        "description": "At 3rd level, a talekeeper is an expert historian, especially when it comes to galkan history. He adds his level as a bonus to Knowledge (History) which is doubled if the check involves Galka. Additionally, when recalling information about enemies who are Galka, he uses Knowledge (History) instead of Knowledge (Local).\n\nThis ability replaces chosen knowledge.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Galkan Historian",
+            "locator": "galkan-historian"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:feature:galkan-reincarnation",
+        "name": "Galkan Reincarnation",
+        "atLevel": 13,
+        "description": "When a talekeeper reaches 13th level, he is able to invoke galkan reincarnation, even in non-galkans. Once per day, the talekeeper is able to touch a dead creature and bring them to life with a new body as the [*reincarnate*](https://www.finalfantasyd20.com/magic/spells/r/reincarnate/) spell with the following differences: firstly, the subject\u2019s new body is always that of a galka. Secondly, the talekeeper and the subject each receive one permanent negative level instead of the subject receiving two. If the subject was already a galka before this ability was used, the talekeeper does not take this penalty (but the subject still only receives one negative level)\n\nThis ability replaces improved rush and weapon unity.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Galkan Reincarnation",
+            "locator": "galkan-reincarnation"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:replacement:galkan-tales:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:martial-flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:talekeeper:feature:galkan-tales"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Galkan Tales",
+            "locator": "galkan-tales"
+          }
+        ],
+        "description": "This ability replaces martial flexibility."
+      },
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:replacement:story-song-and-sword:0",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2",
+          "ffd20:class:warrior:event:warrior-talents:4",
+          "ffd20:class:warrior:event:warrior-talents:6",
+          "ffd20:class:warrior:event:warrior-talents:8",
+          "ffd20:class:warrior:event:warrior-talents:10",
+          "ffd20:class:warrior:event:warrior-talents:12",
+          "ffd20:class:warrior:event:warrior-talents:14",
+          "ffd20:class:warrior:event:warrior-talents:16",
+          "ffd20:class:warrior:event:warrior-talents:18",
+          "ffd20:class:warrior:event:warrior-talents:20"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:talekeeper:feature:story-song-and-sword"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Story, Song, and Sword",
+            "locator": "story-song-and-sword"
+          }
+        ],
+        "description": "This ability may replace warrior talents."
+      },
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:replacement:galkan-historian:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-knowledge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:talekeeper:feature:galkan-historian"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Galkan Historian",
+            "locator": "galkan-historian"
+          }
+        ],
+        "description": "This ability replaces chosen knowledge."
+      },
+      {
+        "id": "ffd20:archetype:warrior:talekeeper:replacement:galkan-reincarnation:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush",
+          "ffd20:class:warrior:feature:weapon-unity"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:talekeeper:feature:galkan-reincarnation"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Galkan Reincarnation",
+            "locator": "galkan-reincarnation"
+          }
+        ],
+        "description": "This ability replaces improved rush and weapon unity."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "intimidate",
+        "profession:*",
+        "ride",
+        "survival",
+        "swim",
+        "knowledge:history",
+        "perform:*"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:warrior:talekeeper:feature:galkan-tales",
+        "base": 2,
+        "perLevel": 2,
+        "ability": "wis",
+        "minimum": 0
+      },
+      {
+        "featureId": "ffd20:archetype:warrior:talekeeper:feature:galkan-reincarnation",
+        "base": 1,
+        "perLevel": 0,
+        "minimum": 1
+      }
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:warrior:pool:warrior-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:talekeeper:option:song-talent-or-bardic-performance-manual-choice",
+            "name": "Song talent or bardic performance (manual choice)",
+            "description": "At 2nd level and every two warrior levels thereafter, a talekeeper\u2019s ability to inspire by word and deed grows. He gains either a warrior talent or song talent. Talents that affect or require bardic performance apply to galkan tales instead. A talekeeper treats his warrior level as his bard level and gains access to advanced talents at the appropriate level. Any talents that make use of his Charisma modifier instead use his Wisdom modifier.\n\nAlternatively, a talekeeper may instead choose to expand his repertoire of tales. Instead of taking a talent he can instead learn a bardic performance as a bard equal to his warrior level -4 (minimum of 1). These bardic performances are added to his galkan tales and so can only be used with Perform (Oratory).\n\nThis ability may replace warrior talents.\nManual selection: write the exact selected option/feat and verify its prerequisites on existing sheet entries.",
+            "minimumLevel": 2,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Song talent or bardic performance (manual choice)",
+                "locator": "song-talent-or-bardic-performance-manual-choice"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/talekeeper/",
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ]
+  }
+}

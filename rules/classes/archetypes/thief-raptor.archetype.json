@@ -1,0 +1,445 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:raptor",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Raptor",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/raptor/",
+      "title": "Raptor",
+      "archiveSha256": "e260e4bbd96a6019ca7bf5010b36005d1c45c577babfcdab226acaf44fc6a886",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:raptor:feature:track",
+        "name": "Track",
+        "atLevel": 1,
+        "description": "A raptor adds half of his thief level (minimum 1) to Survival skill checks made to follow tracks.\n\nThis ability replaces trapfinding.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Track",
+            "locator": "track"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:feature:stalker",
+        "name": "Stalker",
+        "atLevel": 7,
+        "description": "At 7th level, a raptor gains his marked bonus on Disguise, Intimidate, and Stealth checks against his marked opponent.\n\nThis ability replaces skilled liar.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stalker",
+            "locator": "stalker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:feature:swift-tracker",
+        "name": "Swift Tracker",
+        "atLevel": 10,
+        "description": "At 10th level, a raptor can move at his normal speed while using Survival to follow tracks without taking the normal \u20135 penalty. When moving at up to twice his normal speed while tracking, he takes only a \u201310 penalty instead of the normal \u201320.\n\nThis ability replaces mug.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Tracker",
+            "locator": "swift-tracker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:feature:quarry",
+        "name": "Quarry",
+        "atLevel": 15,
+        "description": "At 15th level, a raptor can as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) denote one target within his line of sight as his quarry. Whenever he is following the tracks of his quarry, a raptor can take 10 on his Survival skill checks while moving at normal speed, without penalty. In addition, he gains a +2 insight bonus on attack rolls made against his quarry, and all critical threats against his quarry are automatically confirmed. A raptor can have no more than one quarry at a time, and the target must be selected as a marked target. He can dismiss this effect at any time as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), but he cannot select a new quarry target for 24 hours. If the raptor sees proof that his quarry is dead, he can select a new quarry target after 1 hour.\n\nThis ability replaces theft mastery.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quarry",
+            "locator": "quarry"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:feature:raptors-advance",
+        "name": "Raptor\u2019s Advance",
+        "atLevel": 17,
+        "description": "At 17th level, a raptor can, once per day, move up to twice his base speed as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move). He may use Stealth as part of this movement, but takes a \u201310 penalty to his check for doing so. At 20th level, he can do this twice per day.\n\nThis ability replaces hide in plain sight.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Raptor\u2019s Advance",
+            "locator": "raptors-advance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:feature:improved-quarry",
+        "name": "Improved Quarry",
+        "atLevel": 19,
+        "description": "At 19th level, the raptor\u2019s ability to hunt his quarry improves. He can now select a quarry as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), and can now take 20 while using Survival to track his quarry, while moving at normal speed without penalty. His insight bonus to attack his quarry increases to +4. If his quarry is killed or dismissed, he can select a new one after 10 minutes have passed.\n\nThis ability replaces shadow step.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Quarry",
+            "locator": "improved-quarry"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:feature:master-raptor",
+        "name": "Master Raptor",
+        "atLevel": 20,
+        "description": "At 20th level, the raptor becomes a master at capturing or killing his marked targets. As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), he can make a single attack against a marked target at his full attack bonus, choosing one of the following effects: kill, knock unconscious for 1d4 hours, or paralyze for 2d6 rounds. If the attack succeeds, the target takes damage normally and must succeed at a Fortitude saving throw or suffer the additional effect. The DC for this save is 20 + his Intelligence modifier. Whether or not the target succeeds, it cannot be targeted by this ability again (by any raptor) for 24 hours.\n\nThis ability replaces master strike.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Raptor",
+            "locator": "master-raptor"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:raptor:replacement:track:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:trapfinding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:raptor:feature:track"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "trapfinding",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Track",
+            "locator": "track"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:replacement:stalker:1",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:skilled-liar"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:raptor:feature:stalker"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "skilled liar",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stalker",
+            "locator": "stalker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:replacement:swift-tracker:1",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mug"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:raptor:feature:swift-tracker"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mug",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Tracker",
+            "locator": "swift-tracker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:replacement:quarry:1",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:theft-mastery"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:raptor:feature:quarry"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "theft mastery",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quarry",
+            "locator": "quarry"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:replacement:raptors-advance:1",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:hide-in-plain-sight"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:raptor:feature:raptors-advance"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "hide in plain sight",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Raptor\u2019s Advance",
+            "locator": "raptors-advance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:replacement:improved-quarry:1",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:shadow-step"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:raptor:feature:improved-quarry"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "shadow step",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Quarry",
+            "locator": "improved-quarry"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:replacement:master-raptor:1",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:master-strike"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:raptor:feature:master-raptor"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "master strike",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Raptor",
+            "locator": "master-raptor"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:raptor:event:grant:track",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:raptor:feature:track",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Track",
+            "locator": "track"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:event:grant:stalker",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:raptor:feature:stalker",
+        "atClassLevel": 7,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stalker",
+            "locator": "stalker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:event:grant:swift-tracker",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:raptor:feature:swift-tracker",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Tracker",
+            "locator": "swift-tracker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:event:grant:quarry",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:raptor:feature:quarry",
+        "atClassLevel": 15,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quarry",
+            "locator": "quarry"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:event:grant:raptors-advance",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:raptor:feature:raptors-advance",
+        "atClassLevel": 17,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Raptor\u2019s Advance",
+            "locator": "raptors-advance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:event:grant:improved-quarry",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:raptor:feature:improved-quarry",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Quarry",
+            "locator": "improved-quarry"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:raptor:event:grant:master-raptor",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:raptor:feature:master-raptor",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Raptor",
+            "locator": "master-raptor"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "appraise",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "disable-device",
+        "disguise",
+        "escape-artist",
+        "intimidate",
+        "knowledge:local",
+        "linguistics",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "sense-motive",
+        "sleight-of-hand",
+        "stealth",
+        "swim",
+        "use-magic-device",
+        "survival"
+      ],
+      "classSkillSourceText": "A raptor adds Survival to his list of class skills and removes Knowledge (dungeoneering) from his list of class skills."
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

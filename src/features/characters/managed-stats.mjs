@@ -1,3 +1,4 @@
+import {isSheetFamily,sheetFamilySummary} from './rules/sheet-family-progression.mjs';
 import {levelOneExtraHp,levelOneCounter} from './rules/level-one-classes.mjs';
 import {carriedLevels} from './rules/multiclass.mjs';
 import {blackMageSummary} from './rules-summary.mjs';
@@ -8,7 +9,7 @@ const abilities=['str','dex','con','int','wis','cha'];
 export function updateManagedStats(data,previous){
  const managed=data.rulesBuild;if(!managed||!abilities.some(k=>Number(data[k])!==Number(previous[k])))return;
  if((isBard(managed.input)||isRedMage(managed.input))&&Number(data.cha)>45)throw Error('Bonus MP above Charisma 45 needs a verified table extension.');
- const level=managed.input.level,mpSummary=values=>isRedMage(managed.input)?redMageSummary({cha:Number(values.cha),int:Number(values.int)},level,managed.input):isBard(managed.input)?bardSummary({cha:Number(values.cha),int:Number(values.int)}):classHasSpells(managed.input)?blackMageSummary(level,Number(values.int)):{bonusMp:0},summary=mpSummary(data),old=mpSummary(previous);
+ const level=managed.input.level,mpSummary=values=>isSheetFamily(managed.input)?sheetFamilySummary(managed.input,values):isRedMage(managed.input)?redMageSummary({cha:Number(values.cha),int:Number(values.int)},level,managed.input):isBard(managed.input)?bardSummary({cha:Number(values.cha),int:Number(values.int)}):classHasSpells(managed.input)?blackMageSummary(level,Number(values.int)):{bonusMp:0},summary=mpSummary(data),old=mpSummary(previous);
  data.mp_bonus=Number(data.mp_bonus||0)+summary.bonusMp-old.bonusMp;
  const mod=n=>Math.floor((Number(n)-10)/2),rolls=managed.input.hpRolls.slice(0,level);
  const hp=con=>rolls.reduce((n,r)=>n+Math.max(1,r+mod(con)),0)+levelOneExtraHp(managed.input,{con});

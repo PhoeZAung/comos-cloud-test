@@ -1,0 +1,424 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:thug",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Thug",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/thug/",
+      "title": "Thug",
+      "archiveSha256": "c6d5d08d57b2cf65ef1f29ac335afc47bbfe3179a0a857554cbdfbe147302c9a",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:thug:feature:frightening",
+        "name": "Frightening",
+        "atLevel": 1,
+        "description": "At 1st level, whenever a thug successfully uses Intimidate to demoralize a creature, the duration of the shaken condition is increased by 1 round. In addition, if the target is shaken for 4 or more rounds, the thug can instead decide to make the target frightened for 1 round.\n\nThis ability replaces trapfinding.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Frightening",
+            "locator": "frightening"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:feature:improved-dirty-trick",
+        "name": "Improved Dirty Trick",
+        "atLevel": 2,
+        "description": "At 2nd level, a thug gains [Improved Dirty Trick](https://www.d20pfsrd.com/feats/combat-feats/improved-dirty-trick-combat) as a bonus feat, even if he doesn\u2019t meet the prerequisites. Once per round, when the thug performs a dirty trick maneuver against an enemy, he may deal damage to the enemy as if he had struck it with his normal melee attack. The thug must be wielding a weapon and have at least one hand free to use this ability.\n\nThis ability replaces a thief talent gained at 2nd level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Dirty Trick",
+            "locator": "improved-dirty-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:feature:sneaky-trick",
+        "name": "Sneaky Trick",
+        "atLevel": 3,
+        "description": "At 3rd level, anytime a thug is able to deal sneak attack damage to a target, he can instead attempt to hamper the target. The thug must declare that he\u2019s using this ability before the attack roll is made. If the attack hits, it deals damage normally, but instead of rolling sneak attack damage, the thug can attempt a dirty trick combat maneuver against the target as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), adding 1 to the combat maneuver check for each die of the thug\u2019s sneak attack damage.\n\nThis ability replaces measure the mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sneaky Trick",
+            "locator": "sneaky-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:feature:dirty-maneuvers",
+        "name": "Dirty Maneuvers",
+        "atLevel": 3,
+        "description": "At 3rd level, a thug becomes skilled at deceiving and discomfiting his opponents. The thug gains a +1 bonus on disarm, dirty trick, and steal combat maneuver checks. The thug also gains a +1 bonus to CMD when attacked with the disarm, dirty trick, and steal combat maneuvers. These bonuses increase by 1 for every four thief levels after 3rd (to a maximum of +5 at 19th level).\n\nThis ability replaces danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Maneuvers",
+            "locator": "dirty-maneuvers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:feature:brutal-beating",
+        "name": "Brutal Beating",
+        "atLevel": 4,
+        "description": "At 4th level, whenever a thug deals sneak attack damage, he can choose to forgo 1d6 points of sneak attack damage to make the target sickened for a number of rounds equal to half his thief level. This ability does not stack with itself\u2014only the most recent duration applies.\n\nThis ability replaces uncanny dodge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brutal Beating",
+            "locator": "brutal-beating"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:feature:brutal-trick",
+        "name": "Brutal Trick",
+        "atLevel": 6,
+        "description": "At 6th level, a thug gains [Greater Dirty Trick](https://www.d20pfsrd.com/feats/combat-feats/greater-dirty-trick-combat/) as a bonus feat. In addition, a creature that spends a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) to remove a condition applied by the thug\u2019s dirty trick combat maneuver provokes an attack of opportunity from the thug, provided he\u2019s within melee range.\n\nThis ability replaces a thief talent gained at 6th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brutal Trick",
+            "locator": "brutal-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:feature:deadly-surprise",
+        "name": "Deadly Surprise",
+        "atLevel": 8,
+        "description": "At 8th level, when a thug hits an opponent that is denied its Dexterity bonus to AC against him with a weapon or unarmed attack, he may attempt a dirty trick combat maneuver as an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) as part of the attack.\n\nThis ability replaces improved uncanny dodge.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deadly Surprise",
+            "locator": "deadly-surprise"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:thug:replacement:frightening:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:trapfinding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:thug:feature:frightening"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "trapfinding",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Frightening",
+            "locator": "frightening"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:replacement:improved-dirty-trick:1",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:thug:feature:improved-dirty-trick"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:2"
+        ],
+        "eventOnly": true,
+        "description": "a thief talent gained at 2nd level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Dirty Trick",
+            "locator": "improved-dirty-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:replacement:sneaky-trick:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:measure-the-mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:thug:feature:sneaky-trick"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "measure the mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sneaky Trick",
+            "locator": "sneaky-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:replacement:dirty-maneuvers:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:thug:feature:dirty-maneuvers"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Maneuvers",
+            "locator": "dirty-maneuvers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:replacement:brutal-beating:1",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:uncanny-dodge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:thug:feature:brutal-beating"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "uncanny dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brutal Beating",
+            "locator": "brutal-beating"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:replacement:brutal-trick:1",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:thug:feature:brutal-trick"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:6"
+        ],
+        "eventOnly": true,
+        "description": "a thief talent gained at 6th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brutal Trick",
+            "locator": "brutal-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:replacement:deadly-surprise:1",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-uncanny-dodge"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:thug:feature:deadly-surprise"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "improved uncanny dodge",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deadly Surprise",
+            "locator": "deadly-surprise"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:thug:event:grant:frightening",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:thug:feature:frightening",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Frightening",
+            "locator": "frightening"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:event:grant:improved-dirty-trick",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:thug:feature:improved-dirty-trick",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Dirty Trick",
+            "locator": "improved-dirty-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:event:grant:sneaky-trick",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:thug:feature:sneaky-trick",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sneaky Trick",
+            "locator": "sneaky-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:event:grant:dirty-maneuvers",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:thug:feature:dirty-maneuvers",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dirty Maneuvers",
+            "locator": "dirty-maneuvers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:event:grant:brutal-beating",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:thug:feature:brutal-beating",
+        "atClassLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brutal Beating",
+            "locator": "brutal-beating"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:event:grant:brutal-trick",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:thug:feature:brutal-trick",
+        "atClassLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Brutal Trick",
+            "locator": "brutal-trick"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:thug:event:grant:deadly-surprise",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:thug:feature:deadly-surprise",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deadly Surprise",
+            "locator": "deadly-surprise"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {},
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

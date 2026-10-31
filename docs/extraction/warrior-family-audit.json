@@ -1,0 +1,134 @@
+[
+  {
+    "archetype": "defender",
+    "section": "Shield Warrior",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies chosen weapon."
+  },
+  {
+    "archetype": "demon-hunter",
+    "section": "Weapon Proficiency",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies the warrior\u2019s standard weapon proficiencies."
+  },
+  {
+    "archetype": "draconic-warrior",
+    "section": "Natural Weapons",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability alters chosen weapon."
+  },
+  {
+    "archetype": "draconic-warrior",
+    "section": "Critical Aim",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies critical aim."
+  },
+  {
+    "archetype": "draconic-warrior",
+    "section": "Assured Crits",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies assured crits."
+  },
+  {
+    "archetype": "dragonwarrior",
+    "section": "Dragonwarrior Techniques",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability alters warrior techniques."
+  },
+  {
+    "archetype": "feral-guardian",
+    "section": "Limit Breaks",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies the warrior\u2019s standard limit breaks."
+  },
+  {
+    "archetype": "feral-guardian",
+    "section": "Warrior Talents",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability may replace warrior talents."
+  },
+  {
+    "archetype": "feral-guardian",
+    "section": "Critical Aim",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies critical aim."
+  },
+  {
+    "archetype": "feral-guardian",
+    "section": "Assured Crits",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies assured crits."
+  },
+  {
+    "archetype": "first-shield",
+    "section": "Limit Breaks",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies the warrior\u2019s standard limit breaks."
+  },
+  {
+    "archetype": "foehammer",
+    "section": "Chosen Weapon",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies chosen weapon."
+  },
+  {
+    "archetype": "monster-hunter",
+    "section": "Traps",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "These abilities may replace warrior talents gained at 6th level or higher."
+  },
+  {
+    "archetype": "nimble-striker",
+    "section": "Chosen Weapon",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies chosen weapon."
+  },
+  {
+    "archetype": "sea-wolf",
+    "section": "Sea Wolf Tricks",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "These abilities may replace warrior talents and advanced warrior talents."
+  },
+  {
+    "archetype": "sea-wolf",
+    "section": "Critical Aim",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies critical aim."
+  },
+  {
+    "archetype": "sea-wolf",
+    "section": "Assured Crits",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies assured crits."
+  },
+  {
+    "archetype": "shinsect",
+    "section": "ShinSect Talent",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies and may replace warrior talents gained at 4th, 6th, 8th, and 10th level."
+  },
+  {
+    "archetype": "shinsect",
+    "section": "Advanced ShinSect Talents",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies and may replace advanced warrior talents gained at 12th, 14th, 16th, 18th, and 20th level."
+  },
+  {
+    "archetype": "stormbreaker",
+    "section": "Chosen Weapon",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies chosen weapon."
+  },
+  {
+    "archetype": "swarm-fighter",
+    "section": "Weapon and Armor Proficiency",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability modifies the warrior\u2019s standard weapon and armor proficiencies."
+  },
+  {
+    "archetype": "talekeeper",
+    "section": "Story, Song, and Sword",
+    "kind": "manual-modification-or-optional-replacement",
+    "text": "This ability may replace warrior talents."
+  }
+]

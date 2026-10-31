@@ -1,0 +1,405 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:stormbreaker",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Stormbreaker",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/stormbreaker/",
+      "title": "Stormbreaker",
+      "archiveSha256": "2c88a09022b11da9e96a053096a4edc321e16c8572d5a0d64700297d2d5449df",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:feature:chosen-weapon",
+        "name": "Chosen Weapon",
+        "atLevel": 1,
+        "description": "At 1st level, a stormbreaker must choose either hammers or flails weapon group as his chosen weapon group.\n\nThis ability modifies chosen weapon.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chosen Weapon",
+            "locator": "chosen-weapon"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:feature:thunderhammer",
+        "name": "Thunderhammer",
+        "atLevel": 2,
+        "description": "At 2nd level, the stormbreaker can touch his chosen weapon as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), giving it the [shock](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/shock/) property for 1 minute. At 6th level, he can also confer the [returning](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/returning/) property as well for the same duration. If the weapon does not have a range increment, it gains a range increment of 20 feet for as long as it has the returning property. At 10th level, he can confer the [shocking burst](https://www.d20pfsrd.com/magic-items/magic-weapons/magic-weapon-special-abilities/shocking-burst/) property instead, but the duration of the power is halved. The stormbreaker can use this ability a number of times per day equal to 3 + his Wisdom modifier.\n\nThis ability replaces a warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thunderhammer",
+            "locator": "thunderhammer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:feature:stormchild",
+        "name": "Stormchild",
+        "atLevel": 3,
+        "description": "At 3rd level, the stormbreaker gains resist lightning 5 and treat wind effects as being one step less severe. At 9th level, he treats wind effects as being two steps less severe and gain [blindsense](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules/#Blindsense_Ex) 60 feet against concealment from natural or magical fog, mist, or weather effects.\n\nThis ability replaces warrior techniques and additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stormchild",
+            "locator": "stormchild"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:feature:hammerflight",
+        "name": "Hammerflight",
+        "atLevel": 5,
+        "description": "At 5th level, a stormbreaker can cast [*fly*](https://www.finalfantasyd20.com/magic/spells/f/fly) as a spell-like ability a number of times per day equal to 3 + his Wisdom modifier, using his warrior level as his caster level. However, if the stormbreaker makes an attack while under this ability, the ability ends. At 10th level, the stormbreaker gains the ability to cast [*flight*](https://www.finalfantasyd20.com/magic/spells/f/flight)\u00a0as a spell-like ability instead.\n\nThis ability replaces additional techs III and additional techs IV.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hammerflight",
+            "locator": "hammerflight"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:feature:thunderbolt",
+        "name": "Thunderbolt",
+        "atLevel": 10,
+        "description": "At 10th level, a stormbreaker can command a stroke of lightning to strike from above in a 5-foot-radius cylinder 60 feet high. The thunderbolt inflicts 1d6 points of lightning damage per warrior level. A successful Reflex save (DC 10 + half of the warrior\u2019s level + his Wisdom modifier) halves this damage. Creatures failing their saves are deafened for 1 round. At 10th level, he can use this ability once per day, at 15th twice per day, and at 20th three times per day. This ability has a range of 120 feet.\n\nThis ability replaces war cry and improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thunderbolt",
+            "locator": "thunderbolt"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:feature:ride-the-lightning",
+        "name": "Ride the Lightning",
+        "atLevel": 15,
+        "description": "At 15th level, as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round), a stormbreaker can become a living lightning bolt and move in a straight line up to 10 times his movement speed. He does not provoke attacks of opportunity while moving in this way. Creatures or objects in his path are affected as by his thunderbolt ability. Creatures do not block his movement but solid barriers do unless they are reduced to 0 hit points. The stormbreaker can use this power once per day for a number of rounds equal to his warrior level.\n\nThis ability replaces unstoppable strike.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ride the Lightning",
+            "locator": "ride-the-lightning"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:feature:storm-lord",
+        "name": "Storm Lord",
+        "atLevel": 19,
+        "description": "At 19th level, the stormbreaker becomes one with the storm. He gains immunity to deafness, stunning, and wind effects and gain [blindsight](https://www.d20pfsrd.com/bestiary/rules-for-monsters/universal-monster-rules/#Blindsight_Ex) 120 feet against concealment from natural or magical fog, mist, or weather. Once per day, when attacked with a lightning effect, he may forgo his saving throw and absorb the energies of the attack, healing 1 point of damage for every 3 points of lightning damage the attack would otherwise have dealt.\n\nThis ability replaces doublestrike.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Storm Lord",
+            "locator": "storm-lord"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:replacement:chosen-weapon:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-weapon"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stormbreaker:feature:chosen-weapon"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Chosen Weapon",
+            "locator": "chosen-weapon"
+          }
+        ],
+        "description": "This ability modifies chosen weapon."
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:replacement:thunderhammer:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stormbreaker:feature:thunderhammer"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thunderhammer",
+            "locator": "thunderhammer"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:replacement:stormchild:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii",
+          "ffd20:class:warrior:feature:warrior-techniques",
+          "ffd20:class:warrior:feature:stamina-pool",
+          "ffd20:class:warrior:feature:delay-fatigue",
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stormbreaker:feature:stormchild"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Stormchild",
+            "locator": "stormchild"
+          }
+        ],
+        "description": "This ability replaces warrior techniques and additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:replacement:hammerflight:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii",
+          "ffd20:class:warrior:feature:additional-techs-iv"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stormbreaker:feature:hammerflight"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hammerflight",
+            "locator": "hammerflight"
+          }
+        ],
+        "description": "This ability replaces additional techs III and additional techs IV."
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:replacement:thunderbolt:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush",
+          "ffd20:class:warrior:feature:war-cry"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stormbreaker:feature:thunderbolt"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Thunderbolt",
+            "locator": "thunderbolt"
+          }
+        ],
+        "description": "This ability replaces war cry and improved rush."
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:replacement:ride-the-lightning:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:unstoppable-strike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stormbreaker:feature:ride-the-lightning"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ride the Lightning",
+            "locator": "ride-the-lightning"
+          }
+        ],
+        "description": "This ability replaces unstoppable strike."
+      },
+      {
+        "id": "ffd20:archetype:warrior:stormbreaker:replacement:storm-lord:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:doublestrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:stormbreaker:feature:storm-lord"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Storm Lord",
+            "locator": "storm-lord"
+          }
+        ],
+        "description": "This ability replaces doublestrike."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "excludedOptionNames": [
+        "Axes",
+        "Blades, Heavy",
+        "Blades, Light",
+        "Close",
+        "Double",
+        "Natural",
+        "Polearms",
+        "Spears",
+        "Tribal"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:warrior:stormbreaker:feature:thunderhammer",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "wis",
+        "minimum": 0
+      },
+      {
+        "featureId": "ffd20:archetype:warrior:stormbreaker:feature:hammerflight",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "wis",
+        "minimum": 0
+      },
+      {
+        "featureId": "ffd20:archetype:warrior:stormbreaker:feature:thunderbolt",
+        "byLevel": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3
+        ],
+        "base": 0,
+        "perLevel": 0,
+        "minimum": 0
+      },
+      {
+        "featureId": "ffd20:archetype:warrior:stormbreaker:feature:ride-the-lightning",
+        "base": 1,
+        "perLevel": 0,
+        "minimum": 1
+      },
+      {
+        "featureId": "ffd20:archetype:warrior:stormbreaker:feature:storm-lord",
+        "base": 1,
+        "perLevel": 0,
+        "minimum": 1
+      }
+    ],
+    "extraOptions": []
+  }
+}

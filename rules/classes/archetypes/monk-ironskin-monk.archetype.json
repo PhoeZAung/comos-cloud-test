@@ -1,0 +1,357 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:ironskin-monk",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Ironskin Monk",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ironskin-monk/",
+      "title": "Ironskin Monk",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "b2fd45bd7627f4e0afa043b67b590c09b09b5dc7e738583a8e4ccefe218bde1c"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:iron-skin",
+        "name": "Iron Skin",
+        "atLevel": 1,
+        "description": "At 1st level, an ironskin monk gains a +1 bonus to his natural armor. This bonus stacks with any existing natural armor the ironskin monk already has. At 5th level, and every four monk levels thereafter, this bonus increases by +1.\n\nThis ability replaces flying kick.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Iron Skin",
+            "locator": "iron-skin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:tough-as-nails",
+        "name": "Tough as Nails",
+        "atLevel": 3,
+        "description": "At 3rd level, an ironskin monk gains DR 1/\u2014. Subtract 1 point from the damage the ironskin monk takes each time he is dealt damage from a weapon or a natural attack. This damage reduction increases by 1 point at 6th level and every three levels thereafter. Damage Reduction can reduce damage to 0 but not below 0.\n\nThis ability replaces boost.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tough as Nails",
+            "locator": "tough-as-nails"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:reinforced-fortitude",
+        "name": "Reinforced Fortitude",
+        "atLevel": 7,
+        "description": "At 7th level, if the ironskin monk makes a Fortitude save that has an effect on a successful save, he takes no effect on a successful save (i.e., \u201cFortitude partial\u201d becomes \u201cFortitude negate\u201d). A helpless ironskin monk does not gain the benefit of this ability.\n\nThis ability replaces greased lightning.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reinforced Fortitude",
+            "locator": "reinforced-fortitude"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:reinforced-will",
+        "name": "Reinforced Will",
+        "atLevel": 13,
+        "description": "At 13th level, if the ironskin monk makes a Will save that has an effect on a successful save, he takes no effect on a successful save (i.e., \u201cWill partial\u201d becomes \u201cWill negate\u201d). A helpless ironskin monk does not gain the benefit of this ability.\n\nThis ability replaces reinforced fortitude.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reinforced Will",
+            "locator": "reinforced-will"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:surefooted",
+        "name": "Surefooted",
+        "atLevel": 17,
+        "description": "At 17th level, an ironskin monk\u2019s speed is not reduced by difficult terrain.\n\nThis ability replaces fleet footwork.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Surefooted",
+            "locator": "surefooted"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:unbreakable",
+        "name": "Unbreakable",
+        "atLevel": 20,
+        "description": "At 20th level, an ironskin monk sets aside many of the frailties of mortal flesh. He becomes immune to death effects and stunning. He is not subject to ability damage or ability drain, and ignores the extra damage dealt by sneak attacks.\n\nThis ability replaces perfect self.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unbreakable",
+            "locator": "unbreakable"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:replacement:iron-skin",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:ironskin-monk:feature:iron-skin"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Iron Skin",
+            "locator": "iron-skin"
+          }
+        ],
+        "description": "flying kick"
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:replacement:tough-as-nails",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:boost"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:ironskin-monk:feature:tough-as-nails"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tough as Nails",
+            "locator": "tough-as-nails"
+          }
+        ],
+        "description": "boost"
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:replacement:reinforced-fortitude",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:greased-lightning"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:ironskin-monk:feature:reinforced-fortitude"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reinforced Fortitude",
+            "locator": "reinforced-fortitude"
+          }
+        ],
+        "description": "greased lightning"
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:replacement:reinforced-will",
+        "atClassLevel": 13,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:reinforced-fortitude"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:ironskin-monk:feature:reinforced-will"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reinforced Will",
+            "locator": "reinforced-will"
+          }
+        ],
+        "description": "reinforced fortitude"
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:replacement:surefooted",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:fleet-footwork"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:ironskin-monk:feature:surefooted"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Surefooted",
+            "locator": "surefooted"
+          }
+        ],
+        "description": "fleet footwork"
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:replacement:unbreakable",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:perfect-self"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:ironskin-monk:feature:unbreakable"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unbreakable",
+            "locator": "unbreakable"
+          }
+        ],
+        "description": "perfect self"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:iron-skin:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ironskin-monk:feature:iron-skin",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Iron Skin",
+            "locator": "iron-skin"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:tough-as-nails:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ironskin-monk:feature:tough-as-nails",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tough as Nails",
+            "locator": "tough-as-nails"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:reinforced-fortitude:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ironskin-monk:feature:reinforced-fortitude",
+        "atClassLevel": 7,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reinforced Fortitude",
+            "locator": "reinforced-fortitude"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:reinforced-will:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ironskin-monk:feature:reinforced-will",
+        "atClassLevel": 13,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Reinforced Will",
+            "locator": "reinforced-will"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:surefooted:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ironskin-monk:feature:surefooted",
+        "atClassLevel": 17,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Surefooted",
+            "locator": "surefooted"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ironskin-monk:feature:unbreakable:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ironskin-monk:feature:unbreakable",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unbreakable",
+            "locator": "unbreakable"
+          }
+        ]
+      }
+    ],
+    "resources": [],
+    "profile": {},
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

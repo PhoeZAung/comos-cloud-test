@@ -1,0 +1,497 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:assassin",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Assassin",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/assassin/",
+      "title": "Assassin",
+      "archiveSha256": "93fa228f5f618ebb9fb404e820ad8fd2d21469fb2d80fdc63ffbd64b1472b803",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:assassin:feature:poison-use",
+        "name": "Poison Use",
+        "atLevel": 1,
+        "description": "Beginning of 1st level, assassins are trained in the use of poison and cannot accidentally poison themselves when applying poison to a blade, attacking with a poisoned weapon, or crafting a poison. (see [Poison](https://www.d20pfsrd.com/gamemastering/afflictions/poison/)).\n\nThis ability replaces trapfinding.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Poison Use",
+            "locator": "poison-use"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:feature:save-bonus-against-poison",
+        "name": "Save Bonus against Poison",
+        "atLevel": 3,
+        "description": "At 3rd level, the assassin gains a +1 saving throw bonus against poisons. This bonus increase by +1 every two levels.\n\nThis ability replaces danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Save Bonus against Poison",
+            "locator": "save-bonus-against-poison"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:feature:hidden-weapons",
+        "name": "Hidden Weapons",
+        "atLevel": 3,
+        "description": "At 3rd level, an assassin becomes a master at hiding weapons on his body. He adds his thief level to all Sleight of Hand skill checks made to prevent others from noticing them.\n\nThis ability replaces measure the mark.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Weapons",
+            "locator": "hidden-weapons"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:feature:death-attack",
+        "name": "Death Attack",
+        "atLevel": 5,
+        "description": "At 5th level, if an assassin studies his victim for 3 rounds and then makes a sneak attack with a melee weapon that successfully deals damage, the sneak attack has the additional effect of possibly either paralyzing or killing the target (assassin\u2019s choice). Studying the victim is a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard). The death attack fails if the target detects the assassin or recognizes the assassin as an enemy (although the attack might still be a sneak attack if the target is denied his Dexterity bonus to his Armor Class or is flanked). If the victim of such a death attack fails a Fortitude save (DC 10 + half of the thief\u2019s level + his Intelligence modifier) against the kill effect, they die. If the saving throw fails against the paralysis effect, the victim is rendered helpless and unable to act for 1d6 rounds plus 1 round per level of the assassin. If the victim\u2019s saving throw succeeds, the attack is just a normal sneak attack. Once the assassin has completed the 3 rounds of study, he must make the death attack within the next 3 rounds.\n\nIf a death attack is attempted and fails (the victim makes their save) or if the assassin does not launch the attack within 3 rounds of completing the study, 3 new rounds of study are required before he can attempt another death attack.\n\nThis ability replaces improved theft.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Death Attack",
+            "locator": "death-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:feature:true-death",
+        "name": "True Death",
+        "atLevel": 7,
+        "description": "Starting at 7th level, anyone slain by an assassin\u2019s death attack becomes more difficult to bring back from the dead. Spellcasters attempting to bring a creature back from the dead using [*raise*](https://www.finalfantasyd20.com/magic/spells/r/raise) or similar magic must make a caster level check with a DC equal to 15 + the assassin\u2019s level or the spell fails. Casting [*dispel*](https://www.finalfantasyd20.com/magic/spells/d/dispel) the round before attempting to bring the creature back from the dead negates this chance. The DC of the dispel is 10 + the assassin\u2019s level.\n\nThis ability replaces skilled liar.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Death",
+            "locator": "true-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:feature:quiet-death",
+        "name": "Quiet Death",
+        "atLevel": 10,
+        "description": "At 10th level, whenever an assassin kills a creature using his death attack during a surprise round, he can also make a Stealth check, opposed by Perception checks of those in the vicinity to prevent them from identifying him as the assailant. If successful, those nearby might not even notice that the target is dead for a few moments, allowing the assassin to avoid detection.\n\nThis ability replaces mug.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quiet Death",
+            "locator": "quiet-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:feature:swift-death",
+        "name": "Swift Death",
+        "atLevel": 15,
+        "description": "At 15th level, once per day, an assassin can make a death attack against a foe without studying the foe beforehand. He must still sneak attack his foe using a melee weapon that deals damage.\n\nThis ability replaces theft mastery.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Death",
+            "locator": "swift-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:feature:angel-of-death",
+        "name": "Angel of Death",
+        "atLevel": 20,
+        "description": "At 20th level, the assassin becomes a master of death. Once per day, when the assassin makes a successful death attack, he can cause the target\u2019s body to crumble to dust. This prevents raise, arise, and arisega (although full-life works as normal). The assassin must declare the use of this ability before the attack is made. If the attack misses or the target successfully saves against the death attack, this ability is wasted with no effect.\n\nThis ability replaces master strike.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Angel of Death",
+            "locator": "angel-of-death"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:assassin:replacement:poison-use:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:trapfinding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:assassin:feature:poison-use"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "trapfinding",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Poison Use",
+            "locator": "poison-use"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:replacement:save-bonus-against-poison:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:assassin:feature:save-bonus-against-poison"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Save Bonus against Poison",
+            "locator": "save-bonus-against-poison"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:replacement:hidden-weapons:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:measure-the-mark"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:assassin:feature:hidden-weapons"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "measure the mark",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Weapons",
+            "locator": "hidden-weapons"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:replacement:death-attack:1",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:improved-theft"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:assassin:feature:death-attack"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "improved theft",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Death Attack",
+            "locator": "death-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:replacement:true-death:1",
+        "atClassLevel": 7,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:skilled-liar"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:assassin:feature:true-death"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "skilled liar",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Death",
+            "locator": "true-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:replacement:quiet-death:1",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:mug"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:assassin:feature:quiet-death"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "mug",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quiet Death",
+            "locator": "quiet-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:replacement:swift-death:1",
+        "atClassLevel": 15,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:theft-mastery"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:assassin:feature:swift-death"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "theft mastery",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Death",
+            "locator": "swift-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:replacement:angel-of-death:1",
+        "atClassLevel": 20,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:master-strike"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:assassin:feature:angel-of-death"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "master strike",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Angel of Death",
+            "locator": "angel-of-death"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:assassin:event:grant:poison-use",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:assassin:feature:poison-use",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Poison Use",
+            "locator": "poison-use"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:event:grant:save-bonus-against-poison",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:assassin:feature:save-bonus-against-poison",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Save Bonus against Poison",
+            "locator": "save-bonus-against-poison"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:event:grant:hidden-weapons",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:assassin:feature:hidden-weapons",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hidden Weapons",
+            "locator": "hidden-weapons"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:event:grant:death-attack",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:assassin:feature:death-attack",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Death Attack",
+            "locator": "death-attack"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:event:grant:true-death",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:assassin:feature:true-death",
+        "atClassLevel": 7,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "True Death",
+            "locator": "true-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:event:grant:quiet-death",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:assassin:feature:quiet-death",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quiet Death",
+            "locator": "quiet-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:event:grant:swift-death",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:assassin:feature:swift-death",
+        "atClassLevel": 15,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Swift Death",
+            "locator": "swift-death"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:assassin:event:grant:angel-of-death",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:assassin:feature:angel-of-death",
+        "atClassLevel": 20,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Angel of Death",
+            "locator": "angel-of-death"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "appraise",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "disguise",
+        "escape-artist",
+        "intimidate",
+        "knowledge:dungeoneering",
+        "knowledge:local",
+        "linguistics",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "sense-motive",
+        "sleight-of-hand",
+        "stealth",
+        "swim",
+        "use-magic-device",
+        "survival"
+      ],
+      "classSkillSourceText": "An assassin adds the Survival skill to his class skill list and loses the Disable Device skill as a class skill."
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}

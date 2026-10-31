@@ -18,13 +18,15 @@ affected class when explaining mechanics. Test meaningful family matrices and
 real save/reopen routes locally, plus representative actual wizard browser flows.
 Never label fixture sessions as real Firebase/production verification.
 
-Latest local batch: Red Mage + all 18 archetypes, levels 1–20 sheet/manual-card
-support. 460 tests and build:cloud pass; 361 route level-ups and database reopen;
-four representative browser paths. See docs/extraction/red-mage-family-progress.md
-and red-mage-family-validation.json for manual limits and the Animist ambiguity.
-Last verified published class scope remains PR #39 / b4c63eb, Red Mage 1–2 plus
-martial polish. Do not confuse a local selectable manifest entry with deployment.
-Next: Thief plus all its archetypes through 20 using this family approach.
+Latest local batch: Thief+25archetypes, Warrior+25archetypes and Monk+20archetypes,
+all level1–20 sheet support.493tests/build:cloud pass;73paths/1387routelevel-ups;
+7browserprogressions+freshWarriorcreation/reopen;8SQLitepersistedrecords. See
+ docs/extraction/three-class-families-progress.md and its validation JSON for
+manual limits, source conflicts and class-isolation racial fixture scope.
+Earlier Red Mage+18archetypes1–20 local support remains included. Last verified
+published scope stays PR39/b4c63eb (RedMage1–2 and martial polish). Local selectable
+manifest entries do not imply production deployment. Next candidate batch:
+White Mage family, then Knight and Dragoon families, preserving this batch approach.
 
 Future gameplay changes stay LOCAL until the user explicitly says publish in
 this chat. Preserve the race chat's latest changes when eventually integrating

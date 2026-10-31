@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:streak",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Streak",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/streak/",
+      "title": "Streak",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "929c939a320a978331794cea1f8b01bd8328fb062d4a43242cf50413a0544216"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:streak:feature:ac-bonus",
+        "name": "AC Bonus",
+        "atLevel": 1,
+        "description": "A streak is highly trained at dodging blows, and he has a sixth sense that lets his avoid even unanticipated attacks.\n\nWhen unarmored and unencumbered, the streak adds his Wisdom bonus (if any) (this bonus is halved if he has a level in another non-prestige class and this is not his favored class) to his AC and his CMD. If the streak gains an attribute bonus to his AC or CMD from some other source, it does not stack.\n\nIn addition, a streak gains a +1 bonus to AC and CMD at 4th level. This bonus increases by 1 for every four monk levels thereafter, up to a maximum of +5 at 20th level. These bonuses to AC apply even against touch attacks or when the streak is flat-footed.\n\nshe loses these bonuses when he is immobilized or helpless, when he wears any armor, when he carries a shield, or when he carries a medium or heavy load.\n\nThis ability replaces bodybuilding.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:speedy-movement",
+        "name": "Speedy Movement",
+        "atLevel": 1,
+        "description": "At 1st level, and every two monk levels thereafter, a streak gains a +10-foot enhancement bonus to his land speed. A streak in armor or carrying a medium or heavy load loses this extra speed.\n\nThis ability replaces flying kick, boost, and zen.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Speedy Movement",
+            "locator": "speedy-movement"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:static-build-up",
+        "name": "Static Build-Up",
+        "atLevel": 2,
+        "description": "Starting at 2nd level, whenever the streak moves twice his speed or more in a turn but does not attack, his body sparks and crackles with lightning. The next time the streak comes in contact with anything, he may discharge this lightning, dealing 1d8 points of lightning damage for every 30 feet moved, to a maximum of half the streak\u2019s monk levels (minimum 1). This lightning fades from the streak\u2019s body at the end of his next turn. A streak with Static Build-Up charge glows slightly, illuminating 10 feet.\n\nThis ability replaces ascetic and style flexibility.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Static Build-Up",
+            "locator": "static-build-up"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:ki-pool",
+        "name": "Ki Pool",
+        "atLevel": 2,
+        "description": "A streak gains additional ki pool points from his Wisdom modifier instead of his Constitution modifier. Additionally, abilities that use his ki pool key off of his Wisdom instead of his Constitution.\n\nThis ability modifies ki pool.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:phasing",
+        "name": "Phasing",
+        "atLevel": 8,
+        "description": "Starting at 8th level, a streak may use 20 feet of movement speed to go through a 5 foot area, passing through harmlessly.\n\nIf he ends his turn in a occupied space, he is forcibly ejected to the nearest empty space, taking 1d6 damage for every 5 feet moved.\n\nThis ability replaces diamond body.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Phasing",
+            "locator": "phasing"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:blur",
+        "name": "Blur",
+        "atLevel": 10,
+        "description": "Starting at 10th level, after the streak moves at least 10 feet during his turn, he gains 20% miss chance on himself until the beginning of his next turn.\n\nThis ability replaces formless strikes.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blur",
+            "locator": "blur"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:water-running",
+        "name": "Water Running",
+        "atLevel": 11,
+        "description": "At 11th level, whenever the streak runs across any liquid surface, he can [Water Walk](https://www.finalfantasyd20.com/magic/spells/w/water-walk/), as the spell. Any damage that may occur for running on a harmful surface still happens.\n\nThis ability replaces lifefont.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Water Running",
+            "locator": "water-running"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:greater-phasing",
+        "name": "Greater Phasing",
+        "atLevel": 19,
+        "description": "Starting at 19th level, by expending 1 ki point as a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the streak can vibrate so rapidly that he counts as being incorporeal until the end of his next turn.\n\nThis ability replaces inner strength.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Phasing",
+            "locator": "greater-phasing"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:streak:replacement:ac-bonus",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:bodybuilding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:streak:feature:ac-bonus"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ],
+        "description": "bodybuilding"
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:replacement:speedy-movement",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick",
+          "ffd20:class:monk:feature:boost",
+          "ffd20:class:monk:feature:zen"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:streak:feature:speedy-movement"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Speedy Movement",
+            "locator": "speedy-movement"
+          }
+        ],
+        "description": "flying kick, boost, and zen"
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:replacement:static-build-up",
+        "atClassLevel": 2,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:style-flexibility",
+          "ffd20:class:monk:feature:ascetic"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:streak:feature:static-build-up"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Static Build-Up",
+            "locator": "static-build-up"
+          }
+        ],
+        "description": "ascetic and style flexibility"
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:replacement:phasing",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:diamond-body"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:streak:feature:phasing"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Phasing",
+            "locator": "phasing"
+          }
+        ],
+        "description": "diamond body"
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:replacement:blur",
+        "atClassLevel": 10,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:formless-strikes"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:streak:feature:blur"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blur",
+            "locator": "blur"
+          }
+        ],
+        "description": "formless strikes"
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:replacement:water-running",
+        "atClassLevel": 11,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:lifefont"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:streak:feature:water-running"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Water Running",
+            "locator": "water-running"
+          }
+        ],
+        "description": "lifefont"
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:replacement:greater-phasing",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:inner-strength"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:streak:feature:greater-phasing"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Phasing",
+            "locator": "greater-phasing"
+          }
+        ],
+        "description": "inner strength"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:streak:feature:ac-bonus:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:streak:feature:ac-bonus",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:speedy-movement:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:streak:feature:speedy-movement",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Speedy Movement",
+            "locator": "speedy-movement"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:static-build-up:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:streak:feature:static-build-up",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Static Build-Up",
+            "locator": "static-build-up"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:ki-pool:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:streak:feature:ki-pool",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:phasing:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:streak:feature:phasing",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Phasing",
+            "locator": "phasing"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:blur:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:streak:feature:blur",
+        "atClassLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Blur",
+            "locator": "blur"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:water-running:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:streak:feature:water-running",
+        "atClassLevel": 11,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Water Running",
+            "locator": "water-running"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:streak:feature:greater-phasing:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:streak:feature:greater-phasing",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Phasing",
+            "locator": "greater-phasing"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:class:monk:feature:ki-pool",
+        "perLevel": 0.5,
+        "ability": "wis",
+        "minimum": 0
+      }
+    ],
+    "profile": {
+      "requiredRaceId": "ffd20:race:moomba"
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 131,
+  "revision": 204,
   "schedule": [
     "class",
     "race",
@@ -492,19 +492,22 @@
     },
     "ffd20:class:monk": {
       "state": "live_partial",
-      "stage": "deployment-verified",
-      "cursor": "First-level FFd20 Monk, Bodybuilding HP and manual martial references deployed; five public assets verified",
-      "nextAction": "Later Ki/talents/blitz/progression/archetypes, conditional martial effects and feat interactions require separate reviewed batches",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
       "scope": "First-level any-alignment creation/editing; source stats/proficiencies and positive-CON Bodybuilding HP plus manual feat/eight source cards; later progression and martial/gear/feat/Limit Break effects guarded or manual",
-      "note": "PR #27 branch/main CI passed; 381 tests/build/phone fixtures passed; five public assets match/database ready. Live CON edits include Bodybuilding without healing; Knight stance capacity also updates. No provider login test.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/monk-level-one-import.md",
         "docs/extraction/monk-browser-validation.json",
-        "docs/extraction/monk-deployment-validation.json"
+        "docs/extraction/monk-deployment-validation.json",
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
       ],
-      "updatedAt": "2026-10-30T19:40:00.377Z"
+      "updatedAt": "2026-10-31T18:48:02.802Z"
     },
     "ffd20:race:dracobaltian": {
       "state": "live_partial",
@@ -912,6 +915,1158 @@
         "tests/red-mage-family.test.mjs"
       ],
       "updatedAt": "2026-10-31T18:27:37.319Z"
+    },
+    "ffd20:class:thief": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.811Z"
+    },
+    "ffd20:class:warrior": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.827Z"
+    },
+    "ffd20:archetype:monk:diminutive-adept": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.834Z"
+    },
+    "ffd20:archetype:monk:elemental-fist-disciple": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.841Z"
+    },
+    "ffd20:archetype:monk:featherweight": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.849Z"
+    },
+    "ffd20:archetype:monk:fist-of-rhalgr": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.855Z"
+    },
+    "ffd20:archetype:monk:heavyweight": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.863Z"
+    },
+    "ffd20:archetype:monk:ironskin-monk": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.869Z"
+    },
+    "ffd20:archetype:monk:ki-master": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.879Z"
+    },
+    "ffd20:archetype:monk:life-monk": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.885Z"
+    },
+    "ffd20:archetype:monk:master-of-many-styles": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.894Z"
+    },
+    "ffd20:archetype:monk:meowfist": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.900Z"
+    },
+    "ffd20:archetype:monk:monk-of-the-wild": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.907Z"
+    },
+    "ffd20:archetype:monk:nimble-guardian": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.914Z"
+    },
+    "ffd20:archetype:monk:peacekeeper": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.922Z"
+    },
+    "ffd20:archetype:monk:scaled-fist": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.929Z"
+    },
+    "ffd20:archetype:monk:streak": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.936Z"
+    },
+    "ffd20:archetype:monk:student-of-the-stone": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.942Z"
+    },
+    "ffd20:archetype:monk:treetop-monk": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.949Z"
+    },
+    "ffd20:archetype:monk:wanderer": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.956Z"
+    },
+    "ffd20:archetype:monk:weapon-adept": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.964Z"
+    },
+    "ffd20:archetype:monk:white-monk": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.971Z"
+    },
+    "ffd20:archetype:thief:agent": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.977Z"
+    },
+    "ffd20:archetype:thief:assassin": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.985Z"
+    },
+    "ffd20:archetype:thief:bounty-hunter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:02.993Z"
+    },
+    "ffd20:archetype:thief:deadly-courtesan": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.000Z"
+    },
+    "ffd20:archetype:thief:festivalist": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.006Z"
+    },
+    "ffd20:archetype:thief:filcher": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.013Z"
+    },
+    "ffd20:archetype:thief:keyblade-master": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.020Z"
+    },
+    "ffd20:archetype:thief:knife-master": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.025Z"
+    },
+    "ffd20:archetype:thief:merchant": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.031Z"
+    },
+    "ffd20:archetype:thief:prowler": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.037Z"
+    },
+    "ffd20:archetype:thief:raptor": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.044Z"
+    },
+    "ffd20:archetype:thief:rogue": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.050Z"
+    },
+    "ffd20:archetype:thief:saboteur": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.056Z"
+    },
+    "ffd20:archetype:thief:skulking-slayer": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.062Z"
+    },
+    "ffd20:archetype:thief:sky-pirate": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.070Z"
+    },
+    "ffd20:archetype:thief:spellthief": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.076Z"
+    },
+    "ffd20:archetype:thief:street-magician": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.082Z"
+    },
+    "ffd20:archetype:thief:thug": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.088Z"
+    },
+    "ffd20:archetype:thief:time-bandit": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.095Z"
+    },
+    "ffd20:archetype:thief:treasure-hunter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.101Z"
+    },
+    "ffd20:archetype:thief:trickster": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.108Z"
+    },
+    "ffd20:archetype:thief:burglar": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.114Z"
+    },
+    "ffd20:archetype:thief:combatant": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.124Z"
+    },
+    "ffd20:archetype:thief:solid-snake": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.131Z"
+    },
+    "ffd20:archetype:thief:streetrat": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.138Z"
+    },
+    "ffd20:archetype:warrior:airborne-ambusher": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.145Z"
+    },
+    "ffd20:archetype:warrior:cyberpunk-warrior": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.152Z"
+    },
+    "ffd20:archetype:warrior:defender": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.159Z"
+    },
+    "ffd20:archetype:warrior:dirty-fighter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.165Z"
+    },
+    "ffd20:archetype:warrior:draconic-warrior": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.172Z"
+    },
+    "ffd20:archetype:warrior:dragonwarrior": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.179Z"
+    },
+    "ffd20:archetype:warrior:elemental-warrior": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.185Z"
+    },
+    "ffd20:archetype:warrior:feral-guardian": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.191Z"
+    },
+    "ffd20:archetype:warrior:first-shield": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.197Z"
+    },
+    "ffd20:archetype:warrior:foehammer": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.205Z"
+    },
+    "ffd20:archetype:warrior:gladiator": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.211Z"
+    },
+    "ffd20:archetype:warrior:lanista": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.218Z"
+    },
+    "ffd20:archetype:warrior:mercenary": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.224Z"
+    },
+    "ffd20:archetype:warrior:nimble-striker": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.231Z"
+    },
+    "ffd20:archetype:warrior:sea-wolf": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.237Z"
+    },
+    "ffd20:archetype:warrior:shinsect": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.244Z"
+    },
+    "ffd20:archetype:warrior:squire": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.250Z"
+    },
+    "ffd20:archetype:warrior:stylish-fighter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.258Z"
+    },
+    "ffd20:archetype:warrior:swarm-fighter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.264Z"
+    },
+    "ffd20:archetype:warrior:talekeeper": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.272Z"
+    },
+    "ffd20:archetype:warrior:viking": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.278Z"
+    },
+    "ffd20:archetype:warrior:weapon-collector": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.285Z"
+    },
+    "ffd20:archetype:warrior:demon-hunter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.292Z"
+    },
+    "ffd20:archetype:warrior:monster-hunter": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.298Z"
+    },
+    "ffd20:archetype:warrior:stormbreaker": {
+      "state": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "nextAction": "Keep local until publish. Next candidate WhiteMage then Knight/Dragoon families. Before release integrate race main, reconcile queues and rerun validation.",
+      "scope": "LOCAL ONLY: level1–20 sheet progression, source chassis, native options/replacements; complex effects, external prerequisites and subchoices manual. Not deployed or fully reviewed.",
+      "note": "New three-family batch is local/unpublished. Published scope is unchanged. Manual source discrepancies and three class-isolation racial fixtures are disclosed in evidence. Preserve separate race chat changes.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/three-class-families-progress.md",
+        "docs/extraction/three-class-families-validation.json",
+        "tests/sheet-family-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T18:48:03.304Z"
     }
   },
   "history": [
@@ -2084,6 +3239,663 @@
       "stage": "local-family-validated",
       "cursor": "Local sheet support through level 20; 460 tests, 361 route level-ups, SQLite reopen, four browser paths",
       "time": "2026-10-31T18:27:37.319Z"
+    },
+    {
+      "revision": 132,
+      "itemId": "ffd20:class:monk",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.802Z"
+    },
+    {
+      "revision": 133,
+      "itemId": "ffd20:class:thief",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.811Z"
+    },
+    {
+      "revision": 134,
+      "itemId": "ffd20:class:warrior",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.827Z"
+    },
+    {
+      "revision": 135,
+      "itemId": "ffd20:archetype:monk:diminutive-adept",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.834Z"
+    },
+    {
+      "revision": 136,
+      "itemId": "ffd20:archetype:monk:elemental-fist-disciple",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.841Z"
+    },
+    {
+      "revision": 137,
+      "itemId": "ffd20:archetype:monk:featherweight",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.849Z"
+    },
+    {
+      "revision": 138,
+      "itemId": "ffd20:archetype:monk:fist-of-rhalgr",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.855Z"
+    },
+    {
+      "revision": 139,
+      "itemId": "ffd20:archetype:monk:heavyweight",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.863Z"
+    },
+    {
+      "revision": 140,
+      "itemId": "ffd20:archetype:monk:ironskin-monk",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.869Z"
+    },
+    {
+      "revision": 141,
+      "itemId": "ffd20:archetype:monk:ki-master",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.879Z"
+    },
+    {
+      "revision": 142,
+      "itemId": "ffd20:archetype:monk:life-monk",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.885Z"
+    },
+    {
+      "revision": 143,
+      "itemId": "ffd20:archetype:monk:master-of-many-styles",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.894Z"
+    },
+    {
+      "revision": 144,
+      "itemId": "ffd20:archetype:monk:meowfist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.900Z"
+    },
+    {
+      "revision": 145,
+      "itemId": "ffd20:archetype:monk:monk-of-the-wild",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.907Z"
+    },
+    {
+      "revision": 146,
+      "itemId": "ffd20:archetype:monk:nimble-guardian",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.914Z"
+    },
+    {
+      "revision": 147,
+      "itemId": "ffd20:archetype:monk:peacekeeper",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.922Z"
+    },
+    {
+      "revision": 148,
+      "itemId": "ffd20:archetype:monk:scaled-fist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.929Z"
+    },
+    {
+      "revision": 149,
+      "itemId": "ffd20:archetype:monk:streak",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.936Z"
+    },
+    {
+      "revision": 150,
+      "itemId": "ffd20:archetype:monk:student-of-the-stone",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.942Z"
+    },
+    {
+      "revision": 151,
+      "itemId": "ffd20:archetype:monk:treetop-monk",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.949Z"
+    },
+    {
+      "revision": 152,
+      "itemId": "ffd20:archetype:monk:wanderer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.956Z"
+    },
+    {
+      "revision": 153,
+      "itemId": "ffd20:archetype:monk:weapon-adept",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.964Z"
+    },
+    {
+      "revision": 154,
+      "itemId": "ffd20:archetype:monk:white-monk",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.971Z"
+    },
+    {
+      "revision": 155,
+      "itemId": "ffd20:archetype:thief:agent",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.977Z"
+    },
+    {
+      "revision": 156,
+      "itemId": "ffd20:archetype:thief:assassin",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.985Z"
+    },
+    {
+      "revision": 157,
+      "itemId": "ffd20:archetype:thief:bounty-hunter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:02.993Z"
+    },
+    {
+      "revision": 158,
+      "itemId": "ffd20:archetype:thief:deadly-courtesan",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.000Z"
+    },
+    {
+      "revision": 159,
+      "itemId": "ffd20:archetype:thief:festivalist",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.006Z"
+    },
+    {
+      "revision": 160,
+      "itemId": "ffd20:archetype:thief:filcher",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.013Z"
+    },
+    {
+      "revision": 161,
+      "itemId": "ffd20:archetype:thief:keyblade-master",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.020Z"
+    },
+    {
+      "revision": 162,
+      "itemId": "ffd20:archetype:thief:knife-master",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.025Z"
+    },
+    {
+      "revision": 163,
+      "itemId": "ffd20:archetype:thief:merchant",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.031Z"
+    },
+    {
+      "revision": 164,
+      "itemId": "ffd20:archetype:thief:prowler",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.037Z"
+    },
+    {
+      "revision": 165,
+      "itemId": "ffd20:archetype:thief:raptor",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.044Z"
+    },
+    {
+      "revision": 166,
+      "itemId": "ffd20:archetype:thief:rogue",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.050Z"
+    },
+    {
+      "revision": 167,
+      "itemId": "ffd20:archetype:thief:saboteur",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.056Z"
+    },
+    {
+      "revision": 168,
+      "itemId": "ffd20:archetype:thief:skulking-slayer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.062Z"
+    },
+    {
+      "revision": 169,
+      "itemId": "ffd20:archetype:thief:sky-pirate",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.070Z"
+    },
+    {
+      "revision": 170,
+      "itemId": "ffd20:archetype:thief:spellthief",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.076Z"
+    },
+    {
+      "revision": 171,
+      "itemId": "ffd20:archetype:thief:street-magician",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.082Z"
+    },
+    {
+      "revision": 172,
+      "itemId": "ffd20:archetype:thief:thug",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.088Z"
+    },
+    {
+      "revision": 173,
+      "itemId": "ffd20:archetype:thief:time-bandit",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.095Z"
+    },
+    {
+      "revision": 174,
+      "itemId": "ffd20:archetype:thief:treasure-hunter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.101Z"
+    },
+    {
+      "revision": 175,
+      "itemId": "ffd20:archetype:thief:trickster",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.108Z"
+    },
+    {
+      "revision": 176,
+      "itemId": "ffd20:archetype:thief:burglar",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.114Z"
+    },
+    {
+      "revision": 177,
+      "itemId": "ffd20:archetype:thief:combatant",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.124Z"
+    },
+    {
+      "revision": 178,
+      "itemId": "ffd20:archetype:thief:solid-snake",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.131Z"
+    },
+    {
+      "revision": 179,
+      "itemId": "ffd20:archetype:thief:streetrat",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.138Z"
+    },
+    {
+      "revision": 180,
+      "itemId": "ffd20:archetype:warrior:airborne-ambusher",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.145Z"
+    },
+    {
+      "revision": 181,
+      "itemId": "ffd20:archetype:warrior:cyberpunk-warrior",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.152Z"
+    },
+    {
+      "revision": 182,
+      "itemId": "ffd20:archetype:warrior:defender",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.159Z"
+    },
+    {
+      "revision": 183,
+      "itemId": "ffd20:archetype:warrior:dirty-fighter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.165Z"
+    },
+    {
+      "revision": 184,
+      "itemId": "ffd20:archetype:warrior:draconic-warrior",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.172Z"
+    },
+    {
+      "revision": 185,
+      "itemId": "ffd20:archetype:warrior:dragonwarrior",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.179Z"
+    },
+    {
+      "revision": 186,
+      "itemId": "ffd20:archetype:warrior:elemental-warrior",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.185Z"
+    },
+    {
+      "revision": 187,
+      "itemId": "ffd20:archetype:warrior:feral-guardian",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.191Z"
+    },
+    {
+      "revision": 188,
+      "itemId": "ffd20:archetype:warrior:first-shield",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.197Z"
+    },
+    {
+      "revision": 189,
+      "itemId": "ffd20:archetype:warrior:foehammer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.205Z"
+    },
+    {
+      "revision": 190,
+      "itemId": "ffd20:archetype:warrior:gladiator",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.211Z"
+    },
+    {
+      "revision": 191,
+      "itemId": "ffd20:archetype:warrior:lanista",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.218Z"
+    },
+    {
+      "revision": 192,
+      "itemId": "ffd20:archetype:warrior:mercenary",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.224Z"
+    },
+    {
+      "revision": 193,
+      "itemId": "ffd20:archetype:warrior:nimble-striker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.231Z"
+    },
+    {
+      "revision": 194,
+      "itemId": "ffd20:archetype:warrior:sea-wolf",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.237Z"
+    },
+    {
+      "revision": 195,
+      "itemId": "ffd20:archetype:warrior:shinsect",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.244Z"
+    },
+    {
+      "revision": 196,
+      "itemId": "ffd20:archetype:warrior:squire",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.250Z"
+    },
+    {
+      "revision": 197,
+      "itemId": "ffd20:archetype:warrior:stylish-fighter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.258Z"
+    },
+    {
+      "revision": 198,
+      "itemId": "ffd20:archetype:warrior:swarm-fighter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.264Z"
+    },
+    {
+      "revision": 199,
+      "itemId": "ffd20:archetype:warrior:talekeeper",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.272Z"
+    },
+    {
+      "revision": 200,
+      "itemId": "ffd20:archetype:warrior:viking",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.278Z"
+    },
+    {
+      "revision": 201,
+      "itemId": "ffd20:archetype:warrior:weapon-collector",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.285Z"
+    },
+    {
+      "revision": 202,
+      "itemId": "ffd20:archetype:warrior:demon-hunter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.292Z"
+    },
+    {
+      "revision": 203,
+      "itemId": "ffd20:archetype:warrior:monster-hunter",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.298Z"
+    },
+    {
+      "revision": 204,
+      "itemId": "ffd20:archetype:warrior:stormbreaker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-family-validated",
+      "cursor": "Local levels1–20 sheet support:493tests;73paths;1387routelevel-ups;8browserrecords persisted",
+      "time": "2026-10-31T18:48:03.304Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

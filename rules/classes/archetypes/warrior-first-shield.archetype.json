@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:first-shield",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "First Shield",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/first-shield/",
+      "title": "First Shield",
+      "archiveSha256": "e33365f9759eafee4bc57bee85878f9593b5d3c18a1b07407b7b9ba1efc27261",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:finisher-amendments",
+        "name": "Finisher amendments",
+        "atLevel": 1,
+        "description": "The first shield\u2019s warrior limit breaks no longer need chosen weapon to function.\n\nThis ability modifies the warrior\u2019s standard limit breaks.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:partial-priming",
+        "name": "Partial-Priming",
+        "atLevel": 1,
+        "description": "A first shield can call upon his Eikon for strength and ferocity, granting him additional combat prowess. At 1st level, a first shield begins play with the ability to host a powerful outsider called an Eikon. The first shield must choose which Eikon to host, from the following: Alexander, Anima, Bahamut, Bismarck, Carbuncle, Diabolos, Fenrir, Garuda, Ifrit, Ixion, Leviathan, Odin, Phoenix, Ramuh, Shiva, Siren, Titan, Valefor, or Yojimbo. A first shield can partial-prime for a number of rounds per day equal to 4 + his Constitution modifier. For each level after 1st he possesses, the first shield can partial-prime for 2 additional rounds per day. Temporary increases to Constitution, such as that gained from [*dwarf\u2019s endurance*](https://www.finalfantasyd20.com/magic/spells/d/dwarfs-endurance/), do not increase the total number of rounds that a first shield can partial-prime per day. A first shield can enter a partial-prime as a\u00a0[free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free). The total number of rounds of partial-prime per day is renewed after resting for 8 hours, although these hours need not be consecutive.\n\nWhile in a partial-prime, a first shield gains the benefits of his partial-prime form, gains a +2 bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, and Will saving throws but takes a \u20132 penalty to his Armor Class. In addition, he also deals 1d6 points of elemental damage based on his Eikon (if multiple, such as Phoenix, then it deals half and half of each element). He also gains 2 temporary hit points per Hit Die.\n\nThese temporary hit points are lost first when a character takes damage, disappear when the partial-prime ends, and are not replenished if the first shield enters a partial-prime again within 1 minute of his previous partial-prime. While in a partial-prime, a first shield cannot use any Charisma-, Dexterity-, or Intelligence-based skill (except Acrobatics, Fly, Intimidate, and Ride) or any ability that requires patience or concentration (such as spellcasting). A first shield can end his partial-prime as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free)\u00a0and is fatigued for 1 minute after a partial-prime ends. This fatigue cannot be reduced or mitigated in any way and applies even to normally fatigue-immune characters, but can be cured as normal. A first shield can\u2019t enter a new partial-prime while fatigued or exhausted but can otherwise enter a partial-prime multiple times per day. If a first shield falls unconscious, his partial-prime immediately ends. Partial-prime does not stack with rage or defensive stance. Partial-Priming counts as rage for rage powers (see below).\n\nThis ability replaces chosen weapon, chosen knowledge, and overhand chop (from warrior techniques).\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Partial-Priming",
+            "locator": "partial-priming"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:warrior-talents",
+        "name": "Warrior Talents",
+        "atLevel": 2,
+        "description": "A first shield loses access to warrior talents that uses chosen weapon and instead gains access to rage powers from berserker, counting his warrior levels as berserker levels for talent prerequisites and he may use these rage powers with primal-priming.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Warrior Talents",
+            "locator": "warrior-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:guarding-presence",
+        "name": "Guarding Presence",
+        "atLevel": 5,
+        "description": "At 5th level, whenever an ally is within the first shield\u2019s reach, the ally receives a +2 shield bonus to his Armor Class and a +2 circumstance bonus on his saving throws. This bonus does not apply if the first shield is grappled, helpless, paralyzed, stunned, or unconscious.\n\nThis ability replaces weapon guard.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guarding Presence",
+            "locator": "guarding-presence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:greater-guarding-presence",
+        "name": "Greater Guarding Presence",
+        "atLevel": 10,
+        "description": "At 10th level, whenever an ally is within the first shield\u2019s reach, the ally receives a +4 shield bonus to its Armor Class and a +4 circumstance bonus on its saving throws. This bonus does not apply if the first shield is grappled, helpless, paralyzed, stunned, or unconscious.\n\nThis ability replaces war cry and critical aim.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Guarding Presence",
+            "locator": "greater-guarding-presence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:greater-partial-priming",
+        "name": "Greater Partial-Priming",
+        "atLevel": 11,
+        "description": "At 11th level, a first shield in a partial-prime gains the benefit of his greater partial-prime form. While partial priming, a first shield\u2019s bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, and Will saves while partial-priming increases to +3. While partial priming, he is immune to fear effects. In addition, the amount of temporary hit points gained and elemental damage he deals when entering a partial-prime increases to 3 per warrior level and 2d6 points of elemental damage .\n\nThis ability replaces aggressor and assured crits.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Partial-Priming",
+            "locator": "greater-partial-priming"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:superior-guarding-presence",
+        "name": "Superior Guarding Presence",
+        "atLevel": 15,
+        "description": "At 15th level, whenever an ally is within the first shield\u2019s reach, the ally receives a damage reduction of 5/-, in addition to the bonuses to AC and saving throws.\n\nThis ability replaces unstoppable strike.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Guarding Presence",
+            "locator": "superior-guarding-presence"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:tireless-partial-prime",
+        "name": "Tireless Partial-Prime",
+        "atLevel": 17,
+        "description": "At 17th level and higher, a first shield no longer becomes fatigued at the end of his partial-prime. If he enters a partial-prime again within 1 minute of ending a partial-prime, he doesn\u2019t gain any temporary hit points from his partial-prime.\n\nThis ability replaces devastating blow.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tireless Partial-Prime",
+            "locator": "tireless-partial-prime"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:feature:mighty-partial-prime",
+        "name": "Mighty Partial-Prime",
+        "atLevel": 20,
+        "description": "At 20th level, a first shield in a partial-prime gains the benefit of his mighty partial-prime form. While partial-priming, a first shield\u2019s bonus on melee attack rolls, melee damage rolls, thrown weapon damage rolls, and Will saves while partial-priming increases to +4. In addition, the amount of temporary hit points gained and elemental damage he deals when entering a partial-prime increases to 4 per warrior level and 3d6 points of elemental damage.\n\nThis ability replaces weapon mastery.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Partial-Prime",
+            "locator": "mighty-partial-prime"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:first-shield:replacement:limit-breaks:0",
+        "atClassLevel": 1,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:critical-strikes",
+          "ffd20:class:warrior:feature:omnistrike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:first-shield:feature:finisher-amendments"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Limit Breaks",
+            "locator": "limit-breaks"
+          }
+        ],
+        "description": "This ability modifies the warrior\u2019s standard limit breaks."
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:replacement:partial-priming:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-knowledge",
+          "ffd20:class:warrior:feature:chosen-weapon",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:first-shield:feature:partial-priming"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Partial-Priming",
+            "locator": "partial-priming"
+          }
+        ],
+        "description": "This ability replaces chosen weapon, chosen knowledge, and overhand chop (from warrior techniques)."
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:replacement:guarding-presence:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-guard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:first-shield:feature:guarding-presence"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Guarding Presence",
+            "locator": "guarding-presence"
+          }
+        ],
+        "description": "This ability replaces weapon guard."
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:replacement:greater-guarding-presence:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:critical-aim",
+          "ffd20:class:warrior:feature:war-cry"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:first-shield:feature:greater-guarding-presence"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Guarding Presence",
+            "locator": "greater-guarding-presence"
+          }
+        ],
+        "description": "This ability replaces war cry and critical aim."
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:replacement:greater-partial-priming:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:assured-crits",
+          "ffd20:class:warrior:feature:aggressor"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:first-shield:feature:greater-partial-priming"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Partial-Priming",
+            "locator": "greater-partial-priming"
+          }
+        ],
+        "description": "This ability replaces aggressor and assured crits."
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:replacement:superior-guarding-presence:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:unstoppable-strike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:first-shield:feature:superior-guarding-presence"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superior Guarding Presence",
+            "locator": "superior-guarding-presence"
+          }
+        ],
+        "description": "This ability replaces unstoppable strike."
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:replacement:tireless-partial-prime:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:devastating-blow"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:first-shield:feature:tireless-partial-prime"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tireless Partial-Prime",
+            "locator": "tireless-partial-prime"
+          }
+        ],
+        "description": "This ability replaces devastating blow."
+      },
+      {
+        "id": "ffd20:archetype:warrior:first-shield:replacement:mighty-partial-prime:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-mastery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:first-shield:feature:mighty-partial-prime"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mighty Partial-Prime",
+            "locator": "mighty-partial-prime"
+          }
+        ],
+        "description": "This ability replaces weapon mastery."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "excludedOptionNames": [
+        "Adept: Abundant Tactics",
+        "Adept: Formidable",
+        "Adept: High Reflexes",
+        "Adept: Lightning Speed",
+        "Adept: Sacrifice Weapon",
+        "Adept: Stable Footing",
+        "Debilitating Assault",
+        "Melee Power",
+        "Melee Tenacity",
+        "Rain of Blows",
+        "Warrior Spirit",
+        "Weapon Aptitude",
+        "Adept: Antimagic Tactics",
+        "Adept: Armed Maneuver",
+        "Adept: Critical Specialty",
+        "Adept: Flanking Leader",
+        "Adept: Flash Feint",
+        "Adept: Graceful Blows",
+        "Adept: Graceful Throw",
+        "Adept: Retaliation Expert",
+        "Adept: Sever Influence",
+        "Adept: Spell Parry",
+        "Arsenal",
+        "Heroic Assault",
+        "Martial Arts Master"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:archetype:warrior:first-shield:feature:partial-priming",
+        "base": 2,
+        "perLevel": 2,
+        "ability": "con",
+        "minimum": 0
+      }
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:warrior:pool:warrior-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:warrior:first-shield:option:rage-power-manual-choice",
+            "name": "Rage Power (manual choice)",
+            "description": "A first shield loses access to warrior talents that uses chosen weapon and instead gains access to rage powers from berserker, counting his warrior levels as berserker levels for talent prerequisites and he may use these rage powers with primal-priming.\nManual selection: write the exact selected option/feat and verify its prerequisites on existing sheet entries.",
+            "minimumLevel": 2,
+            "repeatLimit": 10,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Rage Power (manual choice)",
+                "locator": "rage-power-manual-choice"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/first-shield/",
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,406 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:monster-hunter",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Monster Hunter",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/monster-hunter/",
+      "title": "Monster Hunter",
+      "archiveSha256": "6b453299977ffa47aafdab37c2a0361b5c8e80abc912cf65ab59f6245f3a63a7",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:class-skills",
+        "name": "Class Skills",
+        "atLevel": 1,
+        "description": "A monster hunter gains Diplomacy, Knowledge (local), and Perception as class skills and loses Knowledge (dungeoneering) and Handle Animal as class skills.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Skills",
+            "locator": "class-skills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:monster-lore",
+        "name": "Monster Lore",
+        "atLevel": 1,
+        "description": "The monster hunter adds half of his warrior level (minimum 1) on Knowledge skill checks in addition to his Intelligence modifier, when making skill checks to identify the abilities and weaknesses of creatures.\n\nThis ability replaces combat defences.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Monster Lore",
+            "locator": "monster-lore"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:favored-enemy",
+        "name": "Favored Enemy",
+        "atLevel": 1,
+        "description": "At 1st level, a monster hunter selects a creature type from the favored enemies table (see below). He gains a +2 bonus on Intimidate, Knowledge, Perception, Sense Motive, and Survival checks against creatures of his selected type. Likewise, he gets a +2 bonus on weapon attack and damage rolls against them. A monster hunter may make Knowledge skill checks untrained when attempting to identify these creatures. This bonus stacks with favored enemy bonuses from other classes.\n\nAt 5th level and every four warrior levels thereafter (9th, 13th, and 17th level), the monster hunter may select an additional favored enemy. In addition, at each such interval, the bonus against any one favored enemy (including the one just selected, if so desired) increases by +2.\n\nIf the monster hunter chooses humanoids or outsiders as a favored enemy, he must also choose an associated subtype, as indicated on the monster hunter\u2019s favored enemies table. If a specific creature falls into more than one category of favored enemy, the monster hunter\u2019s bonuses do not stack; he simply uses whichever bonus is higher.\n\nThis ability replaces martial flexibility.\n\n## Table: Favored Enemies\n\n| Type (Subtype) |\n| --- |\n| Aberration |\n| Animal |\n| Construct |\n| Dragon |\n| Fey |\n| Humanoid (subtype) |\n| Magical beast |\n| Monstrous humanoid |\n| Ooze |\n| Outsider (subtype) |\n| Plant |\n| Undead |\n| Vermin |\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Enemy",
+            "locator": "favored-enemy"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:tenacious-tracker",
+        "name": "Tenacious Tracker",
+        "atLevel": 2,
+        "description": "At 2nd level, a monster hunter gains a +1 bonus on Diplomacy checks to gather information and on Survival checks made to identify or follow tracks. This bonus increases by 1 for every four warrior levels the monster hunter possesses beyond 2nd.\n\nThis ability replaces a warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tenacious Tracker",
+            "locator": "tenacious-tracker"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:track",
+        "name": "Track",
+        "atLevel": 3,
+        "description": "At 3rd level, a monster hunter adds half his warrior level (minimum 1) to Survival skill checks made to follow tracks.\n\nThis ability replaces overhand chop and increase save from warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Track",
+            "locator": "track"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:study-monster",
+        "name": "Study Monster",
+        "atLevel": 4,
+        "description": "Beginning at 4th level, a monster hunter can study a creature he can see as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift). This ability functions like a Knowledge check to identify monsters and their special powers or vulnerabilities, except he does not need be trained in the relevant Knowledge skill. The monster hunter rolls d20 + his warrior level + his Wisdom bonus to determine the result. He also adds his favored enemy bonus, if relevant.\n\nThis ability replaces a warrior talent gained at 4th level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Study Monster",
+            "locator": "study-monster"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:hunter-s-defense",
+        "name": "Hunter\u2019s Defense",
+        "atLevel": 5,
+        "description": "Beginning at 5th level, the monster hunter gains a +1 dodge bonus to his AC and a +1 insight bonus on saving throws against a favored enemy. At 8th level and every three warrior levels thereafter (11th, 14th, 17th and 20th level), the bonuses increase by +1. These bonuses do not stack with those granted by the Favored Defense feat.\n\nThis ability replaces additional techs II and improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hunter\u2019s Defense",
+            "locator": "hunter-s-defense"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:traps",
+        "name": "Traps",
+        "atLevel": 6,
+        "description": "A monster hunter is legendary for his ability to hunt down and capture his prey. Some monster hunters can create elaborate traps out of scraps, vines, and perhaps a little bit of specialized magic. At 6th level, a monster may select a trap (from below) or a warrior talent. A monster hunter may use traps a number of times per day equal to half his warrior level plus his Wisdom modifier.\n\nSetting a trap is a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) that provokes attacks of opportunity. A trap fills a single 5-foot square, and cannot be placed in the same area as another trap or a magical trap. The monster hunter only needs simple materials to create the trap, such as a piece of cloth, a small amount of metal (such as a dagger, iron spike, or a few nails), a foot of rope or vine, and so on. The DCs for Perception checks to notice the trap, Disable Device checks to disable it, and for saving throws to avoid it are equal to 10 + half of the warrior\u2019s level + his Wisdom bonus. All traps are Trigger: location, and Reset: none.\n\nTraps are either extraordinary or supernatural; extraordinary traps are Type: mechanical, and supernatural traps are Type: magic. Some of the traps listed below may be set as extraordinary traps or as magical (supernatural) traps; learning such a trap lets a monster hunter set it either way. An extraordinary trap has a \u20132 penalty to its DC. An extraordinary trap lasts 1 day per warrior level or until it is triggered, whichever comes first. A magical trap lasts only 1 hour per warrior level or until triggered, whichever comes first. A trap\u2019s DC decreases by 1 for each full day (or hour, for a magical trap) that passes after it is set. Traps marked with an asterisk (\\*) add to or modify the effects of another trap; a monster hunter can add one of these trap types to any standard trap (this costs 1 additional use of the trap ability).\n\n*Acid Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This target is splattered with acid, taking a number of points of earth damage equal to 1d6 + half the warrior\u2019s level to the triggering creature (Reflex negates). If it is an extraordinary trap, the monster hunter must supply a dose of acid when setting the trap.\n\n*Anchoring Trap\\* ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This trap can be added to a supernatural snare trap. The trap briefly imprisons any called creature (such as those called by the summon monster spells) for 1d4 rounds (Will negates). During this time the creature may not move from the location of the trap, though it may still use ranged effects and attack any creature within its reach. Additionally, anchoring traps disable the creature\u2019s ability to travel within or between dimensions. This includes casting *bend space and time, blink, dimension door, dimensional gate, ethereal jaunt, etherealness, gate, maze, plane shift, shadow walk*, and similar spell-like abilities. The trap does not prevent the creature from using magic items that produce these effects. The trap can hold up to a Medium creature; each extra daily use of the monster hunter\u2019s trap ability spent when the trap is set increases the maximum size of creature the trap can hold by one size category.\n\n*Blighted Mark Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This trap stains the victim with blighted plant matter, increasing its susceptibility to the attacks of creatures created or enthralled by the affliction. The target takes a \u20132 penalty to Armor Class against the attacks of creatures closely affiliated with the specific blight (typically demons, fey, plants, or undead) and on saving throws against effects created by such creatures. This effect lasts for 10 minutes per warrior level. a successful Will save negates this effect. Regardless of whether this is an extraordinary or supernatural trap, the monster hunter must supply a sample of the specific blight when setting this trap.\n\n*Burning Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* If the triggering creature fails its Reflex save, it catches on fire, taking 1d6 points of fire damage at the start of its turn for 1d4 rounds. The burning creature can attempt a new save as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round). Dropping and rolling on the ground grants a +4 bonus on this save. **Restrictions:** Can only be added to a fire trap.\n\n*Blightburn Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):* This trap strikes the target with a small shard of blightburn, dealing 2d6 points of fire damage, 1d3 points of Constitution damage, and 1d3 points of Charisma damage. A successful Fortitude save negates the ability damage and halves the fire damage. The monster hunter must supply a sliver of blightburn, a dangerous task in itself, though storing the blightburn in a lead vial makes the task less risky.\n\n*Bludgeoning Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap bludgeons the creature that triggers it. The trap makes an attack with a bonus equal to the monster hunter\u2019s character level + his Wisdom bonus. The triggering creature is denied its Dexterity bonus to AC if it was unaware of the trap. If the trap hits, it deals 1d6 points of bludgeoning damage plus an additional 1d6 for every four warrior levels the monster hunter possesses. If it\u2019s an extraordinary trap, the monster hunter must provide an object suitable for dealing lethal bludgeoning damage, such as a large branch or heavy stone.\n\n*Channeled Energy Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This trap creates a positive or negative energy effect designed to harm either undead or living creatures, respectively. The target takes a number of points of damage equal to 1d8 + the monster hunter\u2019s level from either positive energy or negative energy (Will save for half). If this is an extraordinary trap, the monster hunter must supply a vial of holy water (positive energy) or unholy water (negative energy).\n\n*Cleansing Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap suppresses the target\u2019s ability to use one randomly selected attack, ability, or quality that creates a disease or poison effect; this lasts for 1 round per warrior level. If the creature has more than one such attack, ability, or quality that creates a disease or poison effect, the attack, ability, or quality to be suppressed when the creature is affected by this trap is determined at random from those not already suppressed.\n\n*Decoy Trap ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap creates a shadowy humanoid figment that appears to move away from the triggering creature or that follows a simple program of no more than 25 words defined by the monster hunter at the time when the trap is set. Unless programmed otherwise, the figment appears 60 feet away from the triggering creature or as close to that distance as possible, and then moves away toward the nearest exit, if any. The figment can move up to 60 feet per round. A viewer can attempt a Will save or a Perception check to disbelieve the illusion if she attacks it or otherwise interacts with it. The Will save DC to disbelieve the illusion is the same as the DC to avoid the trap; the DC of the Perception check to disbelieve the illusion is equal to 5 + the DC to avoid the trap.\n\n*Dirty Trick Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* If the triggering creature fails its saving throw against the trap or is struck by the trap\u2019s attack, the trap also attempts a dirty trick combat maneuver against the triggering creature. The type of dirty trick is chosen when the trap is created, and if it isn\u2019t possible or isn\u2019t applicable to the triggering creature, the combat maneuver is wasted. The trap\u2019s CMB for the dirty trick is equal to the monster hunter\u2019s level + his Wisdom modifier.\n\n*Distraction Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The target is affected with irritation that detracts from its alertness. It takes a \u20132 penalty on Perception checks, initiative checks, and Reflex saves for 10 minutes per warrior level. If this is a supernatural trap, this is a mind-affecting effect. If this is an extraordinary trap, the monster hunter must supply a dose of itching powder or another alchemical irritant.\n\n*Exploding Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap explodes in fire, filling all squares adjacent to the trap and dealing a number of points of fire damage equal to 1d6 + half of the warrior\u2019s level (Reflex negates). If it is an extraordinary trap, the monster hunter must use an explosive material such as alchemist\u2019s fire when setting the trap. **Restrictions:** Can only be added to a fire trap.\n\n*Fire Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap explodes in flames, dealing a number of points of fire damage equal to 1d6 + half of the warrior\u2019s level to the triggering creature (Reflex negates). If it is an extraordinary trap, the monster hunter must use an explosive material such as alchemist\u2019s fire when setting the trap.\n\n*Firework Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap explodes in a flash of colored lights. All creatures within 10 feet must succeed at a saving throw (Fortitude if an extraordinary firework trap, Will if supernatural) or be blinded for 1d4+1 rounds. If this is an extraordinary trap, the monster hunter must use an alchemical weapon when setting the trap, such as flash powder or a firework. **Restrictions:** Can only be added to a fire or smoke trap.\n\n*Freezing Trap ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap creates a burst of ice that damages and encases the triggering creature. The creature takes 1d3 points of ice damage + half of the warrior\u2019s level and is entangled and stuck to the ground, similar to the effect of a tanglefoot bag. A successful Reflex save halves the damage and means the creature is not stuck to the floor by the ice. The ice is 1 inch thick per 2 Hit Dice of the monster hunter (minimum 1), has hardness 0 and 3 hit points per inch of thickness, and melts in 2d4 rounds.\n\n*Infected Snare Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The snare is made of diseased materials, which contain an aggressive blight that saps the energy and bodily health from the target creature. When initially caught in the snare, the trapped creature must succeed at a Fortitude saving throw or immediately take 2 points of Constitution damage. Each subsequent hour, the creature must succeed at a Fortitude saving throw or take 2 points of Constitution damage. This effect lasts for 12 hours or until the creature makes two successful saving throws in a row, whichever comes first. This is a poison effect. **Restrictions:** Can only be added to a snare trap.\n\n*Lazurite Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* Lazurite radiation increases the victim\u2019s susceptibility to the attacks of undead creatures that are bolstered by the radiation. The target takes a \u20132 penalty to Armor Class against the attacks of undead creatures and on saving throws against effects created by undead. This effect lasts for 10 minutes per warrior level. A successful Will save negates this effect. If this is an extraordinary trap, the monster hunter must supply a sliver of lazurite.\n\n*Limning Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This trap sprays glowing dust into the trapped square and all adjacent squares. A creature covered in this dust glows like a candle (becoming visibly outlined if invisible) and takes a -20 penalty on Stealth checks. The dust\u2019s effects last for 1 round per warrior level or until the creature washes it off (a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) requiring water or some other cleanser). If this is an extraordinary trap, the monster hunter must use alchemical components when setting the trap, such as glowing ink or marker dye.\n\n*Marking Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* If the triggering creature fails its save against the trap, it is marked with a dye and/or scent of the monster hunter\u2019s choosing. A scent mark decreases the DC of tracking the marked creature by scent by 4. The mark can be washed off with vigorous scrubbing, but fades on its own over several days.\n\n*Over-sized Barbs ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The target is speared with barbs that penetrate and protrude from its body, making squeezing, climbing, and swimming challenging. The trap implants 1d4+1 barbs, each dealing 1 point of damage. A successful Reflex save halves the number of barbs. The target takes a penalty on Climb checks and Swim checks equal to the number of barbs attached, and is considered one size category larger for the purposes of determining what size of opening or passageway it must squeeze through as long as at least 1 barb remains attached. Each barb can be removed with a full minute of work and a Heal check that equals or exceeds the trap\u2019s DC. If this check fails, the barb is still removed but the target takes 1d4 points of damage. The barbs shake loose harmlessly after 10 minutes per warrior level.\n\n*Penetrating Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The damage die of a penetrating trap increases to 1d8. Choose either adamantine, cold iron, or silver. The trap counts as that material for the purposes of overcoming damage reduction. If this is an extraordinary trap, the monster hunter must provide 1 pound of the chosen material during the trap\u2019s construction. **Restrictions:** Can only be added to a wounding trap.\n\n*Pit Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This simple pit is covered over with leaves or appropriate materials for the area. It\u2019s 5 feet deep plus 5 feet for every four warrior levels. A victim that succeeds at a Reflex save doesn\u2019t fall into the pit. If it is an extraordinary trap, the monster hunter can set this trap only in terrain with soft ground.\n\n*Poison Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural))*: The trap poisons the creature that triggers it. If it is a supernatural trap, the poison deals 1d2 Con damage per round for 6 rounds. If it is an extraordinary trap, the monster hunter must provide 1 dose of contact, inhaled, or injury poison when setting the trap, and the trap uses that poison\u2019s effects and DC.\n\n*Quicksand Trap ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap and all adjacent squares become quicksand as long as they contain loose sand or soil. The Swim DC to move in this quicksand is equal to the trap\u2019s save DC, and the Swim DC to tread in the quicksand is equal to the trap\u2019s DC \u20135. The quicksand lasts for a number of rounds equal to the warrior\u2019s level. When the effect ends, any creature still in the quicksand is returned to the surface prone.\n\n*Rust Monster Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap throws up a cloud of dust ground from the antennae of a rust monster, dealing 1d4 points of damage to the target\u2019s metal armor and weapons. A monster hunter may increase the damage by 1 point for each additional daily use of his trap ability he spends when creating this trap. A successful Reflex save negates this damage. If this is an extraordinary trap, the monster hunter must supply a set of rust monster antennae.\n\n*Selective Trigger\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The monster hunter adds a race, type, alignment, or minimum weight restriction to the trap\u2019s trigger. If this is an extraordinary trap, the monster hunter can choose only the minimum weight restriction.\n\n*Sleet Trap ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The detonating trap creates a 20-foot-radius burst of sleet with the effects of a *sleet storm*. The driving sleet lasts for 1 round, but the icy ground persists for 1 round per warrior level.\n\n*Smoke Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This trap bellows out thick, choking smoke that fills the trapped square and all adjacent squares. Any breathing creature in these squares must succeed at a Fortitude saving throws or take a -4 penalty to Strength and Dexterity every round it\u2019s within the smoke and for 1d4+1 rounds after leaving the smoke. All sight, even darkvision, is ineffective in or through the smoke. The smoke lasts for 1 round per two warrior levels, and is dispersed by wind as fog cloud. If this is an extraordinary trap, the monster hunter must use an alchemical component when setting the trap, such as a smokestick.\n\n*Snare Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap constricts around a limb or other part of the triggering creature\u2019s body (Reflex avoids). The creature cannot move from the location of the trap, unless the monster hunter included a \u201cleash\u201d when setting the trap, in which case the creature is limited to the length of the leash. The trapped creature can escape with an Escape Artist check (DC equal to the trap\u2019s DC) as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round). The trap or its leash has a number of hit points equal to half of the warrior\u2019s level, or can be burst as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) with a DC 25 Strength check. The trap can hold up to a Medium creature; each extra daily use of the monster hunter\u2019s trap ability spent when the trap is set increases the maximum size of creature the trap can hold. At the monster hunter\u2019s option, if there is a tall object or structure nearby, he can have the trap lift the creature.\n\n*Spell-Stealing Trap ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The target is struck by a burst of mana drain that steals its magical ability. The target loses 1d4+1 MP. A monster hunter may increase the number of MP lost by 1d4 for each additional daily use of his trap ability he spends when creating this trap.\n\n*Summoned Ally Trap ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap summons a creature as [*summon nature\u2019s ally I*](https://www.finalfantasyd20.com/magic/spells/s/summon-natures-ally-i) with a caster level equal to the warrior\u2019s level \u2013 3. This trap functions as [*summon nature\u2019s ally II*](https://www.finalfantasyd20.com/magic/spells/s/summon-natures-ally-ii) at 8th level, [*summon nature\u2019s ally III*](https://www.finalfantasyd20.com/magic/spells/s/summon-natures-ally-iii) at 11th level, and [*summon nature\u2019s ally IV*](https://www.finalfantasyd20.com/magic/spells/s/summon-natures-ally-iv) at 14th level. The summoned creature or creatures appear in a location within the trap\u2019s range designated when the trap is set; if it\u2019s not possible for the creatures to appear in that location, they appear in the nearest unoccupied space. The monster hunter can choose a command of no more than 25 words when the trap is created; the creature or creatures follow those instructions, or otherwise attack the creature that triggered the trap.\n\n*Swarm Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap releases a bat swarm, rat swarm, or spider swarm that attacks all creatures in the area. The swarm remains in the general area for no longer than 1 round per warrior level, after which it disperses. If the trap is an extraordinary trap, the monster hunter must provide the creatures of the swarm (typically in a small box, cage, or crate); these creatures may die of starvation before the trap is triggered (an extraordinary trap lasts 1 day per warrior level).\n\n*Tar Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The target is coated in a thin layer of sticky tar unless it succeeds at a Reflex save. It is entangled, and becomes susceptible to catching fire from any source of flame. If lit on fire, the tar burns intensely for 1 round; it deals 2d6 points of fire damage and is destroyed in the process. Unless burned away, the tar remains for 1 round per warrior level. If this is an extraordinary trap, the monster hunter must supply a dose of tar.\n\n*Telepathy Trap ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The trap resonates at a high-pitched frequency audible only to creatures that communicate via telepathy. If the triggering creature has the ability to communicate via telepathy, the creature becomes overwhelmed by psychic feedback. The trapped creature is staggered for 1d4 rounds (Will negates), and may not communicate telepathically during this time. This is a sonic, mind-affecting effect. Creatures that lack telepathy are not affected by this trap, though they may still trigger it.\n\n*Toxic Fumes Trap\\* ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The smoke this trap creates is extremely noxious. Any breathing creature must succeed at a Fortitude saving throw (in addition to the Fortitude save for the smoke trap) or be nauseated every round it\u2019s within the smoke and for 1d4+1 rounds after leaving the smoke. If this is an extraordinary trap, the monster hunter must use a toxic material when setting the trap, such as noxious aromatic. **Restrictions:** Can only be added to a smoke trap.\n\n*Transdimensional Trap\\* ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This augmentation allows a trap to affect an incorporeal or ethereal creature as if it were corporeal or existed on the Material Plane.\n\n*Transpositional Trap ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This pair of traps causes any creature that steps in one of the traps to be teleported to the location of the other trap (Will negates), as the spell [*dimension door*](https://www.finalfantasyd20.com/magic/spells/d/dimension-door). After having been transported, the creature may not take any other actions until its next turn. If one part of a pair of transpositional traps becomes blocked by a solid body or object, the trap does not function until the obstruction is removed. In order to create this trap, a monster hunter must set up two transpositional traps within 400 feet of each other, thus expending 2 uses of the monster hunter\u2019s traps per day. A monster hunter can only have one pair of transpositional traps set at a time; setting a third transpositional trap immediately causes the first to disappear and keys the second and third transpositional traps to one another.\n\n*Tripwire ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* A taut wire stretched between two vertical surfaces knocks the target prone unless it succeeds at a Reflex save. A running or charging creature takes a \u20136 penalty on its save.\n\n*Wounding Trap ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary) or [Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This trap makes a melee attack against the target using the monster hunter\u2019s base attack bonus + his Wisdom modifier for the attack roll. It deals an amount of damage equal to 1d6 + half of the warrior\u2019s level. The monster hunter chooses whether this damage is bludgeoning, piercing, or slashing. If this is a supernatural trap, the attack counts as magical for the purposes of overcoming damage reduction.\n\nThese abilities may replace warrior talents gained at 6th level or higher.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Traps",
+            "locator": "traps"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:feature:master-hunter",
+        "name": "Master Hunter",
+        "atLevel": 20,
+        "description": "A monster hunter of 20th level becomes a master of his trade. He gains a +5 bonus on checks made to identify a monster. As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), he can make a single attack against a favored enemy at his full attack bonus. If the attack hits, the target takes damage normally and must make a Fortitude save or die. The DC of this save is equal to 10 + half of the warrior\u2019s level + his Wisdom modifier. He can choose instead to deal an amount of nonlethal damage equal to the creature\u2019s current hit points. A successful save negates this damage. A monster hunter can use this ability once per day against each favored enemy type he possesses, but not against the same creature more than once in a 24-hour period.\n\nThis ability replaces weapon mastery.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Hunter",
+            "locator": "master-hunter"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:replacement:monster-lore:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:combat-defenses"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:monster-hunter:feature:monster-lore"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Monster Lore",
+            "locator": "monster-lore"
+          }
+        ],
+        "description": "This ability replaces combat defences."
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:replacement:favored-enemy:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:martial-flexibility"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:monster-hunter:feature:favored-enemy"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Favored Enemy",
+            "locator": "favored-enemy"
+          }
+        ],
+        "description": "This ability replaces martial flexibility."
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:replacement:tenacious-tracker:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:monster-hunter:feature:tenacious-tracker"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Tenacious Tracker",
+            "locator": "tenacious-tracker"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:replacement:track:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:monster-hunter:feature:track"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Track",
+            "locator": "track"
+          }
+        ],
+        "description": "This ability replaces overhand chop and increase save from warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:replacement:study-monster:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:4"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:monster-hunter:feature:study-monster"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Study Monster",
+            "locator": "study-monster"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 4th level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:replacement:hunter-s-defense:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii",
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:monster-hunter:feature:hunter-s-defense"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Hunter\u2019s Defense",
+            "locator": "hunter-s-defense"
+          }
+        ],
+        "description": "This ability replaces additional techs II and improved rush."
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:replacement:traps:0",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:6"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:monster-hunter:feature:traps"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Traps",
+            "locator": "traps"
+          }
+        ],
+        "description": "These abilities may replace warrior talents gained at 6th level or higher."
+      },
+      {
+        "id": "ffd20:archetype:warrior:monster-hunter:replacement:master-hunter:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:weapon-mastery"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:monster-hunter:feature:master-hunter"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Master Hunter",
+            "locator": "master-hunter"
+          }
+        ],
+        "description": "This ability replaces weapon mastery."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "intimidate",
+        "profession:*",
+        "ride",
+        "survival",
+        "swim",
+        "diplomacy",
+        "knowledge:local",
+        "perception"
+      ]
+    },
+    "resources": [],
+    "extraOptions": []
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:peacekeeper",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Peacekeeper",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/peacekeeper/",
+      "title": "Peacekeeper",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "eaaabd8cc5d9e643304aa60c461af93189ae5232e7fc4cf1f3c3c1d93f8cbadf"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:feature:touch-of-serenity",
+        "name": "Touch of Serenity",
+        "atLevel": 1,
+        "description": "At 1st level, a peacekeeper gains [Touch of Serenity](https://www.d20pfsrd.com/feats/combat-feats/touch-of-serenity-combat/) as a bonus feat, even if he does not meet the prerequisites.\n\nAt 6th level, and every six levels thereafter, the duration of Touch of Serenity increases by 1 round. Each round on its turn, the target may attempt a new Will save to end the effect. This duration does not stack; only the longest remaining duration applies.\n\nThis ability replaces flying kick.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Serenity",
+            "locator": "touch-of-serenity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:feature:touch-of-surrender",
+        "name": "Touch of Surrender",
+        "atLevel": 6,
+        "description": "At 6th level, a peacekeeper makes a foe into a friend with a single show of mercy. As an [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate), when one of his melee attacks would reduce a creature to 0 or fewer hit points, the peacekeeper can spend 1 ki point to make the target of that attack surrender. When the target surrenders, it is reduced to 0 hit points, becomes disabled, and is charmed, as if the peacekeeper had cast [*charm*](https://www.finalfantasyd20.com/magic/spells/c/charm/) with a caster level equal to the monk\u2019s level. The target does not get a saving throw against this effect. This charm lasts until its duration expires, until the peacekeeper dismisses it or uses it on another creature, or until the target is again reduced to 0 or fewer hit points, whichever happens first. The peacekeeper can only have one creature charmed with touch of surrender at a time. This is a mind-affecting charm effect.\n\nThis ability replaces a blitz technique gained at 6th level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Surrender",
+            "locator": "touch-of-surrender"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:feature:touch-of-peace",
+        "name": "Touch of Peace",
+        "atLevel": 12,
+        "description": "At 12th level, a peacekeeper can set up vibrations within the body of another creature to win over the creature\u2019s mind. The peacekeeper can use touch of peace once per day, and must announce his intent before making his attack roll. On a successful hit, the attack deals no damage, but the target is charmed as if the peacekeeper had cast [*charm*](https://www.finalfantasyd20.com/magic/spells/c/charm/) with a caster level equal to the monk\u2019s level. The target does not get a saving throw against this effect. The creature is charmed for 1 day per level. If the peacekeeper or his allies attack the charmed creature, or if the monk asks or commands the charmed creature to take hostile actions, the effect ends. This is a mind-affecting charm effect.\n\nThis ability replaces a blitz technique gained at 12th level.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Peace",
+            "locator": "touch-of-peace"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:feature:learned-master",
+        "name": "Learned Master",
+        "atLevel": 17,
+        "description": "At 17th level, a peacekeeper gains all Knowledge skills and the Linguistics skill as class skills. The peacekeeper uses Wisdom instead of Intelligence as the key ability for these skills.\n\nThis ability replaces fleet footwork.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Learned Master",
+            "locator": "learned-master"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:replacement:touch-of-serenity",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flying-kick"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:peacekeeper:feature:touch-of-serenity"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Serenity",
+            "locator": "touch-of-serenity"
+          }
+        ],
+        "description": "flying kick"
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:replacement:touch-of-surrender:events",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:6"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:peacekeeper:feature:touch-of-surrender"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Surrender",
+            "locator": "touch-of-surrender"
+          }
+        ],
+        "description": "a blitz technique gained at 6th level"
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:replacement:touch-of-peace:events",
+        "atClassLevel": 12,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:blitz-techniques:12"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:peacekeeper:feature:touch-of-peace"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Peace",
+            "locator": "touch-of-peace"
+          }
+        ],
+        "description": "a blitz technique gained at 12th level"
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:replacement:learned-master",
+        "atClassLevel": 17,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:fleet-footwork"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:peacekeeper:feature:learned-master"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Learned Master",
+            "locator": "learned-master"
+          }
+        ],
+        "description": "fleet footwork"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:feature:touch-of-serenity:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:peacekeeper:feature:touch-of-serenity",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Serenity",
+            "locator": "touch-of-serenity"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:feature:touch-of-surrender:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:peacekeeper:feature:touch-of-surrender",
+        "atClassLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Surrender",
+            "locator": "touch-of-surrender"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:feature:touch-of-peace:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:peacekeeper:feature:touch-of-peace",
+        "atClassLevel": 12,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Touch of Peace",
+            "locator": "touch-of-peace"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:peacekeeper:feature:learned-master:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:peacekeeper:feature:learned-master",
+        "atClassLevel": 17,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Learned Master",
+            "locator": "learned-master"
+          }
+        ]
+      }
+    ],
+    "resources": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "escape-artist",
+        "knowledge:history",
+        "knowledge:religion",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "ride",
+        "sense-motive",
+        "stealth",
+        "swim",
+        "diplomacy"
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

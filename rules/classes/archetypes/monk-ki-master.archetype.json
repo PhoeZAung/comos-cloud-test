@@ -1,0 +1,1158 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:ki-master",
+  "parentClassId": "ffd20:class:monk",
+  "name": "Ki Master",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+      "title": "Ki Master",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "f588f560b89a7701502809c7844b850fe72bc3ee5f847abbb0587fa433c776d1"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:ki-master:feature:ac-bonus",
+        "name": "AC Bonus",
+        "atLevel": 1,
+        "description": "A ki master is highly trained at dodging blows, and he has a sixth sense that lets his avoid even unanticipated attacks.\n\nWhen unarmored and unencumbered, the ki master adds his Wisdom bonus (if any) (this bonus is halved if he has a level in another non-prestige class and this is not his favored class) to his AC and his CMD. If the ki master gains an attribute bonus to his AC or CMD from some other source, it does not stack.\n\nIn addition, a ki master gains a +1 bonus to AC and CMD at 4th level. This bonus increases by 1 for every four monk levels thereafter, up to a maximum of +5 at 20th level. These bonuses to AC apply even against touch attacks or when the ki master is flat-footed.\n\nShe loses these bonuses when he is immobilized or helpless, when he wears any armor, when he carries a shield, or when he carries a medium or heavy load.\n\nThis ability replaces flurry of blows.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:feature:ki-pool",
+        "name": "Ki Pool",
+        "atLevel": 2,
+        "description": "At 2nd level, a ki master gains a pool of ki points, supernatural energy he can use to accomplish amazing feats. The number of points in a ki master\u2019s ki pool is equal to half his monk level (minimum 1) + his Wisdom modifier. As long as he has at least 1 point in his ki pool, he can make a ki strike. At 4th level, ki strike allows his unarmed attacks to be treated as magic weapons for the purpose of overcoming damage reduction. At 7th level, his unarmed attacks are also treated as cold iron and silver for the purpose of overcoming damage reduction. At 10th level, his unarmed attacks are also treated as being aligned, based upon his alignment. If the ki master has an alignment that is not Neutral along either the Law-Chaos or Good-Evil axis, his unarmed attacks count as that alignment (for example, a Lawful Good ki master\u2019s unarmed attacks are counted as both Lawfully-aligned and Good-aligned). If the ki master\u2019s alignment along either axis is Neutral, he must either choose an end of that axis to count his unarmed strikes as, or he may instead retain his neutrality and count his unarmed strikes as neither alignment. At 16th level, his unarmed attacks are treated as adamantine weapons for the purpose of overcoming damage reduction and bypassing hardness.\n\nA ki master gains additional powers that consume points from his ki pool as he gains levels.\n\nThe ki pool is replenished each morning after 8 hours of rest or meditation; these hours do not need to be consecutive.\n\nThis ability modifies ki pool.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:feature:ki-techniques",
+        "name": "Ki Techniques",
+        "atLevel": 3,
+        "description": "Starting at 3rd level and every odd level thereafter, a ki master learns a new ki technique from the list below. Some ki techniques have prerequisites. All ki techniques except stances cost 1 ki to activate and require a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) to use, including the stances. A ki master can only have 1 stance activated at all times. He loses the bonuses of his stance when he is immobilized or helpless, when he wears any armor, when he carries a shield, or when he carries a medium or heavy load.\n\n*Adept of Flame ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The sun burns with an eternal fire and the ki master continue on the path to understanding that intensity. The ki master gains the Sun Stance. This stance grants the ki master +2 Strength and -2 Wisdom. While in sun stance, the ki master deals 4 extra points of damage when he successfully strikes opponents, and 8 extra points of damage when he critically hits opponents. **Prerequisites:** The ki master must be at least 7th level and have the disciple of candles ki technique to select this ki technique.\n\n*Adept of Rain ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The sea is always in motion, and you continue on the path to understanding the way of the sea. The ki master gains the Ocean Stance. This stance grants the ki master +2 Wisdom, -2 Strength, and +3 to all saving throws. While in ocean stance, the ki master receives a dodge bonus to armor class (+4). **Prerequisites:** The ki master must be at least 7th level and have the disciple of puddles ki technique to select this ki technique.\n\n*Adept of Rock ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The mountain is eternal and the ki master continues on the path to understanding the way of stone. The ki master gains the Mountain Stance. This stance grants the ki master +2 Constitution, -2 Dexterity, and +2 Natural Armor Bonus. While in mountain stance, the ki master gains 2/- damage reduction when struck by opponents and 4/- when critically hit for 1 round. If multiple critical attacks strike the ki master, the damage reduction stacks for the round. **Prerequisites:** The ki master must be at least 7th level and have the disciple of pebbles ki technique to select this ki technique.\n\n*Adept of Wind ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The wind is untouchable and the ki master continues on the path to understanding what it is to be like the wind. The ki master gains the Wind Stance: This stance grants the ki master +2 Dexterity, -2 Constitution, and is able to make two extra attacks in a round at his highest base attack bonus, but these attacks take a \u20133 penalty, as does each other attack made that round. **Prerequisites:** The ki master must be at least 7th level and have the disciple of breezes ki technique to select this ki technique.\n\n*All-Consuming Flame ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes his opponent and curses them to light up like tinder. For the next 5 rounds, any fire damage affecting his opponent deals an additional 1d6 points of fire damage. **Prerequisites:** The ki master must be at least 5th level and have the disciple of candles ki technique to select this ki technique.\n\n*Difficulty at the Beginning ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master\u2019s meditations allows him to fill an ally with healing energy. This ability heals an ally for 1d6 + 1 per monk level, points of damage. **Prerequisites:** The ki master must be at least 5th level and have the disciple of puddles ki technique to select this ki technique.\n\n*Disciple of Breezes ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The wind is untouchable and the ki master has taken his first steps on the path to understanding what it is to be a leaf on the wind. The ki master gains the Lesser Wind Stance. The Wind Stance focuses on movement, granting the ki master an increased Dexterity (+2) and while fighting unarmed and unencumbered, with a full-attack action, is able to make one extra unarmed attack in a round at his highest base attack bonus, but this attack takes a \u20132 penalty, as does each other attack made that round at the cost of reducing the ki master\u2019s Constitution (-2) while the stance is active.\n\n*Disciple of Candles ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The sun burns with an eternal fire and the ki master has taken his first steps on the path to understanding that power and intensity. The ki master gains the Lesser Sun Stance. The sun stance focuses on an aggressive offense, granting the ki master an increased Strength (+2) at the cost of decreased Wisdom (-2). While in lesser sun stance, the ki master deals 2 extra points of damage when he successfully strikes opponents, and 4 extra points of damage when he critically hits opponents.\n\n*Disciple of Pebbles ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The mountain is eternal and the ki master has taken his first steps on the path to understanding the unyielding resilience of stone. The ki master gains the Lesser Mountain Stance. The mountain stance focuses on endurance and defense, granting the ki master an increased Constitution (+2), and natural armor (+1), at the cost of reducing his Dexterity (-2) and movement speed (-50%). While in lesser mountain stance, the ki master gains 1/- damage reduction when struck by opponents and 2/- when critically hit for 1 round. If multiple critical attacks strike the ki master, the damage reduction stacks for the round.\n\n*Disciple of Puddles ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The sea is teeming with life in motion and the ki master has taken his first steps on the path to understanding the way of the sea. The ki master gains the Lesser Ocean Stance. The lesser ocean stance focuses on redirection and the supernatural, granting the ki master an increased Wisdom and Saving Throws (+2 each) at the cost of reducing his Strength (-2). While in lesser ocean stance, the ki master receives a dodge bonus to armor class (+2).\n\n*Drowning Touch ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes his opponent and curses them to feel the undertow of the sea. For the next 5 rounds, any water damage affecting his opponent deals an additional 1d6 points of water damage. **Prerequisites:** The ki master must be at least 5th level and have the disciple of puddles ki technique to select this ki technique.\n\n*Fires of Purity I ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of flames. For 1 round, all attacks made will deal an additional 1d6 points of fire damage. **Prerequisite:** The ki master must have the disciple of candles ki technique to select this ki technique.\n\n*Fires of Purity II ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of flames. For 1 round, all attacks made will deal an additional 2d6 points of fire damage. **Prerequisites:** The ki master must have the disciple of candles and adept of flame ki techniques to select this ki technique.\n\n*Fires of Purity III ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of flames. For 1 round, all attacks made will deal an additional 3d6 points of fire damage. **Prerequisites:** The ki master must have the disciple of candles, adept of flame, and master of bonfires ki techniques to select this ki technique.\n\n*Fires of Purity IV ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of flames. For 1 round, all attacks made will deal an additional 4d6 points of fire damage. **Prerequisites:** The ki master must have the disciple of candles, adept of flame, master of bonfires, and grandmaster of the sun ki techniques to select this ki technique.\n\n*Flowing Water Strike I ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of the sea. For 1 round, all attacks made will deal an additional 1d6 points of water damage. **Prerequisite:** The ki master must have the disciple of puddles ki technique to select this ki technique.\n\n*Flowing Water Strike II ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of the sea. For 1 round, all attacks made will deal an additional 2d6 points of water damage. **Prerequisites:** The ki master must have the disciple of puddles and adept of rain ki techniques to select this ki technique.\n\n*Flowing Water Strike III ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of the sea. For 1 round, all attacks made will deal an additional 3d6 points of water damage. **Prerequisites:** The ki master must have the disciple of puddles, adept of rain, and master of the sea ki techniques to select this ki technique.\n\n*Flowing Water Strike IV ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of the sea. For 1 round, all attacks made will deal an additional 4d6 points of water damage. **Prerequisites:** The ki master must have the disciple of puddles, adept of rain, master of the sea, and grandmaster of oceans ki techniques to select this ki technique.\n\n*Grandmaster of Mountains ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The mountain is eternal as is the ki master. The ki master gains the Ultimate Mountain Stance. This stance grants the ki master +4 Constitution, -2 Dexterity, and +4 Natural Armor Bonus. While in ultimate mountain stance, the ki master gains 4/- damage reduction when struck by opponents and 8/- when critically hit for 1 round. If multiple critical attacks strike the ki master, the damage reduction stacks for the round. **Prerequisites:** The ki master must be at least 15th level and have the disciple of pebbles, adept of rock, and master of stone ki techniques to select this ki technique.\n\n*Grandmaster of Oceans ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The sea is always in motion as is the ki master. The ki master gains the Ultimate Ocean Stance. This stance grants the ki master +4 Wisdom, -2 Strength, and +5 to all saving throws. While in ultimate ocean stance, the ki master receives a dodge bonus to armor class (+8). **Prerequisites:** The ki master must be at least 15th level and have the disciple of puddles, adept of rain, and master of the sea ki techniques to select this ki technique.\n\n*Grandmaster of Storms ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The wind is untouchable and so is the ki master. The ki master gains the Ultimate Wind Stance. This stance grants the ki master +4 Dexterity, -2 Constitution, and is able to make four extra attacks in a round at his highest base attack bonus, but these attacks take a \u20135 penalty, as does each other attack made that round. **Prerequisites:** The ki master must be at least 15th level and have the disciple of breezes, adept of wind, and master of thunder ki techniques to select this ki technique.\n\n*Grandmaster of the Sun ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The sun burns with an eternal fire as do the ki master. The ki master gains the Ultimate Sun Stance. This stance grants the ki master +4 Strength and -2 Wisdom. While in ultimate sun stance, the ki master deals 8 extra points of damage when he successfully strikes opponents, and 16 extra points of damage when he critically hits opponents. **Prerequisites:** The ki master must be at least 15th level and have the disciple of candles, adept of flame, and master of bonfires ki techniques to select this ki technique.\n\n*Impact Strike ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes his opponent and curses them to feel the crushing strength of the earth. For the next 5 rounds, any earth damage affecting his opponent deals an additional 1d6 points of earth damage. **Prerequisites:** The ki master must be at least 4th level and have the disciple of pebbles ki technique to select this ki technique.\n\n*Lifting the Veil ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master\u2019s meditations allows him to clear the vision of an ally within 30 feet. This ability cures the Blind status effect. **Prerequisites:** The ki master must be at least 4th level and have the disciple of breezes ki technique to select this ki technique.\n\n*Master of Bonfires ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The sun burns with an eternal fire and the ki master continues on the path to understanding that intensity. The ki master gains the Greater Sun Stance. This stance grants the ki master +3 Strength and -2 Wisdom. While in greater sun stance, the ki master deals 6 extra points of damage when he successfully strikes opponents, and 12 extra points of damage when he critically hits opponents. **Prerequisites:** The ki master must be at least 11th level and have the disciple of candles and adept of flame ki techniques to select this ki technique.\n\n*Master of Stone ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The mountain is eternal and the ki master continues on the path to understanding the way of stone. The ki master gains the Greater Mountain Stance. This stance grants the ki master +3 Constitution, -2 Dexterity, and +3 Natural Armor Bonus. While in greater mountain stance, the ki master gains 3/- damage reduction when struck by opponents and 6/- when critically hit for 1 round. If multiple critical attacks strike the ki master, the damage reduction stacks for the round. **Prerequisites:** The ki master must be at least 11th level and have the disciple of pebbles and adept of rock ki techniques to select this ki technique.\n\n*Master of the Sea ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The sea is always in motion and the ki master continues on the path to understanding the way of the sea. The ki master gains the Greater Ocean Stance. This stance grants the ki master +3 Wisdom, -2 Strength, and +4 to all saving throws. While in greater ocean stance, the ki master receives a dodge bonus to armor class (+6). **Prerequisites:** The ki master must be at least 11th level and have the disciple of puddles and adept of rain ki techniques to select this ki technique.\n\n*Master of Thunder ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The wind is untouchable and the ki master continues on the path to understanding what it is to be like the wind. The ki master gains the Greater Wind Stance. This stance grants the ki master +3 Dexterity, -2 Constitution, and is able to make three extra attacks in a round at his highest base attack bonus, but these attacks take a \u20134 penalty, as does each other attack made that round. **Prerequisites:** The ki master must be at least 11th level and have the disciple of breezes and adept of wind ki techniques to select this ki technique.\n\n*Restoring the Balance ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master\u2019s meditations allows him to restore the harmony of an ally, dispelling hostile energies twisting his target\u2019s ki. This ability cures the Immobilize, Disable, and Curse status effects. **Prerequisites:** The ki master must be at least 7th level and have the disciple of candles ki technique to select this ki technique.\n\n*Rise of the Phoenix ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master\u2019s meditations allows him to restore the spirit of one who has fallen before their destiny has been achieved. This mirrors the effects of a [*Raise*](https://www.finalfantasyd20.com/magic/spells/r/raise) spell except the ki master loses half of his current health. **Prerequisites:** The ki master must be at least 11th level and have the adept of flame ki technique to select this ki technique.\n\n*Static Charge ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes his opponent and curses them to feel the fury of the sky. For the next 5 rounds, any lightning damage affecting his opponent deals an additional 1d6 points of lightning damage. **Prerequisites:** The ki master must be at least 5th level and have the disciple of breezes ki technique to select this ki technique.\n\n*Storm Strike I ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of lightning. For 1 round, all attacks made will deal an additional 1d6 points of lightning damage. **Prerequisite:** The ki master must have the disciple of breezes ki technique to select this ki technique.\n\n*Storm Strike II ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of lightning. For 1 round, all attacks made will deal an additional 2d6 points of lightning damage. **Prerequisites:** The ki master must have the disciple of breezes and adept of wind ki techniques to select this ki technique.\n\n*Storm Strike III ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of lightning. For 1 round, all attacks made will deal an additional 3d6 points of lightning damage. **Prerequisites:** The ki master must have the disciple of breezes, adept of wind, and master of thunder ki techniques to select this ki technique.\n\n*Storm Strike IV ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of lightning. For 1 round, all attacks made will deal an additional 4d6 points of lightning damage. **Prerequisites:** The ki master must have the disciple of breezes, adept of wind, master of thunder, and grandmaster of storms ki techniques to select this ki technique.\n\n*Strike of the Enduring I ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of earth. For 1 round, all attacks made will deal an additional 1d6 points of earth damage. **Prerequisite:** The ki master must have the disciple of pebbles ki technique to select this ki technique.\n\n*Strike of the Enduring II ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of earth. For 1 round, all attacks made will deal an additional 2d6 points of earth damage. **Prerequisites:** The ki master must have the disciple of pebbles and adept of rock ki techniques to select this ki technique.\n\n*Strike of the Enduring III ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of earth. For 1 round, all attacks made will deal an additional 3d6 points of earth damage. **Prerequisites:** The ki master must have the disciple of pebbles, adept of rock, and master of stone ki techniques to select this ki technique.\n\n*Strike of the Enduring IV ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master strikes an opponent, backed with the power of earth. For 1 round, all attacks made will deal an additional 4d6 points of earth damage. **Prerequisites:** The ki master must have the disciple of pebbles, adept of rock, master of stone, and grandmaster of mountains ki techniques to select this ki technique.\n\n*The Receptive Earth ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* The ki master\u2019s meditations allows him to purify an ally of infection. This ability cures the Disease and Zombie status effects. **Prerequisites:** The ki master must be at least 7th level and have the disciple of pebbles ki technique to select this ki technique.\n\nThese abilities replace blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:ki-master:replacement:ac-bonus",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flurry-of-blows"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:ki-master:feature:ac-bonus"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ],
+        "description": "flurry of blows"
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:replacement:ki-techniques",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:blitz-techniques"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:ki-master:feature:ki-techniques"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ],
+        "description": "blitz techniques"
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:archetype:monk:ki-master:pool:ki-techniques",
+        "name": "Ki Techniques",
+        "options": [
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-flame",
+            "name": "Adept of Flame",
+            "description": " The sun burns with an eternal fire and the ki master continue on the path to understanding that intensity. The ki master gains the Sun Stance. This stance grants the ki master +2 Strength and -2 Wisdom. While in sun stance, the ki master deals 4 extra points of damage when he successfully strikes opponents, and 8 extra points of damage when he critically hits opponents. Prerequisites: The ki master must be at least 7th level and have the disciple of candles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 7,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rain",
+            "name": "Adept of Rain",
+            "description": " The sea is always in motion, and you continue on the path to understanding the way of the sea. The ki master gains the Ocean Stance. This stance grants the ki master +2 Wisdom, -2 Strength, and +3 to all saving throws. While in ocean stance, the ki master receives a dodge bonus to armor class (+4). Prerequisites: The ki master must be at least 7th level and have the disciple of puddles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 7,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rock",
+            "name": "Adept of Rock",
+            "description": " The mountain is eternal and the ki master continues on the path to understanding the way of stone. The ki master gains the Mountain Stance. This stance grants the ki master +2 Constitution, -2 Dexterity, and +2 Natural Armor Bonus. While in mountain stance, the ki master gains 2/- damage reduction when struck by opponents and 4/- when critically hit for 1 round. If multiple critical attacks strike the ki master, the damage reduction stacks for the round. Prerequisites: The ki master must be at least 7th level and have the disciple of pebbles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 7,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-wind",
+            "name": "Adept of Wind",
+            "description": " The wind is untouchable and the ki master continues on the path to understanding what it is to be like the wind. The ki master gains the Wind Stance: This stance grants the ki master +2 Dexterity, -2 Constitution, and is able to make two extra attacks in a round at his highest base attack bonus, but these attacks take a \u20133 penalty, as does each other attack made that round. Prerequisites: The ki master must be at least 7th level and have the disciple of breezes ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 7,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:all-consuming-flame",
+            "name": "All-Consuming Flame",
+            "description": " The ki master strikes his opponent and curses them to light up like tinder. For the next 5 rounds, any fire damage affecting his opponent deals an additional 1d6 points of fire damage. Prerequisites: The ki master must be at least 5th level and have the disciple of candles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:difficulty-at-the-beginning",
+            "name": "Difficulty at the Beginning",
+            "description": " The ki master\u2019s meditations allows him to fill an ally with healing energy. This ability heals an ally for 1d6 + 1 per monk level, points of damage. Prerequisites: The ki master must be at least 5th level and have the disciple of puddles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes",
+            "name": "Disciple of Breezes",
+            "description": " The wind is untouchable and the ki master has taken his first steps on the path to understanding what it is to be a leaf on the wind. The ki master gains the Lesser Wind Stance. The Wind Stance focuses on movement, granting the ki master an increased Dexterity (+2) and while fighting unarmed and unencumbered, with a full-attack action, is able to make one extra unarmed attack in a round at his highest base attack bonus, but this attack takes a \u20132 penalty, as does each other attack made that round at the cost of reducing the ki master\u2019s Constitution (-2) while the stance is active.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles",
+            "name": "Disciple of Candles",
+            "description": " The sun burns with an eternal fire and the ki master has taken his first steps on the path to understanding that power and intensity. The ki master gains the Lesser Sun Stance. The sun stance focuses on an aggressive offense, granting the ki master an increased Strength (+2) at the cost of decreased Wisdom (-2). While in lesser sun stance, the ki master deals 2 extra points of damage when he successfully strikes opponents, and 4 extra points of damage when he critically hits opponents.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles",
+            "name": "Disciple of Pebbles",
+            "description": " The mountain is eternal and the ki master has taken his first steps on the path to understanding the unyielding resilience of stone. The ki master gains the Lesser Mountain Stance. The mountain stance focuses on endurance and defense, granting the ki master an increased Constitution (+2), and natural armor (+1), at the cost of reducing his Dexterity (-2) and movement speed (-50%). While in lesser mountain stance, the ki master gains 1/- damage reduction when struck by opponents and 2/- when critically hit for 1 round. If multiple critical attacks strike the ki master, the damage reduction stacks for the round.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles",
+            "name": "Disciple of Puddles",
+            "description": " The sea is teeming with life in motion and the ki master has taken his first steps on the path to understanding the way of the sea. The ki master gains the Lesser Ocean Stance. The lesser ocean stance focuses on redirection and the supernatural, granting the ki master an increased Wisdom and Saving Throws (+2 each) at the cost of reducing his Strength (-2). While in lesser ocean stance, the ki master receives a dodge bonus to armor class (+2).\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:drowning-touch",
+            "name": "Drowning Touch",
+            "description": " The ki master strikes his opponent and curses them to feel the undertow of the sea. For the next 5 rounds, any water damage affecting his opponent deals an additional 1d6 points of water damage. Prerequisites: The ki master must be at least 5th level and have the disciple of puddles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:fires-of-purity-i",
+            "name": "Fires of Purity I",
+            "description": " The ki master strikes an opponent, backed with the power of flames. For 1 round, all attacks made will deal an additional 1d6 points of fire damage. Prerequisite: The ki master must have the disciple of candles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:fires-of-purity-ii",
+            "name": "Fires of Purity II",
+            "description": " The ki master strikes an opponent, backed with the power of flames. For 1 round, all attacks made will deal an additional 2d6 points of fire damage. Prerequisites: The ki master must have the disciple of candles and adept of flame ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-flame"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:fires-of-purity-iii",
+            "name": "Fires of Purity III",
+            "description": " The ki master strikes an opponent, backed with the power of flames. For 1 round, all attacks made will deal an additional 3d6 points of fire damage. Prerequisites: The ki master must have the disciple of candles, adept of flame, and master of bonfires ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-bonfires",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-flame"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:fires-of-purity-iv",
+            "name": "Fires of Purity IV",
+            "description": " The ki master strikes an opponent, backed with the power of flames. For 1 round, all attacks made will deal an additional 4d6 points of fire damage. Prerequisites: The ki master must have the disciple of candles, adept of flame, master of bonfires, and grandmaster of the sun ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:grandmaster-of-the-sun",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-bonfires",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-flame"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:flowing-water-strike-i",
+            "name": "Flowing Water Strike I",
+            "description": " The ki master strikes an opponent, backed with the power of the sea. For 1 round, all attacks made will deal an additional 1d6 points of water damage. Prerequisite: The ki master must have the disciple of puddles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:flowing-water-strike-ii",
+            "name": "Flowing Water Strike II",
+            "description": " The ki master strikes an opponent, backed with the power of the sea. For 1 round, all attacks made will deal an additional 2d6 points of water damage. Prerequisites: The ki master must have the disciple of puddles and adept of rain ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rain"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:flowing-water-strike-iii",
+            "name": "Flowing Water Strike III",
+            "description": " The ki master strikes an opponent, backed with the power of the sea. For 1 round, all attacks made will deal an additional 3d6 points of water damage. Prerequisites: The ki master must have the disciple of puddles, adept of rain, and master of the sea ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-the-sea",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rain"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:flowing-water-strike-iv",
+            "name": "Flowing Water Strike IV",
+            "description": " The ki master strikes an opponent, backed with the power of the sea. For 1 round, all attacks made will deal an additional 4d6 points of water damage. Prerequisites: The ki master must have the disciple of puddles, adept of rain, master of the sea, and grandmaster of oceans ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:grandmaster-of-oceans",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-the-sea",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rain"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:grandmaster-of-mountains",
+            "name": "Grandmaster of Mountains",
+            "description": " The mountain is eternal as is the ki master. The ki master gains the Ultimate Mountain Stance. This stance grants the ki master +4 Constitution, -2 Dexterity, and +4 Natural Armor Bonus. While in ultimate mountain stance, the ki master gains 4/- damage reduction when struck by opponents and 8/- when critically hit for 1 round. If multiple critical attacks strike the ki master, the damage reduction stacks for the round. Prerequisites: The ki master must be at least 15th level and have the disciple of pebbles, adept of rock, and master of stone ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-stone",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rock"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:grandmaster-of-oceans",
+            "name": "Grandmaster of Oceans",
+            "description": " The sea is always in motion as is the ki master. The ki master gains the Ultimate Ocean Stance. This stance grants the ki master +4 Wisdom, -2 Strength, and +5 to all saving throws. While in ultimate ocean stance, the ki master receives a dodge bonus to armor class (+8). Prerequisites: The ki master must be at least 15th level and have the disciple of puddles, adept of rain, and master of the sea ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-the-sea",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rain"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:grandmaster-of-storms",
+            "name": "Grandmaster of Storms",
+            "description": " The wind is untouchable and so is the ki master. The ki master gains the Ultimate Wind Stance. This stance grants the ki master +4 Dexterity, -2 Constitution, and is able to make four extra attacks in a round at his highest base attack bonus, but these attacks take a \u20135 penalty, as does each other attack made that round. Prerequisites: The ki master must be at least 15th level and have the disciple of breezes, adept of wind, and master of thunder ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-thunder",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-wind"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:grandmaster-of-the-sun",
+            "name": "Grandmaster of the Sun",
+            "description": " The sun burns with an eternal fire as do the ki master. The ki master gains the Ultimate Sun Stance. This stance grants the ki master +4 Strength and -2 Wisdom. While in ultimate sun stance, the ki master deals 8 extra points of damage when he successfully strikes opponents, and 16 extra points of damage when he critically hits opponents. Prerequisites: The ki master must be at least 15th level and have the disciple of candles, adept of flame, and master of bonfires ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 15,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-bonfires",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-flame"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:impact-strike",
+            "name": "Impact Strike",
+            "description": " The ki master strikes his opponent and curses them to feel the crushing strength of the earth. For the next 5 rounds, any earth damage affecting his opponent deals an additional 1d6 points of earth damage. Prerequisites: The ki master must be at least 4th level and have the disciple of pebbles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 4,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:lifting-the-veil",
+            "name": "Lifting the Veil",
+            "description": " The ki master\u2019s meditations allows him to clear the vision of an ally within 30 feet. This ability cures the Blind status effect. Prerequisites: The ki master must be at least 4th level and have the disciple of breezes ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 4,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-bonfires",
+            "name": "Master of Bonfires",
+            "description": " The sun burns with an eternal fire and the ki master continues on the path to understanding that intensity. The ki master gains the Greater Sun Stance. This stance grants the ki master +3 Strength and -2 Wisdom. While in greater sun stance, the ki master deals 6 extra points of damage when he successfully strikes opponents, and 12 extra points of damage when he critically hits opponents. Prerequisites: The ki master must be at least 11th level and have the disciple of candles and adept of flame ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-flame"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-stone",
+            "name": "Master of Stone",
+            "description": " The mountain is eternal and the ki master continues on the path to understanding the way of stone. The ki master gains the Greater Mountain Stance. This stance grants the ki master +3 Constitution, -2 Dexterity, and +3 Natural Armor Bonus. While in greater mountain stance, the ki master gains 3/- damage reduction when struck by opponents and 6/- when critically hit for 1 round. If multiple critical attacks strike the ki master, the damage reduction stacks for the round. Prerequisites: The ki master must be at least 11th level and have the disciple of pebbles and adept of rock ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rock"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-the-sea",
+            "name": "Master of the Sea",
+            "description": " The sea is always in motion and the ki master continues on the path to understanding the way of the sea. The ki master gains the Greater Ocean Stance. This stance grants the ki master +3 Wisdom, -2 Strength, and +4 to all saving throws. While in greater ocean stance, the ki master receives a dodge bonus to armor class (+6). Prerequisites: The ki master must be at least 11th level and have the disciple of puddles and adept of rain ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-puddles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rain"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-thunder",
+            "name": "Master of Thunder",
+            "description": " The wind is untouchable and the ki master continues on the path to understanding what it is to be like the wind. The ki master gains the Greater Wind Stance. This stance grants the ki master +3 Dexterity, -2 Constitution, and is able to make three extra attacks in a round at his highest base attack bonus, but these attacks take a \u20134 penalty, as does each other attack made that round. Prerequisites: The ki master must be at least 11th level and have the disciple of breezes and adept of wind ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-wind"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:restoring-the-balance",
+            "name": "Restoring the Balance",
+            "description": " The ki master\u2019s meditations allows him to restore the harmony of an ally, dispelling hostile energies twisting his target\u2019s ki. This ability cures the Immobilize, Disable, and Curse status effects. Prerequisites: The ki master must be at least 7th level and have the disciple of candles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 7,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-candles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:rise-of-the-phoenix",
+            "name": "Rise of the Phoenix",
+            "description": " The ki master\u2019s meditations allows him to restore the spirit of one who has fallen before their destiny has been achieved. This mirrors the effects of a Raise spell except the ki master loses half of his current health. Prerequisites: The ki master must be at least 11th level and have the adept of flame ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 11,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-flame"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:static-charge",
+            "name": "Static Charge",
+            "description": " The ki master strikes his opponent and curses them to feel the fury of the sky. For the next 5 rounds, any lightning damage affecting his opponent deals an additional 1d6 points of lightning damage. Prerequisites: The ki master must be at least 5th level and have the disciple of breezes ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:storm-strike-i",
+            "name": "Storm Strike I",
+            "description": " The ki master strikes an opponent, backed with the power of lightning. For 1 round, all attacks made will deal an additional 1d6 points of lightning damage. Prerequisite: The ki master must have the disciple of breezes ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:storm-strike-ii",
+            "name": "Storm Strike II",
+            "description": " The ki master strikes an opponent, backed with the power of lightning. For 1 round, all attacks made will deal an additional 2d6 points of lightning damage. Prerequisites: The ki master must have the disciple of breezes and adept of wind ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-wind"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:storm-strike-iii",
+            "name": "Storm Strike III",
+            "description": " The ki master strikes an opponent, backed with the power of lightning. For 1 round, all attacks made will deal an additional 3d6 points of lightning damage. Prerequisites: The ki master must have the disciple of breezes, adept of wind, and master of thunder ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-thunder",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-wind"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:storm-strike-iv",
+            "name": "Storm Strike IV",
+            "description": " The ki master strikes an opponent, backed with the power of lightning. For 1 round, all attacks made will deal an additional 4d6 points of lightning damage. Prerequisites: The ki master must have the disciple of breezes, adept of wind, master of thunder, and grandmaster of storms ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:grandmaster-of-storms",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-breezes",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-thunder",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-wind"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:strike-of-the-enduring-i",
+            "name": "Strike of the Enduring I",
+            "description": " The ki master strikes an opponent, backed with the power of earth. For 1 round, all attacks made will deal an additional 1d6 points of earth damage. Prerequisite: The ki master must have the disciple of pebbles ki technique to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:strike-of-the-enduring-ii",
+            "name": "Strike of the Enduring II",
+            "description": " The ki master strikes an opponent, backed with the power of earth. For 1 round, all attacks made will deal an additional 2d6 points of earth damage. Prerequisites: The ki master must have the disciple of pebbles and adept of rock ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rock"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:strike-of-the-enduring-iii",
+            "name": "Strike of the Enduring III",
+            "description": " The ki master strikes an opponent, backed with the power of earth. For 1 round, all attacks made will deal an additional 3d6 points of earth damage. Prerequisites: The ki master must have the disciple of pebbles, adept of rock, and master of stone ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-stone",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rock"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:strike-of-the-enduring-iv",
+            "name": "Strike of the Enduring IV",
+            "description": " The ki master strikes an opponent, backed with the power of earth. For 1 round, all attacks made will deal an additional 4d6 points of earth damage. Prerequisites: The ki master must have the disciple of pebbles, adept of rock, master of stone, and grandmaster of mountains ki techniques to select this ki technique.\n\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:grandmaster-of-mountains",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:master-of-stone",
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:adept-of-rock"
+            ]
+          },
+          {
+            "id": "ffd20:archetype:monk:ki-master:option:ki-techniques:the-receptive-earth",
+            "name": "The Receptive Earth",
+            "description": " The ki master\u2019s meditations allows him to purify an ally of infection. This ability cures the Disease and Zombie status effects. Prerequisites: The ki master must be at least 7th level and have the disciple of pebbles ki technique to select this ki technique.\n\nThese abilities replace blitz techniques.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+            "minimumLevel": 7,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Ki Techniques",
+                "locator": "ki-techniques"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/ki-master/",
+            "manualPrerequisites": true,
+            "requiresOptionIds": [
+              "ffd20:archetype:monk:ki-master:option:ki-techniques:disciple-of-pebbles"
+            ]
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:ki-master:event:ki-techniques:3:0",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolIds": [
+          "ffd20:archetype:monk:ki-master:pool:ki-techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:event:ki-techniques:6:1",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:archetype:monk:ki-master:pool:ki-techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:event:ki-techniques:9:2",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:archetype:monk:ki-master:pool:ki-techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:event:ki-techniques:12:3",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:archetype:monk:ki-master:pool:ki-techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:event:ki-techniques:15:4",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:archetype:monk:ki-master:pool:ki-techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:event:ki-techniques:18:5",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:archetype:monk:ki-master:pool:ki-techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:feature:ac-bonus:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ki-master:feature:ac-bonus",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:feature:ki-pool:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ki-master:feature:ki-pool",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:ki-master:feature:ki-techniques:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:ki-master:feature:ki-techniques",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Techniques",
+            "locator": "ki-techniques"
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "featureId": "ffd20:class:monk:feature:ki-pool",
+        "perLevel": 0.5,
+        "ability": "wis",
+        "minimum": 0
+      }
+    ],
+    "profile": {},
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

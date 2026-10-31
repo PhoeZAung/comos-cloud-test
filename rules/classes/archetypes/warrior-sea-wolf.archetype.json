@@ -1,0 +1,539 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:warrior:sea-wolf",
+  "parentClassId": "ffd20:class:warrior",
+  "name": "Sea Wolf",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/warrior/archetypes/sea-wolf/",
+      "title": "Sea Wolf",
+      "archiveSha256": "b213aee3c65cc2c05762726d460a14cb11110d2fa41741f3e85491ebcee41695",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet replacements and progression. External prerequisites, optional replacements, companions, complex combat effects and extra named subchoices manual."
+  },
+  "data": {
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "features": [
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:class-skills",
+        "name": "Class Skills",
+        "atLevel": 1,
+        "description": "A sea wolf adds Navigate and Pilot to his list of class skills and removes Ride and Knowledge (dungeoneering) from his list of class skills.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Skills",
+            "locator": "class-skills"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:sea-wolf-s-bane",
+        "name": "Sea Wolf\u2019s Bane",
+        "atLevel": 1,
+        "description": "At 1st level, the sea wolf can, as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move), indicate an enemy in combat and rally his allies to focus on that target.\n\nThe sea wolf and his allies gain a +1 bonus on weapon attack and damage rolls against the target. This ability applies only to allies who can see or hear the sea wolf and who are within 30 feet of the sea wolf at the time he activates this ability.\n\nAt 5th level and every 4 levels thereafter (9th, 13th, and 17th level), the bonus increases by 1. The sea wolf\u2019s bane lasts until the target dies or the sea wolf selects a new target. Abilities and warrior talents that use Chosen Weapon, function normally with this replaced ability as long as its activated.\n\nThis ability replaces chosen weapon and weapon guard.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sea Wolf\u2019s Bane",
+            "locator": "sea-wolf-s-bane"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:deck-fighting",
+        "name": "Deck Fighting",
+        "atLevel": 2,
+        "description": "A sea wolf is used to fighting on crowded decks, and isn\u2019t fazed by fighting multiple opponents at once. At 2nd level, he gains [Cleave](https://www.d20pfsrd.com/feats/combat-feats/cleave-combat/) as a bonus feat. He may use this feat even if he does not meet the prerequisites. A sea wolf does not take the normal \u20132 penalty to his AC when using the Cleave feat. If the sea wolf already has this feat, he may take another Combat feat that he must meet the prerequisites for.\n\nThis ability replaces a warrior talent gained at 2nd level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deck Fighting",
+            "locator": "deck-fighting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:armored-pirate",
+        "name": "Armored Pirate",
+        "atLevel": 3,
+        "description": "A sea wolf wears heavier armor than is common aboard a ship. At 3rd level, the sea wolf reduces the armor check penalty of any light armor he wears to 0 for purposes of Acrobatics and Swim checks. At 7th level, this becomes true of medium armor as well. At 11th level, it includes heavy armor.\n\nThis ability replaces overhand chop and increase save from warrior techniques.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armored Pirate",
+            "locator": "armored-pirate"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:sea-wolf-tricks",
+        "name": "Sea Wolf Tricks",
+        "atLevel": 4,
+        "description": "As a sea wolf develops his skill, he learns a number of tricks that aid him in his work. he gains a sea wolf trick at 4th level and every two warrior levels thereafter. A sea wolf cannot select an individual trick more than once.\n\n**Classic Duelist ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The sea wolf gains a +1\u00a0competence bonus\u00a0on\u00a0attack rolls\u00a0made with a cutlass,\u00a0rapier, or short sword.\n\n**Deep Breath ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The sea wolf can hold his breath for a number of rounds equal to three times his Constitution score before he must start making Constitution checks.\n\n**Defensive Climber ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The sea wolf does not lose his\u00a0Dexterity bonus to AC when climbing.\n\n**Drink for Free ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** This ability presumes that the sea wolf is admired or feared in the taverns he frequents. The sea wolf designates one tavern per two warrior levels as a \u201cfavored tavern.\u201d When in a favored tavern, the sea wolf drinks for free. In addition, he gains a +2\u00a0circumstance bonus\u00a0on\u00a0Diplomacy\u00a0and\u00a0Intimidate checks within a favored tavern.\n\n**Farseer ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The sea wolf takes turns serving as lookouts. A sea wolf with this ability reduces any distance-based penalties on\u00a0Perception\u00a0checks by half when he is at least 10 feet off the ground or above the deck of a ship.\n\n**Quick Appraise ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The sea wolf must at times quickly select the most valuable items to spirit away. He appraises an item as a\u00a0move action\u00a0and can determine the most valuable item in a treasure hoard as a\u00a0standard action.\n\n**Rigging Monkey ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The sea wolf becomes skilled at climbing on ropes and rigging. This ability grants the sea wolf a +2 bonus on\u00a0Climb\u00a0checks when using a rope to help his climb. In addition, when using a rope to help his climb, the sea wolf can move at half his speed. (By accepting a \u20135 penalty, he can move at his normal speed.)\n\n**Storm Sailor ([Ex](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#extraordinary)):** The sea wolf treats all storms as if they were one category less severe for the purposes of sailing and navigation. He can make an\u00a0Acrobatics\u00a0check to move his normal speed across uneven ground, and he does not take a penalty on any\u00a0Acrobatics checks due to slightly slippery, slightly unsteady, or moderately unsteady conditions.\n\nThese abilities may replace warrior talents and advanced warrior talents.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sea Wolf Tricks",
+            "locator": "sea-wolf-tricks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:sea-wolf-s-bond",
+        "name": "Sea Wolf\u2019s Bond",
+        "atLevel": 5,
+        "description": "At 5th level, a sea wolf forms a bond with his crewmates. This bond allows him to spend a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) to grant his allies extra combat prowess when they work as a team. All allies within 30 feet who can see or hear the sea wolf gain an additional +2 bonus on attack rolls when flanking with the sea wolf or with another ally affected by this ability.\n\nThis ability replaces additional techs II.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sea Wolf\u2019s Bond",
+            "locator": "sea-wolf-s-bond"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:improved-deck-fighting",
+        "name": "Improved Deck Fighting",
+        "atLevel": 6,
+        "description": "At 6th level, the sea wolf gains [Great Cleave](https://www.d20pfsrd.com/feats/combat-feats/great-cleave-combat-final/) as a bonus feat. He may use this feat even if he does not meet the prerequisites. A sea wolf does not take the normal \u20132 penalty to his AC when using the Great Cleave feat. If the sea wolf already has this feat, he may take another Combat feat that he must meet the prerequisites for.\n\nThis ability replaces a warrior talent gained at 6th level.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Deck Fighting",
+            "locator": "improved-deck-fighting"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:fast-swimming",
+        "name": "Fast Swimming",
+        "atLevel": 7,
+        "description": "Starting at 7th level, a sea wolf may swim half his speed as a [move action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#move) or his normal speed as a [full-round action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#full-round) with a successful Swim check. The sea wolf gains a +2 bonus on Swim checks.\n\nAt 10th level, a sea wolf can use War Cry a number of times per day equal to 3 + his Constitution modifier, instead of spending stamina.\n\nThis ability replaces additional techs III and modifies war cry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Swimming",
+            "locator": "fast-swimming"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:sure-footed",
+        "name": "Sure-Footed",
+        "atLevel": 8,
+        "description": "At 8th level, a sea wolf takes no penalties when moving across slick surfaces, whethis natural or magical. He is not at risk of falling, is not denied his Dexterity\u00a0bonus when moving across such areas, and does not treat them as difficult terrain.\n\nThis ability replaces secure weaponry.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sure-Footed",
+            "locator": "sure-footed"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:explore-the-seas",
+        "name": "Explore the Seas",
+        "atLevel": 13,
+        "description": "At 13th level, the sea wolf gains [Pressure Adept](https://www.d20pfsrd.com/feats/general-feats/pressure-adept/) as a bonus feat and adds two oceanic zones to his native range instead of one. When exploring a new location underwater, he gains a +2 morale bonus\u00a0on\u00a0initiative checks and Perception checks, and can always act in the\u00a0surprise\u00a0round.\n\nThis ability replaces improved rush.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Explore the Seas",
+            "locator": "explore-the-seas"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:critical-aim",
+        "name": "Critical Aim",
+        "atLevel": 14,
+        "description": "Whenever the sea wolf targets a creature with sea wolf\u2019s bane, he and all allies within range gain the bonus to critical hit range versus that creature.\n\nThis ability modifies critical aim.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Critical Aim",
+            "locator": "critical-aim"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:feature:assured-crits",
+        "name": "Assured Crits",
+        "atLevel": 16,
+        "description": "Whenever the sea wolf targets a creature with sea wolf\u2019s bane, he and all allies within range gain the bonus to critical hit confirmations versus that creature.\n\nThis ability modifies assured crits.\nSheet support: conditional combat bonuses, temporary forms, equipment, prerequisites and any extra subchoices are applied manually using existing sheet entries.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assured Crits",
+            "locator": "assured-crits"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:sea-wolf-s-bane:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:chosen-weapon",
+          "ffd20:class:warrior:feature:weapon-guard"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:sea-wolf-s-bane"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sea Wolf\u2019s Bane",
+            "locator": "sea-wolf-s-bane"
+          }
+        ],
+        "description": "This ability replaces chosen weapon and weapon guard."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:deck-fighting:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:deck-fighting"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Deck Fighting",
+            "locator": "deck-fighting"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 2nd level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:armored-pirate:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:increase-save",
+          "ffd20:class:warrior:feature:overhand-chop"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:armored-pirate"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armored Pirate",
+            "locator": "armored-pirate"
+          }
+        ],
+        "description": "This ability replaces overhand chop and increase save from warrior techniques."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:sea-wolf-tricks:0",
+        "atClassLevel": 4,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:2",
+          "ffd20:class:warrior:event:warrior-talents:4",
+          "ffd20:class:warrior:event:warrior-talents:6",
+          "ffd20:class:warrior:event:warrior-talents:8",
+          "ffd20:class:warrior:event:warrior-talents:10",
+          "ffd20:class:warrior:event:warrior-talents:12",
+          "ffd20:class:warrior:event:warrior-talents:14",
+          "ffd20:class:warrior:event:warrior-talents:16",
+          "ffd20:class:warrior:event:warrior-talents:18",
+          "ffd20:class:warrior:event:warrior-talents:20"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:sea-wolf-tricks"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sea Wolf Tricks",
+            "locator": "sea-wolf-tricks"
+          }
+        ],
+        "description": "These abilities may replace warrior talents and advanced warrior talents."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:sea-wolf-s-bond:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-ii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:sea-wolf-s-bond"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sea Wolf\u2019s Bond",
+            "locator": "sea-wolf-s-bond"
+          }
+        ],
+        "description": "This ability replaces additional techs II."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:improved-deck-fighting:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:warrior-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:warrior:event:warrior-talents:6"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:improved-deck-fighting"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Deck Fighting",
+            "locator": "improved-deck-fighting"
+          }
+        ],
+        "description": "This ability replaces a warrior talent gained at 6th level."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:fast-swimming:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:additional-techs-iii"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:fast-swimming"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Swimming",
+            "locator": "fast-swimming"
+          }
+        ],
+        "description": "This ability replaces additional techs III"
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:sure-footed:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:secure-weaponry"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:sure-footed"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Sure-Footed",
+            "locator": "sure-footed"
+          }
+        ],
+        "description": "This ability replaces secure weaponry."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:explore-the-seas:0",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:improved-rush"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:explore-the-seas"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Explore the Seas",
+            "locator": "explore-the-seas"
+          }
+        ],
+        "description": "This ability replaces improved rush."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:critical-aim:0",
+        "atClassLevel": 14,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:critical-aim"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:critical-aim"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Critical Aim",
+            "locator": "critical-aim"
+          }
+        ],
+        "description": "This ability modifies critical aim."
+      },
+      {
+        "id": "ffd20:archetype:warrior:sea-wolf:replacement:assured-crits:0",
+        "atClassLevel": 16,
+        "operation": "modify",
+        "scope": "whole_feature",
+        "resolution": "needs_review",
+        "targetFeatureIds": [
+          "ffd20:class:warrior:feature:assured-crits"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "replacementFeatureIds": [
+          "ffd20:archetype:warrior:sea-wolf:feature:assured-crits"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Assured Crits",
+            "locator": "assured-crits"
+          }
+        ],
+        "description": "This ability modifies assured crits."
+      }
+    ],
+    "choicePools": [],
+    "events": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "handle-animal",
+        "intimidate",
+        "profession:*",
+        "survival",
+        "swim",
+        "navigate",
+        "pilot"
+      ]
+    },
+    "resources": [
+      {
+        "featureId": "ffd20:class:warrior:feature:war-cry",
+        "base": 3,
+        "perLevel": 0,
+        "ability": "con",
+        "minimum": 0
+      }
+    ],
+    "extraOptions": []
+  }
+}

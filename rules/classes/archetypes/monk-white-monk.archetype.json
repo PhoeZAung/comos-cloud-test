@@ -1,0 +1,855 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:monk:white-monk",
+  "parentClassId": "ffd20:class:monk",
+  "name": "White Monk",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/monk/archetypes/white-monk/",
+      "title": "White Monk",
+      "sourceKind": "official_web",
+      "retrievedOn": "2026-10-29",
+      "archiveSha256": "a9579ffaff0fd297530f3bee08042d5732fb6f6a21345c39c70131f2cb9b4cb1"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed sheet progression/replacements. Complex combat, prerequisites, dynamic choices and spell/equipment/feat subchoices remain manual; no independent full review claimed."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:healer-training",
+        "name": "Healer Training",
+        "atLevel": 1,
+        "description": "A white monk\u2019s base attack bonus decreases by one step (from Full BAB to 3/4 BAB). Also decreases white monk\u2019s hit dice from d12 to d8.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Healer Training",
+            "locator": "healer-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:ac-bonus",
+        "name": "AC Bonus",
+        "atLevel": 1,
+        "description": "A white monk is highly trained at dodging blows, and she has a sixth sense that lets her avoid even unanticipated attacks.\n\nWhen unarmored and unencumbered, the white monk adds her Wisdom bonus (if any) (this bonus is halved if she has a level in another non-prestige class and this is not her favored class) to her AC and her CMD. If the white monk gains an attribute bonus to her AC or CMD from some other source, it does not stack.\n\nIn addition, a white monk gains a +1 bonus to AC and CMD at 4th level. This bonus increases by 1 for every four monk levels thereafter, up to a maximum of +5 at 20th level. These bonuses to AC apply even against touch attacks or when the white monk is flat-footed.\n\nShe loses these bonuses when she is immobilized or helpless, when she wears any armor, when she carries a shield, or when she carries a medium or heavy load.\n\nThis ability replaces bodybuilding.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:spells-and-cantrips",
+        "name": "Spells and Cantrips",
+        "atLevel": 1,
+        "description": "Beginning at 1st level, a white monk gains the ability to cast white magic spells, which are drawn from the [white mage spell list](https://www.finalfantasyd20.com/magic/spells-by-class/white-mage/). A white monk begins play with 3 1st level white mage spells of her choice. The white monk also selects a number of additional 1st-level spells equal to her Wisdom modifier to add to her list of spells. Each time a character attains a new monk level, she gains two spells of her choice to add to her list of spells. The two free spells must be of spell levels she can cast. Like most spellcasters, a white monk can find or purchase scrolls with spells to add to her repertoire.\n\nTo learn or cast a spell, the white monk must have a Wisdom score equal to at least 10 + the spell level (Wis 11 for 1st-level spells, Wis 12 for 2nd-level spells, and so forth). The Difficulty Class for a saving throw against a white monk\u2019s spell is 10 + the spell level + the white monk\u2019s Wisdom modifier. In addition, a white monk gains additional MP for having a high attribute (Wisdom).\n\n## Table: 3/4th MP Progression\n\n| Level | Base MP | Spell Level |\n| --- | --- | --- |\n| 1st | 2 | 1st |\n| 2nd | 3 | 1st |\n| 3rd | 4 | 1st |\n| 4th | 5 | 2nd |\n| 5th | 6 | 2nd |\n| 6th | 8 | 2nd |\n| 7th | 10 | 3rd |\n| 8th | 13 | 3rd |\n| 9th | 16 | 3rd |\n| 10th | 20 | 4th |\n| 11th | 24 | 4th |\n| 12th | 29 | 4th |\n| 13th | 34 | 5th |\n| 14th | 39 | 5th |\n| 15th | 45 | 5th |\n| 16th | 51 | 6th |\n| 17th | 57 | 6th |\n| 18th | 64 | 6th |\n| 19th | 71 | 6th |\n| 20th | 79 | 6th |\n\nIn addition, a white monk learn a number of cantrips, or 0-level spells. These spells are cast like any other spell, but they do not consume MP and may be used again. White monks begin with 2 0-level spells and gain an additional 0-level spell every three levels after 1st level.\n\nThis ability replaces flurry of blows and monk talents gained at 4th, 8th, 12th, 16th, and 20th levels.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.\nSpell learning and selection are manual: use existing spell rows. The sheet tracks the source MP table and Wisdom bonus MP only; no White Mage spell picker is claimed.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spells and Cantrips",
+            "locator": "spells-and-cantrips"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:fast-movement",
+        "name": "Fast Movement",
+        "atLevel": 3,
+        "description": "At 3rd level, a white monk gains a +10 foot enhancement bonus to her land speed. This bonus increases by an additional 10 feet at every third level past 3rd. A white monk in armor or carrying a medium or heavy load loses this extra speed.\n\nThis ability replaces boost and reinforced fortitude.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Movement",
+            "locator": "fast-movement"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:clear-mind",
+        "name": "Clear Mind",
+        "atLevel": 5,
+        "description": "At 5th level, a white monk can regain her MP quicker. The white monk must be relaxed and must be free from overt distractions, such as combat raging nearby or other loud noises. For example, she could be riding in the back of a carriage and benefit from this ability. The white monk does not gain this recovery if she is asleep or unconscious. The white monk regains 1 MP per hour. This increases by 1 for every five monk levels after 5th.\n\nThis ability replaces zen.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Clear Mind",
+            "locator": "clear-mind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:diamond-mind",
+        "name": "Diamond Mind",
+        "atLevel": 8,
+        "description": "At 8th level, the white monk hardens her mind\u2019s defense.\n\nThe white monk is immune to all forms of non-self-inflicted Wisdom damage, drain, and penalties. Additionally, she gains a +2 bonus on all Will saving throws.\n\nAt 14th level, the bonus to Will saving throws increases to +4.\n\nAt 20th level, the bonus to Will saving throws increases to +6.\n\nThis ability replaces diamond body.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diamond Mind",
+            "locator": "diamond-mind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:inner-fire",
+        "name": "Inner Fire",
+        "atLevel": 19,
+        "description": "At 19th level, the white monk attains the ability to draw out her latent power, bolstering her defenses. As a [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard), the white monk gains a source of DR/-, with this amount being equal to the white monk\u2019s Wisdom bonus. This effect stacks with any existing sources of DR/-, and lasts for 1 minute.\n\nThe white monk can use this ability 3 times per day.\n\nThis ability replaces inner strength.\nManual sheet handling: check the source prerequisites, armor/load restrictions, action timing and conditional effects. Record any feat, weapon, ability, spell, style or other subchoice on the existing sheet entries; this card does not apply global combat modifiers.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inner Fire",
+            "locator": "inner-fire"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:monk:white-monk:replacement:ac-bonus",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:bodybuilding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:white-monk:feature:ac-bonus"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ],
+        "description": "bodybuilding"
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:replacement:spells-and-cantrips",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:flurry-of-blows"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:white-monk:feature:spells-and-cantrips"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spells and Cantrips",
+            "locator": "spells-and-cantrips"
+          }
+        ],
+        "description": "flurry of blows and monk talents gained at 4th, 8th, 12th, 16th, and 20th levels"
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:replacement:spells-and-cantrips:events",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:monk-talents"
+        ],
+        "targetEventIds": [
+          "ffd20:class:monk:event:monk-talents:4",
+          "ffd20:class:monk:event:monk-talents:8",
+          "ffd20:class:monk:event:monk-talents:12",
+          "ffd20:class:monk:event:monk-talents:16",
+          "ffd20:class:monk:event:monk-talents:20"
+        ],
+        "eventOnly": true,
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:white-monk:feature:spells-and-cantrips"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spells and Cantrips",
+            "locator": "spells-and-cantrips"
+          }
+        ],
+        "description": "flurry of blows and monk talents gained at 4th, 8th, 12th, 16th, and 20th levels"
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:replacement:fast-movement",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:reinforced-fortitude",
+          "ffd20:class:monk:feature:boost"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:white-monk:feature:fast-movement"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Movement",
+            "locator": "fast-movement"
+          }
+        ],
+        "description": "boost and reinforced fortitude"
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:replacement:clear-mind",
+        "atClassLevel": 5,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:zen"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:white-monk:feature:clear-mind"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Clear Mind",
+            "locator": "clear-mind"
+          }
+        ],
+        "description": "zen"
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:replacement:diamond-mind",
+        "atClassLevel": 8,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:diamond-body"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:white-monk:feature:diamond-mind"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diamond Mind",
+            "locator": "diamond-mind"
+          }
+        ],
+        "description": "diamond body"
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:replacement:inner-fire",
+        "atClassLevel": 19,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:monk:feature:inner-strength"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:monk:white-monk:feature:inner-fire"
+        ],
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inner Fire",
+            "locator": "inner-fire"
+          }
+        ],
+        "description": "inner strength"
+      }
+    ],
+    "choicePools": [],
+    "events": [
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:healer-training:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:white-monk:feature:healer-training",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Healer Training",
+            "locator": "healer-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:ac-bonus:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:white-monk:feature:ac-bonus",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:spells-and-cantrips:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:white-monk:feature:spells-and-cantrips",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Spells and Cantrips",
+            "locator": "spells-and-cantrips"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:fast-movement:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:white-monk:feature:fast-movement",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fast Movement",
+            "locator": "fast-movement"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:clear-mind:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:white-monk:feature:clear-mind",
+        "atClassLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Clear Mind",
+            "locator": "clear-mind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:diamond-mind:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:white-monk:feature:diamond-mind",
+        "atClassLevel": 8,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Diamond Mind",
+            "locator": "diamond-mind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:monk:white-monk:feature:inner-fire:grant",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:monk:white-monk:feature:inner-fire",
+        "atClassLevel": 19,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Inner Fire",
+            "locator": "inner-fire"
+          }
+        ]
+      }
+    ],
+    "resources": [],
+    "profile": {
+      "classSkills": [
+        "acrobatics",
+        "climb",
+        "craft:*",
+        "escape-artist",
+        "knowledge:history",
+        "knowledge:religion",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "ride",
+        "sense-motive",
+        "swim",
+        "heal",
+        "spellcraft"
+      ],
+      "manualSpellcasting": true,
+      "castingAbility": "wis",
+      "hitDie": 8,
+      "levels": [
+        {
+          "level": 1,
+          "bab": 0,
+          "fort": 2,
+          "ref": 2,
+          "will": 0,
+          "iterativeAttacks": [],
+          "baseMp": 2,
+          "maxSpellLevel": 1,
+          "special": "Bodybuilding, Flurry of Blows, Flying Kick, Martial Arts, Martial Wisdom, Limit Breaks",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 2,
+          "bab": 1,
+          "fort": 3,
+          "ref": 3,
+          "will": 0,
+          "iterativeAttacks": [
+            1
+          ],
+          "baseMp": 3,
+          "maxSpellLevel": 1,
+          "special": "Ascetic, Ki Pool, Monk Talent",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 3,
+          "bab": 2,
+          "fort": 3,
+          "ref": 3,
+          "will": 1,
+          "iterativeAttacks": [
+            2
+          ],
+          "baseMp": 4,
+          "maxSpellLevel": 1,
+          "special": "Blitz Technique, Boost (+3)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 4,
+          "bab": 3,
+          "fort": 4,
+          "ref": 4,
+          "will": 1,
+          "iterativeAttacks": [
+            3
+          ],
+          "baseMp": 5,
+          "maxSpellLevel": 2,
+          "special": "Martial Arts (1d6/1d8), Monk Talent, Style Flexibility (1 feat)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 5,
+          "bab": 3,
+          "fort": 4,
+          "ref": 4,
+          "will": 1,
+          "iterativeAttacks": [
+            3
+          ],
+          "baseMp": 6,
+          "maxSpellLevel": 2,
+          "special": "Counterstance, Zen",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 6,
+          "bab": 4,
+          "fort": 5,
+          "ref": 5,
+          "will": 2,
+          "iterativeAttacks": [
+            4
+          ],
+          "baseMp": 8,
+          "maxSpellLevel": 2,
+          "special": "Monk Talent, Boost (+4), Blitz Technique",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 7,
+          "bab": 5,
+          "fort": 5,
+          "ref": 5,
+          "will": 2,
+          "iterativeAttacks": [
+            5
+          ],
+          "baseMp": 10,
+          "maxSpellLevel": 3,
+          "special": "Flying Kick (standard action), Greased Lightning (+3 cap)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 8,
+          "bab": 6,
+          "fort": 6,
+          "ref": 6,
+          "will": 2,
+          "iterativeAttacks": [
+            6,
+            1
+          ],
+          "baseMp": 13,
+          "maxSpellLevel": 3,
+          "special": "Martial Arts (1d8/1d10), Monk Talent, Diamond Body",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 9,
+          "bab": 6,
+          "fort": 6,
+          "ref": 6,
+          "will": 3,
+          "iterativeAttacks": [
+            6,
+            1
+          ],
+          "baseMp": 16,
+          "maxSpellLevel": 3,
+          "special": "Blitz Technique, Boost (+5), Style Flexibility (2 feats)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 10,
+          "bab": 7,
+          "fort": 7,
+          "ref": 7,
+          "will": 3,
+          "iterativeAttacks": [
+            7,
+            2
+          ],
+          "baseMp": 20,
+          "maxSpellLevel": 4,
+          "special": "Monk Talent, Greased Lightning (+4 cap), Formless Strikes (1/day)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 11,
+          "bab": 8,
+          "fort": 7,
+          "ref": 7,
+          "will": 3,
+          "iterativeAttacks": [
+            8,
+            3
+          ],
+          "baseMp": 24,
+          "maxSpellLevel": 4,
+          "special": "Flurry of Blows (additional attack), Lifefont (+2 HP/5 ft.)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 12,
+          "bab": 9,
+          "fort": 8,
+          "ref": 8,
+          "will": 4,
+          "iterativeAttacks": [
+            9,
+            4
+          ],
+          "baseMp": 29,
+          "maxSpellLevel": 4,
+          "special": "Martial Arts (1d10/2d6), Monk Talent, Blitz Technique, Boost (+6)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 13,
+          "bab": 9,
+          "fort": 8,
+          "ref": 8,
+          "will": 4,
+          "iterativeAttacks": [
+            9,
+            4
+          ],
+          "baseMp": 34,
+          "maxSpellLevel": 5,
+          "special": "Flying Kick (move action), Greased Lightning (+5 cap), Reinforced Fortitude",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 14,
+          "bab": 10,
+          "fort": 9,
+          "ref": 9,
+          "will": 4,
+          "iterativeAttacks": [
+            10,
+            5
+          ],
+          "baseMp": 39,
+          "maxSpellLevel": 5,
+          "special": "Monk Talent, Style Flexibility (3 feats), Diamond Body (50% critical negation)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 15,
+          "bab": 11,
+          "fort": 9,
+          "ref": 9,
+          "will": 5,
+          "iterativeAttacks": [
+            11,
+            6,
+            1
+          ],
+          "baseMp": 45,
+          "maxSpellLevel": 5,
+          "special": "Blitz Technique, Boost (+7)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 16,
+          "bab": 12,
+          "fort": 10,
+          "ref": 10,
+          "will": 5,
+          "iterativeAttacks": [
+            12,
+            7,
+            2
+          ],
+          "baseMp": 51,
+          "maxSpellLevel": 6,
+          "special": "Martial Arts (2d6/2d8), Monk Talent, Greased Lightning (+6 cap)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 17,
+          "bab": 12,
+          "fort": 10,
+          "ref": 10,
+          "will": 5,
+          "iterativeAttacks": [
+            12,
+            7,
+            2
+          ],
+          "baseMp": 57,
+          "maxSpellLevel": 6,
+          "special": "Formless Strikes (2/day), Lifefont (+3 HP/5 ft.), Fleet Footwork",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 18,
+          "bab": 13,
+          "fort": 11,
+          "ref": 11,
+          "will": 6,
+          "iterativeAttacks": [
+            13,
+            8,
+            3
+          ],
+          "baseMp": 64,
+          "maxSpellLevel": 6,
+          "special": "Monk Talent, Blitz Technique, Boost (+8)",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 19,
+          "bab": 14,
+          "fort": 11,
+          "ref": 11,
+          "will": 6,
+          "iterativeAttacks": [
+            14,
+            9,
+            4
+          ],
+          "baseMp": 71,
+          "maxSpellLevel": 6,
+          "special": "Greased Lightning (+7 cap), Inner Strength",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        },
+        {
+          "level": 20,
+          "bab": 15,
+          "fort": 12,
+          "ref": 12,
+          "will": 6,
+          "iterativeAttacks": [
+            15,
+            10,
+            5
+          ],
+          "baseMp": 79,
+          "maxSpellLevel": 6,
+          "special": "Martial Arts (2d8/2d10), Monk Talent, Diamond Body (critical immunity), Perfect Self",
+          "sourceRefs": [
+            {
+              "sourceId": "main",
+              "section": "Table: Monk",
+              "locator": "table-monk"
+            }
+          ]
+        }
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "manualChoices": true
+  }
+}

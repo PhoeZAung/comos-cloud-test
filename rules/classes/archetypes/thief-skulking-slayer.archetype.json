@@ -1,0 +1,407 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "archetype",
+  "id": "ffd20:archetype:thief:skulking-slayer",
+  "parentClassId": "ffd20:class:thief",
+  "name": "Skulking Slayer",
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/thief/archetypes/skulking-slayer/",
+      "title": "Skulking Slayer",
+      "archiveSha256": "5e1d3889096de2d355e5ccffc38da059b05e2ca8456861ff5d26e2d6266a0d18",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial_manual",
+    "notes": "Source-backed existing-field progression and manual reference cards; complex prerequisites, companions, subchoices and conditional effects manual."
+  },
+  "data": {
+    "features": [
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
+        "atLevel": 1,
+        "description": "The skulking slayer gains proficiency with greatclubs and whips, but loses proficiency with rapiers and hand crossbows.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:feature:underhanded-maneuvers",
+        "name": "Underhanded Maneuvers",
+        "atLevel": 1,
+        "description": "At 1st level, when he could normally make a sneak attack, a slayer may instead make a dirty trick or steal combat maneuver with a bonus on his roll. This bonus is equal to his number of sneak attack dice for a dirty trick combat maneuver, or 1-1/2 \u00d7 his number of sneak attack dice for a steal combat maneuver.\n\nThis ability replaces trapfinding.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Underhanded Maneuvers",
+            "locator": "underhanded-maneuvers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:feature:bonus-feats",
+        "name": "Bonus Feats",
+        "atLevel": 2,
+        "description": "At 2nd level, a skulking slayer can select the [Surprise Follow-Through](https://www.finalfantasyd20.com/feats/racial-feats/surprise-follow-through-galka/) feat in place of a thief talent.\n\nAt 12th level, he can select the [Improved Surprise Follow-Through](https://www.finalfantasyd20.com/feats/racial-feats/improved-surprise-follow-through-galka/) feat in place of an advanced thief talent.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bonus Feats",
+            "locator": "bonus-feats"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:feature:bold-strike",
+        "name": "Bold Strike",
+        "atLevel": 3,
+        "description": "At 3rd level, when a skulking slayer charges and makes a sneak attack with a two-handed weapon, he rolls d8s instead of d6s for his sneak attack damage.\n\nThis ability replaces danger sense.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bold Strike",
+            "locator": "bold-strike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:feature:shifty",
+        "name": "Shifty",
+        "atLevel": 6,
+        "description": "At 6th level, a skulking slayer gains a bonus on Bluff checks to feint equal to half his level.\n\nThis ability replaces the thief talent gained at 6th level.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shifty",
+            "locator": "shifty"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:feature:unexpected-charge",
+        "name": "Unexpected Charge",
+        "atLevel": 9,
+        "description": "At 9th level, a skulking slayer can make a Bluff check to feint as a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift) before a charge.\n\nThis ability replaces distraction.\nSheet reference: apply conditional effects manually; record weapon, skill, feat, companion and spell subchoices on existing sheet rows.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unexpected Charge",
+            "locator": "unexpected-charge"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "replacements": [
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:replacement:underhanded-maneuvers:1",
+        "atClassLevel": 1,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:trapfinding"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:skulking-slayer:feature:underhanded-maneuvers"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "trapfinding",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Underhanded Maneuvers",
+            "locator": "underhanded-maneuvers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:replacement:bold-strike:1",
+        "atClassLevel": 3,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:danger-sense"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:skulking-slayer:feature:bold-strike"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "danger sense",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bold Strike",
+            "locator": "bold-strike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:replacement:shifty:1",
+        "atClassLevel": 6,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:thief-talents"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:skulking-slayer:feature:shifty"
+        ],
+        "targetEventIds": [
+          "ffd20:class:thief:event:thief-talents:6"
+        ],
+        "eventOnly": true,
+        "description": "the thief talent gained at 6th level",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shifty",
+            "locator": "shifty"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:replacement:unexpected-charge:1",
+        "atClassLevel": 9,
+        "operation": "replace",
+        "scope": "whole_feature",
+        "resolution": "resolved",
+        "targetFeatureIds": [
+          "ffd20:class:thief:feature:distraction"
+        ],
+        "replacementFeatureIds": [
+          "ffd20:archetype:thief:skulking-slayer:feature:unexpected-charge"
+        ],
+        "targetEventIds": [],
+        "eventOnly": false,
+        "description": "distraction",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unexpected Charge",
+            "locator": "unexpected-charge"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:event:grant:weapon-and-armor-proficiency",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:skulking-slayer:feature:weapon-and-armor-proficiency",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:event:grant:underhanded-maneuvers",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:skulking-slayer:feature:underhanded-maneuvers",
+        "atClassLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Underhanded Maneuvers",
+            "locator": "underhanded-maneuvers"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:event:grant:bonus-feats",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:skulking-slayer:feature:bonus-feats",
+        "atClassLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bonus Feats",
+            "locator": "bonus-feats"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:event:grant:bold-strike",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:skulking-slayer:feature:bold-strike",
+        "atClassLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bold Strike",
+            "locator": "bold-strike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:event:grant:shifty",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:skulking-slayer:feature:shifty",
+        "atClassLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Shifty",
+            "locator": "shifty"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:thief:skulking-slayer:event:grant:unexpected-charge",
+        "type": "grant_feature",
+        "featureId": "ffd20:archetype:thief:skulking-slayer:feature:unexpected-charge",
+        "atClassLevel": 9,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unexpected Charge",
+            "locator": "unexpected-charge"
+          }
+        ]
+      }
+    ],
+    "choicePools": [],
+    "resources": [],
+    "profile": {
+      "skillRanksPerLevel": 6,
+      "classSkills": [
+        "acrobatics",
+        "appraise",
+        "bluff",
+        "climb",
+        "craft:*",
+        "diplomacy",
+        "disguise",
+        "escape-artist",
+        "intimidate",
+        "knowledge:dungeoneering",
+        "knowledge:local",
+        "perception",
+        "perform:*",
+        "profession:*",
+        "sense-motive",
+        "stealth",
+        "swim",
+        "use-magic-device"
+      ],
+      "classSkillSourceText": "A skulking slayer does not gain Disable Device, Linguistics, and Sleight of Hand as class skills.",
+      "proficiencies": [
+        "Simple weapons",
+        "Chakram",
+        "Sap",
+        "Shortbow",
+        "Shortsword",
+        "Light armor",
+        "Greatclub",
+        "Whip"
+      ]
+    },
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "extraOptions": [
+      {
+        "poolId": "ffd20:class:thief:pool:thief-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:skulking-slayer:option:surprise-follow-through",
+            "name": "Surprise Follow-Through (manual feat)",
+            "description": "At2 you may choose this racial feat instead of a Thief Talent. Verify the source prerequisites manually and record the feat on the sheet.",
+            "minimumLevel": 2,
+            "allowedLevels": [
+              2
+            ],
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Bonus Feats",
+                "locator": "bonus-feats"
+              }
+            ],
+            "manualPrerequisites": true
+          }
+        ]
+      },
+      {
+        "poolId": "ffd20:class:thief:pool:thief-advanced-talents",
+        "options": [
+          {
+            "id": "ffd20:archetype:thief:skulking-slayer:option:improved-surprise-follow-through",
+            "name": "Improved Surprise Follow-Through (manual feat)",
+            "description": "At12 you may choose this racial feat instead of an advanced Thief Talent. Verify prerequisites manually and record the feat on the sheet.",
+            "minimumLevel": 12,
+            "allowedLevels": [
+              12
+            ],
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "main",
+                "section": "Bonus Feats",
+                "locator": "bonus-feats"
+              }
+            ],
+            "manualPrerequisites": true
+          }
+        ]
+      }
+    ]
+  }
+}
