@@ -22,10 +22,10 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Forgiven | Scion of Mortality | Changes language and dual-race identity/subtype rather than replacing Type/Languages as entirely removed fields |
 | Lambkin | Polyglot | Modifies Magic Expert and Languages |
 | Moogle | Grounded | Partial Base Speed/flight modification |
-| Moomba | Climb | Climb speed 20 ft and land 30 ft but no formal old-trait replacement target |
-| Namazu | Fast, Focused Study | Partial speed, skills, or feature ownership |
+| Moomba | Climb | **Draft:** source-bounded component modification: land 40→30 ft, climb 20 ft and +8 Climb; broader Moomba speech/natural-attacks rules stay manual |
+| Namazu | Fast, Focused Study | **Fast draft:** replaces Skilled Traders, land 30→40 ft, swim stays 30 ft. **Focused Study remains blocked** until skill picks at levels 1/8/16 are supported |
 | Quadav | Water Tribe | Partial Full Withdrawal replacement |
-| Seto Lion | Faster, Nimble Attacks | Partial Claws/Bite/Fast replacements |
+| Seto Lion | Faster, Nimble Attacks | **Draft:** Faster replaces Claws (+10 speed); Nimble replaces Bite/Fast (-10 speed); together net baseline 50 ft; other features and Frost Wolf heritage remain guarded |
 | Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | Partial status, plating, score and speed adjustments |
 | Sylph | Improved Flight | Compound Camouflage/Beguiling Liar replacement; preserve correct flight mechanics |
 | Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | Conflicting or incomplete type, speed, vision, language and ability-score modifications |
