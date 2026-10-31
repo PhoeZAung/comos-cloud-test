@@ -32,6 +32,8 @@ const mutantScorePools=new Set([MUTANT_PHYSICAL,MUTANT_MENTAL,MUTANT_PENALTY]);
 const ORC_SKILL='ffd20:race:orc:pool:skill-bonus-selection';
 const MATANGA_ACADEMIC='ffd20:race:matanga:pool:academic-selection';
 const LOPORRIT_HANDY='ffd20:race:loporrit:pool:handy-selection';
+export const NU_MOU_SAGACIOUS='ffd20:race:nu-mou:pool:sagacious-two-knowledge';
+export const PUPU_TECH_SAVANT='ffd20:race:pupu:pool:technological-savant-specialty';
 export const GRIA_WEAPON='ffd20:race:gria:pool:weapon-focus-weapon';
 export const NAMAZU_FOCUS='ffd20:race:namazu:pool:focused-study-selection';
 export const NAMAZU_FOCUS_LEVELS=[1,8,16];
@@ -42,7 +44,7 @@ export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,NU_MOU_SAGACIOUS,PUPU_TECH_SAVANT,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -127,6 +129,10 @@ export function racialChoiceSpecs(race,traits,level=1){
     ['Knight sword','Longbow','Composite longbow'].filter(name=>traits.some(f=>f.effects.some(e=>
      e.automation==='automatic'&&e.target==='proficiencies.weapon.'+name.toLowerCase().replaceAll(' ','-'))))
     .map(name=>({id:pool.id+':option:'+name.toLowerCase().replaceAll(' ','-'),name,value:name})):[]};
+  if(pool.id===NU_MOU_SAGACIOUS)return {...pool,minimum:2,maximum:2,
+   options:fixedSkills.flatMap((row,i)=>row.name.startsWith('Knw: ')?
+    [{id:'skill-row:'+i,name:row.name,value:i}]:[])};
+  if(pool.id===PUPU_TECH_SAVANT)return {...pool,minimum:1,maximum:1};
   if(pool.id===ORC_SKILL)return {...pool,minimum:1,maximum:1};
   if(pool.id===MATANGA_ACADEMIC)return {...pool,minimum:1,maximum:1,
    options:fixedSkills.flatMap((row,i)=>row.name.startsWith('Knw: ')?[{id:'skill-row:'+i,name:row.name,value:i}]:[])};
@@ -207,6 +213,14 @@ export function racialChoiceEffects(b,race,traits){
      effects.push({...base,id:base.id+':jump',kind:'custom',target:'race.orc.jump',
       textValue:'+1 to Acrobatics checks made to jump only; do not add to all Acrobatics checks.',automation:'manual'});
     }
+   }
+   if(spec.id===NU_MOU_SAGACIOUS&&Number.isInteger(option.value)){
+    effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2}});
+    effects.push({...base,id:base.id+':class-skill',kind:'class_skill',target:'skills.row.'+option.value+'.class_skill',value:{kind:'constant',value:1}});
+   }
+   if(spec.id===PUPU_TECH_SAVANT){
+    const target=option.value==='knowledge-technology'?26:option.value==='knowledge-engineering'?18:null;
+    if(target!==null)effects.push({...base,kind:'skill_bonus',target:'skills.row.'+target+'.bonus',value:{kind:'constant',value:2}});
    }
    if(spec.id===MATANGA_ACADEMIC&&Number.isInteger(option.value)){
     effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2}});
