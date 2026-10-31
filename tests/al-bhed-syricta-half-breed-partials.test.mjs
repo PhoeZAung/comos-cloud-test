@@ -99,7 +99,7 @@ test('Syricta standard requires both elemental and breath picks; no invented def
  const result=compileBuild(b);
  assert.equal(result.speed,20);assert.equal(result.speed_fly,40);
  assert.equal(result.speed_fly_maneuverability,'poor');
- assert.ok(result.racialAbilities.some(x=>x.name==='Selected racial choices'&&/fire/.test(x.desc)));
+ assert.ok(result.racialAbilities.some(x=>x.name==='Selected racial choices'&&/fire/i.test(x.desc)));
  assert.match(result.racialAbilities.find(x=>x.name==='Selected racial choices').desc,/15-foot cone/i);
  const changed=structuredClone(result.rulesBuild.input);
  changed.racialChoices[SYRICTA_ELEMENT]=[option(SYRICTA_ELEMENT,'ice')];
