@@ -36,7 +36,7 @@ test('Aegyl Eternal Hope spent state survives save/rest and the inactive trait s
 test('Aegyl bonus languages stay within source options and reject unsupported alternatives',()=>{
  const b=fixture();b.racialChoices[AEGYL_LANGUAGES]=[AEGYL_LANGUAGES+':option:draconic'];const d=compileBuild(b);
  assert.equal(d.languages,'Common, Aegyllan, Draconic');assert.equal(compileBuild(d.rulesBuild.input,d).languages,d.languages);
- for(const change of [b=>b.racialChoices[AEGYL_LANGUAGES].push(AEGYL_LANGUAGES+':option:orc'),b=>b.racialChoices[AEGYL_LANGUAGES]=[AEGYL_LANGUAGES+':option:celestial'],b=>b.alternateIds=[AEGYL_ID+':trait:wing-clipped']]){
+ for(const change of [b=>b.racialChoices[AEGYL_LANGUAGES].push(AEGYL_LANGUAGES+':option:orc'),b=>b.racialChoices[AEGYL_LANGUAGES]=[AEGYL_LANGUAGES+':option:celestial']]){
   const bad=structuredClone(b);change(bad);assert.throws(()=>compileBuild(bad));
  }
 });

@@ -7,6 +7,7 @@ import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage,applyRaceModification} from './race-replacement-operations.mjs';
+import {seedRacialMovement} from '../../sheet/movement.mjs';
 import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
@@ -290,6 +291,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  Object.assign(next,p.scores,{charName:b.name.trim(),alignment:b.alignment,bio:b.bio,portrait:b.portrait,source:'FFD20',race:p.race.name,class:'Black Mage',level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,classes:[{name:'Black Mage',level:b.level,archetype:''}],archetype:'',hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:'int'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition),lang=[],senses=[],profs=[];
  next.speed=0;next.size_category='Medium';
+ seedRacialMovement(next,previous,b.raceId,p.racial.traits);
  for(const e of effects){if(e.target==='identity.speed.land')next.speed=calculated(e.value,b);if(e.target==='identity.size_category')next.size_category=String(e.textValue||'Medium').replace(/^./,c=>c.toUpperCase());if(e.target.startsWith('identity.languages.'))lang.push(e.textValue||e.target.split('.').at(-1));if(e.target.startsWith('identity.senses.'))senses.push(e.textValue||e.target.split('.').at(-1));if(e.target.startsWith('proficiencies.weapon.'))profs.push(e.textValue||e.target.split('.').at(-1).replaceAll('-',' '));}
  next.languages=uniq(lang).join(', ');next.senses=uniq(senses).join('; ');next.proficiencies=uniq([...(b.carry?.proficiencies||'').split(/,\s*/).filter(Boolean),...profs,'Dagger','Sling','Power rod','Power staff','Animated dolls','Quarterstaff','Buckler','Light shields']).join(', ');next.size=next.size_category;
  next.racialIdentity=b.carry&&previous.racialIdentity?structuredClone(previous.racialIdentity):{type:effects.find(e=>e.target==='identity.type')?.textValue||'',subtypes:uniq(effects.filter(e=>e.target==='identity.subtypes').map(e=>e.textValue).filter(Boolean)),rules:p.racial.traits.filter(f=>f.sheetTargets.includes('identity')&&f.effects.some(e=>e.target.startsWith('identity.'))).map(f=>({id:f.id,name:f.name,description:f.description}))};

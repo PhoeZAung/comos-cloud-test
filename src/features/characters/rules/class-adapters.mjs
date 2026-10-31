@@ -1,3 +1,4 @@
+import {seedRacialMovement} from '../../sheet/movement.mjs';
 import {isRedMage,redMageClass,redMageSpellRows} from './red-mage-level-one.mjs';
 import {syncGunbreakerAmmo} from './gunbreaker-ammo.mjs';
 import {martialChoicePools,martialArchetype,martialCounter,AKIMBO_ID,GUNBREAKER_ID} from './martial-progression.mjs';
@@ -139,6 +140,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   mp:isChaCaster(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isChaCaster(b)?'cha':'dex'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition);
  const langs=[],senses=[],profs=[];next.speed=0;next.size_category='Medium';
+ seedRacialMovement(next,previous,b.raceId,p.racial.traits);
  for(const effect of effects){
   if(effect.target==='identity.speed.land')next.speed=calculated(effect.value,b);
   if(effect.target==='identity.size_category')next.size_category=String(effect.textValue||'Medium').replace(/^./,ch=>ch.toUpperCase());
