@@ -7,48 +7,42 @@
     {
       "id": "main",
       "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/",
-      "title": "Official Gunbreaker rules",
+      "title": "Gunbreaker",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "retrievedOn": "2026-10-30",
       "archiveSha256": "16d7e17c9f9163fee94b56bed1ba293745d3f4eb6f81413914fa3330207134f9"
     },
     {
-      "id": "talents",
+      "id": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
       "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/",
-      "title": "Gunbreaker Talents — Official FFd20",
+      "title": "Gunbreaker talent",
+      "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
-      "retrievedOn": "2026-10-30"
+      "markdownSha256": "fb31d124627dc73c99569ca773bf6ff58fffc2d401da41fcf30d914384d57e6a"
+    },
+    {
+      "id": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/",
+      "title": "Gun arm technique",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "d61fb7f704cacc15f32b5a8246ade3e7a84f951f4d4872e08324a46c6144757f"
+    },
+    {
+      "id": "equipment-weapons-gun-arms",
+      "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+      "title": "Starting gun arm",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "80e10037ca384cbf896f0d6b421a48494fe0d4bd1f99839e8890b93f4e5eb33d"
     }
   ],
   "review": {
     "state": "needs_review",
     "coverage": "partial",
-    "issues": [
-      {
-        "path": "/data/supportedLevels",
-        "blocking": true,
-        "reason": "Supports creation/editing at level 1 and verified level-up to level 2, with 14 low-prerequisite source talents. Levels 3-20 need techniques, feature scaling and advanced choices and remain guarded."
-      },
-      {
-        "path": "/data/features",
-        "blocking": true,
-        "reason": "Equipment, conditional effects, mode selection, recovery and temporary benefits remain manual."
-      },
-      {
-        "path": "/data/levelTwoTalents",
-        "blocking": true,
-        "reason": "Level-2 choice pool includes source-backed un-gated talents. Talent prerequisites requiring additional feats, level gates, or complex choices remain deferred; conditional effects and bonus feat selection are manual."
-      }
-    ]
+    "notes": "Levels 1–20: progression totals and explicit choices; conditional combat, companions, equipment and external prerequisites remain manual references. Not full independent rule certification."
   },
   "data": {
-    "category": "hybrid",
-    "maximumLevel": 20,
-    "supportedLevels": [
-      1,
-      2
-    ],
-    "alignment": "Any",
     "hitDie": 10,
     "skillRanksPerLevel": 4,
     "classSkills": [
@@ -97,8 +91,9 @@
             "locator": "level-1"
           }
         ],
-        "magickedAmmoPerLoad": 3,
-        "infusedBonus": 1
+        "magickedAmmo": "3",
+        "infusedBonus": 1,
+        "magickedAmmoPerLoad": 3
       },
       {
         "level": 2,
@@ -117,8 +112,9 @@
             "locator": "level-2"
           }
         ],
-        "magickedAmmoPerLoad": 3,
-        "infusedBonus": 1
+        "magickedAmmo": "3",
+        "infusedBonus": 1,
+        "magickedAmmoPerLoad": 3
       },
       {
         "level": 3,
@@ -137,8 +133,9 @@
             "locator": "level-3"
           }
         ],
-        "magickedAmmoPerLoad": 3,
-        "infusedBonus": 2
+        "magickedAmmo": "3",
+        "infusedBonus": 2,
+        "magickedAmmoPerLoad": 3
       },
       {
         "level": 4,
@@ -157,8 +154,9 @@
             "locator": "level-4"
           }
         ],
-        "magickedAmmoPerLoad": 4,
-        "infusedBonus": 2
+        "magickedAmmo": "4",
+        "infusedBonus": 2,
+        "magickedAmmoPerLoad": 4
       },
       {
         "level": 5,
@@ -177,8 +175,9 @@
             "locator": "level-5"
           }
         ],
-        "magickedAmmoPerLoad": 4,
-        "infusedBonus": 3
+        "magickedAmmo": "4",
+        "infusedBonus": 3,
+        "magickedAmmoPerLoad": 4
       },
       {
         "level": 6,
@@ -198,8 +197,9 @@
             "locator": "level-6"
           }
         ],
-        "magickedAmmoPerLoad": 4,
-        "infusedBonus": 3
+        "magickedAmmo": "4",
+        "infusedBonus": 3,
+        "magickedAmmoPerLoad": 4
       },
       {
         "level": 7,
@@ -219,8 +219,9 @@
             "locator": "level-7"
           }
         ],
-        "magickedAmmoPerLoad": 5,
-        "infusedBonus": 4
+        "magickedAmmo": "5",
+        "infusedBonus": 4,
+        "magickedAmmoPerLoad": 5
       },
       {
         "level": 8,
@@ -240,8 +241,9 @@
             "locator": "level-8"
           }
         ],
-        "magickedAmmoPerLoad": 5,
-        "infusedBonus": 4
+        "magickedAmmo": "5",
+        "infusedBonus": 4,
+        "magickedAmmoPerLoad": 5
       },
       {
         "level": 9,
@@ -261,8 +263,9 @@
             "locator": "level-9"
           }
         ],
-        "magickedAmmoPerLoad": 6,
-        "infusedBonus": 5
+        "magickedAmmo": "6",
+        "infusedBonus": 5,
+        "magickedAmmoPerLoad": 6
       },
       {
         "level": 10,
@@ -282,8 +285,9 @@
             "locator": "level-10"
           }
         ],
-        "magickedAmmoPerLoad": 6,
-        "infusedBonus": 5
+        "magickedAmmo": "6",
+        "infusedBonus": 5,
+        "magickedAmmoPerLoad": 6
       },
       {
         "level": 11,
@@ -304,8 +308,9 @@
             "locator": "level-11"
           }
         ],
-        "magickedAmmoPerLoad": 7,
-        "infusedBonus": 6
+        "magickedAmmo": "7",
+        "infusedBonus": 6,
+        "magickedAmmoPerLoad": 7
       },
       {
         "level": 12,
@@ -326,8 +331,9 @@
             "locator": "level-12"
           }
         ],
-        "magickedAmmoPerLoad": 7,
-        "infusedBonus": 6
+        "magickedAmmo": "7",
+        "infusedBonus": 6,
+        "magickedAmmoPerLoad": 7
       },
       {
         "level": 13,
@@ -348,8 +354,9 @@
             "locator": "level-13"
           }
         ],
-        "magickedAmmoPerLoad": 8,
-        "infusedBonus": 7
+        "magickedAmmo": "8",
+        "infusedBonus": 7,
+        "magickedAmmoPerLoad": 8
       },
       {
         "level": 14,
@@ -370,8 +377,9 @@
             "locator": "level-14"
           }
         ],
-        "magickedAmmoPerLoad": 9,
-        "infusedBonus": 7
+        "magickedAmmo": "9",
+        "infusedBonus": 7,
+        "magickedAmmoPerLoad": 9
       },
       {
         "level": 15,
@@ -392,8 +400,9 @@
             "locator": "level-15"
           }
         ],
-        "magickedAmmoPerLoad": 11,
-        "infusedBonus": 8
+        "magickedAmmo": "11",
+        "infusedBonus": 8,
+        "magickedAmmoPerLoad": 11
       },
       {
         "level": 16,
@@ -415,8 +424,9 @@
             "locator": "level-16"
           }
         ],
-        "magickedAmmoPerLoad": 13,
-        "infusedBonus": 8
+        "magickedAmmo": "13",
+        "infusedBonus": 8,
+        "magickedAmmoPerLoad": 13
       },
       {
         "level": 17,
@@ -438,8 +448,9 @@
             "locator": "level-17"
           }
         ],
-        "magickedAmmoPerLoad": 16,
-        "infusedBonus": 9
+        "magickedAmmo": "16",
+        "infusedBonus": 9,
+        "magickedAmmoPerLoad": 16
       },
       {
         "level": 18,
@@ -461,8 +472,9 @@
             "locator": "level-18"
           }
         ],
-        "magickedAmmoPerLoad": 19,
-        "infusedBonus": 9
+        "magickedAmmo": "19",
+        "infusedBonus": 9,
+        "magickedAmmoPerLoad": 19
       },
       {
         "level": 19,
@@ -484,8 +496,9 @@
             "locator": "level-19"
           }
         ],
-        "magickedAmmoPerLoad": "capacity",
-        "infusedBonus": 10
+        "magickedAmmo": "Capacity",
+        "infusedBonus": 10,
+        "magickedAmmoPerLoad": "capacity"
       },
       {
         "level": 20,
@@ -507,24 +520,26 @@
             "locator": "level-20"
           }
         ],
-        "magickedAmmoPerLoad": "capacity",
-        "infusedBonus": 10
+        "magickedAmmo": "Capacity",
+        "infusedBonus": 10,
+        "magickedAmmoPerLoad": "capacity"
       }
     ],
     "features": [
       {
-        "id": "ffd20:class:gunbreaker:feature:aurora",
-        "name": "Aurora",
+        "id": "ffd20:class:gunbreaker:feature:weapon-and-armor-proficiency",
+        "name": "Weapon and Armor Proficiency",
         "atLevel": 1,
-        "description": "Swift action: gain fast healing 1 and a +1 morale bonus to AC for a number of rounds equal to Wisdom modifier, 3 + Wisdom modifier times/day. Apply these temporary effects manually.",
-        "activation": "active",
+        "description": "A gunbreaker is proficient with all simple weapons and all gun arms, and with all armor (light, medium, and heavy) and shields (except tower shields).",
+        "progressionDescription": "A gunbreaker is proficient with all simple weapons and all gun arms, and with all armor (light, medium, and heavy) and shields (except tower shields).",
+        "activation": "mixed",
         "featureKind": "class_feature",
         "automation": "manual",
         "sourceRefs": [
           {
             "sourceId": "main",
-            "section": "Aurora",
-            "locator": "aurora"
+            "section": "Weapon and Armor Proficiency",
+            "locator": "weapon-and-armor-proficiency"
           }
         ]
       },
@@ -533,6 +548,7 @@
         "name": "Gunsmith",
         "atLevel": 1,
         "description": "Starting class equipment and a bonus feat. Equipment selection remains manual.",
+        "progressionDescription": "At 1st level, a gunbreaker begins play with a gun arm of his choice. His starting weapon’s firearm part is battered, receiving a -2 penalty on ranged attacks, and only he knows how to use it properly. All other creatures treat his gun arm as if it had the broken condition. If the weapon already has the broken condition, it does not work at all for anyone else trying to use it. This starting weapon can only be sold for scrap (it’s worth 4d10 gil when sold). The gunbreaker also gains Gunsmithing as a bonus feat.\n\nAt 6th level and every six gunbreaker levels thereafter, a gunbreaker can reconfigure his gun arms with a single modification by spending 1 hour of work. He may reconfigure his gun arms as many times as he likes but is only granted up to 3 (at 18th level) of the following benefits at a time:\n\n Big Shot: Whenever the gunbreaker infuses magicked ammo, he designates the first infused round as a Big Shot. When used with a firearm attack increase the number of firearm damage dice by 1. When used with Blast Shield, increase the bonus by +1. When used with Brutal Shell, increase the amount of temporary hitpoints by +2. The gunbreaker cannot designate a Big Shot when there is still magicked ammo active within the gun arm at the time of infusing. This modification can only be taken once. Cost: 2,500 gil.\n Brutally Weighted: Bludgeoning weapons with this modification cause a creature to be hit to take a -2 penalty to its CMD against bull rush, reposition, and trip maneuvers until the end of its next turn or until it is subject to such a maneuver. Cost: 1,500 gil.\n Clearing Mechanism: This modification allows the gunbreaker to remove the broken condition from this gun arm as a full-round action, as long as that condition was gained by a firearm misfire. This modification can only be taken once. Cost: 1,500 gil.\n Dual-Balanced: When wielding two weapons with the dual-balanced modification, reduce any two-weapon fighting penalties by 1 for both weapons. Cost: 2,000 gil.\n Greater Ammo Capacity: The reconfigured weapon can hold 50% more ammunition than normal. This modification can only be taken once. Cost: 1,500 gil.\n Pressurized Chamber: When the gunbreaker makes an Acrobatics check to jump, he can blast out a round of magicked ammo to gain a +5 circumstance bonus on his roll. When used with any shotgun combination gunarm, increase this to +10. This modification can only be taken once. Cost: 2,500 gil.\n Razor Sharp: Gain +2 bonus on piercing or slashing melee weapon damage rolls. Cost: 1,000 gil.\n Resonance Blade: Removes the penalty from trigger attacks. Cost: 2,000 gil.\n Rifled Bore: Increase the range of the firearm part of the gun arm by 10 feet. Cost: 1,000 gil.\n Spring-Loaded Cylinder: Loading becomes a swift action. Only for cylinder-based gun arms. This modification can only be taken once. Cost: 1,500 gil.\n Tactically Adapted: When this modification is added to a weapon, choose a weapon quality from the following list to gain: blocking, brace, disarm, distracting, nonlethal, performance, or trip. Cost: 2,000 gil.\n Versatile Design: Choose a warrior weapon group. This modification treats the gun arm as a part of that weapon group. This modification can only be taken once. Cost: 1,000 gil.",
         "activation": "passive",
         "featureKind": "class_feature",
         "automation": "manual",
@@ -549,6 +565,7 @@
         "name": "Magicked Ammo",
         "atLevel": 1,
         "description": "On loading, infuse up to 3 rounds at first level; each infused round adds +1 damage and counts as magic for overcoming damage reduction. Reloading and expenditure are manually tracked.",
+        "progressionDescription": "The gunbreaker is able to infuse ammo he sets into his gun arm with magical energy. Whenever he loads a gun arm, a portion of the gun arm’s ammunition becomes magicked, and can be used to deal extra damage or activate the gunbreaker’s abilities. As noted on the Table: The Gunbreaker, upon loading a gun arm, the gunbreaker infuses a number of the loaded rounds with his aether; the amount of infused rounds increases as the gunbreaker gains class levels. Depending on the gun arm, all of the gun arm’s ammo capacity can be infused rounds. When the gunbreaker reaches 19th level, all ammo loaded is infused, regardless of the gun arm’s capacity. If the gunbreaker has ammo loaded which isn’t infused, he can take a move action to infuse the remaining ammo in his gun arm by running his hand over the weapon – this action allows him to infuse an amount of loaded ammo equal to the amount he infuses from reloading. He can never have more magicked ammo available than his max.\n\nWhen the gunbreaker loads his gun arm, the first set of rounds to be used are always infused first – meaning the rounds he spends first are the rounds that are infused. Infused rounds naturally deal an additional 1 point of damage, and are considered magic for the purpose of bypassing DR. At 3rd level and every two gunbreaker levels thereafter, this extra damage increases by 1. The gunbreaker may also use infused ammo to use the following abilities starting at 1st level:\n\n Blast Shield (Su): As a standard action, the gunbreaker can expend 2 infused bullets to erect a shield around himself or an ally within 15 feet, granting a +2 deflection bonus to AC or a +2 resistance bonus to saving throws for a number of rounds equal to the gunbreaker’s Wisdom modifier. At 4th level, and every three levels thereafter, the bonus is increased by +1 to a maximum of +8 at 19th level.\n Brutal Shell (Su): When the gunbreaker fires an infused bullet, he can instead have the bullet expose its energy to shield himself or an ally. Instead of dealing damage, the bullet instead grants temporary hit points equal to 5 + his Wisdom modifier to himself or an ally within 15 feet. No ranged attack is needed for this ability. These temporary hit points last until lost or after 1 minute. At 6th level, he may spend a second infused bullet to make it 10 + Wisdom modifier, 11th level can spend three bullets for 15 + Wisdom modifier, and 16th level can spend four bullets for 20 + Wisdom modifier.",
         "activation": "active",
         "featureKind": "class_feature",
         "automation": "manual",
@@ -558,7 +575,480 @@
             "section": "Magicked Ammo",
             "locator": "magicked-ammo"
           }
+        ],
+        "initialState": {
+          "infusedDamage": 1,
+          "maximumInfusedRounds": "3"
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:aurora",
+        "name": "Aurora",
+        "atLevel": 1,
+        "description": "Swift action: gain fast healing 1 and a +1 morale bonus to AC for a number of rounds equal to Wisdom modifier, 3 + Wisdom modifier times/day. Apply these temporary effects manually.",
+        "progressionDescription": "Also at 1st level, as a swift action, the gunbreaker can directly infuse himself with aether, wreathing his body in a protective aurora. He gains fast healing 1 and a +1 morale bonus to AC. These bonuses increase by 1/+1 at 4th level and every three gunbreaker levels thereafter. This ability lasts for a number of rounds equal to his Wisdom modifier, and can be used a number of times per day equal to 3 + his Wisdom modifier.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aurora",
+            "locator": "aurora"
+          }
+        ],
+        "initialState": {
+          "fastHealing": 1,
+          "conditionalAc": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:keen-edge",
+        "name": "Keen Edge",
+        "atLevel": 2,
+        "description": "While wielding a gun arm, gain +1 shield AC; stacks with other shield bonuses. This is weapon-conditional and is not a permanent sheet AC bonus.",
+        "progressionDescription": "At 2nd level, the gunbreaker learns to blend offense with defense, treating his gun arm as both sword and shield. When wielding a gun arm, he gains a +1 shield bonus to AC. This bonus increases by 1 for every four gunbreaker levels after 2nd. This bonus stacks with other shield bonuses.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Keen Edge",
+            "locator": "keen-edge"
+          }
         ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:gunbreaker-talents",
+        "name": "Gunbreaker Talents",
+        "atLevel": 2,
+        "description": "As the gunbreaker trains, he develops skills and techniques to take advantage of his unique style of combat. At 2nd level and every two gunbreaker levels thereafter, the gunbreaker gains a talent from the list below. He must meet the prerequisite of the talent selected; unless specified otherwise, each talent can only be selected once.\n\n A complete list of gunbreaker talents can be found here: Gunbreaker Talents",
+        "progressionDescription": "As the gunbreaker trains, he develops skills and techniques to take advantage of his unique style of combat. At 2nd level and every two gunbreaker levels thereafter, the gunbreaker gains a talent from the list below. He must meet the prerequisite of the talent selected; unless specified otherwise, each talent can only be selected once.\n\n A complete list of gunbreaker talents can be found here: Gunbreaker Talents",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gunbreaker Talents",
+            "locator": "gunbreaker-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:gun-arm-techniques",
+        "name": "Gun Arm Techniques",
+        "atLevel": 3,
+        "description": "At 3rd level and every three gunbreaker levels thereafter, the gunbreaker’s skill at wielding gun arms allows him to learn, or develop, potent specialized techniques. These special techniques can only be used with a gun arm, and each technique is usable a number of times per day equal to 3 + his Wisdom modifier. The gunbreaker must meet the prerequisites to choose a gun arm technique, and must have enough magicked ammo to choose and use the technique.\n\n A complete list of gun arm techniques can be found here: Gun Arm Techniques",
+        "progressionDescription": "At 3rd level and every three gunbreaker levels thereafter, the gunbreaker’s skill at wielding gun arms allows him to learn, or develop, potent specialized techniques. These special techniques can only be used with a gun arm, and each technique is usable a number of times per day equal to 3 + his Wisdom modifier. The gunbreaker must meet the prerequisites to choose a gun arm technique, and must have enough magicked ammo to choose and use the technique.\n\n A complete list of gun arm techniques can be found here: Gun Arm Techniques",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gun Arm Techniques",
+            "locator": "gun-arm-techniques"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:heart-of-stone",
+        "name": "Heart of Stone",
+        "atLevel": 3,
+        "description": "The stoic, unflinching guise of an immovable guardian; this is the demeanor all gunbreakers aspire to achieve. At 3rd level, the gunbreaker adds his Wisdom modifier as a bonus to all Fortitude saving throws. This does not stack with any other ability that applies a modifier to Fortitude saves.",
+        "progressionDescription": "The stoic, unflinching guise of an immovable guardian; this is the demeanor all gunbreakers aspire to achieve. At 3rd level, the gunbreaker adds his Wisdom modifier as a bonus to all Fortitude saving throws. This does not stack with any other ability that applies a modifier to Fortitude saves.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heart of Stone",
+            "locator": "heart-of-stone"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:jugular-rip",
+        "name": "Jugular Rip",
+        "atLevel": 3,
+        "description": "At 3rd level, when the gunbreaker confirms a critical hit with a melee attack with a gun arm, he infuses an amount of magicked ammo in his gun arm up to the maximum he can infuse with his magicked ammo ability.",
+        "progressionDescription": "At 3rd level, when the gunbreaker confirms a critical hit with a melee attack with a gun arm, he infuses an amount of magicked ammo in his gun arm up to the maximum he can infuse with his magicked ammo ability.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Jugular Rip",
+            "locator": "jugular-rip"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:armor-training",
+        "name": "Armor Training",
+        "atLevel": 4,
+        "description": "At 4th level, the gunbreaker’s training allows him to more easily handle the burdens of heavier gear. Whenever he is wearing armor, he reduces the armor check penalty by 1 (to a minimum of 0) and increases the maximum Dexterity bonus allowed by his armor by 1. Every four levels thereafter (8th, 12th, 16th and 20th), these bonuses increase by +1 each time, to a maximum –5 reduction of the armor check penalty and a +5 increase of the maximum Dexterity bonus allowed. In addition, a gunbreaker can also move at his normal speed while wearing medium armor. At 8th level, a gunbreaker can move at his normal speed while wearing heavy armor.",
+        "progressionDescription": "At 4th level, the gunbreaker’s training allows him to more easily handle the burdens of heavier gear. Whenever he is wearing armor, he reduces the armor check penalty by 1 (to a minimum of 0) and increases the maximum Dexterity bonus allowed by his armor by 1. Every four levels thereafter (8th, 12th, 16th and 20th), these bonuses increase by +1 each time, to a maximum –5 reduction of the armor check penalty and a +5 increase of the maximum Dexterity bonus allowed. In addition, a gunbreaker can also move at his normal speed while wearing medium armor. At 8th level, a gunbreaker can move at his normal speed while wearing heavy armor.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Armor Training",
+            "locator": "armor-training"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:gun-arm-mastery",
+        "name": "Gun Arm Mastery",
+        "atLevel": 5,
+        "description": "At 5th level, the gunbreaker has gained enough training with gun arms to impose his own unique style into his fighting techniques. At 5th level and every five gunbreaker levels thereafter, he chooses one of the masteries below to apply to all gun arms he wields. He can choose a mastery multiple times, unless otherwise noted.\n\n Blasting Bullets: The gunbreaker adds his Wisdom modifier to damage rolls of all gun arm techniques. This mastery can only be chosen once.\n Bloody Fangs: The gunbreaker adds his Wisdom modifier to the firearm damage rolls of damage made from trigger attacks. This mastery can only be chosen once.\n Parry Mastery: Increases the shield bonus from the gunbreaker’s keen edge ability by 1.\n Power Mastery: Increases damage rolls with both melee and firearm damage of gun arms by 1.\n Technique Mastery: Increases the DC of gun arm techniques by 1.",
+        "progressionDescription": "At 5th level, the gunbreaker has gained enough training with gun arms to impose his own unique style into his fighting techniques. At 5th level and every five gunbreaker levels thereafter, he chooses one of the masteries below to apply to all gun arms he wields. He can choose a mastery multiple times, unless otherwise noted.\n\n Blasting Bullets: The gunbreaker adds his Wisdom modifier to damage rolls of all gun arm techniques. This mastery can only be chosen once.\n Bloody Fangs: The gunbreaker adds his Wisdom modifier to the firearm damage rolls of damage made from trigger attacks. This mastery can only be chosen once.\n Parry Mastery: Increases the shield bonus from the gunbreaker’s keen edge ability by 1.\n Power Mastery: Increases damage rolls with both melee and firearm damage of gun arms by 1.\n Technique Mastery: Increases the DC of gun arm techniques by 1.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gun Arm Mastery",
+            "locator": "gun-arm-mastery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:quick-cartridge",
+        "name": "Quick Cartridge",
+        "atLevel": 5,
+        "description": "At 5th level, the gunbreaker’s merciless focus keeps his enemies on the backfoot, even while he pauses to prepare for his next assault. A gunbreaker reloading a gun arm no longer provokes an attack of opportunity while in an enemy’s threatened square.",
+        "progressionDescription": "At 5th level, the gunbreaker’s merciless focus keeps his enemies on the backfoot, even while he pauses to prepare for his next assault. A gunbreaker reloading a gun arm no longer provokes an attack of opportunity while in an enemy’s threatened square.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Quick Cartridge",
+            "locator": "quick-cartridge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:improved-aurora",
+        "name": "Improved Aurora",
+        "atLevel": 7,
+        "description": "At 7th level, the gunbreaker’s aurora ability can be used on an ally he can see within 15 feet. Only one instance of aurora from a given gunbreaker can be active at any one time; if another aurora is cast, even if on another target, the first instance ends. In addition, he can spend two uses of aurora to instead heal himself (or an ally within 15 feet) equal to four times the gunbreaker’s Wisdom modifier.",
+        "progressionDescription": "At 7th level, the gunbreaker’s aurora ability can be used on an ally he can see within 15 feet. Only one instance of aurora from a given gunbreaker can be active at any one time; if another aurora is cast, even if on another target, the first instance ends. In addition, he can spend two uses of aurora to instead heal himself (or an ally within 15 feet) equal to four times the gunbreaker’s Wisdom modifier.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Aurora",
+            "locator": "improved-aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:gunbreakers-resolve",
+        "name": "Gunbreaker’s Resolve",
+        "atLevel": 7,
+        "description": "At 7th level, the gunbreaker can shrug off the most serious of attacks. When the gunbreaker is wearing medium or heavy armor and is subject to a critical hit or sneak attack, he can spend 1 magicked ammo as an immediate action to attempt to negate the critical hit or sneak attack damage. At 7th level, he has a 25% chance of doing so. At 13th level, the chance increases to 50%. At 19th level, the chance increases to 75%. While a gunbreaker’s resolve does not stack with the fortification armor special ability, it does work in concert with that armor special ability or similar effects, so a gunbreaker can use this ability even after the armor of fortification has failed to negate the critical hit or sneak attack damage.",
+        "progressionDescription": "At 7th level, the gunbreaker can shrug off the most serious of attacks. When the gunbreaker is wearing medium or heavy armor and is subject to a critical hit or sneak attack, he can spend 1 magicked ammo as an immediate action to attempt to negate the critical hit or sneak attack damage. At 7th level, he has a 25% chance of doing so. At 13th level, the chance increases to 50%. At 19th level, the chance increases to 75%. While a gunbreaker’s resolve does not stack with the fortification armor special ability, it does work in concert with that armor special ability or similar effects, so a gunbreaker can use this ability even after the armor of fortification has failed to negate the critical hit or sneak attack damage.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gunbreaker’s Resolve",
+            "locator": "gunbreakers-resolve"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:heart-of-light",
+        "name": "Heart of Light",
+        "atLevel": 9,
+        "description": "The restless, ever-mindful overwatch of a dedicated defender; this is the bearing all gunbreakers aspire to achieve. At 9th level, the gunbreaker applies his Wisdom modifier as a bonus to all Reflex saving throws. This does not stack with any other ability that applies an ability modifier to Reflex saves.",
+        "progressionDescription": "The restless, ever-mindful overwatch of a dedicated defender; this is the bearing all gunbreakers aspire to achieve. At 9th level, the gunbreaker applies his Wisdom modifier as a bonus to all Reflex saving throws. This does not stack with any other ability that applies an ability modifier to Reflex saves.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Heart of Light",
+            "locator": "heart-of-light"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:continuation",
+        "name": "Continuation",
+        "atLevel": 10,
+        "description": "At 10th level, the gunbreaker’s skill allows him to seamlessly combine both simple and technical combat techniques. When making a full attack action, he can declare the use of continuation. This lowers his AC by 4, applies a -2 penalty to all attack rolls made that round, and at the end of the full attack, he also performs a single gun arm technique that requires a standard action (as part of the full attack action). This ability can be used a number of times per day equal to the gunbreaker’s Wisdom modifier.",
+        "progressionDescription": "At 10th level, the gunbreaker’s skill allows him to seamlessly combine both simple and technical combat techniques. When making a full attack action, he can declare the use of continuation. This lowers his AC by 4, applies a -2 penalty to all attack rolls made that round, and at the end of the full attack, he also performs a single gun arm technique that requires a standard action (as part of the full attack action). This ability can be used a number of times per day equal to the gunbreaker’s Wisdom modifier.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Continuation",
+            "locator": "continuation"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:royal-guard",
+        "name": "Royal Guard",
+        "atLevel": 11,
+        "description": "At 11th level, the gunbreaker’s demeanor is impressive enough to fill his allies’ hearts with a measure of his own determination. His adjacent allies gain the effects of the Heart of Stone and Heart of Light abilities. At 15th level, the range increases to allies within 10 feet and at 20th level, all allies within 20 feet gain these effects. If the gunbreaker is unconscious, helpless, or otherwise unable to act, this bonus to allies is lost.",
+        "progressionDescription": "At 11th level, the gunbreaker’s demeanor is impressive enough to fill his allies’ hearts with a measure of his own determination. His adjacent allies gain the effects of the Heart of Stone and Heart of Light abilities. At 15th level, the range increases to allies within 10 feet and at 20th level, all allies within 20 feet gain these effects. If the gunbreaker is unconscious, helpless, or otherwise unable to act, this bonus to allies is lost.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Royal Guard",
+            "locator": "royal-guard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:suppressing-menace",
+        "name": "Suppressing Menace",
+        "atLevel": 11,
+        "description": "At 11th level, while the gunbreaker has at least 1 magicked ammo, when he hits an opponent with a firearm shot, he can choose to use Intimidate to demoralize that opponent as a swift action instead of a standard action.",
+        "progressionDescription": "At 11th level, while the gunbreaker has at least 1 magicked ammo, when he hits an opponent with a firearm shot, he can choose to use Intimidate to demoralize that opponent as a swift action instead of a standard action.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Suppressing Menace",
+            "locator": "suppressing-menace"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:advanced-gunbreaker-talents",
+        "name": "Advanced Gunbreaker Talents",
+        "atLevel": 12,
+        "description": "At 12th level, the gunbreaker’s techniques are akin to savage poetry in motion; he can choose an advanced gunbreaker talent in place of a regular talent. He must meet the prerequisites to choose an advanced gunbreaker talent.\n\n A complete list of advanced gunbreaker talents can be found here: Advanced Gunbreaker Talents",
+        "progressionDescription": "At 12th level, the gunbreaker’s techniques are akin to savage poetry in motion; he can choose an advanced gunbreaker talent in place of a regular talent. He must meet the prerequisites to choose an advanced gunbreaker talent.\n\n A complete list of advanced gunbreaker talents can be found here: Advanced Gunbreaker Talents",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Gunbreaker Talents",
+            "locator": "advanced-gunbreaker-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:greater-aurora",
+        "name": "Greater Aurora",
+        "atLevel": 13,
+        "description": "At 13th level, the gunbreaker can spend three uses of Aurora to apply it as an aura around an ally. When used this way on an ally within 30 feet, it coalesces into a 15-ft.-aura around the target, granting allies within the aura half of the fast healing and AC bonus (rounded down). Only one instance of this aura can be active at any given time. As with a standard aurora, a gunbreaker can only have one instance of this ability active at any given time.",
+        "progressionDescription": "At 13th level, the gunbreaker can spend three uses of Aurora to apply it as an aura around an ally. When used this way on an ally within 30 feet, it coalesces into a 15-ft.-aura around the target, granting allies within the aura half of the fast healing and AC bonus (rounded down). Only one instance of this aura can be active at any given time. As with a standard aurora, a gunbreaker can only have one instance of this ability active at any given time.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Greater Aurora",
+            "locator": "greater-aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:bullet-deflection",
+        "name": "Bullet Deflection",
+        "atLevel": 13,
+        "description": "A gunbreaker is adept at modifying and using his armor to stop firearm attacks. Starting at 13th level, a gunbreaker wearing medium or heavy armor gains half the armor’s bonus plus the armor’s enhancement bonus (if any) as a deflection bonus against any non-siege firearm or splash weapon attack (including the chemist’s bomb class ability). This ability has no affect on spells, spell-like abilities, or supernatural abilities that make a touch attack.",
+        "progressionDescription": "A gunbreaker is adept at modifying and using his armor to stop firearm attacks. Starting at 13th level, a gunbreaker wearing medium or heavy armor gains half the armor’s bonus plus the armor’s enhancement bonus (if any) as a deflection bonus against any non-siege firearm or splash weapon attack (including the chemist’s bomb class ability). This ability has no affect on spells, spell-like abilities, or supernatural abilities that make a touch attack.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Bullet Deflection",
+            "locator": "bullet-deflection"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:gnashing-fang",
+        "name": "Gnashing Fang",
+        "atLevel": 14,
+        "description": "At 14th level, the gunbreaker’s aim is unerringly drawn to his foe’s vital spots, as he seeks to finish fights with brutal efficiency. He increases his critical threat range with gun arms (but not the firearm portion of the gun arm) by 1. This applies after all other effects that increase critical threat range.",
+        "progressionDescription": "At 14th level, the gunbreaker’s aim is unerringly drawn to his foe’s vital spots, as he seeks to finish fights with brutal efficiency. He increases his critical threat range with gun arms (but not the firearm portion of the gun arm) by 1. This applies after all other effects that increase critical threat range.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gnashing Fang",
+            "locator": "gnashing-fang"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:abdomen-tear",
+        "name": "Abdomen Tear",
+        "atLevel": 16,
+        "description": "At 16th level, each successive swing and shot refines the gunbreaker’s unrelenting offense. When making a full attack with a gun arm, he ignores a cumulative 2 points of damage reduction for each successful attack made that round. For example, the first successful attack ignores 2 points of DR, the second successful attack ignores 4 points of DR, and so on.",
+        "progressionDescription": "At 16th level, each successive swing and shot refines the gunbreaker’s unrelenting offense. When making a full attack with a gun arm, he ignores a cumulative 2 points of damage reduction for each successful attack made that round. For example, the first successful attack ignores 2 points of DR, the second successful attack ignores 4 points of DR, and so on.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Abdomen Tear",
+            "locator": "abdomen-tear"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:gunbreakers-resilience",
+        "name": "Gunbreaker’s Resilience",
+        "atLevel": 17,
+        "description": "At 17th level, when the gunbreaker has at least 1 magicked ammo and makes a successful Fortitude saving throw against an attack that would deal half damage or have a partial effect, he takes no damage or other effects from that attack. Furthermore, he gains a +2 bonus on all saving throws against fear and mind-affecting effects.",
+        "progressionDescription": "At 17th level, when the gunbreaker has at least 1 magicked ammo and makes a successful Fortitude saving throw against an attack that would deal half damage or have a partial effect, he takes no damage or other effects from that attack. Furthermore, he gains a +2 bonus on all saving throws against fear and mind-affecting effects.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Gunbreaker’s Resilience",
+            "locator": "gunbreakers-resilience"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:perfect-aurora",
+        "name": "Perfect Aurora",
+        "atLevel": 17,
+        "description": "At 17th level, if the gunbreaker’s hit points are ever dropped below 0, he can expend 4 uses of aurora as an immediate action to instead set his HP to 0. This applies even if the damage would have otherwise killed him.",
+        "progressionDescription": "At 17th level, if the gunbreaker’s hit points are ever dropped below 0, he can expend 4 uses of aurora as an immediate action to instead set his HP to 0. This applies even if the damage would have otherwise killed him.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Aurora",
+            "locator": "perfect-aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:solid-barrel",
+        "name": "Solid Barrel",
+        "atLevel": 19,
+        "description": "At 19th level, the gunbreaker’s gun arm cannot be disarmed or sundered while he is wielding it, and is no longer subject to misfires.",
+        "progressionDescription": "At 19th level, the gunbreaker’s gun arm cannot be disarmed or sundered while he is wielding it, and is no longer subject to misfires.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Solid Barrel",
+            "locator": "solid-barrel"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:die-by-the-gunblade",
+        "name": "Die by the Gunblade",
+        "atLevel": 19,
+        "description": "At 19th level, as long as the gunbreaker has at least 1 magicked ammo, he gains DR 5/-.",
+        "progressionDescription": "At 19th level, as long as the gunbreaker has at least 1 magicked ammo, he gains DR 5/-.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Die by the Gunblade",
+            "locator": "die-by-the-gunblade"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:lion-heart",
+        "name": "Lion Heart",
+        "atLevel": 20,
+        "description": "At 20th level, the gunbreaker’s mastery of gun arms peaks – a master of both his weapons and the energies that empower them. The DC of his gun arm techniques increases by 1, and all alternative uses of aurora consume 1 less daily use of aurora (minimum 1). In addition, he gains a bonus to confirm critical hits with his gun arm equal to his Wisdom modifier.",
+        "progressionDescription": "At 20th level, the gunbreaker’s mastery of gun arms peaks – a master of both his weapons and the energies that empower them. The DC of his gun arm techniques increases by 1, and all alternative uses of aurora consume 1 less daily use of aurora (minimum 1). In addition, he gains a bonus to confirm critical hits with his gun arm equal to his Wisdom modifier.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Lion Heart",
+            "locator": "lion-heart"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:no-mercy",
+        "name": "No Mercy",
+        "atLevel": 1,
+        "description": "Swift Limit Break: +2 circumstance to attack and damage with a gun arm and +1 critical threat range for 1 round at first level. All effects are temporary and manual.",
+        "progressionDescription": "No Mercy (Su): This Limit Break sends the gunbreaker into a relentless fury, granting him a +2 circumstance bonus on attack and damage rolls, as well as increasing his critical threat range with gun arms by 1, for a duration of 1 round + 1 round per four gunbreaker levels after 1st. For every four gunbreaker levels after 1st, the bonus to attack and damage rolls increases by 2. These bonuses apply to both the melee and firearm parts of a gun arm, and the critical threat range increase is applied after all other effects that increase critical threat range. This limit break requires only a swift action.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "No Mercy",
+            "locator": "no-mercy"
+          }
+        ],
+        "initialState": {
+          "durationRounds": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:feature:superbolide",
+        "name": "Superbolide",
+        "atLevel": 1,
+        "description": "Swift Limit Break: creates a barrier with 11 HP and hardness 2 at first level, lasting up to 1 round. Track the barrier separately from current HP.",
+        "progressionDescription": "Superbolide (Su): This Limit Break fires a potent defensive shell that erects a barrier around the gunbreaker, shielding them from attacks. Anytime the gunbreaker would take damage, their barrier is damaged instead. The barrier has a number of hit points equal to the gunbreaker’s level + 10, and has a hardness of 2. The hit points increase by 10 and the hardness increases by 2 per four gunbreaker levels after 1st, and the barrier persists for a duration of 1 round + 1 round per four gunbreaker levels after 1st, or until destroyed or the end of combat. This limit break requires only a swift action.",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superbolide",
+            "locator": "superbolide"
+          }
+        ],
+        "initialState": {
+          "durationRounds": 1
+        }
       },
       {
         "id": "ffd20:class:gunbreaker:feature:blast-shield",
@@ -591,15 +1081,416 @@
             "locator": "brutal-shell"
           }
         ]
+      }
+    ],
+    "upgrades": [
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:aurora:4",
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "atClassLevel": 4,
+        "changes": {
+          "fastHealing": 2,
+          "conditionalAc": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aurora",
+            "locator": "aurora"
+          }
+        ]
       },
       {
-        "id": "ffd20:class:gunbreaker:feature:no-mercy",
-        "name": "No Mercy",
-        "atLevel": 1,
-        "description": "Swift Limit Break: +2 circumstance to attack and damage with a gun arm and +1 critical threat range for 1 round at first level. All effects are temporary and manual.",
-        "activation": "active",
-        "featureKind": "limit_break",
-        "automation": "manual",
+        "id": "ffd20:class:gunbreaker:upgrade:aurora:7",
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "atClassLevel": 7,
+        "changes": {
+          "fastHealing": 3,
+          "conditionalAc": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aurora",
+            "locator": "aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:aurora:10",
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "atClassLevel": 10,
+        "changes": {
+          "fastHealing": 4,
+          "conditionalAc": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aurora",
+            "locator": "aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:aurora:13",
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "atClassLevel": 13,
+        "changes": {
+          "fastHealing": 5,
+          "conditionalAc": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aurora",
+            "locator": "aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:aurora:16",
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "atClassLevel": 16,
+        "changes": {
+          "fastHealing": 6,
+          "conditionalAc": 6
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aurora",
+            "locator": "aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:aurora:19",
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "atClassLevel": 19,
+        "changes": {
+          "fastHealing": 7,
+          "conditionalAc": 7
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Aurora",
+            "locator": "aurora"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:2",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 2,
+        "changes": {
+          "infusedDamage": 1,
+          "maximumInfusedRounds": "3"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:3",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 3,
+        "changes": {
+          "infusedDamage": 2,
+          "maximumInfusedRounds": "3"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:4",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 4,
+        "changes": {
+          "infusedDamage": 2,
+          "maximumInfusedRounds": "4"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:5",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 5,
+        "changes": {
+          "infusedDamage": 3,
+          "maximumInfusedRounds": "4"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:6",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 6,
+        "changes": {
+          "infusedDamage": 3,
+          "maximumInfusedRounds": "4"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:7",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 7,
+        "changes": {
+          "infusedDamage": 4,
+          "maximumInfusedRounds": "5"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:8",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 8,
+        "changes": {
+          "infusedDamage": 4,
+          "maximumInfusedRounds": "5"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:9",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 9,
+        "changes": {
+          "infusedDamage": 5,
+          "maximumInfusedRounds": "6"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:10",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 10,
+        "changes": {
+          "infusedDamage": 5,
+          "maximumInfusedRounds": "6"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:11",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 11,
+        "changes": {
+          "infusedDamage": 6,
+          "maximumInfusedRounds": "7"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:12",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 12,
+        "changes": {
+          "infusedDamage": 6,
+          "maximumInfusedRounds": "7"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:13",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 13,
+        "changes": {
+          "infusedDamage": 7,
+          "maximumInfusedRounds": "8"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:14",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 14,
+        "changes": {
+          "infusedDamage": 7,
+          "maximumInfusedRounds": "9"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:15",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 15,
+        "changes": {
+          "infusedDamage": 8,
+          "maximumInfusedRounds": "11"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:16",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 16,
+        "changes": {
+          "infusedDamage": 8,
+          "maximumInfusedRounds": "13"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:17",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 17,
+        "changes": {
+          "infusedDamage": 9,
+          "maximumInfusedRounds": "16"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:18",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 18,
+        "changes": {
+          "infusedDamage": 9,
+          "maximumInfusedRounds": "19"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:19",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 19,
+        "changes": {
+          "infusedDamage": 10,
+          "maximumInfusedRounds": "Capacity"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:magicked-ammo:20",
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "atClassLevel": 20,
+        "changes": {
+          "infusedDamage": 10,
+          "maximumInfusedRounds": "Capacity"
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Magicked Ammo",
+            "locator": "magicked-ammo"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:no-mercy:5",
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy",
+        "atClassLevel": 5,
+        "changes": {
+          "durationRounds": 2
+        },
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -609,13 +1500,57 @@
         ]
       },
       {
-        "id": "ffd20:class:gunbreaker:feature:superbolide",
-        "name": "Superbolide",
-        "atLevel": 1,
-        "description": "Swift Limit Break: creates a barrier with 11 HP and hardness 2 at first level, lasting up to 1 round. Track the barrier separately from current HP.",
-        "activation": "active",
-        "featureKind": "limit_break",
-        "automation": "manual",
+        "id": "ffd20:class:gunbreaker:upgrade:no-mercy:9",
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy",
+        "atClassLevel": 9,
+        "changes": {
+          "durationRounds": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "No Mercy",
+            "locator": "no-mercy"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:no-mercy:13",
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy",
+        "atClassLevel": 13,
+        "changes": {
+          "durationRounds": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "No Mercy",
+            "locator": "no-mercy"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:no-mercy:17",
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy",
+        "atClassLevel": 17,
+        "changes": {
+          "durationRounds": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "No Mercy",
+            "locator": "no-mercy"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:superbolide:5",
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide",
+        "atClassLevel": 5,
+        "changes": {
+          "durationRounds": 2
+        },
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -625,99 +1560,2165 @@
         ]
       },
       {
-        "id": "ffd20:class:gunbreaker:feature:keen-edge",
-        "name": "Keen Edge",
-        "atLevel": 2,
-        "description": "While wielding a gun arm, gain +1 shield AC; stacks with other shield bonuses. This is weapon-conditional and is not a permanent sheet AC bonus.",
-        "activation": "passive",
-        "featureKind": "class_feature",
-        "automation": "manual",
+        "id": "ffd20:class:gunbreaker:upgrade:superbolide:9",
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide",
+        "atClassLevel": 9,
+        "changes": {
+          "durationRounds": 3
+        },
         "sourceRefs": [
           {
             "sourceId": "main",
-            "section": "Keen Edge",
-            "locator": "keen-edge"
+            "section": "Superbolide",
+            "locator": "superbolide"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:superbolide:13",
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide",
+        "atClassLevel": 13,
+        "changes": {
+          "durationRounds": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superbolide",
+            "locator": "superbolide"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:upgrade:superbolide:17",
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide",
+        "atClassLevel": 17,
+        "changes": {
+          "durationRounds": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Superbolide",
+            "locator": "superbolide"
           }
         ]
       }
     ],
-    "upgrades": [],
     "events": [
       {
-        "id": "ffd20:class:gunbreaker:event:grant-aurora",
-        "atClassLevel": 1,
-        "type": "grant_feature",
-        "featureId": "ffd20:class:gunbreaker:feature:aurora"
+        "id": "ffd20:class:gunbreaker:event:upgrade:aurora:4",
+        "type": "upgrade_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:aurora:4"
       },
       {
-        "id": "ffd20:class:gunbreaker:event:grant-gunsmith",
-        "atClassLevel": 1,
+        "id": "ffd20:class:gunbreaker:event:upgrade:aurora:7",
+        "type": "upgrade_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:aurora:7"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:aurora:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:aurora:10"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:aurora:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:aurora:13"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:aurora:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:aurora:16"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:aurora:19",
+        "type": "upgrade_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:gunbreaker:feature:aurora",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:aurora:19"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:2",
+        "type": "upgrade_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:2"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:3",
+        "type": "upgrade_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:3"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:4",
+        "type": "upgrade_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:4"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:5"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:6",
+        "type": "upgrade_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:6"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:7",
+        "type": "upgrade_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:7"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:8",
+        "type": "upgrade_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:8"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:9"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:10"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:11",
+        "type": "upgrade_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:11"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:12",
+        "type": "upgrade_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:12"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:13"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:14",
+        "type": "upgrade_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:14"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:15"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:16"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:17"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:18",
+        "type": "upgrade_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:18"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:19",
+        "type": "upgrade_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:19"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:magicked-ammo:20",
+        "type": "upgrade_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:magicked-ammo:20"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:no-mercy:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:no-mercy:5"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:no-mercy:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:no-mercy:9"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:no-mercy:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:no-mercy:13"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:no-mercy:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:no-mercy:17"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:superbolide:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:superbolide:5"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:superbolide:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:superbolide:9"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:superbolide:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:superbolide:13"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:upgrade:superbolide:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide",
+        "upgradeId": "ffd20:class:gunbreaker:upgrade:superbolide:17"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:weapon-and-armor-proficiency",
         "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:gunbreaker:feature:weapon-and-armor-proficiency"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:gunsmith",
+        "type": "grant_feature",
+        "atClassLevel": 1,
         "featureId": "ffd20:class:gunbreaker:feature:gunsmith"
       },
       {
-        "id": "ffd20:class:gunbreaker:event:grant-magicked-ammo",
-        "atClassLevel": 1,
+        "id": "ffd20:class:gunbreaker:event:magicked-ammo",
         "type": "grant_feature",
+        "atClassLevel": 1,
         "featureId": "ffd20:class:gunbreaker:feature:magicked-ammo"
       },
       {
-        "id": "ffd20:class:gunbreaker:event:grant-blast-shield",
-        "atClassLevel": 1,
+        "id": "ffd20:class:gunbreaker:event:aurora",
         "type": "grant_feature",
-        "featureId": "ffd20:class:gunbreaker:feature:blast-shield"
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:gunbreaker:feature:aurora"
       },
       {
-        "id": "ffd20:class:gunbreaker:event:grant-brutal-shell",
-        "atClassLevel": 1,
+        "id": "ffd20:class:gunbreaker:event:keen-edge",
         "type": "grant_feature",
-        "featureId": "ffd20:class:gunbreaker:feature:brutal-shell"
-      },
-      {
-        "id": "ffd20:class:gunbreaker:event:grant-no-mercy",
-        "atClassLevel": 1,
-        "type": "grant_feature",
-        "featureId": "ffd20:class:gunbreaker:feature:no-mercy"
-      },
-      {
-        "id": "ffd20:class:gunbreaker:event:grant-superbolide",
-        "atClassLevel": 1,
-        "type": "grant_feature",
-        "featureId": "ffd20:class:gunbreaker:feature:superbolide"
-      },
-      {
-        "id": "ffd20:class:gunbreaker:event:grant-keen-edge",
         "atClassLevel": 2,
-        "type": "grant_feature",
         "featureId": "ffd20:class:gunbreaker:feature:keen-edge"
       },
       {
-        "id": "ffd20:class:gunbreaker:event:talent:2",
+        "id": "ffd20:class:gunbreaker:event:gunbreaker-talents",
+        "type": "grant_feature",
         "atClassLevel": 2,
+        "featureId": "ffd20:class:gunbreaker:feature:gunbreaker-talents"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:gun-arm-techniques",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:gunbreaker:feature:gun-arm-techniques"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:heart-of-stone",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:gunbreaker:feature:heart-of-stone"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:jugular-rip",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:gunbreaker:feature:jugular-rip"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:armor-training",
+        "type": "grant_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:gunbreaker:feature:armor-training"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:gun-arm-mastery",
+        "type": "grant_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:gunbreaker:feature:gun-arm-mastery"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:quick-cartridge",
+        "type": "grant_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:gunbreaker:feature:quick-cartridge"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:improved-aurora",
+        "type": "grant_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:gunbreaker:feature:improved-aurora"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:gunbreakers-resolve",
+        "type": "grant_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:gunbreaker:feature:gunbreakers-resolve"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:heart-of-light",
+        "type": "grant_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:gunbreaker:feature:heart-of-light"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:continuation",
+        "type": "grant_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:gunbreaker:feature:continuation"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:royal-guard",
+        "type": "grant_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:gunbreaker:feature:royal-guard"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:suppressing-menace",
+        "type": "grant_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:gunbreaker:feature:suppressing-menace"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:advanced-gunbreaker-talents",
+        "type": "grant_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:gunbreaker:feature:advanced-gunbreaker-talents"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:greater-aurora",
+        "type": "grant_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:gunbreaker:feature:greater-aurora"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:bullet-deflection",
+        "type": "grant_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:gunbreaker:feature:bullet-deflection"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:gnashing-fang",
+        "type": "grant_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:gunbreaker:feature:gnashing-fang"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:abdomen-tear",
+        "type": "grant_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:gunbreaker:feature:abdomen-tear"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:gunbreakers-resilience",
+        "type": "grant_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:gunbreaker:feature:gunbreakers-resilience"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:perfect-aurora",
+        "type": "grant_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:gunbreaker:feature:perfect-aurora"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:solid-barrel",
+        "type": "grant_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:gunbreaker:feature:solid-barrel"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:die-by-the-gunblade",
+        "type": "grant_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:gunbreaker:feature:die-by-the-gunblade"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:lion-heart",
+        "type": "grant_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:gunbreaker:feature:lion-heart"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:no-mercy",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:gunbreaker:feature:no-mercy"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:superbolide",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:gunbreaker:feature:superbolide"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:blast-shield",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:gunbreaker:feature:blast-shield"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:brutal-shell",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:gunbreaker:feature:brutal-shell"
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:2",
         "type": "choose",
-        "poolId": "ffd20:class:gunbreaker:pool:talents",
+        "atClassLevel": 2,
         "poolIds": [
           "ffd20:class:gunbreaker:pool:talents"
         ],
         "count": {
           "kind": "constant",
           "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:3",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:mastery:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:mastery:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:mastery:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:mastery:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:starting-gun-arm:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:starting-gun-arm"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
         },
-        "sourceRefs": [
+        "optional": true
+      }
+    ],
+    "archetypeIndex": [],
+    "choicePools": [
+      {
+        "id": "ffd20:class:gunbreaker:pool:talents",
+        "name": "Gunbreaker talent",
+        "options": [
           {
-            "sourceId": "main",
-            "section": "Gunbreaker Talents",
-            "locator": "gunbreaker-talents"
+            "id": "ffd20:class:gunbreaker:talent:agile-armaments",
+            "name": "Agile Armaments",
+            "description": "The gunbreaker chooses one kind of light or one-handed gun arm. When wielding his chosen weapon one-handed, he can add his Dexterity modifier instead of his Strength modifier to that weapon's damage. The weapon must be one appropriate for his size. He only gains this benefit by having his off-hand (or hands) free or wielding nothing but a light shield or buckler.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Agile Armaments",
+                "locator": "agile-armaments"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:antagonistic-personality",
+            "name": "Antagonistic Personality",
+            "description": "Prerequisites: Antagonize feat.\nYou gain Provoke as a bonus feat.",
+            "prerequisiteText": "Antagonize feat",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Antagonistic Personality",
+                "locator": "antagonistic-personality"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:athletic-physique",
+            "name": "Athletic Physique",
+            "description": "Use Strength in place of Dexterity when qualifying for feats.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Athletic Physique",
+                "locator": "athletic-physique"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:baring-fangs",
+            "name": "Baring Fangs",
+            "description": "Add your Wisdom modifier to Intimidate checks in addition to Charisma.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Baring Fangs",
+                "locator": "baring-fangs"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:beat-fang",
+            "name": "Beat Fang",
+            "description": "With a gun arm that supports trigger attacks, make a melee touch attack with its firearm portion instead of a normal melee attack.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Beat Fang",
+                "locator": "beat-fang"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:camouflage",
+            "name": "Camouflage",
+            "description": "Prerequisites: Any Gun Arm Technique.\nWhen the gunbreaker performs a gun arm technique, he gains a 10% miss chance for 1 round as the left over magic or explosion shrouds him.",
+            "prerequisiteText": "Any Gun Arm Technique",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Camouflage",
+                "locator": "camouflage"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:close-combat-shot",
+            "name": "Close Combat Shot",
+            "description": "Prerequisites: Ranged Combat Training gunbreaker talent or Precise Shot feat, Gunbreaker 10.\nThe gunbreaker’s ranged attack no longer provoke attacks of opportunity from being in an enemy’s threatened square.",
+            "prerequisiteText": "Ranged Combat Training gunbreaker talent or Precise Shot feat, Gunbreaker 10",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Close Combat Shot",
+                "locator": "close-combat-shot"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:combat-ready",
+            "name": "Combat Ready",
+            "description": "A gunbreaker that selects this talent gains a bonus combat feat. This talent can be selected only once.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Combat Ready",
+                "locator": "combat-ready"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:elemental-infuse",
+            "name": "Elemental Infuse",
+            "description": "Choose an element for infused ammunition while loading; handle any elemental conversion manually.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Elemental Infuse",
+                "locator": "elemental-infuse"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:extra-aurora",
+            "name": "Extra Aurora",
+            "description": "Prerequisites: Aurora class feature.\nThe gunbreaker gains an additional use of his Aurora class feature.",
+            "prerequisiteText": "Aurora class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Extra Aurora",
+                "locator": "extra-aurora"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:flourishing-assault",
+            "name": "Flourishing Assault",
+            "description": "When using a one-handed gun arm and a free off-hand or light shield, spend three magicked rounds to gain one extra full-attack strike. Restrictions apply.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Flourishing Assault",
+                "locator": "flourishing-assault"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:flurry-of-swings",
+            "name": "Flurry of Swings",
+            "description": "When using a two-handed gun arm, spend three magicked rounds for an extra strike during a full attack, subject to weapon and haste restrictions.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Flurry of Swings",
+                "locator": "flurry-of-swings"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:gunbreakers-vigilance",
+            "name": "Gunbreaker's Vigilance",
+            "description": "The gunbreaker gains Endurance as a bonus feat. If he already has that feat, he may select another feat for which he meets the prerequisites which lists Endurance as a prerequisite. In addition, he may sleep in medium or heavy armor without becoming fatigued, he requires half as much sleep as normal, and can survive twice as long without food and water before needing to make checks. Finally, the penalty for Perception checks made while the gunbreaker is sleeping is halved.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Gunbreaker's Vigilance",
+                "locator": "gunbreakers-vigilance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:heel-crush",
+            "name": "Heel Crush",
+            "description": "Prerequisites: Gunbreaker 6.\nWhen the gunbreaker makes a successful melee attack on a target, all creatures treat all squares around the gunbreaker as difficult terrain. (Has to be used on rocky terrain to gain this effect.)",
+            "prerequisiteText": "Gunbreaker 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Heel Crush",
+                "locator": "heel-crush"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:improved-form-switch",
+            "name": "Improved Form-Switch",
+            "description": "The gunbreaker can use form-switch as a move action instead or once as a free action during a full attack. When taking the full attack action, he may treat the other form as an off-hand weapon for an extra attack, but may only gain this one regardless of any two-weapon fighting feats he may have.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Improved Form-Switch",
+                "locator": "improved-form-switch"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:light-armor-training",
+            "name": "Light Armor Training",
+            "description": "Gain +5 feet movement speed only while wearing light or medium armor; do not modify base racial speed automatically.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Light Armor Training",
+                "locator": "light-armor-training"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:lightning-shot",
+            "name": "Lightning Shot",
+            "description": "Prerequisites: Beat Fang gunbreaker talent.\nWhen using a gun arm that has a trigger attack, the gunbreaker can make a ranged touch attack on an enemy within 30 feet instead of a regular attack. This deals the gun arm’s firearm damage on a successful hit",
+            "prerequisiteText": "Beat Fang gunbreaker talent",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Lightning Shot",
+                "locator": "lightning-shot"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:nebula",
+            "name": "Nebula",
+            "description": "Activate Blast Shield with a move or standard action.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Nebula",
+                "locator": "nebula"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:offensive-verbiage",
+            "name": "Offensive Verbiage",
+            "description": "Prerequisites: Antagonize feat, Intimidate 5 ranks.\nWhen using the Antagonize feat, you can use the same check against all enemies within a 30-ft.-radius as a full-round action. Talents or feats that reduce the action cost of Antagonize have no effect on this ability.",
+            "prerequisiteText": "Antagonize feat, Intimidate 5 ranks",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Offensive Verbiage",
+                "locator": "offensive-verbiage"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:ranged-combat-training",
+            "name": "Ranged Combat Training",
+            "description": "Gain Precise Shot as a bonus feat without meeting its prerequisites. Manage feat on the sheet manually.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Ranged Combat Training",
+                "locator": "ranged-combat-training"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:ready-to-gouge",
+            "name": "Ready to Gouge",
+            "description": "Prerequisites: Ready to Rip and Ready to Tear gunbreaker talents, Gunbreaker 10.\nThe gunbreaker’s critical hits can now inflict Blind on the target for 1 round. He can only apply the status effect once per critical hit. Multiple critical hits do not increase the duration.",
+            "prerequisiteText": "Ready to Rip and Ready to Tear gunbreaker talents, Gunbreaker 10",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Ready to Gouge",
+                "locator": "ready-to-gouge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:ready-to-rip",
+            "name": "Ready to Rip",
+            "description": "Gain +2 on confirmation rolls for gun-arm critical hits.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Ready to Rip",
+                "locator": "ready-to-rip"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:ready-to-tear",
+            "name": "Ready to Tear",
+            "description": "Prerequisites: Ready to Rip gunbreaker talent, Gunbreaker 8.\nThe gunbreaker’s critical hits can now inflict 1d4 points of bleed damage on the target for 1 minute. He can only apply the status effect once per critical hit. Multiple critical hits do not increase the duration.",
+            "prerequisiteText": "Ready to Rip gunbreaker talent, Gunbreaker 8",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Ready to Tear",
+                "locator": "ready-to-tear"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:savage-claw",
+            "name": "Savage Claw",
+            "description": "Prerequisites: Gunbreaker 8.\nWhen using firearm part of a gun arm, the gunbreaker may have the bullets explode on hit, dealing half damage to adjacent creatures. A successful Reflex save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) negates the damage.",
+            "prerequisiteText": "Gunbreaker 8",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Savage Claw",
+                "locator": "savage-claw"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:swift-infuse",
+            "name": "Swift Infuse",
+            "description": "Improve the action required to infuse magicked ammo, with rules depending on your current reload speed.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Swift Infuse",
+                "locator": "swift-infuse"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:threat-control",
+            "name": "Threat Control",
+            "description": "Gain Antagonize as a bonus feat and retry a failed Intimidate use of that feat against the same creature. Manage feat manually.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Threat Control",
+                "locator": "threat-control"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:uncanny-dodge",
+            "name": "Uncanny Dodge",
+            "description": "Keep Dexterity bonus to AC when flat-footed or attacked by invisible creatures, with the standard immobilization and feint exceptions.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Uncanny Dodge",
+                "locator": "uncanny-dodge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:wicked-talons",
+            "name": "Wicked Talons",
+            "description": "Reroll damage dice showing 1 for both parts of a gun arm.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Wicked Talons",
+                "locator": "wicked-talons"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:advanced-form-switch",
+            "name": "Advanced Form-Switch",
+            "description": "Prerequisites: Improved Form-Switch gunbreaker talent.\nThe gunbreaker can use Form-Switch as a swift action instead or freely during a full attack. This allows him to make as many additional off-hand attack as he has the feats for, though he must switch forms for each off-hand attack.",
+            "prerequisiteText": "Improved Form-Switch gunbreaker talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Advanced Form-Switch",
+                "locator": "advanced-form-switch"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:aurora-mastery",
+            "name": "Aurora Mastery",
+            "description": "Prerequisites: Extra Aurora gunbreaker talent.\nThe gunbreaker gains an additional use of Aurora per day and can use it as a free action",
+            "prerequisiteText": "Extra Aurora gunbreaker talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Aurora Mastery",
+                "locator": "aurora-mastery"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:beasts-roar",
+            "name": "Beast’s Roar",
+            "description": "The gunbreaker can let out a rallying cry as a move action to increase the ferocity of his allies who can hear him in 30 feet. Allies within range gain a +2 morale bonus to attack and damage rolls for a number of rounds equal to the gunbreaker’s Wisdom modifier. This ability can be use a number of times per day equal to the gunbreaker’s Wisdom modifier.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Beast’s Roar",
+                "locator": "beasts-roar"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:bow-shock",
+            "name": "Bow Shock",
+            "description": "Prerequisites: Ready to Rip, Ready to Gouge, Ready to Tear, and Sonic Break gunbreaker talents.\nCritical hits now apply all effects at once from Ready to Tear, Ready to Gouge, and Sonic Break.",
+            "prerequisiteText": "Ready to Rip, Ready to Gouge, Ready to Tear, and Sonic Break gunbreaker talents",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Bow Shock",
+                "locator": "bow-shock"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:elemental-shift",
+            "name": "Elemental Shift",
+            "description": "Prerequisites: Elemental Infuse gunbreaker talent.\nWhen the gunbreaker uses a gun arm technique, he can change the elements of the attacks as part of the attack. He can change one or all elements to any other element he desires. This ability can be use a number of times per day equal to the gunbreaker’s Wisdom modifier.",
+            "prerequisiteText": "Elemental Infuse gunbreaker talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Elemental Shift",
+                "locator": "elemental-shift"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:extra-gun-arm-mastery",
+            "name": "Extra Gun Arm Mastery",
+            "description": "Prerequisites: Gun Arm Mastery class feature.\nThe gunbreaker may choose an additional Gun Arm Mastery from his list of options.",
+            "prerequisiteText": "Gun Arm Mastery class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Extra Gun Arm Mastery",
+                "locator": "extra-gun-arm-mastery"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/",
+            "grantsChoicePoolId": "ffd20:class:gunbreaker:pool:mastery"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:furious-assault",
+            "name": "Furious Assault",
+            "description": "Prerequisites: Flourishing Assault or Flurry of Swings gunbreaker talent.\nThese talents now stack with haste or similar effects that add extra attacks to a full attack.",
+            "prerequisiteText": "Flourishing Assault or Flurry of Swings gunbreaker talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Furious Assault",
+                "locator": "furious-assault"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:heavy-armor-mastery",
+            "name": "Heavy Armor Mastery",
+            "description": "The gunbreaker gains DR 2/- while in medium or heavy armor. This stacks with the damage reduction from armor made with Adamantine.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Heavy Armor Mastery",
+                "locator": "heavy-armor-mastery"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:improved-ranged-combat-training",
+            "name": "Improved Ranged Combat Training",
+            "description": "Prerequisites: Ranged Combat Training gunbreaker talent or Precise Shot feat, and Close Combat Shot gunbreaker talent.\nThe gunbreaker gains Snap shot and Clustered Shots as bonus feats for his gun arm’s firearm attack even if he doesn't meet the prerequisites. If the gunbreaker has the lightning shot talent, it works with these feats and other feats that affects firearms.",
+            "prerequisiteText": "Ranged Combat Training gunbreaker talent or Precise Shot feat, and Close Combat Shot gunbreaker talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Improved Ranged Combat Training",
+                "locator": "improved-ranged-combat-training"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:improved-uncanny-dodge",
+            "name": "Improved Uncanny Dodge",
+            "description": "Prerequisites: Uncanny Dodge class feature or gunbreaker talent.\nThe gunbreaker can no longer be flanked. This defense denies an enemy the ability to gain a bonus on attack rolls by flanking him, unless the attacker has at least four more character levels than the gunbreaker does.",
+            "prerequisiteText": "Uncanny Dodge class feature or gunbreaker talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Improved Uncanny Dodge",
+                "locator": "improved-uncanny-dodge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:jagged-fangs",
+            "name": "Jagged Fangs",
+            "description": "Prerequisites: Baring Fangs gunbreaker talent, Antagonize feat, Intimidate 10 ranks.\nThe gunbreaker's presence and posture bestows fear to those who face him, granting him a circumstance bonus to Intimidate skill checks equal to half his gunbreaker level. In addition, anytime the gunbreaker drops a target below 0 HP with a gun arm, he can make a free Intimidate skill check on all targets who can see him within 30 feet to use his Antagonize feat against them.",
+            "prerequisiteText": "Baring Fangs gunbreaker talent, Antagonize feat, Intimidate 10 ranks",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Jagged Fangs",
+                "locator": "jagged-fangs"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:light-armor-mastery",
+            "name": "Light Armor Mastery",
+            "description": "Prerequisites: Light Armor Training gunbreaker talent.\nThe gunbreaker's movement speed increases by an additional 5 feet and he gains a +2 dodge bonus while in light or medium armor.",
+            "prerequisiteText": "Light Armor Training gunbreaker talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Light Armor Mastery",
+                "locator": "light-armor-mastery"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:powerful-nebula",
+            "name": "Powerful Nebula",
+            "description": "Prerequisites: Nebula gunbreaker talent.\nActivating Blast Shield can be done as a swift or immediate action. If used as a move or standard action, the effects affect all allies adjacent to the target.",
+            "prerequisiteText": "Nebula gunbreaker talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Powerful Nebula",
+                "locator": "powerful-nebula"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:reaching-technique",
+            "name": "Reaching Technique",
+            "description": "Prerequisites: Any Gun Arm Technique.\nThe gunbreaker’s gun arm techniques have their respective range, cone or radius increased by 10 feet",
+            "prerequisiteText": "Any Gun Arm Technique",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Reaching Technique",
+                "locator": "reaching-technique"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:talent:sonic-break",
+            "name": "Sonic Break",
+            "description": "Prerequisites: Ready to Rip, Ready to Tear, and Ready to Gouge gunbreaker talents.\nThe gunbreaker’s critical hits can now Deafen the target for 1 round. He can only inflict the status effect once per critical hit. Multiple critical hits do not increase the duration. Prerequisites: The gunbreaker must have the ready to rip, ready to tear, and ready to gouge gunbreaker talents to select this advanced talent.",
+            "prerequisiteText": "Ready to Rip, Ready to Tear, and Ready to Gouge gunbreaker talents",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gunbreaker-talents",
+                "section": "Sonic Break",
+                "locator": "sonic-break"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:pool:techniques",
+        "name": "Gun arm technique",
+        "options": [
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:blasting-zone",
+            "name": "Blasting Zone",
+            "description": "Prerequisites: Danger Zone gun arm technique, Gunbreaker 12.\nAs a standard action, the gunbreaker powers up his gun arm with energy, forming a large blade of energy and swings it down, dealing 1d12 points of fire damage + an additional 1d12 per two gunbreaker levels to all enemies in a 5-ft.-wide, 60-ft.-line. A successful Reflex save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) reduces this damage by half. Those who fail the save are Shaken for a number of rounds equal to the gunbreaker's Wisdom modifier.",
+            "prerequisiteText": "Danger Zone gun arm technique, Gunbreaker 12",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Blasting Zone",
+                "locator": "blasting-zone"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:bloodfest",
+            "name": "Bloodfest",
+            "description": "Prerequisites: Fire Cross gun arm technique, Gunbreaker 12.\nAs a standard action, the gunbreaker charges his gun arm and swings twice to cause eruptions in the ground, dealing 1d6 points of fire damage and 1d6 points of lightning damage plus an additional 1d6 damage of each type for every three gunbreaker levels he possesses to all in a cross of two lines, 5-ft.-wide, 35-ft.-long, perpendicular to each other, intersecting at the center. A successful Reflex save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) reduces this damage by half. Those who fail the save are Nauseated for 1 round. This ability has a range of 50 feet.",
+            "prerequisiteText": "Fire Cross gun arm technique, Gunbreaker 12",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Bloodfest",
+                "locator": "bloodfest"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:danger-zone",
+            "name": "Danger Zone",
+            "description": "As a standard action, the gunbreaker fires infused ammo to bring forth a burning blade from his gun arm and swings it down in front of him in a 5-ft.-wide, 60-ft.-line, dealing 1d10 points of fire damage + an   additional 1d10 for every two gunbreaker levels he possesses. A successful Reflex save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) reduces this damage by half.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Danger Zone",
+                "locator": "danger-zone"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:demon-slaughter",
+            "name": "Demon Slaughter",
+            "description": "Prerequisites: Demon Slice gun arm technique, Gunbreaker 12.\nAs a standard action, the gunbreaker can unleash a whirlwind in front of him, dealing 1d6 points of fire damage and 1d6 points of wind damage plus an additional 1d6 damage of each type for every three gunbreaker levels he possesses to all enemies in a 30-ft.-cone in front of him. A successful Reflex save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) reduces this damage by half. Those who fail the save are knocked prone.",
+            "prerequisiteText": "Demon Slice gun arm technique, Gunbreaker 12",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Demon Slaughter",
+                "locator": "demon-slaughter"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:demon-slice",
+            "name": "Demon Slice",
+            "description": "As a standard action, the gunbreaker can swing his gun arm in a large, wide arc to blast all enemies close by with energy from his gun arm. He deals 1d10 points of fire damage + an additional 1d10 for every two gunbreaker levels in a 30-ft.-cone. A successful Reflex save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) reduces this damage by half.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Demon Slice",
+                "locator": "demon-slice"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:divide",
+            "name": "Divide",
+            "description": "As a standard action, the gunbreaker can bring his blade up with an upward strike, blowing away a target. He makes a single melee attack against a target within reach and, if successful, he deals normal melee weapon damage with his gun arm plus his gun arm’s firearm damage to the target and the gunbreaker gets a free trip attempt on the target. The gunbreaker is not tripped in return if he fails. If the target is immune to being tripped, it is instead pushed back 5 feet, if able.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Divide",
+                "locator": "divide"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:fated-circle",
+            "name": "Fated Circle",
+            "description": "Prerequisites: Gunbreaker 9.\nAs a standard action, the gunbreaker can charge energy from the ammo into his gun arm and swing it around furiously, dealing 1d6 points of fire damage and 1d6 points of lightning damage plus an additional 1d6 of each type for every three gunbreaker levels he possesses to all enemies in a 20-ft.-radius around the gunbreaker. A successful Reflex save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) reduces this damage by half. Those who fail the save are staggered for 1 round.",
+            "prerequisiteText": "Gunbreaker 9",
+            "minimumLevel": 9,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Fated Circle",
+                "locator": "fated-circle"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:fire-cross",
+            "name": "Fire Cross",
+            "description": "As a standard action, the gunbreaker swings his gun arm in front of him to form an X of fire that floats in front of him and flies forward after the second swing. The gunbreaker makes a ranged touch attack against a target in 30 feet and, if successful, he deals 1d12 points of fire damage + an additional 1d12 for every two gunbreaker levels that he possesses. and inflicts the Burning status effect for a number of rounds equal to the gunbreaker's Wisdom modifier. A successful Reflex save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) negates the status effect.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Fire Cross",
+                "locator": "fire-cross"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:techniques:option:rough-divide",
+            "name": "Rough Divide",
+            "description": "Prerequisites: Divide gun arm technique, Gunbreaker 12.\nAs a standard action, the gunbreaker can leap forward at blinding speed, bringing his blade up with an upward strike that send rifts into the ground and upward onto his target. He can move up to his movement speed without provoking attacks of opportunity and makes a single melee attack against a target within reach. If successful, he deals triple melee weapon damage with his gun arm and plus double his gun arm’s firearm damage to the target. The target must make a Fortitude save (DC 10 + half of the gunbreaker’s level + his Wisdom modifier) or be Stunned for 1 round.",
+            "prerequisiteText": "Divide gun arm technique, Gunbreaker 12",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-gunbreaker-gun-arm-techniques",
+                "section": "Rough Divide",
+                "locator": "rough-divide"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gun-arm-techniques/"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:pool:mastery",
+        "name": "Gun arm mastery",
+        "options": [
+          {
+            "id": "ffd20:class:gunbreaker:pool:mastery:option:blasting-bullets",
+            "name": "Blasting Bullets",
+            "description": "The gunbreaker adds his Wisdom modifier to damage rolls of all gun arm techniques. This mastery can only be chosen once.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:mastery:option:bloody-fangs",
+            "name": "Bloody Fangs",
+            "description": "The gunbreaker adds his Wisdom modifier to the firearm damage rolls of damage made from trigger attacks. This mastery can only be chosen once.",
+            "minimumLevel": 5,
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:mastery:option:parry-mastery",
+            "name": "Parry Mastery",
+            "description": "Increases the shield bonus from the gunbreaker’s keen edge ability by 1.",
+            "minimumLevel": 5,
+            "repeatLimit": 20,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:mastery:option:power-mastery",
+            "name": "Power Mastery",
+            "description": "Increases damage rolls with both melee and firearm damage of gun arms by 1.",
+            "minimumLevel": 5,
+            "repeatLimit": 20,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:mastery:option:technique-mastery",
+            "name": "Technique Mastery",
+            "description": "Increases the DC of gun arm techniques by 1.",
+            "minimumLevel": 5,
+            "repeatLimit": 20,
+            "featureIds": []
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:pool:starting-gun-arm",
+        "name": "Starting gun arm",
+        "options": [
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunblade-assault",
+            "name": "Starting gun arm: Gunblade (Assault)",
+            "description": "Gunsmith starting weapon: Gunblade (Assault). Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d4, Medium melee damage 1d6, critical 19-20/x2. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunblade (Assault)",
+                "locator": "starting-gun-arm-gunblade-assault"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunblade-light",
+            "name": "Starting gun arm: Gunblade (Light)",
+            "description": "Gunsmith starting weapon: Gunblade (Light). Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d3, Medium melee damage 1d4, critical 19-20/x2. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunblade (Light)",
+                "locator": "starting-gun-arm-gunblade-light"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunbaghnakh",
+            "name": "Starting gun arm: Gunbaghnakh",
+            "description": "Gunsmith starting weapon: Gunbaghnakh. Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d3, Medium melee damage 1d4, critical x3. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunbaghnakh",
+                "locator": "starting-gun-arm-gunbaghnakh"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunknife",
+            "name": "Starting gun arm: Gunknife",
+            "description": "Gunsmith starting weapon: Gunknife. Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d3, Medium melee damage 1d4, critical 18-20/x2. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunknife",
+                "locator": "starting-gun-arm-gunknife"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunblade-standard",
+            "name": "Starting gun arm: Gunblade (Standard)",
+            "description": "Gunsmith starting weapon: Gunblade (Standard). Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d4, Medium melee damage 1d6, critical 19-20/x2. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunblade (Standard)",
+                "locator": "starting-gun-arm-gunblade-standard"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunblade-magitek",
+            "name": "Starting gun arm: Gunblade (Magitek)",
+            "description": "Gunsmith starting weapon: Gunblade (Magitek). Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d6, Medium melee damage 1d8, critical 19-20/x2. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunblade (Magitek)",
+                "locator": "starting-gun-arm-gunblade-magitek"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunshield",
+            "name": "Starting gun arm: Gunshield",
+            "description": "Gunsmith starting weapon: Gunshield. Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage —, Medium melee damage —, critical —. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunshield",
+                "locator": "starting-gun-arm-gunshield"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunaxe",
+            "name": "Starting gun arm: Gunaxe",
+            "description": "Gunsmith starting weapon: Gunaxe. Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d8, Medium melee damage 1d10, critical x3. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunaxe",
+                "locator": "starting-gun-arm-gunaxe"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunblade-double",
+            "name": "Starting gun arm: Gunblade (Double)",
+            "description": "Gunsmith starting weapon: Gunblade (Double). Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d6/1d6, Medium melee damage 1d8/1d8, critical 19-20/x2. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunblade (Double)",
+                "locator": "starting-gun-arm-gunblade-double"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunhammer",
+            "name": "Starting gun arm: Gunhammer",
+            "description": "Gunsmith starting weapon: Gunhammer. Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d8, Medium melee damage 1d10, critical x3. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunhammer",
+                "locator": "starting-gun-arm-gunhammer"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunhalberd",
+            "name": "Starting gun arm: Gunhalberd",
+            "description": "Gunsmith starting weapon: Gunhalberd. Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d8, Medium melee damage 1d10, critical x3. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunhalberd",
+                "locator": "starting-gun-arm-gunhalberd"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:gunlance",
+            "name": "Starting gun arm: Gunlance",
+            "description": "Gunsmith starting weapon: Gunlance. Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 2d3, Medium melee damage 2d4, critical x3. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Gunlance",
+                "locator": "starting-gun-arm-gunlance"
+              }
+            ]
+          },
+          {
+            "id": "ffd20:class:gunbreaker:pool:starting-gun-arm:option:guntana",
+            "name": "Starting gun arm: Guntana",
+            "description": "Gunsmith starting weapon: Guntana. Battered firearm: -2 ranged attacks; broken for other users. Scrap sale only (4d10 gil). Small melee damage 1d6, Medium melee damage 1d8, critical 18-20/x2. Firearm damage, loading and trigger attacks are tracked manually from the equipment source.",
+            "minimumLevel": 1,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "url": "https://finalfantasyd20.com/equipment/weapons/gun-arms/",
+            "sourceRefs": [
+              {
+                "sourceId": "equipment-weapons-gun-arms",
+                "section": "Starting gun arm: Guntana",
+                "locator": "starting-gun-arm-guntana"
+              }
+            ]
           }
         ]
       }
     ],
-    "archetypeIndex": [
+    "progressionChoices": [
       {
-        "id": "ffd20:archetype:gunbreaker:doom-slayer",
-        "name": "Doom Slayer",
-        "source": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/"
+        "id": "ffd20:class:gunbreaker:event:talent:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:talent:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:3",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:techniques:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:techniques"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:mastery:5",
+        "type": "choose",
+        "atClassLevel": 5,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:mastery:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:mastery:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:mastery:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:mastery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:gunbreaker:event:starting-gun-arm:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:class:gunbreaker:pool:starting-gun-arm"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "optional": true
       }
+    ],
+    "supportedLevels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
     ],
     "levelTwoTalents": [
       {
@@ -927,6 +3928,177 @@
             "sourceId": "talents",
             "section": "Table: Gunbreaker Talents",
             "locator": "threat-control"
+          }
+        ]
+      }
+    ],
+    "ammunitionProfiles": [
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-standard",
+        "name": "Gunblade (Standard)",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-standard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-assault",
+        "name": "Gunblade (Assault)",
+        "capacity": 30,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-assault"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-double",
+        "name": "Gunblade (Double)",
+        "capacity": 15,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-double"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-light",
+        "name": "Gunblade (Light)",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-light"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-magitek",
+        "name": "Gunblade (Magitek)",
+        "capacity": 20,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-magitek"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunaxe",
+        "name": "Gunaxe",
+        "capacity": 2,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunaxe"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunbaghnakh",
+        "name": "Gunbaghnakh",
+        "capacity": 8,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunbaghnakh"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunhalberd",
+        "name": "Gunhalberd",
+        "capacity": 15,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunhalberd"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunhammer",
+        "name": "Gunhammer",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunhammer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunknife",
+        "name": "Gunknife",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunknife"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunlance",
+        "name": "Gunlance",
+        "capacity": 10,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunlance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:guntana",
+        "name": "Guntana",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "guntana"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunshield",
+        "name": "Gunshield",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunshield"
           }
         ]
       }

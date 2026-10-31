@@ -6,9 +6,9 @@ import {buildClassCatalog} from '../scripts/generate-class-catalog.mjs';
 const read=async path=>JSON.parse(await readFile(new URL('../'+path,import.meta.url),'utf8'));
 test('archetype index is a separate batchable manifest and cannot silently go live',async()=>{
  const m=validateArchetypeManifest(await read('rules/classes/archetypes/manifest.json'));
- assert.deepEqual(m.archetypes.map(a=>[a.id,a.adapter]),[['ffd20:archetype:chocobo-knight:mog-knight','mog-knight-level-one'],['ffd20:archetype:chocobo-knight:antrider',null],['ffd20:archetype:chocobo-knight:beast-rider',null],['ffd20:archetype:chocobo-knight:deadly-lancer','deadly-lancer-level-one'],['ffd20:archetype:chocobo-knight:fell-rider','fell-rider-level-one'],['ffd20:archetype:gunbreaker:doom-slayer','doom-slayer-level-one']]);
+ assert.deepEqual(m.archetypes.map(a=>[a.id,a.adapter]),[['ffd20:archetype:chocobo-knight:mog-knight','martial-progression'],['ffd20:archetype:chocobo-knight:antrider',null],['ffd20:archetype:chocobo-knight:beast-rider',null],['ffd20:archetype:chocobo-knight:deadly-lancer','deadly-lancer-level-one'],['ffd20:archetype:chocobo-knight:fell-rider','fell-rider-level-one'],['ffd20:archetype:gunbreaker:doom-slayer','martial-progression'],['ffd20:archetype:dancer:akimbo','martial-progression']]);
  const [mog]=(await buildClassCatalog()).archetypeRecords;
- assert.equal(mog.name,'Mog Knight');assert.deepEqual(mog.data.supportedLevels,[1]);
+ assert.equal(mog.name,'Mog Knight');assert.deepEqual(mog.data.supportedLevels,Array.from({length:20},(_,i)=>i+1));
  const invalid=structuredClone(m);invalid.archetypes.push({id:'ffd20:archetype:bard:abhorsen',file:'rules/classes/archetypes/bard-abhorsen.archetype.json',status:'live',adapter:'bard'});
  assert.throws(()=>validateArchetypeManifest(invalid),/no archetype can become live/);
 });

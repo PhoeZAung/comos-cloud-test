@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 76,
+  "revision": 91,
   "schedule": [
     "class",
     "race",
@@ -13,27 +13,39 @@
   "items": {
     "ffd20:class:chocobo-knight": {
       "state": "live_partial",
-      "stage": "partial-live-support",
-      "cursor": "Level-1 creation, local save/reopen and public deployment verified.",
-      "nextAction": "Review later progression and required choices after the initial import pass.",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
       "scope": "New level-1 characters; conditional mechanics manual; later progression unsupported.",
-      "note": "A partial milestone, not full import completion or independent approval.",
+      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
-        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
-      ]
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T05:50:31.260Z"
     },
     "ffd20:class:dancer": {
       "state": "live_partial",
-      "stage": "partial-live-support",
-      "cursor": "Level-1 creation, local save/reopen and public deployment verified.",
-      "nextAction": "Review later progression and required choices after the initial import pass.",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
       "scope": "New level-1 characters; conditional mechanics manual; later progression unsupported.",
-      "note": "A partial milestone, not full import completion or independent approval.",
+      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
-        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
-      ]
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-follow-up-choices.md",
+        "tests/martial-follow-up-choices.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T06:10:11.405Z"
     },
     "ffd20:class:archer": {
       "state": "live_partial",
@@ -59,27 +71,37 @@
     },
     "ffd20:race:moogle": {
       "state": "live_partial",
-      "stage": "partial-live-support",
-      "cursor": "Baseline choices and local save/reopen verified; real user-account acceptance remains.",
-      "nextAction": "Review alternate/heritage and favored-class rules.",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
       "scope": "Standard test builds; unsupported alternates, heritages and favored rewards guarded/manual.",
-      "note": "A partial milestone, not full import completion or independent approval.",
+      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
-        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
-      ]
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T05:50:31.782Z"
     },
     "ffd20:race:immortal": {
       "state": "live_partial",
-      "stage": "partial-live-support",
-      "cursor": "Baseline choices and local save/reopen verified; real user-account acceptance remains.",
-      "nextAction": "Review alternate/heritage and favored-class rules.",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
       "scope": "Standard test builds; unsupported alternates, heritages and favored rewards guarded/manual.",
-      "note": "A partial milestone, not full import completion or independent approval.",
+      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
-        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
-      ]
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T05:50:31.955Z"
     },
     "ffd20:race:dwarf": {
       "state": "live_partial",
@@ -95,15 +117,20 @@
     },
     "ffd20:archetype:chocobo-knight:mog-knight": {
       "state": "live_partial",
-      "stage": "partial-live-support",
-      "cursor": "Source-backed feature replacements and first-level creation verified.",
-      "nextAction": "Review later-level replacements and scaling; preserve source discrepancy notes.",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
       "scope": "Moogle/Chocobo Knight at level 1 only.",
-      "note": "A partial milestone, not full import completion or independent approval.",
+      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "coverage": "partial",
+      "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
-        "https://github.com/PhoeZAung/comos-cloud-test/pull/3"
-      ]
+        "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T05:50:31.521Z"
     },
     "ffd20:class:bard": {
       "state": "live_partial",
@@ -150,11 +177,11 @@
     },
     "ffd20:race:galka": {
       "state": "live_partial",
-      "stage": "deployed",
-      "cursor": "Standard Galka milestone deployed; four asset hashes match tested build, 308 tests and phone-sized Dancer creation/reopen passed.",
-      "nextAction": "After baseline imports, review alternate traits, miner-specialty automation, conditional rules/Ferocity, favored rewards and independent full review.",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
       "scope": "Standard Galka traits within existing class support, Intelligence-bounded bonus languages; Profession (miner), conditional effects, Ferocity/recovery and reincarnation remain manual. Alternates and favored rewards require later review.",
-      "note": "Mining Servitude no longer grants every Profession row a bonus. Source review remains needs_review; no real-user provider login claim.",
+      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -163,9 +190,11 @@
         "docs/extraction/galka-deployment-validation.json",
         "https://github.com/PhoeZAung/comos-cloud-test/pull/8",
         "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41025317270",
-        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41025475504"
+        "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41025475504",
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs"
       ],
-      "updatedAt": "2026-10-30T08:20:30.875Z"
+      "updatedAt": "2026-10-31T05:50:31.869Z"
     },
     "ffd20:race:half-breed": {
       "state": "blocked",
@@ -476,6 +505,61 @@
         "docs/extraction/dracobaltian-deployment-validation.json"
       ],
       "updatedAt": "2026-10-30T19:53:41.385Z"
+    },
+    "ffd20:class:gunbreaker": {
+      "state": "queued",
+      "stage": "local-validation",
+      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
+      "nextAction": "Review remaining Gunsmith modifications, multi-magazine and special-mode limits",
+      "scope": "",
+      "note": "October 31: 417 tests and cloud build pass. Optional one-magazine tracker, source capacities, levels 19–20, loaded/infused costs, stale/forged saves and idempotent receipts verified. User requires local-only work until explicit publish; no push or deployment.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-follow-up-choices.md",
+        "tests/martial-follow-up-choices.test.mjs",
+        "docs/extraction/gunbreaker-ammunition-tracker.md",
+        "tests/gunbreaker-ammunition.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T06:36:39.290Z"
+    },
+    "ffd20:archetype:dancer:akimbo": {
+      "state": "queued",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
+      "scope": "",
+      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-follow-up-choices.md",
+        "tests/martial-follow-up-choices.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T06:10:12.214Z"
+    },
+    "ffd20:archetype:gunbreaker:doom-slayer": {
+      "state": "queued",
+      "stage": "local-validation",
+      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
+      "nextAction": "Review remaining Gunsmith modifications, multi-magazine and special-mode limits",
+      "scope": "",
+      "note": "October 31: 417 tests and cloud build pass. Optional one-magazine tracker, source capacities, levels 19–20, loaded/infused costs, stale/forged saves and idempotent receipts verified. User requires local-only work until explicit publish; no push or deployment.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/requested-martial-progression.md",
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-follow-up-choices.md",
+        "tests/martial-follow-up-choices.test.mjs",
+        "docs/extraction/gunbreaker-ammunition-tracker.md",
+        "tests/gunbreaker-ammunition.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T06:36:39.679Z"
     }
   },
   "history": [
@@ -1153,6 +1237,141 @@
       "stage": "deployment-verified",
       "cursor": "Standard traits, explicit sensory limits, source languages and owned natural armor deployed; five public assets verified. Paused here at user request.",
       "time": "2026-10-30T19:53:41.385Z"
+    },
+    {
+      "revision": 77,
+      "itemId": "ffd20:class:chocobo-knight",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.260Z"
+    },
+    {
+      "revision": 78,
+      "itemId": "ffd20:class:dancer",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.347Z"
+    },
+    {
+      "revision": 79,
+      "itemId": "ffd20:class:gunbreaker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.437Z"
+    },
+    {
+      "revision": 80,
+      "itemId": "ffd20:archetype:chocobo-knight:mog-knight",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.521Z"
+    },
+    {
+      "revision": 81,
+      "itemId": "ffd20:archetype:dancer:akimbo",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.605Z"
+    },
+    {
+      "revision": 82,
+      "itemId": "ffd20:archetype:gunbreaker:doom-slayer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.695Z"
+    },
+    {
+      "revision": 83,
+      "itemId": "ffd20:race:moogle",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.782Z"
+    },
+    {
+      "revision": 84,
+      "itemId": "ffd20:race:galka",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.869Z"
+    },
+    {
+      "revision": 85,
+      "itemId": "ffd20:race:immortal",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-validation",
+      "cursor": "Requested level 1–20 sheet support locally validated",
+      "time": "2026-10-31T05:50:31.955Z"
+    },
+    {
+      "revision": 86,
+      "itemId": "ffd20:class:dancer",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "time": "2026-10-31T06:10:11.405Z"
+    },
+    {
+      "revision": 87,
+      "itemId": "ffd20:class:gunbreaker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "time": "2026-10-31T06:10:11.795Z"
+    },
+    {
+      "revision": 88,
+      "itemId": "ffd20:archetype:dancer:akimbo",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "time": "2026-10-31T06:10:12.214Z"
+    },
+    {
+      "revision": 89,
+      "itemId": "ffd20:archetype:gunbreaker:doom-slayer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "time": "2026-10-31T06:10:12.604Z"
+    },
+    {
+      "revision": 90,
+      "itemId": "ffd20:class:gunbreaker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
+      "time": "2026-10-31T06:36:39.290Z"
+    },
+    {
+      "revision": 91,
+      "itemId": "ffd20:archetype:gunbreaker:doom-slayer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
+      "time": "2026-10-31T06:36:39.679Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

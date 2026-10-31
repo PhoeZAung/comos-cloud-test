@@ -5,7 +5,7 @@
       "id": "ffd20:archetype:chocobo-knight:mog-knight",
       "file": "rules/classes/archetypes/chocobo-knight-mog-knight.archetype.json",
       "status": "live",
-      "adapter": "mog-knight-level-one"
+      "adapter": "martial-progression"
     },
     {
       "id": "ffd20:archetype:chocobo-knight:antrider",
@@ -37,9 +37,16 @@
     {
       "id": "ffd20:archetype:gunbreaker:doom-slayer",
       "file": "rules/classes/archetypes/gunbreaker-doom-slayer.archetype.json",
+      "coverage": "partial",
       "status": "live",
-      "adapter": "doom-slayer-level-one",
-      "coverage": "partial"
+      "adapter": "martial-progression"
+    },
+    {
+      "id": "ffd20:archetype:dancer:akimbo",
+      "file": "rules/classes/archetypes/dancer-akimbo.archetype.json",
+      "coverage": "partial",
+      "status": "live",
+      "adapter": "martial-progression"
     }
   ]
 }

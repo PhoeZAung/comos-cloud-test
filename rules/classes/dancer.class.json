@@ -11,12 +11,28 @@
       "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
       "archiveSha256": "fba54e9b71df5e701df1238da0c1c7f864ebd7e4be7002db47df4e56ea306dc1"
+    },
+    {
+      "id": "classes-hybrid-classes-dancer-dance-talents",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/",
+      "title": "Dance talent",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "8d998cb6d623a3433808963a3ef86e830724953652f44a98d835e342aafe038b"
+    },
+    {
+      "id": "classes-hybrid-classes-dancer-mystic-dances",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/",
+      "title": "Mystic dance",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "04fdd0299c58af6453d9d9928f5f6a5a2a04a1a4b28b6d269015291dce53afa9"
     }
   ],
   "review": {
     "state": "needs_review",
     "coverage": "partial",
-    "notes": "First-level character creation only; full progression rows are transcribed, but later-level features/choices are not enabled. Conditional mechanics and mount operation remain manual."
+    "notes": "Levels 1–20: progression totals and explicit choices; conditional combat, companions, equipment and external prerequisites remain manual references. Not full independent rule certification."
   },
   "data": {
     "hitDie": 8,
@@ -53,7 +69,26 @@
       "learningMode": "none"
     },
     "supportedLevels": [
-      1
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
     ],
     "levels": [
       {
@@ -449,7 +484,8 @@
             "section": "Weapon and Armor Proficiency",
             "locator": "proficiencies"
           }
-        ]
+        ],
+        "progressionDescription": "A dancer is proficient with all simple weapons, all weapons with the “monk” special feature and with bladed scarves, but not with any armor (except for dancing scarves) or shields. Additionally, a dancer can wield a bladed scarf as a one-handed melee weapon."
       },
       {
         "id": "ffd20:class:dancer:feature:ac-bonus",
@@ -465,7 +501,11 @@
             "section": "AC Bonus",
             "locator": "ac-bonus"
           }
-        ]
+        ],
+        "progressionDescription": "When unarmored and unencumbered, the dancer adds her Charisma bonus (if any) (this bonus is halved if she has a level in another non-prestige class and this is not her favored class) to her AC and her CMD. She uses the captivating and confusing movements of the battle dance to evade her foes’ attacks. If the dancer gains an attribute bonus to her AC or CMD from some other source, it does not stack. In addition, a dancer gains a +1 bonus to AC and CMD at 5th level. This bonus increases by 1 for every five dancer levels thereafter (+2 at 10th, +3 at 15th, and +4 at 20th level). This bonus reflects the dancer’s intense training in unarmed and unarmored combat. These bonuses to AC apply even against touch attacks or when the dancer is flat-footed. She loses these bonuses when she is immobilized or helpless, when she wears armor (dancing scarves are exempt from this), when she carries a shield, or when she carries a medium or heavy load.",
+        "initialState": {
+          "conditionalTrainingBonus": 0
+        }
       },
       {
         "id": "ffd20:class:dancer:feature:unarmed-strike",
@@ -481,7 +521,8 @@
             "section": "Unarmed Strike",
             "locator": "unarmed-strike"
           }
-        ]
+        ],
+        "progressionDescription": "At 1st level, a dancer gains Improved Unarmed Strike as a bonus feat. A dancer may attack with fists, elbows, knees, and feet. This means that a dancer may make unarmed strikes with her hands full. A dancer applies her full Strength modifier (not half) on damage rolls for all her unarmed strikes. Usually, a dancer’s unarmed strikes deal lethal damage, but she can choose to deal nonlethal damage instead with no penalty on her attack roll. She has the same choice to deal lethal or nonlethal damage while grappling. A dancer’s unarmed strike is treated as both a manufactured weapon and a natural weapon for the purpose of spells and effects that modify either manufactured weapons or natural weapons.\nUnarmed damage by size:\n| Level | Damage (Small) | Damage (Medium) | Damage (Large) |\n| --- | --- | --- | --- |\n| 1st – 3rd | 1d4 | 1d6 | 1d8 |\n| 4th – 7th | 1d6 | 1d8 | 2d6 |\n| 8th – 11th | 1d8 | 1d10 | 2d8 |\n| 12th – 15th | 1d10 | 2d6 | 3d6 |\n| 16th – 19th | 2d6 | 2d8 | 3d8 |\n| 20th | 2d8 | 2d10 | 4d8 |"
       },
       {
         "id": "ffd20:class:dancer:feature:battle-dance",
@@ -497,7 +538,11 @@
             "section": "Battle Dance",
             "locator": "battle-dance"
           }
-        ]
+        ],
+        "progressionDescription": "A dancer is trained in the use of the Perform skill, especially dance, to create magical effects on herself and allies. She can use this ability for a number of rounds per day equal to 4 + her Charisma modifier; this increases by 2 rounds per dancer level thereafter.\n\nAt 1st level, the dancer can use inspire courage.\n\nAt 3rd level, the dancer can use inspire competence.\n\nAt 9th level, the dancer can use inspire greatness.\n\nAt 15th level, the dancer can use inspire heroics.\n\nBattle dancing benefits apply only when the dancer isn’t wearing any armor (dancing scarves are exempt from this). Like bardic performance, it cannot be maintained at the same time as other performance abilities. Starting a battle dance is a move action, but it can be maintained each round as a free action. Changing a battle dance from one effect to another requires the dancer to stop the previous performance and start the new one as a move action. Like a bard, a dancer’s performance ends immediately if she is killed, paralyzed, stunned, knocked unconscious, or otherwise prevented from taking a free action each round. A dancer cannot perform more than one battle dance at a time.\n\nAt 10th level, a dancer can start a battle dance as a swift action instead of a move action. This ability otherwise functions as bardic performance; feats and other effects that affect bardic performance (such as the Extra Performance feat) apply to it.",
+        "initialState": {
+          "baseDailyRounds": 4
+        }
       },
       {
         "id": "ffd20:class:dancer:feature:fleet",
@@ -513,7 +558,11 @@
             "section": "Fleet",
             "locator": "fleet"
           }
-        ]
+        ],
+        "progressionDescription": "While performing a battle dance, a dancer gains a +10 enhancement bonus to her land speed. This bonus increases by 5 feet for every four dancer levels gained after 1st level, to a maximum of +30 feet at 17th level.",
+        "initialState": {
+          "conditionalSpeedFeet": 10
+        }
       },
       {
         "id": "ffd20:class:dancer:feature:perfect-dance",
@@ -529,7 +578,11 @@
             "section": "Perfect Dance",
             "locator": "perfect-dance"
           }
-        ]
+        ],
+        "progressionDescription": "Perfect Dance (Su): This Limit Break allows the dancer to perfect her dancing moves on the battlefield. For a duration of 1 round + 1 round per four dancer levels after 1st, the dancer gains a +2 dodge bonus to AC, +2 insight bonus to Attack rolls and skill checks. These bonuses improve by +2 for every four dancer levels attained after 1st. This limit break requires only a swift action.",
+        "initialState": {
+          "durationRounds": 1
+        }
       },
       {
         "id": "ffd20:class:dancer:feature:trance",
@@ -545,10 +598,1016 @@
             "section": "Trance",
             "locator": "trance"
           }
+        ],
+        "progressionDescription": "Trance (Su): This Limit Break allows the dancer to perform any battle dance or mystic dance she knows without using any cost (bardic performance or ki points) for a duration of 1 round + 1 round per four dancer levels after 1st. This limit break requires only a swift action.",
+        "initialState": {
+          "durationRounds": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:feature:evasion",
+        "name": "Evasion",
+        "atLevel": 2,
+        "description": "At 2nd level, a dancer gains evasion. If exposed to any effect that normally allows her to attempt a Reflex saving throw for half damage, she takes no damage with a successful saving throw. The evasion ability can only be used if the dancer is wearing no armor (dancing scarves are exempt from this).",
+        "progressionDescription": "At 2nd level, a dancer gains evasion. If exposed to any effect that normally allows her to attempt a Reflex saving throw for half damage, she takes no damage with a successful saving throw. The evasion ability can only be used if the dancer is wearing no armor (dancing scarves are exempt from this).",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Evasion",
+            "locator": "evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:versatile-dance",
+        "name": "Versatile Dance",
+        "atLevel": 2,
+        "description": "At 2nd level, a dancer gains a bonus equal to half her level on Perform (dance) checks. She can use her bonus for her Perform (dance) skill in place of her bonus for Acrobatics.",
+        "progressionDescription": "At 2nd level, a dancer gains a bonus equal to half her level on Perform (dance) checks. She can use her bonus for her Perform (dance) skill in place of her bonus for Acrobatics.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Versatile Dance",
+            "locator": "versatile-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:ki-pool",
+        "name": "Ki Pool",
+        "atLevel": 2,
+        "description": "At 2nd level, a dancer gains a pool of ki points, supernatural energy she can use to accomplish amazing feats. The number of points in the dancer’s ki pool is equal to half her dancer level + her Charisma modifier. As long as she has at least 1 point in her ki pool, she treats any Acrobatics skill check made to jump as if she had a running start. At 10th level, she also reduces the DC of Acrobatics skill checks made to jump by half (although she still cannot move farther than her speed allows).\n\nBy spending 1 point from her ki pool, a dancer can increase her speed by 20 feet for 1 round. Finally, a dancer can spend 1 point from her ki pool to give herself a +4 insight bonus on Perform checks for 1 round. Each of these powers is activated as a swift action. A dancer can gain additional powers that consume points from her ki pool by selecting mystic dance moves.\n\nThe ki pool is replenished each morning after 8 hours of rest or meditation; these hours do not need to be consecutive. If the dancer possesses levels in another class that grants points to a ki pool, dancer levels stack with the levels of that class to determine the total number of ki points in the combined pool, but only one ability score modifier is added to the total. The choice of which score to use is made when the second class ability is gained, and once made, the choice is set. The dancer can now use ki points from this pool to power the abilities of every class she possesses that grants a ki pool.",
+        "progressionDescription": "At 2nd level, a dancer gains a pool of ki points, supernatural energy she can use to accomplish amazing feats. The number of points in the dancer’s ki pool is equal to half her dancer level + her Charisma modifier. As long as she has at least 1 point in her ki pool, she treats any Acrobatics skill check made to jump as if she had a running start. At 10th level, she also reduces the DC of Acrobatics skill checks made to jump by half (although she still cannot move farther than her speed allows).\n\nBy spending 1 point from her ki pool, a dancer can increase her speed by 20 feet for 1 round. Finally, a dancer can spend 1 point from her ki pool to give herself a +4 insight bonus on Perform checks for 1 round. Each of these powers is activated as a swift action. A dancer can gain additional powers that consume points from her ki pool by selecting mystic dance moves.\n\nThe ki pool is replenished each morning after 8 hours of rest or meditation; these hours do not need to be consecutive. If the dancer possesses levels in another class that grants points to a ki pool, dancer levels stack with the levels of that class to determine the total number of ki points in the combined pool, but only one ability score modifier is added to the total. The choice of which score to use is made when the second class ability is gained, and once made, the choice is set. The dancer can now use ki points from this pool to power the abilities of every class she possesses that grants a ki pool.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Ki Pool",
+            "locator": "ki-pool"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dance-talents",
+        "name": "Dance Talents",
+        "atLevel": 2,
+        "description": "As a dancer gains experience, she learns a number of talents that aid her and confound her foes. Starting at 2nd level, the dancer gains one dance talent. She gains an additional dance talent for every 2 levels of dancer attained after 2nd level. Unless specified otherwise, a dancer cannot select an individual talent more than once.\n\n A complete list of dance talents can be found here: Dance Talents",
+        "progressionDescription": "As a dancer gains experience, she learns a number of talents that aid her and confound her foes. Starting at 2nd level, the dancer gains one dance talent. She gains an additional dance talent for every 2 levels of dancer attained after 2nd level. Unless specified otherwise, a dancer cannot select an individual talent more than once.\n\n A complete list of dance talents can be found here: Dance Talents",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance Talents",
+            "locator": "dance-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:mystic-dances",
+        "name": "Mystic Dances",
+        "atLevel": 3,
+        "description": "Beginning of 3rd level and every three dancer levels thereafter, a dancer learns a new mystic dance move. Some mystic dances require other mystic dance abilities as prerequisites. Performing a mystic dance requires a standard action that provokes attacks of opportunity and costs one ki point to activate. The dancer can maintain a mystic dance as a free action if it lasts several rounds. She can only have 1 mystic dance active at a time.\n\n A complete list of mystic dances can be found here: Mystic Dances",
+        "progressionDescription": "Beginning of 3rd level and every three dancer levels thereafter, a dancer learns a new mystic dance move. Some mystic dances require other mystic dance abilities as prerequisites. Performing a mystic dance requires a standard action that provokes attacks of opportunity and costs one ki point to activate. The dancer can maintain a mystic dance as a free action if it lasts several rounds. She can only have 1 mystic dance active at a time.\n\n A complete list of mystic dances can be found here: Mystic Dances",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Mystic Dances",
+            "locator": "mystic-dances"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:beguiling-dance",
+        "name": "Beguiling Dance",
+        "atLevel": 3,
+        "description": "At 3rd level, a dancer can perform a battle dance to distract her enemies. Whenever the dancer starts or maintains a beguiling dance, all enemies within 30 feet who can see her must succeed on a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be dazed for 1 round. Creatures that fail this save also have their attitude improved by one step for as long as she maintains the dance. This attitude adjustment does not prevent any subsequent attitude changes. For example, an enemy that becomes indifferent toward the dancer as a result of this effect still turns hostile if she then attacks it. A creature can’t be affected again by your beguiling dance effect for 24 hours whether or not it succeeds on the saving throw.",
+        "progressionDescription": "At 3rd level, a dancer can perform a battle dance to distract her enemies. Whenever the dancer starts or maintains a beguiling dance, all enemies within 30 feet who can see her must succeed on a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be dazed for 1 round. Creatures that fail this save also have their attitude improved by one step for as long as she maintains the dance. This attitude adjustment does not prevent any subsequent attitude changes. For example, an enemy that becomes indifferent toward the dancer as a result of this effect still turns hostile if she then attacks it. A creature can’t be affected again by your beguiling dance effect for 24 hours whether or not it succeeds on the saving throw.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Beguiling Dance",
+            "locator": "beguiling-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:uncanny-dodge",
+        "name": "Uncanny Dodge",
+        "atLevel": 4,
+        "description": "At 4th level, a dancer cannot be caught flat-footed, even if the attacker is invisible. She still loses her Dexterity bonus to AC if immobilized. A dancer with this ability can still lose her Dexterity bonus to AC if an opponent successfully uses the feint action against her. If a dancer already has uncanny dodge from a different class, she automatically gains improved uncanny dodge (see below) instead.",
+        "progressionDescription": "At 4th level, a dancer cannot be caught flat-footed, even if the attacker is invisible. She still loses her Dexterity bonus to AC if immobilized. A dancer with this ability can still lose her Dexterity bonus to AC if an opponent successfully uses the feint action against her. If a dancer already has uncanny dodge from a different class, she automatically gains improved uncanny dodge (see below) instead.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Uncanny Dodge",
+            "locator": "uncanny-dodge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dance-of-the-vexing-snake",
+        "name": "Dance of the Vexing Snake",
+        "atLevel": 5,
+        "description": "At 5th level, while performing a battle dance, a dancer can dodge her opponent’s blows with her sudden, unpredictable maneuvers. She can use the Acrobatics skill to tumble at her normal speed without penalty.",
+        "progressionDescription": "At 5th level, while performing a battle dance, a dancer can dodge her opponent’s blows with her sudden, unpredictable maneuvers. She can use the Acrobatics skill to tumble at her normal speed without penalty.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of the Vexing Snake",
+            "locator": "dance-of-the-vexing-snake"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:rain-of-blows",
+        "name": "Rain of Blows",
+        "atLevel": 6,
+        "description": "At 6th level, while performing a battle dance, a dancer can speed up her attacks. When making a full attack action, she may make one extra attack with unarmed strikes, weapons with the “monk” special feature or a bladed scarf, as though under the effects of a haste spell. She also gains a +1 bonus on attack rolls and a +1 dodge bonus to AC and on Reflex saves. At 9th level, and every three dancer levels thereafter, these bonuses increase by +1, to a maximum of +5 at 18th level. These bonuses do not stack with the haste spell.",
+        "progressionDescription": "At 6th level, while performing a battle dance, a dancer can speed up her attacks. When making a full attack action, she may make one extra attack with unarmed strikes, weapons with the “monk” special feature or a bladed scarf, as though under the effects of a haste spell. She also gains a +1 bonus on attack rolls and a +1 dodge bonus to AC and on Reflex saves. At 9th level, and every three dancer levels thereafter, these bonuses increase by +1, to a maximum of +5 at 18th level. These bonuses do not stack with the haste spell.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Rain of Blows",
+            "locator": "rain-of-blows"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dancers-strike",
+        "name": "Dancer’s Strike",
+        "atLevel": 6,
+        "description": "At 6th level, the magic of the dancer’s arcane maneuvers allows her to manifest auras of energy around her feet and hands. These auras can defeat an opponent’s damage reduction. The dancer can generate this aura as a standard action at will. It persists for a number of rounds equal to 5 + the dancer’s Charisma modifier before it fades.\n\nAt 6th level, the dancer’s aura makes her unarmed strikes count as magic damage.\n\nAt 12th level, the dancer chooses one aspect of her alignment, such as good or chaotic. Her aura allows her strikes to count as that alignment (as well as magic). She must choose one aspect of her alignment, and once she has made a choice she cannot alter it.\n\nAt 18th level, the dancer can choose any one special material or alignment that overcomes damage reduction (such as adamantine, cold iron, holy, or even lawful). Her aura now includes that material or alignment. Once she has made this choice, she cannot change it.",
+        "progressionDescription": "At 6th level, the magic of the dancer’s arcane maneuvers allows her to manifest auras of energy around her feet and hands. These auras can defeat an opponent’s damage reduction. The dancer can generate this aura as a standard action at will. It persists for a number of rounds equal to 5 + the dancer’s Charisma modifier before it fades.\n\nAt 6th level, the dancer’s aura makes her unarmed strikes count as magic damage.\n\nAt 12th level, the dancer chooses one aspect of her alignment, such as good or chaotic. Her aura allows her strikes to count as that alignment (as well as magic). She must choose one aspect of her alignment, and once she has made a choice she cannot alter it.\n\nAt 18th level, the dancer can choose any one special material or alignment that overcomes damage reduction (such as adamantine, cold iron, holy, or even lawful). Her aura now includes that material or alignment. Once she has made this choice, she cannot change it.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dancer’s Strike",
+            "locator": "dancers-strike"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:wearying-dance",
+        "name": "Wearying Dance",
+        "atLevel": 7,
+        "description": "At 7th level, a dancer can perform a battle dance to tire her enemies. Whenever the dancer starts or maintains a wearying dance, all enemies within 30 feet who can see her must succeed on a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be fatigued for as long as she maintains the dance. Creatures failing this save that are already fatigued become exhausted. A creature can’t be affected again by your wearying dance effect for 24 hours whether or not it succeeds on the saving throw.",
+        "progressionDescription": "At 7th level, a dancer can perform a battle dance to tire her enemies. Whenever the dancer starts or maintains a wearying dance, all enemies within 30 feet who can see her must succeed on a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be fatigued for as long as she maintains the dance. Creatures failing this save that are already fatigued become exhausted. A creature can’t be affected again by your wearying dance effect for 24 hours whether or not it succeeds on the saving throw.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Wearying Dance",
+            "locator": "wearying-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:contradance",
+        "name": "Contradance",
+        "atLevel": 7,
+        "description": "Also at 7th level, as a swift action, the next waltz used while under the effects of Contradance is affected by the Empower Spell feat. If Healing Waltz was used, the effect will extend to a 30-ft.-area centered on the target player. This ability is usable once per day, plus an additional time per four dancer levels after 7th.",
+        "progressionDescription": "Also at 7th level, as a swift action, the next waltz used while under the effects of Contradance is affected by the Empower Spell feat. If Healing Waltz was used, the effect will extend to a 30-ft.-area centered on the target player. This ability is usable once per day, plus an additional time per four dancer levels after 7th.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Contradance",
+            "locator": "contradance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:improved-uncanny-dodge",
+        "name": "Improved Uncanny Dodge",
+        "atLevel": 8,
+        "description": "At 8th level and higher, dancer can no longer be flanked. This defense denies a thief the ability to sneak attack the dancer by flanking her, unless the attacker has at least four more thief levels than the target has dancer levels. If a character already has uncanny dodge from another class, the levels from the classes that grant uncanny dodge stack to determine the minimum thief level required to flank the character.",
+        "progressionDescription": "At 8th level and higher, dancer can no longer be flanked. This defense denies a thief the ability to sneak attack the dancer by flanking her, unless the attacker has at least four more thief levels than the target has dancer levels. If a character already has uncanny dodge from another class, the levels from the classes that grant uncanny dodge stack to determine the minimum thief level required to flank the character.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Uncanny Dodge",
+            "locator": "improved-uncanny-dodge"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dance-of-the-floating-step",
+        "name": "Dance of the Floating Step",
+        "atLevel": 9,
+        "description": "The dancer moves with such grace and speed that she can dance across water. A 9th level dancer, while performing a battle dance, can cross the surface of a liquid, such as water or magma, without taking damage or sinking below the surface. If she ends her movement on such a liquid, she takes damage and sinks as normal. The dancer must begin her movement on a stable, firm surface.",
+        "progressionDescription": "The dancer moves with such grace and speed that she can dance across water. A 9th level dancer, while performing a battle dance, can cross the surface of a liquid, such as water or magma, without taking damage or sinking below the surface. If she ends her movement on such a liquid, she takes damage and sinks as normal. The dancer must begin her movement on a stable, firm surface.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of the Floating Step",
+            "locator": "dance-of-the-floating-step"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:unfettered-movement",
+        "name": "Unfettered Movement",
+        "atLevel": 10,
+        "description": "At 10th level, a dancer’s footfalls become so light that she can dance gracefully on any surface and make a 5-foot step even in difficult terrain. In addition, three times per day she can use dimension door on herself only.\n\nAt 15th level, when using the unfettered movement ability to dimension door, a dancer can take other creatures with her as per dimension door.",
+        "progressionDescription": "At 10th level, a dancer’s footfalls become so light that she can dance gracefully on any surface and make a 5-foot step even in difficult terrain. In addition, three times per day she can use dimension door on herself only.\n\nAt 15th level, when using the unfettered movement ability to dimension door, a dancer can take other creatures with her as per dimension door.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Unfettered Movement",
+            "locator": "unfettered-movement"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:fan-dance",
+        "name": "Fan Dance",
+        "atLevel": 10,
+        "description": "At 10th level, once per day, as a full-round action, a dancer can perform the fan dance which grants damage reduction 10/- to all allies within 30 feet for 1 round. At 15th level, the dancer can use this ability an additional time and the damage reduction increases by 5. At 20th level, the dancer can use this ability an additional time and the damage reduction increases by 5.",
+        "progressionDescription": "At 10th level, once per day, as a full-round action, a dancer can perform the fan dance which grants damage reduction 10/- to all allies within 30 feet for 1 round. At 15th level, the dancer can use this ability an additional time and the damage reduction increases by 5. At 20th level, the dancer can use this ability an additional time and the damage reduction increases by 5.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fan Dance",
+            "locator": "fan-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:frightful-dance",
+        "name": "Frightful Dance",
+        "atLevel": 11,
+        "description": "At 11th level, a dancer can perform a battle dance to scare her enemies. Whenever the dancer starts or maintains a frightful dance, all enemies within 30 feet who can see her must succeed on a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be shaken for as long as she maintains the dance. Creatures failing this save that are already shaken become frightened, and those that are already frightened become panicked. A creature can’t be affected again by your frightful dance effect for 24 hours whether or not it succeeds on the saving throw.",
+        "progressionDescription": "At 11th level, a dancer can perform a battle dance to scare her enemies. Whenever the dancer starts or maintains a frightful dance, all enemies within 30 feet who can see her must succeed on a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be shaken for as long as she maintains the dance. Creatures failing this save that are already shaken become frightened, and those that are already frightened become panicked. A creature can’t be affected again by your frightful dance effect for 24 hours whether or not it succeeds on the saving throw.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Frightful Dance",
+            "locator": "frightful-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:asura-dance",
+        "name": "Asura Dance",
+        "atLevel": 11,
+        "description": "At 11th level, creatures do not gain an attack roll benefit when flanking the dancer (though they can still gain other benefits of flanking, such as sneak attack), and she gains a +4 dodge bonus to AC to avoid attacks of opportunity from moving through a threatened square.\n\nWhenever she takes the full-attack action and strike with an unarmed attack, she can move up to 10 feet before making her next attack. This movement does not provoke attacks of opportunity from the target she strikes, but still provokes from other creatures as normal. She must have another attack to make in order to move in this manner, and cannot move a greater distance than her normal speed in a single turn.",
+        "progressionDescription": "At 11th level, creatures do not gain an attack roll benefit when flanking the dancer (though they can still gain other benefits of flanking, such as sneak attack), and she gains a +4 dodge bonus to AC to avoid attacks of opportunity from moving through a threatened square.\n\nWhenever she takes the full-attack action and strike with an unarmed attack, she can move up to 10 feet before making her next attack. This movement does not provoke attacks of opportunity from the target she strikes, but still provokes from other creatures as normal. She must have another attack to make in order to move in this manner, and cannot move a greater distance than her normal speed in a single turn.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Asura Dance",
+            "locator": "asura-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:advanced-dance-talents",
+        "name": "Advanced Dance Talents",
+        "atLevel": 12,
+        "description": "At 12th level, and every two levels thereafter, a dancer can choose one of the following advanced dance talents in place of a dance talent.\n\n A complete list of advanced dance talents can be found here: Advanced Dance Talents",
+        "progressionDescription": "At 12th level, and every two levels thereafter, a dancer can choose one of the following advanced dance talents in place of a dance talent.\n\n A complete list of advanced dance talents can be found here: Advanced Dance Talents",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Advanced Dance Talents",
+            "locator": "advanced-dance-talents"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dance-of-fury",
+        "name": "Dance of Fury",
+        "atLevel": 12,
+        "description": "At 12th level, a dancer can attack more than once as she moves while performing a battle dance. She can combine a full-attack action with a single move, taking the attacks at any point during her movement, but must move at least 5 feet between each attack. This movement provokes attacks of opportunity as normal.",
+        "progressionDescription": "At 12th level, a dancer can attack more than once as she moves while performing a battle dance. She can combine a full-attack action with a single move, taking the attacks at any point during her movement, but must move at least 5 feet between each attack. This movement provokes attacks of opportunity as normal.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of Fury",
+            "locator": "dance-of-fury"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dance-of-the-crushing-python",
+        "name": "Dance of the Crushing Python",
+        "atLevel": 13,
+        "description": "The dancer’s speed and mighty unarmed strikes combine to make her a fearsome opponent. She can step into an opponent’s reach and confuse it with a series of feints and quick blows, distracting it from other threats. At 13th level, a dancer, while performing a battle dance, can rain a series of hammering blows upon a foe. She must use the Acrobatics skill to enter her opponent’s space without provoking an attack of opportunity. If she succeeds, she may then attack her opponent while in its space. If the dancer’s attack hits, her opponent takes a -2 penalty to AC and it cannot make attacks of opportunity until the start of the dancer’s next action. After the dancer completes her attack, she enters a square of her choice adjacent to the target.",
+        "progressionDescription": "The dancer’s speed and mighty unarmed strikes combine to make her a fearsome opponent. She can step into an opponent’s reach and confuse it with a series of feints and quick blows, distracting it from other threats. At 13th level, a dancer, while performing a battle dance, can rain a series of hammering blows upon a foe. She must use the Acrobatics skill to enter her opponent’s space without provoking an attack of opportunity. If she succeeds, she may then attack her opponent while in its space. If the dancer’s attack hits, her opponent takes a -2 penalty to AC and it cannot make attacks of opportunity until the start of the dancer’s next action. After the dancer completes her attack, she enters a square of her choice adjacent to the target.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of the Crushing Python",
+            "locator": "dance-of-the-crushing-python"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:improved-evasion",
+        "name": "Improved Evasion",
+        "atLevel": 14,
+        "description": "This ability, gained at 14th level, works like evasion (see above). A dancer takes no damage at all on successful saving throws against attacks that allow a Reflex saving throw for half damage. What’s more, she takes only half damage even if she fails her saving throw.",
+        "progressionDescription": "This ability, gained at 14th level, works like evasion (see above). A dancer takes no damage at all on successful saving throws against attacks that allow a Reflex saving throw for half damage. What’s more, she takes only half damage even if she fails her saving throw.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Improved Evasion",
+            "locator": "improved-evasion"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dance-of-the-springing-tiger",
+        "name": "Dance of the Springing Tiger",
+        "atLevel": 15,
+        "description": "At 15th level, a dancer, while performing a battle dance, can spring upon an opponent with the ferocity of a tiger. When charging, she can attempt a DC 25 Acrobatics check. If she succeeds, she may make a full attack rather than a standard attack as part of her charge.",
+        "progressionDescription": "At 15th level, a dancer, while performing a battle dance, can spring upon an opponent with the ferocity of a tiger. When charging, she can attempt a DC 25 Acrobatics check. If she succeeds, she may make a full attack rather than a standard attack as part of her charge.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of the Springing Tiger",
+            "locator": "dance-of-the-springing-tiger"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:saber-dance",
+        "name": "Saber Dance",
+        "atLevel": 16,
+        "description": "At 16th level, once per day, as a full-round action, a dancer can perform the saber dance which allows all allies within 30 ft. to double their number of attacks when using a full-attack action for 1 round.",
+        "progressionDescription": "At 16th level, once per day, as a full-round action, a dancer can perform the saber dance which allows all allies within 30 ft. to double their number of attacks when using a full-attack action for 1 round.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Saber Dance",
+            "locator": "saber-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dance-of-the-soaring-eagle",
+        "name": "Dance of the Soaring Eagle",
+        "atLevel": 17,
+        "description": "At 17th level, a dancer, while performing a battle dance, gains a fly speed equal to her base land speed with average maneuverability. If a flying dancer charges an opponent below her, she gains a +4 bonus on attack rolls and a +2 bonus on damage in place of the normal benefits of charging. She may use her dance of the springing tiger in conjunction with an aerial charge.",
+        "progressionDescription": "At 17th level, a dancer, while performing a battle dance, gains a fly speed equal to her base land speed with average maneuverability. If a flying dancer charges an opponent below her, she gains a +4 bonus on attack rolls and a +2 bonus on damage in place of the normal benefits of charging. She may use her dance of the springing tiger in conjunction with an aerial charge.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of the Soaring Eagle",
+            "locator": "dance-of-the-soaring-eagle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:leaf-on-the-wind",
+        "name": "Leaf on the Wind",
+        "atLevel": 19,
+        "description": "At 19th level, a dancer can use her battle dance to evade attacks with unearthly grace and to shake off the effects of her wounds. Unlike other battle dances, leaf on the wind requires a standard action each round to start or maintain the performance. Each round it is maintained, including the first, the dancer gains a +6 dodge bonus to Armor Class and on Reflex saves. If wounded, she heals 1 hit point of damage per dancer level.",
+        "progressionDescription": "At 19th level, a dancer can use her battle dance to evade attacks with unearthly grace and to shake off the effects of her wounds. Unlike other battle dances, leaf on the wind requires a standard action each round to start or maintain the performance. Each round it is maintained, including the first, the dancer gains a +6 dodge bonus to Armor Class and on Reflex saves. If wounded, she heals 1 hit point of damage per dancer level.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Leaf on the Wind",
+            "locator": "leaf-on-the-wind"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:dance-of-deaths-embrace",
+        "name": "Dance of Death’s Embrace",
+        "atLevel": 19,
+        "description": "At 19th level, a dancer can perform a vicious, deadly dance to defeat her opponent. Before using this dance, the dancer selects a single target within 30 feet. As a full-round action, the dancer performs an elaborate dance that requires a DC 35 Acrobatics check to complete. If she succeeds, any time she makes a successful attack against her designated target she deals +2d6 points of damage. In addition, any critical threat the dancer makes against her designated target is automatically confirmed as a critical hit. This ability lasts until the end of the dancer’s next turn.",
+        "progressionDescription": "At 19th level, a dancer can perform a vicious, deadly dance to defeat her opponent. Before using this dance, the dancer selects a single target within 30 feet. As a full-round action, the dancer performs an elaborate dance that requires a DC 35 Acrobatics check to complete. If she succeeds, any time she makes a successful attack against her designated target she deals +2d6 points of damage. In addition, any critical threat the dancer makes against her designated target is automatically confirmed as a critical hit. This ability lasts until the end of the dancer’s next turn.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Dance of Death’s Embrace",
+            "locator": "dance-of-deaths-embrace"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:feature:battle-fury",
+        "name": "Battle Fury",
+        "atLevel": 20,
+        "description": "At 20th level, the dancer can unleash a whirlwind of blows while performing a battle dance. As a full-round action, she can take a single move action and unleash a single attack at her highest bonus against each target within her reach during any point of her move, up to a maximum number of attacks equal to the dancer’s character level. This movement provokes attacks of opportunity as normal.",
+        "progressionDescription": "At 20th level, the dancer can unleash a whirlwind of blows while performing a battle dance. As a full-round action, she can take a single move action and unleash a single attack at her highest bonus against each target within her reach during any point of her move, up to a maximum number of attacks equal to the dancer’s character level. This movement provokes attacks of opportunity as normal.",
+        "activation": "mixed",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Fury",
+            "locator": "battle-fury"
+          }
         ]
       }
     ],
-    "upgrades": [],
+    "upgrades": [
+      {
+        "id": "ffd20:class:dancer:upgrade:fleet:5",
+        "featureId": "ffd20:class:dancer:feature:fleet",
+        "atClassLevel": 5,
+        "changes": {
+          "conditionalSpeedFeet": 15
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fleet",
+            "locator": "fleet"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:fleet:9",
+        "featureId": "ffd20:class:dancer:feature:fleet",
+        "atClassLevel": 9,
+        "changes": {
+          "conditionalSpeedFeet": 20
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fleet",
+            "locator": "fleet"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:fleet:13",
+        "featureId": "ffd20:class:dancer:feature:fleet",
+        "atClassLevel": 13,
+        "changes": {
+          "conditionalSpeedFeet": 25
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fleet",
+            "locator": "fleet"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:fleet:17",
+        "featureId": "ffd20:class:dancer:feature:fleet",
+        "atClassLevel": 17,
+        "changes": {
+          "conditionalSpeedFeet": 30
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Fleet",
+            "locator": "fleet"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:ac-bonus:5",
+        "featureId": "ffd20:class:dancer:feature:ac-bonus",
+        "atClassLevel": 5,
+        "changes": {
+          "conditionalTrainingBonus": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:ac-bonus:10",
+        "featureId": "ffd20:class:dancer:feature:ac-bonus",
+        "atClassLevel": 10,
+        "changes": {
+          "conditionalTrainingBonus": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:ac-bonus:15",
+        "featureId": "ffd20:class:dancer:feature:ac-bonus",
+        "atClassLevel": 15,
+        "changes": {
+          "conditionalTrainingBonus": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:ac-bonus:20",
+        "featureId": "ffd20:class:dancer:feature:ac-bonus",
+        "atClassLevel": 20,
+        "changes": {
+          "conditionalTrainingBonus": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "AC Bonus",
+            "locator": "ac-bonus"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:2",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 2,
+        "changes": {
+          "baseDailyRounds": 6
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:3",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 3,
+        "changes": {
+          "baseDailyRounds": 8
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:4",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 4,
+        "changes": {
+          "baseDailyRounds": 10
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:5",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 5,
+        "changes": {
+          "baseDailyRounds": 12
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:6",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 6,
+        "changes": {
+          "baseDailyRounds": 14
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:7",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 7,
+        "changes": {
+          "baseDailyRounds": 16
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:8",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 8,
+        "changes": {
+          "baseDailyRounds": 18
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:9",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 9,
+        "changes": {
+          "baseDailyRounds": 20
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:10",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 10,
+        "changes": {
+          "baseDailyRounds": 22
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:11",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 11,
+        "changes": {
+          "baseDailyRounds": 24
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:12",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 12,
+        "changes": {
+          "baseDailyRounds": 26
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:13",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 13,
+        "changes": {
+          "baseDailyRounds": 28
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:14",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 14,
+        "changes": {
+          "baseDailyRounds": 30
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:15",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 15,
+        "changes": {
+          "baseDailyRounds": 32
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:16",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 16,
+        "changes": {
+          "baseDailyRounds": 34
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:17",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 17,
+        "changes": {
+          "baseDailyRounds": 36
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:18",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 18,
+        "changes": {
+          "baseDailyRounds": 38
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:19",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 19,
+        "changes": {
+          "baseDailyRounds": 40
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:battle-dance:20",
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "atClassLevel": 20,
+        "changes": {
+          "baseDailyRounds": 42
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Battle Dance",
+            "locator": "battle-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:perfect-dance:5",
+        "featureId": "ffd20:class:dancer:feature:perfect-dance",
+        "atClassLevel": 5,
+        "changes": {
+          "durationRounds": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Dance",
+            "locator": "perfect-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:perfect-dance:9",
+        "featureId": "ffd20:class:dancer:feature:perfect-dance",
+        "atClassLevel": 9,
+        "changes": {
+          "durationRounds": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Dance",
+            "locator": "perfect-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:perfect-dance:13",
+        "featureId": "ffd20:class:dancer:feature:perfect-dance",
+        "atClassLevel": 13,
+        "changes": {
+          "durationRounds": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Dance",
+            "locator": "perfect-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:perfect-dance:17",
+        "featureId": "ffd20:class:dancer:feature:perfect-dance",
+        "atClassLevel": 17,
+        "changes": {
+          "durationRounds": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Perfect Dance",
+            "locator": "perfect-dance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:trance:5",
+        "featureId": "ffd20:class:dancer:feature:trance",
+        "atClassLevel": 5,
+        "changes": {
+          "durationRounds": 2
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trance",
+            "locator": "trance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:trance:9",
+        "featureId": "ffd20:class:dancer:feature:trance",
+        "atClassLevel": 9,
+        "changes": {
+          "durationRounds": 3
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trance",
+            "locator": "trance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:trance:13",
+        "featureId": "ffd20:class:dancer:feature:trance",
+        "atClassLevel": 13,
+        "changes": {
+          "durationRounds": 4
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trance",
+            "locator": "trance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:upgrade:trance:17",
+        "featureId": "ffd20:class:dancer:feature:trance",
+        "atClassLevel": 17,
+        "changes": {
+          "durationRounds": 5
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Trance",
+            "locator": "trance"
+          }
+        ]
+      }
+    ],
     "events": [
       {
         "id": "ffd20:class:dancer:event:proficiencies",
@@ -591,8 +1650,2556 @@
         "type": "grant_feature",
         "atClassLevel": 1,
         "featureId": "ffd20:class:dancer:feature:trance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:evasion",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:dancer:feature:evasion"
+      },
+      {
+        "id": "ffd20:class:dancer:event:versatile-dance",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:dancer:feature:versatile-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:ki-pool",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:dancer:feature:ki-pool"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dance-talents",
+        "type": "grant_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:dancer:feature:dance-talents"
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:dancer:feature:mystic-dances"
+      },
+      {
+        "id": "ffd20:class:dancer:event:beguiling-dance",
+        "type": "grant_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:dancer:feature:beguiling-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:uncanny-dodge",
+        "type": "grant_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:dancer:feature:uncanny-dodge"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dance-of-the-vexing-snake",
+        "type": "grant_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:dancer:feature:dance-of-the-vexing-snake"
+      },
+      {
+        "id": "ffd20:class:dancer:event:rain-of-blows",
+        "type": "grant_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:dancer:feature:rain-of-blows"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dancers-strike",
+        "type": "grant_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:dancer:feature:dancers-strike"
+      },
+      {
+        "id": "ffd20:class:dancer:event:wearying-dance",
+        "type": "grant_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:dancer:feature:wearying-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:contradance",
+        "type": "grant_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:dancer:feature:contradance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:improved-uncanny-dodge",
+        "type": "grant_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:dancer:feature:improved-uncanny-dodge"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dance-of-the-floating-step",
+        "type": "grant_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:dancer:feature:dance-of-the-floating-step"
+      },
+      {
+        "id": "ffd20:class:dancer:event:unfettered-movement",
+        "type": "grant_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:dancer:feature:unfettered-movement"
+      },
+      {
+        "id": "ffd20:class:dancer:event:fan-dance",
+        "type": "grant_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:dancer:feature:fan-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:frightful-dance",
+        "type": "grant_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:dancer:feature:frightful-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:asura-dance",
+        "type": "grant_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:dancer:feature:asura-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:advanced-dance-talents",
+        "type": "grant_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:dancer:feature:advanced-dance-talents"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dance-of-fury",
+        "type": "grant_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:dancer:feature:dance-of-fury"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dance-of-the-crushing-python",
+        "type": "grant_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:dancer:feature:dance-of-the-crushing-python"
+      },
+      {
+        "id": "ffd20:class:dancer:event:improved-evasion",
+        "type": "grant_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:dancer:feature:improved-evasion"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dance-of-the-springing-tiger",
+        "type": "grant_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:dancer:feature:dance-of-the-springing-tiger"
+      },
+      {
+        "id": "ffd20:class:dancer:event:saber-dance",
+        "type": "grant_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:dancer:feature:saber-dance"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dance-of-the-soaring-eagle",
+        "type": "grant_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:dancer:feature:dance-of-the-soaring-eagle"
+      },
+      {
+        "id": "ffd20:class:dancer:event:leaf-on-the-wind",
+        "type": "grant_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:dancer:feature:leaf-on-the-wind"
+      },
+      {
+        "id": "ffd20:class:dancer:event:dance-of-deaths-embrace",
+        "type": "grant_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:dancer:feature:dance-of-deaths-embrace"
+      },
+      {
+        "id": "ffd20:class:dancer:event:battle-fury",
+        "type": "grant_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:dancer:feature:battle-fury"
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:3",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:fleet:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:dancer:feature:fleet",
+        "upgradeId": "ffd20:class:dancer:upgrade:fleet:5"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:fleet:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:dancer:feature:fleet",
+        "upgradeId": "ffd20:class:dancer:upgrade:fleet:9"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:fleet:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:dancer:feature:fleet",
+        "upgradeId": "ffd20:class:dancer:upgrade:fleet:13"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:fleet:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:dancer:feature:fleet",
+        "upgradeId": "ffd20:class:dancer:upgrade:fleet:17"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:ac-bonus:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:dancer:feature:ac-bonus",
+        "upgradeId": "ffd20:class:dancer:upgrade:ac-bonus:5"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:ac-bonus:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:dancer:feature:ac-bonus",
+        "upgradeId": "ffd20:class:dancer:upgrade:ac-bonus:10"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:ac-bonus:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:dancer:feature:ac-bonus",
+        "upgradeId": "ffd20:class:dancer:upgrade:ac-bonus:15"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:ac-bonus:20",
+        "type": "upgrade_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:dancer:feature:ac-bonus",
+        "upgradeId": "ffd20:class:dancer:upgrade:ac-bonus:20"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:2",
+        "type": "upgrade_feature",
+        "atClassLevel": 2,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:2"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:3",
+        "type": "upgrade_feature",
+        "atClassLevel": 3,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:3"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:4",
+        "type": "upgrade_feature",
+        "atClassLevel": 4,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:4"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:5"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:6",
+        "type": "upgrade_feature",
+        "atClassLevel": 6,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:6"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:7",
+        "type": "upgrade_feature",
+        "atClassLevel": 7,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:7"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:8",
+        "type": "upgrade_feature",
+        "atClassLevel": 8,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:8"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:9"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:10",
+        "type": "upgrade_feature",
+        "atClassLevel": 10,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:10"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:11",
+        "type": "upgrade_feature",
+        "atClassLevel": 11,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:11"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:12",
+        "type": "upgrade_feature",
+        "atClassLevel": 12,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:12"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:13"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:14",
+        "type": "upgrade_feature",
+        "atClassLevel": 14,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:14"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:15",
+        "type": "upgrade_feature",
+        "atClassLevel": 15,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:15"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:16",
+        "type": "upgrade_feature",
+        "atClassLevel": 16,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:16"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:17"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:18",
+        "type": "upgrade_feature",
+        "atClassLevel": 18,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:18"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:19",
+        "type": "upgrade_feature",
+        "atClassLevel": 19,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:19"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:battle-dance:20",
+        "type": "upgrade_feature",
+        "atClassLevel": 20,
+        "featureId": "ffd20:class:dancer:feature:battle-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:battle-dance:20"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:perfect-dance:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:dancer:feature:perfect-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:perfect-dance:5"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:perfect-dance:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:dancer:feature:perfect-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:perfect-dance:9"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:perfect-dance:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:dancer:feature:perfect-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:perfect-dance:13"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:perfect-dance:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:dancer:feature:perfect-dance",
+        "upgradeId": "ffd20:class:dancer:upgrade:perfect-dance:17"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:trance:5",
+        "type": "upgrade_feature",
+        "atClassLevel": 5,
+        "featureId": "ffd20:class:dancer:feature:trance",
+        "upgradeId": "ffd20:class:dancer:upgrade:trance:5"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:trance:9",
+        "type": "upgrade_feature",
+        "atClassLevel": 9,
+        "featureId": "ffd20:class:dancer:feature:trance",
+        "upgradeId": "ffd20:class:dancer:upgrade:trance:9"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:trance:13",
+        "type": "upgrade_feature",
+        "atClassLevel": 13,
+        "featureId": "ffd20:class:dancer:feature:trance",
+        "upgradeId": "ffd20:class:dancer:upgrade:trance:13"
+      },
+      {
+        "id": "ffd20:class:dancer:event:upgrade:trance:17",
+        "type": "upgrade_feature",
+        "atClassLevel": 17,
+        "featureId": "ffd20:class:dancer:feature:trance",
+        "upgradeId": "ffd20:class:dancer:upgrade:trance:17"
       }
     ],
-    "archetypeIndex": []
+    "archetypeIndex": [],
+    "choicePools": [
+      {
+        "id": "ffd20:class:dancer:pool:talents",
+        "name": "Dance talent",
+        "options": [
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:athlete",
+            "name": "Athlete",
+            "description": "The dancer gains a bonus to Acrobatics skill checks equal to half of his dancer level (rounded down). Additionally, he may choose to take 10 on any Acrobatics check, and may take 20 on them in half of the normal time.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Athlete",
+                "locator": "athlete"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:beloved",
+            "name": "Beloved",
+            "description": "Prerequisites: Dancer 4.\nThe dancer's allies hold her in such esteem that when she is threatened or injured, she can encouraged them to action. She can use each of the following actions once per encounter:    • Guardian: The dancer chooses one ally as a swift action. As long as she remains within 30 feet of the ally, she gains a +2 bonus to her AC until the start of her next turn.  • Reprisal: The dancer makes a single melee or ranged attack against any target within her range as a standard action. If her attack roll succeeds and if that target attacks the dancer before the end of her next turn, one ally within 30 feet can make an attack against that target as an immediate action.  • To Me!: The dancer spends a swift action. Whenever she takes any damage before the beginning of her next turn, each ally within line of sight can move 10 feet as an immediate action. This movement does not provoke Attacks of Opportunity.",
+            "prerequisiteText": "Dancer 4",
+            "minimumLevel": 4,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Beloved",
+                "locator": "beloved"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:born-leader",
+            "name": "Born Leader",
+            "description": "Once per encounter, as a swift action, the dancer grants all allies within her line of sight a +1 insight bonus on attack rolls. This effect lasts for as long as they remain within line of sight of her. An ally loses this bonus immediately if line of sight is broken or the dancer is unconscious or dead.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Born Leader",
+                "locator": "born-leader"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:clear-mind",
+            "name": "Clear Mind",
+            "description": "When the dancer fails a Will saving throw, she can attempt another Will saving throw at the end of her next turn (using the original DC). If the second saving throw is successful, the dancer is treated as if she succeeded at the first saving throw, negating or reducing the effect as determined by the spell or effect. If this second saving throw fails, the dancer suffers the full effects of the spell or effect as normal.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Clear Mind",
+                "locator": "clear-mind"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:combat-feat",
+            "name": "Combat Feat",
+            "description": "A dancer that selects this talent gains a bonus combat feat. This talent may be taken only once.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Combat Feat",
+                "locator": "combat-feat"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:coordinate",
+            "name": "Coordinate",
+            "description": "A dancer with this talent has a knack for getting people to work together. When she uses this talent as a standard action, all allies within her line of sight are granted an additional +1 bonus when they use the Aid Another action until the start of her next turn. The dancer may select this talent multiple times; each time she does, the bonus granted by the coordinate ability increases by 1 (To a maximum of +5).",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 5,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Coordinate",
+                "locator": "coordinate"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:dance-inspiration",
+            "name": "Dance Inspiration",
+            "description": "The dancer can inspire others through dance. To do so, she uses a swift action on her turn to choose one creature other than herself within 60 feet of her who can hear her. That creature gains one Dance Inspiration die, a d6. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes. The creature can wait until after it rolls the d20 before deciding to use the Dance Inspiration die, but must decide before the GM says whether the roll succeeds or fails. Once the Dance Inspiration die is rolled, it is lost. A creature can have only one Dance Inspiration die at a time. The dancer can use this feature a number of times per day equal to her Charisma modifier (a minimum of once). His Dance Inspiration die changes when she reaches certain levels in this class. The die becomes a d8 at 5th level, a d10 at 10th level, and a d12 at 15th level.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Dance Inspiration",
+                "locator": "dance-inspiration"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:dance-troubadour",
+            "name": "Dance Troubadour",
+            "description": "Prerequisites: Mystic Dance class feature.\nAs a swift action, the dancer can double the duration of the next mystic dance the dancer performs. The dancer can use this ability a number of times per day equal to her Charisma modifier.",
+            "prerequisiteText": "Mystic Dance class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Dance Troubadour",
+                "locator": "dance-troubadour"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:defensive-jab",
+            "name": "Defensive Jab",
+            "description": "When the dancer is unarmed and takes the Fight Defensively action, she can make a single unarmed attack as a swift action against an adjacent target.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Defensive Jab",
+                "locator": "defensive-jab"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:defensive-roll",
+            "name": "Defensive Roll",
+            "description": "Prerequisites: Dancer 10.\nOnce per day, a dancer can attempt to avoid a lethal blow. This functions as the thief’s advanced talent of the same name.",
+            "prerequisiteText": "Dancer 10",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Defensive Roll",
+                "locator": "defensive-roll"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:devastating-unarmed-smash",
+            "name": "Devastating Unarmed Smash",
+            "description": "Prerequisites: Unarmed Smash dance talent.\nOnce per encounter, the dancer can attempt a Devastating Unarmed Smash. She must declare this special melee attack before making the attack roll. If the attack rolls succeeds, she adds half her dancer level to the damage, instead of the normal +1 bonus for the Unarmed Smash talent.",
+            "prerequisiteText": "Unarmed Smash dance talent",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Devastating Unarmed Smash",
+                "locator": "devastating-unarmed-smash"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:experienced-brawler",
+            "name": "Experienced Brawler",
+            "description": "The dancer knows how to fight when the odds are against her. She can use each of the following actions as a standard action once per encounter:    • Avoid Attack: The dancer makes a single unarmed attack against an opponent within her reach. Until the beginning of her next turn, she gains a +4 dodge bonus to her AC against a single attack.  • Fortified Mind: The dancer makes a single unarmed attack against an opponent within her reach. Until the beginning of her next turn, she gains a +3 bonus to either her Fortitude or Will save against a spell.  • Focused Stance: The dancer makes a single unarmed attack against an opponent within her reach. At any time until the beginning of her next turn, as an immediate action, she can move up to 10 feet. This movement does not provoke Attacks of Opportunity.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Experienced Brawler",
+                "locator": "experienced-brawler"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:expert-leaper",
+            "name": "Expert Leaper",
+            "description": "When using the Acrobatics skill to jump, a dancer with this talent is always considered to have a running start and adds her dancer level to the check result. Whenever she deliberately falls, a successful DC 15 Acrobatics check allows her to ignore the first 20 feet fallen. For every 5 by which she exceeds the DC of this check, she can ignore an additional 10 feet of distance fallen.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Expert Leaper",
+                "locator": "expert-leaper"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:hardened-strike",
+            "name": "Hardened Strike",
+            "description": "If the dancer deals damage with an Unarmed attack to a creature that has Damage Reduction, she reduces the value of that Damage Reduction by 1 until the end of the encounter. Cumulative attacks against the same target do not stack.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Hardened Strike",
+                "locator": "hardened-strike"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:harmonic-dance",
+            "name": "Harmonic Dance",
+            "description": "Prerequisites: Battle Dance and Mystic Dance class features.\nWhenever the dance performs a mystic dance while she is maintaining a battle dance, she can maintain the battle dance for that round without expending one of her rounds of battle dance for the day. In addition, she can switch from one battle dance to another as a swift action when she performs a mystic dance while maintaining a battle dance.",
+            "prerequisiteText": "Battle Dance and Mystic Dance class features",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Harmonic Dance",
+                "locator": "harmonic-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:improved-battle-dance",
+            "name": "Improved Battle Dance",
+            "description": "Prerequisites: Battle Dance class feature.\nThe dancer adds the following bardic performances as battle dances: Distraction, Fascinate, Suggestion, and Dirge of Doom. The dancer must be of the appropriate level to perform these.",
+            "prerequisiteText": "Battle Dance class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Improved Battle Dance",
+                "locator": "improved-battle-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:increased-ki",
+            "name": "Increased Ki",
+            "description": "Prerequisites: Ki pool class feature or dance talent.\nThe dancer’s maximum ki pool size increases by 1 additional point per two dancer levels she possesses.",
+            "prerequisiteText": "Ki pool class feature or dance talent",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Increased Ki",
+                "locator": "increased-ki"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:inspire-haste",
+            "name": "Inspire Haste",
+            "description": "As a swift action, the dancer can encourage one of her allies within line of sight to make haste with a skill check. On that ally's next turn, that ally can make a skill check that normally requires a standard action, as a move action instead.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Inspire Haste",
+                "locator": "inspire-haste"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:ki-deflection",
+            "name": "Ki Deflection",
+            "description": "Prerequisites: Ki pool class feature or dance talent.\nThe dancer receives a +1 deflection bonus to AC and +1 morale bonus to Reflex and Will saves so long as she possesses at least 1 point in her ki pool. These bonuses increases to +2 at 6th level.",
+            "prerequisiteText": "Ki pool class feature or dance talent",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Ki Deflection",
+                "locator": "ki-deflection"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:ki-pool",
+            "name": "Ki Pool",
+            "description": "Prerequisites: Must not have a ki pool.\nA dancer with this talent gains a small ki pool, but the her ki pool does not grant any extra attacks. The dancer gains a number of ki points equal to her Wisdom modifier (minimum 1). These ki points replenish at the start of each day. If she gains a ki pool later, she gains half her Wisdom bonus (minimum 1) as bonus ki points to her ki pool. She can spend a ki point to gain a +10-foot bonus to movement until the end of her turn.",
+            "prerequisiteText": "Must not have a ki pool",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Ki Pool",
+                "locator": "ki-pool"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:ledge-walker",
+            "name": "Ledge Walker",
+            "description": "This ability allows a dancer to move along narrow, uneven, or slippery surfaces (such as ice) at full speed using the Acrobatics skill without penalty. In addition, a dancer with this talent is not flat-footed when using Acrobatics to move along such surfaces, and retains her Dexterity bonus to AC.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Ledge Walker",
+                "locator": "ledge-walker"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:masterful-dances",
+            "name": "Masterful Dances",
+            "description": "Prerequisites: Dancer 6, Battle Dance class feature.\nA dancer can choose one of the following Bardic Masterpiece feats: Dance of Beauty’s Wiles, Dance of the Naga, Endless Waltz of the Tarutaru, Exhilarating Prayer of Fabul, Garuda’s Spiraling Ascent, Melusine’s Dance of Desires, Minuet of the Malboro, Pallavi of the Phoenix, The Dance of the Moogle, The Mithra Cat-Step, or Vamo alla Flamenco. A dancer uses her dancer levels as her bard levels for this feat and uses her battle dances for her bardic performances. This talent can be taken multiple of times, each time, you can choose a different bardic masterpiece feat.",
+            "prerequisiteText": "Dancer 6, Battle Dance class feature",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Masterful Dances",
+                "locator": "masterful-dances"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:melee-power",
+            "name": "Melee Power",
+            "description": "A dancer with this talent adds +2 to damage with unarmed strikes or one-handed weapons with the \"monk\" special feature.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Melee Power",
+                "locator": "melee-power"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:melee-tenacity",
+            "name": "Melee Tenacity",
+            "description": "A dancer with this talent may reroll 1s for damage with all weapon dice with unarmed strikes or one-handed weapons with the \"monk\" special feature.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Melee Tenacity",
+                "locator": "melee-tenacity"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:mystic-dance",
+            "name": "Mystic Dance",
+            "description": "Prerequisites: Mystic Dance class feature.\nA dancer can select a new mystic dance. This talent can be selected more than once.",
+            "prerequisiteText": "Mystic Dance class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Mystic Dance",
+                "locator": "mystic-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/",
+            "grantsChoicePoolId": "ffd20:class:dancer:pool:mystic-dances"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:nimble-dodge",
+            "name": "Nimble Dodge",
+            "description": "Prerequisites: Dodge and Mobility feats.\nIf an enemy misses the dancer with a melee attack, as an immediate action, she can move up to 10 feet, but she must end her movement adjacent to her attacker. This movement does not provoke attacks of opportunity.",
+            "prerequisiteText": "Dodge and Mobility feats",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Nimble Dodge",
+                "locator": "nimble-dodge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:pick-a-fight",
+            "name": "Pick a Fight",
+            "description": "During the surprise round, the dancer and all allies within 30 feet of her gain a +1 morale bonus on attack rolls. Additionally, until the end of the encounter, she retains this bonus to attack rolls against any target she or her allies damage during the surprise round.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Pick a Fight",
+                "locator": "pick-a-fight"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:positioning-attack",
+            "name": "Positioning Attack",
+            "description": "Once per encounter, when a dancer with this talent hits a creature with a melee attack, she can move up to 30 feet without provoking attacks of opportunity. The dancer must end her movement in a square that threatens that creature hit with the melee attack.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Positioning Attack",
+                "locator": "positioning-attack"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:punishing-strike",
+            "name": "Punishing Strike",
+            "description": "When the dancer scores a critical hit with an Unarmed attack, she can make an immediate Unarmed attack (In addition to other effects of a critical hit) against a single target within reach. She can use this talent only once per turn and only while wearing no armor.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Punishing Strike",
+                "locator": "punishing-strike"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:quick-reflexes",
+            "name": "Quick Reflexes",
+            "description": "The dancer can make one additional attack of opportunity per round.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Quick Reflexes",
+                "locator": "quick-reflexes"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:rally",
+            "name": "Rally",
+            "description": "Once per encounter, the dancer can rally her allies and bring them back from the edge of defeat. As a swift action, any allies within her line of sight who have less than half their total hit points remaining gain a +2 morale bonus to their Reflex and Will saves, and a +2 bonus to all damage rolls for the remainder of the encounter.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Rally",
+                "locator": "rally"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:redirect-force",
+            "name": "Redirect Force",
+            "description": "If the dancer has a feat that allows her to attempt a combat maneuver without provoking attacks of opportunity, she can choose to provoke them anyway when she performs that maneuver. If she does so and takes damage from the attack of opportunity, the dancer adds the damage as a bonus on her attack roll instead of as a penalty.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Redirect Force",
+                "locator": "redirect-force"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:retaliation-jab",
+            "name": "Retaliation Jab",
+            "description": "If an enemy misses the dancer with a melee attack, as an immediate action, she can automatically deal damage equal to her Strength modifier (minimum 1 point of damage) to her attacker, if the attacker is within her reach.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Retaliation Jab",
+                "locator": "retaliation-jab"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:reverse-strength",
+            "name": "Reverse Strength",
+            "description": "The dancer knows how to use an opponent's strength against it. Whenever she successfully grapples an opponent, she deals damage equal to the opponent's Strength modifier (minimum 1 point).",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Reverse Strength",
+                "locator": "reverse-strength"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:shove-aside",
+            "name": "Shove Aside",
+            "description": "Prerequisites: Evasion class feature.\nWhen a dancer and an adjacent ally are both in the area of an attack that requires a saving throw, she can take a –4 penalty on her saving throw to grant her ally a +4 bonus on his saving throw. She loses the evasion ability against this attack. If she has improved evasion, it is reduced to evasion for this attack instead.",
+            "prerequisiteText": "Evasion class feature",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Shove Aside",
+                "locator": "shove-aside"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:slow-fall",
+            "name": "Slow Fall",
+            "description": "Prerequisites: Dancer 4.\nA dancer with this talent within arm’s reach of a wall can use it to slow her descent. When first gaining this ability, she takes damage as if the fall were 20 feet shorter than it actually is. The dancer’s ability to slow her fall (that is, to reduce the effective distance of the fall when next to a wall) improves by 10 feet for every two dancer levels until at 20th level she can use a nearby wall to slow her descent and fall any distance without harm.",
+            "prerequisiteText": "Dancer 4",
+            "minimumLevel": 4,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Slow Fall",
+                "locator": "slow-fall"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:stand-up",
+            "name": "Stand Up",
+            "description": "A dancer with this talent can stand up from a prone position as a swift action. This still provokes attacks of opportunity for standing up while threatened by a foe.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Stand Up",
+                "locator": "stand-up"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:stinging-jab",
+            "name": "Stinging Jab",
+            "description": "Once per encounter, when the dancer hits a target with an unarmed attack, she can choose to deal half damage with her attack. If she does so, her enemy also deals half damage on all melee attacks he or she makes until the end of her next turn.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Stinging Jab",
+                "locator": "stinging-jab"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:style-feat",
+            "name": "Style Feat",
+            "description": "A dancer with this talent chooses a Style Feat or a feat that lists a Style Feat as a prerequisite. She gains that as a bonus feat. This talent be taken up to 3 times. The dancer must still meet prerequisites for the style feat or any other feat selected with this talent.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 3,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Style Feat",
+                "locator": "style-feat"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:sucker-punch",
+            "name": "Sucker Punch",
+            "description": "Once per round, when the dancer's unarmed attack damages an opponent that is denied its Dexterity bonus to its AC, that opponent cannot take Attacks of Opportunity until the end of its next turn.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Sucker Punch",
+                "locator": "sucker-punch"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:superior-senses",
+            "name": "Superior Senses",
+            "description": "A dancer with this talent has a mastery over her senses, and can detect presences by smell and sound as well as she can with sight. She gains a +10 to her Perception rolls to locate creature who benefit from invisibility (or the vanish spell).",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Superior Senses",
+                "locator": "superior-senses"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:tavern-brawler",
+            "name": "Tavern Brawler",
+            "description": "While being flanked, the dancer gains a +1 bonus on Unarmed attack rolls and damage rolls.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Tavern Brawler",
+                "locator": "tavern-brawler"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:trust",
+            "name": "Trust",
+            "description": "Prerequisites: Born Leader and Coordinate dance talents.\nThe dancer can give up her standard action to give one ally within her line of sight an extra standard action or move action on their next turn, to do with as they please. The ally does not lose the action if line of sight is later broken.",
+            "prerequisiteText": "Born Leader and Coordinate dance talents",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Trust",
+                "locator": "trust"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:unarmed-smash",
+            "name": "Unarmed Smash",
+            "description": "A dancer deals an additional +1 point of damage with unarmed strikes.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Unarmed Smash",
+                "locator": "unarmed-smash"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:unrelenting-assault",
+            "name": "Unrelenting Assault",
+            "description": "Prerequisites: Melee Power dance talent.\nThe dancer launches herself at her foe, attacking with weapons, limbs, or anything else available. Whenever she misses with a melee attack or the attack is negated, she still deals her Strength bonus in damage to the target (minimum 1), or 1.5 x her Strength bonus if she attacks with a weapon she is wielding two-handed.",
+            "prerequisiteText": "Melee Power dance talent",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Unrelenting Assault",
+                "locator": "unrelenting-assault"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:unwavering-ally",
+            "name": "Unwavering Ally",
+            "description": "Once per turn, as a swift action, the dancer can designate one ally within her line of sight who can hear and understand her. Until the start of the dancer's next turn, that ally becomes immune to all effects that render the ally flat-footed or that deny the ally a Dexterity bonus to his or her AC.",
+            "prerequisiteText": "—",
+            "minimumLevel": 2,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Unwavering Ally",
+                "locator": "unwavering-ally"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:advanced-battle-dance",
+            "name": "Advanced Battle Dance",
+            "description": "Prerequisites: Battle Dance class feature, Improved Battle Dance dance talent.\nA dancer adds the following bardic performances as battle dances: Soothing Performance, Frightening Tune, Adoring Fan, Funeral Ballad, and Deadly Performance. The dancer must be of the appropriate level to perform these.",
+            "prerequisiteText": "Battle Dance class feature, Improved Battle Dance dance talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Advanced Battle Dance",
+                "locator": "advanced-battle-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:center-of-combat",
+            "name": "Center of Combat",
+            "description": "A dancer with this talent gains a +1 dodge bonus to AC for every adjacent opponent beyond the first.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Center of Combat",
+                "locator": "center-of-combat"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:devastating-melee-smash",
+            "name": "Devastating Melee Smash",
+            "description": "Prerequisites: Melee Power dance talent.\nOnce per encounter, before making the dancer's attack roll, she may choose to add her dancer levels to damage with her unarmed strike or one-handed weapons with the \"monk\" special feature. If she misses, this attempt is wasted. This talent may be selected multiple times, each time granting one additional attempt per encounter.",
+            "prerequisiteText": "Melee Power dance talent",
+            "minimumLevel": 12,
+            "repeatLimit": 20,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Devastating Melee Smash",
+                "locator": "devastating-melee-smash"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:doblepaso",
+            "name": "Doblepaso",
+            "description": "Prerequisites: Hustle advanced dance talent.\nWhenever the dancer would be allowed to take a 10-ft.-step, she may take two 10-ft.-steps instead.",
+            "prerequisiteText": "Hustle advanced dance talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Doblepaso",
+                "locator": "doblepaso"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:energetic-recharge",
+            "name": "Energetic Recharge",
+            "description": "Prerequisites: Ki Pool class feature or dance talent.\nOnce per day, as an immediate action, when the dancer would take damage from earth, fire, ice, lightning, water, or wind damage, she can convert the damage into Ki, at a rate of 1 Ki per 10 damage. She suffers none of the converted damage, but may not gain more than half her dancer level in Ki nor over his max. For example, if a 14th level dancer suffers 80 points of ice damage, she may convert up to 70 points of that damage into 7 Ki. She takes the remaining 10 points of ice damage as normal.",
+            "prerequisiteText": "Ki Pool class feature or dance talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Energetic Recharge",
+                "locator": "energetic-recharge"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:fast-tumble",
+            "name": "Fast Tumble",
+            "description": "When a dancer with this talent uses Acrobatics to tumble at full speed through a threatened square without provoking an attack of opportunity, the DC of the Acrobatics check does not increase by 10.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Fast Tumble",
+                "locator": "fast-tumble"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:foe-biting-dance",
+            "name": "Foe-Biting Dance",
+            "description": "As a move action, the dancer may perform a dance to supernaturally grant her allies the ability to flank upon enemies that are not currently flanked. The dancer must make a Perform (dance) check against any foe within 20 feet. If she beats their CMD, the foe loses focus and is drawing their attention upon the dancer. Allies that attack this specific foe gain flanking against that foe, without requiring an ally flanking the enemy. Enemies with uncanny dodge that are affected by this dance are also affected, as normal.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Foe-Biting Dance",
+                "locator": "foe-biting-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:hard-minded",
+            "name": "Hard Minded",
+            "description": "A dancer with this talent is hard to fool with mind-affecting effects. At the start of her turn, if she is still subject to any mind-affecting spells or effects, she can make a Will saving throw with a standard DC for the effect’s level, and if she succeeds at the check, she is no longer subject to the mind-affecting effect. She can make this saving throw even against mind-affecting effects that normally don’t allow a saving throw. In those cases, generate the saving throw as if the spell or effect did allow a saving throw.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Hard Minded",
+                "locator": "hard-minded"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:hustle",
+            "name": "Hustle",
+            "description": "Prerequisites: Fleet class feature.\nWhenever the dancer would be allowed to take a 5-ft.-step, she may take a 10-ft.-step instead. Any ability, effect, feat, or rule that applies to a 5-ft.-step now applies when she takes a 10-ft.-step.",
+            "prerequisiteText": "Fleet class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Hustle",
+                "locator": "hustle"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:improved-competence",
+            "name": "Improved Competence",
+            "description": "Prerequisites: Inspire Competence class feature.\nThe dancer adds half her Charisma modifier to the bonuses provided by the inspired competence ability.",
+            "prerequisiteText": "Inspire Competence class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Improved Competence",
+                "locator": "improved-competence"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:improved-courage",
+            "name": "Improved Courage",
+            "description": "Prerequisites: Inspire Courage class feature.\nThe dancer adds +2 to the bonuses provided by the inspired courage ability.",
+            "prerequisiteText": "Inspire Courage class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Improved Courage",
+                "locator": "improved-courage"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:improved-ki-pool",
+            "name": "Improved Ki Pool",
+            "description": "Prerequisites: Ki pool class feature or dance talent.\nA dancer with this talent increases the number of points in the ki pool that she gains from the ki pool dance talent to be equal to half her dancer level + her Wisdom modifier. In addition, she can spend 2 points from her ki pool as a swift action to gain the skill unlocks for one skill of her choice as appropriate for her number of ranks in that skill. This benefit lasts for 1 minute.",
+            "prerequisiteText": "Ki pool class feature or dance talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Improved Ki Pool",
+                "locator": "improved-ki-pool"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:light-steps",
+            "name": "Light Steps",
+            "description": "A dancer with this talent can move effortlessly across nearly any surface. The dancer can cross any solid surface, even if it would normally not support her weight. This does not allow her to walk on liquids.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Light Steps",
+                "locator": "light-steps"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:light-walker",
+            "name": "Light Walker",
+            "description": "Prerequisites: Ledge Walker martial art talent.\nThe dancer can move at full speed through difficult terrain and can take 5-foot steps into difficult terrain.",
+            "prerequisiteText": "Ledge Walker martial art talent",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Light Walker",
+                "locator": "light-walker"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:quick-dance",
+            "name": "Quick Dance",
+            "description": "Once per day, the dancer can perform a mystic dance as a swift action.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Quick Dance",
+                "locator": "quick-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:redirect-attack",
+            "name": "Redirect Attack",
+            "description": "Once per day, when a dancer with this talent is hit with a melee attack, she can redirect the attack to strike at an adjacent creature with a free action. The creature targeted must be within melee reach of the attack that hit the dancer, and the creature that made the attack against the dancer must make a new attack roll against the new target.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Redirect Attack",
+                "locator": "redirect-attack"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:step-and-strike",
+            "name": "Step and Strike",
+            "description": "Prerequisites: Fleet class feature.\nSeamlessly combining movement into her repertoire of dances, the dancer can cover a span a larger range. When taking a full attack action, the dancer can take a 5-foot step after each attack.",
+            "prerequisiteText": "Fleet class feature",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Step and Strike",
+                "locator": "step-and-strike"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:talents:option:uncanny-defense",
+            "name": "Uncanny Defense",
+            "description": "Once per day, as a free action, the dancer can add half her dancer level to all her AC and saving throws for one round. She must declare that she is using this talent at the beginning of her turn. The benefits last until the beginning of her next turn.",
+            "prerequisiteText": "—",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-dance-talents",
+                "section": "Uncanny Defense",
+                "locator": "uncanny-defense"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:dancer:pool:mystic-dances",
+        "name": "Mystic dance",
+        "options": [
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:aspir-samba",
+            "name": "Aspir Samba",
+            "description": "Prerequisites: Drain Samba mystic dance.\nA dancer can perform a dance that allows herself and allies to drain magic points with every successful melee attack. For a duration of 1 round + 1 round per two dancer levels after 2nd, the dancer and her allies that successfully hit the creature affected by this ability deals 1d4 points of MP damage and gains 1d4 MP (any gain over your maximum MP pool is lost) or heals 1d4 HPs if no MP pool.",
+            "prerequisiteText": "Drain Samba mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Aspir Samba",
+                "locator": "aspir-samba"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:aspir-samba-ii",
+            "name": "Aspir Samba II",
+            "description": "Prerequisites: Aspir Samba mystic dance.\nA dancer can perform a dance that allows herself and allies to drain magic points with every successful melee attack. For a duration of 1 round + 1 round per two dancer levels after 2nd, the dancer and her allies that successfully hit the creature affected by this ability deals 2d4 points of MP damage and gains 2d4 MP (any gain over your maximum MP pool is lost) or heals 2d4 HPs if no MP pool.",
+            "prerequisiteText": "Aspir Samba mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Aspir Samba II",
+                "locator": "aspir-samba-ii"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:blade-dance",
+            "name": "Blade Dance",
+            "description": "Prerequisites: Dancer 16, Sword Dance mystic dance.\nA dancer can perform a dance that allows her to attack an opponent 5 times. The dancer makes 5 separate Attack Rolls at her highest BAB.",
+            "prerequisiteText": "Dancer 16, Sword Dance mystic dance",
+            "minimumLevel": 16,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Blade Dance",
+                "locator": "blade-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:box-step",
+            "name": "Box Step",
+            "description": "A dancer can perform a dance that lowers the defenses of a creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or suffer a -2 penalty to Armor Class plus an additional -2 penalty per four dancer levels after 2nd for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Box Step",
+                "locator": "box-step"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:building-flourish",
+            "name": "Building Flourish",
+            "description": "Prerequisites: Desperate Flourish mystic dance.\nA dancer can perform a dance that grants a bonus on Attack Rolls for all allies within 30 feet. For a duration of 1 round + 1 round per two dancer levels after 2nd, allies within range are granted a +1 bonus on Attack Rolls per four dancer levels after 2nd.",
+            "prerequisiteText": "Desperate Flourish mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Building Flourish",
+                "locator": "building-flourish"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:chocobo-jig",
+            "name": "Chocobo Jig",
+            "description": "A dancer can perform a dance that grants an ally within 30 feet, a +30 foot movement speed for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Chocobo Jig",
+                "locator": "chocobo-jig"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:chocobo-jig-ii",
+            "name": "Chocobo Jig II",
+            "description": "Prerequisites: Chocobo Jig mystic dance.\nA dancer can perform a dance that grants allies within 30 feet, a +30 foot movement speed for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "Chocobo Jig mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Chocobo Jig II",
+                "locator": "chocobo-jig-ii"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:curing-waltz",
+            "name": "Curing Waltz",
+            "description": "A dancer can perform a dance that heals an ally within 30 feet. Ally within range is affected by a Cure spell, using her Charisma instead of Wisdom for the bonus and using her dancer level as her caster level..",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Curing Waltz",
+                "locator": "curing-waltz"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:curing-waltz-ii",
+            "name": "Curing Waltz II",
+            "description": "Prerequisites: Curing Waltz mystic dance.\nA dancer can perform a dance that heals an ally within 30 feet. Ally within range is affected by a Cure II spell, using her Charisma instead of Wisdom for the bonus and using her dancer level as her caster level..",
+            "prerequisiteText": "Curing Waltz mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Curing Waltz II",
+                "locator": "curing-waltz-ii"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:curing-waltz-iii",
+            "name": "Curing Waltz III",
+            "description": "Prerequisites: Curing Waltz II mystic dance.\nA dancer can perform a dance that heals an ally within 30 feet. Ally within range is affected by a Cure III spell, using her Charisma instead of Wisdom for the bonus and using her dancer level as her caster level..",
+            "prerequisiteText": "Curing Waltz II mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Curing Waltz III",
+                "locator": "curing-waltz-iii"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:dance-of-hundred-cuts",
+            "name": "Dance of Hundred Cuts",
+            "description": "Prerequisites: Dancer 6.\nA dancer becomes a lethal combat dancer, swirling and spinning with grace and precision. For a duration of 1 round + 1 round per two dancer levels after 2nd, she gains a morale bonus on melee attack rolls, melee damage rolls, Acrobatics checks, and armor class equal to +1 per three dancer levels (maximum +5 at 15th level). The bonus to AC is lost under any circumstances that would cause her to lose her Dexterity bonus to AC. She must remain moving for the ability to stay in effect. If in any round she does not either move at least 10 feet or make a melee attack, the ability’s duration ends.",
+            "prerequisiteText": "Dancer 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Dance of Hundred Cuts",
+                "locator": "dance-of-hundred-cuts"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:desperate-flourish",
+            "name": "Desperate Flourish",
+            "description": "A dancer can perform a dance that inflicts a penalty on Attack Rolls for a creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or suffer a -1 penalty to Attack Rolls plus an additional -1 penalty per four dancer levels after 2nd for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Desperate Flourish",
+                "locator": "desperate-flourish"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:disillusion-flourish",
+            "name": "Disillusion Flourish",
+            "description": "Prerequisites: Dancer 6.\nA dancer can perform a dance that inflicts a penalty on spell damage rolls for a creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or suffer a -1 penalty to Magic damage rolls plus an additional -1 penalty per four dancer levels after 2nd for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "Dancer 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Disillusion Flourish",
+                "locator": "disillusion-flourish"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:divine-waltz",
+            "name": "Divine Waltz",
+            "description": "Prerequisites: Curing Waltz III mystic dance.\nA dancer can perform a dance that heals all allies within 30 feet. Allies with range are affected by a Cura spell, using her dancer level as her caster level.",
+            "prerequisiteText": "Curing Waltz III mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Divine Waltz",
+                "locator": "divine-waltz"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:divine-waltz-ii",
+            "name": "Divine Waltz II",
+            "description": "Prerequisites: Dancer 10, Divine Waltz mystic dance.\nA dancer can perform a dance that heals all allies within 30 feet. Allies with range are affected by a Curaga spell, using her dancer level as her caster level.",
+            "prerequisiteText": "Dancer 10, Divine Waltz mystic dance",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Divine Waltz II",
+                "locator": "divine-waltz-ii"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:drain-samba",
+            "name": "Drain Samba",
+            "description": "A dancer can perform a dance that allows herself and allies to drain health with every successful attack. For a duration of 1 round + 1 round per two dancer levels after 2nd, the dancer and her allies that successfully hit creatures with a melee attack deals 1d4 points of non-elemental damage and heals 1d4 points of damage.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Drain Samba",
+                "locator": "drain-samba"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:drain-samba-ii",
+            "name": "Drain Samba II",
+            "description": "Prerequisites: Drain Samba mystic dance.\nA dancer can perform a dance that allows herself and allies to drain health with every successful attack. For a duration of 1 round + 1 round per two dancer levels after 2nd, the dancer and her allies that successfully hit creatures with a melee attack deals 2d4 points of non-elemental damage and heals 2d4 points of damage.",
+            "prerequisiteText": "Drain Samba mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Drain Samba II",
+                "locator": "drain-samba-ii"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:drain-samba-iii",
+            "name": "Drain Samba III",
+            "description": "Prerequisites: Drain Samba II mystic dance.\nA dancer can perform a dance that allows herself and allies to drain health with every successful attack. For a duration of 1 round + 1 round per two dancer levels after 2nd, the dancer and her allies that successfully hit creatures with a melee attack deals 3d4 points of non-elemental damage and heals 3d4 points of damage.",
+            "prerequisiteText": "Drain Samba II mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Drain Samba III",
+                "locator": "drain-samba-iii"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:dream-eater-dance",
+            "name": "Dream Eater Dance",
+            "description": "Prerequisites: Dancer 12, Somnus Step mystic dance.\nA dancer can perform a dance that inflicts damage on creatures who are sleeping. All enemies sleeping or under the Sleep status effect take 1d8 points of non-elemental damage per dancer level and must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) to reduce the damage by half.",
+            "prerequisiteText": "Dancer 12, Somnus Step mystic dance",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Dream Eater Dance",
+                "locator": "dream-eater-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:forbidden-dance",
+            "name": "Forbidden Dance",
+            "description": "Prerequisites: Dancer 12, Tempting Tango mystic dance.\nA dancer can perform a dance that inflicts a variety of status effects on creatures within 30 feet. Enemies within 30 feet are affected by the following status effects for 1d4 rounds each: Berserk (Will save), Blind (Fortitude save), Confuse (Will save), Silence (Fortitude save), Poison (Fortitude save), Slow (Fortitude save) (DC 10 + half of the dancer’s level + her Charisma modifier).",
+            "prerequisiteText": "Dancer 12, Tempting Tango mystic dance",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Forbidden Dance",
+                "locator": "forbidden-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:haste-samba",
+            "name": "Haste Samba",
+            "description": "Prerequisites: Dancer 6.\nA dancer can perform a dance that allows herself and allies to receive the haste status for the round with a successful attack. For a duration of 1 round + 1 round per two dancer levels after 2nd, the dancer and her allies that successfully hit creatures gain the Haste status for the round.",
+            "prerequisiteText": "Dancer 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Haste Samba",
+                "locator": "haste-samba"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:healing-waltz",
+            "name": "Healing Waltz",
+            "description": "Prerequisites: Dancer 8, Curing Waltz mystic dance.\nA dancer can perform a dance that cures status effects on an ally within 30 feet. Ally within range is affected by an Esuna spell, using her dancer level as her caster level.",
+            "prerequisiteText": "Dancer 8, Curing Waltz mystic dance",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Healing Waltz",
+                "locator": "healing-waltz"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:jitterbug-duet",
+            "name": "Jitterbug Duet",
+            "description": "Prerequisites: Dancer 8.\nA dancer can perform a dance that absorbs the hit points of another creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or lose 1d8 hit points plus another 1d8 hit points per two dancer levels after 2nd. The dancer heals for the amount absorbed.",
+            "prerequisiteText": "Dancer 8",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Jitterbug Duet",
+                "locator": "jitterbug-duet"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:last-dance",
+            "name": "Last Dance",
+            "description": "Prerequisites: Dancer 18.\nA dancer can perform a dance that stops a creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be inflicted with the Stop status effect for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "Dancer 18",
+            "minimumLevel": 18,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Last Dance",
+                "locator": "last-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:mincing-minuet",
+            "name": "Mincing Minuet",
+            "description": "Prerequisites: Dancer 6.\nA dancer can perform a dance that inflicts non-elemental damage to all enemies within 30 feet. All enemies within the area of effect take 1d6 points of non-elemental damage plus an additional 1d6 damage per two dancer levels after 2nd level and must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) to reduce damage by half.",
+            "prerequisiteText": "Dancer 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Mincing Minuet",
+                "locator": "mincing-minuet"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:mystery-waltz",
+            "name": "Mystery Waltz",
+            "description": "Prerequisites: Dancer 10.\nA dancer can perform a dance that damages the resource pool or MP pool of another creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or lose 1d4 of their resource pool (if any) or MP pool (if any) plus another 1d4 hit points per two dancer levels after 2nd.",
+            "prerequisiteText": "Dancer 10",
+            "minimumLevel": 10,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Mystery Waltz",
+                "locator": "mystery-waltz"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:pyrrhic-puncture-flourish",
+            "name": "Pyrrhic Puncture Flourish",
+            "description": "Prerequisites: Dancer 6.\nA dancer can perform a dance that inflicts a penalty on melee/ranged damage rolls for a creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or suffer a -1 penalty to melee/ranged damage rolls plus an additional -1 penalty per four dancer levels after 2nd for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "Dancer 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Pyrrhic Puncture Flourish",
+                "locator": "pyrrhic-puncture-flourish"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:quickstep",
+            "name": "Quickstep",
+            "description": "A dancer can perform a dance that lowers a creature’s Dexterity within 30 feet. A creature within range must make a Fortitude save (DC 10 + half of the dancer’s level + her Charisma modifier) or suffer a -2 penalty to Dexterity plus an additional -2 penalty per four dancer levels after 2nd for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Quickstep",
+                "locator": "quickstep"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:slow-dance",
+            "name": "Slow Dance",
+            "description": "Prerequisites: Dancer 6.\nA dancer can perform a dance that slows a creature within 30 feet. A creature within range must make a Fortitude save (DC 10 + half of the dancer’s level + her Charisma modifier) or be inflicted with the Slow status effect for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "Dancer 6",
+            "minimumLevel": 6,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Slow Dance",
+                "locator": "slow-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:somnus-step",
+            "name": "Somnus Step",
+            "description": "Prerequisites: Dancer 8.\nA dancer can perform a dance that puts enemies to sleep. All enemies within 30 feet must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be inflicted with the Sleep status for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "Dancer 8",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Somnus Step",
+                "locator": "somnus-step"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:sonorous-serra-step",
+            "name": "Sonorous Serra Step",
+            "description": "A dancer can perform a dance that lowers a creature’s saves within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be inflicted a -1 penalty to saving throws plus an additional -1 penalty for every two dancer levels after 2nd for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Sonorous Serra Step",
+                "locator": "sonorous-serra-step"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:spectral-jig",
+            "name": "Spectral Jig",
+            "description": "Prerequisites: Dancer 8.\nA dancer can perform a dance that makes an ally within 30 feet, invisible. For a duration of 1 round + 1 round per two dancer levels after 2nd, ally within range is granted Vanish as per spell.",
+            "prerequisiteText": "Dancer 8",
+            "minimumLevel": 8,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Spectral Jig",
+                "locator": "spectral-jig"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:spectral-jig-ii",
+            "name": "Spectral Jig II",
+            "description": "Prerequisites: Dancer 12.\nA dancer can perform a dance that makes all allies within 30 feet, invisible. For a duration of 1 round + 1 round per two dancer levels after 2nd, all allies within range is granted Vanishga as per spell.",
+            "prerequisiteText": "Dancer 12",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Spectral Jig II",
+                "locator": "spectral-jig-ii"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:stutter-step",
+            "name": "Stutter Step",
+            "description": "Prerequisites: Box Step mystic dance.\nA dancer can perform a dance that lowers the magical or elemental (chosen when afflicting a creature) resistances of a creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or suffer a -2 penalty to spell or elemental resistance plus an additional -2 penalty per four dancer levels after 2nd for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "Box Step mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Stutter Step",
+                "locator": "stutter-step"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:sword-dance",
+            "name": "Sword Dance",
+            "description": "Prerequisites: Dancer 14.\nAs a full-round action, a dancer can perform a dance that allows her to make a full attack with double her normal number of attacks. She must declare her opponent beforehand and cannot switch targets while she performs this dance. Sword Dance doesn’t double extra attacks gain through haste or any other similar effects that grants additional attacks nor does it stack with any other class feature that doubles a number of attacks.",
+            "prerequisiteText": "Dancer 14",
+            "minimumLevel": 14,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Sword Dance",
+                "locator": "sword-dance"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:tempting-tango",
+            "name": "Tempting Tango",
+            "description": "Prerequisites: Dancer 12.\nA dancer can perform a dance that causes confusion in a creature within 30 feet. A creature within range must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be confused for a duration of 1 round + 1 round per two dancer levels after 2nd.",
+            "prerequisiteText": "Dancer 12",
+            "minimumLevel": 12,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Tempting Tango",
+                "locator": "tempting-tango"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:violent-flourish",
+            "name": "Violent Flourish",
+            "description": "A dancer can perform a dance that stuns a creature with a melee attack. This dance functions like Stunning Fist, using her dancer level as her monk level and her Charisma modifier instead of Wisdom for the DC save. This ability doesn't provoke attacks of opportunity.",
+            "prerequisiteText": "—",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Violent Flourish",
+                "locator": "violent-flourish"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          },
+          {
+            "id": "ffd20:class:dancer:pool:mystic-dances:option:witch-hunt-samba",
+            "name": "Witch Hunt Samba",
+            "description": "Prerequisites: Aspir Dance II mystic dance.\nA dancer can perform a dance that allows herself to drain MP from all enemies within 30 feet. All enemies within the area of effect must make a Will save (DC 10 + half of the dancer’s level + her Charisma modifier) or be drained of 1d4 MP that the dancer can then imbue a caster (or casters) of this amount (split however she sees fit).",
+            "prerequisiteText": "Aspir Dance II mystic dance",
+            "minimumLevel": 3,
+            "repeatLimit": 1,
+            "featureIds": [],
+            "sourceRefs": [
+              {
+                "sourceId": "classes-hybrid-classes-dancer-mystic-dances",
+                "section": "Witch Hunt Samba",
+                "locator": "witch-hunt-samba"
+              }
+            ],
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/"
+          }
+        ]
+      }
+    ],
+    "progressionChoices": [
+      {
+        "id": "ffd20:class:dancer:event:talents:2",
+        "type": "choose",
+        "atClassLevel": 2,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:4",
+        "type": "choose",
+        "atClassLevel": 4,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:8",
+        "type": "choose",
+        "atClassLevel": 8,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:10",
+        "type": "choose",
+        "atClassLevel": 10,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:14",
+        "type": "choose",
+        "atClassLevel": 14,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:16",
+        "type": "choose",
+        "atClassLevel": 16,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:talents:20",
+        "type": "choose",
+        "atClassLevel": 20,
+        "poolIds": [
+          "ffd20:class:dancer:pool:talents"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:3",
+        "type": "choose",
+        "atClassLevel": 3,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:6",
+        "type": "choose",
+        "atClassLevel": 6,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:9",
+        "type": "choose",
+        "atClassLevel": 9,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:12",
+        "type": "choose",
+        "atClassLevel": 12,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:15",
+        "type": "choose",
+        "atClassLevel": 15,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      },
+      {
+        "id": "ffd20:class:dancer:event:mystic-dances:18",
+        "type": "choose",
+        "atClassLevel": 18,
+        "poolIds": [
+          "ffd20:class:dancer:pool:mystic-dances"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        }
+      }
+    ]
   }
 }

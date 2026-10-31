@@ -339,7 +339,7 @@
         "atClassLevel": 2,
         "parentFeatureName": "Steadfast Mount",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rugged-steed",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -352,7 +352,7 @@
         "atClassLevel": 3,
         "parentFeatureName": "Knight’s Charge",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:colossus-hunter",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -365,7 +365,7 @@
         "atClassLevel": 4,
         "parentFeatureName": "Expert Trainer",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rapid-straddle",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -378,7 +378,7 @@
         "atClassLevel": 6,
         "parentFeatureName": "Master Feeder",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:rapid-straddle",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -391,7 +391,7 @@
         "atClassLevel": 7,
         "parentFeatureName": "Improved Chocobo Mount",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:undaunted",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -404,7 +404,7 @@
         "atClassLevel": 11,
         "parentFeatureName": "Greater Charge",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:combined-might",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -417,7 +417,7 @@
         "atClassLevel": 15,
         "parentFeatureName": "Superior Chocobo Mount",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:gigantic-steed",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -430,7 +430,7 @@
         "atClassLevel": 17,
         "parentFeatureName": "Erratic Charge",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:pulverizing-assault",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",
@@ -443,7 +443,7 @@
         "atClassLevel": 20,
         "parentFeatureName": "Supreme Charge",
         "replacementFeatureId": "ffd20:archetype:chocobo-knight:beast-rider:feature:lord-of-beasts",
-        "resolution": "parent_feature_not_staged",
+        "resolution": "adapter_not_verified",
         "sourceRefs": [
           {
             "sourceId": "main",

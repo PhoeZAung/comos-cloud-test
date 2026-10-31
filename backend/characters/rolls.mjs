@@ -1,3 +1,4 @@
+import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
 import {weaponAttackParts,attackTypes} from '../../src/features/sheet/model.mjs';
@@ -68,7 +69,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   if(level>0)updated=mergeSheetData(character.data,{action:'spendMp',amount:level});
  }
  const spendAbility=ability&&(isLimitBreak(row)&&mode!=='send'||mode==='use'||mode==='legacy'&&change.spendUse);
- if(spendAbility&&(isLimitBreak(row)||String(row.uses_formula||'').trim()||Number(row.u_max)>0)){updated=mergeSheetData(character.data,{action:'useAbility',collection:change.collection,index:change.index});roll.used=true;roll.remainingUses=updated[change.collection][change.index].u_curr;}
+ if(spendAbility&&(gunbreakerAmmoAbilityCost(character.data,row)>0||isLimitBreak(row)||String(row.uses_formula||'').trim()||Number(row.u_max)>0)){updated=mergeSheetData(character.data,{action:'useAbility',collection:change.collection,index:change.index});roll.used=true;if(gunbreakerAmmoAbilityCost(character.data,row)>0)roll.remainingInfusedAmmo=updated.gunbreakerAmmo.infused;else roll.remainingUses=updated[change.collection][change.index].u_curr;}
  if(updated)roll.characterRevision=character.revision+1;
  db.exec('BEGIN IMMEDIATE');try{
   if(entry&&db.prepare('SELECT revision FROM characters WHERE id=?').get(character.id)?.revision!==change.revision)throw Object.assign(Error('This character changed. Load the latest sheet.'),{httpStatus:409});
@@ -80,10 +81,10 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  const lines=['🎲 '+safe(character.name)+' — '+safe(label)];
  if(descriptionOnly){
   if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');
-  if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');
+  if(roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');
   lines.push(safe(row.desc||'No description.'));
   for(const [key,title]of Object.entries({type:'Type',lvl:'Level',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',spell_resist:'Spell resistance',damage:'Dice Roll',at_higher_lvls:'At higher levels'}))if(row[key]!==undefined&&row[key]!=='')lines.push(title+': '+safe(row[key]));
- }else if(entry){lines.push(...entryReceipt(roll));if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');}
+ }else if(entry){lines.push(...entryReceipt(roll));if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');if(roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');}
  else lines.push(diceLine(roll));
  // Send complete stored descriptions in bounded Discord messages. Receipt replay never resends or spends twice.
  const content=lines.join('\n').replaceAll('@','＠'),chunks=[];for(let start=0;start<content.length;){let end=Math.min(start+1900,content.length);if(end<content.length&&/[\uD800-\uDBFF]/.test(content[end-1]))end--;chunks.push(content.slice(start,end));start=end;}

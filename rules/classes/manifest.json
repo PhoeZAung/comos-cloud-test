@@ -21,14 +21,14 @@
       "id": "ffd20:class:chocobo-knight",
       "file": "rules/classes/chocobo-knight.class.json",
       "status": "live",
-      "adapter": "martial-level-one",
+      "adapter": "martial-progression",
       "coverage": "partial"
     },
     {
       "id": "ffd20:class:dancer",
       "file": "rules/classes/dancer.class.json",
       "status": "live",
-      "adapter": "martial-level-one",
+      "adapter": "martial-progression",
       "coverage": "partial"
     },
     {
@@ -62,9 +62,9 @@
     {
       "id": "ffd20:class:gunbreaker",
       "file": "rules/classes/gunbreaker.class.json",
+      "coverage": "partial",
       "status": "live",
-      "adapter": "martial-level-one",
-      "coverage": "partial"
+      "adapter": "martial-progression"
     }
   ]
 }

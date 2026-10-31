@@ -15,7 +15,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 | [Ghost Rider](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/ghost-rider/) | queued · source-review | Start of source review |
 | [Magitek Pilot](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/magitek-pilot/) | queued · source-review | Start of source review |
 | [Mikoshi Leader](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/mikoshi-leader/) | queued · source-review | Start of source review |
-| [Mog Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/mog-knight/) | live_partial · partial-live-support | Source-backed feature replacements and first-level creation verified. |
+| [Mog Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/mog-knight/) | live_partial · local-validation | Requested level 1–20 sheet support locally validated |
 | [Order of the Bird](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/order-of-the-bird/) | queued · source-review | Start of source review |
 | [Pegasus Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/pegasus-knight/) | queued · source-review | Start of source review |
 | [Tactician](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/archetypes/tactician/) | queued · source-review | Start of source review |
@@ -27,7 +27,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Akimbo](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/akimbo/) | queued · source-review | Start of source review |
+| [Akimbo](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/akimbo/) | queued · local-validation | Follow-up talent selections and owned resource bonuses validated |
 | [Coryphee](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/coryphee/) | queued · source-review | Start of source review |
 | [Dance Performer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/dance-performer/) | queued · source-review | Start of source review |
 | [Geodancer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/archetypes/geodancer/) | queued · source-review | Start of source review |
@@ -673,19 +673,19 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Bullet Hand](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/bullet-hand/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Crescent Warrior](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/crescent-warrior/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Crimsonbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/crimsonbreaker/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Guardian Corps](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/guardian-corps/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Gunbassist](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/gunbassist/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Gunstriker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/gunstriker/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Gunzerker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/gunzerker/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Legionnaire](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/legionnaire/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Professional Duelist](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/professional-duelist/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Shieldbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/shieldbreaker/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Sorceress Knight](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/sorceress-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Doom Slayer](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Space Marine](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/space-marine/) | queued · source-review | Start of source review · waiting for parent definition |
+| [Bullet Hand](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/bullet-hand/) | queued · source-review | Start of source review |
+| [Crescent Warrior](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/crescent-warrior/) | queued · source-review | Start of source review |
+| [Crimsonbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/crimsonbreaker/) | queued · source-review | Start of source review |
+| [Guardian Corps](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/guardian-corps/) | queued · source-review | Start of source review |
+| [Gunbassist](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/gunbassist/) | queued · source-review | Start of source review |
+| [Gunstriker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/gunstriker/) | queued · source-review | Start of source review |
+| [Gunzerker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/gunzerker/) | queued · source-review | Start of source review |
+| [Legionnaire](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/legionnaire/) | queued · source-review | Start of source review |
+| [Professional Duelist](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/professional-duelist/) | queued · source-review | Start of source review |
+| [Shieldbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/shieldbreaker/) | queued · source-review | Start of source review |
+| [Sorceress Knight](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/sorceress-knight/) | queued · source-review | Start of source review |
+| [Doom Slayer](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/) | queued · local-validation | Source-capacity ammo tracker and shared ability costs validated |
+| [Space Marine](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/space-marine/) | queued · source-review | Start of source review |
 
 ## Ninja (15)
 
