@@ -285,7 +285,7 @@ test('Beastkin saved official page has complete traits and unavailable partial a
  assert.deepEqual(r.data.alternateReplacements.filter(o=>o.resolution==='unresolved').map(o=>o.addsFeatureIds[0].split(':').at(-1)),['alluring','feral','light-build','loper']);
  b.raceId=r.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).int],[12,12,8]);
  assert.deepEqual(raceTraits(b).errors,[]);assert.equal(r.features.find(f=>f.name==='Hunter').effects.length,2);
- b.alternateIds=[r.id+':trait:alluring'];assert(raceTraits(b).errors.length>0);
+ b.alternateIds=[r.id+':trait:alluring'];assert.deepEqual(raceTraits(b).errors,[]);assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).int,effectiveScores(b).cha],[12,10,8,12]);
  b.alternateIds=[r.id+':trait:civilized'];assert.deepEqual(raceTraits(b).errors,[]);
  b.alternateIds=[r.id+':trait:civilized',r.id+':trait:influential'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
 });
