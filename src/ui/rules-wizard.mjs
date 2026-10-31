@@ -9,7 +9,7 @@ import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRaci
 import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
-import {MUTANT_ID,mutantEmptyRolls,mutantD100State,mutantD6State,mutantResistanceName,mutantIsDefense} from '../features/characters/rules/mutant-progression.mjs';
+import {MUTANT_ID,MUTANT_TABLE,MUTANT_PHYSICAL,mutantEmptyRolls,mutantD100State,mutantD6State,mutantResistanceName,mutantIsDefense} from '../features/characters/rules/mutant-progression.mjs';
 import {registry,spellsForBuild,availableClasses,classFor,className,classSkill,newBuild,prepareLevelUp,steps,stats,raceFor,raceTraits,replacementFor,racialClassSkill,effectiveScores,choiceEvents,eligibleOptions,calculated,spellCounts,buildIssues,previewBuild,hpHistory,classFeatureChanges,hasSpellcasting,buildLevel,carryCharacter} from '../features/characters/rules/build.mjs';
 import {pointSpend,standardArray,rollScores,moveScoreToken} from '../features/characters/ability-generation.mjs';
 import {fixedSkills} from '../features/sheet/skills.mjs';
@@ -44,7 +44,7 @@ const traitReview=(race,id)=>{
  }
  if(race.data.alternateTraitIds.includes(id)){
   if(replacementRequiresWizard(race,f))return 'This trait changes automatic ability scores and needs a verified choice control.';
- }else if(f.choicePoolIds?.some(id=>!supportsRacialPool(id)))return 'This trait requires a choice the wizard cannot yet record.';
+ }else if(f.choicePoolIds?.some(id=>!supportsRacialPool(id)&&!(race.id===MUTANT_ID&&[MUTANT_TABLE,MUTANT_PHYSICAL].includes(id))))return 'This trait requires a choice the wizard cannot yet record.';
  return manualReviewTraits.get(id)||'';
 };
 const heritageReview=(h,race)=>isSupportedRaceHeritage(race,h)?'':'This heritage needs a verified replacement, automatic ability-score vector, or a required choice control.';
