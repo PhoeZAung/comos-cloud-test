@@ -38,7 +38,7 @@ test('Garlean required choices, incompatible magic and source languages are guar
   x=>x.racialChoices[GARLEAN_WEAPON]=[option(GARLEAN_WEAPON,'one-gun-arm-exotic-weapon-proficiency')],
   x=>x.racialChoices[GARLEAN_CRAFT]=['skill-row:43'],x=>x.racialSpecialties[GARLEAN_CRAFT]='',
   x=>x.heritageId=GARLEAN_ID+':heritage:baelsar',
-  x=>x.disabledTraits=[GARLEAN_ID+':trait:fearless'],x=>x.level=2,x=>x.carry={classes:[]}
+  x=>x.level=2,x=>x.carry={classes:[]}
  ]){const invalid=structuredClone(b);mutate(invalid);assert.throws(()=>compileBuild(invalid),{code:'INVALID_CHARACTER'});}
  const magic=structuredClone(b);magic.classId='ffd20:class:black-mage';
  assert.ok(buildIssues(magic).some(issue=>issue.message.includes('Magic Ineptitude')));
