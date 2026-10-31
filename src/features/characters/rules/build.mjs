@@ -194,13 +194,7 @@ export function buildIssues(b,{complete=true}={}){
  }
  if(race?.id==='ffd20:race:loporrit'){
   const active=new Set(raceTraits(b).traits.map(f=>f.id));
-  for(const [trait,description] of [['handy','Handy Craft/Profession specialty'],['explorer','Explorer Knowledge specialty'],['hydaelyns-spark','Hydaelyn Spark skill'],['purpose-driven','Purpose-Driven class skill']])if(active.has('ffd20:race:loporrit:trait:'+trait))add(2,'Loporrit '+description+' requires an explicit racial skill selection; current wizard cannot store it, so save is blocked.');
- }
- if(race?.id==='ffd20:race:matanga'){
-  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:matanga:trait:academic'))add(2,'Matanga Academic requires one chosen Knowledge specialty, not yet stored by the wizard; character save is blocked.');
- }
- if(race?.id==='ffd20:race:orc'){
-  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:orc:trait:skill-bonus'))add(2,'Orc Skill Bonus requires choosing either +2 Acrobatics or +1 Climb and Jump. Race choice UI is unsupported and save is blocked until recorded.');
+  for(const [trait,description] of [['explorer','Explorer Knowledge specialty'],['hydaelyns-spark','Hydaelyn Spark skill'],['purpose-driven','Purpose-Driven class skill']])if(active.has('ffd20:race:loporrit:trait:'+trait))add(2,'Loporrit '+description+' requires an explicit racial skill selection; current wizard cannot store it, so save is blocked.');
  }
  if(race?.id==='ffd20:race:sahagin'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:sahagin:trait:tempered'))add(2,'Sahagin Tempered requires choosing either water or ice resistance. Race choice storage is not implemented; save is blocked.');
