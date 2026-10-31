@@ -65,3 +65,19 @@ test('main navigation hides Languages page without removing language choices fro
  assert.doesNotMatch(html,/href="languages\.html"/);
  assert.doesNotMatch(html,/>Languages<\/a>/);
 });
+
+
+test('Cosmos is displayed in the landing page, navigation and install manifest', async()=>{
+ const {renderPage}=await import('../src/layouts/site.mjs');
+ const {default:landing}=await import('../src/pages/index.mjs');
+ const {default:home}=await import('../src/pages/home.mjs');
+ const landingHtml=renderPage(landing);
+ const homeHtml=renderPage(home);
+ const manifest=JSON.parse(await readFile(new URL('../public/manifest.webmanifest',import.meta.url),'utf8'));
+ assert.match(landingHtml, /WELCOME TO COSMOS/);
+ assert.ok(landingHtml.includes('<title>Cosmos · A universe of stories</title>'));
+ assert.match(homeHtml, /Install Cosmos/);
+ assert.ok(homeHtml.includes('>Cosmos</span>'));
+ assert.equal(manifest.name,'Cosmos');
+ assert.equal(manifest.short_name,'Cosmos');
+});
