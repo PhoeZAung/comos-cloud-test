@@ -124,7 +124,7 @@ test('Forgiven Scion removes Celestial only, retains outsider/native and all oth
  const plain=compileBuild(standard),compiled=compileBuild(modified);
  assert.match(plain.languages,/Celestial/);
  assert.equal(compiled.languages,'Common');
- assert.equal(compiled.racialIdentity.type,'Outsider');
+ assert.equal(compiled.racialIdentity.type,'outsider');
  assert.deepEqual(compiled.racialIdentity.subtypes,['native']);
  assert.ok(compiled.racialAbilities.some(x=>x.sourceRuleId===id('forgiven','scion-of-mortality')));
  const reopened=compileBuild(compiled.rulesBuild.input,compiled);
