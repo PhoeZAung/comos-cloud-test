@@ -24,6 +24,7 @@ export function familyFixture(classId,archetypeId=''){
  if(b.raceId==='ffd20:race:palico'){const id='ffd20:race:palico:pool:starting-second-language';b.racialChoices[id]=[id+':option:mithran'];}
  if(b.raceId==='ffd20:race:kindred'){const id='ffd20:race:kindred:pool:languages-selection';b.racialChoices[id]=[id+':option:abyssal'];}
  if(b.raceId==='ffd20:race:gria'){const id='ffd20:race:gria:pool:weapon-focus-weapon';b.racialChoices[id]=[id+':option:longbow'];}
+ if(b.raceId==='ffd20:race:viera'){const id='ffd20:race:viera:pool:elemental-summoner-subtype';b.racialChoices[id]=[id+':option:wind'];}
  if(b.raceId==='ffd20:race:moogle'){const id='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';b.racialChoices[id]=['skill-row:4'];b.racialSpecialties[id]='Woodworking';}
  b.hpRolls=[classFor(b).data.hitDie];return completeFamilyBuild(b);
 }
