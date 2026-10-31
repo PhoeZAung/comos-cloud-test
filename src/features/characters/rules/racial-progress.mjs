@@ -51,7 +51,15 @@ const standardTraitActive=(b,raceId,slug)=>{
 };
 export const humeTraitActive=(b,slug)=>standardTraitActive(b,HUME_ID,slug);
 export const racialSkillRanks=(b,level)=>humeTraitActive(b,'skilled')?level:standardTraitActive(b,GARIF_ID,'pastoralist')&&level===1&&!b.carry?1:standardTraitActive(b,AL_BHED_ID,'mechanical-genius')&&level>=1?1:0;
-export const racialCounter=(b,feature)=>b?.raceId==='ffd20:race:galka'&&(b.alternateIds||[]).includes('ffd20:race:galka:feature:tenacious')&&feature.id==='ffd20:race:galka:feature:tenacious'?{maximum:1}:[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'eternal-hope'],[AU_RA_ID,'ferocity']].some(([race,slug])=>standardTraitActive(b,race,slug)&&feature.id===race+':trait:'+slug)?{maximum:1}:null;
+// Each Sylph Fey Magic SLA has its own explicit counter. Weekly uses do
+// not refill on daily/long rests; sheet users reset at the appropriate week.
+export const racialCounter=(b,feature)=>{
+ if(b?.raceId==='ffd20:race:sylph'&&standardTraitActive(b,b.raceId,'fey-magic')){
+  const prefix=b.raceId+':trait:fey-magic:uses:';
+  if(feature.id===prefix+'hidden-presence')return {maximum:1};
+  if(['charm','lesser-confusion','sleep'].some(x=>feature.id===prefix+x))return {maximum:3};
+ }
+ return b?.raceId==='ffd20:race:galka'&&(b.alternateIds||[]).includes('ffd20:race:galka:feature:tenacious')&&feature.id==='ffd20:race:galka:feature:tenacious'?{maximum:1}:[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'eternal-hope'],[AU_RA_ID,'ferocity']].some(([race,slug])=>standardTraitActive(b,race,slug)&&feature.id===race+':trait:'+slug)?{maximum:1}:null;};
 export function applyRacialFlatStats(next,previous,b){
  for(const [key,owner,bonus] of [
   ['init_temp','racialInitiativeBonus',(standardTraitActive(b,MITHRA_ID,'fleet-footed')||standardTraitActive(b,BEASTKIN_ID,'fleet-footed'))?2:0],
