@@ -1,3 +1,4 @@
+import {redMageCounter} from './red-mage-level-one.mjs';
 import {DOOM_SLAYER_ID,GUNBREAKER_ID,martialDefinition,martialArchetype,supportsMartialProgression,martialChoicePools,martialSelectedFeatures,martialProgressionIssues,martialCounter} from './martial-progression.mjs';
 import {classCatalog} from './class-catalog.mjs';
 import {BEASTMASTER_ID,isBeastmaster,beastmasterClass,beastmasterFeatures,beastmasterIssues} from './beastmaster-level-one.mjs';
@@ -43,7 +44,7 @@ export function levelOnePreview(b,{scores,race,racial,hpRolls}){
   hp:hpRolls.reduce((sum,n)=>sum+Math.max(1,n+mod(scores.con)),0)+levelOneExtraHp(b,scores),skillBudget:Math.max(1,4+mod(scores.int))*b.level};
 }
 
-export const levelOneCounter=(b,feature,scores)=>martialCounter(b,feature,scores)||(b.classId===KNIGHT_ID&&feature.id===KNIGHT_ID+':feature:defensive-stance'?{maximum:Math.max(0,4+Math.floor((scores.con-10)/2))}:null);
+export const levelOneCounter=(b,feature,scores)=>redMageCounter(b,feature,scores)||martialCounter(b,feature,scores)||(b.classId===KNIGHT_ID&&feature.id===KNIGHT_ID+':feature:defensive-stance'?{maximum:Math.max(0,4+Math.floor((scores.con-10)/2))}:null);
 
 export function levelOneIssues(b,{complete=true}={}){
  if(isBeastmaster(b))return beastmasterIssues(b,{complete});

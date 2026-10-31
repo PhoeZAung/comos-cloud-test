@@ -1,5 +1,10 @@
 # Requested Moogle / Galka / Immortal martial setup
 
+Published October 31, 2026 in PR #33 (49f46b5), now included in the successful
+production release b864d2a. Public assets and health verified; no real Firebase
+account login performed. See `martial-progression-publication.md` and its JSON
+evidence. The following local notes describe implementation checkpoints.
+
 Latest local continuation (October 31, 2026): 417 tests and build:cloud pass.
 See `gunbreaker-ammunition-tracker.md` for the new optional, capacity-aware
 Gunbreaker/Doom Slayer tracker. Unconfigured manual counters retain their prior
@@ -25,7 +30,7 @@ Options whose prerequisites cannot be proved by the current owned feature and
 choice model stay unavailable. Bonus combat feat subchoices, weapon specialisms,
 and reconfigurable Gunsmith modifications require manual adjudication. This is
 level 1–20 sheet support, not complete automatic combat or independent review of
-every option. Definitions retain needs_review / partial coverage. No deployment, real Firebase login or production account access has been performed. Existing Gunbreaker talent event/option IDs, ability IDs and manually recorded starting equipment remain compatible; legacy imports are not assigned a guessed weapon.
+every option. Definitions retain needs_review / partial coverage. At the original local checkpoint, no deployment or real Firebase login had been performed. Publication is now verified as recorded above; production account access remains untested. Existing Gunbreaker talent event/option IDs, ability IDs and manually recorded starting equipment remain compatible; legacy imports are not assigned a guessed weapon.
 
 Validation: Node 24.22.2; npm ci; all 403 tests pass; build:cloud passes; local
 static preview GET /create-class.html returns HTTP 200. The original baseline
@@ -43,5 +48,5 @@ and the level 19–20 capacity rule. Modified weapons and multi-magazine handlin
 remain manual.
 Starting gun-arm recording is optional to preserve existing manual equipment.
 
-The queue retains prior deployment states. New scope is recorded as locally
-validated, never as a fresh deployment or full independent source review.
+The queue now records the bounded deployed scope and publication evidence.
+It does not claim full independent source review or real account verification.

@@ -47,7 +47,7 @@ test('Level 2 requires exactly one sourced talent and applies correct Doom Slaye
   assert(after.passiveAbilities.some(f=>f.name==='Ranged Combat Training'));
   assert(after.feats.some(f=>f.name==='Precise Shot'));
   assert.throws(()=>levelUpBuild({...second,level:3,hpRolls:[10,6,6]},after),/skill points|valid|cannot/);
-  assert.throws(()=>levelUpBuild({...second,alternateIds:['ffd20:race:galka:feature:wary']},firstSheet),/cannot change alternateIds/);
+  assert.throws(()=>levelUpBuild({...second,alternateIds:['ffd20:race:galka:feature:wary']},firstSheet),/cannot change alternate racial traits/);
  }
  const b=make(DOOM_SLAYER_ID);assert(buildIssues({...b,archetypeId:'other'}).some(x=>/not enabled/.test(x.message)));
  assert(buildIssues({...b,level:21}).some(x=>/1 to 20/.test(x.message)));

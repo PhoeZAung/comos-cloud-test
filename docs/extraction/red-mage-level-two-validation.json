@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-31T15:52:00.304Z",
+  "fixtureOnly": true,
+  "productionLoginTested": false,
+  "productionDataChanged": false,
+  "browserLevelOneToTwo": true,
+  "selectedTalent": "Concentrate",
+  "learnedSpells": [
+    "Cure",
+    "Fire"
+  ],
+  "reopenVerified": true,
+  "savedChoicesDisabled": true,
+  "rubyTalentSourceVerified": true,
+  "observedSavedScreen": "Saved Fresh red-mage\n\nRed Mage level 2\n\nCHA 16; HP 13\n\nLevel up Reopen build\nOwned abilities\nDual Spellcasting maximum 1\nFlexibility maximum 1\nSpell Combat\nArcane Pool maximum 4\nSpellstrike\nConcentrate maximum 1\nSpells\nRed Magery\nSpell Proficiency\nCantrips\nArmored Mage\nRuby Talents\nQuick Mind",
+  "databaseReopenVerified": true,
+  "persistedLevel": 2,
+  "persistedSpells": 10,
+  "arcanePoolMaximum": 4,
+  "castingProfile": {
+    "className": "Red Mage",
+    "mode": "full",
+    "ability": "cha",
+    "casterLevel": 2,
+    "highestSpellLevel": 1
+  },
+  "testsPassed": 434,
+  "cloudBuild": "passed"
+}

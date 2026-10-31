@@ -1,0 +1,157 @@
+{
+  "checkedAt": "2026-10-31T14:52:30.096414+00:00",
+  "deployedCommit": "b864d2ac7acf73d2eeb7799ab6497a4909622c65",
+  "requestedBatchMergeCommit": "49f46b5c8944b8a49b5b724c984abb792c79d3f8",
+  "headCommit": "83444a65b69e372207db05325ac1fe3b5e62f9c1",
+  "pullRequest": "https://github.com/PhoeZAung/comos-cloud-test/pull/33",
+  "baseURL": "https://feisty-freedom-production-304e.up.railway.app",
+  "branchCI": 41177622886,
+  "mainCI": 41180154151,
+  "testsPassed": 420,
+  "assets": [
+    {
+      "path": "assets/rules-wizard.mjs",
+      "status": 200,
+      "expectedSha256": "0ceb6b81206660ecd837e5fc3fd07edc921b337423fcd802556b1d92bb8ee87f",
+      "actualSha256": "0ceb6b81206660ecd837e5fc3fd07edc921b337423fcd802556b1d92bb8ee87f",
+      "matches": true
+    },
+    {
+      "path": "assets/sheet.mjs",
+      "status": 200,
+      "expectedSha256": "68f6c3ab62f0727f9a8f8f99557d7e3c31e266b4e4d2f197b495f9eed5debe22",
+      "actualSha256": "68f6c3ab62f0727f9a8f8f99557d7e3c31e266b4e4d2f197b495f9eed5debe22",
+      "matches": true
+    },
+    {
+      "path": "assets/sheet.css",
+      "status": 200,
+      "expectedSha256": "b19584c201a2a32d2feb66b21e0a6a8e454cc3459049c50c20a1920931811888",
+      "actualSha256": "b19584c201a2a32d2feb66b21e0a6a8e454cc3459049c50c20a1920931811888",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/build.mjs",
+      "status": 200,
+      "expectedSha256": "ad9675060c9a52640cab4eed257e5f27bdf67be9dfc3ff89572ba261f0494caa",
+      "actualSha256": "ad9675060c9a52640cab4eed257e5f27bdf67be9dfc3ff89572ba261f0494caa",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/class-adapters.mjs",
+      "status": 200,
+      "expectedSha256": "cd65b855a11f19ce90e46b7a7fc8f451bf5ce164a492b4156c6a558c665a6036",
+      "actualSha256": "cd65b855a11f19ce90e46b7a7fc8f451bf5ce164a492b4156c6a558c665a6036",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/level-one-classes.mjs",
+      "status": 200,
+      "expectedSha256": "0f20358ae64290f5f4bf1b73adc405be5beb7929f61288cc4400781f9aa62513",
+      "actualSha256": "0f20358ae64290f5f4bf1b73adc405be5beb7929f61288cc4400781f9aa62513",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/class-catalog.mjs",
+      "status": 200,
+      "expectedSha256": "e92ce4b78eccde8db8527aa88af7126c14e8dbc89a77078e6b292e9a3c3cedfa",
+      "actualSha256": "e92ce4b78eccde8db8527aa88af7126c14e8dbc89a77078e6b292e9a3c3cedfa",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/martial-progression.mjs",
+      "status": 200,
+      "expectedSha256": "c73450c2c29ad487422fce87199e560f802ed3ae50947fc29086473cb6b7737d",
+      "actualSha256": "c73450c2c29ad487422fce87199e560f802ed3ae50947fc29086473cb6b7737d",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/martial-contract.mjs",
+      "status": 200,
+      "expectedSha256": "7afc7ebc2ac05f7254956b75bad74afadd3310366dc1ebd519f4573b88f852b0",
+      "actualSha256": "7afc7ebc2ac05f7254956b75bad74afadd3310366dc1ebd519f4573b88f852b0",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/gunbreaker-ammo.mjs",
+      "status": 200,
+      "expectedSha256": "88d3f9cd4fe68dff4ff089c91d2ce01d24fb1389c8c74ec9951d4f3e64c86c39",
+      "actualSha256": "88d3f9cd4fe68dff4ff089c91d2ce01d24fb1389c8c74ec9951d4f3e64c86c39",
+      "matches": true
+    },
+    {
+      "path": "features/characters/managed-stats.mjs",
+      "status": 200,
+      "expectedSha256": "ebd0b81c2d6248d4f792eae3f4ccae007a658db703e6549cd516848664688f3b",
+      "actualSha256": "ebd0b81c2d6248d4f792eae3f4ccae007a658db703e6549cd516848664688f3b",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/races.mjs",
+      "status": 200,
+      "expectedSha256": "30b6974da2bb89bfb4b52e2bdfcb03a6292b1aa1c130307cab2cba67d898f348",
+      "actualSha256": "30b6974da2bb89bfb4b52e2bdfcb03a6292b1aa1c130307cab2cba67d898f348",
+      "matches": true
+    },
+    {
+      "path": "features/sheet/gunbreaker-ammo-view.mjs",
+      "status": 200,
+      "expectedSha256": "7130b0ef28532786d4c6adff2709419deed173c6b0dcee969eb1830a34f5ebfa",
+      "actualSha256": "7130b0ef28532786d4c6adff2709419deed173c6b0dcee969eb1830a34f5ebfa",
+      "matches": true
+    },
+    {
+      "path": "features/sheet/view.mjs",
+      "status": 200,
+      "expectedSha256": "dc9b216fba9120dc91670f4410aeb1c7e9fbbec21a253de181aeccb6887b06c5",
+      "actualSha256": "dc9b216fba9120dc91670f4410aeb1c7e9fbbec21a253de181aeccb6887b06c5",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/racial-choices.mjs",
+      "status": 200,
+      "expectedSha256": "5f6d1ef2bfa0f0f60122a32287ac7980361a6ef3cb40394be90d842baabdee4b",
+      "actualSha256": "5f6d1ef2bfa0f0f60122a32287ac7980361a6ef3cb40394be90d842baabdee4b",
+      "matches": true
+    },
+    {
+      "path": "features/characters/rules/racial-progress.mjs",
+      "status": 200,
+      "expectedSha256": "c9ea48518c5c66d1c54570d6bc5be0bd4b102950485a47a8dd353a750bb18987",
+      "actualSha256": "c9ea48518c5c66d1c54570d6bc5be0bd4b102950485a47a8dd353a750bb18987",
+      "matches": true
+    }
+  ],
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "apiVersion": 1,
+      "database": "ready",
+      "schemaVersion": 20,
+      "authentication": "configured"
+    }
+  },
+  "unauthenticatedPrivateRead": {
+    "path": "api/v1/my/characters",
+    "status": 401,
+    "denied": true
+  },
+  "productionProviderLoginTested": false,
+  "verified": true,
+  "railway": {
+    "projectId": "26429355-f03a-4857-b033-cf4a90ac2a17",
+    "environmentId": "ad3559c8-8ac9-4cdd-809c-a8ea24317ee1",
+    "serviceId": "5cbe8adc-1b1f-4f88-bbb0-d6d45f2d5e8f",
+    "deploymentId": "88631e23-6f00-417f-a05f-627f516fc901",
+    "status": "SUCCESS",
+    "runningReplicas": 1,
+    "crashedReplicas": 0,
+    "pendingWork": []
+  },
+  "verificationLimits": [
+    "Public assets, health and unauthenticated access checks only; no real Firebase account login or production character mutation.",
+    "Level 1\u201320 sheet support retains manual/guarded combat, equipment and prerequisite limits.",
+    "Current release b864d2a includes requested batch 49f46b5 and the separately merged Garif PR #34."
+  ]
+}
