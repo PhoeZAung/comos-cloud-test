@@ -77,7 +77,7 @@ export function raceTraits(b){
     for(const id of op.addsFeatureIds||[])active.add(id);
    continue;
   }
-  for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
+  for(const id of op.targetFeatureIds){if(consumed.has(id))errors.push('Two selections replace '+(r.features.find(f=>f.id===id)?.name||id)+'.');if(disabled.has(id)&&b.alternateIds.some(aid=>op.addsFeatureIds.includes(aid)))errors.push('Cannot replace an already disabled racial trait: '+(r.features.find(f=>f.id===id)?.name||id)+'.');consumed.add(id);active.delete(id);}
   // A user-disabled score/trait stays disabled when a heritage replaces its vector.
   if(!op.targetFeatureIds.some(id=>disabled.has(id)))for(const id of op.addsFeatureIds)active.add(id);
  }
