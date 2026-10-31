@@ -1,6 +1,6 @@
 export default {
   "id": "sheet-abilities",
-  "title": "Abilities · Comos",
+  "title": "Abilities · Cosmos",
   "bodyClass": "sheet",
   "layout": "sheet",
   "activeMain": "sheet-abilities",

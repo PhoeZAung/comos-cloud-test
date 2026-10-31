@@ -1,6 +1,6 @@
 export default {
   "id": "sheet",
-  "title": "Character sheet · Comos",
+  "title": "Character sheet · Cosmos",
   "bodyClass": "sheet",
   "layout": "sheet",
   "activeMain": "sheet",

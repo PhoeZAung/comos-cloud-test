@@ -1,6 +1,6 @@
 export default {
   "id": "sheet-shop",
-  "title": "Shop · Comos",
+  "title": "Shop · Cosmos",
   "bodyClass": "sheet",
   "layout": "sheet",
   "activeMain": "sheet-shop",

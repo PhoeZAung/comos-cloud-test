@@ -23,7 +23,7 @@ const db = await openDatabase(config.databasePath);
 let auth;
 try { auth = await initializeAuthentication({ db,mediaRoot:config.mediaRoot }); } catch { db.close(); throw new Error('Firebase server authentication failed. Check private credentials and project settings.'); }
 const server = createApiServer({ db, directoryRoutes:auth.directoryRoutes, loreRoutes:auth.loreRoutes, loreImageRoutes:auth.loreImageRoutes, characterLibraryRoutes:auth.characterLibraryRoutes, homeMediaRoutes:auth.homeMediaRoutes, backupRoutes:auth.backupRoutes, replyRoutes:auth.replyRoutes, postsRoutes:auth.postsRoutes, itemsRoutes:auth.itemsRoutes, charactersRoutes:auth.charactersRoutes, sessionRoutes: auth.sessionRoutes, groupsRoutes:auth.groupsRoutes,accountRoutes:auth.accountRoutes, staticHandler: await createStaticHandler(publicRoot) });
-server.listen(port, '0.0.0.0', () => console.log('Comos cloud server ready.'));
+server.listen(port, '0.0.0.0', () => console.log('Cosmos cloud server ready.'));
 let closing = false;
 function close() { if (closing) return; closing = true; server.close(() => { db.close(); void auth.close(); }); server.closeIdleConnections(); }
 process.on('SIGTERM', close);

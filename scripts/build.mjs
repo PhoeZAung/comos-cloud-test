@@ -44,7 +44,7 @@ for (const [id, html] of pages) await writeFile(new URL(`dist/${id}.html`, root)
 await writeFile(new URL('dist/assets/site.css', root), styles.join('\n'));
 await writeFile(new URL('dist/assets/sheet.css',root),(await Promise.all(['tokens.css','themes.css','sheet-base.css','sheet.css','item-categories.css'].map(file=>readFile(new URL('src/styles/'+file,root),'utf8')))).join('\n'));
 await writeFile(new URL('dist/assets/feedback.css',root),await readFile(new URL('src/styles/feedback.css',root)));
-console.log(`Built ${pages.length} Comos pages in isolated fixture preview mode.`);
+console.log(`Built ${pages.length} Cosmos pages in isolated fixture preview mode.`);
 
 for (const file of ['feedback.mjs','shell.mjs','router.mjs','install.mjs','session.mjs','preferences.mjs','groups.mjs','items.mjs','record-id.mjs','lore.mjs','lore-draft.mjs','lore-draft-controller.mjs','lore-compose.mjs','lore-entry.mjs','feed.mjs','compose.mjs','post-thread.mjs','directory.mjs','character-view.mjs','rules-wizard.mjs','sheet.mjs','sheet-entry.mjs','character-library.mjs','admin-icons.mjs']) await writeFile(new URL('dist/assets/'+file,root),await readFile(new URL('src/ui/'+file,root)));
 await writeFile(new URL('dist/assets/galaxy.mjs',root),await readFile(new URL('src/effects/galaxy.mjs',root)));
