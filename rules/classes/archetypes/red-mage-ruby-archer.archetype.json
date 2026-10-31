@@ -486,6 +486,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:acute-senses",
             "name": "Acute Senses",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Free-action Perception reroll; must take new result.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -502,6 +503,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:ambushing-shot",
             "name": "Ambushing Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Act as initiative 20 in surprise round, but only one bow/crossbow attack action; normal initiative thereafter.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -518,6 +520,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:arrow-splitter",
             "name": "Arrow-Splitter",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "+1 ranged attack vs targets at least two sizes smaller; ranged attacks deal full damage to objects.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -534,6 +537,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:blood-reader",
             "name": "Blood Reader",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "While seeing a living aimed target, know its remaining hit points.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -550,6 +554,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:chameleon-step",
             "name": "Chameleon Step",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Move up to double speed as move action without Stealth movement penalty; 3 + DEX mod uses/day.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -566,6 +571,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:camouflage",
             "name": "Camouflage",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "After 1 minute preparing natural foliage gain +4 Stealth matching the surroundings until disrupted.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -582,6 +588,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:close-ranged-sniper",
             "name": "Close-Ranged Sniper",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Gain Point Blank Shot or Far Shot/Precise Shot if already known.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -598,6 +605,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:combat-trick",
             "name": "Combat Trick",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Gain one combat feat; this talent may only be selected once.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -614,6 +622,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:critical-genius",
             "name": "Critical Genius",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Choose one bow/crossbow; critical threat 19\u201320 and multiplier x2. At Archer 12 becomes 18\u201320; extra BAB damage after a crit on attack action.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -630,6 +639,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:defensive-bow-stance",
             "name": "Defensive Bow Stance",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Swift action: bow/crossbow attacks do not provoke until next turn.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -646,6 +656,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:defensive-grace",
             "name": "Defensive Grace",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Once per encounter add Aim bonus to CMD and ranged-target-specific dodge AC; Take Aim doubles it.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -662,6 +673,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:expert-initiative",
             "name": "Expert Initiative",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Reroll initiative once per day, must accept new result.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -678,6 +690,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:expert-tracker",
             "name": "Expert Tracker",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "No Survival tracking penalty at full movement speed.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -694,6 +707,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:extended-ambush",
             "name": "Extended Ambush",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "In surprise round, a ranged attack against surprised target allows free action Aim.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -710,6 +724,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:flee",
             "name": "Flee",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Move away from designated opponent without provoking their opportunity attack; brief +10 speed.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -726,6 +741,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:greater-targeted-shot",
             "name": "Greater Targeted Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "If a Targeted Shot deals at least half of target HP and 40 damage, double its effects and duration.\nCheck the source prerequisites manually.",
             "minimumLevel": 10,
             "repeatLimit": 1,
@@ -742,6 +758,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:greater-intercept",
             "name": "Greater Intercept",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "On deflecting an arrow, redirect it to another target within 30 ft.\nCheck the source prerequisites manually.",
             "minimumLevel": 18,
             "repeatLimit": 1,
@@ -758,6 +775,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:grounding-shot",
             "name": "Grounding Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Ignore usual penalty shooting prone targets; +2 damage vs prone targets.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -774,6 +792,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:hateful-attack",
             "name": "Hateful Attack",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Swift-action automatic confirmation of a ranged critical threat.\nCheck the source prerequisites manually.",
             "minimumLevel": 8,
             "repeatLimit": 1,
@@ -790,6 +809,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:hide-in-plain-sight",
             "name": "Hide in Plain Sight",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Use Stealth even when observed.\nCheck the source prerequisites manually.",
             "minimumLevel": 10,
             "repeatLimit": 1,
@@ -806,6 +826,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:hunters-target",
             "name": "Hunter's Target",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Once/encounter swift designated target; on ranged hit gain +half Archer level damage vs that target.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -822,6 +843,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:improved-targeted-shot",
             "name": "Improved Targeted Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Reduce Targeted Shot attack penalty by 2.\nCheck the source prerequisites manually.",
             "minimumLevel": 6,
             "repeatLimit": 1,
@@ -838,6 +860,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:improved-intercept",
             "name": "Improved Intercept",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Forgo full-attack shot to intercept before next turn as immediate action.\nCheck the source prerequisites manually.",
             "minimumLevel": 10,
             "repeatLimit": 1,
@@ -854,6 +877,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:intercept-arrow",
             "name": "Intercept Arrow",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Ready a bow/crossbow attack to deflect incoming ranged weapon attack within 30 ft by opposed attack roll.\nCheck the source prerequisites manually.",
             "minimumLevel": 4,
             "repeatLimit": 1,
@@ -870,6 +894,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:long-strides",
             "name": "Long Strides",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "+10 speed in light/no armor; add +10 to natural fly/climb/swim modes.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -886,6 +911,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:marauders-step",
             "name": "Marauder's Step",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "With Shot on the Run feat: move half speed before ranged full-attack, under armor/load restrictions.\nCheck the source prerequisites manually.",
             "minimumLevel": 8,
             "repeatLimit": 1,
@@ -902,6 +928,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:nowhere-to-run",
             "name": "Nowhere to Run",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Opportunity attack when designated Hunter's Target withdraws.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -918,6 +945,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:piercing-shot",
             "name": "Piercing Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Standard action: shoot along weapon range increment, attack every creature in line; only first gets a confirmed crit.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -934,6 +962,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:reset-initiative",
             "name": "Reset Initiative",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Once/encounter after first round change initiative to current+5.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -950,6 +979,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:saving-grace",
             "name": "Saving Grace",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Once/encounter add aimed-target bonus to saving throws vs attacks by that target; Take Aim doubles.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -966,6 +996,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:second-chance-shot",
             "name": "Second Chance Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Immediate action reroll missed ranged attack with -5 penalty.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -982,6 +1013,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:secondary-target",
             "name": "Secondary Target",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "On ranged miss redirect to another enemy within 20 feet of original target.\nCheck the source prerequisites manually.",
             "minimumLevel": 14,
             "repeatLimit": 1,
@@ -998,6 +1030,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:shared-precision",
             "name": "Shared Precision",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Requires Precise Shot feat; grant nearby allies Precise Shot against the struck target for 1 round.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1014,6 +1047,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:sure-footing",
             "name": "Sure Footing",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "+5 Acrobatics in narrow-surface or loose-ground movement conditions.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1030,6 +1064,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:sure-shot",
             "name": "Sure Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Full-round shot up to third range increment, target flat-footed, ignore DR unless target has Uncanny Dodge.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1046,6 +1081,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:surge",
             "name": "Surge",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Once/encounter swift move up to speed.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1062,6 +1098,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:surprise-shift",
             "name": "Surprise Shift",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Swift 5-foot move without provoking or consuming normal 5-foot step.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1078,6 +1115,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:swift-strider",
             "name": "Swift Strider",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Once/encounter each: Blurring Burst (+2 Reflex), Sudden Assault (charge), Weaving Stride (conditional +2 AC per AoO).\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1094,6 +1132,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:threatening-shot",
             "name": "Threatening Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Threaten first range increment for flanking only, not opportunity attacks; not adjacent.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1110,6 +1149,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:vantage-point",
             "name": "Vantage Point",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "When wholly above enemy ignore range penalties and low cover lacking height.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1126,6 +1166,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:weak-point",
             "name": "Weak Point",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Once/encounter swift ignore one visible target's DR for the rest of turn.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1142,6 +1183,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:without-a-trace",
             "name": "Without a Trace",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Requires Evasion class feature; when Evasion avoids damage, immediate Stealth at -20 plus +1 per avoided damage die.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1158,6 +1200,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:aiding-shot",
             "name": "Aiding Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "On ranged hit grant allies +2 circumstance attack versus struck target until next turn.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1174,6 +1217,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:distracting-shot",
             "name": "Distracting Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "On bow/crossbow hit impose -2 enemy attack for one round.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1190,6 +1234,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:hobbling-shot",
             "name": "Hobbling Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "On hit halve enemy land speed 1 min if Fort DC 10 + half Archer level + DEX mod fails.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1206,6 +1251,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:keen-shot",
             "name": "Keen Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Ignore concealment penalty but not total concealment.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1222,6 +1268,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:splitshot",
             "name": "Splitshot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Two arrows/bolts at two targets from one attack action with -2 penalty; target separation scales with BAB.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1238,6 +1285,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:surprise-shot",
             "name": "Surprise Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Immediate ranged shot when initiative rolled, if holding loaded weapon.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1254,6 +1302,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:tangling-shot",
             "name": "Tangling Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "On hit enemy becomes entangled for one round unless Fort save succeeds.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,
@@ -1270,6 +1319,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:trick-shot",
             "name": "Trick Shot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Learn disarm/feint/sunder shots at level 6; extra trick every four levels; bull rush/grapple/trip options from level 14.\nCheck the source prerequisites manually.",
             "minimumLevel": 6,
             "repeatLimit": 1,
@@ -1286,6 +1336,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:two-with-one-blow",
             "name": "Two with One Blow",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Use bow/crossbow attack at -4 vs two adjacent opponents; separate damage and crit confirms.\nCheck the source prerequisites manually.",
             "minimumLevel": 4,
             "repeatLimit": 1,
@@ -1302,6 +1353,7 @@
           {
             "id": "ffd20:archetype:red-mage:ruby-archer:archery-talent:weak-spot",
             "name": "Weak Spot",
+            "url": "https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/",
             "description": "Ranged touch attack versus same/larger target but forfeit ability modifier damage bonus.\nCheck the source prerequisites manually.",
             "minimumLevel": 2,
             "repeatLimit": 1,

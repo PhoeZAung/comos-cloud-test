@@ -192,11 +192,11 @@ for path in sorted((base/'archetypes').glob('*/index.md')):
  if key=='reserve-mage':
   reserve=[]
   for pp in sorted((cache/'feats/reserve-feats').glob('*/index.md')):
-   sr=source(pp);reserve.append(dict(id=aid+':reserve-feat:'+pp.parent.name,name=sr['title'],description=pp.read_text().split('\n---\n',1)[-1],minimumLevel=1,repeatLimit=1,featureIds=[],manualPrerequisites=True,sourceRefs=refs('Reserve Mayhem')))
+   sr=source(pp);reserve.append(dict(id=aid+':reserve-feat:'+pp.parent.name,name=sr['title'],url=sr['url'],archiveSha256=sr['archiveSha256'],description=pp.read_text().split('\n---\n',1)[-1],minimumLevel=1,repeatLimit=1,featureIds=[],manualPrerequisites=True,sourceRefs=refs('Reserve Mayhem')))
   add_choices('Reserve Mayhem',[1,5,9,13,17],reserve)
  if key=='ruby-archer':
   archer=json.loads((root/'rules/classes/archer-talents.json').read_text())['options'];opts=[]
-  for o in archer:opts.append(dict(id=aid+':archery-talent:'+o['id'].split(':')[-1],name=o['name'],description=o['description']+'\nCheck the source prerequisites manually.',minimumLevel=o.get('minimumLevel',1),repeatLimit=o.get('repeatLimit',1),featureIds=[],sourceRefs=refs('Archery Talents'),manualPrerequisites=True))
+  for o in archer:opts.append(dict(id=aid+':archery-talent:'+o['id'].split(':')[-1],name=o['name'],url='https://finalfantasyd20.com/classes/core-classes/archer/archery-talents/',description=o['description']+'\nCheck the source prerequisites manually.',minimumLevel=o.get('minimumLevel',1),repeatLimit=o.get('repeatLimit',1),featureIds=[],sourceRefs=refs('Archery Talents'),manualPrerequisites=True))
   add_choices('Archery Talents',[5,9,13,17],opts)
  if key=='ruby-wizard':
   advanced=dict(id=aid+':option:manual-advanced-mage-talent',name='Advanced Mage Talent (manual selection)',description='Choose a legal advanced Black Mage or White Mage talent and record its exact name and effects on the existing sheet entries.',minimumLevel=14,repeatLimit=2,featureIds=[],sourceRefs=refs('Advanced Mage Talents'),manualPrerequisites=True)
