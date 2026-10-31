@@ -134,6 +134,20 @@ function replacementForBatch50(r,id){
    description:'Change -2 Wisdom to -2 Charisma and prevent high-Intelligence bonus languages; keep Common.'}]:ops;
  }
  if(r.id==='ffd20:race:shindroid'){
+  // These two replacements are whole-trait substitutions in the official
+  // description. The extraction labels them partial/unresolved; normalize only
+  // when the exact staged identity and target set still match.
+  if(id===trait+'hologram-simulation'){
+   const op=exact('hologram-simulation',['composite-plating','ability-score-racial-traits'],
+    'replace','partial_feature','unresolved');
+   return op?[{...op,scope:'whole_feature',resolution:'manual',
+    description:'Hologram Simulation replaces Composite Plating and the starting Ability Score Racial Traits only; core form and hardlight projection have different size and action rules.'}]:ops;
+  }
+  if(id===trait+'race-simulation'){
+   const op=exact('race-simulation',['immortal'],'replace','partial_feature','unresolved');
+   return op?[{...op,scope:'whole_feature',resolution:'manual',
+    description:'Race Simulation replaces Immortal only; select one playable humanoid race and apply its size and aging, not its other racial traits.'}]:ops;
+  }
   if(id===trait+'heavy-platform'){
    const op=exact('heavy-platform',['base-speed'],'replace','partial_feature','unresolved');
    return op?[{...op,id:id+':speed-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',

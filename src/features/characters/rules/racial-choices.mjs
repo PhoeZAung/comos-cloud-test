@@ -1,7 +1,36 @@
 import {fixedSkills} from '../../sheet/skills.mjs';
+import {registry} from './catalog.mjs';
 import {buildLevel} from './multiclass.mjs';
 import {QUADAV_ID,QUADAV_TERRAIN,LAMBKIN_ID,LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,DWARF_ID,DWARF_LANGUAGES,GARLEAN_ID,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,DRACOBALTIAN_LANGUAGES,BURMECIAN_ID,BURMECIAN_LANGUAGES,BEASTKIN_ID,BEASTKIN_LANGUAGES,BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
 
+const SHINDROID='ffd20:race:shindroid';
+export const SHINDROID_SIMULATED_RACE=SHINDROID+':pool:race-simulation-humanoid';
+const SHINDROID_HOLOGRAM=SHINDROID+':trait:hologram-simulation';
+
+// A simulated race must be a playable source-listed humanoid with a verified
+// standard size. No copying its other racial bonuses, immunities or languages.
+export function shindroidSimulationOptions(){
+ return registry.races.filter(r=>{
+  if(r.id===SHINDROID)return false;
+  const type=r.features.find(f=>f.id===r.id+':trait:type'||f.name==='Type');
+  // Generated race catalog changes legacy creature_type/size_category
+  // effect automation to manual because the generic runtime does not own those
+  // raw target paths. Their explicit source type/size text remains authoritative.
+  const identity=type?.effects?.find(e=>!e.condition&&
+   (e.target==='identity.type'&&e.automation==='automatic'||e.target==='creature_type'&&e.textValue));
+  const size=r.features.find(f=>f.id===r.id+':trait:size'||f.name==='Size');
+  const sz=size?.effects?.find(e=>!e.condition&&
+   (e.target==='identity.size_category'&&e.automation==='automatic'||e.target==='size_category'&&e.textValue));
+  return /^humanoid(?:\s|\(|$)/i.test(identity?.textValue||'')&&
+   ['Fine','Diminutive','Tiny','Small','Medium','Large','Huge'].includes(
+    (sz?.textValue||'').replace(/^./,ch=>ch.toUpperCase()));
+ }).map(r=>{
+  const sz=r.features.find(f=>f.id===r.id+':trait:size'||f.name==='Size').effects
+   .find(e=>!e.condition&&(e.target==='identity.size_category'&&e.automation==='automatic'||e.target==='size_category'&&e.textValue));
+  return {id:SHINDROID_SIMULATED_RACE+':option:'+r.id.split(':').at(-1),
+   name:r.name,value:r.id,size:sz.textValue.replace(/^./,ch=>ch.toUpperCase())};
+ }).sort((a,b)=>a.name.localeCompare(b.name));
+}
 const IMMORTAL='ffd20:race:immortal:pool:';
 const POLYGLOT=TARUTARU_ID+':trait:polyglot';
 const LAMBKIN_POLYGLOT=LAMBKIN_ID+':trait:polyglot';
@@ -56,7 +85,7 @@ export const HALF_ANCESTRAL_SLOT=HALF+':pool:ancestral-arms-selected-slot';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
 const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages';
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
-const supported=new Set([YAGUDO_RANK_LANGUAGES,...elementalSummonerPools,...terrainPools,LAMIA_TEMPERED,GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,NU_MOU_SAGACIOUS,PUPU_TECH_SAVANT,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
+const supported=new Set([SHINDROID_SIMULATED_RACE,YAGUDO_RANK_LANGUAGES,...elementalSummonerPools,...terrainPools,LAMIA_TEMPERED,GRIA_WEAPON,...NAMAZU_FOCUS_LEVELS.map(namazuFocusSlot),ORC_SKILL,MATANGA_ACADEMIC,LOPORRIT_HANDY,NU_MOU_SAGACIOUS,PUPU_TECH_SAVANT,...mutantScorePools,...extraLanguageRacePools.keys(),LAMBKIN_LANGUAGES,LAMBKIN_POLYGLOT_LANGUAGE,QUADAV_TERRAIN,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
 // An alternate with a resolved whole-trait replacement may leave a situational,
 // descriptive or player-recorded choice manual. Only choices driving a concrete
@@ -79,6 +108,14 @@ const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-')
 // Some source definitions use older extraction target names. Keep the
 // source records intact and append only their verified unconditional sheet maps.
 export function mappedRaceTraits(race,traits){
+ const holo=race.id===SHINDROID&&traits.some(t=>t.id===SHINDROID_HOLOGRAM);
+ const sourceVector=race.features.find(f=>f.id===SHINDROID+':trait:ability-score-racial-traits')?.effects||[];
+ const standardVectorOK=sourceVector.filter(e=>e.kind==='ability_score'&&e.automation==='automatic')
+  .map(e=>[e.target,e.value?.value]);
+ const expected=[['ability_scores.dex',2],['ability_scores.int',2],['ability_scores.cha',-2]];
+ const verifiedHolo=expected.every(([k,v])=>standardVectorOK.some(([a,b])=>a===k&&b===v))&&
+  standardVectorOK.length===3;
+
  if(![...['genome','gria','guado','hypello','mandragora'].map(slug=>'ffd20:race:'+slug),SYRICTA,LAMBKIN_ID,'ffd20:race:moomba','ffd20:race:shindroid','ffd20:race:moogle','ffd20:race:immortal',HUME_ID,MITHRA_ID,TARUTARU_ID,AEGYL_ID,AL_BHED_ID,AU_RA_ID,BANGAA_ID,BURMECIAN_ID,DRACOBALTIAN_ID,GARIF_ID,GARLEAN_ID].includes(race.id))return traits;
  return traits.map(f=>{
   const mapped=[];
@@ -125,7 +162,27 @@ export function mappedRaceTraits(race,traits){
     target:'proficiencies.weapon.'+name.toLowerCase().replaceAll(' ','-'),
     operation:'grant',value:null,textValue:name,bonusType:null,condition:null,automation:'automatic'});
   if(race.id===GARIF_ID&&f.id===GARIF_ID+':trait:weapon-familiarity')for(const name of ['Longspear','Shortspear','Javelin','Boar spear'])mapped.push({id:f.id+':sheet:weapon:'+name.toLowerCase().replaceAll(' ','-'),kind:'proficiency',target:'proficiencies.weapon.'+name.toLowerCase().replaceAll(' ','-'),operation:'grant',value:null,textValue:name,bonusType:null,condition:null,automation:'automatic'});
-  return mapped.length?{...f,effects:[...f.effects,...mapped]}:f;
+  let result=mapped.length?{...f,effects:[...f.effects,...mapped]}:f;
+  if(holo&&verifiedHolo){
+   const id=f.id,automatic=(suffix,kind,target,value,textValue)=>({
+    id:id+':hologram:'+suffix,kind,target,operation:kind==='identity'?'set':'add',
+    value:value==null?null:{kind:'constant',value},textValue:textValue??null,
+    condition:null,automation:'automatic',bonusType:null});
+   if(id===SHINDROID_HOLOGRAM)result={...result,
+    description:'Natural core: Diminutive construct (technological subtype). Only mental actions or full-round projection while unprojected. Hardlight body takes a full-round action to activate, remains indefinitely, and can be deactivated with a standard action (automatically upon death). Hardlight body can act physically, has two arms and 30 ft movement; its size comes from its programmed appearance and must be entered/adjudicated manually. Ability bonuses are +4 INT, -2 WIS, replacing the standard +2 DEX/+2 INT/-2 CHA. The sheet shows core size/type; hardlight mode and its size modifiers are not automatically switched.',
+    effects:[automatic('int','ability_score','ability_scores.int',4),automatic('wis','ability_score','ability_scores.wis',-2)]};
+   if(id===SHINDROID+':trait:size')result={...result,
+    description:'Hologram natural core is Diminutive. Hardlight body size depends on the programmed appearance and is manual, not assumed Diminutive.',
+    effects:[automatic('core-size','identity','identity.size_category',null,'Diminutive')]};
+   if(id===SHINDROID+':trait:type')result={...result,
+    description:'Hologram natural core is a construct with the technological subtype. Do not also grant default constructed-humanoid dual-targeting.',
+    effects:[automatic('core-type','identity','identity.type',null,'Construct'),
+      {...automatic('tech-subtype','identity','identity.subtypes',null,'technological'),operation:'grant'}]};
+   if(id===SHINDROID+':trait:base-speed')result={...result,
+    description:'Core cannot take physical actions; projected hardlight body moves 30 ft. Base speed of hardlight form is applied manually; core form does not inherit a permanent 30 ft movement speed.',
+    effects:(result.effects||[]).filter(e=>!['identity.speed.land','speed.land'].includes(e.target))};
+  }
+  return result;
  });
 }
 
@@ -171,6 +228,10 @@ export function racialChoiceSpecs(race,traits,level=1,b=null){
   if(pool.id===LAMBKIN_POLYGLOT_LANGUAGE)return {...pool,name:'Polyglot starting language',minimum:1,maximum:1,freeText:true};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
+ if(race.id===SHINDROID&&traits.some(f=>f.id===SHINDROID+':trait:race-simulation')){
+  specs.push({id:SHINDROID_SIMULATED_RACE,name:'Race Simulation · playable humanoid race',
+   choiceType:'race_trait_option',options:shindroidSimulationOptions(),minimum:1,maximum:1});
+ }
  // The source grants two independently selected languages per Linguistics rank,
  // not a fixed list or an extra language per character level. No guessed picks.
  if(race.id===YAGUDO&&traits.some(f=>f.id===YAGUDO+':trait:valiant-linguist')){
@@ -262,6 +323,15 @@ export function racialChoiceEffects(b,race,traits){
    if(spec.id===LOPORRIT_HANDY&&Number.isInteger(option.value))
     effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2},
      specialty:b.racialSpecialties?.[spec.id]||''});
+   if(spec.id===SHINDROID_SIMULATED_RACE){
+    effects.push({...base,id:base.id+':size',kind:'identity',operation:'set',
+     target:'identity.size_category',textValue:option.size,value:null,bonusType:null});
+    effects.push({...base,id:base.id+':race',kind:'custom',target:'race.shindroid.simulated-humanoid',
+     textValue:'Race Simulation: counts as Shindroid and '+option.name+
+      ' for race-related traits, feats, spells and magic items. Size is '+option.size+
+      '. Ages as '+option.name+' with its source age benefits and penalties (manual); does not gain the race’s unrelated traits, ability-score adjustments or languages.',
+     automation:'manual'});
+   }
    if(spec.id===GARLEAN_WEAPON&&option.value==='firearms-simple')effects.push({...base,kind:'proficiency',target:'proficiencies.weapon.firearms-simple',textValue:'Firearms (Simple)'});
    if(spec.id===GARLEAN_CRAFT)effects.push({...base,kind:'skill_bonus',target:'skills.row.'+option.value+'.bonus',value:{kind:'constant',value:2},specialty:b.racialSpecialties?.[spec.id]||''});
    if(spec.id===GARIF_PASTORALIST){
