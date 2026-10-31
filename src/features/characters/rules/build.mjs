@@ -28,7 +28,26 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
+export function replacementFor(r,id){
+ const ops=r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));
+ const prefix='ffd20:race:quadav:trait:',water=prefix+'water-tribe';
+ if(r.id!=='ffd20:race:quadav'||id!==water)return ops;
+ const op=ops.find(x=>x.id===water+':replacement'&&x.operation==='replace'&&
+  x.scope==='partial_feature'&&x.resolution==='unresolved'&&
+  x.targetFeatureIds?.length===1&&x.targetFeatureIds[0]===prefix+'full-withdrawal'&&
+  x.addsFeatureIds?.length===1&&x.addsFeatureIds[0]===water&&
+  !(x.targetEventIds||[]).length&&!(x.addsEventIds||[]).length&&!(x.removesComponents||[]).length);
+ if(!op)return ops;
+ // Source says Full Withdrawal is replaced completely, while the swim-speed
+ // component of Base Speed increases by 20. Keep its land-speed component.
+ return [
+  {...op,id:water+':withdrawal-replacement',scope:'whole_feature',resolution:'manual',
+   description:'Water Tribe replaces Full Withdrawal.'},
+  {...op,id:water+':swim-speed-modifier',operation:'modify',scope:'part_of_feature',
+   resolution:'manual',targetFeatureIds:[prefix+'base-speed'],addsFeatureIds:[],
+   description:'Water Tribe adds 20 ft to Base Speed swim only; land speed remains 20 ft.'}
+ ];
+}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
@@ -54,6 +73,11 @@ export function raceTraits(b){
  }
  for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
  const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?applyRaceModification(r,f,modified.get(f.id)):f)).map(f=>{
+  if(r.id==='ffd20:race:quadav'&&f.id==='ffd20:race:quadav:trait:bond-to-the-land'){
+   const pool='ffd20:race:quadav:pool:bond-to-the-land-selection';
+   const terrain=r.choicePools.find(p=>p.id===pool)?.options.find(o=>o.id===b.racialChoices?.[pool]?.[0])?.name;
+   return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. Apply its +2 dodge AC only in that terrain.':'')};
+  }
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
@@ -162,9 +186,6 @@ export function buildIssues(b,{complete=true}={}){
  if(race?.id==='ffd20:race:orc'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:orc:trait:skill-bonus'))add(2,'Orc Skill Bonus requires choosing either +2 Acrobatics or +1 Climb and Jump. Race choice UI is unsupported and save is blocked until recorded.');
  }
- if(race?.id==='ffd20:race:quadav'){
-  if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:quadav:trait:bond-to-the-land'))add(2,'Quadav Bond to the Land requires choosing swamp or underground terrain; race choice UI is unsupported, so save is blocked.');
- }
  if(race?.id==='ffd20:race:sahagin'){
   if(raceTraits(b).traits.some(f=>f.id==='ffd20:race:sahagin:trait:tempered'))add(2,'Sahagin Tempered requires choosing either water or ice resistance. Race choice storage is not implemented; save is blocked.');
  }
@@ -249,6 +270,11 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
   const initial=previous.rulesBuild.input;
   for(const pool of [GARLEAN_WEAPON,GARLEAN_CRAFT])if((raw?.racialChoices?.[pool]||[]).join('|')!==(initial.racialChoices?.[pool]||[]).join('|'))bad('Garlean starting racial choices cannot be changed during editing.');
   if((raw?.racialSpecialties?.[GARLEAN_CRAFT]||'')!==(initial.racialSpecialties?.[GARLEAN_CRAFT]||''))bad('Garlean technology Craft specialty cannot be changed during editing.');
+ }
+ if(previous.rulesBuild?.input?.raceId==='ffd20:race:quadav'){
+  const pool='ffd20:race:quadav:pool:bond-to-the-land-selection';
+  if((raw?.racialChoices?.[pool]||[]).join('|')!==(previous.rulesBuild.input.racialChoices?.[pool]||[]).join('|'))
+   bad('Quadav Bond to the Land terrain is chosen at character creation and is permanent.');
  }
  if(previous.rulesBuild?.input?.raceId===GARIF_ID){
   const original=previous.rulesBuild.input;
