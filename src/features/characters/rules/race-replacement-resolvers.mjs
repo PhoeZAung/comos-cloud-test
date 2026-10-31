@@ -203,6 +203,36 @@ function replacementForBatch53(r,id){
  return ops;
 }
 
+// Approved Syricta replacement ownership. The staged source described these
+// as partial because Type and Base Speed have other components; neither
+// should be removed wholesale. No new ability-picking UI is introduced.
+function replacementForSyricta(r,id){
+ const ops=replacementForBatch53(r,id);
+ if(r.id!=='ffd20:race:syricta'||ops.length!==1)return ops;
+ const source=ops[0],p=r.id+':trait:',slug=id.slice(p.length);
+ const exact=(name,targets)=>slug===name&&source.id===id+':replacement'&&
+  source.operation==='replace'&&source.scope==='partial_feature'&&source.resolution==='unresolved'&&
+  JSON.stringify(source.targetFeatureIds)===JSON.stringify(targets.map(t=>p+t))&&
+  source.addsFeatureIds?.length===1&&source.addsFeatureIds[0]===id&&
+  !(source.targetEventIds||[]).length&&!(source.addsEventIds||[]).length&&!(source.removesComponents||[]).length;
+ if(exact('dragon-type',['type','elemental-resistance','dragon-resistances','breath-weapon']))
+  return [
+   {...source,id:id+':three-trait-replacement',scope:'whole_feature',resolution:'manual',
+    targetFeatureIds:['elemental-resistance','dragon-resistances','breath-weapon'].map(t=>p+t),
+    description:'Dragon Type replaces Elemental Resistance, Dragon Resistances and Breath Weapon.'},
+   {...source,id:id+':type-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+    targetFeatureIds:[p+'type'],addsFeatureIds:[],
+    description:'Dragon Type changes humanoid (reptilian) to Dragon, retaining the Type feature.'}
+  ];
+ if(exact('evasive-maneuvers',['darkvision','dragon-resistances']))
+  return [{...source,id:id+':two-trait-replacement',scope:'whole_feature',resolution:'manual',
+   description:'Evasive Maneuvers replaces Darkvision and Dragon Resistances.'}];
+ if(exact('memories-of-the-forgotten',['base-speed']))
+  return [{...source,id:id+':flight-modifier',operation:'modify',scope:'part_of_feature',resolution:'manual',
+   description:'Memories of the Forgotten replaces flight only; land speed remains unchanged. The two Knowledge specializations are recorded manually.'}];
+ return ops;
+}
+
 export function replacementFor(r,id){
  if(!r)return [];
  const name=r.id.split(':').at(-1);
@@ -210,6 +240,6 @@ export function replacementFor(r,id){
   moomba:replacementForBatch49,namazu:replacementForBatch49,'seto-lion':replacementForBatch49,
   beastkin:replacementForBatch50,garlean:replacementForBatch50,shindroid:replacementForBatch50,
   sylph:replacementForBatch51,trollkin:replacementForBatch51,forgiven:replacementForBatch51,
-  'al-bhed':replacementForBatch53,syricta:replacementForBatch53,'half-breed':replacementForBatch53}[name];
+  'al-bhed':replacementForBatch53,syricta:replacementForSyricta,'half-breed':replacementForBatch53}[name];
  return handler?handler(r,id):r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));
 }
