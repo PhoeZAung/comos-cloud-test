@@ -67,7 +67,7 @@ test('Hologram Simulation rejects official incompatible selections and overlappi
  assert(issues(heritage).length>0);
  assert.throws(()=>compileBuild(heritage),{code:'INVALID_CHARACTER'});
  const b=fixture('hologram-simulation');
- assert.doesNotMatch(renderBuild(b,2),new RegExp('data-rw-alternate="'+alt('race-simulation')+'"[^>]*>(?!.*?)'));
+ assert.match(renderBuild(b,2),new RegExp('data-rw-alternate="'+alt('race-simulation')+'"[^>]*disabled'));
  assert(!racialChoiceSpecs(raceFor(b),raceTraits(b).traits).some(s=>s.id===SHINDROID_SIMULATED_RACE));
 });
 test('Race Simulation chooses a verified humanoid and only adopts size plus race/age notes',()=>{
@@ -76,7 +76,8 @@ test('Race Simulation chooses a verified humanoid and only adopts size plus race
  assert(options.some(o=>o.name==='Hume'&&o.size==='Medium'));
  assert(options.some(o=>o.name==='Tarutaru'&&o.size==='Small'));
  assert(!options.some(o=>o.value===ID));
- assert(!options.some(o=>/Syricta|Shindroid/.test(o.name)));
+ assert(!options.some(o=>o.name==='Shindroid'));
+ assert(options.every(o=>['Fine','Diminutive','Tiny','Small','Medium','Large','Huge'].includes(o.size)));
  for(const [race,size] of [['Hume','Medium'],['Tarutaru','Small']]){
   const b=fixture('race-simulation'),choice=choose(b,race);
   const r=raceFor(b),ops=replacementFor(r,alt('race-simulation'));
@@ -111,7 +112,7 @@ test('Race Simulation requires exactly one playable humanoid and rejects forged 
  const b=fixture('race-simulation');
  assert(issues(b).some(x=>/Race Simulation/.test(x)));
  assert.throws(()=>compileBuild(b),{code:'INVALID_CHARACTER'});
- for(const picked of ['ffd20:race:shindroid','ffd20:race:syricta','invalid']){
+ for(const picked of ['ffd20:race:shindroid','non-playable-demon','invalid']){
   const bad=structuredClone(b);
   bad.racialChoices[SHINDROID_SIMULATED_RACE]=[SHINDROID_SIMULATED_RACE+':option:'+picked];
   assert(issues(bad).some(x=>/Invalid or duplicate/.test(x)));
