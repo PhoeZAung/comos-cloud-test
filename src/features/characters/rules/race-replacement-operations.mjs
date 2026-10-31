@@ -67,6 +67,7 @@ const SALTBEARD_GREED=DWARF+':replacement:saltbeard-modifies-greed';
 const isWholeTraitReplacement=(race,op)=>{
  if(!race||op.operation!=='replace'||op.scope!=='whole_feature')return false;
  if(race.id===HALF&&op.id===HALF_A+':replacement')return false; // old staged record erroneously consumed BOTH inherited slots
+ if(race.id===HALF&&op.id.startsWith(HALF_A+':slot-'))return isHalfSlot(race,op); // never fall through to generic whole-feature rule
  if(op.resolution==='resolved')return true; // existing approved mappings remain intact
  if(op.resolution!=='manual'||!/(?:replac|substitut|supersed)/i.test(op.description||''))return false;
  // "Manual" can indicate an unautomated *benefit*, not an uncertain replacement.
