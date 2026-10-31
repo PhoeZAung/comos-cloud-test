@@ -199,24 +199,24 @@ These are actual archetype pages; nested supporting pages are not counted as add
 
 | Archetype | Work state | Resume point |
 | --- | --- | --- |
-| [Animist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Daemonic Flayer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/daemonic-flayer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Elemental Knight](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/elemental-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Generalist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/generalist/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Ishgardian Heretic](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ishgardian-heretic/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Mystic Knight](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Outfitter](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Paradigm Shifter](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Red Warrior](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/red-warrior/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Reserve Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/reserve-mage/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Ruby Archer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-archer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Ruby Fist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-fist/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Ruby Magister](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Ruby Wizard](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-wizard/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Shield Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/shield-mage/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Spellblade](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spellblade/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Spell Dancer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spell-dancer/) | queued · source-review | Start of source review · waiting for parent definition |
-| [Vermilion Duelist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/) | queued · source-review | Start of source review · waiting for parent definition |
+| [Animist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/animist/) | queued · source-review | Start of source review |
+| [Daemonic Flayer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/daemonic-flayer/) | queued · source-review | Start of source review |
+| [Elemental Knight](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/elemental-knight/) | queued · source-review | Start of source review |
+| [Generalist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/generalist/) | queued · source-review | Start of source review |
+| [Ishgardian Heretic](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ishgardian-heretic/) | queued · source-review | Start of source review |
+| [Mystic Knight](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/mystic-knight/) | queued · source-review | Start of source review |
+| [Outfitter](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/outfitter/) | queued · source-review | Start of source review |
+| [Paradigm Shifter](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/paradigm-shifter/) | queued · source-review | Start of source review |
+| [Red Warrior](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/red-warrior/) | queued · source-review | Start of source review |
+| [Reserve Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/reserve-mage/) | queued · source-review | Start of source review |
+| [Ruby Archer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-archer/) | queued · source-review | Start of source review |
+| [Ruby Fist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-fist/) | queued · source-review | Start of source review |
+| [Ruby Magister](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-magister/) | queued · source-review | Start of source review |
+| [Ruby Wizard](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/ruby-wizard/) | queued · source-review | Start of source review |
+| [Shield Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/shield-mage/) | queued · source-review | Start of source review |
+| [Spellblade](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spellblade/) | queued · source-review | Start of source review |
+| [Spell Dancer](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/spell-dancer/) | queued · source-review | Start of source review |
+| [Vermilion Duelist](https://finalfantasyd20.com/classes/core-classes/red-mage/archetypes/vermilion-duelist/) | queued · source-review | Start of source review |
 
 ## Thief (25)
 

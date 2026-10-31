@@ -65,6 +65,12 @@
       "coverage": "partial",
       "status": "live",
       "adapter": "martial-progression"
+    },
+    {
+      "id": "ffd20:class:red-mage",
+      "file": "rules/classes/red-mage.class.json",
+      "status": "live",
+      "adapter": "red-mage-level-one"
     }
   ]
 }

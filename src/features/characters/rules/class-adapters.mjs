@@ -1,3 +1,4 @@
+import {isRedMage,redMageClass,redMageSpellRows} from './red-mage-level-one.mjs';
 import {syncGunbreakerAmmo} from './gunbreaker-ammo.mjs';
 import {martialChoicePools,martialArchetype,martialCounter,AKIMBO_ID,GUNBREAKER_ID} from './martial-progression.mjs';
 import {MONK_ID,KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
@@ -36,7 +37,8 @@ function makeArcherClass(){
   data:{...archer.data,events},resources:[]};
 }
 export const archerClass=makeArcherClass();
-export const availableClasses=[registry.class,archerClass,...levelOneClasses,...(bardClass?[bardClass]:[])];
+const isChaCaster=b=>isBard(b)||isRedMage(b);
+export const availableClasses=[registry.class,archerClass,...levelOneClasses,...(bardClass?[bardClass]:[]),...(redMageClass?[redMageClass]:[])];
 export const classFor=b=>{const c=availableClasses.find(c=>c.id===(b?.classId||BLACK_MAGE_ID));return c?{...c,choicePools:martialChoicePools(b).length?martialChoicePools(b):c.choicePools}:null;};
 export const isArcher=b=>(b?.classId===ARCHER_ID);
 export const className=b=>classFor(b)?.name||'Unknown class';
@@ -45,8 +47,8 @@ export const classDefaultHp=b=>Math.floor(classHitDie(b)/2)+1;
 export const classHasSpells=b=>!isArcher(b)&&!isLevelOneClass(b);
 
 export function classSkill(b,id){
- if(!isArcher(b)&&!isLevelOneClass(b)&&!isBard(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
- if(isLevelOneClass(b)||isBard(b)){const value=id.replace(/^skill:/,'');return (levelOneArchetype(b)?.data.classSkills||classFor(b).data.classSkills).some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
+ if(!isArcher(b)&&!isLevelOneClass(b)&&!isChaCaster(b))return registry.class.data.classSkills.some(s=>s.skillId===id);
+ if(isLevelOneClass(b)||isChaCaster(b)){const value=id.replace(/^skill:/,'');return (levelOneArchetype(b)?.data.classSkills||classFor(b).data.classSkills).some(s=>s===value||s==='knowledge:*'&&value.startsWith('knowledge-')||s==='knowledge:'+value.slice(10)&&value.startsWith('knowledge-')||s.endsWith(':*')&&s.slice(0,-2)===value);}
  const value=id.replace(/^skill:/,'');const skills=archer.data.classSkills||[];
  return skills.includes(value)||value.startsWith('knowledge-')&&skills.includes('knowledge:'+value.slice('knowledge-'.length))||['craft','profession'].includes(value)&&skills.includes(value+':*');
 }
@@ -134,7 +136,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   level:b.level,class_level:b.level,character_level:b.level,total_level:b.level,
   classes:[{name,level:b.level,archetype:levelOneArchetype(b)?.name||''}],archetype:levelOneArchetype(b)?.name||'',archetypeId:b.archetypeId,
   hp_max:p.hp,bab:p.summary.bab,fort_base:p.summary.fort,ref_base:p.summary.ref,will_base:p.summary.will,
-  mp:isBard(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isBard(b)?'cha':'dex'});
+  mp:isChaCaster(b)?Number(previous.mp??p.summary.mp):0,mp_class:p.summary.baseMp,mp_bonus:p.summary.bonusMp,mp_max_spell_level:p.summary.spellLevel,spell_dc_base:isChaCaster(b)?'cha':'dex'});
  const effects=p.racial.traits.flatMap(f=>f.effects).filter(e=>e.automation==='automatic'&&!e.condition);
  const langs=[],senses=[],profs=[];next.speed=0;next.size_category='Medium';
  for(const effect of effects){
@@ -195,6 +197,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   const bonus=picked.endsWith(':ranged-combat-training')?'Precise Shot':picked.endsWith(':threat-control')?'Antagonize':null;
   if(bonus){const id=picked+':bonus-feat',old=previous.feats?.find(f=>f.sourceRuleId===id),desc='Bonus feat from Gunbreaker talent; apply feat-specific rules manually.';rows.feats.push({...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:bonus,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:bonus,rulesDescription:desc,sourceRuleId:id,rulesOwned:true,sourceClass:'Gunbreaker',pendingFeat:false});}
  }
+ if(isRedMage(b))rows.spells=redMageSpellRows(b,previous);
  if(isBard(b))rows.spells=bardSpellRows(b,previous);
  rows.feats.push(...racialChoiceFeats(b,p.race,p.racial.traits,previous));
  for(const key of Object.keys(rows)){
@@ -204,8 +207,8 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  next.favoredClassBonuses={};next.favored_class_options=p.race.data.favoredRewards.filter(x=>x.classId===definition.id).map(x=>x.description).join('\n')+'\nFavored rewards require manual adjudication.';
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
  next.alternateRacialTraits=b.alternateIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:true}));
- next.castingProfiles=isBard(b)?[{className:'Bard',mode:'full',ability:'cha',casterLevel:1,highestSpellLevel:1}]:[];
- if(!isBard(b))next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);
+ next.castingProfiles=isChaCaster(b)?[{className:name,mode:'full',ability:'cha',casterLevel:1,highestSpellLevel:1}]:[];
+ if(!isChaCaster(b))next.spells=(previous.spells||[]).filter(s=>!s.rulesOwned);
  const lastValues=Object.fromEntries(ownedKeys.map(k=>[k,next[k]]));
  if(oldManaged)for(const key of ownedKeys){
   if(key==='mp_max_spell_level')continue;

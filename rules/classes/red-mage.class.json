@@ -1,0 +1,774 @@
+{
+  "schemaVersion": "comos.rules.v1",
+  "kind": "class",
+  "id": "ffd20:class:red-mage",
+  "name": "Red Mage",
+  "revision": 1,
+  "sources": [
+    {
+      "id": "main",
+      "url": "https://finalfantasyd20.com/classes/core-classes/red-mage/",
+      "title": "Red Mage \u2014 Official Final Fantasy d20",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "archiveSha256": "edf00fc1553204e76fe5bd46fe3b7296224a3e7d8b8c7bd58b4f203d4f676e3b"
+    }
+  ],
+  "review": {
+    "state": "needs_review",
+    "coverage": "partial",
+    "issues": [
+      {
+        "path": "/data/supportedLevels",
+        "blocking": true,
+        "reason": "Only level-one creation/editing is enabled. Later spell learning, Ruby Talents/Arcana, upgrades, archetypes, multiclassing and independent full review remain pending."
+      },
+      {
+        "path": "/data/features",
+        "blocking": true,
+        "reason": "Spell Combat, armor failure exemptions, conditional Precise Shot and Limit Break effects are manual; no global attack, armor or HP/MP conversion automation."
+      }
+    ]
+  },
+  "data": {
+    "category": "core",
+    "maximumLevel": 20,
+    "supportedLevels": [
+      1
+    ],
+    "alignment": "Any",
+    "hitDie": 8,
+    "skillRanksPerLevel": 6,
+    "classSkills": [
+      "acrobatics",
+      "bluff",
+      "climb",
+      "craft:*",
+      "diplomacy",
+      "fly",
+      "intimidate",
+      "knowledge:arcana",
+      "knowledge:planes",
+      "perception",
+      "profession:*",
+      "ride",
+      "spellcraft",
+      "swim",
+      "use-magic-device"
+    ],
+    "startingWealth": 140,
+    "proficiencies": [
+      "Simple weapons",
+      "Martial weapons",
+      "Power rod",
+      "Power staff",
+      "Power flail",
+      "Power pole",
+      "Light armor",
+      "Medium armor",
+      "Shields except tower shields"
+    ],
+    "spellcasting": {
+      "learningMode": "manual",
+      "ability": "cha"
+    },
+    "levels": [
+      {
+        "level": 1,
+        "bab": 0,
+        "iterativeAttacks": [],
+        "fort": 2,
+        "ref": 0,
+        "will": 2,
+        "special": "Red Magery, Armored Mage (Light), Spell Combat, Spell Proficiency, Cantrips, Limit Breaks",
+        "baseMp": 2,
+        "maxSpellLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-1"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "bab": 1,
+        "iterativeAttacks": [
+          1
+        ],
+        "fort": 3,
+        "ref": 0,
+        "will": 3,
+        "special": "Arcane Pool, Ruby Talents, Spellstrike",
+        "baseMp": 3,
+        "maxSpellLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-2"
+          }
+        ]
+      },
+      {
+        "level": 3,
+        "bab": 2,
+        "iterativeAttacks": [
+          2
+        ],
+        "fort": 3,
+        "ref": 1,
+        "will": 3,
+        "special": "Ruby Arcana, Ruby Knowledge",
+        "baseMp": 4,
+        "maxSpellLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-3"
+          }
+        ]
+      },
+      {
+        "level": 4,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 4,
+        "ref": 1,
+        "will": 4,
+        "special": "Ruby Talents, Quick Cast (1/day), Spell Power +2",
+        "baseMp": 5,
+        "maxSpellLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-4"
+          }
+        ]
+      },
+      {
+        "level": 5,
+        "bab": 3,
+        "iterativeAttacks": [
+          3
+        ],
+        "fort": 4,
+        "ref": 1,
+        "will": 4,
+        "special": "Clear Mind I, Red Magery, Convert (1/day)",
+        "baseMp": 6,
+        "maxSpellLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-5"
+          }
+        ]
+      },
+      {
+        "level": 6,
+        "bab": 4,
+        "iterativeAttacks": [
+          4
+        ],
+        "fort": 5,
+        "ref": 2,
+        "will": 5,
+        "special": "Ruby Talents, Ruby Arcana",
+        "baseMp": 8,
+        "maxSpellLevel": 2,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-6"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "bab": 5,
+        "iterativeAttacks": [
+          5
+        ],
+        "fort": 5,
+        "ref": 2,
+        "will": 5,
+        "special": "Armored Mage (Medium), Improved Spell Combat",
+        "baseMp": 10,
+        "maxSpellLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-7"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 6,
+        "ref": 2,
+        "will": 6,
+        "special": "Ruby Talents, Quick Cast (2/day)",
+        "baseMp": 13,
+        "maxSpellLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-8"
+          }
+        ]
+      },
+      {
+        "level": 9,
+        "bab": 6,
+        "iterativeAttacks": [
+          6,
+          1
+        ],
+        "fort": 6,
+        "ref": 3,
+        "will": 6,
+        "special": "Red Magery, Ruby Arcana, Convert (2/day), Spell Power +3",
+        "baseMp": 16,
+        "maxSpellLevel": 3,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-9"
+          }
+        ]
+      },
+      {
+        "level": 10,
+        "bab": 7,
+        "iterativeAttacks": [
+          7,
+          2
+        ],
+        "fort": 7,
+        "ref": 3,
+        "will": 7,
+        "special": "Ruby Talents, Clear Mind II, Armored Mage (Shield)",
+        "baseMp": 20,
+        "maxSpellLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-10"
+          }
+        ]
+      },
+      {
+        "level": 11,
+        "bab": 8,
+        "iterativeAttacks": [
+          8,
+          3
+        ],
+        "fort": 7,
+        "ref": 3,
+        "will": 7,
+        "special": "Jack-of-All-Trades, Fighter Training",
+        "baseMp": 24,
+        "maxSpellLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-11"
+          }
+        ]
+      },
+      {
+        "level": 12,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 8,
+        "ref": 4,
+        "will": 8,
+        "special": "Ruby Talents, Quick Cast (3/day), Ruby Arcana",
+        "baseMp": 29,
+        "maxSpellLevel": 4,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-12"
+          }
+        ]
+      },
+      {
+        "level": 13,
+        "bab": 9,
+        "iterativeAttacks": [
+          9,
+          4
+        ],
+        "fort": 8,
+        "ref": 4,
+        "will": 8,
+        "special": "Red Magery, Convert (3/day)",
+        "baseMp": 34,
+        "maxSpellLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-13"
+          }
+        ]
+      },
+      {
+        "level": 14,
+        "bab": 10,
+        "iterativeAttacks": [
+          10,
+          5
+        ],
+        "fort": 9,
+        "ref": 4,
+        "will": 9,
+        "special": "Ruby Talents, Greater Spell Combat, Spell Power +4",
+        "baseMp": 39,
+        "maxSpellLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-14"
+          }
+        ]
+      },
+      {
+        "level": 15,
+        "bab": 11,
+        "iterativeAttacks": [
+          11,
+          6,
+          1
+        ],
+        "fort": 9,
+        "ref": 5,
+        "will": 9,
+        "special": "Clear Mind III, Doublecast (1/day), Ruby Arcana",
+        "baseMp": 45,
+        "maxSpellLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-15"
+          }
+        ]
+      },
+      {
+        "level": 16,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 5,
+        "will": 10,
+        "special": "Ruby Talents, Counterstrike, Quick Cast (4/day)",
+        "baseMp": 51,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-16"
+          }
+        ]
+      },
+      {
+        "level": 17,
+        "bab": 12,
+        "iterativeAttacks": [
+          12,
+          7,
+          2
+        ],
+        "fort": 10,
+        "ref": 5,
+        "will": 10,
+        "special": "Red Magery, Convert (4/day)",
+        "baseMp": 57,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-17"
+          }
+        ]
+      },
+      {
+        "level": 18,
+        "bab": 13,
+        "iterativeAttacks": [
+          13,
+          8,
+          3
+        ],
+        "fort": 11,
+        "ref": 6,
+        "will": 11,
+        "special": "Ruby Talents, Ruby Arcana",
+        "baseMp": 64,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-18"
+          }
+        ]
+      },
+      {
+        "level": 19,
+        "bab": 14,
+        "iterativeAttacks": [
+          14,
+          9,
+          4
+        ],
+        "fort": 11,
+        "ref": 6,
+        "will": 11,
+        "special": "1 MP Spell (3/day), Spell Power +5",
+        "baseMp": 71,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-19"
+          }
+        ]
+      },
+      {
+        "level": 20,
+        "bab": 15,
+        "iterativeAttacks": [
+          15,
+          10,
+          5
+        ],
+        "fort": 12,
+        "ref": 6,
+        "will": 12,
+        "special": "Ruby Talents, Clear Mind IV, Red Wizard, Doublecast (2/day)",
+        "baseMp": 79,
+        "maxSpellLevel": 6,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Table: Red Mage",
+            "locator": "level-20"
+          }
+        ]
+      }
+    ],
+    "features": [
+      {
+        "id": "ffd20:class:red-mage:feature:spells",
+        "name": "Spells",
+        "atLevel": 1,
+        "description": "A red mage casts red magic spells which are drawn from the [red mage spell list](https://www.finalfantasyd20.com/magic/spells-by-class/red-mage/). A red mage begins play with 3 1st level red mage spells of his choice. The red mage also selects a number of additional 1st-level spells equal to his\u00a0Charisma modifier to add to his list of spells. Each time a character attains a new red mage level, he gains two spells of his choice to add to his list of spells. The two free spells must be of spell levels he can cast. Like most mages, a red mage can find or purchase scrolls with spells to add to his repertoire.\n\nTo learn or cast a red mage spell, the red mage must have a Charisma score equal to at least 10 + the spell level (Cha 11 for 1st-level spells, Cha 12 for 2nd-level spells, and so forth). The Difficulty Class for a saving throw against a red mage\u2019s spell is 10 + the spell level + the red mage\u2019s Charisma modifier. In addition, a red mage gains additional MP for having a high attribute (Charisma\u2014see [**Table: Bonus MP per Day (by Spell Level)**](https://www.finalfantasyd20.com/magic/mp-system/#table-bonus-mp-per-day-by-spell-level)).",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:dual-spellcasting",
+        "name": "Dual Spellcasting",
+        "atLevel": 1,
+        "description": "*Dual Spellcasting ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the red mage to cast 1 healing spell and 1 damaging spell with the same standard action for a duration of 1 round + 1 round per four red mage levels after 1st. MP must be paid for both spells, and both spells must have a cast time of 1 standard action. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:flexibility",
+        "name": "Flexibility",
+        "atLevel": 1,
+        "description": "*Flexibility ([Su](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#supernatural)):* This Limit Break allows the red mage to change his current HP total and current MP total on the fly. Once per round as a [free action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#free), for a duration of 1 round + 1 round per four red mage levels after 1st, the red mage can swap any number of points from HP to MP or from MP to HP on a 3 to 1 basis (3 HP to 1 MP). The red mage cannot swap below 1 hit point. This limit break requires only a [swift action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#swift).",
+        "activation": "active",
+        "featureKind": "limit_break",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:red-magery",
+        "name": "Red Magery",
+        "atLevel": 1,
+        "description": "At 1st level and every four red mage levels thereafter, a red mage increases his power with his spells. At each such opportunity, he can choose from the list of the following (with a maximum of 2 per):\n\n* *Extra Quick Casts:* This grants the red mage an additional use of Quick Cast per day. (Cannot be obtained until 5th level.)\n* *Quick Mind:* This grants the red mage an additional swift or [immediate action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#immediate) per round that can be used with red mage class features or spells. This does not increase the normal limit of one [swift cast spell per round](https://www.d20pfsrd.com/Magic/#Casting_Time).\n* *Ruby Knowledge Mastery:* This increases the Intelligence/Wisdom score for Ruby Knowledge as if it were two points higher. (Cannot be obtained until 5th level.)\n* *Spell Combat Expertise:* This lowers the attack penalty of spell combat by 1.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "red-magery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:spell-proficiency",
+        "name": "Spell Proficiency",
+        "atLevel": 1,
+        "description": "Red mages are considered to have the [Precise Shot](https://www.d20pfsrd.com/feats/combat-feats/precise-shot-combat/) feat while casting spells, using class features that require ranged touch or using any magical items that require ranged touch.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "spell-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:cantrips",
+        "name": "Cantrips",
+        "atLevel": 1,
+        "description": "Red mages learn a number of cantrips, or 0-level spells. These spells are cast like any other spell, but they do not consume MP and may be used again. Red mages begin with 2 0-level spells and gain an additional 0-level spell every four levels after 1st level.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "cantrips"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:armored-mage",
+        "name": "Armored Mage",
+        "atLevel": 1,
+        "description": "At 1st level, normally, armor of any kind interferes with a spell-caster\u2019s gestures, which can cause spells to fail if those spells have a somatic component. A red mage\u2019s limited focus and specialized training, however, allows him to avoid spell failure so long as he sticks to light armor and light shields. This training does not extend to medium armor or to heavy shields. This ability does not apply to spells gained from a different spell-casting class.\n\nAt 7th level, a red mage learns to use medium armor with no chance of spell failure. At 10th level, a red mage learns to use heavy shields with no chance of spell failure.",
+        "activation": "passive",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "armored-mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:spell-combat",
+        "name": "Spell Combat",
+        "atLevel": 1,
+        "description": "Also at 1st level, a red mage learns to cast spells and wield his weapons at the same time. This functions much like two-weapon fighting, but the off-hand weapon is a spell that is being cast. To use this ability, the red mage must have one hand free, while wielding a light or one-handed melee weapon in the other hand. As a full-round action, he can make all of his attacks with his melee weapon at a \u20132 penalty and can also cast any spell from his red mage spell list with a casting time of 1 [standard action](https://www.finalfantasyd20.com/system-rules/pathfinder-basics/#standard) (any attack roll made as part of this spell also takes this penalty). If he casts this spell defensively, he can decide to take an additional penalty on his attack rolls, up to his Charisma bonus, and add the same amount as a circumstance bonus on his Concentration check. If the check fails, the spell is wasted, but the attacks still take the penalty. A red mage can choose to cast the spell first or make the weapon attacks first, but if he has more than one attack, he cannot cast the spell between weapon attacks. This ability applies only to spells that he casts as a red mage, not to those he might have by virtue of levels in another class.",
+        "activation": "active",
+        "featureKind": "class_feature",
+        "automation": "manual",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "spell-combat"
+          }
+        ]
+      }
+    ],
+    "upgrades": [],
+    "events": [
+      {
+        "id": "ffd20:class:red-mage:feature:spells:grant",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:red-mage:feature:spells",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "spells"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:dual-spellcasting:grant",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:red-mage:feature:dual-spellcasting",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:flexibility:grant",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:red-mage:feature:flexibility",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "limit-breaks"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:red-magery:grant",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:red-mage:feature:red-magery",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "red-magery"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:spell-proficiency:grant",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:red-mage:feature:spell-proficiency",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "spell-proficiency"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:cantrips:grant",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:red-mage:feature:cantrips",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "cantrips"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:armored-mage:grant",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:red-mage:feature:armored-mage",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "armored-mage"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:feature:spell-combat:grant",
+        "type": "grant_feature",
+        "atClassLevel": 1,
+        "featureId": "ffd20:class:red-mage:feature:spell-combat",
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "spell-combat"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:red-mage:event:red-magery:1",
+        "type": "choose",
+        "atClassLevel": 1,
+        "poolIds": [
+          "ffd20:class:red-mage:pool:red-magery"
+        ],
+        "count": {
+          "kind": "constant",
+          "value": 1
+        },
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Class Features",
+            "locator": "red-magery"
+          }
+        ]
+      }
+    ],
+    "choicePools": [
+      {
+        "id": "ffd20:class:red-mage:pool:red-magery",
+        "name": "Red Magery",
+        "options": [
+          {
+            "id": "ffd20:class:red-mage:magery:quick-mind",
+            "name": "Quick Mind",
+            "description": "One additional swift or immediate action each round for Red Mage class features or spells. Does not increase the one swift-cast spell per round limit. Apply action economy manually.",
+            "repeatLimit": 1,
+            "featureIds": []
+          },
+          {
+            "id": "ffd20:class:red-mage:magery:spell-combat-expertise",
+            "name": "Spell Combat Expertise",
+            "description": "Reduce the Spell Combat attack penalty by 1 (from -2 to -1). Apply only during Spell Combat, manually.",
+            "repeatLimit": 1,
+            "featureIds": []
+          }
+        ]
+      }
+    ],
+    "archetypeIndex": []
+  }
+}

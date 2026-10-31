@@ -8,11 +8,11 @@ Partial-live support, testing availability, source archiving and full completion
 
 | Kind | Archived | Definitions present | Available options/paths | Queued | Partial milestones | Fully complete | Waiting for parent |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| class | 73/73 | 10 | 10 | 63 | 10 | 0 | 0 |
-| race | 63/63 | 63 | 63 | 46 | 15 | 0 | 0 |
-| archetype | 579/579 | 7 | 5 | 572 | 5 | 0 | 420 |
+| class | 73/73 | 11 | 11 | 62 | 10 | 0 | 0 |
+| race | 63/63 | 63 | 63 | 47 | 15 | 0 | 0 |
+| archetype | 579/579 | 7 | 5 | 572 | 5 | 0 | 402 |
 
-Checkpoint revision: **103**. Active: **ffd20:race:garif**. Next: **ffd20:race:garif**.
+Checkpoint revision: **106**. Active: **ffd20:class:red-mage**. Next: **ffd20:class:red-mage**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -31,7 +31,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 7 | [Dragoon](https://finalfantasyd20.com/classes/core-classes/dragoon/) | existing live adapter · levels 1 | live_partial · deployment-verified | Six first-level abilities, class stats and proficiencies deployed and verified; Later class talents, progression, archetypes and multiclassing require separate source-reviewed adapters |
 | 8 | [Knight](https://finalfantasyd20.com/classes/core-classes/knight/) | existing live adapter · levels 1 | live_partial · deployment-verified | Lawful first-level Knight, stance counter and manual defensive references deployed; five public assets verified; Later talents/progression/archetypes, code adjudication and defensive effect/recovery automation require separate reviewed batches |
 | 9 | [Monk](https://finalfantasyd20.com/classes/core-classes/monk/) | existing live adapter · levels 1 | live_partial · deployment-verified | First-level FFd20 Monk, Bodybuilding HP and manual martial references deployed; five public assets verified; Later Ki/talents/blitz/progression/archetypes, conditional martial effects and feat interactions require separate reviewed batches |
-| 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
+| 10 | [Red Mage](https://finalfantasyd20.com/classes/core-classes/red-mage/) | existing live adapter · levels 1 | in_progress · local-validated | First-level Red Mage creation/editing and SQLite persistence implemented; Implement level 2 Arcane Pool, source-bound Ruby Talent choice and Spellstrike, then later progression. Stay local until publish. |
 | 11 | [Thief](https://finalfantasyd20.com/classes/core-classes/thief/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 12 | [Warrior](https://finalfantasyd20.com/classes/core-classes/warrior/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 13 | [White Mage](https://finalfantasyd20.com/classes/core-classes/white-mage/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
@@ -115,7 +115,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 13 | [Beastkin](https://finalfantasyd20.com/races/base-races/beastkin/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard senses/Hunter skills, source languages, owned flat stats and manual Run deployed; five public assets verified; Alternates and conditional movement, saves/immunity and feat automation require separate reviewed batches |
 | 14 | [Burmecian](https://finalfantasyd20.com/races/base-races/burmecian/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits/languages, owned CMD contribution and manual Improved Initiative deployed; five public assets verified; Core CMD/CMB migration and later variants/alternates/conditional effects need separate reviewed batches |
 | 15 | [Dracobaltian](https://finalfantasyd20.com/races/base-races/dracobaltian/) | testing option; saving can be guarded | live_partial · deployment-verified | Standard traits, explicit sensory limits, source languages and owned natural armor deployed; five public assets verified. Paused here at user request.; Await user resume; then Garif terrain/Pastoralist choices. Source reviewed only; no Garif application changes applied. |
-| 16 | [Garif](https://finalfantasyd20.com/races/base-races/garif/) | testing option; saving can be guarded | in_progress · deployed-awaiting-account-verification | Garif release b864d2a deployed successfully; public module hashes and health verified; Verify real signed-in Garif creation/save/reopen before its required live_partial milestone; do not repeat completed implementation. Future gameplay changes stay local until publish authorization. |
+| 16 | [Garif](https://finalfantasyd20.com/races/base-races/garif/) | testing option; saving can be guarded | queued · deployed-awaiting-account-verification | Garif release b864d2a deployed successfully; public module hashes and health verified; Verify real signed-in Garif creation/save/reopen before its required live_partial milestone; do not repeat completed implementation. Future gameplay changes stay local until publish authorization. |
 | 17 | [Garlean](https://finalfantasyd20.com/races/base-races/garlean/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 18 | [Genome](https://finalfantasyd20.com/races/base-races/genome/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |
 | 19 | [Gria](https://finalfantasyd20.com/races/base-races/gria/) | testing option; saving can be guarded | queued · source-review | Start of source review; Standard traits and required choices first; alternates, heritages, favored rewards and conditional rules remain separate review work. |

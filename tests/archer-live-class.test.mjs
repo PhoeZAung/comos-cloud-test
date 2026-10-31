@@ -25,7 +25,7 @@ function archerBuild(level=1){
  return b;
 }
 test('class adapters retain existing classes alongside first-level test classes, retaining Black Mage by default',()=>{
- assert.deepEqual(availableClasses.map(x=>x.name),['Black Mage','Archer','Chocobo Knight','Dancer','Dragoon','Knight','Monk','Gunbreaker','Beastmaster','Bard']);
+ assert.deepEqual(availableClasses.map(x=>x.name),['Black Mage','Archer','Chocobo Knight','Dancer','Dragoon','Knight','Monk','Gunbreaker','Beastmaster','Bard','Red Mage']);
  assert.equal(newBuild().classId,BLACK_MAGE_ID);
  assert.equal(className(archerBuild()),'Archer');
  assert.equal(classFor(archerBuild()).data.hitDie,8);

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 103,
+  "revision": 106,
   "schedule": [
     "class",
     "race",
@@ -580,12 +580,12 @@
       "updatedAt": "2026-10-31T14:53:33.075Z"
     },
     "ffd20:race:garif": {
-      "state": "in_progress",
+      "state": "queued",
       "stage": "deployed-awaiting-account-verification",
       "cursor": "Garif release b864d2a deployed successfully; public module hashes and health verified",
       "nextAction": "Verify real signed-in Garif creation/save/reopen before its required live_partial milestone; do not repeat completed implementation. Future gameplay changes stay local until publish authorization.",
       "scope": "Standard Garif level-1 creation/edit only. Terrain AC and mask saves conditional/manual. No higher-level Pastoralist, alternates, favored rewards or fully reviewed rules.",
-      "note": "Railway 88631e23 SUCCESS; 16 checked assets match current build; health/database ready and private read denied. Main CI 420 tests and cloud build passed. No real Firebase login, production character creation or save/reopen performed. Earlier queued status superseded.",
+      "note": "Parked only in the isolated classes/red-mage checkout for the user-requested class/race chat split. Preserve Garif signed-in verification requirement; reconcile race queue with race branch before any future merge.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -596,7 +596,22 @@
         "https://github.com/PhoeZAung/comos-cloud-test/actions/runs/41180154151",
         "docs/extraction/martial-progression-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T14:53:33.433Z"
+      "updatedAt": "2026-10-31T15:07:57.331Z"
+    },
+    "ffd20:class:red-mage": {
+      "state": "in_progress",
+      "stage": "local-validated",
+      "cursor": "First-level Red Mage creation/editing and SQLite persistence implemented",
+      "nextAction": "Implement level 2 Arcane Pool, source-bound Ruby Talent choice and Spellstrike, then later progression. Stay local until publish.",
+      "scope": "Level-one standard Red Mage only: required Magery, CHA MP and starting spells; conditional combat manual. Later levels/archetypes/multiclassing guarded.",
+      "note": "424 tests and cloud build pass locally. Class-only checkout; no push, merge or deployment. Source tables retained through 20, runtime only level 1. Race checkpoint must be reconciled before merging.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "docs/extraction/red-mage-level-one-import.md",
+        "tests/red-mage-level-one.test.mjs"
+      ],
+      "updatedAt": "2026-10-31T15:08:54.282Z"
     }
   },
   "history": [
@@ -1517,6 +1532,33 @@
       "stage": "deployed-awaiting-account-verification",
       "cursor": "Garif release b864d2a deployed successfully; public module hashes and health verified",
       "time": "2026-10-31T14:53:33.433Z"
+    },
+    {
+      "revision": 104,
+      "itemId": "ffd20:race:garif",
+      "from": "in_progress",
+      "to": "queued",
+      "stage": "deployed-awaiting-account-verification",
+      "cursor": "Garif release b864d2a deployed successfully; public module hashes and health verified",
+      "time": "2026-10-31T15:07:57.331Z"
+    },
+    {
+      "revision": 105,
+      "itemId": "ffd20:class:red-mage",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "source-review",
+      "cursor": "Start of source review",
+      "time": "2026-10-31T15:07:57.427Z"
+    },
+    {
+      "revision": 106,
+      "itemId": "ffd20:class:red-mage",
+      "from": "in_progress",
+      "to": "in_progress",
+      "stage": "local-validated",
+      "cursor": "First-level Red Mage creation/editing and SQLite persistence implemented",
+      "time": "2026-10-31T15:08:54.282Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."
