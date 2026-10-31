@@ -5,6 +5,10 @@ const AEGYL='ffd20:race:aegyl';
 const WING_CLIPPED=AEGYL+':trait:wing-clipped';
 const AEGYL_SPEED=AEGYL+':trait:base-speed';
 const WING_FLIGHT_MODIFIER=WING_CLIPPED+':flight-modifier';
+const TARUTARU='ffd20:race:tarutaru';
+const POLYGLOT=TARUTARU+':trait:polyglot';
+const TARUTARU_LANGUAGES=TARUTARU+':trait:languages';
+const POLYGLOT_LANGUAGE_MODIFIER=POLYGLOT+':language-modifier';
 const MOOGLE='ffd20:race:moogle';
 const GROUNDED=MOOGLE+':trait:grounded';
 const MOOGLE_BASE_SPEED=MOOGLE+':trait:base-speed';
@@ -43,7 +47,9 @@ export const isSupportedRaceOperation=(race,op)=>
  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===AEGYL_SPEED&&!(op.addsFeatureIds||[]).length)||
  (race?.id===MOOGLE&&op.id===GROUNDED_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===MOOGLE_BASE_SPEED&&
- op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===GROUNDED);
+ op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===GROUNDED)||
+ (race?.id===TARUTARU&&op.id===POLYGLOT_LANGUAGE_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
+ op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===TARUTARU_LANGUAGES&&!(op.addsFeatureIds||[]).length);
 
 // A replacement-only heritage is safe to enable when all its affected ability
 // score vectors already have exact automatic effects. Otherwise leaving the
@@ -63,6 +69,9 @@ export function isSupportedRaceHeritage(race,heritage){
 }
 
 export function applyRaceModification(race,feature,op){
+ if(race?.id===TARUTARU&&feature?.id===TARUTARU_LANGUAGES&&op?.id===POLYGLOT_LANGUAGE_MODIFIER)
+  return {...feature,description:'Polyglot: starts with Common, Lalafellan, and one freely chosen additional starting language; retains all normal high-Intelligence bonus languages (Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin and Orc).'};
+
  if(race?.id===MOOGLE&&feature?.id===MOOGLE_BASE_SPEED&&op?.id===GROUNDED_MODIFIER){
   return {...feature,
    description:'Grounded: land speed remains 20 ft despite encumbrance, medium/heavy armor or similar speed reductions. Limited wing-assisted flight and its conditional +4 Acrobatics benefit are lost. The +1 racial saving throw bonus against effects reducing movement speed is situational; apply it when appropriate.',
