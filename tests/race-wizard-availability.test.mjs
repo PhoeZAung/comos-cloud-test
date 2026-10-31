@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {registry,newBuild,buildIssues,compileBuild} from '../src/features/characters/rules/build.mjs';
+import {registry,newBuild,buildIssues,compileBuild,raceTraits} from '../src/features/characters/rules/build.mjs';
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 import {fixedSkills} from '../src/features/sheet/skills.mjs';
 const get=key=>registry.races.find(r=>r.id==='ffd20:race:'+key);
