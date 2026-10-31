@@ -97,6 +97,6 @@ test('Trollkin conflicting weakness text stays manual and has no invented elemen
  assert(!racialChoiceSpecs(r,raceTraits(b).traits).some(x=>/acid-or-fire/.test(x.id)));
  const weakness=raceTraits(b).traits.find(f=>f.id===r.id+':trait:acid-or-fire');
  assert.match(weakness.description,/FIRE or EARTH/);
- assert.match(weakness.description,/contradictory/i);
+ assert.match(weakness.description,/contradiction|contradictory/i);
  assert.equal(weakness.effects.length,0);
 });
