@@ -12,6 +12,46 @@
       "retrievedOn": "2026-10-29",
       "sourceKind": "official_web",
       "archiveSha256": "003420c9d4e4a46d5310bf4977e743442f952626f8c87c3acbf7fb0dcbe8d00b"
+    },
+    {
+      "id": "classes-hybrid-classes-dancer-dance-talents",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/",
+      "title": "Dance talent",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "8d998cb6d623a3433808963a3ef86e830724953652f44a98d835e342aafe038b"
+    },
+    {
+      "id": "classes-hybrid-classes-dancer-mystic-dances",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/",
+      "title": "Mystic dance",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "04fdd0299c58af6453d9d9928f5f6a5a2a04a1a4b28b6d269015291dce53afa9"
+    },
+    {
+      "id": "option-dance-talents",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/",
+      "title": "Akimbo talent",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "8d998cb6d623a3433808963a3ef86e830724953652f44a98d835e342aafe038b"
+    },
+    {
+      "id": "option-gunnery-talents",
+      "url": "https://finalfantasyd20.com/classes/base-classes/gunner/gunnery-talents/",
+      "title": "Akimbo talent",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "9ca07f16e338feb9e002377f94a5d32e1d246cbfcf437228cc3a45b6ab31f02f"
+    },
+    {
+      "id": "option-mystic-dances",
+      "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/mystic-dances/",
+      "title": "Mystic dance",
+      "retrievedOn": "2026-10-29",
+      "sourceKind": "official_web",
+      "markdownSha256": "04fdd0299c58af6453d9d9928f5f6a5a2a04a1a4b28b6d269015291dce53afa9"
     }
   ],
   "review": {
@@ -595,7 +635,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Athlete",
                 "locator": "athlete"
               }
@@ -612,7 +652,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Beloved",
                 "locator": "beloved"
               }
@@ -629,7 +669,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Born Leader",
                 "locator": "born-leader"
               }
@@ -646,7 +686,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Clear Mind",
                 "locator": "clear-mind"
               }
@@ -663,7 +703,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Combat Feat",
                 "locator": "combat-feat"
               }
@@ -680,7 +720,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Coordinate",
                 "locator": "coordinate"
               }
@@ -697,7 +737,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Dance Inspiration",
                 "locator": "dance-inspiration"
               }
@@ -714,7 +754,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Dance Troubadour",
                 "locator": "dance-troubadour"
               }
@@ -731,7 +771,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Defensive Jab",
                 "locator": "defensive-jab"
               }
@@ -748,7 +788,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Defensive Roll",
                 "locator": "defensive-roll"
               }
@@ -765,7 +805,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Devastating Unarmed Smash",
                 "locator": "devastating-unarmed-smash"
               }
@@ -782,7 +822,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Experienced Brawler",
                 "locator": "experienced-brawler"
               }
@@ -799,7 +839,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Expert Leaper",
                 "locator": "expert-leaper"
               }
@@ -816,7 +856,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Hardened Strike",
                 "locator": "hardened-strike"
               }
@@ -833,7 +873,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Harmonic Dance",
                 "locator": "harmonic-dance"
               }
@@ -850,7 +890,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Improved Battle Dance",
                 "locator": "improved-battle-dance"
               }
@@ -867,7 +907,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Increased Ki",
                 "locator": "increased-ki"
               }
@@ -884,7 +924,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Inspire Haste",
                 "locator": "inspire-haste"
               }
@@ -901,7 +941,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Ki Deflection",
                 "locator": "ki-deflection"
               }
@@ -918,7 +958,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Ki Pool",
                 "locator": "ki-pool"
               }
@@ -935,7 +975,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Ledge Walker",
                 "locator": "ledge-walker"
               }
@@ -952,7 +992,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Masterful Dances",
                 "locator": "masterful-dances"
               }
@@ -969,7 +1009,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Melee Power",
                 "locator": "melee-power"
               }
@@ -986,7 +1026,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Melee Tenacity",
                 "locator": "melee-tenacity"
               }
@@ -1003,7 +1043,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Mystic Dance",
                 "locator": "mystic-dance"
               }
@@ -1020,7 +1060,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Nimble Dodge",
                 "locator": "nimble-dodge"
               }
@@ -1037,7 +1077,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Pick a Fight",
                 "locator": "pick-a-fight"
               }
@@ -1054,7 +1094,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Positioning Attack",
                 "locator": "positioning-attack"
               }
@@ -1071,7 +1111,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Punishing Strike",
                 "locator": "punishing-strike"
               }
@@ -1088,7 +1128,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Quick Reflexes",
                 "locator": "quick-reflexes"
               }
@@ -1105,7 +1145,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Rally",
                 "locator": "rally"
               }
@@ -1122,7 +1162,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Redirect Force",
                 "locator": "redirect-force"
               }
@@ -1139,7 +1179,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Retaliation Jab",
                 "locator": "retaliation-jab"
               }
@@ -1156,7 +1196,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Reverse Strength",
                 "locator": "reverse-strength"
               }
@@ -1173,7 +1213,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Shove Aside",
                 "locator": "shove-aside"
               }
@@ -1190,7 +1230,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Slow Fall",
                 "locator": "slow-fall"
               }
@@ -1207,7 +1247,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Stand Up",
                 "locator": "stand-up"
               }
@@ -1224,7 +1264,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Stinging Jab",
                 "locator": "stinging-jab"
               }
@@ -1241,7 +1281,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Style Feat",
                 "locator": "style-feat"
               }
@@ -1258,7 +1298,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Sucker Punch",
                 "locator": "sucker-punch"
               }
@@ -1275,7 +1315,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Superior Senses",
                 "locator": "superior-senses"
               }
@@ -1292,7 +1332,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Tavern Brawler",
                 "locator": "tavern-brawler"
               }
@@ -1309,7 +1349,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Trust",
                 "locator": "trust"
               }
@@ -1326,7 +1366,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Unarmed Smash",
                 "locator": "unarmed-smash"
               }
@@ -1343,7 +1383,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Unrelenting Assault",
                 "locator": "unrelenting-assault"
               }
@@ -1360,7 +1400,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Unwavering Ally",
                 "locator": "unwavering-ally"
               }
@@ -1377,7 +1417,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Advanced Battle Dance",
                 "locator": "advanced-battle-dance"
               }
@@ -1394,7 +1434,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Center of Combat",
                 "locator": "center-of-combat"
               }
@@ -1411,7 +1451,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Devastating Melee Smash",
                 "locator": "devastating-melee-smash"
               }
@@ -1428,7 +1468,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Doblepaso",
                 "locator": "doblepaso"
               }
@@ -1445,7 +1485,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Energetic Recharge",
                 "locator": "energetic-recharge"
               }
@@ -1462,7 +1502,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Fast Tumble",
                 "locator": "fast-tumble"
               }
@@ -1479,7 +1519,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Foe-Biting Dance",
                 "locator": "foe-biting-dance"
               }
@@ -1496,7 +1536,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Hard Minded",
                 "locator": "hard-minded"
               }
@@ -1513,7 +1553,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Hustle",
                 "locator": "hustle"
               }
@@ -1530,7 +1570,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Improved Competence",
                 "locator": "improved-competence"
               }
@@ -1547,7 +1587,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Improved Courage",
                 "locator": "improved-courage"
               }
@@ -1564,7 +1604,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Improved Ki Pool",
                 "locator": "improved-ki-pool"
               }
@@ -1581,7 +1621,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Light Steps",
                 "locator": "light-steps"
               }
@@ -1598,7 +1638,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Light Walker",
                 "locator": "light-walker"
               }
@@ -1615,7 +1655,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Quick Dance",
                 "locator": "quick-dance"
               }
@@ -1632,7 +1672,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Redirect Attack",
                 "locator": "redirect-attack"
               }
@@ -1649,7 +1689,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Step and Strike",
                 "locator": "step-and-strike"
               }
@@ -1666,7 +1706,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-dance-talents",
                 "section": "Uncanny Defense",
                 "locator": "uncanny-defense"
               }
@@ -1683,7 +1723,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Big Iron On The Hip",
                 "locator": "big-iron-on-the-hip"
               }
@@ -1700,7 +1740,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Close-Range Training",
                 "locator": "close-range-training"
               }
@@ -1717,7 +1757,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Combat Feat",
                 "locator": "combat-feat"
               }
@@ -1734,7 +1774,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Gun Kata",
                 "locator": "gun-kata"
               }
@@ -1751,7 +1791,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Improved Skirmisher Step",
                 "locator": "improved-skirmisher-step"
               }
@@ -1768,7 +1808,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Markmanship: Critical",
                 "locator": "markmanship-critical"
               }
@@ -1785,7 +1825,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Markmanship: Disarm",
                 "locator": "markmanship-disarm"
               }
@@ -1802,7 +1842,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Markmanship: Prone",
                 "locator": "markmanship-prone"
               }
@@ -1819,7 +1859,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Markmanship: Quickdraw",
                 "locator": "markmanship-quickdraw"
               }
@@ -1836,7 +1876,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Markmanship: Trip",
                 "locator": "markmanship-trip"
               }
@@ -1853,7 +1893,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Mobile Attack",
                 "locator": "mobile-attack"
               }
@@ -1870,7 +1910,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Mobility Training",
                 "locator": "mobility-training"
               }
@@ -1887,7 +1927,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Reflexive Shot",
                 "locator": "reflexive-shot"
               }
@@ -1904,7 +1944,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Retreating Fire",
                 "locator": "retreating-fire"
               }
@@ -1921,7 +1961,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Ricochet Shot",
                 "locator": "ricochet-shot"
               }
@@ -1938,7 +1978,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Skirmisher Step",
                 "locator": "skirmisher-step"
               }
@@ -1955,7 +1995,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Small Arms",
                 "locator": "small-arms"
               }
@@ -1972,7 +2012,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Splitshot",
                 "locator": "splitshot"
               }
@@ -1989,7 +2029,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Stable Shooter",
                 "locator": "stable-shooter"
               }
@@ -2006,7 +2046,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Steady Shooting",
                 "locator": "steady-shooting"
               }
@@ -2023,7 +2063,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Swift Shot",
                 "locator": "swift-shot"
               }
@@ -2040,7 +2080,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Trench Warfare",
                 "locator": "trench-warfare"
               }
@@ -2057,7 +2097,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Trigger Work",
                 "locator": "trigger-work"
               }
@@ -2074,7 +2114,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-gunnery-talents",
                 "section": "Unorthodox Firing",
                 "locator": "unorthodox-firing"
               }
@@ -2097,7 +2137,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Aspir Samba",
                 "locator": "aspir-samba"
               }
@@ -2114,7 +2154,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Aspir Samba II",
                 "locator": "aspir-samba-ii"
               }
@@ -2131,7 +2171,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Blade Dance",
                 "locator": "blade-dance"
               }
@@ -2148,7 +2188,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Box Step",
                 "locator": "box-step"
               }
@@ -2165,7 +2205,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Building Flourish",
                 "locator": "building-flourish"
               }
@@ -2182,7 +2222,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Chocobo Jig",
                 "locator": "chocobo-jig"
               }
@@ -2199,7 +2239,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Chocobo Jig II",
                 "locator": "chocobo-jig-ii"
               }
@@ -2216,7 +2256,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Curing Waltz",
                 "locator": "curing-waltz"
               }
@@ -2233,7 +2273,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Curing Waltz II",
                 "locator": "curing-waltz-ii"
               }
@@ -2250,7 +2290,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Curing Waltz III",
                 "locator": "curing-waltz-iii"
               }
@@ -2267,7 +2307,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Dance of Hundred Cuts",
                 "locator": "dance-of-hundred-cuts"
               }
@@ -2284,7 +2324,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Desperate Flourish",
                 "locator": "desperate-flourish"
               }
@@ -2301,7 +2341,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Disillusion Flourish",
                 "locator": "disillusion-flourish"
               }
@@ -2318,7 +2358,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Divine Waltz",
                 "locator": "divine-waltz"
               }
@@ -2335,7 +2375,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Divine Waltz II",
                 "locator": "divine-waltz-ii"
               }
@@ -2352,7 +2392,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Drain Samba",
                 "locator": "drain-samba"
               }
@@ -2369,7 +2409,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Drain Samba II",
                 "locator": "drain-samba-ii"
               }
@@ -2386,7 +2426,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Drain Samba III",
                 "locator": "drain-samba-iii"
               }
@@ -2403,7 +2443,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Dream Eater Dance",
                 "locator": "dream-eater-dance"
               }
@@ -2420,7 +2460,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Forbidden Dance",
                 "locator": "forbidden-dance"
               }
@@ -2437,7 +2477,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Haste Samba",
                 "locator": "haste-samba"
               }
@@ -2454,7 +2494,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Healing Waltz",
                 "locator": "healing-waltz"
               }
@@ -2471,7 +2511,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Jitterbug Duet",
                 "locator": "jitterbug-duet"
               }
@@ -2488,7 +2528,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Last Dance",
                 "locator": "last-dance"
               }
@@ -2505,7 +2545,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Mincing Minuet",
                 "locator": "mincing-minuet"
               }
@@ -2522,7 +2562,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Mystery Waltz",
                 "locator": "mystery-waltz"
               }
@@ -2539,7 +2579,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Pyrrhic Puncture Flourish",
                 "locator": "pyrrhic-puncture-flourish"
               }
@@ -2556,7 +2596,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Quickstep",
                 "locator": "quickstep"
               }
@@ -2573,7 +2613,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Slow Dance",
                 "locator": "slow-dance"
               }
@@ -2590,7 +2630,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Somnus Step",
                 "locator": "somnus-step"
               }
@@ -2607,7 +2647,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Sonorous Serra Step",
                 "locator": "sonorous-serra-step"
               }
@@ -2624,7 +2664,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Spectral Jig",
                 "locator": "spectral-jig"
               }
@@ -2641,7 +2681,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Spectral Jig II",
                 "locator": "spectral-jig-ii"
               }
@@ -2658,7 +2698,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Stutter Step",
                 "locator": "stutter-step"
               }
@@ -2675,7 +2715,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Sword Dance",
                 "locator": "sword-dance"
               }
@@ -2692,7 +2732,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Tempting Tango",
                 "locator": "tempting-tango"
               }
@@ -2709,7 +2749,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Violent Flourish",
                 "locator": "violent-flourish"
               }
@@ -2726,7 +2766,7 @@
             "featureIds": [],
             "sourceRefs": [
               {
-                "sourceId": "main",
+                "sourceId": "option-mystic-dances",
                 "section": "Witch Hunt Samba",
                 "locator": "witch-hunt-samba"
               }
