@@ -84,13 +84,13 @@ function racialSelections(b,specs,scores){
   if(spec.choiceType==='language'){
    // Language choices belong ONLY on the ability-score step, after racial/heritage INT.
    if(maximum<1)return '';
+   const starting=Boolean(spec.startingLanguage);
    const slots=Array.from({length:maximum},(_,i)=>{
     const current=selected[i]||'';
     if(spec.freeText)return field(starting?'Starting language':'Language '+(i+1),'<input list="rw-ffd20-languages" data-rw-language-slot="'+e(spec.id)+'" data-language-index="'+i+'" maxlength="60" placeholder="Choose or type a language" value="'+e(languageName(current))+'">');
     return field(starting?'Starting language':'Language '+(i+1),'<select data-rw-language-slot="'+e(spec.id)+'" data-language-index="'+i+'">'+opt('','Choose a language',current)+spec.options.map(o=>opt(o.id,o.name,current)).join('')+'</select>');
    }).join('');
    const polyglot=spec.id==='ffd20:race:tarutaru:pool:polyglot-starting-language'||spec.id==='ffd20:race:lambkin:pool:polyglot-language';
-   const starting=Boolean(spec.startingLanguage);
    return panel(polyglot?'Polyglot starting language':starting?'Starting language':'Bonus languages','<p>'+(starting?'Choose one starting language from your race’s choices. This is separate from high-Intelligence bonus languages.':polyglot?'Choose one extra starting language, regardless of Intelligence. This does not replace any high-Intelligence bonus languages.':'Choose up to '+maximum+' additional language'+(maximum===1?'':'s')+' based on your effective Intelligence. Each language can be selected once.')+'</p>'+slots+(spec.freeText?'<datalist id="rw-ffd20-languages">'+ffd20LanguageNames.filter(x=>x!=='Common').map(x=>'<option value="'+e(x)+'"></option>').join('')+'</datalist>':'')+'<p><a href="languages.html" target="_blank" rel="noopener noreferrer">View all FFd20 languages</a></p>');
   }
   const help=spec.minimum===maximum?'Choose '+maximum+'.':'Choose up to '+maximum+'.';
