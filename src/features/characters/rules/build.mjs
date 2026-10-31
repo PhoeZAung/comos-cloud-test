@@ -6,7 +6,7 @@ import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT
 import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions,RED_MAGERY_EVENT,redMageHasSpells,redMageArchetype,redMageCounter} from './red-mage-level-one.mjs';
 import {redMageSpells} from './red-mage-spells.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
-import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,GRIA_WEAPON,NAMAZU_FOCUS_LEVELS,namazuFocusSlot,YAGUDO_RANK_LANGUAGES,YAGUDO_LINGUISTICS_ROW} from './racial-choices.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats,SYRICTA_ELEMENT,SYRICTA_BREATH,HALF_ANCESTRAL_SLOT,GRIA_WEAPON,NAMAZU_FOCUS_LEVELS,namazuFocusSlot,SHINDROID_SIMULATED_RACE,YAGUDO_RANK_LANGUAGES,YAGUDO_LINGUISTICS_ROW} from './racial-choices.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage,applyRaceModification} from './race-replacement-operations.mjs';
 import {seedRacialMovement} from '../../sheet/movement.mjs';
 import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
@@ -35,6 +35,10 @@ export {replacementFor};
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
+ const hologram=r.id==='ffd20:race:shindroid'&&b.alternateIds.includes(r.id+':trait:hologram-simulation');
+ if(hologram&&(b.heritageId||b.alternateIds.some(id=>
+    [r.id+':trait:integrated-weaponry',r.id+':trait:race-simulation'].includes(id))))
+  errors.push('Hologram Simulation cannot be combined with variant Shindroid heritages, Integrated Weaponry, or Race Simulation.');
  const heritage=r.data.heritages.find(h=>h.id===b.heritageId),heritageSafe=!heritage||isSupportedRaceHeritage(r,heritage);
  if(heritage&&!heritageSafe)errors.push('Selected heritage needs a verified replacement and automatic ability-score vector or required choice control.');
  const operations=[...(heritageSafe?heritage?.replacements||[]:[]),...b.alternateIds.flatMap(id=>{
@@ -333,6 +337,7 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
    'ffd20:race:mandragora':['bonus-languages'],
    'ffd20:race:palico':['starting-second-language','high-intelligence-bonus-languages'],
    'ffd20:race:kindred':['languages-selection','high-intelligence-bonus-languages'],
+   'ffd20:race:shindroid':['race-simulation-humanoid'],
    'ffd20:race:syricta':['memories-knowledge-skills']
   }[raceId]||[];
   for(const suffix of fixedPools){
