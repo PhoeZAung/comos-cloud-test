@@ -302,7 +302,7 @@ export function mountRulesWizard(){
     b.mutantRolls??=mutantEmptyRolls();
     if(category==='resistance')b.mutantRolls.resistance=roll;
     else if(category==='level'){b.mutantRolls.levels[level]??=[];b.mutantRolls.levels[level].push(roll);}
-    else if(['abilities','physical'].includes(category))b.mutantRolls[category].push(roll);
+    else if(['abilities','physical'].includes(category)&&!mutantD100State(b.mutantRolls[category],category==='physical').complete)b.mutantRolls[category].push(roll);
     changed();draw();return;
    }
    if(t.matches('[data-rw-race-category]')){
@@ -310,7 +310,7 @@ export function mountRulesWizard(){
     if(!raceCategories.some(c=>c.id===selected))return;
     raceCategory=selected;
     if(categoryForRace(raceFor(b))!==selected&&b.raceId){
-     b.raceId='';b.heritageId='';b.disabledTraits=[];b.alternateIds=[];b.racialChoices={};b.racialSpecialties={};
+     b.raceId='';b.heritageId='';b.disabledTraits=[];b.alternateIds=[];b.racialChoices={};b.racialSpecialties={};b.mutantRolls=mutantEmptyRolls();
     }
     changed();draw();return;
    }
@@ -325,7 +325,7 @@ export function mountRulesWizard(){
     if(t.matches('[data-rw-racial-choice]')){b.racialChoices??={};b.racialChoices[t.dataset.rwRacialChoice]=t.value?[t.value]:[];changed();draw();return;}
    if(t.matches('[data-rw-racial-option]')){b.racialChoices??={};const key=t.dataset.rwRacialOption,old=b.racialChoices[key]||[];b.racialChoices[key]=t.checked?[...new Set([...old,t.dataset.optionId])]:old.filter(id=>id!==t.dataset.optionId);changed();draw();return;}
    if(t.matches('[data-rw-archer-level]')){archerPreviewLevel=Math.max(1,Math.min(20,Number(t.value)||1));draw();return;}
-  if(t.matches('[data-rw-field]')){const k=t.dataset.rwField;b[k]=t.value;if(k==='archetypeId'){b.choices={};b.hpRolls=[classHitDie(b)];changed();draw();return;}if(!['classId','raceId','heritageId'].includes(k)){changed();return;}if(k==='classId'){b.choices={};b.archetypeId='';b.spellIds=[];b.spellSelections={cantrips:[],leveled:[]};b.initialIntMod=null;b.initialChaMod=null;b.hpRolls=[classHitDie(b)];b.favored=[];archerPreviewLevel=b.level;}if(k==='raceId'){raceCategory=categoryForRace(raceFor(b));b.heritageId='';b.disabledTraits=[];b.alternateIds=[];b.racialChoices={};b.racialSpecialties={};}changed();draw();}
+  if(t.matches('[data-rw-field]')){const k=t.dataset.rwField;b[k]=t.value;if(k==='archetypeId'){b.choices={};b.hpRolls=[classHitDie(b)];changed();draw();return;}if(!['classId','raceId','heritageId'].includes(k)){changed();return;}if(k==='classId'){b.choices={};b.archetypeId='';b.spellIds=[];b.spellSelections={cantrips:[],leveled:[]};b.initialIntMod=null;b.initialChaMod=null;b.hpRolls=[classHitDie(b)];b.favored=[];archerPreviewLevel=b.level;}if(k==='raceId'){raceCategory=categoryForRace(raceFor(b));b.heritageId='';b.disabledTraits=[];b.alternateIds=[];b.racialChoices={};b.racialSpecialties={};b.mutantRolls=mutantEmptyRolls();}changed();draw();}
   if(t.matches('[data-rw-score]')){changed();draw();}
   if(t.matches('[data-rw-method]')){b.abilityMethod=t.value;b.scoreAssignments=[null,null,null,null,null,null];if(t.value==='point-buy')b.baseScores=Object.fromEntries(stats.map(k=>[k,10]));assignPool();changed();draw();}
   if(t.matches('[data-rw-budget]')){b.pointBudget=Number(t.value);changed();draw();}
