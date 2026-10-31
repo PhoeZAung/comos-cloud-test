@@ -3,7 +3,7 @@ import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classe
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
 import {isBard,bardPreview,bardIssues,bardSpellCounts,bardSpellOptions} from './bard-level-one.mjs';
 import {supportsRacialPool,racialChoiceEffects,racialChoiceIssues,mappedRaceTraits,racialChoiceFeats} from './racial-choices.mjs';
-import {GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
+import {DWARF_ID,DWARF_MOUNTAIN_TRAIT,DWARF_MOUNTAIN_LANDSCAPE,GARLEAN_ID,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,BURMECIAN_ID,BEASTKIN_ID,BANGAA_ID,AU_RA_ID,AL_BHED_ID,AL_BHED_GENIUS,AEGYL_ID,HUME_ID,MITHRA_ID,TARUTARU_ID,racialSkillRanks,racialCounter,applyRacialFlatStats} from './racial-progress.mjs';
 import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mjs';
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
@@ -35,6 +35,10 @@ export function raceTraits(b){
   if(!op.targetFeatureIds.some(id=>disabled.has(id)))for(const id of op.addsFeatureIds)active.add(id);
  }
  const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id))).map(f=>{
+  if(r.id===DWARF_ID&&f.id===DWARF_MOUNTAIN_TRAIT){
+   const chosen=r.choicePools.find(p=>p.id===DWARF_MOUNTAIN_LANDSCAPE)?.options.find(o=>o.id===b.racialChoices?.[DWARF_MOUNTAIN_LANDSCAPE]?.[0])?.name;
+   return {...f,description:f.description+(chosen?' Chosen landscape: '+chosen+'. Grant +2 dodge AC only while in this terrain; do not add permanent AC.':'')};
+  }
   if(r.id===GARIF_ID&&f.id===GARIF_ID+':trait:bond-to-the-land'){
    const terrain=r.choicePools.find(p=>p.id===GARIF_TERRAIN)?.options.find(o=>o.id===b.racialChoices?.[GARIF_TERRAIN]?.[0])?.name;
    return {...f,description:f.description+(terrain?' Chosen terrain: '+terrain+'. This bonus is conditional and must be applied manually.':'')};
@@ -217,6 +221,11 @@ function classPreview(b){
  return {scores,summary,race,racial,features,hp:hp+carriedHp,skillBudget:Number(b.carry?.skillBudget||0)+carriedLevels(b)*(mod(scores.int)-mod(b.carry?.int??scores.int))+summary.skillPerLevel*b.level+favored.filter(v=>v==='skill').length};
 }
 export function compileBuild(raw,previous={}, {allowRankReduction=false,append=false,levelTransition=false}={}){
+ if(previous.rulesBuild?.input?.raceId===DWARF_ID){
+  const initial=previous.rulesBuild.input;
+  if((initial.alternateIds||[]).includes(DWARF_MOUNTAIN_TRAIT)!==(raw?.alternateIds||[]).includes(DWARF_MOUNTAIN_TRAIT))bad('Mountain Familarity must be selected at character creation and cannot change after saving.');
+  if(JSON.stringify(initial.racialChoices?.[DWARF_MOUNTAIN_LANDSCAPE]||[])!==JSON.stringify(raw?.racialChoices?.[DWARF_MOUNTAIN_LANDSCAPE]||[]))bad('Mountain Familarity landscape is a permanent choice and cannot change after saving.');
+ }
  if(previous.rulesBuild?.input?.raceId===GARLEAN_ID){
   const initial=previous.rulesBuild.input;
   for(const pool of [GARLEAN_WEAPON,GARLEAN_CRAFT])if((raw?.racialChoices?.[pool]||[]).join('|')!==(initial.racialChoices?.[pool]||[]).join('|'))bad('Garlean starting racial choices cannot be changed during editing.');

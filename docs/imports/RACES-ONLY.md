@@ -17,3 +17,5 @@ Half-Breed remains source-blocked until parent race feature/RP evidence is estab
 - Shared prerequisites published via PR #36 (`e3307f0`) and Railway SUCCESS; race audit restarted with **Dwarf → Elvaan → Galka**, not Genome.
 
 **Dwarf current batch:** The four source-resolved heritage ability score vectors already exist. Review and integration tests now verify they replace, not stack, the standard bonuses and persist on reapplication. Existing high-INT Dwarf language options are activated only when Languages is active, and appear solely on the ability-score step. Other unreviewed alternate/conditional mechanics remain manual.
+
+**Mountain Familarity** reviewed against the official FFd20 Dwarf alternate trait: replace Bond to the Land; choose mountains/hills OR coniferous/deciduous forest once at creation; +2 dodge AC in chosen terrain, manual/conditional only. UI now supports the previously extracted terrain pool and preserves the permanent choice across save/reopen; full Dwarf alternate audit remains ongoing.
