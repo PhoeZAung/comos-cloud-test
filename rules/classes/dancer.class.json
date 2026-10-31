@@ -2354,7 +2354,7 @@
             "description": "A dancer with this talent has a knack for getting people to work together. When she uses this talent as a standard action, all allies within her line of sight are granted an additional +1 bonus when they use the Aid Another action until the start of her next turn. The dancer may select this talent multiple times; each time she does, the bonus granted by the coordinate ability increases by 1 (To a maximum of +5).",
             "prerequisiteText": "—",
             "minimumLevel": 2,
-            "repeatLimit": 20,
+            "repeatLimit": 5,
             "featureIds": [],
             "sourceRefs": [
               {
@@ -2686,7 +2686,8 @@
                 "locator": "mystic-dance"
               }
             ],
-            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/"
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/dancer/dance-talents/",
+            "grantsChoicePoolId": "ffd20:class:dancer:pool:mystic-dances"
           },
           {
             "id": "ffd20:class:dancer:pool:talents:option:nimble-dodge",
@@ -2915,7 +2916,7 @@
             "description": "A dancer with this talent chooses a Style Feat or a feat that lists a Style Feat as a prerequisite. She gains that as a bonus feat. This talent be taken up to 3 times. The dancer must still meet prerequisites for the style feat or any other feat selected with this talent.",
             "prerequisiteText": "—",
             "minimumLevel": 2,
-            "repeatLimit": 1,
+            "repeatLimit": 3,
             "featureIds": [],
             "sourceRefs": [
               {

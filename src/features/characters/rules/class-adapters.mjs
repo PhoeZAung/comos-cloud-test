@@ -165,7 +165,7 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
   r.rulesBonus=bonus;r.temp+=bonus;return r;
  });
  const rows={activeAbilities:[],passiveAbilities:[],racialAbilities:[],feats:[],spells:[]};
- const grant=(f,where)=>{const old=previous[where]?.find(x=>x.sourceRuleId===f.id);
+ const grant=(f,where)=>{const old=previous[where]?.find(x=>x.sourceRuleId===f.id)||(['activeAbilities','passiveAbilities'].includes(where)?previous[where==='activeAbilities'?'passiveAbilities':'activeAbilities']?.find(x=>x.sourceRuleId===f.id):null);
   if(oldManaged?.ownedIds?.includes(f.id)&&!old)return;
   const row={...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:f.name,
    desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:f.description,

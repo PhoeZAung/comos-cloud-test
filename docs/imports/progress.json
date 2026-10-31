@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 85,
+  "revision": 89,
   "schedule": [
     "class",
     "race",
@@ -31,19 +31,21 @@
     "ffd20:class:dancer": {
       "state": "live_partial",
       "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
       "scope": "New level-1 characters; conditional mechanics manual; later progression unsupported.",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/two-character-live-test.md",
         "https://github.com/PhoeZAung/comos-cloud-test/pull/3",
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-follow-up-choices.md",
+        "tests/martial-follow-up-choices.test.mjs"
       ],
-      "updatedAt": "2026-10-31T05:50:31.347Z"
+      "updatedAt": "2026-10-31T06:10:11.405Z"
     },
     "ffd20:class:archer": {
       "state": "live_partial",
@@ -507,47 +509,53 @@
     "ffd20:class:gunbreaker": {
       "state": "queued",
       "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
       "scope": "",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-follow-up-choices.md",
+        "tests/martial-follow-up-choices.test.mjs"
       ],
-      "updatedAt": "2026-10-31T05:50:31.437Z"
+      "updatedAt": "2026-10-31T06:10:11.795Z"
     },
     "ffd20:archetype:dancer:akimbo": {
       "state": "queued",
       "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
       "scope": "",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-follow-up-choices.md",
+        "tests/martial-follow-up-choices.test.mjs"
       ],
-      "updatedAt": "2026-10-31T05:50:31.605Z"
+      "updatedAt": "2026-10-31T06:10:12.214Z"
     },
     "ffd20:archetype:gunbreaker:doom-slayer": {
       "state": "queued",
       "stage": "local-validation",
-      "cursor": "Requested level 1–20 sheet support locally validated",
-      "nextAction": "Review manual option/equipment limits; deploy only under applicable authorization",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
       "scope": "",
-      "note": "Named user batch: 403 tests and build:cloud pass; SQLite create, sequential leveling and reopen verified. Prior deployment status retained; new scope is not deployed or fully independently reviewed. Newer main through 46f63ee merged.",
+      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/requested-martial-progression.md",
-        "tests/martial-progression.test.mjs"
+        "tests/martial-progression.test.mjs",
+        "docs/extraction/martial-follow-up-choices.md",
+        "tests/martial-follow-up-choices.test.mjs"
       ],
-      "updatedAt": "2026-10-31T05:50:31.695Z"
+      "updatedAt": "2026-10-31T06:10:12.604Z"
     }
   },
   "history": [
@@ -1306,6 +1314,42 @@
       "stage": "local-validation",
       "cursor": "Requested level 1–20 sheet support locally validated",
       "time": "2026-10-31T05:50:31.955Z"
+    },
+    {
+      "revision": 86,
+      "itemId": "ffd20:class:dancer",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "time": "2026-10-31T06:10:11.405Z"
+    },
+    {
+      "revision": 87,
+      "itemId": "ffd20:class:gunbreaker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "time": "2026-10-31T06:10:11.795Z"
+    },
+    {
+      "revision": 88,
+      "itemId": "ffd20:archetype:dancer:akimbo",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "time": "2026-10-31T06:10:12.214Z"
+    },
+    {
+      "revision": 89,
+      "itemId": "ffd20:archetype:gunbreaker:doom-slayer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Follow-up talent selections and owned resource bonuses validated",
+      "time": "2026-10-31T06:10:12.604Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

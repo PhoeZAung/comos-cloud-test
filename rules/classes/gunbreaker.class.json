@@ -2865,7 +2865,8 @@
                 "locator": "extra-gun-arm-mastery"
               }
             ],
-            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/"
+            "url": "https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/gunbreaker-talents/",
+            "grantsChoicePoolId": "ffd20:class:gunbreaker:pool:mastery"
           },
           {
             "id": "ffd20:class:gunbreaker:talent:furious-assault",
@@ -3206,7 +3207,7 @@
             "name": "Parry Mastery",
             "description": "Increases the shield bonus from the gunbreaker’s keen edge ability by 1.",
             "minimumLevel": 5,
-            "repeatLimit": 4,
+            "repeatLimit": 20,
             "featureIds": []
           },
           {
@@ -3214,7 +3215,7 @@
             "name": "Power Mastery",
             "description": "Increases damage rolls with both melee and firearm damage of gun arms by 1.",
             "minimumLevel": 5,
-            "repeatLimit": 4,
+            "repeatLimit": 20,
             "featureIds": []
           },
           {
@@ -3222,7 +3223,7 @@
             "name": "Technique Mastery",
             "description": "Increases the DC of gun arm techniques by 1.",
             "minimumLevel": 5,
-            "repeatLimit": 4,
+            "repeatLimit": 20,
             "featureIds": []
           }
         ]

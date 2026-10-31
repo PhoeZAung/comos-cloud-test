@@ -13,19 +13,28 @@ export function martialChoicePools(b){
 }
 export function martialChoiceEvents(b){
  if(!supportsMartialProgression(b))return [];
- const pools=new Set(martialChoicePools(b).map(p=>p.id));
- return [...new Map([...(martialDefinition(b)?.data.progressionChoices||[]),...(martialArchetype(b)?.data.progressionChoices||[])].map(e=>[e.id,e])).values()]
- .filter(e=>e.atClassLevel<=b.level&&e.poolIds.some(id=>pools.has(id)))
- .sort((a,b)=>a.atClassLevel-b.atClassLevel||a.id.localeCompare(b.id));
+ const pools=new Map(martialChoicePools(b).map(p=>[p.id,p]));
+ const primary=[...new Map([...(martialDefinition(b)?.data.progressionChoices||[]),...(martialArchetype(b)?.data.progressionChoices||[])].map(e=>[e.id,e])).values()]
+ .filter(e=>e.atClassLevel<=b.level&&e.poolIds.some(id=>pools.has(id)));
+ const extra=[];
+ for(const event of primary)for(const selected of b.choices?.[event.id]||[]){
+  const option=pools.get(event.poolIds[0])?.options.find(o=>o.id===selected);
+  if(!option?.grantsChoicePoolId||!pools.has(option.grantsChoicePoolId))continue;
+  extra.push({id:event.id+':choice:'+option.id.split(':').at(-1),type:'choose',atClassLevel:event.atClassLevel,poolIds:[option.grantsChoicePoolId],count:{kind:'constant',value:1},parentEventId:event.id,grantedByOptionId:option.id,sourceRefs:option.sourceRefs});
+ }
+ return [...primary,...extra].sort((a,b)=>a.atClassLevel-b.atClassLevel||a.id.localeCompare(b.id));
 }
 const normalized=s=>s.toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 export function martialEligibleOptions(b,event){
  const pool=martialChoicePools(b).find(p=>event.poolIds.includes(p.id));if(!pool)return [];
- const prior=martialChoiceEvents(b).filter(e=>e.atClassLevel<event.atClassLevel),selected=prior.flatMap(e=>b.choices?.[e.id]||[]);
+ const events=martialChoiceEvents(b),index=events.findIndex(e=>e.id===event.id);if(index<0)return [];
+ const prior=events.slice(0,index),selected=prior.flatMap(e=>b.choices?.[e.id]||[]);
  const all=martialChoicePools(b).flatMap(p=>p.options),names=new Set(all.filter(o=>selected.includes(o.id)).map(o=>normalized(o.name)));
  const a=martialArchetype(b),removed=new Set((a?.data.replacements||[]).filter(r=>r.atClassLevel<=event.atClassLevel).flatMap(r=>r.targetFeatureIds));
  const features=[...martialDefinition(b).features.filter(f=>!removed.has(f.id)),...(a?.data.features||[])].filter(f=>f.atLevel<=event.atClassLevel);
  const featureNames=new Set(features.map(f=>normalized(f.name)));
+ if(featureNames.has('mystic dances'))featureNames.add('mystic dance');
+ if(b.archetypeId===AKIMBO_ID){if(featureNames.has('flair powers'))featureNames.add('mystic dance');if(featureNames.has('flair'))featureNames.add('battle dance');}
  const requirements=req=>{
   if(!req||['—','-','None'].includes(req))return true;
   let text=normalized(req).replace(/(?:dancer|gunbreaker|gunner|chocobo knight) \d+/g,'').trim();
@@ -41,12 +50,21 @@ export function martialEligibleOptions(b,event){
  return pool.options.filter(o=>event.atClassLevel>=(o.minimumLevel||1)&&selected.filter(id=>id===o.id).length<(o.repeatLimit||1)&&requirements(o.prerequisiteText)
  &&(!o.name.includes('Infernal Munitions')||names.has('mutilating strike')));
 }
+// Update a wizard draft without retaining a child choice whose entitlement was removed.
+export function selectMartialChoice(b,eventId,optionId){
+ const before=martialChoiceEvents(b),event=before.find(e=>e.id===eventId);
+ if(!event||!martialEligibleOptions(b,event).some(o=>o.id===optionId))throw Error('Choose an eligible martial option.');
+ b.choices??={};b.choices[eventId]=[optionId];
+ const active=new Set(martialChoiceEvents(b).map(e=>e.id));
+ for(const child of before)if(child.parentEventId===eventId&&!active.has(child.id))delete b.choices[child.id];
+ return b;
+}
 export function martialSelectedFeatures(b){
  const rows=new Map();
  for(const event of martialChoiceEvents(b))for(const id of b.choices?.[event.id]||[]){
   const option=martialChoicePools(b).flatMap(p=>p.options).find(o=>o.id===id);if(!option)continue;
   const old=rows.get(id),count=(old?.selectionCount||0)+1;
-  rows.set(id,{id,name:option.name,atLevel:event.atClassLevel,description:option.description+(count>1?'\nSelected '+count+' times.':''),selectionCount:count,activation:/action|once per|activate/i.test(option.description)?'mixed':'passive',featureKind:'class_feature',automation:'manual',sourceRefs:option.sourceRefs||[]});
+  rows.set(id,{id,name:option.name,atLevel:event.atClassLevel,description:option.description+(count>1?'\nSelected '+count+' times.':''),selectionCount:count,activation:id==='ffd20:class:dancer:pool:talents:option:ki-pool'||/action|once per|activate/i.test(option.description)?'mixed':'passive',featureKind:'class_feature',automation:'manual',sourceRefs:option.sourceRefs||[]});
  }
  return [...rows.values()];
 }
@@ -70,11 +88,14 @@ export function martialProgressionIssues(b,{complete=true}={}){
 }
 export function martialCounter(b,f,scores){
  const mod=k=>Math.floor((Number(scores[k])-10)/2),id=f.id||'',lv=b.level;
+ const selected=new Set(martialChoiceEvents(b).flatMap(e=>b.choices?.[e.id]||[])),dancerTalent='ffd20:class:dancer:pool:talents:option:';
+ const increasedKi=selected.has(dancerTalent+'increased-ki')?Math.floor(lv/2):0;
  if(id==='ffd20:class:chocobo-knight:feature:challenge')return {maximum:1+Math.floor((lv-1)/3)};
  if(id==='ffd20:class:chocobo-knight:feature:commanders-aura'||id==='ffd20:class:dancer:feature:battle-dance')return {maximum:Math.max(0,4+mod('cha')+2*(lv-1)),formula:(4+2*(lv-1))+'+{CHA}'};
- if(id==='ffd20:class:dancer:feature:ki-pool')return {maximum:Math.max(0,Math.floor(lv/2)+mod('cha')),formula:Math.floor(lv/2)+'+{CHA}'};
+ if(id==='ffd20:class:dancer:feature:ki-pool'){const base=Math.floor(lv/2)+increasedKi;return {maximum:Math.max(0,base+mod('cha')),formula:base+'+{CHA}'};}
+ if(id===dancerTalent+'ki-pool'){const base=selected.has(dancerTalent+'improved-ki-pool')?Math.max(0,Math.floor(lv/2)+mod('wis')):Math.max(1,mod('wis'));return {maximum:base+increasedKi};}
  if(id===AKIMBO_ID+':feature:flair')return {maximum:Math.max(1,mod('cha'))+lv-1};
  if(id===GUNBREAKER_ID+':feature:magicked-ammo'){const maximum=martialDefinition(b)?.data.levels[lv-1]?.magickedAmmoPerLoad;return Number.isInteger(maximum)?{maximum}:null;}
- if(id===GUNBREAKER_ID+':feature:aurora')return {maximum:Math.max(0,3+mod('wis')),formula:'3+{WIS}'};
+ if(id===GUNBREAKER_ID+':feature:aurora'){const base=3+Number(selected.has(GUNBREAKER_ID+':talent:extra-aurora'))+Number(selected.has(GUNBREAKER_ID+':talent:aurora-mastery'));return {maximum:Math.max(0,base+mod('wis')),formula:base+'+{WIS}'};}
  return null;
 }

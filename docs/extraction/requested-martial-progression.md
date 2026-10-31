@@ -1,5 +1,10 @@
 # Requested Moogle / Galka / Immortal martial setup
 
+Latest local continuation (October 31, 2026): 410 tests and build:cloud pass.
+Follow-up talent choices, repeat limits and Ki/Aurora resources are recorded in
+`martial-follow-up-choices.md`. The 403-test results below describe the original
+October 30 checkpoint.
+
 User request, 2026-10-30: prioritize Moogle, Chocobo Knight, Mog Knight,
 Galka, Gunbreaker, Doom Slayer, Immortal, Dancer and Akimbo, including progression
 through level 20. This supersedes the old Garif-first pause for this batch.

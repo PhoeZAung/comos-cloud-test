@@ -12,7 +12,7 @@ Partial-live support, testing availability, source archiving and full completion
 | race | 63/63 | 63 | 63 | 47 | 15 | 0 | 0 |
 | archetype | 579/579 | 7 | 5 | 574 | 3 | 0 | 420 |
 
-Checkpoint revision: **85**. Active: **none**. Next: **ffd20:race:garif**.
+Checkpoint revision: **89**. Active: **none**. Next: **ffd20:race:garif**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -23,7 +23,7 @@ The race count includes testing options whose mandatory choices can still preven
 | Order | Entry | Repository state | Work state | Resume point / next action |
 | ---: | --- | --- | --- | --- |
 | 1 | [Chocobo Knight](https://finalfantasyd20.com/classes/base-classes/chocobo-knight/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | live_partial · local-validation | Requested level 1–20 sheet support locally validated; Review manual option/equipment limits; deploy only under applicable authorization |
-| 2 | [Dancer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | live_partial · local-validation | Requested level 1–20 sheet support locally validated; Review manual option/equipment limits; deploy only under applicable authorization |
+| 2 | [Dancer](https://finalfantasyd20.com/classes/hybrid-classes/dancer/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | live_partial · local-validation | Follow-up talent selections and owned resource bonuses validated; Review remaining equipment, external prerequisite and conditional combat limits |
 | 3 | [Archer](https://finalfantasyd20.com/classes/core-classes/archer/) | existing live adapter | live_partial · partial-live-support | Existing live adapter retained.; Reconcile remaining source coverage and manual mechanics. |
 | 4 | [Bard](https://finalfantasyd20.com/classes/core-classes/bard/) | existing live adapter · levels 1 | live_partial · deployed | Level-1 creation/editing deployed and verified by five public asset hashes; 301 tests and both phone-sized creation/reopen cases passed.; After baseline imports, review level-2 talents and Versatile Performance, later progression, orchestration rolls and remaining 135 song pages. |
 | 5 | [Beastmaster](https://finalfantasyd20.com/classes/core-classes/beastmaster/) | existing live adapter · levels 1 | live_partial · deployed | Bounded first-level Beastmaster adapter merged and live; seven public runtime assets match the tested cloud build; Later milestones: companion combat/training and replacement handling, source conflict resolution, higher-level feature and choice mappings, archetypes and independent full review |
@@ -55,7 +55,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 31 | [Black Belt](https://finalfantasyd20.com/classes/hybrid-classes/black-belt/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 32 | [Druid](https://finalfantasyd20.com/classes/hybrid-classes/druid/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 33 | [Fencer](https://finalfantasyd20.com/classes/hybrid-classes/fencer/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
-| 34 | [Gunbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | queued · local-validation | Requested level 1–20 sheet support locally validated; Review manual option/equipment limits; deploy only under applicable authorization |
+| 34 | [Gunbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | queued · local-validation | Follow-up talent selections and owned resource bonuses validated; Review remaining equipment, external prerequisite and conditional combat limits |
 | 35 | [Ninja](https://finalfantasyd20.com/classes/hybrid-classes/ninja/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 36 | [Samurai](https://finalfantasyd20.com/classes/hybrid-classes/samurai/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 37 | [Scholar](https://finalfantasyd20.com/classes/hybrid-classes/scholar/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |

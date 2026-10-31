@@ -181,7 +181,8 @@ export function sanitizeBuild(raw){
  if(raw.initialChaMod!==undefined&&raw.initialChaMod!==null){if(!Number.isInteger(raw.initialChaMod)||raw.initialChaMod<0||raw.initialChaMod>17)bad('Invalid starting Charisma modifier.');b.initialChaMod=raw.initialChaMod;}
  if(raw.abilityIncreases!==undefined){if(!raw.abilityIncreases||typeof raw.abilityIncreases!=='object'||Array.isArray(raw.abilityIncreases)||Object.keys(raw.abilityIncreases).length>5)bad('Invalid level ability increases.');for(const [level,key] of Object.entries(raw.abilityIncreases)){if(!['4','8','12','16','20'].includes(level)||Number(level)>buildLevel({...b,level:raw.level})||!stats.includes(key))bad('Invalid level ability increase.');b.abilityIncreases[level]=key;}}
  if(!raw.choices||typeof raw.choices!=='object'||Array.isArray(raw.choices)||Object.keys(raw.choices).length>100)bad('Invalid choices.');
- const validIds=new Set(choiceEvents({...b,level:20}).map(e=>e.id));b.choices={};for(const [k,v] of Object.entries(raw.choices)){if(!validIds.has(k)||!Array.isArray(v)||v.length>10||v.some(id=>typeof id!=='string'||id.length>250))bad('Invalid choice.');b.choices[k]=v;}
+ for(const values of Object.values(raw.choices))if(!Array.isArray(values)||values.length>10||values.some(id=>typeof id!=='string'||id.length>250))bad('Invalid choice.');
+ const validIds=new Set(choiceEvents({...b,level:20,choices:raw.choices}).map(e=>e.id));b.choices={};for(const [k,v] of Object.entries(raw.choices)){if(!validIds.has(k))bad('Invalid choice.');b.choices[k]=v;}
  if(typeof raw.reviewed!=='boolean'||!Number.isInteger(raw.level))bad('Invalid build.');b.reviewed=raw.reviewed;b.level=raw.level;
  if(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(b.name+b.bio+b.alignment))bad('Invalid character text.');
  if(b.portrait&&!/^data:image\/(?:jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(b.portrait))bad('Invalid portrait.');

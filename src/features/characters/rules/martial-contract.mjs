@@ -11,6 +11,7 @@ export function validateMartialProgression(definition,{archetype=false}={}){
    if(options.has(o.id)||!o.name||!o.description||!Number.isInteger(o.minimumLevel)||o.minimumLevel<1||o.minimumLevel>20||!Number.isInteger(o.repeatLimit)||o.repeatLimit<1||o.repeatLimit>20)fail('invalid choice option '+o.id);options.add(o.id);
   }
  }
+ for(const pool of pools.values())for(const o of pool.options)if(o.grantsChoicePoolId&&(!pools.has(o.grantsChoicePoolId)||pools.get(o.grantsChoicePoolId).options.some(next=>next.grantsChoicePoolId)))fail('invalid or recursive follow-up choice pool '+o.id);
  const events=new Set();
  for(const e of d.progressionChoices||[]){
   if(events.has(e.id)||!Number.isInteger(e.atClassLevel)||e.atClassLevel<1||e.atClassLevel>20||e.count?.kind!=='constant'||e.count.value!==1||e.poolIds?.length!==1||!pools.has(e.poolIds[0]))fail('invalid progression choice event '+e.id);events.add(e.id);
