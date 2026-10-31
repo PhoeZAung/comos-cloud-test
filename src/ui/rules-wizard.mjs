@@ -9,6 +9,7 @@ import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRaci
 import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
+import {MUTANT_ID,mutantEmptyRolls,mutantD100State,mutantD6State,mutantResistanceName,mutantIsDefense} from '../features/characters/rules/mutant-progression.mjs';
 import {registry,spellsForBuild,availableClasses,classFor,className,classSkill,newBuild,prepareLevelUp,steps,stats,raceFor,raceTraits,replacementFor,racialClassSkill,effectiveScores,choiceEvents,eligibleOptions,calculated,spellCounts,buildIssues,previewBuild,hpHistory,classFeatureChanges,hasSpellcasting,buildLevel,carryCharacter} from '../features/characters/rules/build.mjs';
 import {pointSpend,standardArray,rollScores,moveScoreToken} from '../features/characters/ability-generation.mjs';
 import {fixedSkills} from '../features/sheet/skills.mjs';
@@ -82,6 +83,45 @@ function archerProgressPanel(level){
  archerTalentOptions(level).map(t=>'<details class="rw-archer-feature '+(!t.meetsLevel||t.requiresVerification?'rw-trait--review':'')+'"><summary>'+e(t.name)+(t.asterisk?' *':'')+' <small>'+(t.meetsLevel?'':'Level '+t.minimumLevel+' required')+(t.requiresVerification?' · prerequisites to verify':'')+'</small></summary><p>'+e(t.description)+'</p>'+(t.requiresTalentIds.length?'<p class="field-help">Requires '+e(t.requiresTalentIds.map(id=>id.split(':').at(-1).replaceAll('-',' ')).join(', '))+'</p>':'')+(t.additionalPrerequisite?'<p class="field-help">'+e(t.additionalPrerequisite)+'</p>':'')+'</details>').join('')+'</details>'+
  '<details class="rw-archer-section"><summary>Archer archetypes ('+archer.data.archetypeIndex.length+' — future extraction)</summary>'+archer.data.archetypeIndex.map(x=>'<p class="rw-archer-future">'+e(x.name)+(x.racePrerequisite?' · '+e(x.racePrerequisite)+' only':'')+' · Needs individual extraction</p>').join('')+'</details></section>';
 }
+function mutantRollPanel(b){
+ const rolls=b.mutantRolls||mutantEmptyRolls(),required=mutantD100State(rolls.abilities),
+  physical=mutantD100State(rolls.physical,true),defense=mutantIsDefense(b),
+  levels=mutantD6State(rolls.levels,defense);
+ const table=(key,state,optional)=>panel((optional?'Optional ':'Required ')+
+  (optional?'appearance':'mutant abilities')+' · d100',
+  '<p>'+e(state.description)+' The published table is the source of truth; outcomes are review-only and are not yet applied as sheet powers.</p>'+
+  '<p>Recorded throws: '+(rolls[key].length?rolls[key].join(' → '):'none')+
+  ' · '+(state.complete?'Complete':'Results still needed: '+state.pending)+'</p>'+
+  (state.outcomes.length?'<ul>'+state.outcomes.map(o=>'<li>'+e(o.name)+'</li>').join('')+'</ul>':'')+
+  '<button type="button" class="button" data-rw-mutant-roll="'+key+'" '+
+  (state.complete?'disabled':'')+'>Roll d100'+(state.pending&&rolls[key].length?' again':'')+'</button> '+
+  '<input type="number" min="1" max="100" aria-label="Record '+key+' d100 result" data-rw-mutant-manual="'+key+'" placeholder="Enter GM roll"> '+
+  '<button type="button" class="button" data-rw-mutant-clear="'+key+'">Clear recorded throws</button>'+
+  (state.issues.length?'<p class="rw-notice">'+e(state.issues.join(' '))+'</p>':''));
+ let result=panel('Variable Resistance · d6',
+  '<p>1 Earth · 2 Fire · 3 Ice · 4 Lightning · 5 Water · 6 Wind. Exactly one resistance 5; Dual Minded replaces this trait.</p>'+
+  (b.alternateIds.includes(MUTANT_ID+':trait:dual-minded')?
+   '<p>Replaced by Dual Minded. No resistance roll applies.</p>':
+   '<p>Recorded: <strong>'+e(rolls.resistance===null?'Not rolled':rolls.resistance+' — '+mutantResistanceName(rolls.resistance)+' resistance 5')+'</strong></p>'+
+   '<button type="button" class="button" data-rw-mutant-roll="resistance">Roll d6</button> '+
+   '<input type="number" min="1" max="6" aria-label="Record resistance d6 result" data-rw-mutant-manual="resistance" placeholder="Enter GM roll">'));
+ result+=table('abilities',required,false)+table('physical',physical,true);
+ if(b.level>1)result+=panel('Variable '+(defense?'Defenses':'Stats')+' · one d6 per level',
+  '<p>Each level after first grants one rolled benefit. '+(defense?
+   '1 +3 HP; 2 +1 MP; 3 +1 Fort; 4 +1 Reflex; 5 +1 Will; 6 +1 stackable AC. Maximum five of each.':
+   '1 STR, 2 DEX, 3 CON, 4 INT, 5 WIS, 6 CHA. +1 to the corresponding score; maximum +6 for each ability.')+
+  ' Reroll benefits that have reached their cap. Ordinary fourth-level score boosts are not granted.</p>'+
+  Array.from({length:b.level-1},(_,i)=>i+2).map(level=>{
+   const logged=rolls.levels?.[level]||[],accepted=levels.earned.find(x=>x.level===level);
+   return '<div class="rw-slot"><span>Level '+level+'</span><strong>'+e(logged.length?logged.join(' → '):'Not rolled')+
+    (accepted?' · '+accepted.benefit.toUpperCase():' · requires roll')+'</strong>'+
+    (!accepted?'<button type="button" class="button" data-rw-mutant-roll="level" data-mutant-level="'+level+'">Roll d6</button>'+
+    '<input type="number" min="1" max="6" data-rw-mutant-manual="level" data-mutant-level="'+level+'" aria-label="Record level '+level+' d6" placeholder="GM roll">':'')+
+    '</div>';
+  }).join('')+(levels.issues.length?'<p class="rw-notice">'+e(levels.issues.join(' '))+'</p>':''));
+ result+='<p class="rw-notice" role="status">Mutant dice histories are source-validated and kept in this draft. Automated character saving is still blocked until all table outcomes, level-up score/defense calculations, and race spell selections are integrated. These rolls are not yet character-sheet stat grants.</p>';
+ return result;
+}
 function racialSelections(b,specs,scores){
  return specs.map(spec=>{
   const selected=b.racialChoices?.[spec.id]||[],maximum=spec.maximum??Math.max(0,Math.floor((scores.int-10)/2));
@@ -135,6 +175,7 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
   body=field('Race category',`<select data-rw-race-category aria-label="Race category">${raceCategories.map(c=>opt(c.id,c.label,selectedCategory)).join('')}</select>`)+
    field('Race',`<select data-rw-field="raceId" aria-label="Race">${opt('','Choose a race',b.raceId)}${registry.races.filter(r=>categoryForRace(r)===selectedCategory).map(r=>opt(r.id,r.name,b.raceId)).join('')}</select>`);
   if(race?.id==='ffd20:race:garlean')body+='<p class="field-help">Garlean level 1: choose Firearms (Simple) proficiency and a named technology-related Craft specialty. The verified Xenophobia Extremis alternate changes the racial score adjustments from +2 CON, +2 INT, −2 WIS to +2 CON, +2 INT, −2 CHA, retains Common, and disables bonus languages from high INT. '+(racial.traits.some(f=>f.id===race.id+':trait:xenophobia-extremis')?'Xenophobia Extremis is selected: bonus-language picks are unavailable; normal Linguistics language learning remains.':'Without Xenophobia Extremis, eligible high-INT bonus languages remain selectable.')+' The exotic Gun Arm still requires an equipment catalog. Magic Ineptitude forbids MP pools; third-eye magic, item exceptions and situational benefits remain manual. Other alternates and heritages still need review.</p>';
+  if(race?.id===MUTANT_ID)body+=mutantRollPanel(b);
   if(race?.id===TARUTARU_ID)body+='<p class="field-help">Tarutaru Explorer cannot be activated yet: official wording says it replaces Talented and "Spell Focus", but this race has Magick Focus and no standard Spell Focus trait. The +2 Climb and one selected Knowledge bonus are source-defined, but their replacement is unresolved, so neither bonus is granted unless the full trait is safely enabled after a GM/source ruling. Standard Talented and Magick Focus remain available.</p>';
   if(race?.id==='ffd20:race:garif')body+='<p class="field-help">Garif standard level-1 creation: permanently choose desert or plains and one Pastoralist skill. Assign one of your skill ranks to that skill. The selected terrain AC bonus, Masked saving throw bonus and conditional combat effects remain manual; source-listed weapon proficiencies appear on the sheet. Higher levels and alternate traits are not yet supported.</p>';
   if(race?.id===HUME_ID)body+='<p class="field-help">Hume standard traits support first-level testing. Curiosity’s situational check bonuses and Sociable are manual. Your extra racial feat has its own slot on the sheet.</p>';
@@ -255,6 +296,15 @@ export function mountRulesWizard(){
  }
  main.addEventListener('input',event=>{const t=event.target;if(t.matches('[data-rw-racial-languages]')){b.racialChoices??={};b.racialChoices[t.dataset.rwRacialLanguages]=t.value.split(/\r?\n/).filter(v=>v.trim()).map(languageChoice);changed();return;}if(t.matches('[data-rw-rank]')){setRank(Number(t.dataset.rwRank),Number(t.value));return;}if(t.matches('[data-rw-racial-specialty]')){b.racialSpecialties??={};b.racialSpecialties[t.dataset.rwRacialSpecialty]=t.value;}if(t.matches('[data-rw-field]'))b[t.dataset.rwField]=t.value;if(t.matches('[data-rw-score]')){b.baseScores[t.dataset.rwScore]=Number(t.value);scoreFeedback();}changed();},{signal:control.signal});
  main.addEventListener('change',async event=>{const t=event.target;try{
+   if(t.matches('[data-rw-mutant-manual]')){
+    const category=t.dataset.rwMutantManual,roll=Number(t.value),level=Number(t.dataset.mutantLevel),limit=['resistance','level'].includes(category)?6:100;
+    if(!Number.isInteger(roll)||roll<1||roll>limit){message='Enter an actual die result from 1 to '+limit+'.';draw();return;}
+    b.mutantRolls??=mutantEmptyRolls();
+    if(category==='resistance')b.mutantRolls.resistance=roll;
+    else if(category==='level'){b.mutantRolls.levels[level]??=[];b.mutantRolls.levels[level].push(roll);}
+    else if(['abilities','physical'].includes(category))b.mutantRolls[category].push(roll);
+    changed();draw();return;
+   }
    if(t.matches('[data-rw-race-category]')){
     const selected=t.value;
     if(!raceCategories.some(c=>c.id===selected))return;
@@ -287,6 +337,27 @@ export function mountRulesWizard(){
   if(t.matches('[data-rw-portrait]')){const file=t.files?.[0];if(!file)return;if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>3000000)throw Error('Choose JPG, PNG or WebP under 3 MB.');const bitmap=await createImageBitmap(file);try{const canvas=document.createElement('canvas'),ratio=Math.min(1,350/Math.max(bitmap.width,bitmap.height));canvas.width=Math.max(1,Math.round(bitmap.width*ratio));canvas.height=Math.max(1,Math.round(bitmap.height*ratio));canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);b.portrait=canvas.toDataURL('image/jpeg',.75);if(b.portrait.length>150000)throw Error('Try a smaller portrait.');}finally{bitmap.close();}changed();draw();}
  }catch(error){failure(error);}},{signal:control.signal});
  main.addEventListener('click',event=>{const t=event.target.closest('button');if(!t||saving)return;if(ignoreTileClick&&t.matches('[data-rw-token],[data-rw-drop]')){ignoreTileClick=false;return;}
+  if(t.matches('[data-rw-mutant-roll]')){
+   const category=t.dataset.rwMutantRoll,level=Number(t.dataset.mutantLevel);
+   if(b.raceId!==MUTANT_ID)return;
+   const sides=['resistance','level'].includes(category)?6:100;
+   const bytes=new Uint32Array(1);crypto.getRandomValues(bytes);
+   const roll=bytes[0]%sides+1;
+   b.mutantRolls??=mutantEmptyRolls();
+   if(category==='resistance')b.mutantRolls.resistance=roll;
+   else if(category==='level'){b.mutantRolls.levels[level]??=[];b.mutantRolls.levels[level].push(roll);}
+   else if(['abilities','physical'].includes(category)){
+    if(mutantD100State(b.mutantRolls[category],category==='physical').complete)return;
+    b.mutantRolls[category].push(roll);
+   }
+   changed();draw();return;
+  }
+  if(t.matches('[data-rw-mutant-clear]')){
+   if(b.raceId!==MUTANT_ID)return;
+   const type=t.dataset.rwMutantClear;
+   if(['abilities','physical'].includes(type)){b.mutantRolls??=mutantEmptyRolls();b.mutantRolls[type]=[];changed();draw();}
+   return;
+  }
   if(t.matches('[data-rw-rank-step]')){const i=Number(t.dataset.rwRankStep);setRank(i,(b.skillRanks[i]||0)+Number(t.dataset.rankDelta));return;}
   if(t.matches('[data-rw-drop]')&&selectedToken!==null){assignToken(Number(t.dataset.rwDrop));return;}
   if(t.matches('[data-rw-token]')){selectedToken=Number(t.dataset.rwToken);for(const token of main.querySelectorAll('[data-rw-token]'))token.setAttribute('aria-pressed',String(token===t));return;}
