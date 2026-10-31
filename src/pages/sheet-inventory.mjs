@@ -1,6 +1,6 @@
 export default {
   "id": "sheet-inventory",
-  "title": "Inventory · Comos",
+  "title": "Inventory · Cosmos",
   "bodyClass": "sheet",
   "layout": "sheet",
   "activeMain": "sheet-inventory",

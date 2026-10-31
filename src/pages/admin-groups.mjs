@@ -1,1 +1,1 @@
-export default {id:'admin-groups',title:'Groups · Comos',bodyClass:'admin',layout:'app',activeMain:'characters',section:'admin',content:'<section class="page-heading"><h1>Groups</h1></section><section data-groups><p role="status">Loading groups…</p></section>'};
+export default {id:'admin-groups',title:'Groups · Cosmos',bodyClass:'admin',layout:'app',activeMain:'characters',section:'admin',content:'<section class="page-heading"><h1>Groups</h1></section><section data-groups><p role="status">Loading groups…</p></section>'};

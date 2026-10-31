@@ -14,7 +14,7 @@ export function renderLoreEntry(entry,{canDelete=false,canEdit=false}={}){
   return '';
  }).join('');
  return '<article class="comos-lore-reader"><h1>'+esc(entry.title)+'</h1>'+
-   '<p class="comos-lore-byline">'+(entry.authorName?esc(entry.authorName):'Comos member')+(date?' · '+esc(date):'')+'</p>'+
+   '<p class="comos-lore-byline">'+(entry.authorName?esc(entry.authorName):'Cosmos member')+(date?' · '+esc(date):'')+'</p>'+
    (labels?'<div class="comos-lore-reader-tags">'+labels+'</div>':'')+
    '<div class="comos-lore-reader-body">'+content+'</div>'+ 
    ((canEdit||canDelete)&&typeof entry.id==='string'&&/^[0-9a-f-]{36}$/i.test(entry.id)?
