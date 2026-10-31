@@ -5,6 +5,34 @@ const AEGYL='ffd20:race:aegyl';
 const WING_CLIPPED=AEGYL+':trait:wing-clipped';
 const AEGYL_SPEED=AEGYL+':trait:base-speed';
 const WING_FLIGHT_MODIFIER=WING_CLIPPED+':flight-modifier';
+const SYLPH='ffd20:race:sylph';
+const SYLPH_SPEED=SYLPH+':trait:base-speed';
+const SYLPH_IMPROVED=SYLPH+':trait:improved-flight';
+const FORGIVEN='ffd20:race:forgiven';
+const FORGIVEN_SCION=FORGIVEN+':trait:scion-of-mortality';
+const FORGIVEN_LANGUAGES=FORGIVEN+':trait:languages';
+const FORGIVEN_TYPE=FORGIVEN+':trait:type';
+const sourceSylphSpeed=race=>{
+ const effects=race?.features?.find(f=>f.id===SYLPH_SPEED)?.effects||[];
+ return race?.id===SYLPH&&
+  [['identity.speed.land',20],['identity.speed.fly',40]].every(([target,value])=>
+   effects.some(e=>e.target===target&&e.kind==='identity'&&e.automation==='automatic'&&!e.condition&&
+    e.value?.kind==='constant'&&e.value.value===value));
+};
+const sourceForgivenIdentity=race=>{
+ const language=race?.features?.find(f=>f.id===FORGIVEN_LANGUAGES)?.effects||[],
+  type=race?.features?.find(f=>f.id===FORGIVEN_TYPE)?.effects||[];
+ return race?.id===FORGIVEN&&
+  [['identity.languages.common','Common'],['identity.languages.celestial','Celestial']].every(([target,text])=>
+   language.some(e=>e.target===target&&e.kind==='identity'&&e.automation==='automatic'&&e.textValue===text))&&
+  [['identity.type','outsider'],['identity.subtypes','native']].every(([target,text])=>
+   type.some(e=>e.target===target&&e.kind==='identity'&&e.automation==='automatic'&&e.textValue===text));
+};
+const isNewPartial=(race,op,id,targets,added,verified)=>Boolean(verified&&op?.id===id&&
+ op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
+ JSON.stringify(op.targetFeatureIds)===JSON.stringify(targets)&&
+ JSON.stringify(op.addsFeatureIds)===JSON.stringify(added)&&
+ !(op.targetEventIds||[]).length&&!(op.addsEventIds||[]).length&&!(op.removesComponents||[]).length);
 const TARUTARU='ffd20:race:tarutaru';
 const POLYGLOT=TARUTARU+':trait:polyglot';
 const TARUTARU_LANGUAGES=TARUTARU+':trait:languages';
@@ -41,6 +69,9 @@ const isWholeTraitReplacement=(race,op)=>{
 };
 export const isSupportedRaceOperation=(race,op)=>
  isWholeTraitReplacement(race,op)||
+ isNewPartial(race,op,SYLPH_IMPROVED+':speed-modifier',[SYLPH_SPEED],[],sourceSylphSpeed(race))||
+ isNewPartial(race,op,FORGIVEN_SCION+':identity-modifier',
+  [FORGIVEN_LANGUAGES,FORGIVEN_TYPE],[FORGIVEN_SCION],sourceForgivenIdentity(race))||
  (race?.id===DWARF&&op.id===SALTBEARD_GREED&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===GREED&&op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===SALTBEARD)||
  (race?.id===AEGYL&&op.id===WING_FLIGHT_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
@@ -69,6 +100,21 @@ export function isSupportedRaceHeritage(race,heritage){
 }
 
 export function applyRaceModification(race,feature,op){
+ if(sourceSylphSpeed(race)&&feature?.id===SYLPH_SPEED&&op?.id===SYLPH_IMPROVED+':speed-modifier'){
+  return {...feature,description:'Improved Flight: base land speed 10 ft and fly speed 60 ft (good maneuverability); Camouflage and Beguiling Liar are lost.',
+   effects:(feature.effects||[]).map(e=>e.target==='identity.speed.land'?
+    {...e,value:{...e.value,value:10}}:e.target==='identity.speed.fly'?
+    {...e,value:{...e.value,value:60}}:e)};
+ }
+ if(sourceForgivenIdentity(race)&&op?.id===FORGIVEN_SCION+':identity-modifier'){
+  if(feature?.id===FORGIVEN_LANGUAGES)return {...feature,
+   description:'Scion of Mortality: starts speaking Common; replaces only the Celestial starting language. Normal source-defined high-Intelligence bonus languages remain available.',
+   effects:(feature.effects||[]).filter(e=>e.target!=='identity.languages.celestial')};
+  if(feature?.id===FORGIVEN_TYPE)return {...feature,
+   description:'Scion of Mortality: outsider (native), also counts as humanoid (hume) for race-dependent effects, feats, and spells; passes as Hume without Disguise. Dual-race eligibility is a manual rules card.',
+   effects:feature.effects};
+ }
+
  if(race?.id===TARUTARU&&feature?.id===TARUTARU_LANGUAGES&&op?.id===POLYGLOT_LANGUAGE_MODIFIER)
   return {...feature,description:'Polyglot: starts with Common, Lalafellan, and one freely chosen additional starting language; retains all normal high-Intelligence bonus languages (Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin and Orc).'};
 
