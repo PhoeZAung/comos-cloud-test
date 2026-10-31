@@ -18,13 +18,14 @@ test('FFd20 language page includes all unique source table languages',()=>{
 
 test('High INT bonus languages appear only on ability step and not when INT offers zero',()=>{
  const b=mk();b.racialChoices={'ffd20:race:garif:pool:bond-terrain':['ffd20:race:garif:pool:bond-terrain:option:desert'],'ffd20:race:garif:pool:pastoralist-skill':['skill-row:43']};
+ b.baseScores.int=14; // Effective INT is 12 after Garif's -2 racial adjustment.
  const racePage=renderBuild(b,2),scoresPage=renderBuild(b,1,{mode:'create'});
  assert.doesNotMatch(racePage,/data-rw-language-slot/);
  assert.match(scoresPage,/data-rw-language-slot/);assert.match(scoresPage,/languages\.html/);
  assert.equal((scoresPage.match(/data-rw-language-slot=/g)||[]).length,1);
- b.baseScores.int=10;
+ b.baseScores.int=12;
  assert.doesNotMatch(renderBuild(b,1,{mode:'create'}),/data-rw-language-slot|Bonus languages/);
- b.baseScores.int=14;
+ b.baseScores.int=16;
  assert.equal((renderBuild(b,1,{mode:'create'}).match(/data-rw-language-slot=/g)||[]).length,2);
 });
 
