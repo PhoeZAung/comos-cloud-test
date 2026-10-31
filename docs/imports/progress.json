@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 91,
+  "revision": 92,
   "schedule": [
     "class",
     "race",
@@ -560,6 +560,21 @@
         "tests/gunbreaker-ammunition.test.mjs"
       ],
       "updatedAt": "2026-10-31T06:36:39.679Z"
+    },
+    "ffd20:race:garif": {
+      "state": "in_progress",
+      "stage": "targeted-validation",
+      "cursor": "Standard Garif level-1 creation, source choices, restricted rank, proficiencies and edit guards implemented; focused 3/3 tests pass on archived snapshot",
+      "nextAction": "Rebase/check against latest main, install Node 24 dependencies, run npm test and npm run build:cloud; then review PR and publish only after validation",
+      "scope": "Standard Garif level-1 creation/edit only. Terrain AC and mask saves conditional/manual. No higher-level Pastoralist, alternates, favored rewards or fully reviewed rules.",
+      "note": "Isolated sandbox used Node 22.16 and older source snapshot. 372/382 suite checks passed, 10 failed due missing sharp/esbuild/live bundle. Cloud build blocked by missing esbuild. Do not mark live or publish until integrated checks pass.",
+      "coverage": "partial",
+      "reviewEvidence": "",
+      "evidence": [
+        "tests/garif-standard-creation.test.mjs",
+        "docs/extraction/garif-standard-creation.md"
+      ],
+      "updatedAt": "2026-10-31T07:10:00.000Z"
     }
   },
   "history": [
@@ -1372,6 +1387,15 @@
       "stage": "local-validation",
       "cursor": "Source-capacity ammo tracker and shared ability costs validated",
       "time": "2026-10-31T06:36:39.679Z"
+    },
+    {
+      "revision": 92,
+      "itemId": "ffd20:race:garif",
+      "from": "queued",
+      "to": "in_progress",
+      "stage": "targeted-validation",
+      "cursor": "Standard Garif level-1 creation, source choices, restricted rank, proficiencies and edit guards implemented; focused 3/3 tests pass on archived snapshot",
+      "time": "2026-10-31T07:10:00.000Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

@@ -20,11 +20,15 @@ export const BEASTKIN_ID='ffd20:race:beastkin';
 export const BEASTKIN_LANGUAGES=BEASTKIN_ID+':pool:high-intelligence-bonus-languages';
 export const BURMECIAN_ID='ffd20:race:burmecian';
 export const BURMECIAN_LANGUAGES=BURMECIAN_ID+':pool:high-intelligence-bonus-languages';
+export const GARIF_ID='ffd20:race:garif';
+export const GARIF_LANGUAGES=GARIF_ID+':pool:bonus-languages';
+export const GARIF_TERRAIN=GARIF_ID+':pool:bond-terrain';
+export const GARIF_PASTORALIST=GARIF_ID+':pool:pastoralist-skill';
 export const DRACOBALTIAN_ID='ffd20:race:dracobaltian';
 export const DRACOBALTIAN_LANGUAGES=DRACOBALTIAN_ID+':pool:bonus-languages';
 const standardTraitActive=(b,race,slug)=>b?.raceId===race&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(race+':trait:'+slug);
 export const humeTraitActive=(b,slug)=>b?.raceId===HUME_ID&&!b.heritageId&&!(b.alternateIds||[]).length&&!(b.disabledTraits||[]).includes(HUME_ID+':trait:'+slug);
-export const racialSkillRanks=(b,level)=>humeTraitActive(b,'skilled')?level:standardTraitActive(b,AL_BHED_ID,'mechanical-genius')&&level>=1?1:0;
+export const racialSkillRanks=(b,level)=>humeTraitActive(b,'skilled')?level:standardTraitActive(b,GARIF_ID,'pastoralist')&&level===1&&!b.carry?1:standardTraitActive(b,AL_BHED_ID,'mechanical-genius')&&level>=1?1:0;
 export const racialCounter=(b,feature)=>b?.raceId==='ffd20:race:galka'&&(b.alternateIds||[]).includes('ffd20:race:galka:feature:tenacious')&&feature.id==='ffd20:race:galka:feature:tenacious'?{maximum:1}:[[MITHRA_ID,'cat-s-luck'],[AEGYL_ID,'eternal-hope'],[AU_RA_ID,'ferocity']].some(([race,slug])=>standardTraitActive(b,race,slug)&&feature.id===race+':trait:'+slug)?{maximum:1}:null;
 export function applyRacialFlatStats(next,previous,b){
  for(const [key,owner,bonus] of [

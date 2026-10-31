@@ -1,0 +1,14 @@
+# Garif standard level-one creation checkpoint
+
+Source: https://finalfantasyd20.com/races/base-races/garif/ (existing staged definition; source reviewed in this pass).
+Base commit: 49f46b5c8944b8a49b5b724c984abb792c79d3f8; branch: imports/active.
+
+Implemented: Garif +2 Constitution, +2 Wisdom, -2 Intelligence; Medium Humanoid (garif); speed 30 feet; Common/Garif and source-listed high-INT bonus languages; low-light vision; Animal Herder +2 Handle Animal, Keen Senses +2 Perception. Source weapon proficiencies: longspear, shortspear, javelin, boar spear (not starting inventory).
+
+At creation, select exactly one desert/plains Bond to the Land terrain. Its +2 dodge AC is conditional/manual; terrain is immutable on an existing saved Garif. Masked +1 saves remains situational/manual. Pastoralist offers a single level-1 extra rank allocated to exactly one permitted Craft specialty (3 slots), Knowledge (nature), pastoral Profession specialty (3 slots), or Survival; selected skill becomes a class skill. Exact specialty name required for Craft/Profession. Saved level-1 skill and terrain choices cannot be changed during edits.
+
+Blocked: Garif progression beyond level 1 and multiclass, Historian/Soldier/Unmasked alternates, favored rewards and any fully independent rules review. No conditional +2 AC or +1 saves applied globally. Manual sheet entries retained. Do not infer automatic mask equipment or mount data.
+
+Verification (isolated sandbox): Node v22.16.0. Focused Garif tests 3/3 passed on snapshot 6b8dd83; `npm test` 372/382 passed, ten failures from missing sharp/esbuild or resulting missing live assets; `npm run build:cloud` blocked because esbuild is absent. These are NOT Node 24 final-integrated results. Run with Node >=24, `npm ci && npm test && npm run build:cloud` before merging. No production Firebase login or deployment of Garif has been verified.
+
+Next: resume active Garif checkpoint, validate against the latest remote main, review generated catalog and targeted code, then only merge after complete successful validation.
