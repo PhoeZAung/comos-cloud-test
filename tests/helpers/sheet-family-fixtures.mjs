@@ -21,6 +21,8 @@ export function familyFixture(classId,archetypeId=''){
  // Unsupported racial choices stay guarded in production; no race implementation is changed.
  for(const f of race.features.filter(f=>race.data.standardTraitIds.includes(f.id)))if(f.choicePoolIds?.some(id=>!supportsRacialPool(id))){b.disabledTraits.push(f.id);manual.push(f.name);}
  if(manual.length)fixtureRaceLimits.set(archetypeId||classId,manual);
+ if(b.raceId==='ffd20:race:palico'){const id='ffd20:race:palico:pool:starting-second-language';b.racialChoices[id]=[id+':option:mithran'];}
+ if(b.raceId==='ffd20:race:kindred'){const id='ffd20:race:kindred:pool:languages-selection';b.racialChoices[id]=[id+':option:abyssal'];}
  if(b.raceId==='ffd20:race:moogle'){const id='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';b.racialChoices[id]=['skill-row:4'];b.racialSpecialties[id]='Woodworking';}
  b.hpRolls=[classFor(b).data.hitDie];return completeFamilyBuild(b);
 }
