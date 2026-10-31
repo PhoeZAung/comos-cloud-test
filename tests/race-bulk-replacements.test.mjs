@@ -11,6 +11,7 @@ test('All 63 races: structurally sound manual whole-feature replacements remove 
  assert.equal(registry.races.length,63);
  let count=0;const distinct=new Set();
  for(const r of registry.races)for(const id of r.data.alternateTraitIds){
+  if(r.id==='ffd20:race:half-breed'&&id==='ffd20:race:half-breed:trait:ancestral-arms')continue; // one-of-two chosen replacement has separate tests
   const ops=replacementFor(r,id);
   if(!ops.length||!ops.some(o=>o.resolution==='manual'&&o.scope==='whole_feature'&&o.operation==='replace')||!ops.every(o=>isSupportedRaceOperation(r,o)))continue;
   count++;distinct.add(r.id);
