@@ -5,6 +5,51 @@ const AEGYL='ffd20:race:aegyl';
 const WING_CLIPPED=AEGYL+':trait:wing-clipped';
 const AEGYL_SPEED=AEGYL+':trait:base-speed';
 const WING_FLIGHT_MODIFIER=WING_CLIPPED+':flight-modifier';
+const BEASTKIN='ffd20:race:beastkin';
+const GARLEAN='ffd20:race:garlean';
+const SHINDROID='ffd20:race:shindroid';
+const trait=(race,slug)=>race+':trait:'+slug;
+const scoreVector=(race,slug,values)=>{
+ const feature=race?.features?.find(f=>f.id===trait(race.id,slug));
+ const actual=(feature?.effects||[]).filter(e=>e.kind==='ability_score'&&e.automation==='automatic'&&!e.condition)
+  .map(e=>[e.target,e.value?.kind,e.value?.value]);
+ return actual.length===values.length&&values.every(([k,v])=>actual.some(([target,kind,n])=>target==='ability_scores.'+k&&kind==='constant'&&n===v));
+};
+const isBaseLand=(race,feet)=>race?.features?.some(f=>
+ f.id===trait(race.id,'base-speed')&&f.effects?.some(e=>e.target==='identity.speed.land'&&
+ e.value?.kind==='constant'&&e.value.value===feet&&e.automation==='automatic'&&!e.condition));
+const scopedModifier=(race,op,id,targets,added=[],ready=true)=> Boolean(ready&&race&&op&&op.id===id&&
+ op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
+ op.targetFeatureIds?.length===targets.length&&targets.every((t,i)=>op.targetFeatureIds[i]===t)&&
+ (op.addsFeatureIds||[]).length===added.length&&added.every((t,i)=>op.addsFeatureIds[i]===t)&&
+ !(op.targetEventIds||[]).length&&!(op.addsEventIds||[]).length&&!(op.removesComponents||[]).length);
+const isBatchModifier=(race,op)=>{
+ if(!race)return false;
+ if(race.id===BEASTKIN){
+  const score=trait(BEASTKIN,'ability-score-racial-traits'),
+   ready=scoreVector(race,'ability-score-racial-traits',[['str',2],['wis',2],['int',-2]]);
+  for(const slug of ['alluring','light-build'])
+   if(scopedModifier(race,op,trait(BEASTKIN,slug)+':ability-modifier',[score],[trait(BEASTKIN,slug)],ready))return true;
+  if(scopedModifier(race,op,trait(BEASTKIN,'loper')+':speed-modifier',
+   [trait(BEASTKIN,'base-speed')],[],isBaseLand(race,30)))return true;
+ }
+ if(race.id===GARLEAN){
+  const ready=scoreVector(race,'ability-score-adjustment',[['con',2],['int',2],['wis',-2]])&&
+   race.features.some(f=>f.id===trait(GARLEAN,'languages')&&f.choicePoolIds?.includes(GARLEAN+':pool:bonus-languages')&&
+    f.effects?.some(e=>e.target==='languages.starting'&&e.textValue==='Common'));
+  return scopedModifier(race,op,trait(GARLEAN,'xenophobia-extremis')+':component-modifier',
+   [trait(GARLEAN,'ability-score-adjustment'),trait(GARLEAN,'languages')],
+   [trait(GARLEAN,'xenophobia-extremis')],ready);
+ }
+ if(race.id===SHINDROID){
+  if(scopedModifier(race,op,trait(SHINDROID,'heavy-platform')+':speed-modifier',
+   [trait(SHINDROID,'base-speed')],[trait(SHINDROID,'heavy-platform')],isBaseLand(race,30)))return true;
+  if(scopedModifier(race,op,trait(SHINDROID,'anomaly')+':immunity-modifier',
+   [trait(SHINDROID,'robotic-immunities')],[],
+   race.features.some(f=>f.id===trait(SHINDROID,'robotic-immunities')&&/fear and emotion/.test(f.description))))return true;
+ }
+ return false;
+};
 const TARUTARU='ffd20:race:tarutaru';
 const POLYGLOT=TARUTARU+':trait:polyglot';
 const TARUTARU_LANGUAGES=TARUTARU+':trait:languages';
@@ -41,6 +86,7 @@ const isWholeTraitReplacement=(race,op)=>{
 };
 export const isSupportedRaceOperation=(race,op)=>
  isWholeTraitReplacement(race,op)||
+ isBatchModifier(race,op)||
  (race?.id===DWARF&&op.id===SALTBEARD_GREED&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
  op.targetFeatureIds?.length===1&&op.targetFeatureIds[0]===GREED&&op.addsFeatureIds?.length===1&&op.addsFeatureIds[0]===SALTBEARD)||
  (race?.id===AEGYL&&op.id===WING_FLIGHT_MODIFIER&&op.operation==='modify'&&op.scope==='part_of_feature'&&op.resolution==='manual'&&
@@ -69,6 +115,34 @@ export function isSupportedRaceHeritage(race,heritage){
 }
 
 export function applyRaceModification(race,feature,op){
+ if(isBatchModifier(race,op)){
+  if(race.id===BEASTKIN&&feature.id===trait(BEASTKIN,'ability-score-racial-traits')){
+   const alluring=op.id===trait(BEASTKIN,'alluring')+':ability-modifier';
+   const old='ability_scores.'+(alluring?'wis':'str'),updated='ability_scores.'+(alluring?'cha':'dex');
+   return {...feature,description:feature.description+' '+(alluring?'Alluring: +2 CHA instead of +2 WIS.':'Light Build: +2 DEX instead of +2 STR.'),
+    effects:(feature.effects||[]).map(e=>e.target===old?{...e,target:updated}:e)};
+  }
+  if(race.id===BEASTKIN&&feature.id===trait(BEASTKIN,'base-speed'))
+   return {...feature,description:'Loper: base land speed 40 ft; Sprinter remains +10 ft only when charging, running or withdrawing.',
+    effects:(feature.effects||[]).map(e=>e.target==='identity.speed.land'?{...e,value:{...e.value,value:40}}:e)};
+  if(race.id===GARLEAN){
+   if(feature.id===trait(GARLEAN,'ability-score-adjustment'))
+    return {...feature,description:'+2 CON; +2 INT; -2 CHA (Xenophobia Extremis replaces the normal -2 WIS).',
+     effects:(feature.effects||[]).map(e=>e.target==='ability_scores.wis'&&e.value?.value===-2?
+      {...e,target:'ability_scores.cha'}:e)};
+   if(feature.id===trait(GARLEAN,'languages'))
+    return {...feature,description:'Xenophobia Extremis: starts speaking Common; no high-Intelligence bonus languages. Normal Linguistics learning is not removed.',
+     choicePoolIds:[]};
+  }
+  if(race.id===SHINDROID){
+   if(feature.id===trait(SHINDROID,'base-speed'))
+    return {...feature,description:'Heavy Platform: land speed 20 ft, never reduced by armor or encumbrance. Body weight +50 lb (track manually).',
+     effects:(feature.effects||[]).map(e=>e.target==='identity.speed.land'?{...e,value:{...e.value,value:20}}:e)};
+   if(feature.id===trait(SHINDROID,'robotic-immunities'))
+    return {...feature,description:'Anomaly: retains immunity to Fatigued, Exhausted and Sleep, but no longer has the normal blanket fear/emotion immunities. -2 racial saving throws against mind-affecting, fear and emotion effects (conditional; apply manually). Anomaly can benefit from morale bonuses.'};
+  }
+ }
+
  if(race?.id===TARUTARU&&feature?.id===TARUTARU_LANGUAGES&&op?.id===POLYGLOT_LANGUAGE_MODIFIER)
   return {...feature,description:'Polyglot: starts with Common, Lalafellan, and one freely chosen additional starting language; retains all normal high-Intelligence bonus languages (Draconic, Dwarven, Elvaan, Galkan, Giant, Goblin and Orc).'};
 
