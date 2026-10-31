@@ -24,8 +24,8 @@ test('all races have neutral names in the wizard while review metadata remains u
 test('critical trait choices and heritages are dimmed individually',()=>{
  const b=newBuild();b.raceId=get('viera').id;
  const html=renderBuild(b,2);
- assert.match(html,/rw-trait--review/);
- assert.match(html,/data-rw-trait="ffd20:race:viera:trait:elemental-summoner" disabled/);
+ assert.match(html,/data-rw-racial-choice="ffd20:race:viera:pool:elemental-summoner-subtype"/);
+ assert.doesNotMatch(html,/data-rw-trait="ffd20:race:viera:trait:elemental-summoner" disabled/);
  b.raceId=get('lamia').id;
  const heritage=get('lamia').data.heritages[0].id;
  assert.match(renderBuild(b,2),new RegExp('value="'+heritage+'"[^>]*disabled'));
