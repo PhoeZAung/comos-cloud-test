@@ -18,7 +18,7 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Aegyl | Wing-Clipped | Replaces Emotionless but modifies only flight speed/maneuverability; retain land speed |
 | Beastkin | Alluring, Feral, Light Build, Loper | Partial ability/armor vectors; Feral has no explicit target |
 | Garlean | Xenophobia Extremis | Modifies score adjustment and Languages, rather than replacing the entire traits |
-| Al Bhed | Xenophobic | Replaces starting languages without a complete automatic language effect; must remove Common, disallow INT bonus languages and handle Linguistics progression |
+| Al Bhed | Xenophobic | **Draft:** starting language Albhedian only (not Common), high-INT language pool removed, one language per two Linguistics ranks and conditional +1 saves remain manual; Magic Resistant SR 11 + level/manual lowering not fully automated |
 | Forgiven | Scion of Mortality | Changes language and dual-race identity/subtype rather than replacing Type/Languages as entirely removed fields |
 | Lambkin | Polyglot | Modifies Magic Expert and Languages |
 | Moogle | Grounded | Partial Base Speed/flight modification |
@@ -28,11 +28,11 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Seto Lion | Faster, Nimble Attacks | Partial Claws/Bite/Fast replacements |
 | Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | Partial status, plating, score and speed adjustments |
 | Sylph | Improved Flight | Compound Camouflage/Beguiling Liar replacement; preserve correct flight mechanics |
-| Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | Conflicting or incomplete type, speed, vision, language and ability-score modifications |
+| Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | **Draft:** elemental resistance and breath shape recorded as required source choices; Wing-Clipped preserves land 20 ft, changes fly 40 poor→20 clumsy, removes only −2 DEX and grants +2 Bluff/Climb/Diplomacy; Neglected Heritage removes only Draconic, keeps Common and manual +1 situational Diplomacy. Dragon Type, Evasive Maneuvers and Memories of the Forgotten remain blocked |
 | Tarutaru | Polyglot language modifier | **Implemented:** Magic Expert replaced; Languages retained; +2 Linguistics and class skill automated; required unrestricted extra language selected on Ability Scores, independently of high-INT bonus language pool. Verify signed-in save/reopen manually |
 | Tonkin | Dancing Lantern | Partial Lantern Bearer change |
 | Trollkin | Faster Healing | Combined Thick Skin/Fast Healing change; suppression and healing behavior |
-| Half-Breed | Ancestral Arms; inherited features | Parent races, feat/skill/offense choices and racial point budget must be validated |
+| Half-Breed | Ancestral Arms; inherited features | **Draft staging only:** Ancestral Arms wizard selector chooses either feat/skill or offense inherited slot; source two-target replacement is rejected and one selected slot is retained. **Entire Half-Breed creation remains blocked** pending legal parents, RP metadata, inherited-trait options, selected weapon proficiency and favored-class reconciliation |
 | Dwarf | Saltbeard | **Already fixed:** Greed is modified, not removed. Confirm underwater treasure Appraise +2 and keep other conditional bonuses manual |
 
 Do **not** unblock these by simply marking their extracted mapping “resolved”. For each, verify precisely what survives and what is replaced or modified.
