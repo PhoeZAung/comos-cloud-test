@@ -1,7 +1,7 @@
 import {party,item} from '../ui/admin-icons.mjs';
 import { previewPolicy } from '../preview/policy.mjs';
 
-export const brand = 'Comos';
+export const brand = 'Cosmos';
 
 const navigation = {
   main: [['home', 'Home'], ['lore', 'Lore'], ['characters', 'Characters']],
@@ -19,7 +19,7 @@ function nav(kind, current, className, label) {
 }
 
 const back = '<a class="back" href="characters.html">← Characters</a>';
-export const install = '<button type="button" class="account install-control" data-install hidden aria-label="Install Comos" title="Install Comos"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg></button>';
+export const install = '<button type="button" class="account install-control" data-install hidden aria-label="Install Cosmos" title="Install Cosmos"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg></button>';
 export const account = '<a class="account" href="account.html"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4 21v-3a8 8 0 0 1 16 0v3"/></svg><span class="sr-only">Account</span></a>';
 
 export function header(page) {
@@ -40,6 +40,6 @@ export function renderPage(page, { policy = previewPolicy, scripts = ['preview/r
   if(live&&page.layout==='sheet')scripts=['assets/sheet-entry.mjs'];
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${escape(policy)}"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="dark"><meta name="theme-color" content="#080d18">${live ? '<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/icon-192.png">' : ''}${page.description ? `<meta name="description" content="${escape(page.description)}">` : ''}<title>${escape(page.title)}</title><link rel="stylesheet" href="assets/${page.layout==='sheet'?'sheet.css':'site.css'}">${scripts.map(src => `<script type="module" src="${escape(src)}"></script>`).join('')}</head>
-<body class="${escape(page.bodyClass)}" data-page="${escape(page.id)}" data-layout="${escape(page.layout)}" data-mode="${live ? 'live' : 'fixture'}"><div class="galaxy-background" data-galaxy aria-hidden="true"></div><a class="skip" href="#main">Skip to content</a>${view.header}<main id="main" tabindex="-1">${view.main}</main><p class="sr-only" data-route-status role="status"></p><dialog data-install-help aria-labelledby="install-heading"><h2 id="install-heading">Install Comos</h2><p>Android: browser menu → Install app or Add to Home screen.</p><p>iPhone / iPad: Share → Add to Home Screen → Open as Web App, if offered.</p><p>PC: use the browser’s Install app option in Chrome or Edge.</p><form method="dialog"><button class="button" autofocus>Close</button></form></dialog></body></html>
+<body class="${escape(page.bodyClass)}" data-page="${escape(page.id)}" data-layout="${escape(page.layout)}" data-mode="${live ? 'live' : 'fixture'}"><div class="galaxy-background" data-galaxy aria-hidden="true"></div><a class="skip" href="#main">Skip to content</a>${view.header}<main id="main" tabindex="-1">${view.main}</main><p class="sr-only" data-route-status role="status"></p><dialog data-install-help aria-labelledby="install-heading"><h2 id="install-heading">Install Cosmos</h2><p>Android: browser menu → Install app or Add to Home screen.</p><p>iPhone / iPad: Share → Add to Home Screen → Open as Web App, if offered.</p><p>PC: use the browser’s Install app option in Chrome or Edge.</p><form method="dialog"><button class="button" autofocus>Close</button></form></dialog></body></html>
 `;
 }
