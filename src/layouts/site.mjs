@@ -4,7 +4,7 @@ import { previewPolicy } from '../preview/policy.mjs';
 export const brand = 'Comos';
 
 const navigation = {
-  main: [['home', 'Home'], ['lore', 'Lore'], ['characters', 'Characters'], ['languages', 'Languages']],
+  main: [['home', 'Home'], ['lore', 'Lore'], ['characters', 'Characters']],
   public: [['signin', 'Sign in'], ['signup', 'Sign up']],
   wizard: [['create-identity', 'Identity'], ['create-race', 'Race'], ['create-class', 'Class & level']],
   admin: [['admin', 'Character controls'], ['admin-items', 'Item controls']],
