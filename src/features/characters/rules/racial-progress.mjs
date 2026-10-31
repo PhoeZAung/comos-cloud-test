@@ -1,5 +1,7 @@
 // Explicitly supported racial progression; no inferred bonuses from free text.
 import {registry} from './catalog.mjs';
+export const QUADAV_ID='ffd20:race:quadav';
+export const QUADAV_TERRAIN=QUADAV_ID+':pool:bond-to-the-land-selection';
 export const DWARF_ID='ffd20:race:dwarf';
 export const DWARF_LANGUAGES=DWARF_ID+':pool:high-intelligence-bonus-languages';
 export const HUME_ID='ffd20:race:hume';
@@ -7,6 +9,9 @@ export const HUME_SCORE=HUME_ID+':pool:hume-2-racial-ability';
 export const HUME_LANGUAGES=HUME_ID+':pool:high-intelligence-bonus-languages';
 export const MITHRA_ID='ffd20:race:mithra';
 export const MITHRA_LANGUAGES=MITHRA_ID+':pool:high-intelligence-bonus-languages';
+export const LAMBKIN_ID='ffd20:race:lambkin';
+export const LAMBKIN_LANGUAGES=LAMBKIN_ID+':pool:bonus-languages';
+export const LAMBKIN_POLYGLOT_LANGUAGE=LAMBKIN_ID+':pool:polyglot-language';
 export const TARUTARU_ID='ffd20:race:tarutaru';
 export const TARUTARU_LANGUAGES=TARUTARU_ID+':pool:high-intelligence-bonus-languages';
 export const TARUTARU_TALENTED=TARUTARU_ID+':pool:tarutaru-craft-profession-choice';
