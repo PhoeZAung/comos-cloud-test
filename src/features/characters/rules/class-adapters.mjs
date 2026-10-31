@@ -1,3 +1,4 @@
+import {syncGunbreakerAmmo} from './gunbreaker-ammo.mjs';
 import {martialChoicePools,martialArchetype,martialCounter,AKIMBO_ID,GUNBREAKER_ID} from './martial-progression.mjs';
 import {MONK_ID,KNIGHT_ID,levelOneCounter,levelOneArchetype,levelOneClasses,isLevelOneClass,CHOCOBO_KNIGHT_ID,DANCER_ID,MOG_KNIGHT_ID} from './level-one-classes.mjs';
 import {registry} from './catalog.mjs';
@@ -214,5 +215,5 @@ export function compileNoncastingBuild(b,previous,{preview,raceTraits,calculated
  }
  next.rulesBuild={rankFloor:b.skillRanks?[...b.skillRanks]:rankFloor,version:b.version,input:b,
   ownedIds:Object.values(rows).flat().map(x=>x.sourceRuleId),lastValues,rollback};
- applyRacialFlatStats(next,previous,b);syncLimitBreaks(next);return next;
+ applyRacialFlatStats(next,previous,b);syncGunbreakerAmmo(next);syncLimitBreaks(next);return next;
 }

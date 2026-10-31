@@ -684,7 +684,7 @@ These are actual archetype pages; nested supporting pages are not counted as add
 | [Professional Duelist](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/professional-duelist/) | queued · source-review | Start of source review |
 | [Shieldbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/shieldbreaker/) | queued · source-review | Start of source review |
 | [Sorceress Knight](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/sorceress-knight/) | queued · source-review | Start of source review |
-| [Doom Slayer](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/) | queued · local-validation | Follow-up talent selections and owned resource bonuses validated |
+| [Doom Slayer](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/doom-slayer/) | queued · local-validation | Source-capacity ammo tracker and shared ability costs validated |
 | [Space Marine](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/archetypes/space-marine/) | queued · source-review | Start of source review |
 
 ## Ninja (15)

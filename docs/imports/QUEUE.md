@@ -12,7 +12,7 @@ Partial-live support, testing availability, source archiving and full completion
 | race | 63/63 | 63 | 63 | 47 | 15 | 0 | 0 |
 | archetype | 579/579 | 7 | 5 | 574 | 3 | 0 | 420 |
 
-Checkpoint revision: **89**. Active: **none**. Next: **ffd20:race:garif**.
+Checkpoint revision: **91**. Active: **none**. Next: **ffd20:race:garif**.
 
 Default schedule: one class, three races, then one eligible archetype. An active item is resumed first. Blocked entries retain their cursor and are skipped. Parent definitions must exist before an archetype is selected.
 
@@ -55,7 +55,7 @@ The race count includes testing options whose mandatory choices can still preven
 | 31 | [Black Belt](https://finalfantasyd20.com/classes/hybrid-classes/black-belt/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 32 | [Druid](https://finalfantasyd20.com/classes/hybrid-classes/druid/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 33 | [Fencer](https://finalfantasyd20.com/classes/hybrid-classes/fencer/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
-| 34 | [Gunbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | queued · local-validation | Follow-up talent selections and owned resource bonuses validated; Review remaining equipment, external prerequisite and conditional combat limits |
+| 34 | [Gunbreaker](https://finalfantasyd20.com/classes/hybrid-classes/gunbreaker/) | existing live adapter · levels 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 | queued · local-validation | Source-capacity ammo tracker and shared ability costs validated; Review remaining Gunsmith modifications, multi-magazine and special-mode limits |
 | 35 | [Ninja](https://finalfantasyd20.com/classes/hybrid-classes/ninja/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 36 | [Samurai](https://finalfantasyd20.com/classes/hybrid-classes/samurai/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |
 | 37 | [Scholar](https://finalfantasyd20.com/classes/hybrid-classes/scholar/) | not enabled | queued · source-review | Start of source review; Legal first-level creation first; later progression and choices in verified milestones. |

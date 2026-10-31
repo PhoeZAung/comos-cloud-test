@@ -4,6 +4,8 @@ export function validateMartialProgression(definition,{archetype=false}={}){
  const ids=new Set(),names=new Set();
  for(const feature of d.features){if(ids.has(feature.id)||names.has(feature.name))fail('duplicate feature identity');ids.add(feature.id);names.add(feature.name);}
  if(JSON.stringify(d.supportedLevels)!==JSON.stringify(Array.from({length:20},(_,i)=>i+1)))fail('martial progression requires all twenty supported levels');
+ if(!archetype&&d.ammunitionProfiles?.length&&d.levels.some(row=>row.level<19?(!Number.isInteger(row.magickedAmmoPerLoad)||row.magickedAmmoPerLoad<1||row.magickedAmmoPerLoad>1000):row.magickedAmmoPerLoad!=='capacity'))fail('invalid magicked ammo allowance');
+ const profileIds=new Set();for(const p of d.ammunitionProfiles||[]){if(profileIds.has(p.id)||!p.id.startsWith(definition.id+':ammo-profile:')||!p.name||!Number.isInteger(p.capacity)||p.capacity<1||p.capacity>1000||!Number.isInteger(p.minimumLevel)||p.minimumLevel<1||p.minimumLevel>20||!p.sourceRefs?.length)fail('invalid ammunition profile '+p.id);profileIds.add(p.id);}
  const pools=new Map(),options=new Set();
  for(const pool of d.choicePools||[]){
   if(pools.has(pool.id)||!pool.name||!Array.isArray(pool.options)||!pool.options.length)fail('empty or duplicate choice pool');pools.set(pool.id,pool);

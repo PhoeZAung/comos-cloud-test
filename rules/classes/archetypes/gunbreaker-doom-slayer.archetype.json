@@ -638,6 +638,73 @@
           "value": 1
         }
       }
+    ],
+    "ammunitionProfiles": [
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:ammo-profile:pistol",
+        "name": "Doom Gun Arm — Pistol",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Doom Gun Arm",
+            "locator": "pistol"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:ammo-profile:shotgun",
+        "name": "Doom Gun Arm — Shotgun",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Doom Gun Arm",
+            "locator": "shotgun"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:ammo-profile:chaingun",
+        "name": "Doom Gun Arm — Chaingun",
+        "capacity": 30,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Doom Gun Arm",
+            "locator": "chaingun"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:ammo-profile:plasma-rifle",
+        "name": "Doom Gun Arm — Plasma Rifle",
+        "capacity": 10,
+        "minimumLevel": 5,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Doom Gun Arm",
+            "locator": "plasma-rifle"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:archetype:gunbreaker:doom-slayer:ammo-profile:rocket-launcher",
+        "name": "Doom Gun Arm — Rocket Launcher",
+        "capacity": 1,
+        "minimumLevel": 10,
+        "sourceRefs": [
+          {
+            "sourceId": "main",
+            "section": "Doom Gun Arm",
+            "locator": "rocket-launcher"
+          }
+        ]
+      }
     ]
   }
 }

@@ -1,3 +1,4 @@
+import {updateGunbreakerAmmo,syncGunbreakerAmmo,gunbreakerAmmoAbilityCost,MAGICKED_AMMO_ID} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {addRuleAbility} from '../../src/features/characters/rules/ability-library.mjs';
 import {isLimitBreak,syncLimitBreaks,spendLimitBreak} from '../../src/features/sheet/limit-breaks.mjs';
 import {restRecovery} from '../../src/features/sheet/recovery.mjs';
@@ -36,6 +37,8 @@ export function mergeSheetData(original,change){
   if(Object.hasOwn(change.fields,'size_category'))data.size=data.size_category;
   if(Object.hasOwn(change.fields,'currency_gil'))data.gil=data.currency_gil;
   if(Object.hasOwn(change.fields,'mp_curr')&&!Object.hasOwn(change.fields,'mp')){if(data.mp_curr<0)bad('MP cannot be negative.');data.mp_temp=Math.min(Math.max(0,number(data.mp_temp)),data.mp_curr);data.mp=data.mp_curr-data.mp_temp;}
+ }else if(change.action==='gunbreakerAmmo'){
+  updateGunbreakerAmmo(data,change);
  }else if(change.action==='addRuleAbility'){
   if(typeof change.ruleId!=='string'||change.ruleId.length>250)bad('Choose an ability.');addRuleAbility(data,change.ruleId);
  }else if(change.action==='entry'){
@@ -46,6 +49,7 @@ export function mergeSheetData(original,change){
   if(change.mode==='remove')rows.splice(change.index,1);
   else{
    if(!plain(change.fields)||!Object.keys(change.fields).length||Object.keys(change.fields).length>30)bad('Invalid entry fields.');
+   if(change.mode==='update'&&data.gunbreakerAmmo!==undefined&&rows[change.index].rulesOwned&&rows[change.index].sourceRuleId===MAGICKED_AMMO_ID&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Use the gun arm ammunition tracker to change these rounds.');
    if(change.mode==='update'&&isLimitBreak(rows[change.index])&&Object.keys(change.fields).some(k=>['u_curr','u_max','uses_formula','restoreOnLongRest'].includes(k)))bad('Limit Break usage is shared and calculated.');
    const safe={};
    for(const [key,value] of Object.entries(change.fields)){
@@ -101,7 +105,7 @@ export function mergeSheetData(original,change){
   if(!Number.isInteger(change.index)||!data.spells?.[change.index])bad('Entry not found.');
   return data;
  }else if(change.action==='useAbility'){
-  const collection=change.collection||'activeAbilities';if(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection))bad('Invalid ability.');const row=data[collection]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');if(isLimitBreak(row)){spendLimitBreak(data);}else{const calc=entryCalculations(row,data,collection);
+  const collection=change.collection||'activeAbilities';if(!['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(collection))bad('Invalid ability.');const row=data[collection]?.[change.index];if(!Number.isInteger(change.index)||!row)bad('Entry not found.');if(isLimitBreak(row)){spendLimitBreak(data);}else if(gunbreakerAmmoAbilityCost(data,row)){updateGunbreakerAmmo(data,{operation:'spend',rounds:gunbreakerAmmoAbilityCost(data,row)});}else{const calc=entryCalculations(row,data,collection);
   if(calc.maxUses<=0)bad(row.uses_formula?'No uses remaining.':'Set usage before spending a use.');if(calc.currentUses<=0)bad('No uses remaining.');if(!Number.isInteger(calc.currentUses))bad('Set whole remaining uses before using this ability.');row.u_curr=calc.currentUses-1;}
  }else if(change.action==='spendMp'){
   const cost=numeric(change.amount),current=sheetStats(data).mp;if(cost<=0||cost>current)bad('Not enough MP, or invalid cost.');const temp=Math.min(Math.max(0,number(data.mp_temp)),Math.max(0,current)),taken=Math.min(temp,cost);data.mp_temp=temp-taken;data.mp=current-temp-(cost-taken);
@@ -110,9 +114,11 @@ export function mergeSheetData(original,change){
   if(data.limitBreakPool||['activeAbilities','passiveAbilities','racialAbilities','feats'].some(k=>data[k]?.some(isLimitBreak)))data.limitBreakPool={spent:0};const recovery=restRecovery(data);data.hp_curr=Math.min(current.hpMax,current.hp+recovery.hp);data.mp=Math.min(current.mpMax,Math.max(0,current.mp-Math.max(0,number(data.mp_temp)))+recovery.mp);data.mp_temp=0;
   for(const row of ['activeAbilities','passiveAbilities','racialAbilities','feats'].flatMap(k=>data[k]||[]))if(row.restoreOnLongRest!==false){const max=entryCalculations(row,data,'activeAbilities').maxUses;if(max>0)row.u_curr=max;}
  }else bad('Invalid sheet action.');
+ syncGunbreakerAmmo(data);
  syncLimitBreaks(data);
  updateManagedStats(data,original);
  if(data.rulesBuild)for(const key of ['activeAbilities','racialAbilities'])for(const row of data[key]||[]){if(!row.rulesOwned||!row.uses_formula)continue;const old=original[key]?.find(r=>r.sourceRuleId===row.sourceRuleId);if(!old||!abilities.some(k=>Number(data[k])!==Number(original[k])))continue;const before=entryCalculations(old,original,key),after=entryCalculations(row,data,key),spent=Math.max(0,before.maxUses-before.currentUses);row.u_max=after.maxUses;row.u_curr=Math.max(0,after.maxUses-spent);}
+ syncGunbreakerAmmo(data);
  const s=sheetStats(data);Object.assign(data,{hp_effective_max:s.hpMax,mp_curr:s.mp,mp_total_max:s.mpMax,mp_effective_max:s.mpMax,ac_total:s.ac,touch_ac_total:s.touch,flat_ac_total:s.flat,cmd_total:s.cmd,ar_total:s.melee,ar_ranged_total:s.ranged,ar_touch_total:s.touchAttack,ar_ranged_touch_total:s.rangedTouch,cmb:s.cmb,fort_bonus:s.fort,ref_bonus:s.ref,will_bonus:s.will});
  if(Buffer.byteLength(JSON.stringify(data))>500000)bad('Character data is too large.');
  return data;

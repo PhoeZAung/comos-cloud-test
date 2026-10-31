@@ -3931,6 +3931,177 @@
           }
         ]
       }
+    ],
+    "ammunitionProfiles": [
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-standard",
+        "name": "Gunblade (Standard)",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-standard"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-assault",
+        "name": "Gunblade (Assault)",
+        "capacity": 30,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-assault"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-double",
+        "name": "Gunblade (Double)",
+        "capacity": 15,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-double"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-light",
+        "name": "Gunblade (Light)",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-light"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunblade-magitek",
+        "name": "Gunblade (Magitek)",
+        "capacity": 20,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunblade-magitek"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunaxe",
+        "name": "Gunaxe",
+        "capacity": 2,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunaxe"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunbaghnakh",
+        "name": "Gunbaghnakh",
+        "capacity": 8,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunbaghnakh"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunhalberd",
+        "name": "Gunhalberd",
+        "capacity": 15,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunhalberd"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunhammer",
+        "name": "Gunhammer",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunhammer"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunknife",
+        "name": "Gunknife",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunknife"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunlance",
+        "name": "Gunlance",
+        "capacity": 10,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunlance"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:guntana",
+        "name": "Guntana",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "guntana"
+          }
+        ]
+      },
+      {
+        "id": "ffd20:class:gunbreaker:ammo-profile:gunshield",
+        "name": "Gunshield",
+        "capacity": 6,
+        "minimumLevel": 1,
+        "sourceRefs": [
+          {
+            "sourceId": "equipment-weapons-gun-arms",
+            "section": "Table: Gun Arm Weapons (Trigger Attacks)",
+            "locator": "gunshield"
+          }
+        ]
+      }
     ]
   }
 }

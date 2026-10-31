@@ -1,6 +1,9 @@
 # Requested Moogle / Galka / Immortal martial setup
 
-Latest local continuation (October 31, 2026): 410 tests and build:cloud pass.
+Latest local continuation (October 31, 2026): 417 tests and build:cloud pass.
+See `gunbreaker-ammunition-tracker.md` for the new optional, capacity-aware
+Gunbreaker/Doom Slayer tracker. Unconfigured manual counters retain their prior
+limits. The user requires all work to stay local until an explicit "publish".
 Follow-up talent choices, repeat limits and Ki/Aurora resources are recorded in
 `martial-follow-up-choices.md`. The 403-test results below describe the original
 October 30 checkpoint.
@@ -34,8 +37,10 @@ Progression bonuses use canonical identities and SET-value upgrade records. Doom
 Slayer's level-20 Strength/Dexterity/Wisdom increases apply once. Conditional
 armor/speed/attack modifiers stay on manual cards. Increasing a resource maximum
 preserves expenditure; leveling does not refill HP or daily resources. Magicked
-Ammo's counter records the numeric per-load source allowance through level 18;
-weapon capacity and the level 19–20 capacity rule require manual verification.
+Ammo's legacy unconfigured counter records the numeric per-load allowance
+through level 18; the optional tracker now supports source-listed capacities
+and the level 19–20 capacity rule. Modified weapons and multi-magazine handling
+remain manual.
 Starting gun-arm recording is optional to preserve existing manual equipment.
 
 The queue retains prior deployment states. New scope is recorded as locally

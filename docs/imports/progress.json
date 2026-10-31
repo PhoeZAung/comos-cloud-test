@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 89,
+  "revision": 91,
   "schedule": [
     "class",
     "race",
@@ -509,19 +509,21 @@
     "ffd20:class:gunbreaker": {
       "state": "queued",
       "stage": "local-validation",
-      "cursor": "Follow-up talent selections and owned resource bonuses validated",
-      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
+      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
+      "nextAction": "Review remaining Gunsmith modifications, multi-magazine and special-mode limits",
       "scope": "",
-      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
+      "note": "October 31: 417 tests and cloud build pass. Optional one-magazine tracker, source capacities, levels 19–20, loaded/infused costs, stale/forged saves and idempotent receipts verified. User requires local-only work until explicit publish; no push or deployment.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/requested-martial-progression.md",
         "tests/martial-progression.test.mjs",
         "docs/extraction/martial-follow-up-choices.md",
-        "tests/martial-follow-up-choices.test.mjs"
+        "tests/martial-follow-up-choices.test.mjs",
+        "docs/extraction/gunbreaker-ammunition-tracker.md",
+        "tests/gunbreaker-ammunition.test.mjs"
       ],
-      "updatedAt": "2026-10-31T06:10:11.795Z"
+      "updatedAt": "2026-10-31T06:36:39.290Z"
     },
     "ffd20:archetype:dancer:akimbo": {
       "state": "queued",
@@ -543,19 +545,21 @@
     "ffd20:archetype:gunbreaker:doom-slayer": {
       "state": "queued",
       "stage": "local-validation",
-      "cursor": "Follow-up talent selections and owned resource bonuses validated",
-      "nextAction": "Review remaining equipment, external prerequisite and conditional combat limits",
+      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
+      "nextAction": "Review remaining Gunsmith modifications, multi-magazine and special-mode limits",
       "scope": "",
-      "note": "October 31 local continuation: 410 tests and cloud build pass. Extra dance/mastery choices, repeat limits, Ki/Aurora counters and forged saves covered. Prior deployment state retained; no deployment or real provider login.",
+      "note": "October 31: 417 tests and cloud build pass. Optional one-magazine tracker, source capacities, levels 19–20, loaded/infused costs, stale/forged saves and idempotent receipts verified. User requires local-only work until explicit publish; no push or deployment.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/requested-martial-progression.md",
         "tests/martial-progression.test.mjs",
         "docs/extraction/martial-follow-up-choices.md",
-        "tests/martial-follow-up-choices.test.mjs"
+        "tests/martial-follow-up-choices.test.mjs",
+        "docs/extraction/gunbreaker-ammunition-tracker.md",
+        "tests/gunbreaker-ammunition.test.mjs"
       ],
-      "updatedAt": "2026-10-31T06:10:12.604Z"
+      "updatedAt": "2026-10-31T06:36:39.679Z"
     }
   },
   "history": [
@@ -1350,6 +1354,24 @@
       "stage": "local-validation",
       "cursor": "Follow-up talent selections and owned resource bonuses validated",
       "time": "2026-10-31T06:10:12.604Z"
+    },
+    {
+      "revision": 90,
+      "itemId": "ffd20:class:gunbreaker",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
+      "time": "2026-10-31T06:36:39.290Z"
+    },
+    {
+      "revision": 91,
+      "itemId": "ffd20:archetype:gunbreaker:doom-slayer",
+      "from": "queued",
+      "to": "queued",
+      "stage": "local-validation",
+      "cursor": "Source-capacity ammo tracker and shared ability costs validated",
+      "time": "2026-10-31T06:36:39.679Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

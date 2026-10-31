@@ -8,10 +8,17 @@ prepare definitions and adapters that can be validated from the saved sources.
 The latest user request (2026-10-30, local Codex) prioritizes Moogle, Chocobo
 Knight, Mog Knight, Galka, Gunbreaker, Doom Slayer, Immortal, Dancer and Akimbo,
 including progression through level 20. That named batch is now locally validated:
-410 tests and build:cloud pass as of the October 31 continuation. See
+417 tests and build:cloud pass as of the October 31 continuation. See
 `docs/extraction/requested-martial-progression.md` for scope, source limits and
 compatibility, and `docs/extraction/martial-follow-up-choices.md` for the latest
 follow-up choice/resource batch. Newer origin/main through 46f63ee was preserved and merged.
+The latest Gunbreaker/Doom Slayer ammo batch is recorded in
+`docs/extraction/gunbreaker-ammunition-tracker.md`.
+
+Current user preferences: name the affected class when discussing mechanics.
+Keep work local; do not push or publish until the user explicitly says "publish".
+GitHub authentication is now configured, which is not publishing authorization.
+
 No deployment or real provider login was performed. Prior queue deployment states
 are retained; local validation does not certify full rule coverage.
 

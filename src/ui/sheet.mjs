@@ -1,3 +1,4 @@
+import {MAGICKED_AMMO_ID} from '../features/characters/rules/gunbreaker-ammo.mjs';
 import {notify,showDice,clearFeedback} from './feedback.mjs';
 import {processPicture} from './character-view.mjs';
 import {preferences} from './preferences.mjs';
@@ -37,10 +38,10 @@ export function rollDice(expression,random=limit=>{const range=4294967296,ceilin
 export function formatRoll(label,r){
  const receipt=x=>x.total+' ('+x.expression+(x.rolls?.length?' · '+x.rolls.join(', '):'')+')';
  const title=r.weaponName||r.spellName||r.abilityName||label;
- if(r.descriptionOnly)return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+'\n'+r.description;
+ if(r.descriptionOnly)return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingInfusedAmmo!==undefined?' · '+r.remainingInfusedAmmo+' infused rounds remaining':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+'\n'+r.description;
  if(!['weapon','spell','ability'].includes(r.kind))return label+': '+receipt(r);
  const attack=r.kind==='weapon'?r:r.attack;
- return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+(attack?'\nAttack Roll: '+receipt(attack):'')+(r.damage?'\nDice Roll: '+receipt(r.damage):'')+(r.critical?.threat?'\nCrit!\nAttack Roll: '+receipt(r.critical.confirmation)+(r.critical.damage?'\nDice Roll: '+receipt(r.critical.damage):''):'');
+ return title+(r.mpSpent!==undefined?' · '+r.mpSpent+' MP':'')+(r.remainingInfusedAmmo!==undefined?' · '+r.remainingInfusedAmmo+' infused rounds remaining':'')+(r.remainingUses!==undefined?' · '+r.remainingUses+' usage remaining':'')+(attack?'\nAttack Roll: '+receipt(attack):'')+(r.damage?'\nDice Roll: '+receipt(r.damage):'')+(r.critical?.threat?'\nCrit!\nAttack Roll: '+receipt(r.critical.confirmation)+(r.critical.damage?'\nDice Roll: '+receipt(r.critical.damage):''):'');
 }
 
 /**
@@ -156,6 +157,7 @@ export function mountSheet(){
  function editEntry(key,index){
   const row=character.data[key]?.[index]||{};
   const keys=key==='skills'?['lvl','temp','cs','subName']:key==='items'?['sourceCategory','name','amount','two_handed','desc']:key==='weapons'?['name','attack_type','ability_mod','damage','range','crit_range','crit_mult','desc']:key==='spells'?['name','lvl','school','type','attack_type','attack_misc','range','duration','target','saving_throw','spell_resist','damage','casting_ability','caster_level','dc_misc','mp_cost','desc','at_higher_lvls']:['name','type','attack_type','damage','dc_formula','uses_formula','restoreOnLongRest','desc','at_higher_lvls'];
+  if(character.data.gunbreakerAmmo!==undefined&&row.rulesOwned&&row.sourceRuleId===MAGICKED_AMMO_ID)for(const k of ['uses_formula','restoreOnLongRest']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   if(row.limitBreak||/limit[\s-]*break/i.test(String(row.sourceRuleId||'')+' '+String(row.rulesName||row.name||'')))for(const k of ['uses_formula','restoreOnLongRest']){const at=keys.indexOf(k);if(at>=0)keys.splice(at,1);}
   const values={...row,sourceCategory:itemCategoryForItem(row),mp_cost:row.mp_cost??row.mpCost??row.mp_amount??row.mpAmount??'',lvl:key==='spells'?(spellLevel(row.lvl)??0):(row.lvl??0),damage:row.damage||row.dmg||'',amount:row.amount??1,stat:row.stat||'int',attack_type:key==='weapons'?attackType(row.attack_type):String(row.attack_type||'none').toLowerCase().replaceAll(' ','_'),ability_mod:String(row.ability_mod||row.mod||'auto').toLowerCase(),casting_ability:row.casting_ability||character.data.spell_dc_base||'int',caster_level:row.caster_level??'',restoreOnLongRest:row.restoreOnLongRest!==false};
   openDialog(index===null?'Add '+titles[key]:'Edit '+(row.name||titles[key]),keys,values,{action:'entry',collection:key,index,mode:index===null?'add':'update'},{help:key==='weapons'?'Attack type uses the matching sheet attack total. Ability Mod replaces its ability, rather than adding it twice. Damage includes all normal flat bonuses; include additional dice in Dice Roll. Critical range: 20 or 19-20; multiplier: x2, x3…':key==='skills'?'Skill identity is fixed. Edit ranks, misc, class skill and specialization.':key==='spells'||['activeAbilities','passiveAbilities','racialAbilities','feats'].includes(key)?'Dice Roll examples: 2d6 fire + 1d4 cold, {CL}d6 + {INT}. DC/uses formulas accept {INT}, {LEVEL}, {CL}, arithmetic and parentheses. Fractions round down. Set special adjustments explicitly.':''});
@@ -183,6 +185,7 @@ export function mountSheet(){
    }
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
+   if(button.matches('[data-ammo-operation]')){const operation=button.dataset.ammoOperation,change={action:'gunbreakerAmmo',operation};if(operation==='configure')change.profileId=root.querySelector('[data-ammo-profile]').value;if(['reload','fire','spend','brutal-shell'].includes(operation))change.rounds=Number(root.querySelector('[data-ammo-rounds]')?.value);void save(change);return;}
    if(button.matches('[data-recovery-menu]')){settingsPanel.hidden=!settingsPanel.hidden;button.setAttribute('aria-expanded',String(!settingsPanel.hidden));return;}
   if(button.matches('[data-toggle-stars]')){showStars=!showStars;root.querySelector('[data-sheet]').classList.toggle('cs-star-controls-off',!showStars);button.setAttribute('aria-pressed',String(showStars));button.setAttribute('aria-label',(showStars?'Hide':'Show')+' favorite controls');return;}
   if(button.matches('[data-box-favorite]')){const key=button.dataset.boxFavorite,old=character.data.favorite_boxes||[];void save({action:'fields',fields:{favorite_boxes:old.includes(key)?old.filter(k=>k!==key):[...old,key]}});return;}
@@ -270,6 +273,7 @@ export function mountSheet(){
   void save({...dialogState.change,fields});
  },{signal:control.signal});
  root.addEventListener('input',event=>{
+  if(event.target.matches('[data-ammo-profile],[data-ammo-rounds]')){dirty=true;status('Choose an ammunition action to save.');return;}
   if(event.target.matches('[data-equip-search]')){
    equipmentDialog().querySelector('[data-equip-choices]').innerHTML=renderEquipChoices(character.data,event.target.value,selectedEquipmentSlot);
    return;
