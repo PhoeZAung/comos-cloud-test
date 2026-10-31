@@ -9,6 +9,22 @@ const ELVAAN_LANGUAGES='ffd20:race:elvaan:pool:high-intelligence-bonus-languages
 const GALKA_LANGUAGES='ffd20:race:galka:pool:high-intelligence-bonus-languages';
 const supported=new Set([DWARF_LANGUAGES,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_LANGUAGES,BURMECIAN_LANGUAGES,BEASTKIN_LANGUAGES,BANGAA_LANGUAGES,AU_RA_LANGUAGES,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_LANGUAGES,TARUTARU_LANGUAGES,TARUTARU_TALENTED,MITHRA_LANGUAGES,HUME_SCORE,HUME_LANGUAGES,GALKA_LANGUAGES,HANDY,MOOGLE_LANGUAGES,ELVAAN_WEAPON,ELVAAN_LANGUAGES,IMMORTAL+'flexible-score',IMMORTAL+'long-lived-knowledge',IMMORTAL+'bonus-languages']);
 export const supportsRacialPool=id=>supported.has(id);
+// An alternate with a resolved whole-trait replacement may leave a situational,
+// descriptive or player-recorded choice manual. Only choices driving a concrete
+// ability-score vector require a structured wizard before safe automation.
+export function replacementRequiresWizard(race,feature){
+ if(!feature)return false;
+ return (feature.choicePoolIds||[]).some(id=>{
+  if(supportsRacialPool(id))return false;
+  const pool=race.choicePools.find(p=>p.id===id);
+  if(!pool)return true; // unknown choice semantics, not a safe manual-only assumption
+  const grantsAbilityScore=(pool.options||[]).some(option=>
+   (option.featureIds||[]).some(fid=>race.features.find(f=>f.id===fid)?.effects?.some(e=>e.kind==='ability_score')));
+  return grantsAbilityScore||(/(?:ability|score)\b/i.test(pool.name)&&pool.choiceType!=='language')||
+    feature.effects?.some(e=>e.kind==='ability_score'&&e.automation==='automatic');
+ });
+}
+
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 
 // Some source definitions use older extraction target names. Keep the
