@@ -1,5 +1,9 @@
 # Fresh-character martial reliability pass
 
+Published in PR #39 as b4c63eb; live files and health verified. See
+`class-release-publication.md` for current release evidence. The notes below
+describe the earlier local implementation and fixture-validation milestone.
+
 User priority (October 31, 2026): focus on new characters. The user plans to
 replace old characters after a future site publication; this is not a request
 to delete any characters. No production characters were read, changed or deleted.

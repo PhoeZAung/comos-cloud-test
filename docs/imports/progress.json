@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 111,
+  "revision": 112,
   "schedule": [
     "class",
     "race",
@@ -8,7 +8,7 @@
     "race",
     "archetype"
   ],
-  "schedulePosition": 0,
+  "schedulePosition": 1,
   "phase": "baseline-then-progression",
   "items": {
     "ffd20:class:chocobo-knight": {
@@ -603,12 +603,12 @@
       "updatedAt": "2026-10-31T15:07:57.331Z"
     },
     "ffd20:class:red-mage": {
-      "state": "in_progress",
-      "stage": "local-level-two-validated",
-      "cursor": "Red Mage level 2 Arcane Pool, Ruby Talents, Spellstrike and spell learning complete locally",
-      "nextAction": "Implement Red Mage level 3 Ruby Arcana and Ruby Knowledge with source-backed choices; keep local until publish. Reconcile race checkpoint changes before a future merge.",
-      "scope": "Standard Red Mage levels 1–2 only, required Magery/Talent choices, CHA MP/spells, manual Arcane Pool/daily talent trackers and conditional combat reference cards. Later levels and unsupported prerequisite/subchoice options guarded.",
-      "note": "434 tests and cloud build pass. Browser level 1→2 save/reopen and durable database reopen verified with fixture session. 34 Ruby Talent source records; 12 bounded candidates with STR guard. No push, merge, live login or publication.",
+      "state": "live_partial",
+      "stage": "level-two-deployment-verified",
+      "cursor": "Red Mage levels 1–2 published and deployment verified in PR #39",
+      "nextAction": "User class priority: Red Mage level 3 Ruby Arcana and Ruby Knowledge. Continue locally in the class checkout until another publish request; preserve latest race changes.",
+      "scope": "Published standard Red Mage levels 1–2 with required Magery/Ruby Talent, CHA MP and spell learning, Arcane Pool and daily talent counters, manual Spellstrike/conditional effects. Later progression, archetypes and unsupported subchoices guarded.",
+      "note": "Integrated source: 449 tests and cloud build pass. PR/main CI successful. Railway ed8b759c SUCCESS, all 20 checked assets match, database ready and private read denied. No real account login or production character mutation. Martial polish published in same release; partial/manual rule limits retained.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -616,9 +616,11 @@
         "tests/red-mage-level-one.test.mjs",
         "docs/extraction/red-mage-level-two-import.md",
         "docs/extraction/red-mage-level-two-validation.json",
-        "tests/red-mage-level-two.test.mjs"
+        "tests/red-mage-level-two.test.mjs",
+        "docs/extraction/class-release-publication.md",
+        "docs/extraction/class-release-deployment-validation.json"
       ],
-      "updatedAt": "2026-10-31T15:52:37.158Z"
+      "updatedAt": "2026-10-31T16:08:46.500Z"
     }
   },
   "history": [
@@ -1611,6 +1613,15 @@
       "stage": "local-level-two-validated",
       "cursor": "Red Mage level 2 Arcane Pool, Ruby Talents, Spellstrike and spell learning complete locally",
       "time": "2026-10-31T15:52:37.158Z"
+    },
+    {
+      "revision": 112,
+      "itemId": "ffd20:class:red-mage",
+      "from": "in_progress",
+      "to": "live_partial",
+      "stage": "level-two-deployment-verified",
+      "cursor": "Red Mage levels 1–2 published and deployment verified in PR #39",
+      "time": "2026-10-31T16:08:46.500Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

@@ -1,5 +1,14 @@
 # Resume the class and race import queue
 
+Latest class release: PR #39, b4c63eb, is live with 449 integrated tests and
+verified Railway/public-asset evidence. See docs/extraction/class-release-publication.md.
+This chat owns classes/archetypes and uses the isolated classes/red-mage
+checkout; the race chat owns its separate checkout and RACES-ONLY.md plan.
+The next requested class milestone is Red Mage level 3; explicitly resume that
+partial class rather than taking an unrelated race or the general baseline queue.
+Future gameplay changes remain local until another explicit publish request.
+
+
 The user chose class/race integration as the main goal. Use the existing FFd20
 archive and keep unresolved Pathfinder-dependent mechanics manual or guarded.
 Bulk Pathfinder collection is paused. Do not wait for cloud publication to
