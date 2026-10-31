@@ -288,6 +288,30 @@ export function racialChoiceIssues(b,race,traits,scores){
 
 // A chosen bonus feat is a visible manual card, never a blanket attack bonus.
 export function racialChoiceFeats(b,race,traits,previous={}){
+ if(b.raceId===GRIA&&traits.some(f=>f.id===GRIA+':trait:martial-background')){
+  const spec=racialChoiceSpecs(race,traits,buildLevel(b)).find(x=>x.id===GRIA_WEAPON);
+  const weapon=spec?.options.find(o=>o.id===b.racialChoices?.[GRIA_WEAPON]?.[0])?.value;
+  if(!weapon)return [];
+  const id=GRIA+':bonus-feat:weapon-focus',name='Weapon Focus ('+weapon+')',old=previous.feats?.find(x=>x.sourceRuleId===id);
+  const desc='Granted by Gria Martial Background at character level 1 for the chosen proficient '+weapon+'. Apply the Weapon Focus attack benefit manually to qualifying attacks.';
+  return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:name,
+   desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:name,rulesDescription:desc,
+   sourceRuleId:id,sourceRace:'Gria',rulesOwned:true,pendingFeat:false,automation:'manual'}];
+ }
+ if(b.raceId===NAMAZU&&traits.some(f=>f.id===NAMAZU+':trait:focused-study')){
+  return NAMAZU_FOCUS_LEVELS.filter(n=>n<=buildLevel(b)).flatMap(n=>{
+   const selected=b.racialChoices?.[namazuFocusSlot(n)]?.[0],index=Number(selected?.split(':').at(-1));
+   if(!selected||!Number.isInteger(index)||index<0||index>=fixedSkills.length)return [];
+   const skill=fixedSkills[index],label=skill.name+(['Craft','Profession','Perform'].includes(skill.name)?
+    ' '+(fixedSkills.slice(0,index).filter(r=>r.name===skill.name).length+1):'');
+   const id=NAMAZU+':bonus-feat:skill-focus:'+n,name='Skill Focus ('+label+')';
+   const old=previous.feats?.find(x=>x.sourceRuleId===id);
+   const desc='Granted by Namazu Focused Study at character level '+n+' for '+label+'. Apply Skill Focus (+3, or +6 with 10 ranks) to its qualifying skill checks manually.';
+   return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:name,
+    desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:name,rulesDescription:desc,
+    sourceRuleId:id,sourceRace:'Namazu',rulesOwned:true,pendingFeat:false,automation:'manual'}];
+  });
+ }
  if(b.raceId===BURMECIAN_ID&&traits.some(f=>f.id===BURMECIAN_ID+':trait:quick-reactions')){
   const id=BURMECIAN_ID+':bonus-feat:improved-initiative',old=previous.feats?.find(f=>f.sourceRuleId===id),name='Improved Initiative',desc='Granted by Burmecian Quick Reactions. Apply the official feat’s initiative benefits manually; this card does not change the initiative field.';
   return [{...old,name:old?.rulesName&&old.name!==old.rulesName?old.name:name,desc:old?.rulesDescription&&old.desc!==old.rulesDescription?old.desc:desc,rulesName:name,rulesDescription:desc,sourceRuleId:id,sourceRace:'Burmecian',rulesOwned:true,pendingFeat:false,automation:'manual'}];
