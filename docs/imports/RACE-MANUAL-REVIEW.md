@@ -29,7 +29,7 @@ Updated: 2026-10-31. Based on the existing 63 race definitions in Comos. This ch
 | Shindroid | Anomaly, Heavy Platform, Hologram Simulation, Race Simulation | Partial status, plating, score and speed adjustments |
 | Sylph | Improved Flight | Compound Camouflage/Beguiling Liar replacement; preserve correct flight mechanics |
 | Syricta | Dragon Type, Evasive Maneuvers, Memories of the Forgotten, Neglected Heritage, Wing-Clipped | Conflicting or incomplete type, speed, vision, language and ability-score modifications |
-| Tarutaru | Polyglot language modifier | Change starting languages without removing permitted bonus languages |
+| Tarutaru | Polyglot language modifier | **Implemented:** Magic Expert replaced; Languages retained; +2 Linguistics and class skill automated; required unrestricted extra language selected on Ability Scores, independently of high-INT bonus language pool. Verify signed-in save/reopen manually |
 | Tonkin | Dancing Lantern | Partial Lantern Bearer change |
 | Trollkin | Faster Healing | Combined Thick Skin/Fast Healing change; suppression and healing behavior |
 | Half-Breed | Ancestral Arms; inherited features | Parent races, feat/skill/offense choices and racial point budget must be validated |

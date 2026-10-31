@@ -2,6 +2,8 @@ import {fixedSkills} from '../../sheet/skills.mjs';
 import {DWARF_ID,DWARF_LANGUAGES,GARLEAN_ID,GARLEAN_LANGUAGES,GARLEAN_WEAPON,GARLEAN_CRAFT,GARIF_ID,GARIF_LANGUAGES,GARIF_TERRAIN,GARIF_PASTORALIST,DRACOBALTIAN_ID,DRACOBALTIAN_LANGUAGES,BURMECIAN_ID,BURMECIAN_LANGUAGES,BEASTKIN_ID,BEASTKIN_LANGUAGES,BANGAA_ID,BANGAA_LANGUAGES,AU_RA_ID,AU_RA_LANGUAGES,AL_BHED_ID,AL_BHED_LANGUAGES,AL_BHED_GENIUS,AEGYL_ID,AEGYL_LANGUAGES,HUME_ID,HUME_SCORE,HUME_LANGUAGES,MITHRA_ID,MITHRA_LANGUAGES,TARUTARU_ID,TARUTARU_LANGUAGES,TARUTARU_TALENTED,humeTraitActive,languageName,validLanguageChoice} from './racial-progress.mjs';
 
 const IMMORTAL='ffd20:race:immortal:pool:';
+const POLYGLOT=TARUTARU_ID+':trait:polyglot';
+export const TARUTARU_POLYGLOT_LANGUAGE=TARUTARU_ID+':pool:polyglot-starting-language';
 const MOOGLE_LANGUAGES='ffd20:race:moogle:pool:bonus-languages';
 const HANDY='ffd20:race:moogle:pool:moogle-handy-craft-or-profession';
 const ELVAAN_WEAPON='ffd20:race:elvaan:pool:martial-background-weapon';
@@ -52,6 +54,8 @@ export function mappedRaceTraits(race,traits){
    if([AU_RA_ID,BURMECIAN_ID].includes(race.id)&&e.target==='senses.darkvision')add(e,'identity.senses.darkvision',null,'Darkvision '+e.textValue);
    if(e.target==='senses.low_light_vision')add(e,'identity.senses.low_light_vision');
   }
+  if(race.id===TARUTARU_ID&&f.id===POLYGLOT)
+   mapped.push({id:f.id+':sheet:linguistics-class-skill',kind:'class_skill',target:'skills.skill:linguistics.class_skill',operation:'add',value:{kind:'constant',value:1},bonusType:'racial',condition:null,automation:'automatic'});
   if(race.id===GARLEAN_ID&&f.id===GARLEAN_ID+':trait:noble-upbringing')for(const [row,label] of [[20,'history'],[23,'nobility']])mapped.push({id:f.id+':sheet:class-skill:'+label,kind:'class_skill',target:'skills.row.'+row+'.class_skill',operation:'add',value:{kind:'constant',value:1},bonusType:null,condition:null,automation:'automatic'});
   if(race.id===GARIF_ID&&f.id===GARIF_ID+':trait:weapon-familiarity')for(const name of ['Longspear','Shortspear','Javelin','Boar spear'])mapped.push({id:f.id+':sheet:weapon:'+name.toLowerCase().replaceAll(' ','-'),kind:'proficiency',target:'proficiencies.weapon.'+name.toLowerCase().replaceAll(' ','-'),operation:'grant',value:null,textValue:name,bonusType:null,condition:null,automation:'automatic'});
   return mapped.length?{...f,effects:[...f.effects,...mapped]}:f;
@@ -64,7 +68,7 @@ export function racialChoiceSpecs(race,traits){
  // Legacy Dwarf's extracted language trait predates choice-pool links. Keep
  // canonical source unchanged; expose its existing list only while trait active.
  if(race.id===DWARF_ID&&traits.some(f=>f.id===DWARF_ID+':feature:languages'))active.add(DWARF_LANGUAGES);
- return race.choicePools.filter(p=>active.has(p.id)&&supported.has(p.id)).map(pool=>{
+ const specs=race.choicePools.filter(p=>active.has(p.id)&&supported.has(p.id)).map(pool=>{
   if(pool.id===GARLEAN_WEAPON)return {...pool,minimum:1,maximum:1,options:pool.options.filter(o=>o.value==='firearms-simple')};
   if(pool.id===GARLEAN_CRAFT)return {...pool,minimum:1,maximum:1,specialty:true,options:fixedSkills.flatMap((row,i)=>row.name==='Craft'?[{id:'skill-row:'+i,name:'Craft '+(i-3),value:i}]:[])};
   if(pool.id===GARIF_PASTORALIST)return {...pool,minimum:1,maximum:1,specialty:true,specialtyRequiredFor:[4,5,6,34,35,36].map(i=>'skill-row:'+i),options:fixedSkills.flatMap((row,i)=>[4,5,6,22,34,35,36,43].includes(i)?[{id:'skill-row:'+i,name:['Craft','Profession'].includes(row.name)?row.name+' '+(fixedSkills.slice(0,i).filter(r=>r.name===row.name).length+1):row.name,value:i}]:[])};
@@ -76,6 +80,11 @@ export function racialChoiceSpecs(race,traits){
   if(pool.id===HUME_LANGUAGES)return {...pool,minimum:0,maximum:null,freeText:true};
   return {...pool,minimum:pool.choiceType==='language'?0:1,maximum:pool.choiceType==='language'?null:1};
  });
+ // The seven high-INT bonus languages are unchanged; one unrestricted extra
+ // language is a separate required slot on the existing Ability Scores step.
+ if(race.id===TARUTARU_ID&&traits.some(f=>f.id===POLYGLOT))
+  specs.push({id:TARUTARU_POLYGLOT_LANGUAGE,name:'Polyglot starting language',choiceType:'language',freeText:true,options:[],minimum:1,maximum:1});
+ return specs;
 }
 
 export function racialChoiceEffects(b,race,traits){
@@ -115,6 +124,12 @@ export function racialChoiceIssues(b,race,traits,scores){
   if(!spec||!Array.isArray(values)){errors.push('Unknown or inactive racial choice.');continue;}
   const identities=spec.freeText?values.map(v=>languageName(v).toLowerCase()):values;
   if(new Set(identities).size!==values.length||values.some(v=>spec.freeText?!validLanguageChoice(v):!spec.options.some(o=>o.id===v)))errors.push('Invalid or duplicate '+spec.name+' selection.');
+ }
+ if(race?.id===TARUTARU_ID&&byId.has(TARUTARU_POLYGLOT_LANGUAGE)){
+  const extra=languageName(b.racialChoices?.[TARUTARU_POLYGLOT_LANGUAGE]?.[0]).toLowerCase();
+  const standardPool=byId.get(TARUTARU_LANGUAGES);
+  const normal=new Set((b.racialChoices?.[TARUTARU_LANGUAGES]||[]).map(id=>standardPool?.options.find(o=>o.id===id)?.name?.toLowerCase()).filter(Boolean));
+  if(extra==='lalafellan'||normal.has(extra))errors.push('Polyglot extra language must be different from starting languages and selected bonus languages.');
  }
  for(const spec of specs){
   if(spec.id===ELVAAN_WEAPON&&!spec.options.length)errors.push('Martial Background requires a verified proficient weapon. Keep Elvaan Weapon Familiarity active for this limited integration.');
