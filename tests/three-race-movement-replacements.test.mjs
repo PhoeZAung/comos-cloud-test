@@ -88,7 +88,9 @@ test('Namazu Fast replaces Skilled Traders only; land 30→40, swim stays 30',()
  const changed=structuredClone(sheet.rulesBuild.input);changed.alternateIds=[];
  assert.throws(()=>compileBuild(changed,sheet),/permanent/);
  const focused=fixture('namazu',['focused-study']);
- assert.ok(buildIssues(focused).some(x=>/unresolved replacement|precise replacement/i.test(x.message)),'Focused Study remains blocked');
+ assert.deepEqual(raceTraits(focused).errors,[],'Focused Study replaces both source-defined complete skill traits');
+ assert.ok(buildIssues(focused).some(x=>/Focused Study.*level 1: choose 1/.test(x.message)),
+  'Focused Study requires its level-one skill choice');
 });
 
 test('Seto Lion Faster retains Fast and quadruped but replaces Claws: speed 60',()=>{
