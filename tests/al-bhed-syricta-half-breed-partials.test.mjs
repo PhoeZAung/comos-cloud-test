@@ -93,7 +93,7 @@ test('Syricta standard requires both elemental and breath picks; no invented def
  assert.throws(()=>compileBuild(empty),{code:'INVALID_CHARACTER'});
  const specs=racialChoiceSpecs(raceFor(b),raceTraits(b).traits);
  assert.deepEqual(specs.filter(x=>[SYRICTA_ELEMENT,SYRICTA_BREATH].includes(x.id)).map(x=>x.maximum),[1,1]);
- const page=renderBuild(b,1,{mode:'create'});
+ const page=renderBuild(b,2,{mode:'create'});
  assert.match(page,/Elemental Resistance selection/);
  assert.match(page,/Breath Weapon selection/);
  const result=compileBuild(b);
