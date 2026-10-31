@@ -1,4 +1,5 @@
-import {DOOM_SLAYER_ID,supportsMartialProgression,martialChoiceEvents,martialEligibleOptions} from './martial-progression.mjs';
+import {withBuildDefaults,sameBuildValue} from './build-compatibility.mjs';
+import {DOOM_SLAYER_ID,martialCounter,supportsMartialProgression,martialChoiceEvents,martialEligibleOptions} from './martial-progression.mjs';
 import {isLevelOneClass,levelOnePreview,levelOneIssues} from './level-one-classes.mjs';
 import {isBeastmaster,beastmasterChoiceEvents,beastmasterOptions,COMPANION_EVENT} from './beastmaster-level-one.mjs';
 import {isRedMage,redMagePreview,redMageIssues,redMageSpellCounts,redMageChoiceEvents,redMageOptions} from './red-mage-level-one.mjs';
@@ -306,15 +307,29 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  next.rulesBuild={rankFloor:b.skillRanks?[...b.skillRanks]:previousManaged?.rankFloor,version:registry.version,input:b,ownedIds:Object.values(rows).flat().map(r=>r.sourceRuleId),lastValues,rollback};
  applyRacialFlatStats(next,previous,b);syncLimitBreaks(next);return next;
 }
+// The browser and regression fixtures use the same preparation path for every class.
+export function prepareLevelUp(previous){
+ if(!previous?.rulesBuild?.input)bad('Open Edit to establish this character’s reviewed class build before leveling up.');
+ const baseline=withBuildDefaults(previous.rulesBuild.input,newBuild());
+ if(buildLevel(baseline)>=20)bad('This character is already level 20.');
+ baseline.hpRolls=hpHistory(baseline);
+ baseline.skillRanks=fixedSkills.map((_,i)=>Number(previous.skills?.[i]?.lvl??baseline.skillRanks?.[i]??0));
+ const build=structuredClone(baseline);build.level++;build.hpRolls.push(classDefaultHp(build));
+ build.initialIntMod=!hasSpellcasting(classFor(build))?null:baseline.initialIntMod??mod(effectiveScores(baseline).int);
+ build.reviewed=false;
+ return {build,baseline};
+}
 export function levelUpBuild(raw,previous){
  if(isRedMage(raw)||isRedMage(previous.rulesBuild?.input))bad('Red Mage currently supports level-1 testing only; level-up is not enabled.');
  if(isBard(raw)||isBard(previous.rulesBuild?.input))bad('Bard currently supports level-1 testing only; level-up is not enabled.');
  if((isLevelOneClass(raw)||isLevelOneClass(previous.rulesBuild?.input))&&!supportsMartialProgression(raw))bad('This class currently supports level-1 testing only; level-up is not enabled.');
  if(supportsMartialProgression(raw)){
   const raceLimits=buildIssues(raw,{complete:false}).filter(i=>i.step===3);if(raceLimits.length)bad(raceLimits[0].message);
-  const old=previous.rulesBuild?.input,same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+  const stored=previous.rulesBuild?.input;
+  const old=stored?withBuildDefaults(stored,newBuild()):null,same=sameBuildValue;
+  raw=withBuildDefaults(raw,newBuild());
   if(!old||!supportsMartialProgression(old)||raw.level!==old.level+1||raw.level>20)bad('Level up adds exactly one level, up to level 20.');
-  for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId','carry','favored','initialChaMod','abilityMethod','pointBudget','scorePool','scoreAssignments'])if(!same(raw[key],old[key]))bad('Level up cannot change '+key+'.');
+  for(const key of ['name','alignment','bio','portrait','baseScores','raceId','heritageId','disabledTraits','alternateIds','archetypeId','classId','carry','favored','initialChaMod','abilityMethod','pointBudget','scorePool','scoreAssignments'])if(!same(raw[key],old[key]))bad('Level up cannot change '+({baseScores:'existing ability scores',initialChaMod:'the starting spell allowance',raceId:'race',heritageId:'heritage',disabledTraits:'standard racial traits',alternateIds:'alternate racial traits',archetypeId:'archetype',classId:'class',carry:'previous class data',favored:'favored-class rewards',abilityMethod:'the ability score method',pointBudget:'the point-buy budget',scorePool:'recorded ability rolls',scoreAssignments:'ability score assignments'}[key]||key)+'.');
   for(const key of ['racialChoices','racialSpecialties'])if(!same(raw[key]??{},old[key]??{}))bad('Level up cannot change racial choices.');
   const boosts={...(old.abilityIncreases||{})};if(raw.level%4===0){if(!stats.includes(raw.abilityIncreases?.[raw.level]))bad('Choose a +1 ability increase.');boosts[raw.level]=raw.abilityIncreases[raw.level];}
   if(!same(raw.abilityIncreases||{},boosts))bad('Only the current milestone grants a boost.');
@@ -358,7 +373,11 @@ export function levelUpBuild(raw,previous){
 
 export function classFeatureChanges(build,baseline){
  if(isChaCaster(build))return previewBuild(build).features.filter(f=>!baseline||!previewBuild(baseline).features.some(old=>old.id===f.id)).map(feature=>({feature,kind:'new'}));
- if(isLevelOneClass(build)){const before=baseline?previewBuild(baseline).features:[];return previewBuild(build).features.map(feature=>({feature,kind:before.some(f=>f.id===feature.id)?'upgrade':'new'})).filter(row=>!baseline||row.kind==='new'||row.feature.description!==before.find(f=>f.id===row.feature.id)?.description);}
+ if(isLevelOneClass(build)){
+  const after=previewBuild(build),before=baseline?previewBuild(baseline):null,oldFeatures=new Map((before?.features||[]).map(f=>[f.id,f]));
+  const signature=(f,b,scores)=>({name:f.name,state:f.state||{},description:f.description.replace(/Current at level \d+:/g,'Current:'),counter:martialCounter(b,f,scores)});
+  return after.features.map(feature=>{const old=oldFeatures.get(feature.id),current=martialCounter(build,feature,after.scores)?.maximum,previous=old?martialCounter(baseline,old,before.scores)?.maximum:undefined;return {feature,kind:!old?'new':!sameBuildValue(signature(feature,build,after.scores),signature(old,baseline,before.scores))?'upgrade':null,...(Number.isFinite(current)&&current!==previous?{resourceChange:{previous,current}}:{})};}).filter(row=>row.kind);
+ }
  if(isArcher(build))return archerFeatureChanges(build,baseline);
  const after=previewBuild(build).features,before=baseline?previewBuild(baseline).features:[],oldIds=new Set(before.map(f=>f.id));
  const signature=(f,b)=>JSON.stringify({selectionCount:Object.values(b.choices||{}).flat().filter(id=>registry.class.choicePools.some(pool=>pool.options.some(o=>o.id===id&&o.featureIds.includes(f.id)))).length,resources:registry.class.resources.filter(r=>r.id===f.id.replace(':feature:',':resource:')||f.actions?.some(a=>a.costs?.some(c=>c.resourceId===r.id))).map(r=>calculated(r.maximum,b)),effects:(f.effects||[]).map(e=>calculated(e.value,b)),notes:(f.scalingNotes||[]).filter(n=>n.fromClassLevel<=b.level)});

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "comos.import-progress.v1",
-  "revision": 106,
+  "revision": 108,
   "schedule": [
     "class",
     "race",
@@ -13,11 +13,11 @@
   "items": {
     "ffd20:class:chocobo-knight": {
       "state": "live_partial",
-      "stage": "deployment-verified",
-      "cursor": "Requested bounded scope published in PR #33 and verified within current release b864d2a",
-      "nextAction": "Review remaining source and manual limits; future gameplay changes stay local until a new publish request",
+      "stage": "local-polish-validated",
+      "cursor": "Older-save level-up compatibility and shared six-path regression completed locally",
+      "nextAction": "Review any further requested martial issues; integrate race branch checkpoints before future publication.",
       "scope": "Levels 1–20 sheet progression and source-bound talent choices; mounts, conditional combat and external prerequisites manual/guarded.",
-      "note": "Railway 88631e23 SUCCESS; all 16 checked release assets match; health/database ready; private read denied. Requested-batch CI 417 tests; current main CI 420 tests. No real Firebase login or production character mutation; fixture persistence only. Full independent rules review remains pending.",
+      "note": "Exact Mog Knight initialChaMod failure fixed. Shared wizard preparation, dependency pruning and meaningful upgrade review. 429 local tests and cloud build pass; no publication. Previously deployed bounded scope retained.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
@@ -26,9 +26,11 @@
         "docs/extraction/requested-martial-progression.md",
         "tests/martial-progression.test.mjs",
         "docs/extraction/martial-progression-publication.md",
-        "docs/extraction/martial-progression-deployment-validation.json"
+        "docs/extraction/martial-progression-deployment-validation.json",
+        "docs/extraction/martial-polish.md",
+        "tests/martial-polish.test.mjs"
       ],
-      "updatedAt": "2026-10-31T14:53:32.621Z"
+      "updatedAt": "2026-10-31T15:22:37.411Z"
     },
     "ffd20:class:dancer": {
       "state": "live_partial",
@@ -599,19 +601,19 @@
       "updatedAt": "2026-10-31T15:07:57.331Z"
     },
     "ffd20:class:red-mage": {
-      "state": "in_progress",
+      "state": "queued",
       "stage": "local-validated",
       "cursor": "First-level Red Mage creation/editing and SQLite persistence implemented",
       "nextAction": "Implement level 2 Arcane Pool, source-bound Ruby Talent choice and Spellstrike, then later progression. Stay local until publish.",
       "scope": "Level-one standard Red Mage only: required Magery, CHA MP and starting spells; conditional combat manual. Later levels/archetypes/multiclassing guarded.",
-      "note": "424 tests and cloud build pass locally. Class-only checkout; no push, merge or deployment. Source tables retained through 20, runtime only level 1. Race checkpoint must be reconciled before merging.",
+      "note": "Red Mage level-one local work preserved at 45f4d9f. Parked for explicit user priority: polish Chocobo Knight/Mog Knight, Dancer/Akimbo, Gunbreaker/Doom Slayer. Resume level 2 afterward.",
       "coverage": "partial",
       "reviewEvidence": "",
       "evidence": [
         "docs/extraction/red-mage-level-one-import.md",
         "tests/red-mage-level-one.test.mjs"
       ],
-      "updatedAt": "2026-10-31T15:08:54.282Z"
+      "updatedAt": "2026-10-31T15:22:37.319Z"
     }
   },
   "history": [
@@ -1559,6 +1561,24 @@
       "stage": "local-validated",
       "cursor": "First-level Red Mage creation/editing and SQLite persistence implemented",
       "time": "2026-10-31T15:08:54.282Z"
+    },
+    {
+      "revision": 107,
+      "itemId": "ffd20:class:red-mage",
+      "from": "in_progress",
+      "to": "queued",
+      "stage": "local-validated",
+      "cursor": "First-level Red Mage creation/editing and SQLite persistence implemented",
+      "time": "2026-10-31T15:22:37.319Z"
+    },
+    {
+      "revision": 108,
+      "itemId": "ffd20:class:chocobo-knight",
+      "from": "live_partial",
+      "to": "live_partial",
+      "stage": "local-polish-validated",
+      "cursor": "Older-save level-up compatibility and shared six-path regression completed locally",
+      "time": "2026-10-31T15:22:37.411Z"
     }
   ],
   "policy": "One active item. Checkpoint each meaningful section/step. Use existing archives. Pathfinder bulk collection is paused. Partial milestones are not full completion."

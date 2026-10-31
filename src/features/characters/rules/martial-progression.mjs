@@ -55,8 +55,19 @@ export function selectMartialChoice(b,eventId,optionId){
  const before=martialChoiceEvents(b),event=before.find(e=>e.id===eventId);
  if(!event||!martialEligibleOptions(b,event).some(o=>o.id===optionId))throw Error('Choose an eligible martial option.');
  b.choices??={};b.choices[eventId]=[optionId];
- const active=new Set(martialChoiceEvents(b).map(e=>e.id));
- for(const child of before)if(child.parentEventId===eventId&&!active.has(child.id))delete b.choices[child.id];
+ // Recheck dependent choices in acquisition order after a prerequisite changes.
+ // Repeating reaches child slots removed by a now-invalid later parent talent.
+ let removed;
+ do{
+  removed=false;
+  const events=martialChoiceEvents(b),active=new Set(events.map(e=>e.id));
+  for(const id of Object.keys(b.choices))if(!active.has(id)){delete b.choices[id];removed=true;}
+  for(const current of events){
+   if(current.id===eventId||!b.choices[current.id]?.length)continue;
+   const allowed=new Set(martialEligibleOptions(b,current).map(o=>o.id));
+   if(b.choices[current.id].some(id=>!allowed.has(id))){delete b.choices[current.id];removed=true;}
+  }
+ }while(removed);
  return b;
 }
 export function martialSelectedFeatures(b){
