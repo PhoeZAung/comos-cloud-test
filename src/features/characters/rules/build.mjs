@@ -28,7 +28,24 @@ const mod=n=>Math.floor((n-10)/2),uniq=a=>[...new Set(a)];
 const bad=m=>{throw Object.assign(Error(m),{code:'INVALID_CHARACTER'});};
 export function newBuild(){return {version:registry.version,name:'',alignment:'',bio:'',portrait:'',baseScores:Object.fromEntries(stats.map(k=>[k,10])),abilityMethod:'manual',pointBudget:15,scorePool:[],scoreAssignments:[0,1,2,3,4,5],abilityIncreases:{},initialIntMod:null,initialChaMod:null,raceId:'',classId:BLACK_MAGE_ID,heritageId:'',disabledTraits:[],alternateIds:[],level:1,carry:null,archetypeId:'',racialChoices:{},racialSpecialties:{},choices:{},spellIds:[],spellSelections:null,skillRanks:null,hpRolls:[6],favored:[],reviewed:false};}
 export function raceFor(b){return registry.races.find(r=>r.id===b.raceId);}
-export function replacementFor(r,id){return r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));}
+export function replacementFor(r,id){
+ const raw=r.data.alternateReplacements.filter(x=>x.addsFeatureIds.includes(id)||x.id.startsWith(id+':'));
+ const prefix='ffd20:race:lambkin:trait:';
+ if(r.id!== 'ffd20:race:lambkin'||id!==prefix+'polyglot')return raw;
+ // Preserve the extracted record. The source specifies a whole Magic Expert
+ // replacement AND a partial Languages modification, not one combined removal.
+ const op=raw.find(x=>x.id===id+':replacement'&&x.operation==='modify'&&x.scope==='whole_feature'&&
+  x.targetFeatureIds?.length===2&&x.targetFeatureIds.includes(prefix+'magic-expert')&&
+  x.targetFeatureIds.includes(prefix+'languages')&&x.addsFeatureIds?.length===1&&x.addsFeatureIds[0]===id);
+ if(!op)return raw; // Any unexpected source change remains blocked.
+ return [
+  {...op,id:id+':magic-expert-replacement',operation:'replace',scope:'whole_feature',
+   targetFeatureIds:[prefix+'magic-expert'],description:'Polyglot replaces Magic Expert.'},
+  {...op,id:id+':language-modifier',operation:'modify',scope:'part_of_feature',
+   targetFeatureIds:[prefix+'languages'],addsFeatureIds:[],
+   description:'Polyglot modifies Languages; keep Common, Lambkin and all normal Intelligence bonus-language choices.'}
+ ];
+}
 export function raceTraits(b){
  const r=raceFor(b);if(!r)return {traits:[],replaced:[],errors:[]};
  const disabled=new Set(b.disabledTraits),active=new Set(r.data.standardTraitIds.filter(id=>!disabled.has(id))),consumed=new Set(),modified=new Map(),errors=[];
