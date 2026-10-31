@@ -34,7 +34,8 @@ test('unsupported standard trait choices and unavailable alternates cannot bypas
  const b=newBuild();b.raceId=get('ixal').id;
  assert(buildIssues(b).some(i=>/Elemental Summoner/.test(i.message)));
  b.raceId=get('sylph').id;b.alternateIds=[b.raceId+':trait:improved-flight'];
- assert(buildIssues(b).some(i=>/Improved Flight/.test(i.message)));
+ assert(!buildIssues(b).some(i=>/Improved Flight|replacement/.test(i.message)));
+ assert.deepEqual(raceTraits(b).errors,[]);
 });
 
 test('Beastkin uses normal wizard name and greys out only unsupported alternates',()=>{
