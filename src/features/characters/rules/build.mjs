@@ -448,12 +448,12 @@ export function compileBuild(raw,previous={}, {allowRankReduction=false,append=f
  for(const f of p.racial.traits)if(!f.effects.length||!f.effects.every(e=>e.target.startsWith('identity.')||e.target.startsWith('ability_scores.')))grant(f,'racialAbilities');
  for(let level=1;level<=buildLevel(b);level+=2){const id='comos:feat-slot:'+level,old=previous.feats?.find(f=>f.sourceRuleId===id);rows.feats.push({...old,name:old?.name||'Feat · level '+level,desc:old?.desc||'',sourceRuleId:id,rulesOwned:true,pendingFeat:old?.pendingFeat??true});}
  rows.feats.push(...racialChoiceFeats(b,p.race,p.racial.traits,previous));
- const dcBonus=choiceEvents(b).flatMap(event=>b.choices[event.id]||[]).filter(id=>id==='ffd20:class:black-mage:option:black-magery:spell-mastery').length+
- (mageCastingInt(b)>p.scores.int?1:0);
+ const spellMasteryBonus=choiceEvents(b).flatMap(event=>b.choices[event.id]||[]).filter(id=>id==='ffd20:class:black-mage:option:black-magery:spell-mastery').length;
+ const scopedMageIntBonus=mageCastingInt(b)>p.scores.int?1:0;
  const sylphIllusion=p.racial.traits.some(f=>f.id==='ffd20:race:sylph:trait:fey-magic');
  for(const id of b.spellIds){const spell=spells.find(s=>s.id===id),old=previous.spells?.find(s=>s.sourceRuleId===id);
   const illusionBonus=sylphIllusion&&/(?:^|[^a-z])illusion(?:$|[^a-z])/i.test(spell.school||'')?1:0;
-  const rulesDc=(spell.level>0?dcBonus:0)+illusionBonus;
+  const rulesDc=(spell.level>0?spellMasteryBonus:0)+scopedMageIntBonus+illusionBonus;
   rows.spells.push({...old,sourceRuleId:id,rulesOwned:true,sourceClass:'Black Mage',name:spell.name,desc:spell.description,lvl:spell.level,mp_cost:spell.level,casting_ability:'int',school:spell.school,range:spell.range,duration:spell.duration,saving_throw:spell.save,target:spell.target,rulesDcBonus:rulesDc,dc_misc:Number(old?.dc_misc||0)-Number(old?.rulesDcBonus||0)+rulesDc});}
  for(const key of Object.keys(rows)){const owned=new Set(previousManaged?.ownedIds||[]);next[key]=[...(previous[key]||[]).filter(r=>!r.rulesOwned||!owned.has(r.sourceRuleId)&&!rows[key].some(n=>n.sourceRuleId===r.sourceRuleId)),...rows[key]];}
  next.standardRacialTraits=p.race.data.standardTraitIds.map(id=>({name:p.race.features.find(f=>f.id===id)?.name||id,enabled:!b.disabledTraits.includes(id)&&!p.racial.replaced.includes(id)}));
