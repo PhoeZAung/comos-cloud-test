@@ -18,6 +18,13 @@ import {classCatalog} from '../features/characters/rules/class-catalog.mjs';
 import {CLASS_NAMES} from '../features/characters/ffd20.mjs';
 const spellLevelLimit=b=>isRedMage(b)?previewBuild(b).summary.spellLevel:Math.min(9,Math.ceil(b.level/2));
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const raceCategories=[
+ {id:'core',label:'Core Races'},
+ {id:'base',label:'Base Races'},
+ {id:'beastman_tribe',label:'Beastman Tribes'},
+ {id:'monstrous',label:'Monstrous Races'}
+];
+const categoryForRace=r=>raceCategories.some(c=>c.id===r?.data?.raceType)?r.data.raceType:'core';
 const opt=(id,label,current,disabled=false)=>`<option value="${e(id)}" ${id===current?'selected':''} ${disabled?'disabled':''}>${e(label)}</option>`;
 
 // Source review state remains unchanged. Availability applies only to individual wizard controls.
@@ -89,7 +96,8 @@ function racialSelections(b,specs,scores){
     return field('Language '+(i+1),'<select data-rw-language-slot="'+e(spec.id)+'" data-language-index="'+i+'">'+opt('','Choose a language',current)+spec.options.map(o=>opt(o.id,o.name,current)).join('')+'</select>');
    }).join('');
    const polyglot=spec.id==='ffd20:race:tarutaru:pool:polyglot-starting-language'||spec.id==='ffd20:race:lambkin:pool:polyglot-language';
-   return panel(polyglot?'Polyglot starting language':'Bonus languages','<p>'+(polyglot?'Choose one extra starting language, regardless of Intelligence. This does not replace any high-Intelligence bonus languages.':'Choose up to '+maximum+' additional language'+(maximum===1?'':'s')+' based on your effective Intelligence. Each language can be selected once.')+'</p>'+slots+(spec.freeText?'<datalist id="rw-ffd20-languages">'+ffd20LanguageNames.filter(x=>x!=='Common').map(x=>'<option value="'+e(x)+'"></option>').join('')+'</datalist>':'')+'<p><a href="languages.html" target="_blank" rel="noopener noreferrer">View all FFd20 languages</a></p>');
+    const requiredStarting=spec.minimum===1&&spec.maximum===1&&!polyglot;
+   return panel(polyglot?'Polyglot starting language':requiredStarting?'Required starting language':'Bonus languages','<p>'+(polyglot?'Choose one extra starting language, regardless of Intelligence. This does not replace any high-Intelligence bonus languages.':requiredStarting?'Choose one additional starting language for your race.':'Choose up to '+maximum+' additional language'+(maximum===1?'':'s')+' based on your effective Intelligence. Each language can be selected once.')+'</p>'+slots+(spec.freeText?'<datalist id="rw-ffd20-languages">'+ffd20LanguageNames.filter(x=>x!=='Common').map(x=>'<option value="'+e(x)+'"></option>').join('')+'</datalist>':'')+'<p><a href="languages.html" target="_blank" rel="noopener noreferrer">View all FFd20 languages</a></p>');
   }
   const help=spec.minimum===maximum?'Choose '+maximum+'.':'Choose up to '+maximum+'.';
   const controls=maximum===1?field(spec.name,'<select data-rw-racial-choice="'+e(spec.id)+'">'+opt('','Choose…',selected[0]||'')+spec.options.map(o=>opt(o.id,o.name,selected[0])).join('')+'</select>'):
@@ -100,7 +108,7 @@ function racialSelections(b,specs,scores){
 function bonusLanguageSelections(b){
  return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits).filter(s=>s.choiceType==='language'),effectiveScores(b));
 }
-export function renderBuild(b,step,{query='',level='all',message='',legacy=false,mode='edit',baseline=null,displayStep=step,displaySteps=steps,rankFloor=null,archerPreviewLevel=1,ownerName=''}={}){
+export function renderBuild(b,step,{query='',level='all',message='',legacy=false,mode='edit',baseline=null,displayStep=step,displaySteps=steps,rankFloor=null,archerPreviewLevel=1,ownerName='',raceCategory=null}={}){
  const race=raceFor(b),racial=raceTraits(b),scores=effectiveScores(b);let body='';
  if(step===0)body=`<p class="rw-source">FFD20</p>${field('Character name',input(b.name,'data-rw-field="name" maxlength="80" autocomplete="off"'))}${field('Alignment',`<select data-rw-field="alignment">${opt('','Choose',b.alignment)}${['Lawful Good','Neutral Good','Chaotic Good','Lawful Neutral','True Neutral','Chaotic Neutral','Lawful Evil','Neutral Evil','Chaotic Evil',...(!['Lawful Good','Neutral Good','Chaotic Good','Lawful Neutral','True Neutral','Chaotic Neutral','Lawful Evil','Neutral Evil','Chaotic Evil',''].includes(b.alignment)?[b.alignment]:[])].map(a=>opt(a,a,b.alignment)).join('')}</select>`)}${field('Biography',`<textarea data-rw-field="bio" maxlength="2000" rows="4">${e(b.bio)}</textarea>`)}${field('Portrait',`<input type="file" data-rw-portrait accept="image/png,image/jpeg,image/webp">`)}${b.portrait?'<img class="rw-portrait" src="'+e(b.portrait)+'" alt="Character portrait">':''}`;
  if(step===1)body=abilityPanel(b,{mode,baseline,legacy})+(['create','edit'].includes(mode)?'<div data-rw-bonus-languages>'+bonusLanguageSelections(b)+'</div>':'');
@@ -108,7 +116,10 @@ export function renderBuild(b,step,{query='',level='all',message='',legacy=false
  if(step===8)body=panel('Feats',Array.from({length:Math.ceil(buildLevel(b)/2)},(_,i)=>i*2+1).filter(level=>baseline?level>buildLevel(baseline):mode==='multiclass'?level===buildLevel(b):true).map(level=>'<div class="rw-slot"><span>Level '+level+'</span><strong>Feat slot</strong><span>—</span></div>').join('')+'<p>Choose feats later on your sheet.</p>');
  if(step===8&&humeTraitActive(b,'bonus-feat'))body+='<div class="rw-slot"><span>Hume</span><strong>Extra bonus feat</strong><span>—</span></div>';
  if(step===9){const before=baseline?previewBuild(baseline):b.carry?{hp:b.carry.hpMax,skillBudget:b.carry.skillBudget,summary:{mp:b.carry.mpClass+b.carry.mpBonus,bab:b.carry.bab,fort:b.carry.fort,ref:b.carry.ref,will:b.carry.will},scores:effectiveScores(b)}:null,after=previewBuild(b);body='<div class="rw-growth">'+[['HP',before?.hp,after.hp],['MP',before?.summary.mp,after.summary.mp],['Skill points',before?.skillBudget,after.skillBudget],['BAB',before?.summary.bab,after.summary.bab],['Fortitude',before?before.summary.fort+Math.floor((before.scores.con-10)/2):0,after.summary.fort+Math.floor((after.scores.con-10)/2)],['Reflex',before?before.summary.ref+Math.floor((before.scores.dex-10)/2):0,after.summary.ref+Math.floor((after.scores.dex-10)/2)],['Will',before?before.summary.will+Math.floor((before.scores.wis-10)/2):0,after.summary.will+Math.floor((after.scores.wis-10)/2)]].map(([name,old,value])=>'<section class="rw-panel"><h2>'+name+'</h2><strong>'+(old??0)+' → '+value+'</strong></section>').join('')+'</div>';}
- if(step===2){body=field('Race',`<select data-rw-field="raceId">${opt('','Choose a race',b.raceId)}${registry.races.map(r=>opt(r.id,r.name,b.raceId)).join('')}</select>`);
+ if(step===2){
+  const selectedCategory=raceCategory||categoryForRace(race);
+  body=field('Race category',`<select data-rw-race-category aria-label="Race category">${raceCategories.map(c=>opt(c.id,c.label,selectedCategory)).join('')}</select>`)+
+   field('Race',`<select data-rw-field="raceId" aria-label="Race">${opt('','Choose a race',b.raceId)}${registry.races.filter(r=>categoryForRace(r)===selectedCategory).map(r=>opt(r.id,r.name,b.raceId)).join('')}</select>`);
   if(race?.id==='ffd20:race:garlean')body+='<p class="field-help">Garlean standard level 1: choose Firearms (Simple) proficiency, a named technology-related Craft specialty, and eligible bonus languages. One specific exotic Gun Arm requires a verified equipment catalog, so it is not enabled. Magic Ineptitude forbids MP pools; third-eye magic, item exceptions, and situational AC/saving throws remain manual. Heritages and alternate traits require another review.</p>';
   if(race?.id==='ffd20:race:garif')body+='<p class="field-help">Garif standard level-1 creation: permanently choose desert or plains and one Pastoralist skill. Assign one of your skill ranks to that skill. The selected terrain AC bonus, Masked saving throw bonus and conditional combat effects remain manual; source-listed weapon proficiencies appear on the sheet. Higher levels and alternate traits are not yet supported.</p>';
   if(race?.id===HUME_ID)body+='<p class="field-help">Hume standard traits support first-level testing. Curiosity’s situational check bonuses and Sociable are manual. Your extra racial feat has its own slot on the sheet.</p>';
@@ -158,11 +169,11 @@ export function choicePickerOptions(b,event,index=0){
 export function mountRulesWizard(){
  const main=document.querySelector('main'),control=new AbortController(),url=new URL(location.href),id=url.searchParams.get('characterId'),targetOwnerId=!id?url.searchParams.get('ownerId'):null,live=document.body.dataset.mode==='live';let mode=id?(url.searchParams.get('levelUp')==='1'?'levelup':'edit'):'create';
  let order=['levelup','multiclass'].includes(mode)?[3,9,7,4,10,5,6]:[0,2,3,4,1,5,7,8,6],labels=['levelup','multiclass'].includes(mode)?['Class','Growth','Skills','Class choices','Class traits','Spells','Review']:['Identity','Race','Class','Class choices','Ability scores','Spells','Skills','Feats','Review'];
- let archerPreviewLevel=1;
+ let archerPreviewLevel=1,raceCategory='core';
  let closed=false,b=newBuild(),baseline=null,step=0,character=null,ownerName='',message='',key='',draftId=recordId(),saving=false,picker=null,pickerQuery='',pickerLevel='all',pickerLimit=25,selectedToken=null,touchDrag=null,ignoreTileClick=false;
  const dialog=document.createElement('dialog');dialog.className='rw-picker';dialog.setAttribute('aria-label','Choose a character option');document.body.append(dialog);
  function saveDraft(){if(!key)return;try{sessionStorage.setItem(key,JSON.stringify({b,step,draftId,baseRevision:character?.revision,mode}));}catch{}}
- function draw(focus=false){if(closed)return;const logical=order[step];order=wizardOrder(b,mode,baseline);labels=order.map(i=>(i===5&&isBard(b)?'Songs & jingles':wizardLabels[i]));step=Math.max(0,order.indexOf(logical));main.innerHTML=renderBuild(b,order[step],{message,mode,baseline,displayStep:step,displaySteps:labels,legacy:Boolean(character&&!character.data.rulesBuild),rankFloor:character?.data.rulesBuild?.rankFloor||character?.data.rulesBuild?.input.skillRanks,archerPreviewLevel,ownerName});if(focus){main.querySelector('h1').setAttribute('tabindex','-1');main.querySelector('h1').focus();window.scrollTo(0,0);}}
+ function draw(focus=false){if(closed)return;const logical=order[step];order=wizardOrder(b,mode,baseline);labels=order.map(i=>(i===5&&isBard(b)?'Songs & jingles':wizardLabels[i]));step=Math.max(0,order.indexOf(logical));main.innerHTML=renderBuild(b,order[step],{message,mode,baseline,displayStep:step,displaySteps:labels,legacy:Boolean(character&&!character.data.rulesBuild),rankFloor:character?.data.rulesBuild?.rankFloor||character?.data.rulesBuild?.input.skillRanks,archerPreviewLevel,ownerName,raceCategory});if(focus){main.querySelector('h1').setAttribute('tabindex','-1');main.querySelector('h1').focus();window.scrollTo(0,0);}}
  const changed=()=>{pruneRacialChoices(b,raceFor(b),raceTraits(b).traits);b.reviewed=false;message='';saveDraft();};
  function scoreFeedback(){for(const caption of main.querySelectorAll('[data-rw-caption]'))caption.innerHTML=scoreCaption(b,caption.dataset.rwCaption);const spent=main.querySelector('[data-rw-spent]');if(spent)spent.textContent=pointSpend(b.baseScores)+' / '+b.pointBudget;const slots=main.querySelector('[data-rw-score-spells]');if(slots)slots.innerHTML=spellSlots(b,baseline,{bonusOnly:true});const languages=main.querySelector('[data-rw-bonus-languages]');if(languages)languages.innerHTML=bonusLanguageSelections(b);}
  function assignToken(i){if(selectedToken===null)return;b.scoreAssignments=moveScoreToken(b.scoreAssignments,selectedToken,i);assignPool();selectedToken=null;changed();draw();}
@@ -198,7 +209,7 @@ export function mountRulesWizard(){
   b.spellSelections=groupedSpells(b);syncSpells();
   key='comos-rules-draft-v8:'+user.id+':'+(id||targetOwnerId||'new')+':'+mode;
   try{const saved=JSON.parse(sessionStorage.getItem(key)||'null');if(saved?.mode===mode&&saved?.b?.version===registry.version&&saved.baseRevision===(character?.revision)&&Number.isInteger(saved.step)&&saved.step>=0&&saved.step<order.length){b=saved.b;step=saved.step;draftId=saved.draftId;}}catch{}
-  b.spellSelections=groupedSpells(b);syncSpells();archerPreviewLevel=b.level;draw();
+  b.spellSelections=groupedSpells(b);syncSpells();archerPreviewLevel=b.level;raceCategory=categoryForRace(raceFor(b));draw();
  }catch(error){if(!closed)main.innerHTML='<p role="alert">'+e(error.message)+'</p><a class="button" href="'+(id?'create-identity.html?characterId='+encodeURIComponent(id):targetOwnerId?'admin.html':'signin.html')+'">'+(id?'Edit build':targetOwnerId?'Admin directory':'Sign in')+'</a>';}}
  function findStep(issue){if(issue.step===5)return order.indexOf(5);if(issue.step===1)return Math.max(0,order.indexOf(1));return Math.max(0,order.indexOf(issue.step));}
  async function finish(){if(saving)return;const found=buildIssues(b);if(found.length){step=findStep(found[0]);message=found[0].message;draw(true);return;}if(!live){message='This preview does not save real characters.';draw();return;}
@@ -207,6 +218,15 @@ export function mountRulesWizard(){
  }
  main.addEventListener('input',event=>{const t=event.target;if(t.matches('[data-rw-racial-languages]')){b.racialChoices??={};b.racialChoices[t.dataset.rwRacialLanguages]=t.value.split(/\r?\n/).filter(v=>v.trim()).map(languageChoice);changed();return;}if(t.matches('[data-rw-rank]')){setRank(Number(t.dataset.rwRank),Number(t.value));return;}if(t.matches('[data-rw-racial-specialty]')){b.racialSpecialties??={};b.racialSpecialties[t.dataset.rwRacialSpecialty]=t.value;}if(t.matches('[data-rw-field]'))b[t.dataset.rwField]=t.value;if(t.matches('[data-rw-score]')){b.baseScores[t.dataset.rwScore]=Number(t.value);scoreFeedback();}changed();},{signal:control.signal});
  main.addEventListener('change',async event=>{const t=event.target;try{
+   if(t.matches('[data-rw-race-category]')){
+    const selected=t.value;
+    if(!raceCategories.some(c=>c.id===selected))return;
+    raceCategory=selected;
+    if(categoryForRace(raceFor(b))!==selected&&b.raceId){
+     b.raceId='';b.heritageId='';b.disabledTraits=[];b.alternateIds=[];b.racialChoices={};b.racialSpecialties={};
+    }
+    changed();draw();return;
+   }
    if(t.matches('[data-rw-language-slot]')){
      const key=t.dataset.rwLanguageSlot,index=Number(t.dataset.languageIndex),spec=racialChoiceSpecs(raceFor(b),raceTraits(b).traits).find(s=>s.id===key);
      if(!spec||spec.choiceType!=='language'||!Number.isInteger(index)||index<0)return;
@@ -218,7 +238,7 @@ export function mountRulesWizard(){
     if(t.matches('[data-rw-racial-choice]')){b.racialChoices??={};b.racialChoices[t.dataset.rwRacialChoice]=t.value?[t.value]:[];changed();draw();return;}
    if(t.matches('[data-rw-racial-option]')){b.racialChoices??={};const key=t.dataset.rwRacialOption,old=b.racialChoices[key]||[];b.racialChoices[key]=t.checked?[...new Set([...old,t.dataset.optionId])]:old.filter(id=>id!==t.dataset.optionId);changed();draw();return;}
    if(t.matches('[data-rw-archer-level]')){archerPreviewLevel=Math.max(1,Math.min(20,Number(t.value)||1));draw();return;}
-  if(t.matches('[data-rw-field]')){const k=t.dataset.rwField;b[k]=t.value;if(k==='archetypeId'){b.choices={};b.hpRolls=[classHitDie(b)];changed();draw();return;}if(!['classId','raceId','heritageId'].includes(k)){changed();return;}if(k==='classId'){b.choices={};b.archetypeId='';b.spellIds=[];b.spellSelections={cantrips:[],leveled:[]};b.initialIntMod=null;b.initialChaMod=null;b.hpRolls=[classHitDie(b)];b.favored=[];archerPreviewLevel=b.level;}if(k==='raceId'){b.heritageId='';b.disabledTraits=[];b.alternateIds=[];b.racialChoices={};b.racialSpecialties={};}changed();draw();}
+  if(t.matches('[data-rw-field]')){const k=t.dataset.rwField;b[k]=t.value;if(k==='archetypeId'){b.choices={};b.hpRolls=[classHitDie(b)];changed();draw();return;}if(!['classId','raceId','heritageId'].includes(k)){changed();return;}if(k==='classId'){b.choices={};b.archetypeId='';b.spellIds=[];b.spellSelections={cantrips:[],leveled:[]};b.initialIntMod=null;b.initialChaMod=null;b.hpRolls=[classHitDie(b)];b.favored=[];archerPreviewLevel=b.level;}if(k==='raceId'){raceCategory=categoryForRace(raceFor(b));b.heritageId='';b.disabledTraits=[];b.alternateIds=[];b.racialChoices={};b.racialSpecialties={};}changed();draw();}
   if(t.matches('[data-rw-score]')){changed();draw();}
   if(t.matches('[data-rw-method]')){b.abilityMethod=t.value;b.scoreAssignments=[null,null,null,null,null,null];if(t.value==='point-buy')b.baseScores=Object.fromEntries(stats.map(k=>[k,10]));assignPool();changed();draw();}
   if(t.matches('[data-rw-budget]')){b.pointBudget=Number(t.value);changed();draw();}
