@@ -93,7 +93,7 @@ test('Mutant wizard can show source exact outcome text and roll controls without
 test('Malformed or incomplete Mutant random logs are rejected with actionable errors',()=>{
  const b=m();
  assert(mutantRollIssues(b,{requireComplete:true}).some(x=>/required Variant/.test(x)));
- assert(mutantRollIssues(b,{requireComplete:true}).some(x=>/resistance/.test(x)));
+ assert(mutantRollIssues(b,{requireComplete:true}).some(x=>/resistance/i.test(x)));
  b.mutantRolls={resistance:2,abilities:[100,5],physical:[],levels:{}};
  assert(mutantRollIssues(b,{requireComplete:true}).some(x=>/required Variant/.test(x)));
  b.mutantRolls={resistance:2,abilities:[5],physical:[99,6],levels:{2:[1]}};
