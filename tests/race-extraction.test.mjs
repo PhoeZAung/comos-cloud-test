@@ -200,7 +200,7 @@ test('first three Beastman Tribe race files appear for safe live testing',()=>{
  assert.equal(monstrous.resolution,'manual');
  assert.equal(forgiven.choicePools.find(p=>/Monstrous Heritage/.test(p.name)).options.length,2);
  b.alternateIds=[forgiven.id+':trait:scion-of-mortality'];
- assert(raceTraits(b).errors.length>0,'Partial type/language replacement must not be applied');
+ assert.deepEqual(raceTraits(b).errors,[],'Scion modifies rather than removes Type/Languages');
 });
 
 test('batch 13 Gnath preserves Small size, burrow speed and 9 mutually exclusive alternate replacements',()=>{
@@ -232,18 +232,18 @@ test('batch 15 Kojin, Lamia, Loporrit and Matanga stage complete rules and safe 
 test('batch 16 Namazu, Orc, Qiqirn and Quadav preserve safe choices and source conflicts',()=>{
  const expected=[['namazu',11,4,0,0,1],['orc',11,8,0,1,1],['qiqirn',11,3,3,0,0],['quadav',15,3,0,1,1]];
  for(const [name,std,alt,herit,favored,pools] of expected){const r=registry.races.find(x=>x.id==='ffd20:race:'+name);assert(r?.testing);assert.deepEqual([r.data.standardTraitIds.length,r.data.alternateTraitIds.length,r.data.heritages.length,r.data.favoredRewards.length,r.choicePools.length],[std,alt,herit,favored,pools]);const b=newBuild();b.raceId=r.id;assert.deepEqual(raceTraits(b).errors,[]);if(herit){b.heritageId=r.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
- const namazu=registry.races.find(x=>x.id==='ffd20:race:namazu');let b=newBuild();b.raceId=namazu.id;assert.deepEqual([effectiveScores(b).dex,effectiveScores(b).cha,effectiveScores(b).con],[12,12,8]);b.alternateIds=[namazu.id+':trait:fast'];assert(raceTraits(b).errors.length>0);
+ const namazu=registry.races.find(x=>x.id==='ffd20:race:namazu');let b=newBuild();b.raceId=namazu.id;assert.deepEqual([effectiveScores(b).dex,effectiveScores(b).cha,effectiveScores(b).con],[12,12,8]);b.alternateIds=[namazu.id+':trait:fast'];assert.deepEqual(raceTraits(b).errors,[]);assert.equal(raceTraits(b).traits.find(f=>f.id===namazu.id+':trait:base-speed').effects.find(e=>e.target==='identity.speed.land').value.value,40);
  const orc=registry.races.find(x=>x.id==='ffd20:race:orc');b=newBuild();b.raceId=orc.id;assert(buildIssues(b).some(x=>/Orc Skill Bonus/.test(x.message)));assert.equal(orc.choicePools[0].options.length,2);b.alternateIds=[orc.id+':trait:orc-lord'];assert(!buildIssues(b).some(x=>/Orc Skill Bonus/.test(x.message)));assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).cha,effectiveScores(b).int],[12,8,12,10]);
  const q=registry.races.find(x=>x.id==='ffd20:race:qiqirn');assert.deepEqual(q.data.heritages.map(h=>h.name),['Leaf-Eater','Meat-Eater','Qitari']);
- const quadav=registry.races.find(x=>x.id==='ffd20:race:quadav');b=newBuild();b.raceId=quadav.id;assert(buildIssues(b).some(x=>/Quadav.*terrain/.test(x.message)));assert(quadav.features.find(x=>x.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===30));b.alternateIds=[quadav.id+':trait:water-tribe'];assert(raceTraits(b).errors.length>0);
+ const quadav=registry.races.find(x=>x.id==='ffd20:race:quadav');b=newBuild();b.raceId=quadav.id;assert(buildIssues(b).some(x=>/Bond to the Land selection: choose 1/.test(x.message)));assert(quadav.features.find(x=>x.name==='Base Speed').effects.some(x=>x.target==='identity.speed.swim'&&x.value.value===30));b.alternateIds=[quadav.id+':trait:water-tribe'];assert.deepEqual(raceTraits(b).errors,[]);assert(buildIssues(b).some(x=>/Bond to the Land selection/.test(x.message)));b.racialChoices={[quadav.id+':pool:bond-to-the-land-selection']:[quadav.id+':pool:bond-to-the-land-selection:option:swamp']};assert(!buildIssues(b).some(x=>/Bond to the Land selection/.test(x.message)));
 });
 
 test('batch 17 Sahagin, Sylph, Trollkin and Vanu Vanu retain traits, conditional replacements and heritages',()=>{
  const want=[['sahagin',13,5,2,1,1],['sylph',12,9,3,1,0],['trollkin',13,5,0,1,0],['vanu-vanu',12,2,3,0,0]];
  for(const [key,std,alt,herit,fav,pools] of want){const race=registry.races.find(r=>r.id==='ffd20:race:'+key);assert(race?.testing);assert.deepEqual([race.data.standardTraitIds.length,race.data.alternateTraitIds.length,race.data.heritages.length,race.data.favoredRewards.length,race.choicePools.length],[std,alt,herit,fav,pools]);const b=newBuild();b.raceId=race.id;assert.deepEqual(raceTraits(b).errors,[]);if(herit){b.heritageId=race.data.heritages[0].id;assert(raceTraits(b).errors.length>0);}}
  let b=newBuild();b.raceId='ffd20:race:sahagin';const sahagin=registry.races.find(r=>r.id===b.raceId);assert(sahagin.features.find(f=>f.name==='Base Speed').effects.some(e=>e.target==='identity.speed.swim'&&e.value.value===30));b.alternateIds=[b.raceId+':trait:tempered'];assert(buildIssues(b).some(x=>/Sahagin.*Tempered/.test(x.message)));assert.deepEqual(sahagin.choicePools.map(p=>p.options.length),[2]);
- const sylph=registry.races.find(r=>r.id==='ffd20:race:sylph');b=newBuild();b.raceId=sylph.id;assert.deepEqual([effectiveScores(b).dex,effectiveScores(b).cha,effectiveScores(b).str],[12,12,6]);assert(sylph.features.find(f=>f.name==='Base Speed').effects.some(e=>e.target==='identity.speed.fly'&&e.value.value===40));b.alternateIds=[sylph.id+':trait:improved-flight'];assert(raceTraits(b).errors.length>0);
- const trollkin=registry.races.find(r=>r.id==='ffd20:race:trollkin');b=newBuild();b.raceId=trollkin.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).int,effectiveScores(b).cha],[12,12,6]);b.alternateIds=[trollkin.id+':trait:faster-healing'];assert(raceTraits(b).errors.length>0);assert(trollkin.data.alternateReplacements.find(x=>x.id.includes(':faster-healing:')).targetFeatureIds.length===2);
+ const sylph=registry.races.find(r=>r.id==='ffd20:race:sylph');b=newBuild();b.raceId=sylph.id;assert.deepEqual([effectiveScores(b).dex,effectiveScores(b).cha,effectiveScores(b).str],[12,12,6]);assert(sylph.features.find(f=>f.name==='Base Speed').effects.some(e=>e.target==='identity.speed.fly'&&e.value.value===40));b.alternateIds=[sylph.id+':trait:improved-flight'];assert.deepEqual(raceTraits(b).errors,[]);
+ const trollkin=registry.races.find(r=>r.id==='ffd20:race:trollkin');b=newBuild();b.raceId=trollkin.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).int,effectiveScores(b).cha],[12,12,6]);b.alternateIds=[trollkin.id+':trait:faster-healing'];assert.deepEqual(raceTraits(b).errors,[]);assert(trollkin.data.alternateReplacements.find(x=>x.id.includes(':faster-healing:')).targetFeatureIds.length===2);
  const vanu=registry.races.find(r=>r.id==='ffd20:race:vanu-vanu');assert.deepEqual(vanu.data.heritages.map(h=>h.name),['Gundu','Vundu','Zundu']);b=newBuild();b.raceId=vanu.id;b.alternateIds=[vanu.id+':trait:flightless-fall',vanu.id+':trait:nimble-faller'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
 });
 
@@ -285,7 +285,7 @@ test('Beastkin saved official page has complete traits and unavailable partial a
  assert.deepEqual(r.data.alternateReplacements.filter(o=>o.resolution==='unresolved').map(o=>o.addsFeatureIds[0].split(':').at(-1)),['alluring','feral','light-build','loper']);
  b.raceId=r.id;assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).int],[12,12,8]);
  assert.deepEqual(raceTraits(b).errors,[]);assert.equal(r.features.find(f=>f.name==='Hunter').effects.length,2);
- b.alternateIds=[r.id+':trait:alluring'];assert(raceTraits(b).errors.length>0);
+ b.alternateIds=[r.id+':trait:alluring'];assert.deepEqual(raceTraits(b).errors,[]);assert.deepEqual([effectiveScores(b).str,effectiveScores(b).wis,effectiveScores(b).int,effectiveScores(b).cha],[12,10,8,12]);
  b.alternateIds=[r.id+':trait:civilized'];assert.deepEqual(raceTraits(b).errors,[]);
  b.alternateIds=[r.id+':trait:civilized',r.id+':trait:influential'];assert(raceTraits(b).errors.some(x=>/Two selections replace/.test(x)));
 });
