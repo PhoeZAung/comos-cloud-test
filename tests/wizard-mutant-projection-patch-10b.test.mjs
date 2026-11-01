@@ -40,7 +40,8 @@ test('Mutant Variable Stats awards one d6 score point every level after first an
  assert.equal(effectiveScores(b).str,12,'ordinary milestone cannot stack even in unsaved preview');
  assert(mutantRollIssues(b).some(msg=>/ordinary/.test(msg)));
  assert(buildIssues(b).some(x=>/ordinary/.test(x.message)));
- const html=renderBuild(b,1,{mode:'levelup',baseline:m([2],{2:[1],3:[4]})});
+ const pending=structuredClone(b);delete pending.mutantRolls.levels[4];
+ const html=renderBuild(pending,1,{mode:'levelup',baseline:m([2],{2:[1],3:[4]})});
  assert.match(html,/This replaces the normal \+1 ability increase/);
  assert.doesNotMatch(html,/data-rw-boost/);
  assert.match(html,/data-rw-mutant-manual="level"/);
