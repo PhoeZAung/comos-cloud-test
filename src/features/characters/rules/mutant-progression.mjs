@@ -1,6 +1,7 @@
 // Mutant dice audit. Source outcomes remain descriptive until the race's entire
 // score/HP/MP/level-up projection has been reviewed. NEVER auto-grant table effects.
 import {registry} from './catalog.mjs';
+import {buildLevel} from './multiclass.mjs';
 export const MUTANT_ID='ffd20:race:mutant';
 export const MUTANT_TABLE=MUTANT_ID+':pool:table-variant-mutant-abilities';
 export const MUTANT_PHYSICAL=MUTANT_ID+':pool:table-alternative-physical-features';
@@ -85,9 +86,9 @@ export function mutantRollIssues(b,{requireComplete=false}={}){
  if(!isObject(input.levels)){issues.push('Mutant level history must be an object.');return issues;}
  const def=mutantIsDefense(b),adv=mutantD6State(input.levels,def);
  issues.push(...adv.issues);
- if(Object.keys(input.levels).some(k=>Number(k)>b.level))
+ if(Object.keys(input.levels).some(k=>Number(k)>buildLevel(b)))
   issues.push('Future level d6 results may not be recorded before that level.');
- if(requireComplete)for(let i=2;i<=b.level;i++)
+ if(requireComplete)for(let i=2;i<=buildLevel(b);i++)
   if(!Object.hasOwn(input.levels,String(i)))issues.push('Record the level '+i+' Mutant d6 advancement roll.');
  // At levels 4,8,12,16,20, Mutant source progression replaces the standard +1.
  if(Object.keys(b.abilityIncreases||{}).length)
@@ -152,7 +153,7 @@ export function mutantProjection(b){
  const active=id=>!(b.disabledTraits||[]).includes(MUTANT_ID+':trait:'+id);
  const defense=mutantIsDefense(b),progress=mutantD6State(b.mutantRolls?.levels||{},defense);
  if(active(defense?'variable-defenses':'variable-stats')){
-  for(const {benefit} of progress.earned){
+  for(const {level,benefit} of progress.earned.filter(x=>x.level<=buildLevel(b))){
    if(defense){
     if(benefit==='hp')empty.hp+=3;
     else if(benefit==='mp')empty.mp++;
@@ -173,7 +174,7 @@ export function mutantProjection(b){
   }else if(save&&trusted(outcome,save[2])){
    empty[save[0]]+=save[1];empty.appliedResults.push(outcome);
   }else if(number===bonusHpRow[0]&&trusted(outcome,bonusHpRow[1])){
-   empty.hp+=Math.max(1,Math.min(20,b.level||1));empty.appliedResults.push(outcome);
+   empty.hp+=Math.max(1,Math.min(20,buildLevel(b)));empty.appliedResults.push(outcome);
   }else if(number===speedRow[0]&&trusted(outcome,speedRow[1])){
    empty.speed+=5;empty.appliedResults.push(outcome);
   }else empty.manualResults.push(outcome);
