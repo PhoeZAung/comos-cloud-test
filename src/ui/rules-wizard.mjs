@@ -9,7 +9,7 @@ import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRaci
 import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
-import {MUTANT_ID,MUTANT_TABLE,MUTANT_PHYSICAL,mutantEmptyRolls,mutantD100State,mutantD6State,mutantResistanceName,mutantIsDefense} from '../features/characters/rules/mutant-progression.mjs';
+import {MUTANT_ID,MUTANT_TABLE,MUTANT_PHYSICAL,mutantEmptyRolls,mutantD100State,mutantD6State,mutantResistanceName,mutantIsDefense,mutantProjection} from '../features/characters/rules/mutant-progression.mjs';
 import {registry,spellsForBuild,availableClasses,classFor,className,classSkill,newBuild,prepareLevelUp,steps,stats,raceFor,raceTraits,replacementFor,racialClassSkill,effectiveScores,choiceEvents,eligibleOptions,calculated,spellCounts,buildIssues,previewBuild,hpHistory,classFeatureChanges,hasSpellcasting,buildLevel,carryCharacter} from '../features/characters/rules/build.mjs';
 import {pointSpend,standardArray,rollScores,moveScoreToken} from '../features/characters/ability-generation.mjs';
 import {fixedSkills} from '../features/sheet/skills.mjs';
@@ -119,7 +119,13 @@ function mutantRollPanel(b){
     '<input type="number" min="1" max="6" data-rw-mutant-manual="level" data-mutant-level="'+level+'" aria-label="Record level '+level+' d6" placeholder="GM roll">':'')+
     '</div>';
   }).join('')+(levels.issues.length?'<p class="rw-notice">'+e(levels.issues.join(' '))+'</p>':''));
- result+='<p class="rw-notice" role="status">Mutant dice histories are source-validated and kept in this draft. Automated character saving is still blocked until all table outcomes, level-up score/defense calculations, and race spell selections are integrated. These rolls are not yet character-sheet stat grants.</p>';
+ const p=mutantProjection(b);
+ result+=panel('Verified Mutant preview · source-defined only',
+  '<p>Rolled advancement score bonuses: '+Object.entries(p.scoreBonuses).map(([k,v])=>k.toUpperCase()+' +'+v).join(' · ')+'.</p>'+
+  '<p>Extra HP +'+p.hp+' · MP +'+p.mp+' · Fort +'+p.fort+' · Reflex +'+p.ref+' · Will +'+p.will+
+   ' · AC +'+p.ac+' (AC is still manual) · Base-speed increase +'+p.speed+' ft.</p>'+
+  '<p>Unmapped/conditional d100 results remain manual: '+p.manualResults.length+'. '+p.manualResults.map(x=>e(x.name)).join('; ')+'</p>');
+ result+='<p class="rw-notice" role="status">Verified flat bonuses appear in the live build preview. Mutant character saving remains blocked: AC, resistance, Blue Mage spell selection, numerous d100 effects, and full character-sheet/level-up integration need further review. Manual effects have not been automatically applied.</p>';
  return result;
 }
 function racialSelections(b,specs,scores){
@@ -224,6 +230,9 @@ function spellSlots(b,baseline,{bonusOnly=false,baseOnly=false}={}){
 function racialAdjust(b,k){const without={...b,baseScores:Object.fromEntries(stats.map(key=>[key,0])),abilityIncreases:{}};return effectiveScores(without)[k];}
 function scoreCaption(b,k){const delta=racialAdjust(b,k),total=effectiveScores(b)[k];return `<span class="rw-race-bonus">${delta>=0?'+':''}${delta} race</span><span>MOD: ${Math.floor((total-10)/2)>=0?'+':''}${Math.floor((total-10)/2)}</span>`;}
 function abilityPanel(b,{mode,baseline,legacy}){
+ if(['levelup','multiclass'].includes(mode)&&b.raceId===MUTANT_ID)
+  return '<div class="rw-score-grid rw-current-scores">'+stats.map(k=>'<div><span>'+k.toUpperCase()+'</span><strong>'+effectiveScores(baseline||b)[k]+'</strong></div>').join('')+'</div>'+
+   '<p class="field-help">Mutant receives one logged d6 advancement result at every level after first. This replaces the normal +1 ability increase at levels 4, 8, 12, 16 and 20. Record the new die here.</p>'+mutantRollPanel(b);
  if(['levelup','multiclass'].includes(mode))return '<div class="rw-score-grid rw-current-scores">'+stats.map(k=>'<div><span>'+k.toUpperCase()+'</span><strong>'+effectiveScores(baseline||b)[k]+'</strong></div>').join('')+'</div>'+panel('+1 ability score',field('Ability',`<select data-rw-boost><option value="">Choose</option>${stats.map(k=>opt(k,k.toUpperCase(),b.abilityIncreases[buildLevel(b)])).join('')}</select>`));
  const method=b.abilityMethod||'manual',generated=['array','rolled'].includes(method),pool=method==='array'?standardArray:generated?b.scorePool||[]:[];
  return `${field('Method',`<select data-rw-method>${opt('point-buy','Point buy',method)}${opt('array','Standard array',method)}${opt('rolled','Roll scores',method)}${opt('manual','Manual',method)}</select>`)}${method==='point-buy'?field('Budget',`<select data-rw-budget>${[10,15,20,25].map(n=>opt(String(n),n+' points',String(b.pointBudget))).join('')}</select>`)+`<p data-rw-spent>${pointSpend(b.baseScores)} / ${b.pointBudget}</p>`:''}${method==='rolled'?'<button class="button" type="button" data-rw-roll>Roll 4d6</button>':''}${pool.length?'<div class="rw-score-bank" aria-label="Available scores: drag a tile, or tap a tile then an ability">'+pool.map((v,i)=>b.scoreAssignments.includes(i)?'':`<button type="button" class="rw-score-token" draggable="true" data-rw-token="${i}" aria-label="Assign score ${v}, token ${i+1}" aria-pressed="false">${v}</button>`).join('')+'</div>':''}<div class="rw-score-grid">${stats.map((k,i)=>`<div class="rw-score-cell"><label>${k.toUpperCase()}${generated?`<button type="button" class="rw-score-drop" data-rw-drop="${i}" ${Number.isInteger(b.scoreAssignments[i])?`draggable="true" data-rw-token="${b.scoreAssignments[i]}"`:""} aria-label="Assign ${k.toUpperCase()}">${pool.length===6&&Number.isInteger(b.scoreAssignments[i])?b.baseScores[k]:'—'}</button>`:input(b.baseScores[k],`aria-label="${k.toUpperCase()}" type="number" data-rw-score="${k}" min="${method==='point-buy'?7:1}" max="${method==='point-buy'?18:45}" step="1"`)}</label><small data-rw-caption="${k}">${scoreCaption(b,k)}</small></div>`).join('')}</div>`;
@@ -364,7 +373,7 @@ export function mountRulesWizard(){
   if(t.matches('[data-rw-drop]')){assignToken(Number(t.dataset.rwDrop));return;}
   if(t.matches('[data-rw-feature-list]')){picker={kind:'features'};pickerQuery='';pickerLimit=25;showPicker();return;}
   if(t.matches('[data-rw-back]')){if(step){step--;message='';saveDraft();draw(true);}else location.assign(id?'sheet.html?characterId='+encodeURIComponent(id):targetOwnerId?'admin.html':'characters.html');}
-  if(t.matches('[data-rw-next]')){if(order[step]===6){void finish();return;}const logical=order[step],issues=buildIssues(b).filter(i=>logical===1?[1].includes(i.step):i.step===logical&&logical!==5);if(issues.length){message=issues[0].message;draw();return;}if(['levelup','multiclass'].includes(mode)&&logical===1&&buildLevel(b)%4===0&&!b.abilityIncreases[buildLevel(b)]){message='Choose one ability to increase by +1.';draw();return;}step++;message='';saveDraft();draw(true);}
+  if(t.matches('[data-rw-next]')){if(order[step]===6){void finish();return;}const logical=order[step],issues=buildIssues(b).filter(i=>logical===1?[1].includes(i.step):i.step===logical&&logical!==5);if(issues.length){message=issues[0].message;draw();return;}if(['levelup','multiclass'].includes(mode)&&logical===1&&buildLevel(b)%4===0&&b.raceId!==MUTANT_ID&&!b.abilityIncreases[buildLevel(b)]){message='Choose one ability to increase by +1.';draw();return;}step++;message='';saveDraft();draw(true);}
   if(t.matches('[data-rw-roll]')){const rolled=rollScores();b.scorePool=rolled.map(r=>r.total);b.scoreAssignments=[null,null,null,null,null,null];assignPool();changed();draw();}
   if(t.matches('[data-rw-open-spell]')){picker={kind:'spell',group:t.dataset.rwOpenSpell,index:Number(t.dataset.slotIndex)};pickerQuery='';pickerLevel='all';pickerLimit=25;showPicker();}
   if(t.matches('[data-rw-open-choice]')){picker={kind:'choice',event:choiceEvents(b).find(ev=>ev.id===t.dataset.rwOpenChoice),index:Number(t.dataset.choiceIndex)};pickerQuery='';pickerLevel='all';pickerLimit=25;showPicker();}
