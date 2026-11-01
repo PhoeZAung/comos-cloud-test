@@ -83,7 +83,7 @@ function archerProgressPanel(level){
  archerTalentOptions(level).map(t=>'<details class="rw-archer-feature '+(!t.meetsLevel||t.requiresVerification?'rw-trait--review':'')+'"><summary>'+e(t.name)+(t.asterisk?' *':'')+' <small>'+(t.meetsLevel?'':'Level '+t.minimumLevel+' required')+(t.requiresVerification?' · prerequisites to verify':'')+'</small></summary><p>'+e(t.description)+'</p>'+(t.requiresTalentIds.length?'<p class="field-help">Requires '+e(t.requiresTalentIds.map(id=>id.split(':').at(-1).replaceAll('-',' ')).join(', '))+'</p>':'')+(t.additionalPrerequisite?'<p class="field-help">'+e(t.additionalPrerequisite)+'</p>':'')+'</details>').join('')+'</details>'+
  '<details class="rw-archer-section"><summary>Archer archetypes ('+archer.data.archetypeIndex.length+' — future extraction)</summary>'+archer.data.archetypeIndex.map(x=>'<p class="rw-archer-future">'+e(x.name)+(x.racePrerequisite?' · '+e(x.racePrerequisite)+' only':'')+' · Needs individual extraction</p>').join('')+'</details></section>';
 }
-function mutantRollPanel(b){
+function mutantRollPanel(b,{advanceOnly=false}={}){
  const rolls=b.mutantRolls||mutantEmptyRolls(),required=mutantD100State(rolls.abilities),
   physical=mutantD100State(rolls.physical,true),defense=mutantIsDefense(b),
   levels=mutantD6State(rolls.levels,defense);
@@ -98,20 +98,20 @@ function mutantRollPanel(b){
   '<input type="number" min="1" max="100" aria-label="Record '+key+' d100 result" data-rw-mutant-manual="'+key+'" placeholder="Enter GM roll"> '+
   '<button type="button" class="button" data-rw-mutant-clear="'+key+'">Clear recorded throws</button>'+
   (state.issues.length?'<p class="rw-notice">'+e(state.issues.join(' '))+'</p>':''));
- let result=panel('Variable Resistance · d6',
+ let result=advanceOnly?'':panel('Variable Resistance · d6',
   '<p>1 Earth · 2 Fire · 3 Ice · 4 Lightning · 5 Water · 6 Wind. Exactly one resistance 5; Dual Minded replaces this trait.</p>'+
   (b.alternateIds.includes(MUTANT_ID+':trait:dual-minded')?
    '<p>Replaced by Dual Minded. No resistance roll applies.</p>':
    '<p>Recorded: <strong>'+e(rolls.resistance===null?'Not rolled':rolls.resistance+' — '+mutantResistanceName(rolls.resistance)+' resistance 5')+'</strong></p>'+
    '<button type="button" class="button" data-rw-mutant-roll="resistance">Roll d6</button> '+
    '<input type="number" min="1" max="6" aria-label="Record resistance d6 result" data-rw-mutant-manual="resistance" placeholder="Enter GM roll">'));
- result+=table('abilities',required,false)+table('physical',physical,true);
- if(b.level>1)result+=panel('Variable '+(defense?'Defenses':'Stats')+' · one d6 per level',
+ if(!advanceOnly)result+=table('abilities',required,false)+table('physical',physical,true);
+ if(buildLevel(b)>1)result+=panel('Variable '+(defense?'Defenses':'Stats')+' · one d6 per level',
   '<p>Each level after first grants one rolled benefit. '+(defense?
    '1 +3 HP; 2 +1 MP; 3 +1 Fort; 4 +1 Reflex; 5 +1 Will; 6 +1 stackable AC. Maximum five of each.':
    '1 STR, 2 DEX, 3 CON, 4 INT, 5 WIS, 6 CHA. +1 to the corresponding score; maximum +6 for each ability.')+
   ' Reroll benefits that have reached their cap. Ordinary fourth-level score boosts are not granted.</p>'+
-  Array.from({length:b.level-1},(_,i)=>i+2).map(level=>{
+  Array.from({length:buildLevel(b)-1},(_,i)=>i+2).map(level=>{
    const logged=rolls.levels?.[level]||[],accepted=levels.earned.find(x=>x.level===level);
    return '<div class="rw-slot"><span>Level '+level+'</span><strong>'+e(logged.length?logged.join(' → '):'Not rolled')+
     (accepted?' · '+accepted.benefit.toUpperCase():' · requires roll')+'</strong>'+
@@ -232,7 +232,7 @@ function scoreCaption(b,k){const delta=racialAdjust(b,k),total=effectiveScores(b
 function abilityPanel(b,{mode,baseline,legacy}){
  if(['levelup','multiclass'].includes(mode)&&b.raceId===MUTANT_ID)
   return '<div class="rw-score-grid rw-current-scores">'+stats.map(k=>'<div><span>'+k.toUpperCase()+'</span><strong>'+effectiveScores(baseline||b)[k]+'</strong></div>').join('')+'</div>'+
-   '<p class="field-help">Mutant receives one logged d6 advancement result at every level after first. This replaces the normal +1 ability increase at levels 4, 8, 12, 16 and 20. Record the new die here.</p>'+mutantRollPanel(b);
+   '<p class="field-help">Mutant receives one logged d6 advancement result at every level after first. This replaces the normal +1 ability increase at levels 4, 8, 12, 16 and 20. Record the new die here.</p>'+mutantRollPanel(b,{advanceOnly:true});
  if(['levelup','multiclass'].includes(mode))return '<div class="rw-score-grid rw-current-scores">'+stats.map(k=>'<div><span>'+k.toUpperCase()+'</span><strong>'+effectiveScores(baseline||b)[k]+'</strong></div>').join('')+'</div>'+panel('+1 ability score',field('Ability',`<select data-rw-boost><option value="">Choose</option>${stats.map(k=>opt(k,k.toUpperCase(),b.abilityIncreases[buildLevel(b)])).join('')}</select>`));
  const method=b.abilityMethod||'manual',generated=['array','rolled'].includes(method),pool=method==='array'?standardArray:generated?b.scorePool||[]:[];
  return `${field('Method',`<select data-rw-method>${opt('point-buy','Point buy',method)}${opt('array','Standard array',method)}${opt('rolled','Roll scores',method)}${opt('manual','Manual',method)}</select>`)}${method==='point-buy'?field('Budget',`<select data-rw-budget>${[10,15,20,25].map(n=>opt(String(n),n+' points',String(b.pointBudget))).join('')}</select>`)+`<p data-rw-spent>${pointSpend(b.baseScores)} / ${b.pointBudget}</p>`:''}${method==='rolled'?'<button class="button" type="button" data-rw-roll>Roll 4d6</button>':''}${pool.length?'<div class="rw-score-bank" aria-label="Available scores: drag a tile, or tap a tile then an ability">'+pool.map((v,i)=>b.scoreAssignments.includes(i)?'':`<button type="button" class="rw-score-token" draggable="true" data-rw-token="${i}" aria-label="Assign score ${v}, token ${i+1}" aria-pressed="false">${v}</button>`).join('')+'</div>':''}<div class="rw-score-grid">${stats.map((k,i)=>`<div class="rw-score-cell"><label>${k.toUpperCase()}${generated?`<button type="button" class="rw-score-drop" data-rw-drop="${i}" ${Number.isInteger(b.scoreAssignments[i])?`draggable="true" data-rw-token="${b.scoreAssignments[i]}"`:""} aria-label="Assign ${k.toUpperCase()}">${pool.length===6&&Number.isInteger(b.scoreAssignments[i])?b.baseScores[k]:'—'}</button>`:input(b.baseScores[k],`aria-label="${k.toUpperCase()}" type="number" data-rw-score="${k}" min="${method==='point-buy'?7:1}" max="${method==='point-buy'?18:45}" step="1"`)}</label><small data-rw-caption="${k}">${scoreCaption(b,k)}</small></div>`).join('')}</div>`;
