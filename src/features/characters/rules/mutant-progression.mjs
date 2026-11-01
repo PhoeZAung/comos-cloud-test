@@ -1,5 +1,5 @@
-// Mutant dice audit. Source outcomes remain descriptive until the race's entire
-// score/HP/MP/level-up projection has been reviewed. NEVER auto-grant table effects.
+// Mutant dice audit and source-verified preview mappings. Only explicitly
+// allowlisted unconditional outcomes project numbers; other results stay manual.
 import {registry} from './catalog.mjs';
 import {buildLevel} from './multiclass.mjs';
 export const MUTANT_ID='ffd20:race:mutant';
@@ -123,6 +123,12 @@ const saveRows=new Map([
 ]);
 const bonusHpRow=[98,/\+1 bonus HP per character level/i];
 const speedRow=[14,/\+5 feet to base land movement/i];
+// Independent, constant d100 outcomes. AC/CMB/CMD stay PREVIEW-ONLY until
+// the actual saved-sheet combat field ownership has been reviewed.
+const swimRow=[19,/Swim speed 30 feet/i];
+const cmbRow=[20,/\+2 combat maneuver checks/i];
+const armorRow=[50,/\+1 natural armor AC/i];
+const cmdRow=[80,/\+2 CMD/i];
 const trusted=(outcome,pattern)=>Boolean(outcome&&pattern.test(outcome.description||''));
 export function mutantVerifiedOutcomes(b){
  const hasTrait=(b?.disabledTraits||[]).includes(MUTANT_ID+':trait:variable-mutant-abilities');
@@ -142,12 +148,17 @@ export function mutantVerifiedEffects(b){
    id:prefix+i+':skill',kind:'skill_bonus',target:'skills.skill:'+skill[0]+'.bonus',
    operation:'add',value:{kind:'constant',value:skill[1]},bonusType:'racial',
    automation:'automatic',condition:null,sourceOutcomeId:outcome.id});
+  if(number===swimRow[0]&&trusted(outcome,swimRow[1]))effects.push({
+   id:prefix+i+':swim',kind:'identity',target:'identity.speed.swim',
+   operation:'set',value:{kind:'constant',value:30},bonusType:null,
+   automation:'automatic',condition:null,sourceOutcomeId:outcome.id});
  });
  return effects;
 }
 export function mutantProjection(b){
  const empty={hp:0,mp:0,fort:0,ref:0,will:0,ac:0,
-  speed:0,scoreBonuses:Object.fromEntries(MUTANT_STATS.map(k=>[k,0])),
+  speed:0,swim:0,cmb:0,cmd:0,naturalArmor:0,
+  scoreBonuses:Object.fromEntries(MUTANT_STATS.map(k=>[k,0])),
   resistance:null,manualResults:[],appliedResults:[]};
  if(b?.raceId!==MUTANT_ID)return empty;
  const active=id=>!(b.disabledTraits||[]).includes(MUTANT_ID+':trait:'+id);
@@ -177,6 +188,14 @@ export function mutantProjection(b){
    empty.hp+=Math.max(1,Math.min(20,buildLevel(b)));empty.appliedResults.push(outcome);
   }else if(number===speedRow[0]&&trusted(outcome,speedRow[1])){
    empty.speed+=5;empty.appliedResults.push(outcome);
+  }else if(number===swimRow[0]&&trusted(outcome,swimRow[1])){
+   empty.swim=30;empty.appliedResults.push(outcome);
+  }else if(number===cmbRow[0]&&trusted(outcome,cmbRow[1])){
+   empty.cmb=Math.max(2,empty.cmb);empty.appliedResults.push(outcome);
+  }else if(number===armorRow[0]&&trusted(outcome,armorRow[1])){
+   empty.naturalArmor=Math.max(1,empty.naturalArmor);empty.appliedResults.push(outcome);
+  }else if(number===cmdRow[0]&&trusted(outcome,cmdRow[1])){
+   empty.cmd=Math.max(2,empty.cmd);empty.appliedResults.push(outcome);
   }else empty.manualResults.push(outcome);
  }
  return empty;
