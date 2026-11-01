@@ -84,8 +84,8 @@ test('Mutant wizard can show source exact outcome text and roll controls without
  assert.match(html,/data-rw-mutant-roll="resistance"/);
  assert.match(html,/data-rw-mutant-manual="abilities"/);
  assert.match(html,/Lightning resistance 5/);
- assert.match(html,/Automated character saving is still blocked/);
- assert.equal(effectiveScores(b).cha,10,'result 09 is not blindly applied before rules mapping');
+ assert.match(html,/Mutant character saving remains blocked/);
+ assert.equal(effectiveScores(b).cha,12,'source-verified d100 outcome 09 now adds +2 CHA, but result 06 remains manual');
  assert(buildIssues(b).some(x=>/Mutant requires random level-based ability increases/.test(x.message)));
  const level2={...b,level:2,mutantRolls:{...b.mutantRolls,levels:{2:[1]}}};
  assert.match(renderBuild(level2,2),/Variable Stats · one d6 per level/);

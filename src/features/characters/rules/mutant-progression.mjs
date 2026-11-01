@@ -1,6 +1,7 @@
 // Mutant dice audit. Source outcomes remain descriptive until the race's entire
 // score/HP/MP/level-up projection has been reviewed. NEVER auto-grant table effects.
 import {registry} from './catalog.mjs';
+import {buildLevel} from './multiclass.mjs';
 export const MUTANT_ID='ffd20:race:mutant';
 export const MUTANT_TABLE=MUTANT_ID+':pool:table-variant-mutant-abilities';
 export const MUTANT_PHYSICAL=MUTANT_ID+':pool:table-alternative-physical-features';
@@ -85,9 +86,9 @@ export function mutantRollIssues(b,{requireComplete=false}={}){
  if(!isObject(input.levels)){issues.push('Mutant level history must be an object.');return issues;}
  const def=mutantIsDefense(b),adv=mutantD6State(input.levels,def);
  issues.push(...adv.issues);
- if(Object.keys(input.levels).some(k=>Number(k)>b.level))
+ if(Object.keys(input.levels).some(k=>Number(k)>buildLevel(b)))
   issues.push('Future level d6 results may not be recorded before that level.');
- if(requireComplete)for(let i=2;i<=b.level;i++)
+ if(requireComplete)for(let i=2;i<=buildLevel(b);i++)
   if(!Object.hasOwn(input.levels,String(i)))issues.push('Record the level '+i+' Mutant d6 advancement roll.');
  // At levels 4,8,12,16,20, Mutant source progression replaces the standard +1.
  if(Object.keys(b.abilityIncreases||{}).length)
@@ -96,4 +97,87 @@ export function mutantRollIssues(b,{requireComplete=false}={}){
 }
 export function mutantResistanceName(roll){
  return ['Earth','Fire','Ice','Lightning','Water','Wind'][roll-1]||'Not rolled';
+}
+
+// Patch 10B: deterministic, source-checked projections. These represent only
+// independent numeric effects which have an unambiguous sheet mapping.
+// All other d100 outcomes remain manual, never silently assumed inactive.
+const verifiedAbilityRows=new Map([
+ [9,['cha',2,/Additional \+2 racial Charisma/i]],
+ [46,['int',2,/Additional \+2 racial Intelligence/i]],
+ [90,['wis',2,/Additional \+2 racial Wisdom/i]]
+]);
+const verifiedSkillRows=new Map([
+ [15,['diplomacy',2,/\+2 racial Diplomacy/i]],
+ [35,['climb',2,/\+2 racial Climb/i]],
+ [45,['disguise',2,/\+2 racial Disguise/i]],
+ [55,['sleight-of-hand',2,/\+2 racial Sleight of Hand/i]],
+ [65,['acrobatics',2,/\+2 racial Acrobatics/i]],
+ [85,['perception',2,/Additional \+2 racial Perception/i]],
+ [95,['escape-artist',2,/\+2 racial Escape Artist/i]]
+]);
+const saveRows=new Map([
+ [29,['ref',1,/\+1 Reflex saves/i]],
+ [59,['will',1,/\+1 Will saves/i]],
+ [79,['fort',1,/\+1 Fortitude saves/i]]
+]);
+const bonusHpRow=[98,/\+1 bonus HP per character level/i];
+const speedRow=[14,/\+5 feet to base land movement/i];
+const trusted=(outcome,pattern)=>Boolean(outcome&&pattern.test(outcome.description||''));
+export function mutantVerifiedOutcomes(b){
+ const hasTrait=(b?.disabledTraits||[]).includes(MUTANT_ID+':trait:variable-mutant-abilities');
+ return b?.raceId===MUTANT_ID&&!hasTrait?
+  mutantD100State(b.mutantRolls?.abilities||[]).outcomes:[];
+}
+export function mutantVerifiedEffects(b){
+ const prefix=MUTANT_ID+':trait:variable-mutant-abilities:rolled:';
+ const effects=[];
+ mutantVerifiedOutcomes(b).forEach((outcome,i)=>{
+  const number=Number(outcome.value),score=verifiedAbilityRows.get(number),skill=verifiedSkillRows.get(number);
+  if(score&&trusted(outcome,score[2]))effects.push({
+   id:prefix+i+':score',kind:'ability_score',target:'ability_scores.'+score[0],
+   operation:'add',value:{kind:'constant',value:score[1]},bonusType:'racial',
+   automation:'automatic',condition:null,sourceOutcomeId:outcome.id});
+  if(skill&&trusted(outcome,skill[2]))effects.push({
+   id:prefix+i+':skill',kind:'skill_bonus',target:'skills.skill:'+skill[0]+'.bonus',
+   operation:'add',value:{kind:'constant',value:skill[1]},bonusType:'racial',
+   automation:'automatic',condition:null,sourceOutcomeId:outcome.id});
+ });
+ return effects;
+}
+export function mutantProjection(b){
+ const empty={hp:0,mp:0,fort:0,ref:0,will:0,ac:0,
+  speed:0,scoreBonuses:Object.fromEntries(MUTANT_STATS.map(k=>[k,0])),
+  resistance:null,manualResults:[],appliedResults:[]};
+ if(b?.raceId!==MUTANT_ID)return empty;
+ const active=id=>!(b.disabledTraits||[]).includes(MUTANT_ID+':trait:'+id);
+ const defense=mutantIsDefense(b),progress=mutantD6State(b.mutantRolls?.levels||{},defense);
+ if(active(defense?'variable-defenses':'variable-stats')){
+  for(const {level,benefit} of progress.earned.filter(x=>x.level<=buildLevel(b))){
+   if(defense){
+    if(benefit==='hp')empty.hp+=3;
+    else if(benefit==='mp')empty.mp++;
+    else if(['fort','ref','will','ac'].includes(benefit))empty[benefit]++;
+   }else if(Object.hasOwn(empty.scoreBonuses,benefit))empty.scoreBonuses[benefit]++;
+  }
+ }
+ if(active('variable-resistance')&&!(b.alternateIds||[]).includes(MUTANT_ID+':trait:dual-minded'))
+  empty.resistance=mutantResistanceName(b.mutantRolls?.resistance);
+ if((b.alternateIds||[]).includes(MUTANT_ID+':trait:dual-minded'))empty.will+=2;
+ for(const outcome of mutantVerifiedOutcomes(b)){
+  const number=Number(outcome.value);
+  const mappedScore=verifiedAbilityRows.get(number),mappedSkill=verifiedSkillRows.get(number),
+   save=saveRows.get(number);
+  if(mappedScore&&trusted(outcome,mappedScore[2])||
+     mappedSkill&&trusted(outcome,mappedSkill[2])){
+   empty.appliedResults.push(outcome);
+  }else if(save&&trusted(outcome,save[2])){
+   empty[save[0]]+=save[1];empty.appliedResults.push(outcome);
+  }else if(number===bonusHpRow[0]&&trusted(outcome,bonusHpRow[1])){
+   empty.hp+=Math.max(1,Math.min(20,buildLevel(b)));empty.appliedResults.push(outcome);
+  }else if(number===speedRow[0]&&trusted(outcome,speedRow[1])){
+   empty.speed+=5;empty.appliedResults.push(outcome);
+  }else empty.manualResults.push(outcome);
+ }
+ return empty;
 }
