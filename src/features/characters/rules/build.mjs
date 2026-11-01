@@ -14,7 +14,7 @@ import {buildLevel,carriedLevels,carryCharacter,sameCarry} from './multiclass.mj
 export {buildLevel,carryCharacter} from './multiclass.mjs';
 import {syncLimitBreaks} from '../../sheet/limit-breaks.mjs';
 import {registry} from './catalog.mjs';
-import {MUTANT_ID,MUTANT_TABLE,MUTANT_PHYSICAL,mutantEmptyRolls,mutantRollIssues} from './mutant-progression.mjs';
+import {MUTANT_ID,MUTANT_TABLE,MUTANT_PHYSICAL,mutantEmptyRolls,mutantRollIssues,mutantProjection,mutantVerifiedEffects,mutantD6State,mutantIsDefense} from './mutant-progression.mjs';
 import {spells} from './spells.mjs';
 import {blackMageSummary} from '../rules-summary.mjs';
 import {sheetStats} from '../../sheet/model.mjs';
@@ -79,6 +79,30 @@ export function raceTraits(b){
  }
  for(const [id] of modified)if(!active.has(id))errors.push('Cannot modify a racial trait replaced by another selection: '+(r.features.find(f=>f.id===id)?.name||id)+'.');
  const traits=mappedRaceTraits(r,r.features.filter(f=>active.has(f.id)).map(f=>modified.has(f.id)?modified.get(f.id).reduce((v,op)=>applyRaceModification(r,v,op),f):f)).map(f=>{
+  if(r.id===MUTANT_ID){
+   const p=mutantProjection(b);
+   if(f.id===MUTANT_ID+':trait:variable-mutant-abilities'){
+    return {...f,effects:[...(f.effects||[]),...mutantVerifiedEffects(b)],
+     description:f.description+' Recorded source outcomes: '+(b.mutantRolls?.abilities?.length||0)+
+      ' throws. Verified unconditional numeric effects appear in the live preview. '+
+      (p.manualResults.length?'Manual source outcomes (NOT automatically granted): '+
+       p.manualResults.map(o=>o.name).join('; ')+'. ':'')+
+      'Most conditional/special outcomes and the Blue Mage SLA require separate rules verification.'};
+   }
+   if(f.id===MUTANT_ID+':trait:variable-resistance')
+    return {...f,description:f.description+' Recorded result: '+(p.resistance||'not rolled')+
+     '. This elemental resistance 5 must be recorded manually until the sheet resistance model is verified.'};
+   if(f.id===MUTANT_ID+':trait:base-speed'&&p.speed)
+    return {...f,description:f.description+' Verified d100 outcome adds '+p.speed+' feet to base land speed.',
+     effects:f.effects.map(e=>e.target==='identity.speed.land'&&e.value?.kind==='constant'?
+      {...e,value:{...e.value,value:e.value.value+p.speed}}:e)};
+   if(f.id===MUTANT_ID+':trait:variable-stats'||f.id===MUTANT_ID+':trait:variable-defenses'){
+    const applied=mutantD6State(b.mutantRolls?.levels||{},mutantIsDefense(b)).earned;
+    return {...f,description:f.description+' Recorded advancement: '+
+     (applied.length?applied.map(x=>'level '+x.level+' → '+x.benefit.toUpperCase()).join('; '):'no completed level d6 rolls')+
+     '. Mutants never also gain ordinary level-4/8/12/16/20 score increases.'};
+   }
+  }
   if(r.id==='ffd20:race:shindroid'&&f.id===r.id+':trait:race-simulation'){
    const chosen=shindroidSimulationOptions().find(o=>o.id===b.racialChoices?.[SHINDROID_SIMULATED_RACE]?.[0]);
    return {...f,description:chosen?
@@ -132,7 +156,7 @@ export function raceTraits(b){
  const selected=effects.length?[...traits,{id:r.id+':selected-choices',name:'Selected racial choices',description:note,sheetTargets:['racialAbilities'],effects,choicePoolIds:[]}]:traits;
  return {traits:[...selected,...sylphUses],replaced:[...consumed],errors};
 }
-export function effectiveScores(b){const result={...b.baseScores};for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=buildLevel(b)&&stats.includes(key))result[key]++;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}if(b.archetypeId===DOOM_SLAYER_ID&&b.classId==='ffd20:class:gunbreaker'&&b.level===20)for(const key of ['str','dex','wis'])result[key]+=2;return result;}
+export function effectiveScores(b){const result={...b.baseScores};if(b.raceId!==MUTANT_ID)for(const [level,key] of Object.entries(b.abilityIncreases||{}))if(Number(level)<=buildLevel(b)&&stats.includes(key))result[key]++;for(const [key,n] of Object.entries(mutantProjection(b).scoreBonuses))result[key]+=n;for(const f of raceTraits(b).traits)for(const e of f.effects)if(e.automation==='automatic'&&!e.condition&&e.kind==='ability_score'&&e.value?.kind==='constant'){const k=e.target.split('.').at(-1);if(stats.includes(k))result[k]+=e.value.value;}if(b.archetypeId===DOOM_SLAYER_ID&&b.classId==='ffd20:class:gunbreaker'&&b.level===20)for(const key of ['str','dex','wis'])result[key]+=2;return result;}
 // Kindred's +2 applies only to mage-class spells and features, never to the
 // displayed Intelligence score, ability checks, skill points or other classes.
 // Black Mage is currently the verified INT-based casting chassis.
@@ -289,7 +313,13 @@ export function sanitizeBuild(raw){
 }
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 export function previewBuild(b){
- const preview=classPreview(b);return {...preview,skillBudget:preview.skillBudget+racialSkillRanks(b,b.level)};
+ const preview=classPreview(b),mutant=mutantProjection(b);
+ const summary={...preview.summary,fort:preview.summary.fort+mutant.fort,
+  ref:preview.summary.ref+mutant.ref,will:preview.summary.will+mutant.will,
+  bonusMp:preview.summary.bonusMp+mutant.mp,mp:preview.summary.mp+mutant.mp};
+ return {...preview,summary,hp:preview.hp+mutant.hp,
+  mutantProjection:mutant,
+  skillBudget:preview.skillBudget+racialSkillRanks(b,b.level)};
 }
 function classPreview(b){
  if(isRedMage(b))return redMagePreview(b,{scores:effectiveScores(b),race:raceFor(b),racial:raceTraits(b),hpRolls:hpHistory(b)});
