@@ -92,6 +92,16 @@ test('Dual Minded saves remain independent of Variable Resistance and may not gr
  assert.equal(previewBuild(b).summary.will,previewBuild(m([])).summary.will+2);
  assert(!mutantRollIssues(b).some(s=>/resistance/i.test(s)));
 });
+test('Mutant numeric projection uses total character level and excludes forged future d6 entries',()=>{
+ const b=m([98],{2:[1],3:[1],4:[1],5:[1]});b.level=1;
+ // Four carried class levels + one level in current class.
+ b.carry={classes:[{name:'Warrior',level:4}]};
+ assert.equal(mutantProjection(b).hp,5);
+ assert.equal(mutantProjection(b).scoreBonuses.str,4);
+ b.mutantRolls.levels[6]=[1];
+ assert.equal(mutantProjection(b).scoreBonuses.str,4,'future sixth-level roll cannot change current scores');
+ assert(mutantRollIssues(b).some(s=>/Future level/.test(s)));
+});
 test('Unmapped table outcomes are visible but never silently applied; Mutant saving stays guarded',()=>{
  const b=m([100,1,44]);const p=mutantProjection(b);
  assert.deepEqual(p.manualResults.map(x=>Number(x.value)),[1,44]);
