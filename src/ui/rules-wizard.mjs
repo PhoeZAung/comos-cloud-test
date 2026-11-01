@@ -89,7 +89,7 @@ function mutantRollPanel(b){
   levels=mutantD6State(rolls.levels,defense);
  const table=(key,state,optional)=>panel((optional?'Optional ':'Required ')+
   (optional?'appearance':'mutant abilities')+' · d100',
-  '<p>'+e(state.description)+' The published table is the source of truth; outcomes are review-only and are not yet applied as sheet powers.</p>'+
+  '<p>'+e(state.description)+' The published table is the source of truth. Verified unconditional numeric results appear in the live preview; special, conditional and spell results remain manual and saving is still blocked.</p>'+
   '<p>Recorded throws: '+(rolls[key].length?rolls[key].join(' → '):'none')+
   ' · '+(state.complete?'Complete':'Results still needed: '+state.pending)+'</p>'+
   (state.outcomes.length?'<ul>'+state.outcomes.map(o=>'<li>'+e(o.name)+'</li>').join('')+'</ul>':'')+
