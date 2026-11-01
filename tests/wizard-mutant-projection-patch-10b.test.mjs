@@ -45,6 +45,8 @@ test('Mutant Variable Stats awards one d6 score point every level after first an
  assert.match(html,/This replaces the normal \+1 ability increase/);
  assert.doesNotMatch(html,/data-rw-boost/);
  assert.match(html,/data-rw-mutant-manual="level"/);
+ assert.doesNotMatch(html,/data-rw-mutant-manual="abilities"/,'creation d100 cannot be rerolled during level up');
+ assert.doesNotMatch(html,/data-rw-mutant-manual="resistance"/,'creation resistance cannot be changed at level up');
 });
 test('Variable Defenses source d6 1 to 6 map to +3 HP, +1 MP, +1 to three saves, +1 AC manual',()=>{
  const rows={2:[1],3:[2],4:[3],5:[4],6:[5],7:[6]};
