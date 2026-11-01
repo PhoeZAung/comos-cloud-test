@@ -313,7 +313,9 @@ export function sanitizeBuild(raw){
 }
 const skillId=row=>'skill:'+row.name.toLowerCase().replace('knw: ','knowledge-').replaceAll(' ','-');
 export function previewBuild(b){
- const preview=classPreview(b),mutant=mutantProjection(b);
+ const preview=classPreview(b);
+ if(b.raceId!==MUTANT_ID)return {...preview,skillBudget:preview.skillBudget+racialSkillRanks(b,b.level)};
+ const mutant=mutantProjection(b);
  const summary={...preview.summary,fort:preview.summary.fort+mutant.fort,
   ref:preview.summary.ref+mutant.ref,will:preview.summary.will+mutant.will,
   bonusMp:preview.summary.bonusMp+mutant.mp,mp:preview.summary.mp+mutant.mp};
