@@ -1,15 +1,15 @@
 {
   "name": "Cosmos Character Sheets",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "manifest_version": 1,
   "description": "Open your Cosmos character sheets and roll with Dice+ in your Owlbear room.",
   "author": "PhoeZAung",
-  "icon": "/owlbear/icon.svg",
-  "homepage_url": "/",
+  "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/icon.svg",
+  "homepage_url": "https://cosmos-web.burmese-barbel.ts.net/",
   "action": {
     "title": "Cosmos Character Sheets",
-    "icon": "/owlbear/icon.svg",
-    "popover": "/owlbear/index.html",
+    "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/icon.svg",
+    "popover": "https://cosmos-web.burmese-barbel.ts.net/owlbear/index.html",
     "width": 1000,
     "height": 800
   }

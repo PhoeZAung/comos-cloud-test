@@ -1,9 +1,16 @@
 import {mkdir,readFile,writeFile,cp} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {build} from 'esbuild';
-export async function buildOwlbear(output){
+export async function buildOwlbear(output,origin){
  const directory=output+'/owlbear';await mkdir(directory,{recursive:true});
  await cp(new URL('../public/owlbear/',import.meta.url),directory,{recursive:true});
+ const url=new URL(origin);if(url.protocol!=='https:'||url.origin!==origin)throw Error('Owlbear requires an exact HTTPS origin.');
+ const manifest=JSON.parse(await readFile(directory+'/manifest.json','utf8'));
+ manifest.homepage_url=origin+'/';
+ manifest.icon=origin+'/owlbear/icon.svg';
+ manifest.action.icon=origin+'/owlbear/icon.svg';
+ manifest.action.popover=origin+'/owlbear/index.html';
+ await writeFile(directory+'/manifest.json',JSON.stringify(manifest,null,2)+'\n');
  for(const name of ['action','connect','sheet'])await build({entryPoints:[fileURLToPath(new URL('../src/owlbear/'+name+'.mjs',import.meta.url))],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:directory+'/'+name+'.js'});
  const head='<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/owlbear/icon.svg"><link rel="stylesheet" href="/owlbear/owlbear.css">';
  await writeFile(directory+'/index.html','<!doctype html><html lang="en"><head>'+head+'<title>Cosmos · Owlbear</title><script type="module" src="/owlbear/action.js"></script></head><body><main><h1>Cosmos Character Sheets</h1><div class="extension-tools"><button class="primary" data-connect>Connect Cosmos account</button><button data-refresh>Refresh characters</button><button data-dice-check>Check Dice+</button><button data-back hidden>← My characters</button><label>Roll visibility <select data-audience><option value="everyone">Everyone</option><option value="self">Only me</option><option value="dm">Me and GM</option></select></label><a class="button" href="/" target="_blank" rel="noopener">Open Cosmos</a></div><p class="extension-status" role="status" data-status>Waiting for Owlbear…</p><div class="character-grid" data-characters></div><iframe title="Your Cosmos character sheet" hidden></iframe></main></body></html>');

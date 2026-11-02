@@ -34,7 +34,7 @@ try {
   await writeFile(output+'/assets/routes/'+page.id+'.mjs', 'export default '+JSON.stringify(routeView(page))+';\n');
   await writeFile(output+'/'+page.id+'.html',renderPage(page,{policy,live:true,scripts:['assets/shell.mjs']}));
  }
- await buildOwlbear(output);
+ await buildOwlbear(output,config.origin);
  // Headers for the later native HTTPS host; no deployment or host config is performed here.
  await writeFile(output+'/auth-headers.json',JSON.stringify({'Content-Security-Policy':policy,'Cache-Control':'no-store','Referrer-Policy':'same-origin'},null,2)+'\n');
  await rm(new URL('dist-live/',root),{recursive:true,force:true});
