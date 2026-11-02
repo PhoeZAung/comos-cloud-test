@@ -47,16 +47,17 @@ jobs:
       - name: Publish approved commit to QNAP
         shell: bash
         env:
-          DEPLOY_PRIVATE_KEY: ${{ secrets.COSMOS_DEPLOY_SSH_KEY }}
+          DEPLOY_PRIVATE_KEY_B64: ${{ secrets.COSMOS_DEPLOY_SSH_KEY_B64 }}
           QNAP_KNOWN_HOSTS: ${{ secrets.COSMOS_QNAP_KNOWN_HOSTS }}
         run: |
           set -euo pipefail
-          test -n "$DEPLOY_PRIVATE_KEY"
+          test -n "$DEPLOY_PRIVATE_KEY_B64"
           test -n "$QNAP_KNOWN_HOSTS"
           install -d -m 700 "$HOME/.ssh"
-          printf '%s\n' "$DEPLOY_PRIVATE_KEY" > "$HOME/.ssh/cosmos-deploy"
+          printf '%s' "$DEPLOY_PRIVATE_KEY_B64" | base64 --decode > "$HOME/.ssh/cosmos-deploy"
           printf '%s\n' "$QNAP_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/cosmos-deploy" "$HOME/.ssh/known_hosts"
+          ssh-keygen -y -P '' -f "$HOME/.ssh/cosmos-deploy" >/dev/null || { echo "Invalid decoded SSH private key"; exit 1; }
           ssh -T \
             -i "$HOME/.ssh/cosmos-deploy" \
             -o IdentitiesOnly=yes \
