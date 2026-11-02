@@ -23,16 +23,17 @@ jobs:
       - name: Verify restricted deploy SSH key (does not deploy)
         shell: bash
         env:
-          DEPLOY_PRIVATE_KEY: ${{ secrets.COSMOS_DEPLOY_SSH_KEY }}
+          DEPLOY_PRIVATE_KEY_B64: ${{ secrets.COSMOS_DEPLOY_SSH_KEY_B64 }}
           QNAP_KNOWN_HOSTS: ${{ secrets.COSMOS_QNAP_KNOWN_HOSTS }}
         run: |
           set -euo pipefail
-          test -n "$DEPLOY_PRIVATE_KEY" || { echo "Missing COSMOS_DEPLOY_SSH_KEY"; exit 1; }
+          test -n "$DEPLOY_PRIVATE_KEY_B64" || { echo "Missing COSMOS_DEPLOY_SSH_KEY_B64"; exit 1; }
           test -n "$QNAP_KNOWN_HOSTS" || { echo "Missing COSMOS_QNAP_KNOWN_HOSTS"; exit 1; }
           install -d -m 700 "$HOME/.ssh"
-          printf '%s\n' "$DEPLOY_PRIVATE_KEY" > "$HOME/.ssh/cosmos-deploy"
+          printf '%s' "$DEPLOY_PRIVATE_KEY_B64" | base64 --decode > "$HOME/.ssh/cosmos-deploy"
           printf '%s\n' "$QNAP_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
           chmod 600 "$HOME/.ssh/cosmos-deploy" "$HOME/.ssh/known_hosts"
+          ssh-keygen -y -P '' -f "$HOME/.ssh/cosmos-deploy" >/dev/null || { echo "Invalid decoded SSH private key"; exit 1; }
 
           # 0000 is intentionally too short to be a commit. The forced-command
           # receiver must reject it before reading stdin or changing anything.
