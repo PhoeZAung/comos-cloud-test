@@ -66,6 +66,20 @@ embedded sheet and can be enabled explicitly in Main settings.
 If the connection window closes or the extension reloads, reconnect. Each
 player must sign in as themselves; do not share the GM's Cosmos login.
 
+## Panel size and separate sheet tab
+
+The panel starts at a phone-sized 390 × 640 pixels, capped to leave space in the
+Owlbear viewport. Open **Account & panel size** for **Phone**, **Wider**, or custom
+width/height controls. Drag the bottom-right corner to resize; the focused corner
+also supports arrow keys (Shift takes larger steps). This browser remembers the
+chosen panel size. Account controls collapse when opening a character.
+
+After selecting a character, **Open in new tab** opens its sheet in a normal
+browser tab. Clicking again focuses that tab; selecting another character and
+clicking the button reuses it. Dice+ rolls still go through the original Owlbear
+room, so keep the room and Cosmos connection window open. Reloading the room or
+extension disconnects this tab; reconnect and reopen the sheet from the panel.
+
 ## Limits and troubleshooting
 
 - The connection window is intentional: it keeps normal Firebase/HttpOnly
@@ -97,5 +111,6 @@ player must sign in as themselves; do not share the GM's Cosmos login.
 
 All Owlbear SDK code is bundled locally. The extension adds no new authentication
 tokens or database migrations. Framing is allowed only for the extension routes
-under Owlbear and the same Cosmos origin. Only the connection page uses an opener
-policy that preserves its same-origin, nonce-bound connection to the extension.
+under Owlbear and the same Cosmos origin. The connection and extension sheet pages
+use an opener policy that preserves their same-origin, nonce-bound connections to
+the extension.

@@ -25,7 +25,7 @@ export async function createStaticHandler(directory) {
       res.setHeader('Content-Security-Policy', relative.startsWith('preview' + path.sep) ? previewPolicy : liveHeaders['Content-Security-Policy']);
       if(relative.startsWith('owlbear'+path.sep)){res.setHeader('Content-Security-Policy',liveHeaders['Content-Security-Policy']+"; frame-ancestors 'self' https://owlbear.rodeo https://*.owlbear.rodeo");}
       if(relative==='owlbear'+path.sep+'manifest.json')res.setHeader('Access-Control-Allow-Origin','*');
-      if(relative==='owlbear'+path.sep+'connect.html')res.setHeader('Cross-Origin-Opener-Policy','unsafe-none');
+      if(['connect.html','sheet.html'].some(name=>relative==='owlbear'+path.sep+name))res.setHeader('Cross-Origin-Opener-Policy','unsafe-none');
       const body = await readFile(target);
       res.writeHead(200, { 'Content-Type': type, 'Content-Length': body.length });
       res.end(req.method === 'HEAD' ? undefined : body);
