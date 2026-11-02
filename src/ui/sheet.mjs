@@ -1,3 +1,4 @@
+import {sheetLoading} from './sheet-loading.mjs';
 import {MAGICKED_AMMO_ID} from '../features/characters/rules/gunbreaker-ammo.mjs';
 import {notify,showDice,clearFeedback} from './feedback.mjs';
 import {processPicture} from './character-view.mjs';
@@ -6,7 +7,7 @@ import {recordId} from './record-id.mjs';
 import {ITEM_TAG_OPTIONS,SHOP_ITEM_CATEGORY_GROUPS,itemCategoryForItem,itemCategorySymbol,inventoryCategoryCounts,visibleInventoryCategory} from '../features/sheet/item-categories.mjs';
 import {spellLevel} from '../features/sheet/calculations.mjs';
 import {abilities,sizes,number,modifier,sheetStats,attackType,attackTypes} from '../features/sheet/model.mjs';
-import {escape as e,sections,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
+import {escape as e,sections,renderCombatDetails,renderSheetFrame,renderSection,renderSpeedDetails,collectionBlock,renderSkillRows,entryDetail,titles,abilityTabs} from '../features/sheet/view.mjs';
 import {isEquipmentSlot,equippedInSlot,renderEquipChoices} from '../features/sheet/equipment.mjs';
 const groupFields={
  abilities:['str','dex','con','int','wis','cha'],identity:['size_category','languages','senses','speed','speed_burrow','speed_climb','speed_fly','speed_swim'],
@@ -75,6 +76,7 @@ export function mountSheet(){
  let showStars=false;
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
+ let lastFightSection=['combat','abilities','spells'].includes(section)?section:'combat';
  let combatView=new URL(location.href).searchParams.get('combatView')==='offense'?'offense':'defense';
  let itemTag=new URL(location.href).searchParams.get('itemTag')||'All';if(itemTag!=='All'&&!ITEM_TAG_OPTIONS.includes(itemTag)&&!Object.hasOwn(SHOP_ITEM_CATEGORY_GROUPS,itemTag))itemTag='All';
  let spellFilter=new URL(location.href).searchParams.get('spellLevel')||'all';if(spellFilter!=='all'){spellFilter=Number(spellFilter);if(!Number.isInteger(spellFilter)||spellFilter<0||spellFilter>9)spellFilter='all';}
@@ -193,7 +195,15 @@ export function mountSheet(){
   const settingsPanel=root.querySelector('[data-recovery-panel]');if(settingsPanel&&!settingsPanel.hidden&&!event.target.closest('[data-recovery-panel],[data-recovery-menu]')){settingsPanel.hidden=true;root.querySelector('[data-recovery-menu]')?.setAttribute('aria-expanded','false');}
    const button=event.target.closest('button');if(!button)return;
    if(button.matches('[data-ammo-operation]')){const operation=button.dataset.ammoOperation,change={action:'gunbreakerAmmo',operation};if(operation==='configure')change.profileId=root.querySelector('[data-ammo-profile]').value;if(['reload','fire','spend','brutal-shell'].includes(operation))change.rounds=Number(root.querySelector('[data-ammo-rounds]')?.value);void save(change);return;}
-   if(button.matches('[data-recovery-menu]')){settingsPanel.hidden=!settingsPanel.hidden;button.setAttribute('aria-expanded',String(!settingsPanel.hidden));return;}
+   if(button.matches('[data-combat-details]')){
+    const kind=button.dataset.combatDetails;
+    root.querySelector('#cs-dialog-title').textContent=kind==='attack'?'Attack rolls':'Defenses';
+    root.querySelector('[data-dialog-fields]').innerHTML=renderCombatDetails(character.data,kind);
+    root.querySelector('[data-dialog-status]').textContent='';
+    root.querySelector('[data-sheet-form] button[type=submit]').hidden=true;dialog().showModal();return;
+   }
+   if(button.matches('[data-open-dice-themes]')){void import('./dice-theme-picker.mjs').then(m=>m.openDiceThemes());return;}
+  if(button.matches('[data-recovery-menu]')){settingsPanel.hidden=!settingsPanel.hidden;button.setAttribute('aria-expanded',String(!settingsPanel.hidden));return;}
   if(button.matches('[data-toggle-stars]')){showStars=!showStars;root.querySelector('[data-sheet]').classList.toggle('cs-star-controls-off',!showStars);button.setAttribute('aria-pressed',String(showStars));button.setAttribute('aria-label',(showStars?'Hide':'Show')+' favorite controls');return;}
   if(button.matches('[data-box-favorite]')){const key=button.dataset.boxFavorite,old=character.data.favorite_boxes||[];void save({action:'fields',fields:{favorite_boxes:old.includes(key)?old.filter(k=>k!==key):[...old,key]}});return;}
   if(button.matches('[data-entry-send]')){const [collection,index]=button.dataset.entrySend.split(':');void roll('Description',null,collection==='weapons'?Number(index):undefined,collection==='spells'?Number(index):undefined,abilityTabs.includes(collection)?{collection,index:Number(index),spendUse:false}:undefined,'send');return;}
@@ -251,7 +261,7 @@ export function mountSheet(){
   if(button.matches('[data-spell-level]')){selectSpellLevel(button.dataset.spellLevel==='all'?'all':Number(button.dataset.spellLevel));return;}
 
   if(button.matches('[data-sheet-tab]')){
-   if((dirty||dialog()?.open)&&!confirm('Discard unsaved edits?'))return;section=button.dataset.sheetTab;draw();const url=new URL(location.href);url.searchParams.set('section',section);history.replaceState(null,'',url);return;
+   if((dirty||dialog()?.open)&&!confirm('Discard unsaved edits?'))return;section=button.dataset.sheetTab==='combat'&&button.closest('nav')?.getAttribute('aria-label')==='Character sheet'?lastFightSection:button.dataset.sheetTab;if(['combat','abilities','spells'].includes(section))lastFightSection=section;draw();const url=new URL(location.href);url.searchParams.set('section',section);history.replaceState(null,'',url);return;
   }
   if(button.matches('[data-dialog-close]')){dialog()?.close();dirty=false;if(!conflict)void refresh();return;}
   if(button.matches('[data-sheet-refresh]')){void refresh(true);return;}
@@ -312,7 +322,7 @@ export function mountSheet(){
  root.addEventListener('cancel',()=>{dirty=false;},{capture:true,signal:control.signal});
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)void refresh();},{signal:control.signal});
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
- root.innerHTML='<p role="status">Loading character…</p>';
+ root.innerHTML=sheetLoading();
  void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();schedule();if(typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed)root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.message)+'</p><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';});
  return ()=>{clearFeedback();closed=true;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }

@@ -1,0 +1,6 @@
+// Original Cosmos animation inspired by reverland's magic circle and
+// rust_1966's particle progress bar. See docs/LOADING-REFERENCES.md.
+export function sheetLoading() {
+ const ticks=Array.from({length:36},(_,i)=>`<path d="M200 22v${i%3===0?17:8}" transform="rotate(${i*10} 200 200)"/>`).join('');
+ return `<section class="sheet-loading" role="status" aria-live="polite" aria-label="Loading character sheet"><div class="sheet-loading-art" aria-hidden="true"><svg viewBox="0 0 400 400" fill="none" stroke="currentColor"><g class="sheet-loading-outer"><circle cx="200" cy="200" r="182"/><circle cx="200" cy="200" r="155"/>${ticks}<path d="M200 45 334 277H66ZM200 355 66 123h268Z"/></g><g class="sheet-loading-inner"><circle cx="200" cy="200" r="115" stroke-dasharray="2 9"/><circle cx="200" cy="200" r="98"/><path d="m200 102 85 49v98l-85 49-85-49v-98Z"/><path d="m200 130 61 105H139Zm0 140-61-105h122Z"/></g><path class="sheet-loading-star" d="m200 165 9 26 26 9-26 9-9 26-9-26-26-9 26-9Z"/></svg></div><p class="sheet-loading-eyebrow">COSMOS</p><h1>Opening your character sheet</h1><p class="sheet-loading-note">Gathering your abilities, equipment and adventures…</p><div class="sheet-loading-track" aria-hidden="true"><span></span><i></i><i></i><i></i></div><noscript>Enable JavaScript to open your character sheet.</noscript></section>`;
+}

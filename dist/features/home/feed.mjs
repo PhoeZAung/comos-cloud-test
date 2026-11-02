@@ -11,7 +11,7 @@ export function pageFeed(posts,{offset=0,limit=6}={}) {
   return {items:sorted.slice(start,start+size),total:sorted.length,offset:start,hasPrevious:start>0,hasNext:start+size<sorted.length,pageSize:size};
 }
 function postMarkup(post,viewerId='',now=Date.now(),canPin=false) {
-  const name=String(post.authorName || 'Comos member');
+  const name=String(post.authorName || 'Cosmos member');
   const timestamp=validDate(post.createdAt)?new Date(post.createdAt).toISOString():'';
   const id=encodeURIComponent(String(post.id ?? ''));
   const title=String(post.title ?? '').trim();

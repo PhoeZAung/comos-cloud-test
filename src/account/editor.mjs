@@ -33,8 +33,9 @@ export function mountAccount({user=null,fixture=false,onUser=()=>{}}={}) {
   }
   settingsRunning=false;
  }
- const choose=patch=>{latestPreferences={...latestPreferences,...patch};applyPreferences(latestPreferences);syncChoices();if(fixture){user.preferences={...latestPreferences};fixtureAccount=user;}settingsDirty=true;void savePreferences();};
+ const choose=patch=>{latestPreferences={...latestPreferences,...patch};applyPreferences(latestPreferences);syncChoices();if(fixture){user.preferences={...latestPreferences};fixtureAccount=user;}settingsDirty=true;return savePreferences();};
  for(const button of root.querySelectorAll('[data-theme-choice]'))button.addEventListener('click',()=>choose({theme:button.dataset.themeChoice}),{signal});
+ root.querySelector('[data-open-dice-themes]').addEventListener('click',async()=>{const {openDiceThemes}=await import('../ui/dice-theme-picker.mjs');void openDiceThemes({onChoose:async patch=>{await choose(patch);if(settingsDirty)throw Error('Preference save failed.');}});},{signal});
  dice.addEventListener('change',()=>choose({dicePopup:dice.checked}),{signal});
  splash.addEventListener('change',()=>choose({splashCursor:splash.checked}),{signal});pauseStars.addEventListener('change',()=>choose({pauseStars:pauseStars.checked}),{signal});colors.addEventListener('change',()=>choose({effectColors:colors.checked}),{signal});retry.addEventListener('click',()=>void savePreferences(),{signal});
  name.addEventListener('blur',async()=>{

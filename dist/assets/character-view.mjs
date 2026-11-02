@@ -62,7 +62,7 @@ export function characterLevelSummary(data={}){
  return {classes,totalLevel:total};
 }
 export function renderSheet(character,page){return renderSheetFrame(character,({'sheet-inventory':'items','sheet-abilities':'abilities'}[page]||'overview'));}
-async function processPicture(file){
+export async function processPicture(file){
  if(!file||!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>3000000)throw Error('Choose a JPG, PNG or WebP under 3 MB.');
  const bitmap=await createImageBitmap(file);
  try{

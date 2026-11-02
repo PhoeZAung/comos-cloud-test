@@ -4,6 +4,7 @@ let cleanup=()=>{};
 let routeGeneration=0;
 const live=document.body.dataset.mode==='live';
 async function mountPage() {
+  document.dispatchEvent(new Event('comos:route'));
   const generation=++routeGeneration;
   if(live)setSessionUser(sessionUser);
   const id=document.body.dataset.page;

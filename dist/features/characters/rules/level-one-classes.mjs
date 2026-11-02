@@ -1,0 +1,71 @@
+import {isSheetFamily,sheetFamilyClasses,sheetFamilyArchetype,sheetFamilyPreview,sheetFamilyIssues,sheetFamilyCounter,sheetFamilyFeatures} from './sheet-family-progression.mjs';
+import {redMageCounter,redMageArchetype} from './red-mage-level-one.mjs';
+import {DOOM_SLAYER_ID,GUNBREAKER_ID,martialDefinition,martialArchetype,supportsMartialProgression,martialChoicePools,martialSelectedFeatures,martialProgressionIssues,martialCounter} from './martial-progression.mjs';
+import {classCatalog} from './class-catalog.mjs';
+import {BEASTMASTER_ID,isBeastmaster,beastmasterClass,beastmasterFeatures,beastmasterIssues} from './beastmaster-level-one.mjs';
+
+export const CHOCOBO_KNIGHT_ID='ffd20:class:chocobo-knight';
+export const DANCER_ID='ffd20:class:dancer';
+export const MONK_ID='ffd20:class:monk';
+export const KNIGHT_ID='ffd20:class:knight';
+export const DRAGOON_ID='ffd20:class:dragoon';
+export const FELL_RIDER_ID='ffd20:archetype:chocobo-knight:fell-rider';
+export const DEADLY_LANCER_ID='ffd20:archetype:chocobo-knight:deadly-lancer';
+export const MOG_KNIGHT_ID='ffd20:archetype:chocobo-knight:mog-knight';
+export const isLevelOneClass=b=>isSheetFamily(b)||[CHOCOBO_KNIGHT_ID,DANCER_ID,GUNBREAKER_ID,DRAGOON_ID,KNIGHT_ID,MONK_ID,BEASTMASTER_ID].includes(b?.classId);
+export const levelOneClasses=[...classCatalog.classes.filter(c=>['martial-level-one','martial-progression','sheet-family-progression'].includes(c.adapter)).map(c=>({
+ ...c,resources:[],choicePools:c.data.choicePools||[],sources:c.sources,data:c.data
+})),...(beastmasterClass?[beastmasterClass]:[])];
+export const mogKnight=classCatalog.archetypeRecords.find(a=>a.id===MOG_KNIGHT_ID&&a.adapter==='martial-progression');
+
+export const deadlyLancer=classCatalog.archetypeRecords.find(a=>a.id===DEADLY_LANCER_ID&&a.adapter==='deadly-lancer-level-one');
+export const fellRider=classCatalog.archetypeRecords.find(a=>a.id===FELL_RIDER_ID&&a.adapter==='fell-rider-level-one');
+export const levelOneArchetype=b=>sheetFamilyArchetype(b)||redMageArchetype(b)||martialArchetype(b)||(b.classId===CHOCOBO_KNIGHT_ID?[mogKnight,deadlyLancer,fellRider].find(a=>a?.id===b.archetypeId&&(!a.data.requiredRaceId||a.data.requiredRaceId===b.raceId)):null);
+
+export function levelOneFeatures(b){
+ if(isBeastmaster(b))return beastmasterFeatures(b);
+ const c=levelOneClasses.find(c=>c.id===b.classId);
+ if(!c)return [];
+ let features=c.features.filter(f=>f.atLevel<=Math.max(1,b.level));
+ const archetype=levelOneArchetype(b);
+ if(archetype){
+  const removed=new Set(archetype.data.replacements.filter(r=>r.atClassLevel<=b.level&&r.resolution==='resolved').flatMap(r=>r.targetFeatureIds));
+  features=[...features.filter(f=>!removed.has(f.id)),...archetype.data.features.filter(f=>f.atLevel<=b.level)];
+ }
+ return [...features.map(f=>{const state=(c.upgrades||[]).filter(u=>u.featureId===f.id&&u.atClassLevel<=b.level).reduce((state,u)=>({...state,...u.changes}),{...(f.initialState||{})});return {...f,state,description:(b.level>1&&f.progressionDescription?f.progressionDescription:f.description)+(b.level>1&&Object.keys(state).length?'\nCurrent at level '+b.level+': '+Object.entries(state).map(([key,value])=>key+' = '+value).join('; ')+'.':'')};}),...martialSelectedFeatures(b)];
+}
+
+export const levelOneExtraHp=(b,scores)=>b?.classId===MONK_ID&&(!isSheetFamily(b)||sheetFamilyFeatures(b,scores).some(f=>f.id===MONK_ID+':feature:bodybuilding'))?Math.max(0,Math.floor((Number(scores.con)-10)/2))*b.level:0;
+
+export function levelOnePreview(b,{scores,race,racial,hpRolls}){
+ if(isSheetFamily(b))return sheetFamilyPreview(b,{scores,race,racial,hpRolls});
+ const c=levelOneClasses.find(c=>c.id===b.classId),row=c.data.levels[Math.max(0,Math.min(19,b.level-1))];
+ const mod=n=>Math.floor((n-10)/2);
+ return {scores,race,racial,features:levelOneFeatures(b),
+  summary:{bab:row.bab,fort:row.fort,ref:row.ref,will:row.will,baseMp:0,bonusMp:0,mp:0,spellLevel:0,skillPerLevel:Math.max(1,4+mod(scores.int))},
+  hp:hpRolls.reduce((sum,n)=>sum+Math.max(1,n+mod(scores.con)),0)+levelOneExtraHp(b,scores),skillBudget:Math.max(1,4+mod(scores.int))*b.level};
+}
+
+export const levelOneCounter=(b,feature,scores)=>sheetFamilyCounter(b,feature,scores)||redMageCounter(b,feature,scores)||martialCounter(b,feature,scores)||(b.classId===KNIGHT_ID&&feature.id===KNIGHT_ID+':feature:defensive-stance'?{maximum:Math.max(0,4+Math.floor((scores.con-10)/2))}:null);
+
+export function levelOneIssues(b,{complete=true,scores,race,racial}={}){
+ if(isSheetFamily(b))return sheetFamilyIssues(b,{complete,scores,race,racial});
+ if(isBeastmaster(b))return beastmasterIssues(b,{complete});
+ if(supportsMartialProgression(b))return martialProgressionIssues(b,{complete});
+ const issues=[],add=(step,message)=>issues.push({step,message});
+ const c=levelOneClasses.find(c=>c.id===b.classId);
+ if(b.level!==1)add(3,c.name+' currently supports level-1 testing only. Later-level choices and progression are not enabled.');
+ if(b.classId===KNIGHT_ID&&!['Lawful Good','Lawful Neutral','Lawful Evil'].includes(b.alignment))add(3,'Knight requires a lawful alignment. Choose it under Identity.');
+ if(b.carry)add(3,'Multiclassing is not implemented for '+c.name+'.');
+ if(b.archetypeId&&!levelOneArchetype(b))add(3,b.classId===GUNBREAKER_ID?'This archetype is not enabled or does not match Gunbreaker.':'Mog Knight requires both the Moogle race and Chocobo Knight class. Other archetypes are not enabled.');
+ if(b.spellIds?.length||b.initialIntMod!==null&&b.initialIntMod!==undefined)add(5,c.name+' does not learn Black Mage spells or obtain an MP pool.');
+ if(Object.keys(b.choices||{}).length)add(4,'No class talent choices are granted at level 1 for '+c.name+'.');
+ if(complete){
+  if(JSON.stringify(b.hpRolls)!==JSON.stringify([c.data.hitDie]))add(4,c.name+' starts with '+c.data.hitDie+' base HP before Constitution.');
+  if(b.favored?.length)add(4,'Favored-class rewards remain manual for this first-level integration.');
+  if(!b.reviewed)add(6,'Review the character and its manual conditional rules before saving.');
+ }
+ return issues;
+}
+
+export {GUNBREAKER_ID,DOOM_SLAYER_ID};

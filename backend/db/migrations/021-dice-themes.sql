@@ -1,0 +1,1 @@
+ALTER TABLE user_preferences ADD COLUMN dice_theme TEXT NOT NULL DEFAULT 'classic' CHECK(dice_theme IN ('classic','default','blueGreenMetal','diceOfRolling','gemstone','gemstoneMarble','rock','rust','smooth','wooden'));

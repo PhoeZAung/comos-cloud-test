@@ -8,6 +8,8 @@ import { publicAuthConfig, liveAuthPolicy } from './auth-build-config.mjs';
 const root=new URL('../',import.meta.url);
 if(process.argv.length!==3)throw new Error('Usage: npm run build:live -- /absolute/path/public-auth.json');
 const config=publicAuthConfig(JSON.parse(await readFile(process.argv[2],'utf8')));
+const localDevelopment=process.env.COMOS_LOCAL_DEVELOPMENT==='1';
+if(localDevelopment && config.origin!=='https://localhost:4175')throw new Error('Local development requires https://localhost:4175.');
 // Stage all output before replacing dist-live; never overwrite the portable dist preview.
 const output=await mkdtemp(new URL('.auth-build-',root));
 try {
@@ -15,6 +17,7 @@ try {
 
  await cp(new URL('dist/assets/',root),output+'/assets',{recursive:true});
  await cp(new URL('dist/features/',root),output+'/features',{recursive:true});
+ await cp(new URL('dist/account/',root),output+'/account',{recursive:true});
  await build({entryPoints:[fileURLToPath(new URL('src/auth/live.mjs',root))],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:output+'/assets/auth.js',define:{COMOS_PUBLIC_AUTH:JSON.stringify(config)}});
  const policy=liveAuthPolicy(config);
  // assets/routes exists in the copied portable build.
@@ -25,6 +28,7 @@ try {
   if(['signin','signup'].includes(page.id))page.content=authContent(page.id,{live:true});
   if(page.id==='account')page.content='<section class="page-heading"><h1>Account</h1></section><section class="auth-card"><div data-entry><a class="button primary" href="signin.html">Sign in</a></div>'+profileContent({live:true})+'<p class="auth-status" data-page-status role="status" tabindex="-1"></p><button class="button" data-retry hidden>Retry connection</button></section>'+accountEditor().replace('</section><section class="account-section"><h2>Theme</h2>',sessionContent({account:true})+'</section><section class="account-section"><h2>Theme</h2>');
   page.content=page.content.replaceAll('data-admin-entry','data-admin-entry hidden');
+  if(localDevelopment)page.content='<p class="auth-notice">Local development · Characters and changes are saved only on this PC.</p>'+page.content.replaceAll('Sign out on all devices','Sign out of local session');
 
   await writeFile(output+'/assets/routes/'+page.id+'.mjs', 'export default '+JSON.stringify(routeView(page))+';\n');
   await writeFile(output+'/'+page.id+'.html',renderPage(page,{policy,live:true,scripts:['assets/shell.mjs']}));

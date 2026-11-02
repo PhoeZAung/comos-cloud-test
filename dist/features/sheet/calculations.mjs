@@ -1,3 +1,4 @@
+import {isLimitBreak,limitBreakState} from './limit-breaks.mjs';
 import {spellMpAmount} from './spell-mp.mjs';
 import {abilities,number,sheetStats} from './model.mjs';
 import {characterClasses,totalClassLevel} from '../characters/ffd20.mjs';
@@ -13,19 +14,21 @@ export function arithmetic(source,values={}){
 }
 export function context(data,row={}){
  const classes=characterClasses(data).filter(c=>c.name),s=sheetStats(data),source=String(row.sourceClass||row.sourceName||'').toLowerCase(),match=classes.find(c=>c.name.toLowerCase()===source);
- const cl=row.caster_level!==undefined&&row.caster_level!==''?number(row.caster_level):match?number(match.level):classes.length===1?number(classes[0].level):undefined;
+ const profile=(data.castingProfiles||[]).find(p=>source?p.className?.toLowerCase()===source:classes.length===1&&p.className?.toLowerCase()===classes[0].name.toLowerCase());
+ const cl=profile?number(profile.casterLevel):row.caster_level!==undefined&&row.caster_level!==''?number(row.caster_level):match?number(match.level):classes.length===1?number(classes[0].level):undefined;
  return {...Object.fromEntries(abilities.map(k=>[k.toUpperCase(),data[k]===undefined||data[k]===null||data[k]===''?undefined:s.mods[k]])),LEVEL:totalClassLevel(classes)||number(data.character_level||data.level)||1,CL:cl};
 }
 export function spellLevel(value){if(value===0||/^(?:0|cantrip)$/i.test(String(value).trim()))return 0;const m=/^(\d)(?:st|nd|rd|th)?$/i.exec(String(value).trim());return m?Number(m[1]):null;}
 export function entryCalculations(row,data,key){
- const s=sheetStats(data),ctx=context(data,row),spell=key==='spells',level=spellLevel(row.lvl),stat=abilities.includes(row.casting_ability)?row.casting_ability:abilities.includes(data.spell_dc_base)?data.spell_dc_base:'int';
+ const s=sheetStats(data),ctx=context(data,row),spell=key==='spells',level=spellLevel(row.lvl),profile=(data.castingProfiles||[]).find(p=>p.className?.toLowerCase()===String(row.sourceClass||row.sourceName||'').toLowerCase()),stat=abilities.includes(row.casting_ability)?row.casting_ability:abilities.includes(profile?.ability)?profile.ability:abilities.includes(data.spell_dc_base)?data.spell_dc_base:'int';
  const raw=String(row.attack_type||'').toLowerCase().trim().replace(/[ -]+/g,'_');const modes={melee:s.melee,ranged:s.ranged,touch:s.touchAttack,ranged_touch:s.rangedTouch,cmb:s.cmb};
  const attack=Object.hasOwn(modes,raw)?{mode:raw,bonus:modes[raw]+number(row.attack_misc)}:null;
  const dc=spell&&level!==null&&ctx[stat.toUpperCase()]!==undefined?10+level+s.mods[stat]+number(row.dc_misc):row.dc_formula?arithmetic(row.dc_formula,ctx):null;
  const mp=spell&&level!==null?spellMpAmount(row,level):null;
  let range=String(row.range||'');if(ctx.CL!==undefined){if(/^close\b/i.test(range))range=(25+5*Math.floor(ctx.CL/2))+' ft';else if(/^medium\b/i.test(range))range=(100+10*ctx.CL)+' ft';else if(/^long\b/i.test(range))range=(400+40*ctx.CL)+' ft';}
  const maxUses=row.uses_formula?Math.max(0,number(row.uses_min),arithmetic(row.uses_formula,ctx)):Math.max(0,number(row.u_max));
- return {ctx,level,stat,dc,mp,attack,range,maxUses,currentUses:row.u_curr===undefined?maxUses:Math.min(maxUses,Math.max(0,number(row.u_curr))),concentration:ctx.CL===undefined||ctx[stat.toUpperCase()]===undefined?null:ctx.CL+s.mods[stat]};
+ const limit=isLimitBreak(row)?limitBreakState(data):null;
+ return {ctx,level,stat,dc,mp,attack,range,maxUses:limit?.max??maxUses,currentUses:limit?.current??(row.u_curr===undefined?maxUses:Math.min(maxUses,Math.max(0,number(row.u_curr)))),limit,dispel:ctx.CL??null,dispelDC:ctx.CL===undefined?null:11+ctx.CL,concentration:ctx.CL===undefined||ctx[stat.toUpperCase()]===undefined?null:ctx.CL+s.mods[stat]};
 }
 // Explicit formulas only: e.g. {CL}d6 + {INT}, or ({CL}/2)d6 + 1d4 fire.
 export function damageExpression(source,values={}){
@@ -36,4 +39,10 @@ export function damageExpression(source,values={}){
 export function diceTerms(source){
  if(typeof source!=='string'||source.length>500)throw Error('Invalid dice expression.');const text=source.replaceAll('−','-').trim(),parts=text.match(/[+-]?[^+-]+/g)||[];if(!parts.length||parts.length>16||parts.join('')!==text)throw Error('Invalid dice expression.');let dice=0;
  const terms=parts.map(part=>{const sign=part.trim().startsWith('-')?-1:1,body=part.trim().replace(/^[+-]\s*/,'');let m=/^(\d*)d(\d+)(?:\s+([a-z][a-z /]*))?$/i.exec(body);if(m){const count=Number(m[1]||1),sides=Number(m[2]);dice+=count;if(count<1||dice>50||sides<2||sides>1000)throw Error('Use at most 50 dice, with 2–1,000 sides.');return {sign,count,sides,type:m[3]||''};}m=/^(\d+)(?:\s+([a-z][a-z /]*))?$/i.exec(body);if(!m||Number(m[1])>1000000)throw Error('Invalid dice term.');return {sign,flat:Number(m[1]),type:m[2]||''};});if(!dice)throw Error('A roll needs at least one die.');return terms;
+}
+
+export function maximumSpellLevel(data){
+ const classes=characterClasses(data).filter(c=>c.name),profiles=data.castingProfiles||[];
+ const levels=classes.map(c=>{const p=profiles.find(p=>p.className?.toLowerCase()===c.name.toLowerCase());if(p)return p.mode==='none'?0:Number.isInteger(p.highestSpellLevel)?p.highestSpellLevel:null;if(/^black mage$/i.test(c.name)&&!c.archetype)return Math.min(9,Math.ceil(c.level/2));return null;});
+ const known=levels.filter(n=>n!==null);return known.length?Math.max(...known):null;
 }

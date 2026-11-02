@@ -20,7 +20,7 @@ function openDb(){
   req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'key'});};
   req.onsuccess=()=>resolve(req.result);
   req.onerror=()=>reject(req.error||Error('Draft storage is unavailable.'));
-  req.onblocked=()=>reject(Error('Close other Comos tabs to enable draft storage.'));
+  req.onblocked=()=>reject(Error('Close other Cosmos tabs to enable draft storage.'));
  });
 }
 async function perform(mode,key,record){

@@ -39,7 +39,7 @@ export function createSessionRoutes({ sessions, origin, throttle = createAuthThr
       } else if (pathname.endsWith('/logout')) {
         await sessions.logout(cookie(req));
         res.setHeader('Set-Cookie', clearCookie);
-        send(200, { signedOut: true, scope: 'all_devices' });
+        send(200, { signedOut: true, scope: sessions.logoutScope || 'all_devices' });
       } else {
         let data;
         try { data = await body(req); } catch { send(400, { error: 'invalid_request' }); return true; }

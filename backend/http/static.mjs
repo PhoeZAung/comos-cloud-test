@@ -19,7 +19,8 @@ export async function createStaticHandler(directory) {
       if (name.includes('\\') || name.split('/').some(part => part.startsWith('.'))) throw new Error('Invalid path');
       const target = await realpath(path.resolve(root, '.' + name));
       const relative = path.relative(root, target);
-      const type = types[path.extname(target)];
+      const ext=path.extname(target);
+      const type = types[ext] || (relative.startsWith('assets'+path.sep+'dice-box'+path.sep)?({'.json':'application/json','.wasm':'application/wasm','.jpg':'image/jpeg','.jpeg':'image/jpeg'}[ext]):null);
       if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !type || !(await stat(target)).isFile()) throw new Error('Not public');
       res.setHeader('Content-Security-Policy', relative.startsWith('preview' + path.sep) ? previewPolicy : liveHeaders['Content-Security-Policy']);
       const body = await readFile(target);

@@ -37,7 +37,7 @@ export function authConfiguration(env = process.env) {
   return { projectId, origin };
 }
 
-export async function initializeAuthentication({ db, mediaRoot, env = process.env }) {
+export async function initializeAuthentication({ db, mediaRoot, env = process.env, logoutScope = 'all_devices' }) {
   const config = authConfiguration(env);
   if (!config) return { sessionRoutes: null, accountRoutes:null, close: async () => {} };
   const [{ initializeApp, applicationDefault, cert, deleteApp }, { getAuth }] = await Promise.all([
@@ -55,7 +55,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
   const app = initializeApp({ credential, projectId: config.projectId }, 'comos-auth');
   try {
     await importDirectory({db,auth:getAuth(app),projectId:config.projectId,env});
-    const sessions = createSessionService({ db, auth: getAuth(app), projectId: config.projectId });
+    const sessions = createSessionService({ db, auth: getAuth(app), projectId: config.projectId, logoutScope });
     const accountRoutes=mediaRoot?createAccountRoutes({sessions,origin:config.origin,account:createAccountService({db,files:await createFileStore(mediaRoot)})}):null;
     const firebaseAuth=getAuth(app);
     const administrators=await resolveAdministrators({db,auth:firebaseAuth,projectId:config.projectId,env});

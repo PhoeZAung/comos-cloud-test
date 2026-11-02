@@ -29,7 +29,7 @@ export function mountCompose({fixture=false}={}) {
       if(!res.ok)throw new Error('Could not verify admin access. Refresh this page to retry.');
       const payload=await res.json();
       allowed=payload.admin===true;
-      message(allowed?'Ready to publish to everyone on Comos.':'Only the Comos administrator can create posts. You can still reply to posts.');
+      message(allowed?'Ready to publish to everyone on Cosmos.':'Only the Cosmos administrator can create posts. You can still reply to posts.');
     }catch(error){if(!controller.signal.aborted)message('Could not verify admin access. Refresh this page to retry.');}
     finally{paint();}
   }
