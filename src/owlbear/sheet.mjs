@@ -1,0 +1,33 @@
+import {peer} from './rpc.mjs';
+import {requestSheetDice} from './rolls.mjs';
+const nativeFetch=window.fetch.bind(window),nonce=location.hash.slice(1);let connection,character;
+const connected=new Promise(resolve=>{
+ window.addEventListener('message',function receive(event){
+  if(event.origin!==location.origin||event.source!==parent||event.data?.type!=='cosmos:sheet-port'||event.data.nonce!==nonce||!event.ports[0])return;
+  connection=peer(event.ports[0],()=>{throw Error('Unsupported request.');});window.removeEventListener('message',receive);resolve();
+ });
+});
+window.fetch=async(input,options={})=>{
+ const url=new URL(typeof input==='string'?input:input.url,location.href);
+ if(url.origin!==location.origin||!url.pathname.startsWith('/api/'))return nativeFetch(input,options);
+ await connected;
+ const method=options.method||'GET',body=options.body?JSON.parse(options.body):undefined;
+ if(body?.op==='roll'&&body.mode!=='send'){
+  if(!character)throw Error('Reload your character before rolling.');
+  body.owlbearRolls=await requestSheetDice(character,body,notation=>connection.call('dice',{notation},100000));
+ }
+ const result=await connection.call('api',{path:url.pathname+url.search,method,body},30000);
+ if(result.data?.character)character=result.data.character;
+ return new Response(JSON.stringify(result.data),{status:result.status,headers:{'Content-Type':'application/json'}});
+};
+document.addEventListener('click',event=>{
+ const link=event.target.closest('a[href]');if(!link)return;const url=new URL(link.href);
+ if(url.origin!==location.origin)return;
+ event.preventDefault();
+ if(url.pathname==='/characters.html')parent.postMessage({type:'cosmos:back'},location.origin);
+ else window.open(url.href,'_blank','noopener');
+},true);
+parent.postMessage({type:'cosmos:sheet-ready',nonce},location.origin);
+await connected;
+await import(new URL('/assets/sheet-entry.mjs',location.origin).href);
+window.addEventListener('pagehide',()=>connection?.close(),{once:true});

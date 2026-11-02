@@ -1,3 +1,4 @@
+import {externalRollSource} from './external-rolls.mjs';
 import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gunbreaker-ammo.mjs';
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
@@ -59,9 +60,15 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  const label=entry?String(row.name||'Weapon').slice(0,120):change.label;
  const last=db.prepare('SELECT created_at FROM sheet_rolls WHERE user_id=? ORDER BY created_at DESC LIMIT 1').get(userId);if(last&&Date.now()-last.created_at<1500)throw Error('Wait a moment before rolling again.');
  if(ability&&mode!=='send'&&isLimitBreak(row)){const gate=limitBreakState(character.data);if(!gate.allowed)throw Error(gate.reason);}
+ const external=change.owlbearRolls===undefined?null:externalRollSource(change.owlbearRolls);
+ const diceRoll=external?expression=>external.roll(expression):serverRoll;
+ const weaponDice=external?(row,data)=>weaponRoll(row,data,diceRoll):makeWeaponRoll;
+ const spellDice=external?(row,data)=>spellRoll(row,data,diceRoll):makeSpellRoll;
+ const abilityDice=external?(row,data,key)=>abilityRoll(row,data,key,diceRoll):makeAbilityRoll;
  let updated=null;
  const descriptionOnly=entry&&(mode==='send'||mode==='use'&&!String(row.damage||row.dmg||'').trim());
- const roll=descriptionOnly?{kind:change.kind,description:String(row.desc||''),descriptionOnly:true,expression:'description',rolls:[],bonus:0,total:0,...(weapon?{weaponName:label}:spell?{spellName:label}:{abilityName:label})}:weapon?makeWeaponRoll(row,character.data):spell?makeSpellRoll(row,character.data):ability?makeAbilityRoll(row,character.data,change.collection):serverRoll(expression),delivery=change.discord?'pending':'off';
+ const roll=descriptionOnly?{kind:change.kind,description:String(row.desc||''),descriptionOnly:true,expression:'description',rolls:[],bonus:0,total:0,...(weapon?{weaponName:label}:spell?{spellName:label}:{abilityName:label})}:weapon?weaponDice(row,character.data):spell?spellDice(row,character.data):ability?abilityDice(row,character.data,change.collection):diceRoll(expression),delivery=change.discord?'pending':'off';
+ if(external){external.finish();roll.provider='owlbear-dice-plus';}
  if(mode==='use'&&roll.damageError)throw Error(roll.damageError);
  if(spell&&mode==='use'){
   const calculation=entryCalculations(row,character.data,'spells'),level=calculation.mp;if(calculation.level===null)throw Error('Set the spell level before using it.');
@@ -78,7 +85,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
  }catch(error){db.exec('ROLLBACK');throw error;}
  if(!change.discord)return {roll,discord:'off'};
  const safe=s=>String(s).replaceAll('@','＠');
- const lines=['🎲 '+safe(character.name)+' — '+safe(label)];
+ const lines=['🎲 '+safe(character.name)+' — '+safe(label)];if(external)lines.push('Dice+ client roll');
  if(descriptionOnly){
   if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');
   if(roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');
