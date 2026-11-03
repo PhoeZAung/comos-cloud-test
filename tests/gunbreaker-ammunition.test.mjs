@@ -70,7 +70,7 @@ test('forged capacities, counts, tier costs and direct counter edits are rejecte
 test('sheet controls expose the selected capacity, tracker actions and manual boundaries',()=>{
  const plain=fixture();assert.match(renderGunbreakerAmmo(plain),/data-ammo-profile/);assert.match(renderGunbreakerAmmo(plain),/Configuration starts empty/);
  const d=change(configure(fixture(19,true),'Doom Gun Arm — Chaingun'),'reload');const panel=renderGunbreakerAmmo(d);assert.match(panel,/30 \/ 30/);assert.match(panel,/Level 19\+/);for(const op of ['configure','reload','infuse','fire','blast-shield','brutal-shell','clear'])assert(panel.includes('data-ammo-operation="'+op+'"'));
- assert.match(renderSection({data:d},'abilities'),/Gun arm ammunition/);assert.match(renderSection({data:d},'combat',{combatView:'offense'}),/Gun arm ammunition/);
+ assert.doesNotMatch(renderSection({data:d},'abilities'),/Gun arm ammunition/);assert.doesNotMatch(renderSection({data:d},'combat',{combatView:'offense'}),/Gun arm ammunition/);
  assert.match(formatRoll('Blast Shield',{kind:'ability',abilityName:'Blast Shield',descriptionOnly:true,remainingInfusedAmmo:1,description:'Shield'}),/1 infused rounds remaining/);
 });
 test('SQLite routes preserve magazines on reopen and reject stale or forged changes without spending',async()=>{
