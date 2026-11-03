@@ -1,3 +1,4 @@
+import {tagChoices} from '../tag-groups.mjs';
 // Lore discovery UI. Entries must already be authorized by the future Lore API.
 // The tag selector is backed by active tags on the signed-in player's characters.
 const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -60,15 +61,11 @@ export function renderLoreLibrary({entries=[],availableTags=[],selectedTags=[],q
       '<input id="comos-lore-query" name="query" type="search" maxlength="120" placeholder="Search lore" value="'+esc(query)+'" autocomplete="off">'+
     '</form>'+
     '<dialog class="comos-lore-popup" data-lore-tags-dialog aria-label="Filter by tags">'+
-      '<div class="comos-lore-popup-heading"><h2>Character tags</h2><button type="button" class="comos-lore-popup-close" data-lore-close="tags" aria-label="Close tags">×</button></div>'+
+      '<div class="comos-lore-popup-heading"><h2>Tags</h2><button type="button" class="comos-lore-popup-close" data-lore-close="tags" aria-label="Close tags">×</button></div>'+
       '<fieldset><legend class="sr-only">Your characters’ tags</legend>'+
-      (tagState==='loading'?'<p role="status">Loading your character tags…</p>':
-       tagState==='error'?'<p role="status">Could not load character tags. Reopen the tag filter to retry.</p>':
-       eligible.length?'<div class="comos-lore-tag-options">'+eligible.map(tag=>
-        '<label class="comos-lore-tag-choice"><input type="checkbox" data-lore-tag value="'+esc(tag.id)+'" '+(selected.includes(tag.id)?'checked':'')+'><span>'+esc(tag.name)+'</span></label>'
-       ).join('')+'</div>':
-       '<p role="status">No tags are attached to your characters yet.</p>')+
-      '<small>Only tags on your characters are available.</small></fieldset>'+
+      (tagState==='loading'?'<p role="status">Loading tags…</p>':
+       tagState==='error'?'<p role="status">Could not load tags.</p>':
+       tagChoices(eligible,{selected}))+ '</fieldset>'+
     '</dialog>'+
     '<dialog class="comos-lore-popup" data-lore-sort-dialog aria-label="Sort Lore">'+
       '<div class="comos-lore-popup-heading"><h2>Sort Lore</h2><button type="button" class="comos-lore-popup-close" data-lore-close="sort" aria-label="Close sorting">×</button></div>'+

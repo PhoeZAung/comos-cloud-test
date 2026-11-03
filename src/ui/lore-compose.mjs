@@ -1,3 +1,4 @@
+import {tagChoices} from '../features/tag-groups.mjs';
 import {recordId} from './record-id.mjs';
 import {installLoreDrafts} from './lore-draft-controller.mjs';
 
@@ -67,21 +68,13 @@ export function mountLoreCompose({fixture=false}={}){
    });
  }
  function paintTags(){
-   chips.replaceChildren();options.replaceChildren();
-   for(const tag of tags){
-     const label=document.createElement('label');label.className='comos-lore-tag-choice';
-     const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.dataset.loreComposerTag='';checkbox.value=tag.id;checkbox.checked=selected.includes(tag.id);checkbox.disabled=busy;
-     const span=document.createElement('span');span.textContent=tag.name;
-     label.append(checkbox,span);options.append(label);
-     if(checkbox.checked){
-       const chip=document.createElement('span');chip.className='comos-lore-selected-tag';
-       const name=document.createElement('span');name.textContent=tag.name;
-       const remove=button('×','removeLoreTag','Remove tag '+tag.name);remove.dataset.removeLoreTag=tag.id;remove.disabled=busy;
-       chip.append(name,remove);chips.append(chip);
-     }
-   }
-   if(!tags.length){
-     const p=document.createElement('p');p.role='status';p.textContent=ready?'No tags assigned to your characters yet.':'Loading your character tags…';options.append(p);
+   chips.replaceChildren();options.innerHTML=tagChoices(tags,{selected,attribute:'data-lore-composer-tag'});
+   for(const node of options.querySelectorAll('input'))node.disabled=busy;
+   for(const tag of tags.filter(tag=>selected.includes(tag.id))){
+     const chip=document.createElement('span');chip.className='comos-lore-selected-tag';
+     const name=document.createElement('span');name.textContent=tag.name;
+     const remove=button('×','removeLoreTag','Remove tag '+tag.name);remove.dataset.removeLoreTag=tag.id;remove.disabled=busy;
+     chip.append(name,remove);chips.append(chip);
    }
    tagCount.textContent=String(selected.length);tagCount.hidden=selected.length===0;
    root.querySelector('[data-lore-open-tags]').disabled=busy;

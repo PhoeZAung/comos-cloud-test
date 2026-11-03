@@ -59,7 +59,7 @@ export function createLoreService(db,{now=()=>new Date().toISOString(),ids=rando
  const imageOwned=db.prepare('SELECT 1 FROM lore_images m WHERE m.id=? AND m.owner_id=? AND NOT EXISTS(SELECT 1 FROM lore_entry_images e WHERE e.image_id=m.id)');
  const linkedHere=db.prepare('SELECT 1 FROM lore_entry_images WHERE entry_id=? AND image_id=?');
  const read=db.prepare('SELECT l.id,l.title,l.body AS text,l.blocks_json AS blocksJson,l.author_id AS authorId,u.display_name AS authorName,l.created_at AS createdAt,l.updated_at AS updatedAt FROM lore_entries l JOIN users u ON u.id=l.author_id WHERE l.id=?');
- const tags=db.prepare('SELECT t.id,t.name FROM lore_entry_tags l JOIN character_tags t ON t.id=l.tag_id WHERE l.entry_id=? ORDER BY t.name COLLATE NOCASE,t.id');
+ const tags=db.prepare('SELECT t.id,t.name,t.kind FROM lore_entry_tags l JOIN character_tags t ON t.id=l.tag_id WHERE l.entry_id=? ORDER BY t.name COLLATE NOCASE,t.id');
  function blocksFor(row){
   let parsed=[];try{parsed=JSON.parse(row.blocksJson||'[]');}catch{}
   return Array.isArray(parsed)&&parsed.length?parsed.map(b=>b.type==='image'?{type:'image',url:'/api/v1/lore-images/'+encodeURIComponent(b.mediaId),alt:b.alt||'',mediaId:b.mediaId}:{type:'text',text:b.text||''}):[{type:'text',text:row.text}];

@@ -108,3 +108,7 @@ the motion is implemented and tuned separately for Cosmos.
 Standalone sheets now initialize shared galaxy/splash effects lazily, respecting
 Pause stars, Splash cursor, site colors, and reduced motion. Sheet effects use
 lighter rendering settings and release their contexts/listeners on navigation.
+
+World/Party tags, the party-grouped Admin view, and live party notes are described
+in [WORLD-PARTY-TAGS.md](WORLD-PARTY-TAGS.md). Migration 024 adds storage for those
+features; it is applied locally after a private consistent SQLite backup.

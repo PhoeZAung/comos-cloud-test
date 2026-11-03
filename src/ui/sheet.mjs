@@ -74,7 +74,7 @@ export function openCharacterSheetPopup(url,characterId,{display=window.screen,o
 export function mountSheet(){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
  const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=!document.body.hasAttribute('data-owlbear-sheet'),stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
- let showStars=false,disposeSettings;
+ let showStars=false,disposeSettings,disposePartyNotes,notesGeneration=0;let notesTab=new URL(location.href).searchParams.get('notesTab')||'personal';
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';
  let lastFightSection=['combat','abilities','spells'].includes(section)?section:'combat';
@@ -94,10 +94,10 @@ export function mountSheet(){
   const res=await fetch(endpoint+(revision!==undefined?'?revision='+revision:''),{signal:body?control.signal:AbortSignal.any([control.signal,AbortSignal.timeout(15000)]),credentials:'same-origin',cache:'no-store',...(body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...body,op:body.op||'sheet',revision:character.revision})}:{})});
   const data=await res.json();if(!res.ok)throw Object.assign(Error(data.message||({401:'Sign in to open this sheet.',404:'Character unavailable.',409:'Changed elsewhere. Copy any unsaved edits, then Refresh.'})[res.status]||'Could not reach the character server.'),{status:res.status});return data;
  }
- function draw(){if(closed)return;disposeSettings?.();if(section==='items'&&itemView==='inventory'){
+ function draw(){if(closed)return;disposeSettings?.();disposePartyNotes?.();disposePartyNotes=undefined;const notesTicket=++notesGeneration;if(!(character.partyTags||[]).some(tag=>tag.id===notesTab))notesTab='personal';if(section==='items'&&itemView==='inventory'){
   const visible=visibleInventoryCategory(inventoryCategoryCounts(character.data.items),itemTag);
   if(visible!==itemTag){itemTag=visible;const url=new URL(location.href);url.searchParams.set('itemTag',visible);history.replaceState(null,'',url);}
- }clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,showStars,discordEnabled});root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);document.title=character.name+' · Cosmos';dirty=false;}
+ }clearTimeout(remainingTimer);pendingRemaining=null;remainingInvalid=false;pendingResourceFields={};root.innerHTML=renderSheetFrame(character,section,{admin,compact,ability,combatView,itemView,itemTag,spellLevel:spellFilter,showStars,discordEnabled,notesTab});root.querySelector('[data-discord-rolls]').checked=discordEnabled;for(const strip of root.querySelectorAll('.item-category-tiles,.cs-spell-levels')){const chosen=strip.querySelector('[aria-pressed=true],[aria-selected=true]');if(chosen)strip.scrollLeft=Math.max(0,chosen.offsetLeft-strip.offsetLeft-(strip.clientWidth-chosen.offsetWidth)/2);}disposeSettings=mountSheetSettings(root);const notesRoot=root.querySelector('[data-party-notes]');if(notesRoot)void import('./party-notes.mjs').then(module=>{if(!closed&&notesTicket===notesGeneration&&notesRoot.isConnected)disposePartyNotes=module.mountPartyNotes(notesRoot,{characterId:id,tagId:notesRoot.dataset.partyNotes});}).catch(()=>{if(notesRoot.isConnected)notesRoot.querySelector('[role=status]').textContent='Could not open party notes.';});document.title=character.name+' · Cosmos';dirty=false;}
  async function save(change,skipPending=false){
   if(!skipPending){if(change.action==='fields')for(const key of Object.keys(change.fields||{}))delete pendingResourceFields[key];if((pendingRemaining||remainingPromise||Object.keys(pendingResourceFields).length)&&!await persistRemaining())return false;}
   if(busy||closed||conflict)return false;setBusy(true);status('Saving…');
@@ -106,7 +106,7 @@ export function mountSheet(){
   finally{if(!closed)setBusy(false);}
  }
  async function refresh(force=false){
-  if(closed||busy||polling||document.hidden||(!force&&(dirty||conflict||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open))))return;
+  if(closed||busy||polling||document.hidden||(!force&&document.activeElement?.matches('[data-party-notes-input]'))||(!force&&(dirty||conflict||(dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open))))return;
   if(force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open)&&!confirm('Discard unsaved edits and load the latest sheet?'))return;
   polling=true;const previousRevision=character?.revision;
   try{const result=await request(null,!force&&character?character.revision:undefined);if(closed||busy||character?.revision!==previousRevision)return;if(!result.unchanged){if(!force&&(dirty||dialog()?.open||equipmentDialog()?.open||itemDescriptionDialog()?.open))return;character=result.character;admin=result.admin===true;conflict=false;draw();}status('Synced'+(admin?' · Admin':''));}
@@ -222,7 +222,7 @@ export function mountSheet(){
     try{
      const result=await request({op:'archive',confirmName:name});
      if(!result.archived)throw Error('The character could not be archived.');
-     closed=true;disposeSettings?.();clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();
+     closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();
      location.assign('characters.html');
     }catch(err){if(!closed)status(err.message);}
     finally{if(!closed)setBusy(false);}
@@ -261,6 +261,11 @@ export function mountSheet(){
   if(button.matches('[data-item-tag]')){itemTag=button.dataset.itemTag;draw();const url=new URL(location.href);url.searchParams.set('itemTag',itemTag);history.replaceState(null,'',url);return;}
   if(button.matches('[data-spell-level]')){selectSpellLevel(button.dataset.spellLevel==='all'?'all':Number(button.dataset.spellLevel));return;}
 
+  if(button.matches('[data-notes-tab]')){
+   if(dirty&&!confirm('Discard unsaved edits?'))return;
+   const next=button.dataset.notesTab;if(next!=='personal'&&!(character.partyTags||[]).some(tag=>tag.id===next))return;
+   notesTab=next;section='notes';draw();const url=new URL(location.href);url.searchParams.set('section','notes');url.searchParams.set('notesTab',notesTab);history.replaceState(null,'',url);return;
+  }
   if(button.matches('[data-sheet-tab]')){
    if((dirty||dialog()?.open)&&!confirm('Discard unsaved edits?'))return;section=button.dataset.sheetTab==='combat'&&button.closest('nav')?.getAttribute('aria-label')==='Character sheet'?lastFightSection:button.dataset.sheetTab;if(['combat','abilities','spells'].includes(section))lastFightSection=section;draw();const url=new URL(location.href);url.searchParams.set('section',section);history.replaceState(null,'',url);return;
   }
@@ -325,5 +330,5 @@ export function mountSheet(){
  window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}},{signal:control.signal});
  root.innerHTML=sheetLoading();
  void request().then(result=>{if(closed)return;character=result.character;admin=result.admin===true;draw();schedule();if(!document.body.hasAttribute('data-owlbear-sheet')&&typeof EventSource!=='undefined'){stream=new EventSource(endpoint+'?stream=1');stream.onmessage=()=>void refresh();}}).catch(err=>{if(!closed){root.innerHTML='<h1>Character sheet</h1><p role="status">'+e(err.name==='TimeoutError'?'The character server took too long to respond. Please retry.':err.message)+'</p><button class="button" type="button" data-retry-sheet>Retry</button><a class="button" href="signin.html">Sign in</a><a class="back" href="characters.html">← Characters</a>';root.querySelector('[data-retry-sheet]').onclick=()=>location.reload();}});
- return ()=>{clearFeedback();closed=true;disposeSettings?.();clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
+ return ()=>{clearFeedback();closed=true;disposeSettings?.();disposePartyNotes?.();notesGeneration++;clearTimeout(timer);clearTimeout(resourceTimer);clearTimeout(remainingTimer);stream?.close();control.abort();document.body.classList.remove('sheet-compact');};
 }

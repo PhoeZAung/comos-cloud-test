@@ -26,7 +26,7 @@ export async function importDirectory({db,auth,projectId,env=process.env}){
    const detail={...c.data};
    if(Array.isArray(detail.group_tags))detail.group_tags=detail.group_tags.filter(name=>typeof name!=='string'||name.trim().toLowerCase()!=='admin');
    db.prepare('INSERT INTO character_details VALUES(?,?,?)').run(id,JSON.stringify(detail),key);
-   for(const label of (Array.isArray(c.data.group_tags)?c.data.group_tags:[])){if(typeof label!=='string'||!label.trim()||label.length>80||label.trim().toLowerCase()==='admin')continue;let tag=db.prepare('SELECT id FROM character_tags WHERE name=? COLLATE NOCASE').get(label.trim());if(!tag){tag={id:randomUUID()};db.prepare('INSERT INTO character_tags VALUES(?,?)').run(tag.id,label.trim());}if(tag.id!==LORE_ADMIN_TAG_ID)db.prepare('INSERT OR IGNORE INTO character_tag_links VALUES(?,?)').run(id,tag.id);}
+   for(const label of (Array.isArray(c.data.group_tags)?c.data.group_tags:[])){if(typeof label!=='string'||!label.trim()||label.length>80||label.trim().toLowerCase()==='admin')continue;let tag=db.prepare('SELECT id FROM character_tags WHERE name=? COLLATE NOCASE').get(label.trim());if(!tag){tag={id:randomUUID()};db.prepare('INSERT INTO character_tags(id,name) VALUES(?,?)').run(tag.id,label.trim());}if(tag.id!==LORE_ADMIN_TAG_ID)db.prepare('INSERT OR IGNORE INTO character_tag_links VALUES(?,?)').run(id,tag.id);}
    imported++;
   }
   db.exec('COMMIT');console.info('Comos directory import: '+live.length+' accounts, '+imported+' new characters.');

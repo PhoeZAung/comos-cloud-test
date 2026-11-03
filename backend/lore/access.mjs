@@ -5,8 +5,8 @@ export function createLoreAccess(db){
  const activeAdmin=db.prepare('SELECT 1 FROM character_tag_links l JOIN characters c ON c.id=l.character_id WHERE c.owner_id=? AND c.archived=0 AND l.tag_id=? LIMIT 1');
  const firstCharacter=db.prepare('SELECT id FROM characters WHERE owner_id=? AND archived=0 ORDER BY created_at,id LIMIT 1');
  const attach=db.prepare('INSERT OR IGNORE INTO character_tag_links(character_id,tag_id) VALUES(?,?)');
- const listTags=db.prepare('SELECT id,name FROM character_tags ORDER BY name COLLATE NOCASE,id');
- const ownTags=db.prepare('SELECT DISTINCT t.id,t.name FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id JOIN characters c ON c.id=l.character_id WHERE c.owner_id=? AND c.archived=0 ORDER BY t.name COLLATE NOCASE,t.id');
+ const listTags=db.prepare('SELECT id,name,kind FROM character_tags ORDER BY name COLLATE NOCASE,id');
+ const ownTags=db.prepare('SELECT DISTINCT t.id,t.name,t.kind FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id JOIN characters c ON c.id=l.character_id WHERE c.owner_id=? AND c.archived=0 ORDER BY t.name COLLATE NOCASE,t.id');
  const tagAllowed=db.prepare('SELECT 1 FROM character_tag_links l JOIN characters c ON c.id=l.character_id WHERE c.owner_id=? AND c.archived=0 AND l.tag_id=? LIMIT 1');
  const tagExists=db.prepare('SELECT 1 FROM character_tags WHERE id=?');
  const exists=db.prepare('SELECT 1 FROM lore_entries WHERE id=?');

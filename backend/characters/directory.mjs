@@ -36,14 +36,31 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    if(path.endsWith('/directory')){
     if(req.method!=='GET'){send(405,{error:'method_not_allowed'});return true;}
     const q=(url.searchParams.get('q')||'').slice(0,80),cursor=(url.searchParams.get('cursor')||'').slice(0,128),ownerId=url.searchParams.get('ownerId');
+    if(url.searchParams.get('groupBy')==='party'){
+     const partyId=url.searchParams.get('partyTagId');
+     if(partyId){
+      const rows=db.prepare("SELECT c.id,c.name,c.revision,json_extract(d.data_json,'$.owlbearStatusVisible') AS owlbearStatusVisible FROM characters c JOIN character_tag_links l ON l.character_id=c.id JOIN character_tags t ON t.id=l.tag_id LEFT JOIN character_details d ON d.character_id=c.id WHERE t.id=? AND t.kind='party' AND c.archived=0 AND c.id>? AND (instr(lower(c.name),lower(?))>0 OR instr(lower(t.name),lower(?))>0) ORDER BY c.id LIMIT 21").all(partyId,cursor,q,q);
+      send(200,{characters:rows.slice(0,20).map(c=>({...c,owlbearStatusVisible:c.owlbearStatusVisible===1,tags:db.prepare('SELECT t.* FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id WHERE l.character_id=?').all(c.id)})),nextCursor:rows.length>20?rows[19].id:null});
+     }else{
+      const rows=db.prepare("SELECT t.id,t.name,(SELECT count(*) FROM character_tag_links l JOIN characters c ON c.id=l.character_id WHERE l.tag_id=t.id AND c.archived=0) AS characterCount FROM character_tags t WHERE t.kind='party' AND t.id>? AND (instr(lower(t.name),lower(?))>0 OR EXISTS(SELECT 1 FROM character_tag_links l JOIN characters c ON c.id=l.character_id WHERE l.tag_id=t.id AND c.archived=0 AND instr(lower(c.name),lower(?))>0)) ORDER BY t.id LIMIT 51").all(cursor,q,q);
+      send(200,{parties:rows.slice(0,50),nextCursor:rows.length>50?rows[49].id:null});
+     }return true;
+    }
     if(ownerId){const rows=db.prepare("SELECT c.id,c.name,c.revision,json_extract(d.data_json,'$.owlbearStatusVisible') AS owlbearStatusVisible FROM characters c JOIN users u ON u.id=c.owner_id LEFT JOIN character_details d ON d.character_id=c.id WHERE c.owner_id=? AND c.archived=0 AND c.id>? AND (instr(lower(c.name),lower(?))>0 OR instr(lower(u.display_name),lower(?))>0) ORDER BY c.id LIMIT 21").all(ownerId,cursor,q,q);send(200,{characters:rows.slice(0,20).map(c=>({...c,owlbearStatusVisible:c.owlbearStatusVisible===1,tags:db.prepare('SELECT t.* FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id WHERE l.character_id=?').all(c.id)})),nextCursor:rows.length>20?rows[19].id:null});}
     else{const rows=db.prepare("SELECT u.id,u.display_name AS displayName,(SELECT count(*) FROM characters c WHERE c.owner_id=u.id AND c.archived=0) AS characterCount FROM users u WHERE u.id>? AND (instr(lower(u.display_name),lower(?))>0 OR EXISTS(SELECT 1 FROM characters c WHERE c.owner_id=u.id AND c.archived=0 AND instr(lower(c.name),lower(?))>0)) ORDER BY u.id LIMIT 51").all(cursor,q,q);send(200,{users:rows.slice(0,50),nextCursor:rows.length>50?rows[49].id:null});}return true;
    }
    if(path.endsWith('/tags')){
-    if(req.method==='POST'){const data=await adminJson(req);if(typeof data.name!=='string'||!data.name.trim()||data.name.length>80||/[\u0000-\u001f]/.test(data.name))throw Error('Use a tag name of 1–80 characters.');if(data.id){
-      if(data.id===LORE_ADMIN_TAG_ID)throw Error('The Admin tag is reserved and cannot be renamed.');
-      if(data.name.trim().toLowerCase()==='admin')throw Error('The Admin tag name is reserved.');
-      const changed=db.prepare('UPDATE character_tags SET name=? WHERE id=?').run(data.name.trim(),data.id);if(!changed.changes)throw Error('Tag not found.');}else {if(data.name.trim().toLowerCase()==='admin')throw Error('The Admin tag is reserved.');db.prepare('INSERT INTO character_tags VALUES(?,?)').run(randomUUID(),data.name.trim());}}
+    if(req.method==='POST'){
+     const data=await adminJson(req);
+     if(!data||Object.keys(data).some(key=>!['name','id','kind'].includes(key))||typeof data.name!=='string'||!data.name.trim()||data.name.length>80||/[\u0000-\u001f]/.test(data.name))throw Error('Use a tag name of 1–80 characters.');
+     if(data.kind!==undefined&&!['world','party'].includes(data.kind))throw Error('Choose World or Party.');
+     if(data.id===LORE_ADMIN_TAG_ID||data.name.trim().toLowerCase()==='admin')throw Error('The Admin tag is reserved.');
+     db.exec('BEGIN IMMEDIATE');try{
+      if(data.id){const changed=db.prepare('UPDATE character_tags SET name=?,kind=COALESCE(?,kind) WHERE id=?').run(data.name.trim(),data.kind??null,data.id);if(!changed.changes)throw Error('Tag not found.');db.prepare('UPDATE characters SET revision=revision+1,updated_at=? WHERE id IN (SELECT character_id FROM character_tag_links WHERE tag_id=?)').run(new Date().toISOString(),data.id);}
+      else db.prepare('INSERT INTO character_tags(id,name,kind) VALUES(?,?,?)').run(randomUUID(),data.name.trim(),data.kind||'party');
+      db.exec('COMMIT');
+     }catch(error){db.exec('ROLLBACK');throw error;}
+    }
     send(200,{tags:tags()});return true;
    }
    const id=path.slice(recordPath.length),c=db.prepare('SELECT * FROM characters WHERE id=?').get(id);
@@ -103,7 +120,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    if(req.method==='POST')publicParty.refresh();
    if(req.method==='POST'&&db.prepare('SELECT archived FROM characters WHERE id=?').get(id)?.archived){send(200,{archived:true,id});return true;}
    const current=db.prepare('SELECT name,revision FROM characters WHERE id=?').get(id);
-   send(200,{admin:session.admin,character:{id,...current,data,tags:db.prepare('SELECT tag_id AS id FROM character_tag_links WHERE character_id=?').all(id).map(t=>t.id)},availableTags:session.admin?tags():[]});
+   send(200,{admin:session.admin,character:{id,...current,data,tags:db.prepare('SELECT tag_id AS id FROM character_tag_links WHERE character_id=?').all(id).map(t=>t.id),partyTags:db.prepare("SELECT t.id,t.name,t.kind FROM character_tags t JOIN character_tag_links l ON l.tag_id=t.id WHERE l.character_id=? AND t.kind='party' ORDER BY t.name COLLATE NOCASE,t.id").all(id)},availableTags:session.admin?tags():[]});
   }catch(error){send(error.httpStatus||400,{error:'invalid_request',message:error.message?.includes('UNIQUE')?'That name is already in use.':error.message||'Could not save.'});}return true;
  };
 }

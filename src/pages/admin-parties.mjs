@@ -1,0 +1,1 @@
+export default {id:'admin-parties',title:'Parties · Cosmos',bodyClass:'admin',layout:'app',activeMain:'characters',section:'admin',description:'',content:'<h1 class="sr-only">Parties</h1><section data-character-admin data-party-admin aria-label="Parties and characters"><p role="status">Loading…</p></section>'};
