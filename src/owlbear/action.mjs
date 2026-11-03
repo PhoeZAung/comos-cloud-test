@@ -1,8 +1,9 @@
 import OBR from '@owlbear-rodeo/sdk';
 import {peer} from './rpc.mjs';
 import {connection as connectGrant} from './connection.mjs';
+import {dicePlus} from './dice-plus.mjs';
 import {panelSize} from './panel-size.mjs';
-const status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]'),frame=document.querySelector('iframe');
+const status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]'),frame=document.querySelector('iframe'),dice=dicePlus(OBR);
 let popup,nonce,connection,sheetConnection,sheetNonce,activeCharacterId,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID(),openTab=document.querySelector('[data-open-sheet-tab]');
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -11,6 +12,7 @@ function back(){frame.hidden=true;list.hidden=false;document.querySelector('[dat
 async function sheetRequest(method,value){
  if(!connection)throw Error('Reconnect Cosmos.');
  if(method==='api'){try{return await connection.call('api',value);}catch(error){say('Disconnected');document.querySelector('[data-connect]').hidden=false;throw error;}}
+ if(method==='dice'){await dice.ready();return dice.roll(value.notation,document.querySelector('[data-roll-audience]').value);}
  throw Error('Unsupported sheet action.');
 }
 async function load(){

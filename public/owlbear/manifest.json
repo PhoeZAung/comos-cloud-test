@@ -1,8 +1,8 @@
 {
   "name": "Cosmos Character Sheets",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "manifest_version": 1,
-  "description": "Open your Cosmos character sheets with compact controls and quiet numeric rolls.",
+  "description": "Open your Cosmos character sheets and roll through Dice+ in your Owlbear room.",
   "author": "PhoeZAung",
   "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/icon.svg",
   "homepage_url": "https://cosmos-web.burmese-barbel.ts.net/",

@@ -18,7 +18,7 @@ export async function buildOwlbear(output,origin){
  <div class="extension-tools"><button data-back hidden>← My characters</button><button class="sheet-window-button" data-open-sheet-tab hidden aria-label="Open sheet in a separate window" title="Open sheet window"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14M10 3H3v18h18v-7"/></svg></button></div>
  <details class="panel-options" open><summary>Account</summary><div class="options-content">
  <div class="extension-tools"><button class="primary" data-connect>Connect Cosmos account</button><button data-refresh>Refresh characters</button><a class="button" href="/" target="_blank" rel="noopener">Open Cosmos</a></div>
-
+ <label class="audience">Roll visibility <select data-roll-audience><option value="everyone">Everyone</option><option value="self">Only me</option><option value="dm">Me and GM</option></select></label>
 
  </div></details>
  <p class="extension-status" role="status" data-status>Waiting for Owlbear…</p><div class="character-grid" data-characters></div><iframe title="Your Cosmos character sheet" hidden></iframe>

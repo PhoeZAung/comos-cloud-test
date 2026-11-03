@@ -1,4 +1,5 @@
 import {peer} from './rpc.mjs';
+import {requestSheetDice} from './rolls.mjs';
 const nativeFetch=window.fetch.bind(window),nonce=location.hash.slice(1),controller=window.opener||parent;let connection,character;
 const connected=new Promise(resolve=>{
  window.addEventListener('message',function receive(event){
@@ -11,6 +12,10 @@ window.fetch=async(input,options={})=>{
  if(url.origin!==location.origin||!url.pathname.startsWith('/api/'))return nativeFetch(input,options);
  await connected;
  const method=options.method||'GET',body=options.body?JSON.parse(options.body):undefined;
+ if(body?.op==='roll'&&body.mode!=='send'){
+  if(!character)throw Error('Reload your character before rolling.');
+  body.owlbearRolls=await requestSheetDice(character,body,notation=>connection.call('dice',{notation},100000));
+ }
  const result=await connection.call('api',{path:url.pathname+url.search,method,body},30000);
  if(result.data?.character)character=result.data.character;
  return new Response(JSON.stringify(result.data),{status:result.status,headers:{'Content-Type':'application/json'}});

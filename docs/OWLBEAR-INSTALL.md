@@ -54,7 +54,14 @@ to connect their own Cosmos account to edit their own sheets.
 
 ## Character Sheets and access
 
-Character selection, corner resizing, numeric rolls, and icon-only pop-out remain.
+Character selection, corner resizing, and icon-only pop-out remain. Sheet rolls
+use Dice+ in the Owlbear room, including sheets opened in the separate popup.
+Enable Dice+ in the same room. Roll visibility is under Account. The Check Dice+
+test button is removed; readiness is checked automatically when actually rolling.
+Dice+ supplies the faces/animation, and Cosmos validates and records the same
+result without rolling a second set of dice or showing a second Cosmos animation.
+If Dice+ cannot respond, the sheet reports the error rather than substituting
+a separate random roll. Party remains site-only with no Battle or token widgets.
 The pop-out requests a separate browser popup window; the browser controls chrome.
 Connections are memory-only scoped grants with an eight-hour maximum. Every API
 request revalidates the original Cosmos session. Grants are not stored in URLs,
