@@ -46,4 +46,12 @@ execution and external login/character/media verification remain manual.
 
 After success, hard-refresh Cosmos, reopen the Owlbear room, and reconnect the
 Cosmos account. Existing grants intentionally expire when the backend restarts.
-The extension install URL remains /owlbear/manifest.json; version is 1.1.0.
+The extension install URL remains /owlbear/manifest.json; version is 1.1.1.
+
+Discord rolls are enabled by default in both the website and Owlbear sheet.
+The Main settings switch can disable delivery for the current sheet. Dice+
+faces still use the existing server receipt and duplicate protection.
+Verification: scripts/check-owlbear-discord-browser.mjs drives the real embedded
+sheet and message-port bridge against synthetic dice and a captured relay; it
+checks default delivery, unchanged totals, the off switch, and tab changes.
+No real Discord message is sent by this check.

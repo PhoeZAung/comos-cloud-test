@@ -73,7 +73,7 @@ export function openCharacterSheetPopup(url,characterId,{display=window.screen,o
 
 export function mountSheet(){
  const root=document.querySelector('main'),id=new URL(location.href).searchParams.get('characterId'),compact=new URL(location.href).searchParams.get('compact')==='1';
- const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=!document.body.hasAttribute('data-owlbear-sheet'),stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
+ const control=new AbortController();let closed=false,character=null,admin=false,busy=false,conflict=false,dirty=false,timer=null,dialogState=null,polling=false,discordEnabled=true,stream=null,resourceTimer=null,pendingResourceFields={};let remainingTimer=null,pendingRemaining=null,remainingPromise=null;let remainingInvalid=false;
  let showStars=false,disposeSettings,disposePartyNotes,notesGeneration=0;let notesTab=new URL(location.href).searchParams.get('notesTab')||'personal';
  let section=new URL(location.href).searchParams.get('section')||({'sheet-inventory':'items','sheet-abilities':'abilities'}[document.body.dataset.page]||'overview');if(!sections.some(([k])=>k===section))section='overview';
  let ability=new URL(location.href).searchParams.get('ability')||'activeAbilities';if(!abilityTabs.includes(ability))ability='activeAbilities';

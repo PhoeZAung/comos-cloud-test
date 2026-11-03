@@ -36,3 +36,12 @@ test('one server-derived weapon receipt sends to Discord once, preserves crit in
   await assert.rejects(()=>publishRoll({...args,change:{...args.change,index:1}}),/identifier/);await assert.rejects(()=>publishRoll({...args,change:{...args.change,requestId:randomUUID(),revision:2}}),/changed/);
  }finally{db.close();}
 });
+test('Dice+ faces use the same Discord receipt once; disabled delivery stays off',async()=>{
+ const db=await openDatabase(':memory:');try{
+  const user=createUserRepository(db).create(),id=randomUUID();createCharactersService(db).save({op:'save',id,revision:0,name:'Owlbear Hero',ownerId:user.id,sources:[]});let calls=0,body;
+  const args={db,userId:user.id,origin:'https://example.test',character:{id,name:'Owlbear Hero',revision:1,data:{}},change:{label:'Perception',expression:'1d20+5',requestId:randomUUID(),discord:true,owlbearRolls:[{expression:'1d20+5',faces:[17]}]},sendFetch:async(url,options)=>{calls++;body=JSON.parse(options.body);return {ok:true};}};
+  const result=await publishRoll(args);assert.equal(result.roll.provider,'owlbear-dice-plus');assert.equal(result.roll.total,22);assert.deepEqual(result.roll.rolls,[17]);assert.equal(result.discord,'sent');assert.equal(calls,1);assert.match(body.content,/Dice\+ client roll/);assert.match(body.content,/22 \(1d20\+5 · 17\)/);assert.deepEqual(body.allowed_mentions,{parse:[]});assert.deepEqual(await publishRoll(args),result);assert.equal(calls,1);
+  db.prepare('UPDATE sheet_rolls SET created_at=0').run();
+  const silent=await publishRoll({...args,change:{...args.change,requestId:randomUUID(),discord:false}});assert.equal(silent.discord,'off');assert.equal(silent.roll.total,22);assert.equal(calls,1);
+ }finally{db.close();}
+});
