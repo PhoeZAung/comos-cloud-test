@@ -1,72 +1,67 @@
 import OBR from '@owlbear-rodeo/sdk';
-import {trackerRows,trackerConfig} from './tracker.mjs';
-import {PORTRAITS,REQUEST,UI,HUD,esc,stateFrom,validThumbnail} from './party-state.mjs';
-const root=document.querySelector('[data-status-cards]'),params=new URLSearchParams(location.search),view=params.get('mode')==='battle'?'battle':'party',portraits=new Map(),expanded=new Set();
-const header=document.querySelector('.hud-header'),label=header.querySelector('span');document.body.dataset.density=params.get('density')||'normal';document.body.dataset.view=view;document.documentElement.classList.toggle('portrait-strip',view==='party');
-let gm=false,ready=false,metadata={},signature='',requestTime=0,selectedId,drag;
+import {trackerRows} from './tracker.mjs';
+import {KEY,PORTRAITS,REQUEST,UI,HUD,validThumbnail} from './party-state.mjs';
+const root=document.querySelector('[data-status-cards]'),header=document.querySelector('.hud-header'),params=new URLSearchParams(location.search),widget=HUD+'/party';
+document.documentElement.classList.add('portrait-strip');document.body.dataset.density=params.get('density')||'compact';
 const person='<svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle cx="32" cy="22" r="11" fill="currentColor"/><path d="M12 58v-9a20 20 0 0140 0v9" fill="currentColor"/></svg>';
-const send=value=>OBR.broadcast.sendMessage(UI,{view,...value},{destination:'LOCAL'}).catch(e=>OBR.notification.show(e.message,'ERROR'));
-const size=async height=>OBR.popover.setHeight(HUD+'/'+view,Math.max(100,Math.min(height,(await OBR.viewport.getHeight())-70)));
-const restoreSize=()=>{if(ready){if(view==='party'&&!trackerRows(metadata,view).length)void OBR.popover.setHeight(HUD+'/'+view,40);else void size(view==='party'?({normal:158,compact:144,tiny:132}[params.get('density')]||144):480);};};
-function resource(c,key){const title=key.toUpperCase(),max=key==='hp'?c.hpMax:c.mpMax;return '<button class="party-value '+key+'" data-resource="'+esc(c.id)+'" data-key="'+key+'" aria-label="'+(gm?'Edit current ':'Current ')+title+' for '+esc(c.name)+'" title="'+title+' '+esc(c[key])+' / '+esc(max)+'" '+(gm?'':'disabled')+'><span>'+title+'</span><strong>'+esc(c[key])+'</strong></button>';}
-function defenses(c){return '<dl class="status-defenses"><div><dt>Touch</dt><dd>'+esc(c.touch)+'</dd></div><div><dt>Flat-footed</dt><dd>'+esc(c.flat)+'</dd></div><div><dt>CMD</dt><dd>'+esc(c.cmd)+'</dd></div></dl>';}
-function ac(c){return '<button class="status-ac" data-ac="'+esc(c.id)+'" aria-expanded="'+expanded.has(c.id)+'" aria-label="Armor class details for '+esc(c.name)+'">'+esc(c.ac)+' <span>'+(expanded.has(c.id)?'▴':'▾')+'</span></button>';}
-function photo(c){const cached=portraits.get(c.sourceId||c.id),src=c.portraitOverride||c.tokenPortrait||(cached?.hash===c.portraitHash?cached.portrait:'');return typeof src==='string'&&(/^https:\/\//.test(src)||validThumbnail(src))?'<img src="'+esc(src)+'" alt="'+esc(c.name)+' character portrait">':person;}
-const turns=document.createElement('div');turns.className='battle-turns';turns.innerHTML='<span data-round>Round 1</span><button data-step="-1" aria-label="Previous turn">← Back</button><button data-step="1" aria-label="Next turn">Next →</button>';header.append(turns);turns.hidden=view!=='battle';
-function draw(){
- const rows=trackerRows(metadata,view),config=trackerConfig(metadata),round=Math.max(1,config.round||1),active=rows.findIndex(c=>c.active);
- document.body.classList.toggle('empty-party',view==='party'&&!rows.length);label.textContent=view==='party'?'PARTY':'BATTLE';turns.querySelector('[data-round]').textContent='Round '+round;
- for(const b of turns.querySelectorAll('button')){b.hidden=!gm;b.disabled=!rows.length||(b.dataset.step==='-1'&&round===1&&active===0);}
- const next=JSON.stringify([rows,[...expanded],[...portraits],gm]);if(signature===next||root.querySelector('input:focus'))return;signature=next;
- if(view==='battle')root.innerHTML='<table class="battle-table"><thead><tr><th scope="col">Init</th><th scope="col">Name</th><th scope="col">HP</th><th scope="col">MP</th><th scope="col">AC</th><th scope="col"><span class="sr-only">Settings</span></th></tr></thead><tbody>'+rows.map(c=>'<tr data-row="'+esc(c.id)+'" class="'+(c.active?'current-turn':c.upNext?'next-turn':'')+'" '+(c.active?'aria-current="step"':'')+'><td><input type="number" step="1" min="-9999" max="9999" data-initiative="'+esc(c.id)+'" aria-label="Initiative for '+esc(c.name)+'" value="'+esc(c.initiative)+'" '+(gm?'':'readonly')+'></td><th scope="row" title="'+esc(c.name)+(c.active?' · Current turn':c.upNext?' · Up next':'')+'">'+(c.active?'<span class="turn-marker" aria-hidden="true">▶</span>':c.upNext?'<span class="turn-marker next" aria-hidden="true">›</span>':'')+esc(c.name)+'</th><td>'+esc(c.hp)+'<small>/'+esc(c.hpMax)+'</small></td><td>'+esc(c.mp)+'<small>/'+esc(c.mpMax)+'</small></td><td>'+ac(c)+'</td><td>'+(gm?'<button class="battle-settings" data-edit-row="'+esc(c.id)+'" aria-label="Edit stats for '+esc(c.name)+'" title="Edit stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 3-1 3-3 1 1 3-2 2 2 2-1 3 3 1 1 3h4l1-3 3-1-1-3 2-2-2-2 1-3-3-1-1-3Z"/><circle cx="11" cy="12" r="3"/></svg></button>':'')+'</td></tr>'+(expanded.has(c.id)?'<tr class="battle-defenses"><td colspan="6">'+defenses(c)+'</td></tr>':'')).join('')+'</tbody></table>';
- else root.innerHTML=rows.map(c=>'<article class="status-card" data-row="'+esc(c.id)+'"><div class="party-face"><div class="status-portrait">'+photo(c)+'</div><div class="party-ac">'+ac(c)+'</div></div><strong class="status-name" title="'+esc(c.name)+'">'+esc(c.name)+'</strong><div class="party-values">'+resource(c,'hp')+resource(c,'mp')+'</div>'+(expanded.has(c.id)?defenses(c):'')+'</article>').join('');
- const ids=new Set(rows.map(c=>c.sourceId||c.id));for(const id of portraits.keys())if(!ids.has(id))portraits.delete(id);
+let gm=false,metadata={},expiry,drag;const cards=new Map(),portraits=new Map(),pending=new Map();
+const send=data=>OBR.broadcast.sendMessage(UI,data,{destination:'LOCAL'});
+const text=(node,value)=>{value=String(value);if(node.textContent!==value)node.textContent=value;};
+function discard(id){const item=pending.get(id);if(item)clearTimeout(item.timer);pending.delete(id);}
+function create(row){
+ const node=document.createElement('article');node.className='party-person';node.innerHTML='<div class="party-face"><div class="party-portrait"></div><button class="party-ac" aria-expanded="false"><small>AC</small><strong></strong></button></div><strong class="party-name"></strong><div class="party-values"><button class="party-value hp" data-key="hp"><span>HP</span><strong></strong></button><button class="party-value mp" data-key="mp"><span>MP</span><strong></strong></button></div><dl class="party-defenses" hidden><div><dt>Touch</dt><dd></dd></div><div><dt>Flat</dt><dd></dd></div><div><dt>CMD</dt><dd></dd></div></dl>';
+ node.dataset.row=row.id;node.querySelector('.party-portrait').innerHTML=person;
+ const card={node,name:node.querySelector('.party-name'),photo:node.querySelector('.party-portrait'),ac:node.querySelector('.party-ac'),hp:node.querySelector('[data-key=hp]'),mp:node.querySelector('[data-key=mp]'),details:node.querySelector('dl'),source:''};
+ card.ac.onclick=()=>{const open=card.details.hidden;card.details.hidden=!open;card.ac.setAttribute('aria-expanded',String(open));};
+ for(const key of ['hp','mp'])card[key].onclick=()=>edit(row.id,key,card);
+ return card;
 }
-root.onclick=event=>{const value=event.target.closest('[data-resource]');if(value&&gm){editResource(value);return;}const edit=event.target.closest('[data-edit-row]');if(edit&&gm){selectedId=edit.dataset.editRow;menu.querySelector('[data-edit]').click();return;}const b=event.target.closest('[data-ac]');if(b){expanded.has(b.dataset.ac)?expanded.delete(b.dataset.ac):expanded.add(b.dataset.ac);draw();}};
-function editResource(button){
- const row=trackerRows(metadata,view).find(c=>c.id===button.dataset.resource),key=button.dataset.key;if(!row||!['hp','mp'].includes(key)||button.querySelector('input'))return;
- const input=document.createElement('input');input.className='party-resource-input';input.type='number';input.step='1';input.min=key==='mp'?'0':'-9999999';input.max='9999999';input.value=row[key];input.setAttribute('aria-label','Current '+key.toUpperCase()+' for '+row.name);button.replaceWith(input);input.focus();input.select();let cancelled=false,done=false;
+function render(){
+ const rows=trackerRows(metadata),active=new Map(rows.map(row=>[row.id,row]));
+ for(const [id,item] of pending){const row=active.get(item.id);if(!row||item.revision&&row.revision>=item.revision)discard(id);}
+ document.body.classList.toggle('empty-party',!rows.length);
+ rows.forEach((raw,index)=>{
+  const row={...raw};for(const item of pending.values())if(item.id===row.id)row[item.key]=item.value;
+  let card=cards.get(row.id);if(!card){card=create(row);cards.set(row.id,card);}
+  if(root.children[index]!==card.node)root.insertBefore(card.node,root.children[index]||null);
+  text(card.name,row.name);card.name.title=row.name;text(card.ac.querySelector('strong'),row.ac);card.ac.setAttribute('aria-label','Armor class details for '+row.name);
+  const cached=portraits.get(row.id),source=cached?.hash===row.portraitHash&&validThumbnail(cached.portrait)?cached.portrait:'';
+  if(source!==card.source){card.source=source;if(source){const image=new Image();image.src=source;image.alt=row.name+' character portrait';image.decoding='async';card.photo.replaceChildren(image);}else card.photo.innerHTML=person;}
+  for(const key of ['hp','mp']){const button=card[key];text(button.querySelector('strong'),row[key]);button.disabled=!gm;button.title=key.toUpperCase()+' '+row[key]+' / '+row[key==='hp'?'hpMax':'mpMax'];button.setAttribute('aria-label',(gm?'Edit current ':'Current ')+key.toUpperCase()+' for '+row.name);}
+  card.details.querySelectorAll('dd').forEach((node,i)=>text(node,row[['touch','flat','cmd'][i]]));
+ });
+ for(const [id,card] of cards)if(!active.has(id)){card.node.remove();cards.delete(id);portraits.delete(id);}
+}
+function edit(id,key,card){
+ if(!gm||card.node.querySelector('input'))return;const row=trackerRows(metadata).find(row=>row.id===id);if(!row)return;
+ const previous=[...pending.values()].filter(item=>item.id===id&&item.key===key).at(-1),input=document.createElement('input');input.className='party-resource-input';input.type='number';input.step='1';input.min=key==='mp'?'0':'-9999999';input.max='9999999';input.value=previous?.value??row[key];input.setAttribute('aria-label','Current '+key.toUpperCase()+' for '+row.name);card[key].replaceWith(input);input.focus();input.select();let cancelled=false,done=false;
  input.onkeydown=event=>{if(event.key==='Escape'){event.preventDefault();cancelled=true;input.blur();}else if(event.key==='Enter'){event.preventDefault();input.blur();}};
- input.onblur=()=>{if(done)return;done=true;const number=Number(input.value);if(!cancelled&&input.value!==''&&Number.isFinite(number)&&Math.abs(number)<1e7&&(key!=='mp'||number>=0)&&number!==row[key])void send({id:row.id,revision:row.revision,stats:{[key]:number}});signature='';draw();};
+ input.onblur=()=>{
+  if(done)return;done=true;input.replaceWith(card[key]);const value=Number(input.value);
+  if(!cancelled&&input.value!==''&&Number.isFinite(value)&&Math.abs(value)<1e7&&(key!=='mp'||value>=0)&&value!==(previous?.value??row[key])){
+   const requestId=crypto.randomUUID(),item={id,key,value,timer:setTimeout(()=>{discard(requestId);render();void OBR.notification.show('Reconnect Cosmos to save this change.','ERROR');},10000)};pending.set(requestId,item);render();
+   void send({id,revision:row.revision,stats:{[key]:value},requestId}).catch(error=>{discard(requestId);render();void OBR.notification.show(error.message,'ERROR');});
+  }else render();
+ };
 }
-root.onchange=event=>{const input=event.target.closest('[data-initiative]');if(input){const value=Number(input.value);if(input.value!==''&&Number.isFinite(value)&&Math.abs(value)<10000)void send({id:input.dataset.initiative,initiative:value});else{signature='';input.blur();draw();}}};
-root.onfocusout=()=>setTimeout(draw,0);
-turns.onclick=event=>{const b=event.target.closest('[data-step]');if(b)void send({step:Number(b.dataset.step)});};
-header.onpointerdown=event=>{if(event.button!==0||event.target.closest('button'))return;event.preventDefault();header.setPointerCapture(event.pointerId);drag={x:event.screenX,y:event.screenY};};
+function requestPortraits(){
+ const ids=trackerRows(metadata).filter(row=>row.portraitHash&&portraits.get(row.id)?.hash!==row.portraitHash).map(row=>row.id);
+ if(ids.length)void OBR.broadcast.sendMessage(REQUEST,{ids},{destination:'ALL'}).catch(()=>{});
+}
+function changed(value){metadata=value;render();clearTimeout(expiry);if(Number.isFinite(value[KEY]?.updatedAt))expiry=setTimeout(render,Math.max(100,value[KEY].updatedAt+45100-Date.now()));requestPortraits();}
+header.onpointerdown=event=>{if(event.button!==0)return;event.preventDefault();header.setPointerCapture(event.pointerId);drag={x:event.screenX,y:event.screenY};};
 header.onpointerup=event=>{if(!drag)return;const move={x:Number(params.get('x'))+event.screenX-drag.x,y:Number(params.get('y'))+event.screenY-drag.y};drag=null;void send({move});};header.onpointercancel=()=>{drag=null;};
-document.querySelector('[data-close-overlay]').hidden=true;
-const menu=document.createElement('div');menu.className='card-menu';menu.hidden=true;menu.innerHTML='<button data-density="normal">Full</button><button data-density="compact">Compact</button><button data-density="tiny">Small</button><button data-battle>Add to battle</button><button data-photo>Add photo / icon</button><button data-edit>Edit stats</button><button data-link>Link character</button><button data-remove>Remove from '+view+'</button><button data-dismiss>Close</button><input type="file" accept="image/png,image/jpeg,image/webp" hidden>';document.querySelector('.party-hud').append(menu);
-document.oncontextmenu=event=>{event.preventDefault();selectedId=event.target.closest('[data-row]')?.dataset.row;menu.hidden=false;for(const b of menu.querySelectorAll('[data-battle],[data-photo],[data-edit],[data-link],[data-remove]'))b.hidden=!gm||!selectedId;menu.querySelector('[data-battle]').hidden=!gm||!selectedId||view==='battle';void size(view==='party'?340:480);};
-menu.onclick=async event=>{
- const b=event.target.closest('button');if(!b)return;
- try{
-  if(b.dataset.density)await send({density:b.dataset.density});
-  if(b.hasAttribute('data-battle'))await send({battle:selectedId});
-  if(b.hasAttribute('data-photo')){menu.querySelector('input').click();return;}
-  if(b.hasAttribute('data-remove'))await send({remove:selectedId});
-  if(b.hasAttribute('data-edit')||b.hasAttribute('data-link')){
-   const row=trackerRows(metadata,view).find(c=>c.id===selectedId),id=selectedId;if(!row)return;
-   const dialog=document.createElement('dialog');dialog.className='tracker-edit';
-   if(b.hasAttribute('data-link'))dialog.innerHTML='<form method="dialog"><label>Character<select name="character">'+(stateFrom(metadata)?.characters||[]).map(c=>'<option value="'+esc(c.id)+'">'+esc(c.name)+'</option>').join('')+'</select></label><button value="save">Link</button><button value="cancel">Cancel</button></form>';
-   else dialog.innerHTML='<form method="dialog">'+['hp','hpMax','mp','mpMax','ac','touch','flat','cmd'].map(k=>'<label>'+esc(k)+'<input name="'+k+'" type="number" value="'+esc(row[k]||0)+'"></label>').join('')+'<button value="save">Save</button><button value="cancel">Cancel</button></form>';
-   document.body.append(dialog);await size(560);dialog.showModal();dialog.onclose=()=>{if(dialog.returnValue==='save'){const form=new FormData(dialog.querySelector('form'));if(b.hasAttribute('data-link'))void send({id,link:form.get('character')});else void send({id,revision:row.revision,stats:Object.fromEntries([...form].map(([k,v])=>[k,Number(v)]))});}dialog.remove();restoreSize();};
-  }
- }catch(e){await OBR.notification.show(e.message,'ERROR');}
- menu.hidden=true;if(!document.querySelector('dialog[open]'))restoreSize();
-};
-menu.querySelector('input').onchange=async event=>{
- const file=event.target.files?.[0],id=selectedId;if(!file||!id)return;
- try{if(file.size>5000000)throw Error('Choose an image under 5 MB.');const image=await createImageBitmap(file),canvas=document.createElement('canvas');canvas.width=canvas.height=56;const side=Math.min(image.width,image.height);canvas.getContext('2d').drawImage(image,(image.width-side)/2,(image.height-side)/2,side,side,0,0,56,56);image.close();await send({id,photo:canvas.toDataURL('image/jpeg',.45)});menu.hidden=true;restoreSize();}catch(e){await OBR.notification.show(e.message,'ERROR');}
-};
-async function requestPortraits(){
- if(view!=='party'||Date.now()-requestTime<2500)return;const state=stateFrom(metadata);if(!state)return;
- const ids=trackerRows(metadata,view).filter(c=>c.portraitHash&&!c.portraitOverride&&portraits.get(c.sourceId||c.id)?.hash!==c.portraitHash).map(c=>c.sourceId||c.id);
- if(ids.length){requestTime=Date.now();await OBR.broadcast.sendMessage(REQUEST,{ids:[...new Set(ids)]},{destination:'ALL'});}
-}
+const menu=document.createElement('div');menu.className='party-menu';menu.hidden=true;menu.innerHTML='<button data-density="normal">Full</button><button data-density="compact">Compact</button><button data-density="tiny">Small</button><button data-close>Close</button>';document.querySelector('.party-hud').append(menu);
+document.oncontextmenu=event=>{event.preventDefault();menu.hidden=false;};menu.onclick=event=>{const b=event.target.closest('button');if(!b)return;if(b.dataset.density)void send({density:b.dataset.density});menu.hidden=true;};
 OBR.onReady(async()=>{
- ready=true;gm=await OBR.player.getRole()==='GM';metadata=await OBR.room.getMetadata();draw();
- OBR.room.onMetadataChange(value=>{metadata=value;draw();void requestPortraits().catch(()=>{});});
- OBR.player.onChange(()=>{void OBR.player.getRole().then(role=>{gm=role==='GM';draw();});});
- OBR.broadcast.onMessage(PORTRAITS,event=>{const state=stateFrom(metadata),value=event.data;if(view!=='party'||event.connectionId!==state?.publisher||!value||!validThumbnail(value.portrait)||!trackerRows(metadata,view).some(c=>(c.sourceId||c.id)===value.id&&c.portraitHash===value.hash))return;portraits.set(value.id,value);draw();});
- setInterval(()=>{draw();void requestPortraits().catch(()=>{});},5000);void requestPortraits().catch(()=>{});
+ gm=await OBR.player.getRole()==='GM';const ownId=await OBR.player.getConnectionId();
+ OBR.broadcast.onMessage(PORTRAITS,event=>{const value=event.data;if(event.connectionId!==metadata[KEY]?.publisher||!value||!validThumbnail(value.portrait)||!trackerRows(metadata).some(row=>row.id===value.id&&row.portraitHash===value.hash)||portraits.get(value.id)?.hash===value.hash)return;portraits.set(value.id,value);render();});
+ OBR.broadcast.onMessage(UI+'/edit-result',event=>{
+  if(event.connectionId!==ownId)return;const result=event.data,item=pending.get(result?.requestId);if(!item)return;
+  if(result.error){discard(result.requestId);void OBR.notification.show(result.error,'ERROR');}else item.revision=result.revision;
+  render();
+ });
+ OBR.player.onChange(player=>{if(gm!==(player.role==='GM')){gm=player.role==='GM';render();}});
+ OBR.room.onMetadataChange(changed);changed(await OBR.room.getMetadata());
 });
+window.addEventListener('pagehide',()=>{clearTimeout(expiry);for(const id of pending.keys())discard(id);},{once:true});

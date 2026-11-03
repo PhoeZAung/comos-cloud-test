@@ -1,8 +1,8 @@
 {
   "name": "Cosmos Party Status",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "manifest_version": 1,
-  "description": "Floating character portraits, live HP and MP, and expandable armor class details from Cosmos.",
+  "description": "A lightweight party strip synced to Cosmos character portraits, HP, MP, and armor class.",
   "author": "PhoeZAung",
   "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/party-icon.svg",
   "homepage_url": "https://cosmos-web.burmese-barbel.ts.net/",
@@ -11,7 +11,7 @@
     "title": "Cosmos Party Status",
     "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/party-action.svg",
     "popover": "https://cosmos-web.burmese-barbel.ts.net/owlbear/party/control.html",
-    "width": 360,
-    "height": 500
+    "width": 300,
+    "height": 140
   }
 }
