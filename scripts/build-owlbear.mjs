@@ -15,7 +15,7 @@ export async function buildOwlbear(output,origin){
  const head='<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/owlbear/icon.svg"><link rel="stylesheet" href="/owlbear/owlbear.css">';
  await writeFile(directory+'/index.html',`<!doctype html><html lang="en"><head>${head}<title>Cosmos · Owlbear</title><script type="module" src="/owlbear/action.js"></script></head><body>
  <main class="extension-panel"><h1 class="cosmos-title"><img src="/owlbear/icon.svg" alt="">Cosmos</h1>
- <div class="extension-tools"><button data-back hidden>← My characters</button><button class="primary" data-open-sheet-tab hidden>Open in new tab ↗</button></div>
+ <div class="extension-tools"><button data-back hidden>← My characters</button><button class="sheet-window-button" data-open-sheet-tab hidden aria-label="Open sheet in a separate window" title="Open sheet window"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3h7v7M21 3 10 14M10 3H3v18h18v-7"/></svg></button></div>
  <details class="panel-options" open><summary>Account</summary><div class="options-content">
  <div class="extension-tools"><button class="primary" data-connect>Connect Cosmos account</button><button data-refresh>Refresh characters</button><a class="button" href="/" target="_blank" rel="noopener">Open Cosmos</a></div>
 

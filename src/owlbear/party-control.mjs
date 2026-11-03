@@ -49,6 +49,11 @@ OBR.onReady(async()=>{
  const gm=await OBR.player.getRole()==='GM';connect.hidden=!gm;document.querySelector('.party-actions').hidden=!gm;
  const update=value=>{status.textContent=stateFrom(value)?'Connected':'Disconnected';for(const button of document.querySelectorAll('[data-mode]'))button.setAttribute('aria-pressed',String(trackerConfig(value).views[button.dataset.mode]===true));};update(await OBR.room.getMetadata());OBR.room.onMetadataChange(update);
  OBR.broadcast.onMessage(REQUEST,({data})=>{if(!publishing||!Array.isArray(data?.ids))return;for(const id of data.ids.slice(0,40)){const portrait=portraits.get(id);if(portrait)void OBR.broadcast.sendMessage(PORTRAITS,portrait,{destination:'ALL'}).catch(()=>{});}});
+ let statEdits=Promise.resolve();
+ OBR.broadcast.onMessage(UI+'/sheet-stats',event=>{
+  if(event.connectionId!==ownId)return;
+  statEdits=statEdits.then(async()=>{if(await OBR.player.getRole()!=='GM'||!connection)throw Error('Connect the Cosmos administrator account first.');await connection.call('party-stats',event.data);}).catch(error=>OBR.notification.show(error.message,'ERROR'));
+ });
 });
 connect.onclick=()=>{
  if(!available)return;generation++;publishing=false;clearTimeout(timer);lastPublished=0;lastSignature='';connection?.close();portraits.clear();

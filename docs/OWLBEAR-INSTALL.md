@@ -22,14 +22,18 @@ The browser retains only a scoped grant in memory. Its underlying HttpOnly
 session stays on the server. Grants are not put in room metadata, URLs, local
 storage, logs, or backups. Every request revalidates the original session.
 Sheet grants only access the account's own characters and preferences. Tracker
-grants only read the admin-enabled status projection and character portraits.
+grants read the admin-enabled status projection and character portraits, and
+allow a verified Cosmos administrator to edit only the shared characters'
+HP, MP, maxima, AC, Touch, Flat-footed, and CMD with revision checks.
 No database migration is added.
 
 ## Sheets
 
 Choose a portrait/name card to open your character. Drag the lower-right corner
 to resize the panel. There are no preset or dimension fields. The browser saves
-the size you choose. Open in new tab reuses your separate sheet tab.
+the size you choose. The icon-only pop-out opens and reuses a separate browser popup window. It
+requests a window without the usual browser tab strip; the browser ultimately
+controls window chrome and keyboard shortcuts.
 The icon follows the installed Cosmos app's C, star, and orbit design.
 Extension rolls show numeric results without Cosmos or Dice+ dice animations.
 Normal Cosmos website dice preferences continue to apply outside the extension.
@@ -42,7 +46,8 @@ Both can be on together. There is no Off button; toggle either view off itself.
 Players see connection status and the shared views. GM controls are hidden and
 role checked; Owlbear may still display the installed extension action icon.
 
-- Party is one horizontal panel at the top, containing character portraits,
+- Party starts as a small header while empty, grows with the number of members,
+  and becomes a horizontal panel at the top containing character portraits,
   names, HP, MP, and expandable AC details. It scrolls for larger parties.
 - Battle is one compact table on the left: initiative, name, HP, MP, AC.
   It scrolls vertically for large battles, with column headings kept visible.
@@ -53,6 +58,8 @@ role checked; Owlbear may still display the installed extension action icon.
 - Right-click/select an Owlbear image/prop and choose Add to Cosmos party or
   Add to Cosmos battle. Use Remove from Cosmos party / battle to remove it again.
   These menu actions are GM-only and also support multiple selected images.
+- Shared Cosmos characters automatically appear in Battle as well as Party.
+  Explicitly removing a Cosmos character from Battle hides it until re-added.
 - A token matching a shared Cosmos character name links to that sheet. Otherwise
   use Link character from its row/card's context menu. Linked rows track saved
   sheet HP, MP and AC. Unlinked props start at zero HP/MP and AC 10; use Edit stats.
@@ -63,6 +70,15 @@ role checked; Owlbear may still display the installed extension action icon.
   Next and Back advance through the sorted order. Wrapping forward increments
   the round; wrapping backward decrements it. Back stops at the start of round 1.
   The current character stays selected if initiative values reorder the table.
+- The GM gear immediately to the right of AC opens the battle stats editor.
+  Linked character edits save to Cosmos and synchronize back to the sheet.
+  Maxima and defenses use the sheet's existing adjustment fields so class and
+  equipment base values remain calculated normally. Unlinked prop edits stay
+  in the room tracker. Conflicting character revisions are rejected.
+- Switching/closing the scene clears scene-added Party and Battle props,
+  encounter initiative overrides, turn and round. Shared Cosmos characters
+  remain; the new encounter starts at round 1. Site characters and their
+  portraits are not deleted or changed by scene cleanup.
 - Right-click a Party card or Battle row for photo/icon, character linking,
   unlinked-token stats, or removal from that list. These controls are GM-only.
 - Click AC in either view to expand Touch, Flat-footed, and CMD.

@@ -53,8 +53,8 @@ openTab.onclick=()=>{
  if(!activeCharacterId)return;
  if(tabWindow&&!tabWindow.closed&&tabCharacterId===activeCharacterId){tabWindow.focus();return;}
  tabNonce=crypto.randomUUID();tabConnection?.close();tabConnection=null;
- tabWindow=window.open(new URL('sheet.html?characterId='+encodeURIComponent(activeCharacterId)+'#'+tabNonce,location.href).href,tabName);
- if(!tabWindow){tabCharacterId=null;say('Allow the sheet tab, then click Open in new tab again.');return;}
+ tabWindow=window.open(new URL('sheet.html?characterId='+encodeURIComponent(activeCharacterId)+'#'+tabNonce,location.href).href,tabName,'popup=yes,width=1000,height=800,resizable=yes,scrollbars=yes,toolbar=no,menubar=no');
+ if(!tabWindow){tabCharacterId=null;say('Allow the sheet popup, then click the pop-out icon again.');return;}
  tabCharacterId=activeCharacterId;tabWindow.focus();say('Connected');
 };
 document.querySelector('[data-back]').onclick=back;
