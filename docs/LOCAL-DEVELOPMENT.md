@@ -31,34 +31,40 @@ browser login; complete an interactive sign-in to verify that final step.
 
 ## Custom dice and roll effects (local)
 
-Sheet gear > Main contains Customize dice, dice visibility, critical animation /
-sound controls, volume, and Nat 20 / Nat 1 effect previews. The previews are visual
-only: they never call the roll API, consume resources, or send Discord messages.
-Site contains the account profile, site themes, and site effects. Dice controls
-have moved out of Account. Presets remain available below the custom editor.
+Sheet settings now have three tabs:
+- Main: Discord rolls, portrait background, edit character, level up.
+- Theme: custom dice (no presets), 3D animation, critical effects and sound,
+  full-width volume control, forced Nat 20 / Nat 1 visual rolls, and round
+  color swatches for the four site themes.
+- Site: display name, site effects switches, and archive character. Profile
+  photos remain on the normal Account page and are absent from sheet settings.
 
-Custom dice reuse the existing numbered standard/gemstone meshes. Polished,
-translucent glass, procedural galaxy, and shiny metal finishes use a selected
-body color. Shape never changes the requested die count/sides or recorded faces.
-Real critical effects inspect the main d20 breakdown, not the modified total,
-damage dice, or confirmation die. Website dice trigger the effect when settled;
-Owlbear continues to use its existing Dice+ integration without extra animations.
+All website roll presentations share one queue. Each job captures its own
+options, runs the recorded dice through the existing authoritative face adapter,
+waits for the toss to finish and clear, updates the sheet result, and then shows
+Cosmos Classic. Natural 1/20 instead show a number in the vortex circle with a
+muted gray / brighter backdrop. Critical effects disabled falls back to Classic.
+The job waits for its result popup to close before the next toss can start.
+Navigation aborts the current job and invalidates pending jobs. Network saves
+are not blocked while the visual queue drains. Owlbear keeps Dice+ behavior.
 
-Imported end-product assets are kept outside Git at
-%USERPROFILE%\.cosmos-dev\roll-fx and copied only into the ignored local live
-build: vortex GIFs, three selected spell sound cues, the animated Ashwing Drake
-GLB, and a dwarven UI image. Original archives stay in Downloads. Source licenses
-are retained alongside the private assets. Do not upload these files as an asset
-pack; the SFX and drake licenses permit end-product use and restrict standalone
-redistribution. Nat 1 currently uses an arcane fizzle treatment.
+Preview buttons enqueue a d20 fixed to 20 or 1 through the exact same visual
+sequence. They never call the roll API, spend resources, or send Discord rolls.
+Real effects inspect the main d20, not modified totals, damage, or confirmation.
+Custom standard/gemstone dice support polished, translucent glass, procedural
+starry galaxy, and metallic finishes with a body color. Preset selection is gone;
+legacy preset IDs remain readable for existing saved accounts.
 
-Sound defaults off; reduced motion shows a still result banner. The drake renderer
-is loaded only when requested and its WebGL canvas is released after the effect.
-The first drake preview may take longer to load. Settings persist through the
-new additive local database migration 023 (dice_options JSON text). A local SQLite
-backup was created before applying it. The NAS has not received this migration;
-the existing code-only NAS helper will refuse this schema change. Plan the later
-NAS data migration separately when deployment resumes.
+Imported vortex GIFs and spell cues are kept outside Git in
+%USERPROFILE%\.cosmos-dev\roll-fx and copied only into the ignored local build.
+Original archives and the unused drake model remain private; no drake renderer,
+model, or Three.js dependency is included in the build. Original licenses stay
+alongside the private source assets. Source sounds/art are not an asset-pack
+redistribution. The sound setting uses a gain stage and compressor with the
+volume slider; reduced motion skips animated tosses and uses a still banner.
 
-Validation here is limited to builds, syntax checks, and local startup/health.
-Automated tests and interactive dice/effect previews have not been run.
+Preference migration 023 adds dice_options JSON text. A local SQLite backup was
+created before it was applied. No NAS migration or deployment has occurred; the
+code-only NAS helper refuses that schema change. Plan NAS migration separately.
+Validation is limited to build, syntax, and local startup/health checks. No
+automated tests or interactive multi-roll/effect previews were run.

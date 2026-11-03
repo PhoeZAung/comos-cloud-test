@@ -1,5 +1,5 @@
 import {preferences} from './preferences.mjs';
-import {diceThemes,resultDice} from '../features/dice-themes.mjs';
+import {resultDice} from '../features/dice-themes.mjs';
 let queue=Promise.resolve(),overlay,enginePromise,engine;
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 function stage(){
@@ -8,16 +8,17 @@ function stage(){
  overlay.innerHTML='<div id="cosmos-dice-stage" class="dice-page-stage" aria-hidden="true"></div><div class="dice-page-receipt"><p role="status" aria-live="polite">Preparing dice…</p><button type="button" aria-label="Dismiss dice">×</button></div>';
  document.body.append(overlay);return overlay;
 }
-export function show3DDice(result,{theme=preferences.diceTheme,notation=null}={}){
- const work=()=>run(result,theme,notation);queue=queue.catch(()=>{}).then(work);return queue;
+export function show3DDice(result,{theme=preferences.diceTheme,notation=null,options={...preferences.diceOptions},signal}={}){
+ const work=()=>signal?.aborted?undefined:run(result,theme,notation,options,signal);queue=queue.catch(()=>{}).then(work);return queue;
 }
-async function run(result,theme,notation){
+async function run(result,theme,notation,custom,signal){
  const view=stage(),status=view.querySelector('[role=status]');
  view.classList.remove('dice-page-leaving');view.hidden=false;
  if(view.showPopover&&!view.matches(':popover-open'))view.showPopover();
  let dismissed=false,release;const cancelled=new Promise(resolve=>release=resolve);
  const dismiss=()=>{dismissed=true;view.classList.add('dice-page-leaving');release();};
  view.querySelector('button').onclick=dismiss;
+ signal?.addEventListener('abort',dismiss,{once:true});
  const escape=event=>{if(event.key==='Escape')dismiss();};document.addEventListener('keydown',escape);
  status.textContent='Preparing dice…';
  try{
@@ -28,28 +29,20 @@ async function run(result,theme,notation){
   })();
   const box=await Promise.race([enginePromise,cancelled.then(()=>null),sleep(18000).then(()=>{throw Error('3D dice could not start.');})]);
   if(!box||dismissed)return;
-  const selected=diceThemes.find(t=>t.id===theme)||diceThemes[1];
-  const custom=preferences.diceOptions;
-  await box.updateConfig({theme:custom.enabled?'cosmos-'+custom.shape+'-'+custom.material:notation&&theme==='genesys'?'genesys':selected.engineTheme||(selected.id==='classic'?'default':selected.id),themeColor:custom.enabled?custom.color:selected.color,scale:diceScale()});
+  await box.updateConfig({theme:'cosmos-'+custom.shape+'-'+custom.material,themeColor:custom.color,scale:diceScale()});
   if(dismissed)return;
   box.show();status.textContent='Rolling…';
   let dice=notation||resultDice(result);
-  if(theme==='smooth-pip'){
-   if(typeof dice==='string'){const match=/^(\d+)d6$/.exec(dice);if(match)dice=[{qty:Number(match[1]),sides:'pip'}];}
-   else dice=dice.map(d=>d.sides===6?{...d,sides:'pip'}:d);
-  }
   if(!notation&&!dice.length){status.textContent=summary(result);await Promise.race([sleep(2400),cancelled]);return;}
   const rolls=await Promise.race([box.roll(dice),cancelled.then(()=>null),sleep(15000).then(()=>{throw Error('The dice took too long to settle.');})]);
   if(!rolls||dismissed)return;
-  if(notation&&theme==='genesys'){status.textContent='Genesys symbol dice';}
-  else if(notation){const values=rolls.map(d=>d.value);status.textContent=values.join(' + ')+' = '+values.reduce((a,b)=>a+b,0);}
+  if(notation){const values=rolls.map(d=>d.value);status.textContent=values.join(' + ')+' = '+values.reduce((a,b)=>a+b,0);}
   else {const expected=dice.map(d=>d.data.targetValue),actual=[...rolls].sort((a,b)=>a.rollId-b.rollId).map(d=>d.value);if(expected.some((v,i)=>v!==actual[i]))throw Error('Showing the recorded result.');status.textContent=summary(result);}
-  if(result)document.dispatchEvent(new CustomEvent('comos:dice-settled',{detail:result}));
   // Keep settled faces readable, then remove the whole toss automatically.
-  await Promise.race([sleep(2200),cancelled]);
+  await Promise.race([sleep(800),cancelled]);
  }catch(error){status.textContent=(result?summary(result)+' · ':'')+error.message;await Promise.race([sleep(3200),cancelled]);}
  finally{
-  document.removeEventListener('keydown',escape);view.classList.add('dice-page-leaving');await sleep(400);
+  signal?.removeEventListener('abort',dismiss);document.removeEventListener('keydown',escape);view.classList.add('dice-page-leaving');await sleep(250);
   try{engine?.clear();engine?.hide();}catch{}
   if(view.hidePopover&&view.matches(':popover-open'))view.hidePopover();view.hidden=true;
  }

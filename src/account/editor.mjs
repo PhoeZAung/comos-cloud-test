@@ -17,7 +17,7 @@ export function mountAccount({user=null,fixture=false,onUser=()=>{}}={}) {
   for(const button of root.querySelectorAll('[data-theme-choice]'))button.setAttribute('aria-pressed',String(button.dataset.themeChoice===latestPreferences.theme));
   if(dice)dice.checked=latestPreferences.dicePopup;splash.checked=latestPreferences.splashCursor;colors.checked=latestPreferences.effectColors;pauseStars.checked=latestPreferences.pauseStars;
  }
- function syncPhoto(){
+ function syncPhoto(){if(!photo)return;
   if(previewURL){URL.revokeObjectURL(previewURL);previewURL=null;}
   const present=Boolean(user?.avatarMediaId);
   photo.hidden=!present;placeholder.hidden=present;remove.hidden=!present;
@@ -44,7 +44,7 @@ export function mountAccount({user=null,fixture=false,onUser=()=>{}}={}) {
   say(profileStatus,fixture?'Preview updated.':'Saving name…');name.setAttribute('aria-invalid','false');
   try{if(!fixture)await client.update({displayName:value});else {user={...user,displayName:value};fixtureAccount=user;}say(profileStatus,fixture?'Preview updated.':'Name saved.');}catch(error){say(profileStatus,describe(error));}
  },{signal});
- fileInput.addEventListener('change',async()=>{
+ fileInput?.addEventListener('change',async()=>{
   const file=fileInput.files?.[0];if(!file)return;
   if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>3*1024*1024){say(profileStatus,'Choose a JPEG, PNG or WebP up to 3 MB.');fileInput.value='';return;}
   if(previewURL)URL.revokeObjectURL(previewURL);previewURL=URL.createObjectURL(file);photo.src=previewURL;photo.hidden=false;placeholder.hidden=true;
@@ -53,7 +53,7 @@ export function mountAccount({user=null,fixture=false,onUser=()=>{}}={}) {
   try{await client.avatar(file);if(!disposed){syncPhoto();say(profileStatus,'Photo saved.');}}catch(error){say(profileStatus,describe(error));if(!disposed)syncPhoto();}
   finally{if(!disposed){fileInput.disabled=false;remove.disabled=false;fileInput.value='';}}
  },{signal});
- remove.addEventListener('click',async()=>{
+ remove?.addEventListener('click',async()=>{
   remove.disabled=true;say(profileStatus,'Removing photo…');
   try{await client.removeAvatar();if(!disposed){syncPhoto();say(profileStatus,'Photo removed.');}}catch(error){say(profileStatus,describe(error));}
   finally{if(!disposed)remove.disabled=false;}
