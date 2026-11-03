@@ -33256,8 +33256,9 @@ const Pr = {
       const cameraDirection=t.activeCamera.position.subtract(s.mesh.position).normalize();
       u.copyFrom(cameraDirection);if(s.dieType==='d4'&&h)u.negateInPlace();
       Ze.ray.direction=u;Ze.ray.length=10000;
+      s.mesh.computeWorldMatrix(true);c.computeWorldMatrix(true);
       const pick=()=>t.pickWithRay(Ze.ray,mesh=>mesh===c);
-      if(Number.isInteger(wanted)){
+      if(Number.isInteger(wanted)&&s.cosmosPreparing){
         const indices=c.getIndices(),positions=c.getVerticesData('position');
         const vertex=index=>new p(positions[index*3]*c.scaling.x,positions[index*3+1]*c.scaling.y,positions[index*3+2]*c.scaling.z);
         const candidates=Object.keys(faceMap).filter(key=>faceMap[key]===wanted);
@@ -33272,7 +33273,17 @@ const Pr = {
             const rotation=s.mesh.rotationQuaternion.constructor.RotationAxis(axis.normalize(),Math.acos(dot));
             s.mesh.rotationQuaternion.copyFrom(rotation);c.rotationQuaternion=s.mesh.rotationQuaternion;
             s.mesh.computeWorldMatrix(true);c.computeWorldMatrix(true);
-            const hit=pick();if(hit?.hit&&faceMap[hit.faceId]===wanted){matched=true;break;}
+            const hit=pick();if(hit?.hit&&faceMap[hit.faceId]===wanted){
+              s.cosmosLandingNormal=direction.clone();
+              s.cosmosRotationFor=position=>{
+                const aim=t.activeCamera.position.subtract(position).normalize();if(s.dieType==='d4'&&h)aim.negateInPlace();
+                const normal=s.cosmosLandingNormal,dot=Math.max(-1,Math.min(1,p.Dot(normal,aim))),axis=p.Cross(normal,aim);
+                if(axis.length()<.00001)axis.copyFrom(p.Cross(normal,new p(1,0,0)));
+                if(axis.length()<.00001)axis.set(0,0,1);
+                return s.mesh.rotationQuaternion.constructor.RotationAxis(axis.normalize(),Math.acos(dot));
+              };
+              matched=true;break;
+            }
           }
           if(matched)break;
         }
@@ -33280,7 +33291,8 @@ const Pr = {
       }
       const d = pick();
       if(!d?.hit){c.dispose();throw Error('The visible die face could not be read.');}
-      return c.dispose(), t.render(), s.value = (s.dieParent&&o[s.dieType][d.faceId]===10?0:o[s.dieType][d.faceId]), s.value === void 0 && (console.error(`colliderFaceMap Error: No value found for ${s.dieType} mesh face ${d.faceId}`), s.value = 0), r(s.value);
+      if(Number.isInteger(wanted)&&faceMap[d.faceId]!==wanted){c.dispose();throw Error('The visible face does not match the recorded roll.');}
+      return c.dispose(), s.value = (s.dieParent&&o[s.dieType][d.faceId]===10?0:o[s.dieType][d.faceId]), s.value === void 0 && (console.error(`colliderFaceMap Error: No value found for ${s.dieType} mesh face ${d.faceId}`), s.value = 0), r(s.value);
     }).catch((r) => console.error(r));
     return e.mesh ? await i() : e.value;
   }

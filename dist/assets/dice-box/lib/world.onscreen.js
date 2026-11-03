@@ -13027,7 +13027,37 @@ class da {
       newStartPoint: e
     });
   }
+cosmosAnimateDice(now=performance.now()){
+    for(const die of Object.values(C(this,Z))){
+      if(!die.cosmosRotationFor||!die.cosmosPhysicalPosition||!die.mesh||die.mesh.isDisposed())continue;
+      die.cosmosStartedAt??=now;
+      const elapsed=Math.max(0,Math.min(1,(now-die.cosmosStartedAt)/1400));
+      die.mesh.position.copyFrom(die.cosmosPhysicalPosition);
+      // Keep a still-spinning visual above the surface until its landing ends.
+      die.mesh.position.y+=.8*Math.sin(Math.PI*elapsed)*(1-elapsed);
+      const target=die.cosmosRotationFor(die.mesh.position);
+      if(elapsed<1){
+        const axis=new (die.mesh.position.constructor)(.85,.3,.6);axis.normalize();
+        const spin=target.constructor.RotationAxis(axis,Math.PI*4*Math.pow(1-elapsed,3));
+        die.mesh.rotationQuaternion.copyFrom(spin.multiply(target));
+      }else die.mesh.rotationQuaternion.copyFrom(target);
+      die.mesh.computeWorldMatrix(true);
+    }
+  }
+  async cosmosWaitForLanding(die,generation){
+    if(!die.cosmosRotationFor)return;
+    die.cosmosStartedAt??=performance.now();
+    this.cosmosAnimateDice();
+    await new Promise(resolve=>{
+      const step=()=>{
+        if(generation!==this.cosmosGeneration||die.mesh.isDisposed()||performance.now()-die.cosmosStartedAt>=1400){resolve();return;}
+        requestAnimationFrame(step);
+      };step();
+    });
+  }
   renderLoop() {
+    this.cosmosAnimateDice();
+
     C(this, me) && C(this, me) === Object.keys(C(this, Z)).length ? (C(this, oe).stopRenderLoop(), C(this, ne).postMessage({
       action: "stopSimulation"
     }), this.onRollComplete()) : C(this, K).render();
@@ -13050,6 +13080,7 @@ class da {
     this.onThemeLoaded({ id: t });
   }
   clear() {
+    this.cosmosGeneration=(this.cosmosGeneration||0)+1;
     !Object.keys(C(this, Z)).length && !C(this, me) || (this.diceBufferView.byteLength && this.diceBufferView.fill(0), C(this, Ve).forEach((e) => clearTimeout(e)), C(this, oe).stopRenderLoop(), Object.values(C(this, Z)).forEach((e) => {
       e.mesh && e.mesh.dispose();
     }), ie(this, Z, {}), ie(this, Be, 0), ie(this, me, 0), C(this, K).render());
@@ -13096,7 +13127,7 @@ class da {
         this.handleAsleep(s);
       else {
         const n = this.diceBufferView[t + 1], a = this.diceBufferView[t + 2], o = this.diceBufferView[t + 3], l = this.diceBufferView[t + 4], d = this.diceBufferView[t + 5], h = this.diceBufferView[t + 6], c = this.diceBufferView[t + 7];
-        if(!s.asleep){s.mesh.position.set(n, a, o), s.mesh.rotationQuaternion.set(l, d, h, c);}
+        if(!s.asleep){s.cosmosPhysicalPosition??=s.mesh.position.clone();s.cosmosPhysicalPosition.set(n,a,o);s.mesh.position.set(n,a,o);if(!s.cosmosRotationFor)s.mesh.rotationQuaternion.set(l,d,h,c);}
       }
       t = t + 8;
     }
@@ -13110,8 +13141,13 @@ class da {
   // handle the position updates from the physics worker. It's a simple flat array of numbers for quick and easy transfer
   async handleAsleep(e) {
     var t, i;
-    if(e.asleep)return; if (e.asleep = !0, await Oe.getRollResult(e, C(this, K)), e.d10Instance || e.dieParent) {
-      if ((t = e == null ? void 0 : e.d10Instance) != null && t.asleep || (i = e == null ? void 0 : e.dieParent) != null && i.asleep) {
+    if(e.asleep)return;e.asleep=true;
+    const generation=this.cosmosGeneration;await this.cosmosWaitForLanding(e,generation);
+    if(generation!==this.cosmosGeneration||!e.mesh||e.mesh.isDisposed())return;
+    this.cosmosAnimateDice();
+    if (await Oe.getRollResult(e, C(this, K)), e.cosmosLanded=true,
+ e.d10Instance || e.dieParent) {
+      if ((t = e == null ? void 0 : e.d10Instance) != null && t.cosmosLanded || (i = e == null ? void 0 : e.dieParent) != null && i.cosmosLanded) {
         const r = e.config.sides === 100 ? e : e.dieParent, s = e.config.sides === 10 ? e : e.d10Instance;
         r.rawValue && (r.value = r.rawValue), r.rawValue = r.value, r.value = r.value + s.value, r.value === 0 && (r.value = 100), this.onRollResult({
           rollId: r.config.rollId,
@@ -13139,6 +13175,10 @@ Z = new WeakMap(), Be = new WeakMap(), me = new WeakMap(), Ve = new WeakMap(), f
     scale: this.config.scale,
     lights: C(this, ce)
   }, i = new Oe(t, C(this, K));
+    if(Number.isInteger(i.config.data?.targetValue)){
+      i.cosmosPreparing=true;await Oe.getRollResult(i,C(this,K));i.cosmosPreparing=false;
+      if(!i.cosmosRotationFor)throw Error('Could not prepare the recorded die face.');
+    }
   return C(this, Z)[i.id] = i, C(this, ne).postMessage({
     action: "addDie",
     options: {
@@ -13149,9 +13189,10 @@ Z = new WeakMap(), Be = new WeakMap(), me = new WeakMap(), Ve = new WeakMap(), f
       theme: e.theme,
       meshName: e.meshName
     }
-  }), e.sides === 100 && e.data !== "single" && (i.d10Instance = await Oe.loadDie({ ...t, dieType: "d10", sides: 10, id: i.id + 1e4 }, C(this, K)).then((r) => {
-    const s = new Oe(r, C(this, K));
-    return s.dieParent = i, s;
+  }), e.sides === 100 && e.data !== "single" && (i.d10Instance = await Oe.loadDie({ ...t, dieType: "d10", sides: 10, id: i.id + 1e4 }, C(this, K)).then(async (r) => {
+    const s = new Oe(r, C(this, K));s.dieParent=i;
+    if(Number.isInteger(s.config.data?.targetValue)){s.cosmosPreparing=true;await Oe.getRollResult(s,C(this,K));s.cosmosPreparing=false;if(!s.cosmosRotationFor)throw Error('Could not prepare percentile face.');}
+    return s;
   }), C(this, Z)[`${i.d10Instance.id}`] = i.d10Instance, C(this, ne).postMessage({
     action: "addDie",
     options: {

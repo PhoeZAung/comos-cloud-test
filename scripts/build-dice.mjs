@@ -1,3 +1,4 @@
+import {patchLandingAnimation} from './dice-landing-animation.mjs';
 import {patchSettledFaces} from './dice-settled-adapter.mjs';
 import {mkdir,readFile,writeFile,cp} from 'node:fs/promises';
 import {buildCustomDice} from './build-custom-dice.mjs';
@@ -24,10 +25,7 @@ export async function buildDiceAssets(){
 `+source.slice(end);
   }
   if(name==='world.onscreen.js'){
-   const transform='s.mesh.position.set(n, a, o), s.mesh.rotationQuaternion.set(l, d, h, c);';
-   const asleep='if (e.asleep = !0, await Oe.getRollResult(e, C(this, K)),';
-   if(!source.includes(transform)||!source.includes(asleep))throw Error('Dice sleep adapter needs review.');
-   source=source.replace(transform,'if(!s.asleep){'+transform+'}').replace(asleep,'if(e.asleep)return; if (e.asleep = !0, await Oe.getRollResult(e, C(this, K)),');
+   source=patchLandingAnimation(source);
    source=source.replace('r.value = r.value + s.value, this.onRollResult','r.value = r.value + s.value, r.value === 0 && (r.value = 100), this.onRollResult');
    const anchor='n.AddAttribute("customColor");';
    if(!source.includes(anchor))throw Error('Dice material adapter needs review.');

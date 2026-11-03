@@ -1,5 +1,5 @@
-// Pinned to Dice Box 1.1.4. A visual correction must change the mesh orientation
-// and validate that same collider; it must never just substitute the receipt.
+// Pinned to Dice Box 1.1.4. Prepare a landing orientation before the die appears;
+// after landing this function only checks that face, without changing it.
 export function patchSettledFaces(source){
  const anchor='const d = t.pickWithRay(Ze.ray);';
  if(!source.includes(anchor))throw Error('Dice face adapter needs review.');
@@ -15,8 +15,9 @@ export function patchSettledFaces(source){
       const cameraDirection=t.activeCamera.position.subtract(s.mesh.position).normalize();
       u.copyFrom(cameraDirection);if(s.dieType==='d4'&&h)u.negateInPlace();
       Ze.ray.direction=u;Ze.ray.length=10000;
+      s.mesh.computeWorldMatrix(true);c.computeWorldMatrix(true);
       const pick=()=>t.pickWithRay(Ze.ray,mesh=>mesh===c);
-      if(Number.isInteger(wanted)){
+      if(Number.isInteger(wanted)&&s.cosmosPreparing){
         const indices=c.getIndices(),positions=c.getVerticesData('position');
         const vertex=index=>new p(positions[index*3]*c.scaling.x,positions[index*3+1]*c.scaling.y,positions[index*3+2]*c.scaling.z);
         const candidates=Object.keys(faceMap).filter(key=>faceMap[key]===wanted);
@@ -31,7 +32,17 @@ export function patchSettledFaces(source){
             const rotation=s.mesh.rotationQuaternion.constructor.RotationAxis(axis.normalize(),Math.acos(dot));
             s.mesh.rotationQuaternion.copyFrom(rotation);c.rotationQuaternion=s.mesh.rotationQuaternion;
             s.mesh.computeWorldMatrix(true);c.computeWorldMatrix(true);
-            const hit=pick();if(hit?.hit&&faceMap[hit.faceId]===wanted){matched=true;break;}
+            const hit=pick();if(hit?.hit&&faceMap[hit.faceId]===wanted){
+              s.cosmosLandingNormal=direction.clone();
+              s.cosmosRotationFor=position=>{
+                const aim=t.activeCamera.position.subtract(position).normalize();if(s.dieType==='d4'&&h)aim.negateInPlace();
+                const normal=s.cosmosLandingNormal,dot=Math.max(-1,Math.min(1,p.Dot(normal,aim))),axis=p.Cross(normal,aim);
+                if(axis.length()<.00001)axis.copyFrom(p.Cross(normal,new p(1,0,0)));
+                if(axis.length()<.00001)axis.set(0,0,1);
+                return s.mesh.rotationQuaternion.constructor.RotationAxis(axis.normalize(),Math.acos(dot));
+              };
+              matched=true;break;
+            }
           }
           if(matched)break;
         }
@@ -39,9 +50,10 @@ export function patchSettledFaces(source){
       }
       const d = pick();
       if(!d?.hit){c.dispose();throw Error('The visible die face could not be read.');}
+      if(Number.isInteger(wanted)&&faceMap[d.faceId]!==wanted){c.dispose();throw Error('The visible face does not match the recorded roll.');}
  `.trim());
  const result='return c.dispose(), s.value = o[s.dieType][d.faceId],';
  if(!source.includes(result))throw Error('Dice result adapter needs review.');
- source=source.replace(result,`return c.dispose(), t.render(), s.value = (s.dieParent&&o[s.dieType][d.faceId]===10?0:o[s.dieType][d.faceId]),`);
+ source=source.replace(result,`return c.dispose(), s.value = (s.dieParent&&o[s.dieType][d.faceId]===10?0:o[s.dieType][d.faceId]),`);
  return source;
 }
