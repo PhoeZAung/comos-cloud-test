@@ -1,6 +1,6 @@
 {
   "name": "Cosmos",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 1,
   "description": "Character sheets, Dice+ rolls, a live party display, and token initiative in one Cosmos extension.",
   "author": "PhoeZAung",

@@ -37,6 +37,13 @@ GM + Cosmos administrator controls are inside Cosmos: Show Party, Show Initiativ
 Party position (Top/Bottom/Left/Right), Initiative position (Left/Right). Settings
 are shared through room metadata, with placement adapted to each viewport. There
 is no free dragging. Party takes no space while no characters are selected.
+Dimensions are checked every 750 ms because the background frame may not receive
+the parent browser's resize events. Dock coordinates are recalculated only when
+screen dimensions change, keeping top/bottom centered and side docks 12 px from
+the edge after browser zoom, fullscreen, or resizing. Map transforms do not move
+these screen-space panels. Party cards include a thin live HP meter: green for
+remaining health, a muted red section for missing health, and the deficit in its
+tooltip. Token HP meters use the same visible missing-health track.
 Compact cards show the character portrait, name, current HP/MP, and clickable AC
 details. The administrator can click current HP/MP to save to the original sheet.
 Players see committed values and read-only resource controls. Enter/blur saves;
@@ -53,7 +60,9 @@ that live sheet automatically. Linked current HP/MP edits write through the
 existing authenticated, revision-checked sheet API; AC and maxima remain sourced
 from the sheet. If sharing stops, linked stats are disabled until shared again.
 For unmatched tokens, Add to battle opens a short form for starting HP, MP, AC,
-and initiative. Starting resources establish their fixed maximum values. Subsequent
+and initiative. HP is optional: leave it blank (or zero) for an untracked monster.
+It still sorts and takes turns in battle, with a dash in HP and no token HP bar.
+Positive starting resources establish their fixed maximum values. Subsequent
 tracker edits change only current HP/MP. Other AC values default to AC (CMD 10)
 for these local combatants; detailed defenses for linked characters come from
 their sheets. No arbitrary token portrait is downloaded by the server.

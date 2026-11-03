@@ -13,7 +13,7 @@ function render(){
   }
   if(root.children[index]!==card.node)root.insertBefore(card.node,root.children[index]||null);card.node.classList.toggle('current-turn',row.id===turn);card.node.classList.toggle('unavailable',!row.available);
   if(document.activeElement!==card.input)card.input.value=row.initiative;card.input.disabled=!state.admin;card.input.setAttribute('aria-label',row.name+' initiative');card.node.querySelector('.battle-name').textContent=row.name;
-  for(const key of ['hp','mp']){const button=card[key];button.textContent=String(row[key]);button.title='Current '+key.toUpperCase()+' · max '+row[key==='hp'?'hpMax':'mpMax'];button.disabled=!state.admin||!row.available;button.classList.toggle('saving',edits.pending(row.id,key));}
+  for(const key of ['hp','mp']){const button=card[key],untracked=key==='hp'&&!row.trackHp;button.textContent=untracked?'—':String(row[key]);button.title=untracked?'HP not tracked':'Current '+key.toUpperCase()+' · max '+row[key==='hp'?'hpMax':'mpMax'];button.disabled=!state.admin||!row.available||untracked;button.classList.toggle('saving',edits.pending(row.id,key));}
   card.node.querySelector('.battle-ac').textContent=row.ac;card.node.querySelector('.battle-defenses').textContent=defenses(row);
  }
  for(const [id,card] of cards)if(!active.has(id)){card.node.remove();cards.delete(id);}

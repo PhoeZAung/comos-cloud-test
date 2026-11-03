@@ -2,6 +2,7 @@ import OBR,{buildLine,buildLabel} from '@owlbear-rodeo/sdk';
 import {localChannel} from './local-channel.mjs';
 import {connection} from './connection.mjs';
 import {publicPartyClient} from './public-party-client.mjs';
+import {dockedPanels} from './docking.mjs';
 import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,tokenName,normalizeName} from './battle-state.mjs';
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative';
 async function start(){
@@ -20,12 +21,7 @@ async function start(){
   await OBR.popover.open({id,url:url.href,width,height,anchorReference:'POSITION',anchorPosition:{left:x,top:y},anchorOrigin:{horizontal:'LEFT',vertical:'TOP'},transformOrigin:{horizontal:'LEFT',vertical:'TOP'},hidePaper:true,disableClickAway:true,marginThreshold:8});popovers.set(id,value);
  }
  function geometry(){
-  const [vw,vh]=view,l=layoutFrom(room),list=rows().filter(row=>gm||row.visible),vertical=['left','right'].includes(l.partyDock),partyWidth=vertical?166:Math.min(Math.max(150,party.length*160+8),Math.max(150,vw-100)),partyHeight=vertical?Math.min(party.length*78+8,Math.max(86,vh-190)):86;
-  const p={width:partyWidth,height:partyHeight,x:l.partyDock==='left'?12:l.partyDock==='right'?Math.max(12,vw-partyWidth-64):Math.max(60,(vw-partyWidth)/2),y:l.partyDock==='bottom'?Math.max(80,vh-partyHeight-90):l.partyDock==='top'?64:100,vertical};
-  const width=Math.max(280,Math.min(410,vw-86)),height=Math.max(150,Math.min(94+list.length*42,vh-220));
-  const sameSide=l.party&&party.length&&vertical&&l.partyDock===l.initiativeDock;
-  const b={width,height:Math.min(height,Math.max(150,vh-(sameSide?partyHeight+220:220))),x:l.initiativeDock==='right'?Math.max(12,vw-width-64):12,y:sameSide?110+partyHeight: l.party&&party.length&&l.partyDock==='top'?158:100};
-  return {party:l.party&&party.length?p:null,battle:l.initiative&&ready?b:null};
+  return dockedPanels(view,layoutFrom(room),party.length,rows().filter(row=>gm||row.visible).length,ready);
  }
  function healthItems(item,row){
   const ratio=grid/(item.grid?.dpi||grid),sx=ratio*Math.abs(item.scale?.x||1),sy=ratio*Math.abs(item.scale?.y||1),angle=(item.rotation||0)*Math.PI/180;
@@ -33,14 +29,14 @@ async function start(){
   const cx=item.position.x+dx*Math.cos(angle)-dy*Math.sin(angle),cy=item.position.y+dx*Math.sin(angle)+dy*Math.cos(angle),extent=(Math.abs((item.image?.height||grid)*sy*Math.cos(angle))+Math.abs((item.image?.width||grid)*sx*Math.sin(angle)))/2;
   const width=Math.max(grid*.65,Math.min(grid*1.4,(item.image?.width||grid)*sx)),h=grid*.055,left=cx-width/2,top=cy-extent-grid*.17,fraction=Math.max(0,Math.min(1,row.hp/Math.max(1,row.hpMax))),base=()=>({[BAR]:{tokenId:item.id}});
   const common=builder=>builder.layer('TEXT').attachedTo(item.id).disableAttachmentBehavior(['ROTATION','SCALE','COPY']).disableHit(true).locked(true).visible(item.visible!==false).zIndex(item.zIndex+10).disableAutoZIndex(true).metadata(base());
-  const line=(length,color)=>common(buildLine()).position({x:left,y:top}).startPosition({x:0,y:0}).endPosition({x:Math.max(.01,length),y:0}).strokeColor(color).strokeWidth(h).build();
-  return [line(width,'#201a30'),line(width*fraction,fraction>.5?'#6adb8f':fraction>.25?'#efc467':'#f47e91'),common(buildLabel()).position({x:cx,y:top-h}).width(width).height(grid*.15).plainText(String(row.hp)+' / '+row.hpMax).fontSize(grid*.105).fontWeight(700).padding(0).pointerWidth(0).pointerHeight(0).backgroundOpacity(0).textAlign('CENTER').fillColor('#ffffff').strokeColor('#151020').strokeWidth(2).build()];
+  const line=(length,color,z)=>common(buildLine()).zIndex(item.zIndex+z).position({x:left,y:top}).startPosition({x:0,y:0}).endPosition({x:Math.max(.01,length),y:0}).strokeColor(color).strokeWidth(h).build();
+  return [line(width,'#6b3347',10),line(width*fraction,fraction>.5?'#6adb8f':fraction>.25?'#efc467':'#f47e91',11),common(buildLabel()).zIndex(item.zIndex+12).position({x:cx,y:top-h}).width(width).height(grid*.15).plainText(String(row.hp)+' / '+row.hpMax).fontSize(grid*.105).fontWeight(700).padding(0).pointerWidth(0).pointerHeight(0).backgroundOpacity(0).textAlign('CENTER').fillColor('#ffffff').strokeColor('#151020').strokeWidth(2).build()];
  }
  async function health(){
   if(!ready)return;const generation=epoch,l=layoutFrom(room),active=new Set(),add=[],updates=[],remove=[];
   if(recoverBars){const old=await OBR.scene.local.getItems(item=>!!item.metadata[BAR]);if(generation!==epoch||!ready)return;if(old.length)await OBR.scene.local.deleteItems(old.map(item=>item.id));bars.clear();recoverBars=false;}
   if(l.initiative)for(const row of rows()){
-   if((!gm&&!row.visible)||!row.available)continue;const item=items.find(item=>item.id===row.id);if(!item)continue;active.add(row.id);
+   if((!gm&&!row.visible)||!row.available||!row.trackHp)continue;const item=items.find(item=>item.id===row.id);if(!item)continue;active.add(row.id);
    const desired=healthItems(item,row),signature=JSON.stringify(desired.map(({id,lastModified,lastModifiedUserId,...value})=>value)),old=bars.get(row.id);
    if(old?.signature===signature)continue;
    if(old){desired.forEach((value,index)=>updates.push({...value,id:old.ids[index]}));bars.set(row.id,{ids:old.ids,signature});}
@@ -81,6 +77,7 @@ async function start(){
    if(!['hp','mp'].includes(d.key)||!Number.isFinite(d.value)||Math.abs(d.value)>=1e7||d.key==='mp'&&d.value<0)throw Error('Enter a valid current value.');
    const battle=d.battle?rows().find(row=>row.id===d.id):null,siteId=battle?.siteId||(!d.battle?d.id:null);
    if(battle?.linked&&!battle.available)throw Error('This sheet is no longer shared.');
+   if(battle&&d.key==='hp'&&!battle.trackHp)throw Error('HP is not tracked for this combatant.');
    if(siteId){const row=party.find(row=>row.id===siteId);if(!row)throw Error('This sheet is no longer shared.');return siteStats(siteId,d.revision??row.revision,{[d.key]:d.value});}
    if(!battle)throw Error('Combatant not found.');await OBR.scene.items.updateItems([battle.id],drafts=>{for(const item of drafts){if(item.metadata[BATTLE]?.enabled)item.metadata[BATTLE][d.key]=d.value;}});return;
   }
@@ -101,8 +98,9 @@ async function start(){
    if(rows().length>=100)throw Error('This scene already has 100 combatants.');
    const matches=party.filter(row=>normalizeName(row.name)===normalizeName(tokenName(item))),site=matches.length===1?matches[0]:null;
    if(!site&&!d.stats){bus.send({type:'setup',id:item.id,name:tokenName(item)});await OBR.popover.open({id:PREFIX+'/setup',url:new URL('/owlbear/battle-add.html?id='+encodeURIComponent(item.id)+'&name='+encodeURIComponent(tokenName(item)),location.origin).href,width:280,height:320});return;}
-   const stats=site||d.stats;if(['hp','mp','ac'].some(key=>!Number.isFinite(stats[key])||Math.abs(stats[key])>=1e7)||stats.initiative!==undefined&&(!Number.isFinite(stats.initiative)||Math.abs(stats.initiative)>9999)||!site&&(stats.mp<0||stats.hp<=0))throw Error('Enter valid starting stats (HP above zero).');
-   const data={enabled:true,siteId:site?.id||null,hp:stats.hp,hpMax:stats.hp,mp:stats.mp,mpMax:stats.mp,ac:stats.ac,touch:site?.touch??stats.ac,flat:site?.flat??stats.ac,cmd:site?.cmd??10,initiative:stats.initiative||0,order:Date.now()};
+   const stats=site||d.stats,trackHp=!!site||stats.hp!==null&&stats.hp!==undefined&&stats.hp>0;
+   if(['mp','ac',...(trackHp?['hp']:[])].some(key=>!Number.isFinite(stats[key])||Math.abs(stats[key])>=1e7)||stats.initiative!==undefined&&(!Number.isFinite(stats.initiative)||Math.abs(stats.initiative)>9999)||!site&&(stats.mp<0||stats.hp!==null&&stats.hp!==undefined&&(!Number.isFinite(stats.hp)||stats.hp<0)))throw Error('Enter valid starting stats, or leave HP blank.');
+   const data={enabled:true,siteId:site?.id||null,trackHp,hp:trackHp?stats.hp:0,hpMax:trackHp?stats.hp:0,mp:stats.mp,mpMax:stats.mp,ac:stats.ac,touch:site?.touch??stats.ac,flat:site?.flat??stats.ac,cmd:site?.cmd??10,initiative:stats.initiative||0,order:Date.now()};
    await OBR.scene.items.updateItems([item.id],drafts=>{for(const draft of drafts)draft.metadata[BATTLE]=data;});await OBR.popover.close(PREFIX+'/setup');return;
   }
   if(d.type==='remove'){
@@ -128,13 +126,17 @@ async function start(){
  }
  OBR.scene.onReadyChange(()=>{void loadScene().catch(error);});OBR.scene.items.onChange(value=>{if(ready){items=value;schedule();}});OBR.scene.onMetadataChange(value=>{scene=value;schedule();});OBR.scene.grid.onChange(value=>{grid=value.dpi;schedule();});
  OBR.player.onChange(value=>{gm=value.role==='GM';publish();schedule();});
- const resize=async()=>{view=await Promise.all([OBR.viewport.getWidth(),OBR.viewport.getHeight()]);schedule();};window.addEventListener('resize',()=>void resize());await resize();await loadScene();
+ // Background iframes do not reliably receive parent-window resize/zoom events.
+ // Read only dimensions, not scene data, and redraw only when they change.
+ let measuring=false,stopped=false;
+ const resize=async()=>{if(measuring||stopped)return;measuring=true;try{const next=await Promise.all([OBR.viewport.getWidth(),OBR.viewport.getHeight()]);if(!stopped&&next.every(value=>Number.isFinite(value)&&value>0)&&(next[0]!==view[0]||next[1]!==view[1])){view=next;schedule();}}catch(e){console.debug('Cosmos viewport:',e.message);}finally{measuring=false;}};
+ window.addEventListener('resize',resize);const viewportTimer=setInterval(()=>void resize(),750);await resize();await loadScene();
  await OBR.contextMenu.create({id:PREFIX+'/battle-toggle',icons:[{icon:new URL('/owlbear/battle-add.svg',location.origin).href,label:'Add to battle',filter:{roles:['GM'],min:1,max:1,every:[{key:'type',value:'IMAGE'},{key:'layer',value:'CHARACTER'},{key:['metadata',BATTLE,'enabled'],value:true,operator:'!='}]}},{icon:new URL('/owlbear/battle-remove.svg',location.origin).href,label:'Remove from battle',filter:{roles:['GM'],min:1,max:1,every:[{key:'type',value:'IMAGE'},{key:'layer',value:'CHARACTER'},{key:['metadata',BATTLE,'enabled'],value:true}]}}],onClick:context=>{
   const item=context.items[0];if(!item)return;if(!allowed()){void OBR.action.open();error(Error('Connect a Cosmos administrator account first.'));return;}
   const generation=epoch;queue=queue.then(()=>command({type:item.metadata?.[BATTLE]?.enabled?'remove':'add',id:item.id,epoch:generation})).catch(error);
  }});
  // Close widgets left by the retired standalone Party extension in this browser.
  await Promise.allSettled(['com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
- publish();window.addEventListener('pagehide',()=>{stop();bus.close();grant?.close();clearTimeout(timer);},{once:true});
+ publish();window.addEventListener('pagehide',()=>{stopped=true;clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();clearTimeout(timer);},{once:true});
 }
 OBR.onReady(()=>void start().catch(e=>console.error('Cosmos:',e)));
