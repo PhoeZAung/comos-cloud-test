@@ -1,4 +1,4 @@
-import {patchLandingAnimation} from './dice-landing-animation.mjs';
+import {patchLandingAnimation,patchPhysicsRecording} from './dice-landing-animation.mjs';
 import {patchSettledFaces} from './dice-settled-adapter.mjs';
 import {mkdir,readFile,writeFile,cp} from 'node:fs/promises';
 import {buildCustomDice} from './build-custom-dice.mjs';
@@ -9,6 +9,7 @@ export async function buildDiceAssets(){
   let source=await readFile(new URL('../node_modules/@3d-dice/dice-box/dist/'+name,import.meta.url),'utf8');
   if(name==='Dice.js')source=patchSettledFaces(source);
   if(name==='dice-box.es.js'){
+   source=patchPhysicsRecording(source);
    const start=source.indexOf('  resizeWorld() {'),end=source.indexOf('  async init()',start);
    if(start<0||end<0)throw Error('Dice resize adapter needs review.');
    source=source.slice(0,start)+`  resizeWorld() {

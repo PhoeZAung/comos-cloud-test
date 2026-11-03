@@ -13021,46 +13021,66 @@ class da {
     }), t.shadowTransparency !== this.config.shadowTransparency && (C(this, ce).directional.shadowGenerator.darkness = this.config.shadowTransparency), t.lightIntensity !== this.config.lightIntensity && (C(this, ce).directional.intensity = 0.65 * this.config.lightIntensity, C(this, ce).hemispheric.intensity = 0.4 * this.config.lightIntensity);
   }
   // all this does is start the render engine.
-  render(e) {
-    C(this, oe).runRenderLoop(this.renderLoop.bind(this)), C(this, ne).postMessage({
-      action: "resumeSimulation",
-      newStartPoint: e
-    });
+render(e){
+    C(this,oe).runRenderLoop(this.renderLoop.bind(this));
+    if(this.config.cosmosReplay)this.cosmosReplayPhase='waiting';
+    else C(this,ne).postMessage({action:'resumeSimulation',newStartPoint:e});
   }
-cosmosAnimateDice(now=performance.now()){
-    for(const die of Object.values(C(this,Z))){
-      if(!die.cosmosRotationFor||!die.cosmosPhysicalPosition||!die.mesh||die.mesh.isDisposed())continue;
-      die.cosmosStartedAt??=now;
-      const elapsed=Math.max(0,Math.min(1,(now-die.cosmosStartedAt)/1400));
-      die.mesh.position.copyFrom(die.cosmosPhysicalPosition);
-      // Keep a still-spinning visual above the surface until its landing ends.
-      die.mesh.position.y+=.8*Math.sin(Math.PI*elapsed)*(1-elapsed);
-      const target=die.cosmosRotationFor(die.mesh.position);
-      if(elapsed<1){
-        const axis=new (die.mesh.position.constructor)(.85,.3,.6);axis.normalize();
-        const spin=target.constructor.RotationAxis(axis,Math.PI*4*Math.pow(1-elapsed,3));
-        die.mesh.rotationQuaternion.copyFrom(spin.multiply(target));
-      }else die.mesh.rotationQuaternion.copyFrom(target);
-      die.mesh.computeWorldMatrix(true);
+  async cosmosPrepareReplay(dice,generation){
+    try{
+      for(const die of dice){
+        if(generation!==this.cosmosGeneration)return;
+        if(!die.cosmosFrames?.length)throw Error('No dice trajectory was recorded.');
+        const last=die.cosmosFrames.at(-1),rotation=die.mesh.rotationQuaternion;
+        die.mesh.position.set(last[0],last[1],last[2]);rotation.set(last[3],last[4],last[5],last[6]);rotation.normalize();
+        const physical=rotation.clone();die.cosmosPreparing=true;
+        await Oe.getRollResult(die,C(this,K));die.cosmosPreparing=false;
+        if(generation!==this.cosmosGeneration)return;
+        if(Number.isInteger(die.config.data?.targetValue)&&!die.cosmosPreparedFace)throw Error('Could not prepare the recorded face.');
+        // q(t) * inverse(q(final)) * wanted(final): a constant body-space
+        // offset throughout playback, with no last-frame face substitution.
+        die.cosmosFaceOffset=physical.conjugate().multiply(rotation);
+        die.cosmosQ0=rotation.clone();die.cosmosQ1=rotation.clone();
+      }
+      if(generation!==this.cosmosGeneration)return;
+      this.cosmosReplayStarted=performance.now();this.cosmosReplayPhase='playback';
+      this.cosmosPlayback(this.cosmosReplayStarted);
+      for(const die of dice)die.mesh.isVisible=true;
+      document.dispatchEvent(new Event('comos:dice-motion-start'));
+    }catch(error){
+      if(generation!==this.cosmosGeneration)return;
+      this.cosmosReplayPhase='failed';C(this,oe).stopRenderLoop();
+      console.error('Dice motion:',error.message);
+      // Let the presentation show its authoritative receipt on visual failure.
+      for(const die of dice)if(!die.dieParent)this.onRollResult({rollId:die.config.rollId,value:NaN});
     }
   }
-  async cosmosWaitForLanding(die,generation){
-    if(!die.cosmosRotationFor)return;
-    die.cosmosStartedAt??=performance.now();
-    this.cosmosAnimateDice();
-    await new Promise(resolve=>{
-      const step=()=>{
-        if(generation!==this.cosmosGeneration||die.mesh.isDisposed()||performance.now()-die.cosmosStartedAt>=1400){resolve();return;}
-        requestAnimationFrame(step);
-      };step();
-    });
+  cosmosPlayback(now){
+    const time=Math.max(0,(now-this.cosmosReplayStarted)*60/1000),dice=Object.values(C(this,Z));let finished=true;
+    for(const die of dice){
+      const frames=die.cosmosFrames;if(!frames?.length)continue;
+      const position=Math.min(time,frames.length-1),first=Math.floor(position),second=Math.min(first+1,frames.length-1),mix=position-first,a=frames[first],b=frames[second];
+      die.mesh.position.set(a[0]+(b[0]-a[0])*mix,a[1]+(b[1]-a[1])*mix,a[2]+(b[2]-a[2])*mix);
+      die.cosmosQ0.set(a[3],a[4],a[5],a[6]).normalize();die.cosmosQ1.set(b[3],b[4],b[5],b[6]).normalize();
+      const orientation=die.cosmosQ0.constructor.Slerp(die.cosmosQ0,die.cosmosQ1,mix).multiply(die.cosmosFaceOffset);
+      die.mesh.rotationQuaternion.copyFrom(orientation);die.mesh.computeWorldMatrix(true);
+      if(time<frames.length-1)finished=false;
+    }
+    C(this,K).render();
+    if(finished){this.cosmosReplayPhase='settled';for(const die of dice)void this.handleAsleep(die);}
   }
-  renderLoop() {
-    this.cosmosAnimateDice();
-
-    C(this, me) && C(this, me) === Object.keys(C(this, Z)).length ? (C(this, oe).stopRenderLoop(), C(this, ne).postMessage({
-      action: "stopSimulation"
-    }), this.onRollComplete()) : C(this, K).render();
+  renderLoop(){
+    if(this.config.cosmosReplay){
+      if(this.cosmosReplayPhase==='waiting'){
+        if(Object.keys(C(this,Z)).length>=this.config.cosmosExpectedDice){
+          this.cosmosReplayPhase='capture';C(this,ne).postMessage({action:'resumeSimulation',newStartPoint:false});
+        }return;
+      }
+      if(this.cosmosReplayPhase==='capture'||this.cosmosReplayPhase==='prepare'||this.cosmosReplayPhase==='failed')return;
+      if(this.cosmosReplayPhase==='playback'){this.cosmosPlayback(performance.now());return;}
+    }
+    if(C(this,me)&&C(this,me)===Object.keys(C(this,Z)).length){C(this,oe).stopRenderLoop();C(this,ne).postMessage({action:'stopSimulation'});this.onRollComplete();}
+    else C(this,K).render();
   }
   async loadTheme(e) {
     const { theme: t, basePath: i, material: r, meshFilePath: s, meshName: n } = e;
@@ -13080,7 +13100,7 @@ cosmosAnimateDice(now=performance.now()){
     this.onThemeLoaded({ id: t });
   }
   clear() {
-    this.cosmosGeneration=(this.cosmosGeneration||0)+1;
+    this.cosmosGeneration=(this.cosmosGeneration||0)+1;this.cosmosReplayPhase='idle';
     !Object.keys(C(this, Z)).length && !C(this, me) || (this.diceBufferView.byteLength && this.diceBufferView.fill(0), C(this, Ve).forEach((e) => clearTimeout(e)), C(this, oe).stopRenderLoop(), Object.values(C(this, Z)).forEach((e) => {
       e.mesh && e.mesh.dispose();
     }), ie(this, Z, {}), ie(this, Be, 0), ie(this, me, 0), C(this, K).render());
@@ -13112,41 +13132,47 @@ cosmosAnimateDice(now=performance.now()){
       id: t.d10Instance.id
     })), delete C(this, Z)[t.d10Instance.id], Fe(this, me)._--), C(this, Z)[e.id].mesh && C(this, Z)[e.id].mesh.dispose(), delete C(this, Z)[e.id], Fe(this, me)._--, C(this, K).render(), this.onDieRemoved(e.rollId);
   }
-  updatesFromPhysics(e) {
-    this.diceBufferView = new Float32Array(e);
-    let t = 1;
-    for (let i = 0, r = this.diceBufferView[0]; i < r; i++) {
-      if (!Object.keys(C(this, Z)).length)
-        continue;
-      const s = C(this, Z)[`${this.diceBufferView[t]}`];
-      if (!s) {
-        console.log("Error: die not available in scene to animate");
-        break;
-      }
-      if (this.diceBufferView[t + 1] === -1)
-        this.handleAsleep(s);
-      else {
-        const n = this.diceBufferView[t + 1], a = this.diceBufferView[t + 2], o = this.diceBufferView[t + 3], l = this.diceBufferView[t + 4], d = this.diceBufferView[t + 5], h = this.diceBufferView[t + 6], c = this.diceBufferView[t + 7];
-        if(!s.asleep){s.cosmosPhysicalPosition??=s.mesh.position.clone();s.cosmosPhysicalPosition.set(n,a,o);s.mesh.position.set(n,a,o);if(!s.cosmosRotationFor)s.mesh.rotationQuaternion.set(l,d,h,c);}
-      }
-      t = t + 8;
+updatesFromPhysics(e){
+    if(!this.config.cosmosReplay)return this.cosmosLiveUpdates(e);
+    this.diceBufferView=new Float32Array(e);
+    if(this.cosmosReplayPhase!=='capture'){this.cosmosReturnBuffer();return;}
+    const values=this.diceBufferView;
+    for(let index=0,at=1;index<values[0];index++,at+=8){
+      const die=C(this,Z)[String(values[at])];if(!die)continue;
+      if(values[at+1]===-1){die.cosmosPhysicsDone=true;continue;}
+      die.cosmosFrames??=[];die.cosmosFrames.push(Array.from(values.subarray(at+1,at+8)));
+      die.mesh.position.set(values[at+1],values[at+2],values[at+3]);
+      die.mesh.rotationQuaternion.set(values[at+4],values[at+5],values[at+6],values[at+7]);
     }
-    requestAnimationFrame(() => {
-      C(this, ne).postMessage({
-        action: "stepSimulation",
-        diceBuffer: this.diceBufferView.buffer
-      }, [this.diceBufferView.buffer]);
-    });
+    const dice=Object.values(C(this,Z));
+    if(dice.length>=this.config.cosmosExpectedDice&&dice.every(die=>die.cosmosPhysicsDone)){
+      this.cosmosReplayPhase='prepare';this.cosmosReturnBuffer();
+      void this.cosmosPrepareReplay(dice,this.cosmosGeneration);return;
+    }
+    // Worker messages already yield the UI thread. No render-frame delay is
+    // needed while computing the short, bounded physics trace.
+    C(this,ne).postMessage({action:'stepSimulation',diceBuffer:values.buffer},[values.buffer]);
+  }
+  cosmosReturnBuffer(){
+    C(this,ne).postMessage({action:'stopSimulation'});
+    // The worker must own the transfer buffer while paused, so the next roll
+    // (or a roll after dismissal) can resume without waiting on a lost buffer.
+    const buffer=this.diceBufferView.buffer;
+    if(buffer.byteLength)C(this,ne).postMessage({action:'initBuffer',diceBuffer:buffer},[buffer]);
+  }
+  cosmosLiveUpdates(e){
+    this.diceBufferView=new Float32Array(e);const values=this.diceBufferView;
+    for(let index=0,at=1;index<values[0];index++,at+=8){
+      const die=C(this,Z)[String(values[at])];if(!die)continue;
+      if(values[at+1]===-1)void this.handleAsleep(die);
+      else if(!die.asleep){die.mesh.position.set(values[at+1],values[at+2],values[at+3]);die.mesh.rotationQuaternion.set(values[at+4],values[at+5],values[at+6],values[at+7]);}
+    }
+    requestAnimationFrame(()=>{C(this,ne).postMessage({action:'stepSimulation',diceBuffer:this.diceBufferView.buffer},[this.diceBufferView.buffer]);});
   }
   // handle the position updates from the physics worker. It's a simple flat array of numbers for quick and easy transfer
   async handleAsleep(e) {
     var t, i;
-    if(e.asleep)return;e.asleep=true;
-    const generation=this.cosmosGeneration;await this.cosmosWaitForLanding(e,generation);
-    if(generation!==this.cosmosGeneration||!e.mesh||e.mesh.isDisposed())return;
-    this.cosmosAnimateDice();
-    if (await Oe.getRollResult(e, C(this, K)), e.cosmosLanded=true,
- e.d10Instance || e.dieParent) {
+    if(e.asleep)return;e.asleep=true; if (await Oe.getRollResult(e, C(this, K)), e.cosmosLanded=true, e.d10Instance || e.dieParent) {
       if ((t = e == null ? void 0 : e.d10Instance) != null && t.cosmosLanded || (i = e == null ? void 0 : e.dieParent) != null && i.cosmosLanded) {
         const r = e.config.sides === 100 ? e : e.dieParent, s = e.config.sides === 10 ? e : e.d10Instance;
         r.rawValue && (r.value = r.rawValue), r.rawValue = r.value, r.value = r.value + s.value, r.value === 0 && (r.value = 100), this.onRollResult({
@@ -13175,10 +13201,7 @@ Z = new WeakMap(), Be = new WeakMap(), me = new WeakMap(), Ve = new WeakMap(), f
     scale: this.config.scale,
     lights: C(this, ce)
   }, i = new Oe(t, C(this, K));
-    if(Number.isInteger(i.config.data?.targetValue)){
-      i.cosmosPreparing=true;await Oe.getRollResult(i,C(this,K));i.cosmosPreparing=false;
-      if(!i.cosmosRotationFor)throw Error('Could not prepare the recorded die face.');
-    }
+  if(this.config.cosmosReplay)i.mesh.isVisible=false;
   return C(this, Z)[i.id] = i, C(this, ne).postMessage({
     action: "addDie",
     options: {
@@ -13189,10 +13212,9 @@ Z = new WeakMap(), Be = new WeakMap(), me = new WeakMap(), Ve = new WeakMap(), f
       theme: e.theme,
       meshName: e.meshName
     }
-  }), e.sides === 100 && e.data !== "single" && (i.d10Instance = await Oe.loadDie({ ...t, dieType: "d10", sides: 10, id: i.id + 1e4 }, C(this, K)).then(async (r) => {
-    const s = new Oe(r, C(this, K));s.dieParent=i;
-    if(Number.isInteger(s.config.data?.targetValue)){s.cosmosPreparing=true;await Oe.getRollResult(s,C(this,K));s.cosmosPreparing=false;if(!s.cosmosRotationFor)throw Error('Could not prepare percentile face.');}
-    return s;
+  }), e.sides === 100 && e.data !== "single" && (i.d10Instance = await Oe.loadDie({ ...t, dieType: "d10", sides: 10, id: i.id + 1e4 }, C(this, K)).then((r) => {
+    const s = new Oe(r, C(this, K));
+    s.dieParent=i;if(this.config.cosmosReplay)s.mesh.isVisible=false;return s;
   }), C(this, Z)[`${i.d10Instance.id}`] = i.d10Instance, C(this, ne).postMessage({
     action: "addDie",
     options: {

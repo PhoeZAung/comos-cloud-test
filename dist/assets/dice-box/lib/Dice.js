@@ -33274,14 +33274,7 @@ const Pr = {
             s.mesh.rotationQuaternion.copyFrom(rotation);c.rotationQuaternion=s.mesh.rotationQuaternion;
             s.mesh.computeWorldMatrix(true);c.computeWorldMatrix(true);
             const hit=pick();if(hit?.hit&&faceMap[hit.faceId]===wanted){
-              s.cosmosLandingNormal=direction.clone();
-              s.cosmosRotationFor=position=>{
-                const aim=t.activeCamera.position.subtract(position).normalize();if(s.dieType==='d4'&&h)aim.negateInPlace();
-                const normal=s.cosmosLandingNormal,dot=Math.max(-1,Math.min(1,p.Dot(normal,aim))),axis=p.Cross(normal,aim);
-                if(axis.length()<.00001)axis.copyFrom(p.Cross(normal,new p(1,0,0)));
-                if(axis.length()<.00001)axis.set(0,0,1);
-                return s.mesh.rotationQuaternion.constructor.RotationAxis(axis.normalize(),Math.acos(dot));
-              };
+              s.cosmosPreparedFace=true;
               matched=true;break;
             }
           }

@@ -27,6 +27,7 @@ async function run(result,theme,notation,custom,signal){
  view.querySelector('button').onclick=dismiss;
  signal?.addEventListener('abort',dismiss,{once:true});
  const escape=event=>{if(event.key==='Escape')dismiss();};document.addEventListener('keydown',escape);
+ const motionStarted=()=>{if(!dismissed)status.textContent='Rolling…';};document.addEventListener('comos:dice-motion-start',motionStarted);
  status.textContent='Preparing dice…';
  try{
   if(!enginePromise)enginePromise=(async()=>{
@@ -36,11 +37,12 @@ async function run(result,theme,notation,custom,signal){
   })();
   const box=await Promise.race([enginePromise,cancelled.then(()=>null),sleep(18000).then(()=>{throw Error('3D dice could not start.');})]);
   if(!box||dismissed)return;
-  await box.updateConfig({theme:'cosmos-'+custom.shape+'-'+custom.material,themeColor:custom.color,scale:diceScale()});
-  if(dismissed)return;
-  box.show();status.textContent='Rolling…';
-  await Promise.race([new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))),cancelled]);if(dismissed)return;
   let dice=notation||resultDice(result);
+  const physicalCount=typeof dice==='string'?(()=>{const match=/^(\d+)d(4|6|8|10|12|20|100)$/.exec(dice);return match?Number(match[1])*(Number(match[2])===100?2:1):0;})():dice.reduce((count,die)=>count+(die.qty||1)*(Number(die.sides)===100?2:1),0);
+  await box.updateConfig({theme:'cosmos-'+custom.shape+'-'+custom.material,themeColor:custom.color,scale:diceScale(),cosmosReplay:physicalCount>0,cosmosExpectedDice:physicalCount});
+  if(dismissed)return;
+  box.show();status.textContent='Preparing roll…';
+  await Promise.race([new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))),cancelled]);if(dismissed)return;
   if(!notation&&!dice.length){status.textContent=summary(result);await Promise.race([sleep(2400),cancelled]);return;}
   const rolls=await Promise.race([box.roll(dice),cancelled.then(()=>null),sleep(15000).then(()=>{throw Error('The dice took too long to settle.');})]);
   if(!rolls||dismissed)return;
@@ -50,7 +52,7 @@ async function run(result,theme,notation,custom,signal){
   await Promise.race([sleep(800),cancelled]);
  }catch(error){try{engine?.clear();engine?.hide();}catch{}status.textContent=(result?summary(result)+' · ':'')+error.message;await Promise.race([sleep(700),cancelled]);}
  finally{
-  signal?.removeEventListener('abort',dismiss);document.removeEventListener('keydown',escape);view.classList.add('dice-page-leaving');await sleep(250);
+  signal?.removeEventListener('abort',dismiss);document.removeEventListener('keydown',escape);document.removeEventListener('comos:dice-motion-start',motionStarted);view.classList.add('dice-page-leaving');await sleep(250);
   try{engine?.clear();engine?.hide();}catch{}
   if(view.hidePopover&&view.matches(':popover-open'))view.hidePopover();view.hidden=true;
  }

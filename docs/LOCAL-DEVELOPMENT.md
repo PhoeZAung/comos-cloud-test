@@ -78,13 +78,16 @@ the recorded face is oriented toward the camera and ray-checked against that
 specific hitbox, then rendered. Sleeping dice ignore later physics transforms.
 An alignment failure hides the 3D dice and preserves the recorded receipt.
 
-The landing animation now prepares that orientation before showing the die.
-Physics still supplies the toss position/bounces, while a visual rotation eases
-toward the prepared face during the toss. If physics stops early, the visual
-keeps a short airborne settling phase before landing. Result callbacks wait for
-that phase. Final face checking does not rotate a landed die. Clearing a roll
-invalidates any pending landing callbacks. This replaces the earlier last-frame
-rotation that was visible in the supplied recording.
+The toss records a bounded physics trace at a fixed 60 Hz before showing the
+die, prepares the recorded face while hidden, and replays the actual positions
+and rotations with one constant orientation offset. There is no added lift,
+timed spin, or easing toward a different face at landing. Each die stays at its
+own final position when its trace ends. Result callbacks wait for playback;
+final face checking only reads the landed die. Clearing a roll invalidates any
+pending preparation. This replaces both the last-frame face snap and the
+artificial airborne phase visible in the supplied recordings. Validation is
+limited to builds and syntax checks; the new motion has not been previewed in
+an interactive roll.
 
 Standalone sheets now initialize shared galaxy/splash effects lazily, respecting
 Pause stars, Splash cursor, site colors, and reduced motion. Sheet effects use
