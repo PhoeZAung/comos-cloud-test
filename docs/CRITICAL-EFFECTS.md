@@ -1,6 +1,6 @@
 # Random fullscreen critical effects
 
-Local implementation. No GitHub push, merge, or NAS deployment.
+The optimized effect pages ship with source builds; publishing remains a separate manual step.
 
 Nat 1 randomly chooses Void Rift, Crystal Shatter Blast, or Planet Shatter.
 Nat 20 randomly chooses Thunder God Strike, Starfall Barrage, or Thousand Cuts.
@@ -53,11 +53,12 @@ starts at the main impact only if already decoded, never late.
 
 Original GIFs remain untouched in Downloads. Private working copies live in
 %USERPROFILE%/.cosmos-dev/critical-fx/sources, with compiled atlases in compiled.
-scripts/build-critical-effects.mjs validates source hashes/frame counts, caches
-the conversion, and copies it into the ignored dist/assets/critical-fx directory.
-Normal local/live builds include that private directory; the GIFs/derived pages
-are not committed. A future deployment must explicitly include the permitted
-end-product assets. Builds without them retain static receipts.
+The optimized end-product WebP pages, short sound cues, and timing manifest are
+versioned under src/assets/critical-fx. Raw GIFs and source asset packs stay private.
+scripts/build-critical-effects.mjs copies the bundled pages into the ignored
+dist/assets/critical-fx directory, which both local and QNAP builds include.
+If no bundle is present, the script can compile the private working copies.
+Source hashes in the manifest identify the supplied clips.
 
 Decoded frames are bounded to current/next atlas pages; consumed ImageBitmaps
 are closed. Compressed pages use a bounded cache. Canvas DPR is capped at 1.5.
@@ -79,7 +80,7 @@ switch is explicitly changed. There is no schema migration or bulk data rewrite.
   automatic shake/cleanup, click-through, phone/small-phone/landscape layouts,
   dice → receipt → effect order, normal rolls, toggles, sound and reduced motion.
   The synthetic preview substitutes a controlled dice-settled promise and does
-  not log in, send a game roll, or change live user data. It needs the private
-  GIFs/cached atlases; screenshots/results are written to a temporary directory.
+  not log in, send a game roll, or change live user data. It uses the bundled
+  frame pages; screenshots/results are written to a temporary directory.
 
 Remaining manual checks: physical-device smoothness and preferred sound level.

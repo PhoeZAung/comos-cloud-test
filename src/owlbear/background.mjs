@@ -1,5 +1,6 @@
 import OBR,{buildLine,buildLabel} from '@owlbear-rodeo/sdk';
 import {localChannel} from './local-channel.mjs';
+import {adminMenu} from './admin-menu.mjs';
 import {connection} from './connection.mjs';
 import {publicPartyClient} from './public-party-client.mjs';
 import {dockedPanels} from './docking.mjs';
@@ -7,11 +8,11 @@ import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,tokenName,normalizeName} fr
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative';
 async function start(){
  let bus,token='',grant,admin=false,gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
- const popovers=new Map(),bars=new Map(),commits=new Map();
+ const popovers=new Map(),bars=new Map(),commits=new Map();let syncMenu=()=>Promise.resolve();
  const error=e=>void OBR.notification.show(e.message||String(e),'ERROR');
  const allowed=()=>gm&&admin;
  const rows=()=>battleRows(items,party);
- const publish=()=>bus?.send({type:'state',admin:allowed(),connected:!!grant,feed,party,battle:rows().filter(row=>gm||row.visible),turn:scene[TURN]||{},layout:layoutFrom(room),ready});
+ const publish=()=>{void syncMenu();bus?.send({type:'state',admin:allowed(),connected:!!grant,feed,party,battle:rows().filter(row=>gm||row.visible),turn:scene[TURN]||{},layout:layoutFrom(room),ready});};
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
@@ -131,10 +132,11 @@ async function start(){
  let measuring=false,stopped=false;
  const resize=async()=>{if(measuring||stopped)return;measuring=true;try{const next=await Promise.all([OBR.viewport.getWidth(),OBR.viewport.getHeight()]);if(!stopped&&next.every(value=>Number.isFinite(value)&&value>0)&&(next[0]!==view[0]||next[1]!==view[1])){view=next;schedule();}}catch(e){console.debug('Cosmos viewport:',e.message);}finally{measuring=false;}};
  window.addEventListener('resize',resize);const viewportTimer=setInterval(()=>void resize(),750);await resize();await loadScene();
- await OBR.contextMenu.create({id:PREFIX+'/battle-toggle',icons:[{icon:new URL('/owlbear/battle-add.svg',location.origin).href,label:'Add to battle',filter:{roles:['GM'],min:1,max:1,every:[{key:'type',value:'IMAGE'},{key:'layer',value:'CHARACTER'},{key:['metadata',BATTLE,'enabled'],value:true,operator:'!='}]}},{icon:new URL('/owlbear/battle-remove.svg',location.origin).href,label:'Remove from battle',filter:{roles:['GM'],min:1,max:1,every:[{key:'type',value:'IMAGE'},{key:'layer',value:'CHARACTER'},{key:['metadata',BATTLE,'enabled'],value:true}]}}],onClick:context=>{
+ syncMenu=adminMenu(OBR,allowed,{id:PREFIX+'/battle-toggle',icons:[{icon:new URL('/owlbear/battle-add.svg',location.origin).href,label:'Add to battle',filter:{roles:['GM'],min:1,max:1,every:[{key:'type',value:'IMAGE'},{key:'layer',value:'CHARACTER'},{key:['metadata',BATTLE,'enabled'],value:true,operator:'!='}]}},{icon:new URL('/owlbear/battle-remove.svg',location.origin).href,label:'Remove from battle',filter:{roles:['GM'],min:1,max:1,every:[{key:'type',value:'IMAGE'},{key:'layer',value:'CHARACTER'},{key:['metadata',BATTLE,'enabled'],value:true}]}}],onClick:context=>{
   const item=context.items[0];if(!item)return;if(!allowed()){void OBR.action.open();error(Error('Connect a Cosmos administrator account first.'));return;}
   const generation=epoch;queue=queue.then(()=>command({type:item.metadata?.[BATTLE]?.enabled?'remove':'add',id:item.id,epoch:generation})).catch(error);
- }});
+ }},error);
+ await syncMenu();
  // Close widgets left by the retired standalone Party extension in this browser.
  await Promise.allSettled(['com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
  publish();window.addEventListener('pagehide',()=>{stopped=true;clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();clearTimeout(timer);},{once:true});

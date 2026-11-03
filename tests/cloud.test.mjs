@@ -8,14 +8,14 @@ import { createStaticHandler } from '../backend/http/static.mjs';
 import { createApiServer } from '../backend/http/app.mjs';
 import { initializeAuthentication } from '../backend/auth/firebase.mjs';
 
-test('cloud host isolates preview CSP and blocks private files, traversal, symlinks and writes', async () => {
+test('cloud host isolates preview CSP and blocks private files, traversal, symlinks and writes', async t => {
  const temp = await mkdtemp(path.join(os.tmpdir(), 'comos-cloud-'));
  const root = path.join(temp, 'public'); await mkdir(root); await mkdir(path.join(root, 'preview'));
  await writeFile(path.join(root, 'auth-headers.json'), JSON.stringify({'Content-Security-Policy': "connect-src 'self'"}));
  await writeFile(path.join(root, 'index.html'), '<h1>Live</h1>');
  await writeFile(path.join(root, 'preview/index.html'), '<h1>Preview</h1>');
  await writeFile(path.join(temp, 'private.html'), 'private');
- await symlink(path.join(temp, 'private.html'), path.join(root, 'escape.html'));
+ let linked=true;try{await symlink(path.join(temp, 'private.html'), path.join(root, 'escape.html'));}catch(error){if(process.platform!=='win32'||error.code!=='EPERM')throw error;linked=false;}
  const handler = await createStaticHandler(root);
  const server = createApiServer({db: {}, staticHandler:handler});
  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
@@ -23,7 +23,8 @@ test('cloud host isolates preview CSP and blocks private files, traversal, symli
  try {
   let r = await fetch(base); assert.equal(r.status, 200); assert.equal(r.headers.get('content-security-policy'), "connect-src 'self'");
   r = await fetch(base+'/preview/'); assert.equal(r.status,404);
-  for(const name of ['/escape.html','/auth-headers.json','/%2e%2e%2fprivate.html','/.env','/backend/cloud.mjs']) assert.equal((await fetch(base+name)).status,404,name);
+  await t.test('symlink cannot expose a private file',{skip:!linked&&'Windows does not permit file symlinks.'},async()=>assert.equal((await fetch(base+'/escape.html')).status,404));
+  for(const name of ['/auth-headers.json','/%2e%2e%2fprivate.html','/.env','/backend/cloud.mjs']) assert.equal((await fetch(base+name)).status,404,name);
   assert.equal((await fetch(base+'/',{method:'POST'})).status,405);
   assert.equal((await fetch(base+'/api/v1/characters')).status,401);
   r=await fetch(base,{method:'HEAD'}); assert.equal(r.status,200); assert.equal(await r.text(),'');

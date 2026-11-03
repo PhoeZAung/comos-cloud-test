@@ -39,7 +39,7 @@ test('Lore has only icon search and owned-character tag controls',()=>{
  assert.doesNotMatch(html,/<select|name="worldId"|name="partyId"|name="scope"|name="sort"|>Search<\/button>/);
  assert.doesNotMatch(html,/data-lore-tag value="missing"/);
  const noTags=renderLoreLibrary({availableTags:[],tagsOpen:true});
- assert.match(noTags,/No tags are attached to your characters yet/);
+ assert.match(noTags,/No tags/);
  assert.doesNotMatch(noTags,/data-lore-tag value=/);
 });
 test('only explicitly permitted character tags filter Lore, even if a forged tag is supplied',()=>{

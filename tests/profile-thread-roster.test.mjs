@@ -45,7 +45,7 @@ test('character import is owner-scoped, preserves sheet fields, links known tags
  try{
   const users=createUserRepository(db),a=users.create({displayName:'A'}),b=users.create({displayName:'B'});
   const svc=createCharacterLibraryService(db),tag=randomUUID();
-  db.prepare('INSERT INTO character_tags VALUES(?,?)').run(tag,'Arcane');
+  db.prepare('INSERT INTO character_tags(id,name) VALUES(?,?)').run(tag,'Arcane');
   const raw={character:{data:{charName:'Nyx',level:4,race:'Viera',hp_curr:16,items:[{name:'Blade'}],group_tags:['Arcane']}}};
   const first=svc.import(a.id,raw),second=svc.import(a.id,raw);
   assert.notEqual(first.id,second.id);

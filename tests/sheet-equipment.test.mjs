@@ -185,9 +185,9 @@ test('Server refuses forged slots, empty inventory and malformed item selection'
  assert.doesNotMatch(inventoryHTML,/data-equipment=/);
  assert.doesNotMatch(renderSection({id:randomUUID(),name:'Mage',data:inventory},'items',{itemView:'equip'}),/data-sheet-list/);
  const combat=renderSection({id:'mage',name:'Mage',data:inventory},'combat',{combatView:'offense'});
- assert.match(combat,/cs-metric-initiative/);
  assert.match(combat,/data-roll="Initiative"/);
- assert.doesNotMatch(renderSection({id:'mage',name:'Mage',data:inventory},'combat',{combatView:'defense'}),/cs-metric-initiative/);
+ assert.match(combat,/data-combat-details="attack"/);
+ assert.match(renderSection({id:'mage',name:'Mage',data:inventory},'combat',{combatView:'defense'}),/data-combat-details="defense"/);
 });
 
 test('Equip slots persist through the authenticated revision-checked character sheet route',async()=>{

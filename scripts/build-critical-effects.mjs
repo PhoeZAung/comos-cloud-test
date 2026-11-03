@@ -3,6 +3,8 @@ import {readFile,writeFile,mkdir,cp,stat} from 'node:fs/promises';
 import {homedir} from 'node:os';import path from 'node:path';import {createHash} from 'node:crypto';
 import {criticalEffects} from '../src/features/critical-effects.mjs';
 export async function buildCriticalEffects(){
+ const bundled=new URL('../src/assets/critical-fx/',import.meta.url);
+ try{await stat(new URL('manifest.json',bundled));await mkdir(new URL('../dist/assets/critical-fx/',import.meta.url),{recursive:true});await cp(bundled,new URL('../dist/assets/critical-fx/',import.meta.url),{recursive:true});return true;}catch(error){if(error.code!=='ENOENT')throw error;}
  const base=path.join(homedir(),'.cosmos-dev','critical-fx'),source=path.join(base,'sources'),cache=path.join(base,'compiled'),destination=new URL('../dist/assets/critical-fx/',import.meta.url),inputs=[];
  for(const effect of criticalEffects){try{const file=await readFile(path.join(source,effect.id+'.gif'));inputs.push({effect,file,hash:createHash('sha256').update(file).digest('hex')});}catch{console.info('Critical GIF assets are not installed; static critical receipts remain available.');return false;}}
  await mkdir(cache,{recursive:true});let previous;try{previous=JSON.parse(await readFile(path.join(cache,'manifest.json'),'utf8'));}catch{}

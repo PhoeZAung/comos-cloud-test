@@ -25,8 +25,8 @@ test('Lore tag choices come only from the signed-in owner’s active characters'
   assign.run(aChar,arcane);assign.run(bChar,hidden);assign.run(archived,old);
   db.prepare('UPDATE characters SET archived=1 WHERE id=?').run(archived);
   const service=createCharacterLibraryService(db);
-  assert.deepEqual(service.loreTags(alice.id).map(row=>({...row})),[{id:arcane,name:'Arcane'}]);
-  assert.deepEqual(service.loreTags(bob.id).map(row=>({...row})),[{id:hidden,name:'Other player tag'}]);
+  assert.deepEqual(service.loreTags(alice.id).map(row=>({...row})),[{id:arcane,name:'Arcane',kind:'party'}]);
+  assert.deepEqual(service.loreTags(bob.id).map(row=>({...row})),[{id:hidden,name:'Other player tag',kind:'party'}]);
 
   const sessions={restore:async cookie=>{
     if(cookie==='a')return {subject:'a',user:alice};
@@ -40,9 +40,9 @@ test('Lore tag choices come only from the signed-in owner’s active characters'
     assert.equal((await fetch(base)).status,401);
     const aliceResult=await fetch(base,{headers:{Cookie:'__Host-comos_session=a'}});
     assert.equal(aliceResult.status,200);
-    assert.deepEqual((await aliceResult.json()).tags,[{id:arcane,name:'Arcane'}]);
+    assert.deepEqual((await aliceResult.json()).tags,[{id:arcane,name:'Arcane',kind:'party'}]);
     const bobResult=await fetch(base,{headers:{Cookie:'__Host-comos_session=b'}});
-    assert.deepEqual((await bobResult.json()).tags,[{id:hidden,name:'Other player tag'}]);
+    assert.deepEqual((await bobResult.json()).tags,[{id:hidden,name:'Other player tag',kind:'party'}]);
     assert.equal((await fetch(base+'?ownerId='+bob.id,{headers:{Cookie:'__Host-comos_session=a'}})).status,400);
     assert.equal((await fetch(base,{method:'POST',headers:{Cookie:'__Host-comos_session=a'}})).status,405);
   }finally{await new Promise(resolve=>api.close(resolve));}

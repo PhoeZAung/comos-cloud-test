@@ -12,5 +12,5 @@ dist-live/
 docs/imports/.import-queue.lock
 docs/imports/*.tmp
 
-# Supplied effect GIFs and compiled frame atlases stay private/local.
+# Generated effect output; the optimized source bundle is versioned.
 /dist/assets/critical-fx/

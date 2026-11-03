@@ -1,6 +1,7 @@
 import {randomBytes} from 'node:crypto';
 import {Readable} from 'node:stream';
 import {adminSession,adminJson} from './admin-requests.mjs';
+import {rollHistory} from '../characters/roll-history.mjs';
 // Session credentials remain on the server. Grants are scoped, memory-only and
 // disappear on server restart; every use revalidates the original login session.
 export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
@@ -27,6 +28,10 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
    if(!session||session.user.id!==grant.userId){send(401,{message:'Reconnect Cosmos.'});return true;}
    let target,method='GET',payload;
    if(body.method==='capabilities'){send(200,{status:200,data:{admin:session.admin,scope:grant.scope}});return true;}
+   if(body.method==='roll-history'){
+    if(grant.scope!=='sheet')throw Error('Connect your Cosmos character sheets.');
+    send(200,{status:200,data:{rolls:rollHistory(db,session.user.id)}});return true;
+   }
    if(body.method==='party-stats'){
     if(!session.admin)throw Error('Administrator access required.');
     const value=body.value||{},stats=value.stats,keys=['hp','mp'];

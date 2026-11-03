@@ -77,7 +77,7 @@ test('damage consumes temp HP first; heal caps at max and rejects negative amoun
  const damage=mergeSheetData(data,{action:'damage',amount:5});assert.equal(damage.hp_temp,0);assert.equal(damage.hp_curr,7);
  const absorbed=mergeSheetData(data,{action:'damage',amount:2});assert.equal(absorbed.hp_temp,1);assert.equal(absorbed.hp_curr,9);
  assert.equal(mergeSheetData(data,{action:'heal',amount:100}).hp_curr,22);assert.throws(()=>mergeSheetData(data,{action:'damage',amount:-1}));
- const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.doesNotMatch(html,/>Base<|>BAB<|>Speed</);assert.doesNotMatch(html,/data-health=/);assert.match(html,/data-formula="AC"/);assert.match(renderSheetFrame({id:'sample',name:'Mage',data},'combat'),/aria-label="Rest"/);
+ const html=renderSection({id:'sample',name:'Mage',data},'combat');assert.doesNotMatch(html,/>Base<|>BAB<|>Speed</);assert.doesNotMatch(html,/data-health=/);assert.match(html,/data-combat-details="defense"/);assert.match(renderSheetFrame({id:'sample',name:'Mage',data},'combat'),/aria-label="Rest"/);
 });
 
 test('heart groups combat, abilities and spells; ability categories render only selected records',()=>{

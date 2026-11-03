@@ -1,8 +1,8 @@
 {
   "name": "Cosmos",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "manifest_version": 1,
-  "description": "Character sheets, Dice+ rolls, a live party display, and token initiative in one Cosmos extension.",
+  "description": "Character sheets, Dice+ roll history, party displays, and initiative in one Cosmos extension.",
   "author": "PhoeZAung",
   "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/icon.svg",
   "homepage_url": "https://cosmos-web.burmese-barbel.ts.net/",

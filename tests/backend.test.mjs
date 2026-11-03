@@ -12,14 +12,14 @@ import { configuration } from '../backend/config.mjs';
 
 async function temporary(t) {
   const dir = await mkdtemp(path.join(os.tmpdir(), 'comos-test-'));
-  t.after(() => rm(dir, { recursive: true, force: true }));
+
   return dir;
 }
 
 test('SQLite records survive reopen; migrations run once and stale profile updates fail', async t => {
   const dir = await temporary(t), filename = path.join(dir, 'db.sqlite');
   let db = await openDatabase(filename);
-  t.after(() => { try { db.close(); } catch {} });
+  t.after(async () => { try { db.close(); } catch {} await rm(dir,{recursive:true,force:true}); });
   const users = createUserRepository(db);
   const user = users.create({ displayName: "O'Brien; DROP TABLE users;" });
   const updated = users.updateProfile(user.id, { displayName: 'Changed', theme: 'dark' }, user.revision);
@@ -27,7 +27,7 @@ test('SQLite records survive reopen; migrations run once and stale profile updat
   assert.throws(() => users.updateProfile(user.id, { displayName: 'Stale', theme: 'light' }, 1), { code: 'REVISION_CONFLICT' });
   db.close(); db = await openDatabase(filename);
   assert.equal(createUserRepository(db).get(user.id).displayName, 'Changed');
-  assert.equal(db.prepare('SELECT count(*) AS n FROM schema_migrations').get().n, 20);
+  assert.equal(db.prepare('SELECT count(*) AS n FROM schema_migrations').get().n, 24);
   assert.equal(db.prepare('PRAGMA foreign_keys').get().foreign_keys, 1);
   assert.equal(db.prepare('PRAGMA journal_mode').get().journal_mode, 'wal');
 });
@@ -48,7 +48,7 @@ test('migration failure rolls back changes; altered and missing history is rejec
   const dir = await temporary(t), migrations = path.join(dir, 'migrations');await mkdir(migrations);
   const original = await readFile(new URL('../backend/db/migrations/001-identity-media.sql', import.meta.url));
   await writeFile(path.join(migrations, '001-identity-media.sql'), original);
-  const db = await openDatabase(path.join(dir, 'test.sqlite'), { migrationsDirectory: migrations });t.after(() => db.close());
+  const db = await openDatabase(path.join(dir, 'test.sqlite'), { migrationsDirectory: migrations });t.after(async () => {db.close();await rm(dir,{recursive:true,force:true});});
   await writeFile(path.join(migrations, '002-broken.sql'), 'CREATE TABLE should_rollback(id TEXT); THIS IS NOT SQL;');
   await assert.rejects(migrate(db, migrations));
   assert.equal(db.prepare("SELECT count(*) AS n FROM sqlite_master WHERE name='should_rollback'").get().n, 0);
@@ -62,7 +62,7 @@ test('migration failure rolls back changes; altered and missing history is rejec
 
 test('media bytes survive reopening; owner checks hide other-user records; failed metadata is cleaned up', async t => {
   const dir = await temporary(t), filename = path.join(dir, 'db.sqlite'), mediaDir = path.join(dir, 'media');
-  let db = await openDatabase(filename);t.after(() => { try { db.close(); } catch {} });
+  let db = await openDatabase(filename);t.after(async () => { try { db.close(); } catch {} await rm(dir,{recursive:true,force:true}); });
   const users = createUserRepository(db), a = users.create(), b = users.create();
   const files = await createFileStore(mediaDir);
   let service = createMediaService(createMediaRepository(db), files);
@@ -79,14 +79,13 @@ test('media bytes survive reopening; owner checks hide other-user records; faile
 });
 
 test('file adapter rejects traversal, oversized inputs, and symlinks', async t => {
-  const dir = await temporary(t), files = await createFileStore(path.join(dir, 'media'), 8);
+  const dir = await temporary(t);t.after(()=>rm(dir,{recursive:true,force:true}));const files = await createFileStore(path.join(dir, 'media'), 8);
   await assert.rejects(files.put(Buffer.alloc(9)), /bounded Buffer/);
   for (const key of ['../secret', '/etc/passwd', '..\\secret', '%2e%2e%2fsecret']) await assert.rejects(files.read(key), /Invalid media key/);
   const saved = await files.put(Buffer.from('short'));
   await rm(path.join(dir, 'media', saved.key));
   await writeFile(path.join(dir, 'secret'), 'secret');
-  await symlink(path.join(dir, 'secret'), path.join(dir, 'media', saved.key));
-  await assert.rejects(files.read(saved.key), /Invalid media file/);
+  await t.test('symlink files are rejected',async sub=>{try{await symlink(path.join(dir, 'secret'), path.join(dir, 'media', saved.key));}catch(error){if(process.platform==='win32'&&error.code==='EPERM'){sub.skip('Windows does not permit this account to create file symlinks.');return;}throw error;}await assert.rejects(files.read(saved.key), /Invalid media file/);});
 });
 
 test('API health works; forged authentication, ghost flags, writes, and private files are denied', async t => {
@@ -97,7 +96,7 @@ test('API health works; forged authentication, ghost flags, writes, and private 
   const base = `http://127.0.0.1:${server.address().port}`;
   const response = await fetch(`${base}/api/v1/health`);
   assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), { status: 'ok', apiVersion: 1, database: 'ready', schemaVersion: 20, authentication: 'not_configured' });
+  assert.deepEqual(await response.json(), { status: 'ok', apiVersion: 1, database: 'ready', schemaVersion: 24, authentication: 'not_configured' });
   for (const method of ['GET','POST','PUT','PATCH','DELETE']) {
     const r = await fetch(`${base}/api/v1/users?admin=true&mode=fixture`, { method, headers: { Authorization: 'Bearer forged', 'X-User-Id': 'someone', 'X-Role': 'admin', Origin: 'https://example.invalid' } });
     assert.equal(r.status, 401);
@@ -110,12 +109,12 @@ test('API health works; forged authentication, ghost flags, writes, and private 
 });
 
 test('configuration keeps runtime data outside the public website', async t => {
-  const dir = await temporary(t);
+  const dir = await temporary(t);t.after(()=>rm(dir,{recursive:true,force:true}));
   const config = await configuration({ COMOS_DATA_DIR: path.join(dir,'data'), COMOS_MEDIA_ROOT:path.join(dir,'media'), COMOS_API_PORT:'0' });
   assert.equal(config.host, '127.0.0.1');assert.equal(config.port, 0);
   await assert.rejects(configuration({ COMOS_DATA_DIR:'dist/private' }), /outside dist/);
   await assert.rejects(configuration({ COMOS_API_PORT:'invalid' }), /Invalid/);
   const dist = new URL('../dist/', import.meta.url);
-  await symlink(dist, path.join(dir,'public-link'));
+  await symlink(dist, path.join(dir,'public-link'),process.platform==='win32'?'junction':'dir');
   await assert.rejects(configuration({ COMOS_DATA_DIR:path.join(dir,'public-link') }), /symlink/);
 });
