@@ -1,4 +1,5 @@
 import OBR from '@owlbear-rodeo/sdk';
+import {tokenResources} from './token-resources.mjs';
 import {UI,HUD,stateFrom} from './party-state.mjs';
 import {TRACKER,trackerConfig,trackerRows,memberships,removeMember,advanceTurn,saveTracker} from './tracker.mjs';
 OBR.onReady(async()=>{
@@ -11,9 +12,9 @@ OBR.onReady(async()=>{
    const config=trackerConfig(metadata),[vw,vh]=await Promise.all([OBR.viewport.getWidth(),OBR.viewport.getHeight()]);
    for(const mode of ['party','battle']){
     const id=HUD+'/'+mode;if(!config.views[mode]){if(opened.has(id)){await OBR.popover.close(id);opened.delete(id);}continue;}
-    const settings=layout[mode]||{},density=settings.density||(mode==='battle'?'compact':'normal');
-    const count=trackerRows(metadata,mode).length,cardWidth={normal:243,compact:205,tiny:165}[density]||243;
-    const width=Math.min(vw-24,mode==='party'?(count?Math.min(880,vw-80,24+count*cardWidth):160):410),height=Math.min(vh-100,mode==='party'?(count?({normal:190,compact:146,tiny:112}[density]||190):40):480);
+    const settings=layout[mode]||{},density=settings.density||'compact';
+    const count=trackerRows(metadata,mode).length,cardWidth={normal:112,compact:100,tiny:90}[density]||100;
+    const width=Math.min(vw-24,mode==='party'?(count?Math.min(880,vw-80,24+count*cardWidth):160):410),height=Math.min(vh-100,mode==='party'?(count?({normal:158,compact:144,tiny:132}[density]||144):40):480);
     const x=Math.max(8,Math.min(vw-width-8,settings.x??(mode==='party'?Math.max(68,(vw-width)/2):68))),y=Math.max(8,Math.min(vh-height-8,settings.y??(mode==='party'?16:220)));
     const shape=JSON.stringify([width,height,x,y,density]);if(opened.get(id)===shape)continue;
     const url=new URL('/owlbear/party/overlay.html',location.origin);url.search=new URLSearchParams({mode,density,x:String(x),y:String(y)});
@@ -67,5 +68,6 @@ OBR.onReady(async()=>{
    if(!remove)c.views[mode]=true;
   })).catch(e=>OBR.notification.show(e.message,'ERROR'));
  }});
+ void tokenResources(OBR).catch(e=>console.error(e.message));
  setInterval(()=>void render(),5000);void render();
 });

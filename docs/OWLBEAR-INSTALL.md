@@ -46,9 +46,21 @@ Both can be on together. There is no Off button; toggle either view off itself.
 Players see connection status and the shared views. GM controls are hidden and
 role checked; Owlbear may still display the installed extension action icon.
 
-- Party starts as a small header while empty, grows with the number of members,
-  and becomes a horizontal panel at the top containing character portraits,
-  names, HP, MP, and expandable AC details. It scrolls for larger parties.
+- Party starts as a small header while empty, then grows into a transparent
+  strip of circular character portraits with names, HP, MP and an AC badge.
+  There are no square card backgrounds or HP/MP meters in Party. Compact is
+  the default; Full and Small change the portrait size. It scrolls for larger
+  parties. Click AC for its other defense values.
+- The GM can click or double-click a Party HP/MP number to edit the current
+  value. Enter or clicking away saves; Escape cancels. Maxima remain available
+  through the battle gear. Linked edits synchronize with Cosmos.
+- Tokens added from Owlbear receive HP/MP numbers and segmented meters above
+  their actual scene icons. They follow token movement, and update with the
+  tracker. Click/select or double-click a number to open a current-value editor.
+  A native Edit current HP / MP context action is also provided on the number.
+  These annotations are local scene decorations rebuilt for each viewer, rather
+  than permanent shared items; removing a token from both lists removes them.
+  GM editing permissions apply to both the portrait numbers and token numbers.
 - Battle is one compact table on the left: initiative, name, HP, MP, AC.
   It scrolls vertically for large battles, with column headings kept visible.
 - Drag either panel's header and release to move the whole panel. Their personal

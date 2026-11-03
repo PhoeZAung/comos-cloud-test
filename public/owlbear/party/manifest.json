@@ -1,6 +1,6 @@
 {
   "name": "Cosmos Party Status",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "manifest_version": 1,
   "description": "Floating character portraits, live HP and MP, and expandable armor class details from Cosmos.",
   "author": "PhoeZAung",
