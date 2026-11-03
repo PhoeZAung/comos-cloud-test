@@ -7,6 +7,8 @@
     "build": "node scripts/build.mjs",
     "start": "node scripts/build.mjs && node server.mjs",
     "test": "node scripts/build.mjs && node --test tests/*.test.mjs",
+    "test:galaxy": "node --test tests/galaxy-dragon.test.mjs tests/dice-themes.test.mjs tests/sheet-weapon.test.mjs tests/account.test.mjs",
+    "test:galaxy:browser": "node scripts/build.mjs && node scripts/check-galaxy-dragon-browser.mjs",
     "api": "node backend/main.mjs",
     "db:migrate": "node scripts/migrate.mjs",
     "build:live": "node scripts/build.mjs && node scripts/build-live.mjs",
@@ -38,6 +40,7 @@
     "@grpc/grpc-js": "1.13.6"
   },
   "devDependencies": {
-    "esbuild": "0.28.2"
+    "esbuild": "0.28.2",
+    "playwright": "1.64.1"
   }
 }

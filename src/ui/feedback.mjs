@@ -1,4 +1,4 @@
-import {naturalResult,showCritical,unlockCriticalAudio} from './critical-fx.mjs';
+import {naturalResult,showCritical,unlockCriticalAudio,preloadDragon} from './critical-fx.mjs';
 import {preferences} from './preferences.mjs';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let hideTimer,animation,presentations=Promise.resolve(),generation=0,activePresentation;
@@ -7,6 +7,7 @@ export function notify(message){const node=host();node.innerHTML='<span>'+e(mess
 export function showDice(result,{preview=false,onResult=()=>{}}={}){
  unlockCriticalAudio();
  const own=generation,options={...preferences.diceOptions},animate=preferences.dicePopup!==false||preview;
+ if(naturalResult(result)===20&&(preview||options.critEffects)&&(options.nat20Style||'dragon')==='dragon')preloadDragon();
  const work=async()=>{
   if(own!==generation)return;const controller=new AbortController();activePresentation=controller;
   try{

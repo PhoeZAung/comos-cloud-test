@@ -9,7 +9,7 @@ export function mountSheetSettings(root){
   const options=preferences.diceOptions;
   panel.querySelector('[data-setting-dice-popup]').checked=preferences.dicePopup;
   for(const key of ['critEffects','critSound'])panel.querySelector('[data-dice-option='+key+']').checked=options[key];
-  panel.querySelector('[data-dice-option=critStyle]').value=options.critStyle;
+  panel.querySelector('[data-dice-option=nat20Style]').value=options.nat20Style;
   const volume=panel.querySelector('[data-dice-option=volume]');if(document.activeElement!==volume)volume.value=options.volume;
   panel.querySelector('[data-volume-label]').textContent=Math.round(Number(volume.value)*100)+'%';
   for(const node of panel.querySelectorAll('[data-sheet-theme]'))node.setAttribute('aria-pressed',String(node.dataset.sheetTheme===preferences.theme));

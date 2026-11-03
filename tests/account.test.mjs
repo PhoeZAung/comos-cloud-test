@@ -11,13 +11,14 @@ import {createAccountService,normalizeAvatar} from '../backend/account/service.m
 import {createAccountRoutes} from '../backend/account/routes.mjs';
 import {createApiServer} from '../backend/http/app.mjs';
 import {createAccountClient} from '../src/account/client.mjs';
+import {diceOptionDefaults} from '../src/features/dice-options.mjs';
 
 test('account edits, preferences and processed avatars survive restart; replacements clean up old media',async()=>{
  const dir=await mkdtemp(path.join(os.tmpdir(),'comos-account-')),database=path.join(dir,'db.sqlite');let db;
  try {
   db=await openDatabase(database);const files=await createFileStore(path.join(dir,'media'));
   const repo=createUserRepository(db);let user=repo.create();const service=createAccountService({db,files});
-  assert.deepEqual(user.preferences,{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:false,dicePopup:true,diceTheme:'classic'});
+  assert.deepEqual(user.preferences,{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:false,dicePopup:true,diceTheme:'classic',diceOptions:diceOptionDefaults});
   user=service.update(user.id,{revision:user.revision,displayName:'  Explorer  ',preferences:{theme:'ocean',splashCursor:true,effectColors:false,pauseStars:true,dicePopup:true}});
   assert.equal(user.displayName,'Explorer');assert.equal(user.profileState,'complete');
   assert.throws(()=>service.update(user.id,{revision:1,displayName:'Stale'}),{code:'REVISION_CONFLICT'});
@@ -77,7 +78,7 @@ test('Pause stars is a saved account switch, not a global footer button',async()
  const markup=accountEditor({fixture:true});
  assert.match(markup,/data-pause-stars/);
  assert.ok(markup.indexOf('data-splash-toggle')<markup.indexOf('data-pause-stars'));
- assert.deepEqual(normalizedPreferences({pauseStars:true,dicePopup:true}),{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:true,dicePopup:true,diceTheme:'classic'});
+ assert.deepEqual(normalizedPreferences({pauseStars:true,dicePopup:true}),{theme:'cosmic',splashCursor:false,effectColors:true,pauseStars:true,dicePopup:true,diceTheme:'classic',diceOptions:diceOptionDefaults});
  const pageHtml=renderPage(page);
  assert.doesNotMatch(pageHtml,/data-motion|Pause stars<\/button>/);
 });

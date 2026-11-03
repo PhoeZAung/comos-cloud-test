@@ -42,8 +42,8 @@ Sheet settings now have three tabs:
 All website roll presentations share one queue. Each job captures its own
 options, runs the recorded dice through the existing authoritative face adapter,
 waits for the toss to finish and clear, updates the sheet result, and then shows
-Cosmos Classic. Natural 1/20 instead show a number in the vortex circle with a
-muted gray / brighter backdrop. Critical effects disabled falls back to Classic.
+Cosmos Classic. Natural 20 defaults to a galaxy dragon flyby; Natural 1 uses
+the vortex circle with a muted gray backdrop. Critical effects disabled falls back to Classic.
 The job waits for its result popup to close before the next toss can start.
 Navigation aborts the current job and invalidates pending jobs. Network saves
 are not blocked while the visual queue drains. Owlbear keeps Dice+ behavior.
@@ -112,3 +112,6 @@ lighter rendering settings and release their contexts/listeners on navigation.
 World/Party tags, the party-grouped Admin view, and live party notes are described
 in [WORLD-PARTY-TAGS.md](WORLD-PARTY-TAGS.md). Migration 024 adds storage for those
 features; it is applied locally after a private consistent SQLite backup.
+
+The default Natural 20 galaxy dragon, original sound, and automated/browser
+checks are documented in [NAT20-GALAXY-DRAGON.md](NAT20-GALAXY-DRAGON.md).

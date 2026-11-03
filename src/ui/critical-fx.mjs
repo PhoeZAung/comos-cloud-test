@@ -1,4 +1,7 @@
 import {preferences} from './preferences.mjs';
+import {preloadDragon,showGalaxyDragon} from './galaxy-dragon.mjs';
+import {playDragonWhoosh} from './dragon-whoosh.mjs';
+export {preloadDragon};
 let audioContext;const sounds=new Map();
 export function unlockCriticalAudio(){
  if(!preferences.diceOptions.critSound)return;
@@ -21,7 +24,15 @@ async function playSound(name,volume,view){
 }
 export function showCritical(value,{preview=false,options={...preferences.diceOptions},signal,result}={}){
  if(![1,20].includes(value)||signal?.aborted)return Promise.resolve();
- const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,asset=value===1?'arcane':options.critStyle==='arcane'?'arcane':'fire',view=document.createElement('div');
+ if(value===20&&(options.nat20Style||'dragon')==='dragon'){
+  return showGalaxyDragon({signal,result,preview,onSound:()=>{
+   if(!options.critSound||!preferences.diceOptions.critSound)return ()=>{};
+   const stop=playDragonWhoosh(audioContext,options.volume),changed=()=>{if(!preferences.diceOptions.critSound||preferences.diceOptions.volume===0)stop();};
+   document.addEventListener('comos:preferences',changed);
+   return ()=>{stop();document.removeEventListener('comos:preferences',changed);};
+  }});
+ }
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,asset=value===1?'arcane':options.nat20Style==='arcane'?'arcane':'fire',view=document.createElement('div');
  view.className='critical-fx '+(value===1?'critical-fail':'critical-success')+(reduced?' critical-still':'');view.setAttribute('popover','manual');view.setAttribute('role','status');
  view.innerHTML='<div class="critical-circle"><div class="critical-vortex"></div><div class="critical-center"><span class="critical-label">NAT '+value+'</span><strong class="critical-number">'+value+'</strong><span data-critical-result></span><small>'+(preview?'Preview':'')+'</small></div></div><button type="button" aria-label="Dismiss roll effect">×</button>';
  const attack=result?.kind==='weapon'?result:result?.attack;view.querySelector('[data-critical-result]').textContent=[attack?'Attack '+attack.total:Number.isFinite(result?.total)?'Total '+result.total:'',result?.damage?'Damage '+result.damage.total:''].filter(Boolean).join(' · ');
