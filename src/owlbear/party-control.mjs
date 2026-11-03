@@ -1,4 +1,5 @@
 import OBR from '@owlbear-rodeo/sdk';
+import {trackerConfig} from './tracker.mjs';
 import {connection as connectGrant} from './connection.mjs';
 import {KEY,PORTRAITS,REQUEST,UI,esc,stateFrom} from './party-state.mjs';
 const status=document.querySelector('[data-status]'),connect=document.querySelector('[data-connect-party]');
@@ -46,7 +47,7 @@ OBR.onReady(async()=>{
  available=true;ownId=await OBR.player.getConnectionId();
  await OBR.action.setIcon(new URL('/owlbear/party-action.svg',location.origin).href);
  const gm=await OBR.player.getRole()==='GM';connect.hidden=!gm;document.querySelector('.party-actions').hidden=!gm;
- const update=value=>{status.textContent=stateFrom(value)?'Connected':'Disconnected';for(const button of document.querySelectorAll('[data-mode]'))button.setAttribute('aria-pressed',String(button.dataset.mode===(value['com.cosmos.party-status/tracker']?.mode||'party')));};update(await OBR.room.getMetadata());OBR.room.onMetadataChange(update);
+ const update=value=>{status.textContent=stateFrom(value)?'Connected':'Disconnected';for(const button of document.querySelectorAll('[data-mode]'))button.setAttribute('aria-pressed',String(trackerConfig(value).views[button.dataset.mode]===true));};update(await OBR.room.getMetadata());OBR.room.onMetadataChange(update);
  OBR.broadcast.onMessage(REQUEST,({data})=>{if(!publishing||!Array.isArray(data?.ids))return;for(const id of data.ids.slice(0,40)){const portrait=portraits.get(id);if(portrait)void OBR.broadcast.sendMessage(PORTRAITS,portrait,{destination:'ALL'}).catch(()=>{});}});
 });
 connect.onclick=()=>{
@@ -59,5 +60,5 @@ window.addEventListener('message',event=>{
  if(event.origin!==location.origin||event.source!==popup||event.data?.type!=='cosmos:connected'||event.data.nonce!==nonce)return;
  if(!/^[a-f0-9]{64}$/.test(event.data.token||''))return;generation++;clearTimeout(timer);connection?.close();connection=connectGrant(event.data.token);popup.postMessage({type:'cosmos:connected-ack',nonce},location.origin);publishing=true;lastPublished=0;lastSignature='';void tick(generation);
 });
-for(const button of document.querySelectorAll('[data-mode]'))button.onclick=()=>{if(available)void OBR.broadcast.sendMessage(UI,{mode:button.dataset.mode},{destination:'LOCAL'});};
+for(const button of document.querySelectorAll('[data-mode]'))button.onclick=()=>{if(available)void OBR.broadcast.sendMessage(UI,{toggle:button.dataset.mode},{destination:'LOCAL'});};
 window.addEventListener('pagehide',()=>{generation++;publishing=false;clearTimeout(timer);connection?.close();},{once:true});

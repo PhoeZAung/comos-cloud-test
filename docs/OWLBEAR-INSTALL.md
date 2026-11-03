@@ -36,30 +36,39 @@ Normal Cosmos website dice preferences continue to apply outside the extension.
 
 ## Tracker
 
-Cosmos Admin's character-card icon still selects characters to share.
-The connected GM's tracker panel has three view buttons: Show Party, Show Battle,
-and Off. There are no sharing counts or instructional paragraphs in the panel.
-Players see connection status and cards; GM controls are hidden and role checked.
-Owlbear's action API does not expose per-role hiding for the installed icon, so
-its entry may remain visible to players.
+Cosmos Admin's character-card icon selects characters to share.
+The GM panel has two independent toggle buttons: Show Party and Show Battle.
+Both can be on together. There is no Off button; toggle either view off itself.
+Players see connection status and the shared views. GM controls are hidden and
+role checked; Owlbear may still display the installed extension action icon.
 
-- Drag the small PARTY/BATTLE strip on a card and release to place it. Positions
-  and sizes are saved separately for each view on your browser.
-- Right-click a card for Full, Compact, or Small display.
-- GM right-click options also add a photo/icon, add to battle, link a token to a
-  Cosmos character, edit an unlinked token's stats, or remove it from the view.
-- Right-click/select an Owlbear image/prop for Add to Cosmos party or Add to
-  Cosmos combat. Its image and name become the card. Match its character name
-  or use Link character to synchronize it with a Cosmos sheet.
-- Unlinked props start with zero HP/MP and AC 10. Edit stats in the card's GM
-  context menu to set their HP, MP, AC, other defenses, and initiative.
-- Linked character HP, MP, AC and initiative come from the saved Cosmos sheet.
-  Edit the character there; tracker controls do not overwrite sheet resources.
-- Battle cards sort by initiative. Next turn in a GM card menu advances the
-  highlighted combatant and round. Character initiative is the sheet's modifier;
-  unlinked tokens use the value set by the GM.
-- Click AC to expand Touch, Flat-footed and CMD.
-- Show Party restores character cards hidden from that room's party view.
+- Party is one horizontal panel at the top, containing character portraits,
+  names, HP, MP, and expandable AC details. It scrolls for larger parties.
+- Battle is one compact table on the left: initiative, name, HP, MP, AC.
+  It scrolls vertically for large battles, with column headings kept visible.
+- Drag either panel's header and release to move the whole panel. Their personal
+  positions are stored separately. Right-click for Full, Compact, or Small.
+- Party and Battle memberships are independent. Adding to Battle keeps Party
+  membership. Removing from one list leaves the other membership intact.
+- Right-click/select an Owlbear image/prop and choose Add to Cosmos party or
+  Add to Cosmos battle. Use Remove from Cosmos party / battle to remove it again.
+  These menu actions are GM-only and also support multiple selected images.
+- A token matching a shared Cosmos character name links to that sheet. Otherwise
+  use Link character from its row/card's context menu. Linked rows track saved
+  sheet HP, MP and AC. Unlinked props start at zero HP/MP and AC 10; use Edit stats.
+- The GM can edit the battle table's initiative boxes, including linked characters.
+  These are encounter initiative overrides, so editing them does not change the
+  sheet's initiative modifier. Rows sort highest first, with stable name/ID ties.
+- Current turn is highlighted in gold; the following row is marked as up next.
+  Next and Back advance through the sorted order. Wrapping forward increments
+  the round; wrapping backward decrements it. Back stops at the start of round 1.
+  The current character stays selected if initiative values reorder the table.
+- Right-click a Party card or Battle row for photo/icon, character linking,
+  unlinked-token stats, or removal from that list. These controls are GM-only.
+- Click AC in either view to expand Touch, Flat-footed, and CMD.
+
+Existing single-mode tracker data is read without a database migration. New
+membership edits preserve the old membership while adding the second one.
 
 Tracker photos and memberships are shared in the room. Card placement and
 compactness are personal. Room metadata space is bounded; the UI reports an
