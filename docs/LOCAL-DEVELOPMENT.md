@@ -34,7 +34,7 @@ browser login; complete an interactive sign-in to verify that final step.
 Sheet settings now have three tabs:
 - Main: Discord rolls, portrait background, edit character, level up.
 - Theme: custom dice (no presets), 3D animation, critical effects and sound,
-  roll-speed and full-width volume controls, forced Nat 20 / Nat 1 visual rolls, and round
+  a full-width volume control, forced Nat 20 / Nat 1 visual rolls, and round
   color swatches for the four site themes.
 - Site: display name, site effects switches, and archive character. Profile
   photos remain on the normal Account page and are absent from sheet settings.
@@ -69,7 +69,7 @@ code-only NAS helper refuses that schema change. Plan NAS migration separately.
 Validation is limited to build, syntax, and local startup/health checks. No
 automated tests or interactive multi-roll/effect previews were run.
 
-Dice presentation fixes: throws use lower spin/throw forces, higher damping, and
+Dice presentation fixes: throws use randomized wall-directed flings and
 a screen-fit scale. Each toss keeps a logical canvas size and is fitted into the
 new screen size during resize; the next toss adopts the new dimensions. The
 pinned Dice Box resize adapter registers once, updates immediately on show, and
@@ -89,15 +89,21 @@ artificial airborne phase visible in the supplied recordings. Validation is
 limited to builds and syntax checks; the new motion has not been previewed in
 an interactive roll.
 
-Roll speed is saved with dice_options (no new schema migration), defaults to
-1.5× for existing/new users, and ranges from 0.75× to 2× in 0.25× steps in
-Settings → Theme → Dice. It scales the trace playback clock, never the physics
-impulses, collision bounds, or resulting faces. The settled face remains visible
-for 800 ms at every speed. Each queued roll keeps the speed captured when it was
-requested, and its receipt/critical effect still waits until playback ends.
-Older clients can save options without speed; reads apply the default. The
-on-sheet presentation takes inspiration from [D&D Beyond digital dice](https://dndbeyond-support.wizards.com/hc/en-us/articles/7747201888404-Digital-Dice-How-to-roll-your-free-or-premium-Digital-Dice);
-the selected timing is a Cosmos setting, not a claimed copy of its timing.
+Roll speed is automatic; the speed slider and saved speed preference are
+removed. Every physical die gets a randomized central start, edge-directed
+velocity, and tumble, with a 1.8–2.2× playback pace chosen once per toss.
+Launch speed is bounded at 65 world units/sec and targets account for the
+viewport aspect and the selected mesh radius. Elastic walls rebound the dice;
+the floor has low restitution to avoid a floating/high-bounce phase. The wall
+inner faces use an inset 8.2-unit box with full-width colliders, including on
+narrow windows. Extremely narrow views scale the dice down to fit. Physics
+traces stop when settled or after 3.4 seconds; the face remains readable for
+650 ms afterward. These changes affect visuals only: recorded outcomes and
+the dice → result → critical/Classic queue are unchanged. A retired numeric
+speed field is accepted from older open pages but is ignored on reads and rolls.
+No database schema change is required. The on-sheet presentation takes
+inspiration from [D&D Beyond digital dice](https://dndbeyond-support.wizards.com/hc/en-us/articles/7747201888404-Digital-Dice-How-to-roll-your-free-or-premium-Digital-Dice);
+the motion is implemented and tuned separately for Cosmos.
 
 Standalone sheets now initialize shared galaxy/splash effects lazily, respecting
 Pause stars, Splash cursor, site colors, and reduced motion. Sheet effects use

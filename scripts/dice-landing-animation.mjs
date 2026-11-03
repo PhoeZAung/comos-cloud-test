@@ -1,6 +1,7 @@
 // Pinned Dice Box 1.1.4 adapter. Record real physics at a fixed timestep, then
 // replay those positions/quaternions with one constant face offset. Nothing is
 // lifted, eased toward a new face, or reoriented after the visible landing.
+import {patchFlingPhysics} from './dice-fling-physics.mjs';
 export function patchPhysicsRecording(source){
  const workerPattern=/const ml = "([A-Za-z0-9+/=]+)"/;
  const match=workerPattern.exec(source);if(!match)throw Error('Dice physics worker adapter needs review.');
@@ -8,6 +9,7 @@ export function patchPhysicsRecording(source){
  const clock='const t=_-Pe;Pe=_,!ee&&k.byteLength&&(Tl(t),';
  if(!worker.includes(clock))throw Error('Dice physics clock adapter needs review.');
  worker=worker.replace(clock,'const t=p.cosmosReplay?1000/60:_-Pe;Pe=_,!ee&&k.byteLength&&(Tl(t),');
+ worker=patchFlingPhysics(worker);
  return source.replace(workerPattern,'const ml = "'+Buffer.from(worker).toString('base64')+'"');
 }
 export function patchLandingAnimation(source){

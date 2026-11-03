@@ -32,14 +32,17 @@ async function run(result,theme,notation,custom,signal){
  try{
   if(!enginePromise)enginePromise=(async()=>{
    const {default:DiceBox}=await import(new URL('./dice-box/lib/dice-box.es.js',import.meta.url).href);
-   engine=new DiceBox({container:'#cosmos-dice-stage',assetPath:'/assets/dice-box/',theme:'default',themeColor:'#c9b7ff',offscreen:false,scale:diceScale(),enableShadows:true,settleTimeout:4500,throwForce:1.8,spinForce:1.1,startingHeight:3.5,linearDamping:.65,angularDamping:.7,friction:.9,restitution:0});
+   engine=new DiceBox({container:'#cosmos-dice-stage',assetPath:'/assets/dice-box/',theme:'default',themeColor:'#c9b7ff',offscreen:false,scale:diceScale(),enableShadows:true,size:8.2,settleTimeout:3400,startingHeight:2.2,linearDamping:.34,angularDamping:.5,friction:.6,restitution:.9});
    await engine.init();return engine;
   })();
   const box=await Promise.race([enginePromise,cancelled.then(()=>null),sleep(18000).then(()=>{throw Error('3D dice could not start.');})]);
   if(!box||dismissed)return;
   let dice=notation||resultDice(result);
   const physicalCount=typeof dice==='string'?(()=>{const match=/^(\d+)d(4|6|8|10|12|20|100)$/.exec(dice);return match?Number(match[1])*(Number(match[2])===100?2:1):0;})():dice.reduce((count,die)=>count+(die.qty||1)*(Number(die.sides)===100?2:1),0);
-  await box.updateConfig({theme:'cosmos-'+custom.shape+'-'+custom.material,themeColor:custom.color,scale:diceScale(),cosmosReplay:physicalCount>0,cosmosExpectedDice:physicalCount,cosmosPlaybackSpeed:Math.max(.75,Math.min(2,Number(custom.speed)||1.5))});
+  // Presentation randomness never changes the recorded roll. Pick one pace
+  // per toss; the worker randomizes launch direction, velocity, and tumble.
+  const scale=diceScale();
+  await box.updateConfig({theme:'cosmos-'+custom.shape+'-'+custom.material,themeColor:custom.color,scale,cosmosReplay:physicalCount>0,cosmosExpectedDice:physicalCount,cosmosFling:true,cosmosRadius:scale*(custom.shape==='gemstone' ? .18 : .14),cosmosPlaybackSpeed:1.8+Math.random()*.4});
   if(dismissed)return;
   box.show();status.textContent='Preparing roll…';
   await Promise.race([new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))),cancelled]);if(dismissed)return;
@@ -49,7 +52,7 @@ async function run(result,theme,notation,custom,signal){
   if(notation){const values=rolls.map(d=>d.value);status.textContent=values.join(' + ')+' = '+values.reduce((a,b)=>a+b,0);}
   else {const expected=dice.map(d=>d.data.targetValue),actual=[...rolls].sort((a,b)=>a.rollId-b.rollId).map(d=>d.value);if(expected.some((v,i)=>v!==actual[i]))throw Error('Showing the recorded result.');status.textContent=summary(result);}
   // Keep settled faces readable, then remove the whole toss automatically.
-  await Promise.race([sleep(800),cancelled]);
+  await Promise.race([sleep(650),cancelled]);
  }catch(error){try{engine?.clear();engine?.hide();}catch{}status.textContent=(result?summary(result)+' · ':'')+error.message;await Promise.race([sleep(700),cancelled]);}
  finally{
   signal?.removeEventListener('abort',dismiss);document.removeEventListener('keydown',escape);document.removeEventListener('comos:dice-motion-start',motionStarted);view.classList.add('dice-page-leaving');await sleep(250);
@@ -57,5 +60,5 @@ async function run(result,theme,notation,custom,signal){
   if(view.hidePopover&&view.matches(':popover-open'))view.hidePopover();view.hidden=true;
  }
 }
-function diceScale(){return Math.max(3.5,Math.min(8,Math.min(logicalSize?.width||innerWidth,logicalSize?.height||innerHeight)/90));}
+function diceScale(){const width=logicalSize?.width||innerWidth,height=logicalSize?.height||innerHeight;return Math.min(Math.max(3.5,Math.min(8,Math.min(width,height)/90)),3.6*(width/height)/.18);}
 function summary(r){const attack=r.kind==='weapon'?r:r.attack;return [attack?'Attack: '+attack.total:'',r.damage?'Dice: '+r.damage.total:'',!attack&&!r.damage?'Total: '+r.total:'',r.critical?.threat?'Critical threat!':''].filter(Boolean).join(' · ');}

@@ -12,8 +12,6 @@ export function mountSheetSettings(root){
   panel.querySelector('[data-dice-option=critStyle]').value=options.critStyle;
   const volume=panel.querySelector('[data-dice-option=volume]');if(document.activeElement!==volume)volume.value=options.volume;
   panel.querySelector('[data-volume-label]').textContent=Math.round(Number(volume.value)*100)+'%';
-  const speed=panel.querySelector('[data-dice-option=speed]');if(document.activeElement!==speed)speed.value=options.speed;
-  panel.querySelector('[data-speed-label]').textContent=Number(speed.value)+'×';
   for(const node of panel.querySelectorAll('[data-sheet-theme]'))node.setAttribute('aria-pressed',String(node.dataset.sheetTheme===preferences.theme));
  }
  function choose(patch){
@@ -29,7 +27,7 @@ export function mountSheetSettings(root){
   const theme=event.target.closest('[data-sheet-theme]');if(theme){choose({theme:theme.dataset.sheetTheme});return;}
   const preview=event.target.closest('[data-preview-critical]');if(preview){const value=Number(preview.dataset.previewCritical);void showDice({kind:'check',total:value,breakdown:[{dice:'1d20',rolls:[value]}]},{preview:true});}
  },{signal:control.signal});
- panel.addEventListener('input',event=>{if(event.target.matches('[data-dice-option=volume]'))panel.querySelector('[data-volume-label]').textContent=Math.round(Number(event.target.value)*100)+'%';if(event.target.matches('[data-dice-option=speed]'))panel.querySelector('[data-speed-label]').textContent=Number(event.target.value)+'×';},{signal:control.signal});
+ panel.addEventListener('input',event=>{if(event.target.matches('[data-dice-option=volume]'))panel.querySelector('[data-volume-label]').textContent=Math.round(Number(event.target.value)*100)+'%';},{signal:control.signal});
  panel.addEventListener('change',event=>{
   const input=event.target;if(!input.matches('[data-setting-dice-popup],[data-dice-option]'))return;
   choose(input.matches('[data-setting-dice-popup]')?{dicePopup:input.checked}:{diceOptions:{...preferences.diceOptions,[input.dataset.diceOption]:input.type==='checkbox'?input.checked:input.type==='range'?Number(input.value):input.value}});
