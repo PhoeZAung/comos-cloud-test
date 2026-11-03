@@ -7,12 +7,13 @@ import {dockedPanels} from './docking.mjs';
 import {BATTLE,TURN,LAYOUT,BAR,layoutFrom,battleRows,tokenName,normalizeName} from './battle-state.mjs';
 const PREFIX='com.cosmos.character-sheets',PARTY=PREFIX+'/party',INIT=PREFIX+'/initiative';
 async function start(){
- let bus,token='',grant,admin=false,gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
+ let bus,token='',grant,admin=false,editableIds=new Set(),gm=await OBR.player.getRole()==='GM',party=[],feed='Connecting…',room={},scene={},items=[],ready=false,grid=150,view=[800,600],epoch=0,queue=Promise.resolve(),rendering=false,again=false,timer,recoverBars=false;
  const popovers=new Map(),bars=new Map(),commits=new Map();let syncMenu=()=>Promise.resolve();
  const error=e=>void OBR.notification.show(e.message||String(e),'ERROR');
  const allowed=()=>gm&&admin;
+  const canEditParty=id=>Boolean(grant&&(allowed()||editableIds.has(id)));
  const rows=()=>battleRows(items,party);
- const publish=()=>{void syncMenu();bus?.send({type:'state',admin:allowed(),connected:!!grant,feed,party,battle:rows().filter(row=>gm||row.visible),turn:scene[TURN]||{},layout:layoutFrom(room),ready});};
+ const publish=()=>{void syncMenu();bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle:rows().filter(row=>gm||row.visible),turn:scene[TURN]||{},layout:layoutFrom(room),ready});};
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){
   const old=popovers.get(id);
@@ -58,15 +59,15 @@ async function start(){
  }
  async function setGrant(value){
   if(typeof value!=='string'||!/^[a-f0-9]{64}$/.test(value))return;
-  const candidate=connection(value),capabilities=await candidate.call('capabilities');grant?.close();grant=candidate;token=value;admin=capabilities.admin===true;commits.clear();publish();bus.send({type:'grant',token});
+  const candidate=connection(value),capabilities=await candidate.call('capabilities');grant?.close();grant=candidate;token=value;admin=capabilities.admin===true;editableIds=new Set();if(capabilities.scope==='sheet'){const owned=await candidate.call('list');editableIds=new Set(owned.map(row=>row.id));}commits.clear();publish();bus.send({type:'grant',token});
  }
  async function siteStats(id,revision,stats){
-  if(!allowed()||!grant)throw Error('Connect a Cosmos administrator account to edit.');
+  if(!canEditParty(id))throw Error('Connect your Cosmos account to edit your own character.');
   const last=commits.get(id),expected=last&&revision===last.from?last.to:revision;
   const result=await grant.call('party-stats',{id,revision:expected,stats});commits.set(id,{from:last&&revision===last.from?last.from:revision,to:result.revision});return result;
  }
  async function command(d){
-  if(!allowed())throw Error('Connect a Cosmos administrator account as GM.');
+  if(d.type!=='stats'&&!allowed())throw Error('Connect a Cosmos administrator account as GM.');
   if(d.epoch!==undefined&&d.epoch!==epoch)throw Error('The scene changed. Try again in this scene.');
   if(d.type==='layout'){
    const l=layoutFrom(room);if(['party','initiative'].includes(d.key)&&typeof d.value==='boolean')l[d.key]=d.value;
@@ -79,8 +80,9 @@ async function start(){
    const battle=d.battle?rows().find(row=>row.id===d.id):null,siteId=battle?.siteId||(!d.battle?d.id:null);
    if(battle?.linked&&!battle.available)throw Error('This sheet is no longer shared.');
    if(battle&&d.key==='hp'&&!battle.trackHp)throw Error('HP is not tracked for this combatant.');
-   if(siteId){const row=party.find(row=>row.id===siteId);if(!row)throw Error('This sheet is no longer shared.');return siteStats(siteId,d.revision??row.revision,{[d.key]:d.value});}
-   if(!battle)throw Error('Combatant not found.');await OBR.scene.items.updateItems([battle.id],drafts=>{for(const item of drafts){if(item.metadata[BATTLE]?.enabled)item.metadata[BATTLE][d.key]=d.value;}});return;
+   if(siteId){const row=party.find(row=>row.id===siteId);if(!row)throw Error('This sheet is no longer shared.');if(!canEditParty(siteId))throw Error('Only the character owner or GM can edit this value.');return siteStats(siteId,d.revision??row.revision,{[d.key]:d.value});}
+   if(!allowed())throw Error('Only the GM can edit unlinked combatants.');
+    if(!battle)throw Error('Combatant not found.');await OBR.scene.items.updateItems([battle.id],drafts=>{for(const item of drafts){if(item.metadata[BATTLE]?.enabled)item.metadata[BATTLE][d.key]=d.value;}});return;
   }
   if(!ready)throw Error('Open a scene first.');
   if(d.type==='initiative'){
