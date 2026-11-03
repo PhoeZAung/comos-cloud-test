@@ -1,8 +1,8 @@
 {
   "name": "Cosmos Party Status",
-  "version": "0.7.0",
+  "version": "0.9.0",
   "manifest_version": 1,
-  "description": "A lightweight party strip synced to Cosmos character portraits, HP, MP, and armor class.",
+  "description": "Public live party portraits, HP, MP, and armor class shared directly from Cosmos.",
   "author": "PhoeZAung",
   "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/party-icon.svg",
   "homepage_url": "https://cosmos-web.burmese-barbel.ts.net/",

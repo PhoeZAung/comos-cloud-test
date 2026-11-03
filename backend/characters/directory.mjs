@@ -1,3 +1,4 @@
+import {createPublicPartyRoutes} from './public-party.mjs';
 import {sheetSkills} from '../../src/features/sheet/skills.mjs';
 import {publishRoll} from './rolls.mjs';
 import {randomUUID} from 'node:crypto';
@@ -8,9 +9,10 @@ import {compileBuild,levelUpBuild,appendClassBuild} from '../../src/features/cha
 import {LORE_ADMIN_TAG_ID} from '../lore/access.mjs';
 import {statusRoster,characterPortrait,STATUS_LIMIT} from './owlbear-status.mjs';
 export function createDirectoryRoutes({db,sessions,adminUids,origin}){
- const admins=new Set(adminUids),streams=new Map();
+ const admins=new Set(adminUids),streams=new Map(),publicParty=createPublicPartyRoutes(db);
  const tags=()=>db.prepare('SELECT * FROM character_tags ORDER BY name,id').all();
  return async(req,res,path,send)=>{
+  if(await publicParty(req,res,path,send))return true;
   const recordPath='/api/v1/character-records/',isRecord=path.startsWith(recordPath);
   if(!['/api/v1/admin/directory','/api/v1/admin/tags','/api/v1/admin/owlbear-status','/api/v1/admin/owlbear-portrait'].includes(path)&&!isRecord)return false;
   if(!['GET','POST'].includes(req.method)){send(405,{error:'method_not_allowed'});return true;}
@@ -57,7 +59,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
    let data=JSON.parse(db.prepare('SELECT data_json FROM character_details WHERE character_id=?').get(id)?.data_json||'{}');
    data.skills=sheetSkills(data);
    if(req.method==='POST'){
-    const change=await adminJson(req,230000);if(change.op==='archive'&&(Object.keys(change).sort().join(',')!=='confirmName,op,revision'||change.confirmName!==c.name)){send(400,{error:'invalid_request',message:'Confirm the exact character name to delete.'});return true;}if(change.op==='roll'){send(200,await publishRoll({db,userId:session.user.id,character:{...c,data},change,origin}));return true;}if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
+    const change=await adminJson(req,230000);if(change.op==='archive'&&(Object.keys(change).sort().join(',')!=='confirmName,op,revision'||change.confirmName!==c.name)){send(400,{error:'invalid_request',message:'Confirm the exact character name to delete.'});return true;}if(change.op==='roll'){const result=await publishRoll({db,userId:session.user.id,character:{...c,data},change,origin});publicParty.refresh();send(200,result);return true;}if(change.revision!==c.revision){send(409,{error:'conflict',message:'This character changed. Reload before saving.'});return true;}
     db.exec('BEGIN IMMEDIATE');try{
      if(db.prepare('SELECT revision FROM characters WHERE id=?').get(id).revision!==change.revision)throw Object.assign(Error('Character changed. Reload before saving.'),{httpStatus:409});
      if(change.op==='archive'){
@@ -98,6 +100,7 @@ export function createDirectoryRoutes({db,sessions,adminUids,origin}){
      if(change.op!=='archive')db.prepare('UPDATE characters SET revision=revision+1,updated_at=? WHERE id=?').run(new Date().toISOString(),id);db.exec('COMMIT');
     }catch(error){db.exec('ROLLBACK');throw error;}
    }
+   if(req.method==='POST')publicParty.refresh();
    if(req.method==='POST'&&db.prepare('SELECT archived FROM characters WHERE id=?').get(id)?.archived){send(200,{archived:true,id});return true;}
    const current=db.prepare('SELECT name,revision FROM characters WHERE id=?').get(id);
    send(200,{admin:session.admin,character:{id,...current,data,tags:db.prepare('SELECT tag_id AS id FROM character_tag_links WHERE character_id=?').all(id).map(t=>t.id)},availableTags:session.admin?tags():[]});

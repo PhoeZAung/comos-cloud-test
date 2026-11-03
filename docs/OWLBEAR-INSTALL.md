@@ -1,78 +1,78 @@
 # Cosmos Owlbear extensions
 
 Publish the exact release SHA to QNAP using scripts/publish-owlbear-qnap.sh.
-Refresh the Owlbear room after COSMOS OWLBEAR RELEASE IS LIVE.
+After COSMOS OWLBEAR RELEASE IS LIVE, everyone refreshes the Owlbear room.
 
-Install links:
+Install and enable the room extensions:
 
 - Character Sheets: https://cosmos-web.burmese-barbel.ts.net/owlbear/manifest.json
 - Party Status: https://cosmos-web.burmese-barbel.ts.net/owlbear/party/manifest.json
 
-Enable Party Status in the room's Extensions menu. Installing it in a profile
-alone does not add it to an existing room. Joining players need access to the
-Cosmos website, and the extension must be enabled in that room.
+## Public, shared Party data
 
-## Party only
+Characters selected with the status-card icon in Cosmos Admin are now published
+in a public read-only Party feed. Their names, character portraits, current/max
+HP and MP, AC, Touch, Flat-footed and CMD can be viewed without a Cosmos login.
+Unselected and archived characters are excluded. Account profiles, full sheets,
+notes, inventories, session cookies and credentials are not part of this feed.
 
-Party Status now displays only characters selected with the status-card icon in
-Cosmos Admin. Name, character portrait, HP, MP and AC come from the site.
-There are no Battle views, initiative tables, scene-added characters, token
-context actions, token HP/MP meters, or ongoing scene/item listeners.
-Upgrading removes the retired local annotations and old tracker room data;
-real scene images and Cosmos character data are not deleted.
+Public read-only routes:
 
-Party is a compact transparent strip of circular portraits. The empty strip
-stays small and grows when characters are shared. Drag its header to move it.
-Right-click for Full, Compact, or Small. AC expands Touch, Flat and CMD.
-Portraits come from the character, with a person icon as the fallback.
+- GET /api/v1/owlbear/party - current published projection.
+- GET /api/v1/owlbear/party/events - server-sent updates.
+- GET /api/v1/owlbear/party/portrait/CHARACTER_ID?v=PORTRAIT_HASH - small thumbnail
+  of a currently published character. No original image or private file path.
 
-The GM connects their Cosmos administrator account once. The login popup closes
-automatically. The room remains open to publish live status; no extra login tab
-is required. Players see Party automatically without signing into Cosmos or
-having administrator access. Everyone can use Show Party to toggle their own
-view without changing another player's visibility. GM controls stay restricted.
+There is one direct live connection per viewer's Owlbear client. Party data no
+longer waits for the GM's browser to poll Cosmos, update Owlbear room metadata,
+or relay portrait messages. Joining players receive the current snapshot and
+load thumbnails directly, without signing in or waiting for the GM to connect.
+The feed keeps updating even when the GM closes their browser.
 
-GM HP and MP numbers are clickable. Enter or clicking away saves; Escape cancels.
-Numbers respond immediately, then synchronize with the site. Rejected/expired
-saves roll back and display an error. Players have a read-only view.
+Successful character saves, resource rolls and admin visibility changes notify
+the feed immediately. A shared one-second server check catches changes made
+through other APIs. All viewers see the same committed values: the GM's view no
+longer displays a private optimistic HP/MP value ahead of everyone else.
+Versioned snapshots reject older fallback responses. A reconnecting stream falls
+back to direct snapshot reads. Local timestamps prevent different PC clocks
+from hiding an otherwise current feed.
 
-## Responsiveness and joining players
+## Party controls and editing
 
-Party elements remain mounted when stats change; only changed values and images
-are updated. Layout dimensions are cached, unchanged metadata is not repeatedly
-broadcast, portraits are decoded in small batches, and token rendering is gone.
-Normal site changes sync roughly once per second. Local resource edits trigger
-an immediate refresh after the save. No measured speed claim is made.
+Party remains a transparent strip of circular character portraits, HP, MP and an
+AC badge, with a person silhouette for missing pictures. Click AC for its other
+defenses. Drag the header to move it; right-click for Full, Compact, or Small.
+Show Party controls your own visibility and does not change the published list.
+Both GM and player clients start with the same default visible view in this
+release; placement can differ to fit their screens.
 
-The framing policy now permits both owlbear.rodeo and owlbear.app, including their
-subdomains. The old policy omitted owlbear.app, which can block extension loads
-for players using that host even though the Cosmos sign-in page opens normally.
-If a player still cannot load it, confirm the room extension is enabled and
-refresh their Owlbear tab after deploying. No separate admin login is needed
-for the Party viewer. The Character Sheets extension still requires each player
-to connect their own Cosmos account to edit their own sheets.
+The GM only needs Connect to edit for changing HP/MP. It opens a short sign-in
+popup that closes automatically. Current resource edits retain administrator
+verification, ownership-independent admin authorization for published characters,
+and revision conflict checks. Enter or clicking away saves; Escape cancels.
+The saving indicator ends when the common feed confirms the new revision.
+Players receive the public values through the same feed with read-only controls.
 
-## Character Sheets and access
+No Battle, initiative tables, scene-added characters, token context actions or
+token meters are included. Old tracker room data/widgets are cleaned up; real
+scene images and site character data are preserved.
 
-Character selection, corner resizing, and icon-only pop-out remain. Sheet rolls
-use Dice+ in the Owlbear room, including sheets opened in the separate popup.
-Enable Dice+ in the same room. Roll visibility is under Account. The Check Dice+
-test button is removed; readiness is checked automatically when actually rolling.
-Dice+ supplies the faces/animation, and Cosmos validates and records the same
-result without rolling a second set of dice or showing a second Cosmos animation.
-If Dice+ cannot respond, the sheet reports the error rather than substituting
-a separate random roll. Party remains site-only with no Battle or token widgets.
-The pop-out requests a separate browser popup window; the browser controls chrome.
-Connections are memory-only scoped grants with an eight-hour maximum. Every API
-request revalidates the original Cosmos session. Grants are not stored in URLs,
-room metadata, local storage or backups. Reconnect after room/server reloads or
-an expired session. Sheet grants only access their account's own characters and
-preferences. Party grants require a verified Cosmos administrator and only read
-the shared status projection/portraits and edit current HP/MP with revision checks.
+## Character Sheets
 
-There is no public roster API, no new database migration, and no sharing of full
-sheets, notes, inventories, profiles, passwords or session cookies with the room.
+Each player still connects their own Cosmos account for editing their own sheet.
+Dice+ is enabled in the same room and handles extension rolls, including separate
+sheet popup windows. The Check Dice+ test button stays removed; readiness is
+checked only when actually rolling. Cosmos records the same Dice+ faces and
+validates formulas, modifiers and resource usage without a duplicate animation.
 
-Build and source checks were performed. Automated tests and live-room checks
-were not run, at the owner's request. The owner confirmed that joining players
-can open the Cosmos sign-in page directly in a normal browser tab.
+Both owlbear.rodeo and owlbear.app are allowed to embed the extension. Party must
+be enabled in the room's Extensions menu, and everyone needs network access to
+the Cosmos website. The owner confirmed the sign-in page opens for joining users.
+
+Scoped edit grants remain memory-only with an eight-hour maximum. Every write
+revalidates the original Cosmos login. No grants are stored in URLs, room
+metadata, local storage or backups. Viewing Party requires no grant.
+
+Build and source syntax checks were performed. Automated tests and multi-client
+live-room checks were not run, at the owner's request. No measured latency claim
+is made, and no database migration is added.
