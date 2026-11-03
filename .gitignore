@@ -11,3 +11,6 @@ dist-live/
 # Transient import-checkpoint writes; progress.json itself is versioned.
 docs/imports/.import-queue.lock
 docs/imports/*.tmp
+
+# Supplied effect GIFs and compiled frame atlases stay private/local.
+/dist/assets/critical-fx/

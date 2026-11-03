@@ -1,4 +1,4 @@
-import {naturalResult,showCritical,unlockCriticalAudio,preloadDragon} from './critical-fx.mjs';
+import {naturalResult,showCritical,unlockCriticalAudio,preloadCritical,chooseCriticalEffect,criticalEnabled} from './critical-fx.mjs';
 import {preferences} from './preferences.mjs';
 const e=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let hideTimer,animation,presentations=Promise.resolve(),generation=0,activePresentation;
@@ -7,15 +7,15 @@ export function notify(message){const node=host();node.innerHTML='<span>'+e(mess
 export function showDice(result,{preview=false,onResult=()=>{}}={}){
  unlockCriticalAudio();
  const own=generation,options={...preferences.diceOptions},animate=preferences.dicePopup!==false||preview;
- if(naturalResult(result)===20&&(preview||options.critEffects)&&(options.nat20Style||'dragon')==='dragon')preloadDragon();
+ const natural=naturalResult(result),effect=natural&&(preview||criticalEnabled(natural,options))?chooseCriticalEffect(natural):null;if(effect)void preloadCritical(effect)?.catch(()=>{});
  const work=async()=>{
   if(own!==generation)return;const controller=new AbortController();activePresentation=controller;
   try{
    document.querySelector('[data-action-feedback]')?.setAttribute('hidden','');
    if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){try{const {show3DDice}=await import('./dice-3d.mjs');await show3DDice(result,{options,signal:controller.signal});}catch{/* The recorded result remains available if WebGL cannot start. */}}
    if(own!==generation||controller.signal.aborted)return;
-   onResult(result);const natural=naturalResult(result);
-   if(natural&&(preview||options.critEffects))await showCritical(natural,{preview,options,signal:controller.signal,result});
+   onResult(result);
+   if(effect&&(preview||criticalEnabled(natural,options)&&criticalEnabled(natural,preferences.diceOptions)))await showCritical(natural,{preview,options,signal:controller.signal,result,effect});
    else await showClassicDice(result,{signal:controller.signal});
   }finally{if(activePresentation===controller)activePresentation=null;}
  };

@@ -33,7 +33,7 @@ browser login; complete an interactive sign-in to verify that final step.
 
 Sheet settings now have three tabs:
 - Main: Discord rolls, portrait background, edit character, level up.
-- Theme: custom dice (no presets), 3D animation, critical effects and sound,
+- Theme: custom dice (no presets), 3D animation, separate Nat 20 / Nat 1 effects and sound,
   a full-width volume control, forced Nat 20 / Nat 1 visual rolls, and round
   color swatches for the four site themes.
 - Site: display name, site effects switches, and archive character. Profile
@@ -42,8 +42,8 @@ Sheet settings now have three tabs:
 All website roll presentations share one queue. Each job captures its own
 options, runs the recorded dice through the existing authoritative face adapter,
 waits for the toss to finish and clear, updates the sheet result, and then shows
-Cosmos Classic. Natural 20 defaults to a galaxy dragon flyby; Natural 1 uses
-the vortex circle with a muted gray backdrop. Critical effects disabled falls back to Classic.
+Cosmos Classic. Natural 20 and Natural 1 use separate random fullscreen effect pools,
+with impact-frame labels and screen shake. Critical effects disabled falls back to Classic.
 The job waits for its result popup to close before the next toss can start.
 Navigation aborts the current job and invalidates pending jobs. Network saves
 are not blocked while the visual queue drains. Owlbear keeps Dice+ behavior.
@@ -113,5 +113,5 @@ World/Party tags, the party-grouped Admin view, and live party notes are describ
 in [WORLD-PARTY-TAGS.md](WORLD-PARTY-TAGS.md). Migration 024 adds storage for those
 features; it is applied locally after a private consistent SQLite backup.
 
-The default Natural 20 galaxy dragon, original sound, and automated/browser
-checks are documented in [NAT20-GALAXY-DRAGON.md](NAT20-GALAXY-DRAGON.md).
+The current random fullscreen critical effects, impact timing, and automated /
+browser checks are documented in [CRITICAL-EFFECTS.md](CRITICAL-EFFECTS.md).
