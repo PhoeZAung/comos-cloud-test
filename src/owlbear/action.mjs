@@ -20,7 +20,7 @@ async function load(){
  list.innerHTML=characters.map(c=>'<button class="character-card" data-character="'+esc(c.id)+'"><strong>'+esc(c.name)+'</strong><small>'+esc([c.race,c.className,c.level?'Level '+c.level:''].filter(Boolean).join(' · '))+'</small></button>').join('')||'<p>No characters on this account. Create one on the Cosmos website.</p>';
  say('Choose your character. Keep the Cosmos connection window open.');
 }
-OBR.onReady(()=>{available=true;say('Connect your Cosmos account to load your characters.');void panelSize(OBR,say).catch(error=>say(error.message));});
+OBR.onReady(()=>{available=true;say('Connect your Cosmos account to load your characters.');void OBR.action.setIcon(new URL('/owlbear/sheet-action.svg',location.origin).href).catch(()=>{});void panelSize(OBR,say).catch(error=>say(error.message));});
 document.querySelector('[data-connect]').onclick=()=>{
  if(!available){say('Open this extension inside an Owlbear room first.');return;}
  const bytes=crypto.getRandomValues(new Uint8Array(32));nonce=[...bytes].map(b=>b.toString(16).padStart(2,'0')).join('');

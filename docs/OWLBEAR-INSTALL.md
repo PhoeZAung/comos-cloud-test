@@ -80,6 +80,48 @@ clicking the button reuses it. Dice+ rolls still go through the original Owlbear
 room, so keep the room and Cosmos connection window open. Reloading the room or
 extension disconnects this tab; reconnect and reopen the sheet from the panel.
 
+## Optional: Cosmos Party Status
+
+This is a separate extension; keep Cosmos Character Sheets and Dice+ enabled.
+After publishing this release, add the following manifest in Owlbear Extensions
+and enable it in the room:
+
+https://cosmos-web.burmese-barbel.ts.net/owlbear/party/manifest.json
+
+1. In **Cosmos Admin**, expand a player. Click the new **status-card icon** beside
+   a character. Purple means that character is shown; click again to hide it.
+   New and imported characters start hidden. Up to 40 characters can be selected.
+2. In the Owlbear room, the GM opens **Cosmos Party Status** (the portrait-card
+   icon), then **Connect Cosmos admin**. Sign in with the Cosmos administrator
+   account and keep this connection window open. This connection is separate
+   from each player's character-sheet connection.
+3. Cards appear for everyone with the extension enabled. They use the character's
+   portrait, with a person silhouette when no portrait is saved. The user/account
+   profile picture is never used. Each card shows name, current/max HP and MP,
+   temporary HP when present, and AC. Click **AC** for Touch, Flat-footed, and CMD.
+4. Change HP, MP, equipment, or defenses on the actual character sheet. Saved
+   values flow to the cards on the next sync (normally about two seconds). The
+   cards are read-only; clicking their AC only expands its details.
+5. **Show cards**, **Hide cards for me**, and **Card position → Left / Right**
+   control only your own overlay. The admin icon controls which characters are
+   shared for the room. **Stop sharing** clears this room's cards for everyone.
+
+Only the enabled characters' status projection and small character-portrait
+thumbnails are shared with this Owlbear room. Full sheets, user profiles,
+account sessions, credentials, notes, and inventories are not shared through
+this extension. The feed API and portrait API require a Cosmos administrator
+session; no public roster endpoint or new database migration is added. Portraits
+travel separately from room metadata to avoid filling Owlbear's metadata space.
+
+If the GM disconnects, cards disappear after a short expiry (up to 45 seconds).
+After reloading the room, reconnect the GM. Admin visibility is saved in Cosmos,
+so the selected characters return automatically after connecting. These
+selections apply wherever this administrator connects a Party Status feed.
+
+The sheet extension also has a new illustrated book-and-star icon. Its toolbar
+action uses a transparent book silhouette, and Party Status uses a portrait-card
+silhouette, so the two actions remain distinct under Owlbear's icon tinting.
+
 ## Limits and troubleshooting
 
 - The connection window is intentional: it keeps normal Firebase/HttpOnly
