@@ -33,11 +33,12 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
     send(200,{status:200,data:{rolls:rollHistory(db,session.user.id)}});return true;
    }
    if(body.method==='party-stats'){
-    if(!session.admin)throw Error('Administrator access required.');
+    if(grant.scope!=='sheet'&&!session.admin)throw Error('Connect your Cosmos character sheets.');
     const value=body.value||{},stats=value.stats,keys=['hp','mp'];
     if(!/^[0-9a-f-]{36}$/i.test(value.id||'')||!Number.isSafeInteger(value.revision)||!stats||Array.isArray(stats)||Object.keys(stats).length===0||Object.keys(stats).some(k=>!keys.includes(k)||!Number.isFinite(stats[k])||Math.abs(stats[k])>=1e7)||stats.mp!==undefined&&stats.mp<0)throw Error('Invalid character stats.');
-    const row=db.prepare('SELECT c.archived,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.id),data=row?JSON.parse(row.data_json):null;
+    const row=db.prepare('SELECT c.archived,c.owner_id,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.id),data=row?JSON.parse(row.data_json):null;
     if(!data||row.archived||data.owlbearStatusVisible!==true)throw Error('This character is not shared with the tracker.');
+    if(!session.admin&&row.owner_id!==session.user.id)throw Error('You can only edit your own shared characters.');
     const fields={};if(stats.hp!==undefined)fields.hp_curr=stats.hp;if(stats.mp!==undefined)fields.mp_curr=stats.mp;
     target='/api/v1/character-records/'+value.id;method='POST';payload={op:'sheet',action:'fields',fields,revision:value.revision};
    }else if(grant.scope==='party-status'){
