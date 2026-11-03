@@ -1,4 +1,4 @@
-import {themes} from '../../ui/preferences.mjs';
+import {themes} from '../site-themes.mjs';
 import {accountEditor} from '../../account/view.mjs';
 import {renderGunbreakerAmmo} from './gunbreaker-ammo-view.mjs';
 import {isLimitBreak,limitBreakState} from './limit-breaks.mjs';
