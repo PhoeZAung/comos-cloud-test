@@ -29,7 +29,8 @@ async function run(result,theme,notation){
   const box=await Promise.race([enginePromise,cancelled.then(()=>null),sleep(18000).then(()=>{throw Error('3D dice could not start.');})]);
   if(!box||dismissed)return;
   const selected=diceThemes.find(t=>t.id===theme)||diceThemes[1];
-  await box.updateConfig({theme:notation&&theme==='genesys'?'genesys':selected.engineTheme||(selected.id==='classic'?'default':selected.id),themeColor:selected.color,scale:diceScale()});
+  const custom=preferences.diceOptions;
+  await box.updateConfig({theme:custom.enabled?'cosmos-'+custom.shape+'-'+custom.material:notation&&theme==='genesys'?'genesys':selected.engineTheme||(selected.id==='classic'?'default':selected.id),themeColor:custom.enabled?custom.color:selected.color,scale:diceScale()});
   if(dismissed)return;
   box.show();status.textContent='Rolling…';
   let dice=notation||resultDice(result);
@@ -43,6 +44,7 @@ async function run(result,theme,notation){
   if(notation&&theme==='genesys'){status.textContent='Genesys symbol dice';}
   else if(notation){const values=rolls.map(d=>d.value);status.textContent=values.join(' + ')+' = '+values.reduce((a,b)=>a+b,0);}
   else {const expected=dice.map(d=>d.data.targetValue),actual=[...rolls].sort((a,b)=>a.rollId-b.rollId).map(d=>d.value);if(expected.some((v,i)=>v!==actual[i]))throw Error('Showing the recorded result.');status.textContent=summary(result);}
+  if(result)document.dispatchEvent(new CustomEvent('comos:dice-settled',{detail:result}));
   // Keep settled faces readable, then remove the whole toss automatically.
   await Promise.race([sleep(2200),cancelled]);
  }catch(error){status.textContent=(result?summary(result)+' · ':'')+error.message;await Promise.race([sleep(3200),cancelled]);}

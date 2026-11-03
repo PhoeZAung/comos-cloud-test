@@ -12879,6 +12879,23 @@ class aa {
     `), r.AddAttribute("customColor");
     const n = r.clone(t + "_dark");
     i.diffuseTexture && i.diffuseTexture.dark && (s.material.diffuseTexture = e.material.diffuseTexture.dark, n.diffuseTexture = await this.getTexture("diffuse", s)), n.AddAttribute("customColor");
+    // Cosmos custom finishes use the shipped numbered dice meshes/textures.
+    for(const mat of [r,n]){
+      const finish=i.cosmosFinish;
+      if(finish){mat.specularPower=finish==='metal'?220:120;mat.specularColor.set(.85,.85,.95);}
+      if(finish==='glass'){mat.alpha=.58;mat.backFaceCulling=false;mat.needDepthPrePass=true;mat.specularPower=180;}
+      if(finish==='galaxy'){
+        mat.emissiveColor.set(.12,.06,.23);
+        mat.Fragment_Custom_Diffuse(`
+          baseColor.rgb = mix(vColor.rgb, baseColor.rgb, baseColor.a);
+          float cloud = .5+.5*sin(vPositionW.x*2.7+sin(vPositionW.z*4.0)+vPositionW.y*3.1);
+          float star = pow(fract(sin(dot(floor(vPositionW.xz*35.0),vec2(12.9898,78.233)))*43758.5453),90.0);
+          vec3 cosmos = mix(vColor.rgb*.14, mix(vColor.rgb,vec3(.35,.10,.65),.45),cloud)+vec3(star);
+          baseColor.rgb=mix(cosmos,baseColor.rgb,baseColor.a);
+        `);
+      }
+    }
+
   }
   async getTexture(e, t) {
     const { basePath: i, material: r, theme: s } = t;

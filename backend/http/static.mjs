@@ -21,7 +21,8 @@ export async function createStaticHandler(directory) {
       const relative = path.relative(root, target);
       const ext=path.extname(target);
       const owlbearManifest=relative==='owlbear'+path.sep+'manifest.json';
-      const type = types[ext] || (owlbearManifest?'application/json':null) || (relative.startsWith('assets'+path.sep+'dice-box'+path.sep)?({'.json':'application/json','.wasm':'application/wasm','.jpg':'image/jpeg','.jpeg':'image/jpeg'}[ext]):null);
+      const rollEffectType=relative.startsWith('assets'+path.sep+'roll-fx'+path.sep)?{'.gif':'image/gif','.ogg':'audio/ogg','.glb':'model/gltf-binary'}[ext]:null;
+      const type = types[ext] || rollEffectType || (owlbearManifest?'application/json':null) || (relative.startsWith('assets'+path.sep+'dice-box'+path.sep)?({'.json':'application/json','.wasm':'application/wasm','.jpg':'image/jpeg','.jpeg':'image/jpeg'}[ext]):null);
       if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !type || !(await stat(target)).isFile()) throw new Error('Not public');
       res.setHeader('Content-Security-Policy', relative.startsWith('preview' + path.sep) ? previewPolicy : liveHeaders['Content-Security-Policy']);
       if(relative.startsWith('owlbear'+path.sep))res.setHeader('Content-Security-Policy',liveHeaders['Content-Security-Policy']+"; frame-ancestors 'self' https://owlbear.rodeo https://*.owlbear.rodeo https://owlbear.app https://*.owlbear.app");

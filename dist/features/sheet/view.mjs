@@ -1,3 +1,4 @@
+import {accountEditor} from '../../account/view.mjs';
 import {renderGunbreakerAmmo} from './gunbreaker-ammo-view.mjs';
 import {isLimitBreak,limitBreakState} from './limit-breaks.mjs';
 import {renderCategoryTiles,inventoryCategoryCounts,visibleInventoryCategory} from './item-categories.mjs';
@@ -51,14 +52,20 @@ export function renderSheetFrame(character,section='overview',{admin=false,compa
 <div class="cs-identity"><label class="cs-portrait-trigger" title="Change portrait"><span class="cs-portrait-visual">${portrait?'<img class="cs-portrait" src="'+e(portrait)+'" alt="Character portrait">':icons.overview}</span><span class="cs-portrait-change" aria-hidden="true">Change</span><input type="file" data-sheet-portrait accept="image/jpeg,image/png,image/webp" aria-label="Change character portrait"></label><div><span class="cs-kicker">${e(d.race||'Character')} · Total level ${total||'—'}</span><h1>${e(character.name)}</h1><p class="cs-classline">${classes.map((c,i)=>'<span title="Class '+(i+1)+' Lv">'+e(c.name)+' '+e(c.level)+(c.archetype?' · '+e(c.archetype):'')+'</span>').join(' / ')}</p></div></div>
 <div class="cs-quick-tools cs-roll-tools"><button class="cs-icon" type="button" data-toggle-stars aria-label="${showStars?'Hide':'Show'} favorite controls" aria-pressed="${showStars}" title="Favorite controls">${icons.favorites}</button><button class="cs-icon" type="button" data-open-rest aria-label="Rest" title="Rest">${icons.moon}</button>${!compact?'<a class="cs-icon" data-sheet-popout aria-label="Open standalone character sheet window" title="Pop out character sheet (separate window)" href="sheet.html?characterId='+encodeURIComponent(character.id)+'&compact=1" target="_blank" rel="noopener noreferrer">'+icons.external+'</a>':''}</div>
 <div class="cs-settings"><button type="button" class="cs-icon cs-settings-trigger" data-recovery-menu aria-label="Main settings" title="Main settings" aria-expanded="false" aria-controls="cs-recovery-panel">${icons.recovery}</button>
-<div class="cs-recovery-panel" id="cs-recovery-panel" data-recovery-panel hidden><h2>Main settings</h2>
-<button type="button" class="cs-settings-action" data-open-dice-themes>Dice theme</button>
+<div class="cs-recovery-panel" id="cs-recovery-panel" data-recovery-panel hidden><div class="cs-settings-tabs" role="tablist" aria-label="Settings"><button type="button" role="tab" aria-selected="true" data-setting-tab="main">Main</button><button type="button" role="tab" aria-selected="false" data-setting-tab="site">Site</button></div><div data-settings-main>
+<button type="button" class="cs-settings-action" data-open-dice-themes>Customize dice</button>
+<label class="cs-settings-toggle"><span>Show dice</span><input type="checkbox" data-setting-dice-popup></label>
+<label class="cs-settings-toggle"><span>Critical animations</span><input type="checkbox" data-dice-option="critEffects"></label>
+<label class="cs-settings-toggle"><span>Critical sound</span><input type="checkbox" data-dice-option="critSound"></label>
+<label class="cs-settings-toggle"><span>Nat 20 effect</span><select data-dice-option="critStyle"><option value="drake">Ashwing Drake</option><option value="fire">Fire vortex</option><option value="arcane">Arcane vortex</option></select></label>
+<label class="cs-settings-toggle"><span>Volume</span><input type="range" min="0" max="1" step=".05" data-dice-option="volume"></label>
+<div class="cs-critical-tests"><button type="button" data-preview-critical="20">Preview Nat 20</button><button type="button" data-preview-critical="1">Preview Nat 1</button></div><p data-dice-settings-status role="status"></p>
 <label class="cs-settings-toggle"><span>Discord rolls</span><input type="checkbox" data-discord-rolls aria-label="Send rolls to Discord" ${discordEnabled?'checked':''}></label>
 <label class="cs-settings-toggle"><span>Portrait sheet background</span><input type="checkbox" data-sheet-background aria-label="Use portrait as sheet background" ${d.sheet_background_enabled?'checked':''} ${portrait?'':'disabled'}></label>
 <a href="create-identity.html?characterId=${encodeURIComponent(character.id)}" class="cs-settings-action">${icons.edit} Edit character build</a>
 ${total<20?'<button class="cs-settings-action" type="button" data-level-up="'+e(character.id)+'">'+icons.levelUp+' Level up</button>':''}
 <button type="button" class="cs-settings-action cs-delete-character" data-delete-character aria-label="Delete character" title="Delete character (archive)">${icons.trash} Delete character</button>
-</div></div>
+</div><div data-settings-site hidden><p role="status" data-site-settings-status></p>${accountEditor()}</div></div></div>
 </div>
  <div class="cs-syncbar"><span class="cs-sync-dot" aria-hidden="true"></span><span role="status" data-sheet-status>Synced${admin?' · Admin':''}</span><button type="button" class="cs-text-button" data-sheet-refresh hidden>Load latest</button></div>
  <nav class="cs-tabs" aria-label="Character sheet">${[['favorites','Favorites'],['overview','Character'],['combat','Combat'],['skills','Skills'],['items','Inventory'],['notes','Notes']].map(([key,title])=>`<button type="button" data-sheet-tab="${key}" aria-pressed="${key==='combat'?fightSections.includes(section):section===key}" aria-label="${key==='combat'?'Combat, abilities and spells':title}" title="${title}">${icons[key]}<span>${title}</span></button>`).join('')}</nav>

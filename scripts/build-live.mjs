@@ -1,4 +1,5 @@
 import {buildOwlbear} from './build-owlbear.mjs';
+import {buildRollFx} from './build-roll-fx.mjs';
 import {accountEditor} from '../src/account/view.mjs';
 import { readFile, writeFile, mkdir, readdir, cp, mkdtemp, rename, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -35,6 +36,7 @@ try {
   await writeFile(output+'/'+page.id+'.html',renderPage(page,{policy,live:true,scripts:['assets/shell.mjs']}));
  }
  await buildOwlbear(output,config.origin);
+ await buildRollFx(output,{local:localDevelopment});
  // Headers for the later native HTTPS host; no deployment or host config is performed here.
  await writeFile(output+'/auth-headers.json',JSON.stringify({'Content-Security-Policy':policy,'Cache-Control':'no-store','Referrer-Policy':'same-origin'},null,2)+'\n');
  await rm(new URL('dist-live/',root),{recursive:true,force:true});
