@@ -20,7 +20,7 @@ export async function createStaticHandler(directory) {
       const target = await realpath(path.resolve(root, '.' + name));
       const relative = path.relative(root, target);
       const ext=path.extname(target);
-      const owlbearManifest=['owlbear'+path.sep+'manifest.json','owlbear'+path.sep+'party'+path.sep+'manifest.json'].includes(relative);
+      const owlbearManifest=relative==='owlbear'+path.sep+'manifest.json';
       const type = types[ext] || (owlbearManifest?'application/json':null) || (relative.startsWith('assets'+path.sep+'dice-box'+path.sep)?({'.json':'application/json','.wasm':'application/wasm','.jpg':'image/jpeg','.jpeg':'image/jpeg'}[ext]):null);
       if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !type || !(await stat(target)).isFile()) throw new Error('Not public');
       res.setHeader('Content-Security-Policy', relative.startsWith('preview' + path.sep) ? previewPolicy : liveHeaders['Content-Security-Policy']);

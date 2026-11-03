@@ -3,8 +3,10 @@ import {peer} from './rpc.mjs';
 import {connection as connectGrant} from './connection.mjs';
 import {dicePlus} from './dice-plus.mjs';
 import {panelSize} from './panel-size.mjs';
+import {localChannel} from './local-channel.mjs';
 const status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]'),frame=document.querySelector('iframe'),dice=dicePlus(OBR);
 let popup,nonce,connection,sheetConnection,sheetNonce,activeCharacterId,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
+let trackerBus,grantToken='';
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID(),openTab=document.querySelector('[data-open-sheet-tab]');
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function say(message){status.textContent=message;}
@@ -21,7 +23,21 @@ async function load(){
  list.innerHTML=characters.map(c=>'<button class="character-card" data-character="'+esc(c.id)+'"><span class="character-photo">'+(typeof c.portraitUrl==='string'&&/^data:image\/(png|jpeg|webp);base64,/i.test(c.portraitUrl)?'<img src="'+esc(c.portraitUrl)+'" alt="">':'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="13" r="8"/><path d="M5 38v-5a15 15 0 0130 0v5Z"/></svg>')+'</span><strong>'+esc(c.name)+'</strong><span aria-hidden="true">›</span></button>').join('')||'<p>No characters.</p>';
  say('Connected');document.querySelector('[data-connect]').hidden=true;
 }
-OBR.onReady(()=>{available=true;say('Connect your Cosmos account to load your characters.');void OBR.action.setIcon(new URL('/owlbear/sheet-action.svg',location.origin).href).catch(()=>{});void panelSize(OBR,say).catch(error=>say(error.message));});
+OBR.onReady(async()=>{
+ available=true;say('Connect your Cosmos account to load your characters.');void OBR.action.setIcon(new URL('/owlbear/sheet-action.svg',location.origin).href).catch(()=>{});void panelSize(OBR,say).catch(error=>say(error.message));
+ trackerBus=await localChannel(OBR,data=>{
+  if(data?.type==='grant'&&data.token!==grantToken){grantToken=data.token;connection?.close();connection=connectGrant(data.token);void load().catch(error=>say(error.message));}
+  if(data?.type==='state'){
+   document.querySelector('[data-admin-controls]').hidden=!data.admin;
+   for(const key of ['party','initiative'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout[key];
+   for(const key of ['partyDock','initiativeDock'])document.querySelector('[data-layout="'+key+'"]').value=data.layout[key];
+   document.querySelector('[data-tracker-status]').textContent=data.feed==='Live'?'Connected':data.feed;
+  }
+  if(data?.type==='result'&&data.error)say(data.error);
+ });
+ trackerBus.send({type:'hello'});
+ document.querySelector('[data-admin-controls]').onchange=event=>{const node=event.target,key=node.dataset.layout;if(key)trackerBus.send({type:'layout',key,value:node.type==='checkbox'?node.checked:node.value,requestId:crypto.randomUUID()});};
+});
 document.querySelector('[data-connect]').onclick=()=>{
  if(!available){say('Open this extension inside an Owlbear room first.');return;}
  const bytes=crypto.getRandomValues(new Uint8Array(32));nonce=[...bytes].map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -31,7 +47,7 @@ document.querySelector('[data-connect]').onclick=()=>{
 window.addEventListener('message',event=>{
  if(event.origin!==location.origin)return;
  if(event.source===popup&&event.data?.type==='cosmos:connected'&&event.data.nonce===nonce){
-  if(!/^[a-f0-9]{64}$/.test(event.data.token||''))return;connection=connectGrant(event.data.token);popup.postMessage({type:'cosmos:connected-ack',nonce},location.origin);void load().catch(error=>say(error.message));
+  if(!/^[a-f0-9]{64}$/.test(event.data.token||''))return;grantToken=event.data.token;connection=connectGrant(grantToken);trackerBus?.send({type:'grant-set',token:grantToken});popup.postMessage({type:'cosmos:connected-ack',nonce},location.origin);void load().catch(error=>say(error.message));
  }
  const fromFrame=sheetNonce&&event.source===frame.contentWindow&&event.data?.nonce===sheetNonce;
  const fromTab=tabNonce&&event.source===tabWindow&&event.data?.nonce===tabNonce;
@@ -61,4 +77,4 @@ openTab.onclick=()=>{
 };
 document.querySelector('[data-back]').onclick=back;
 document.querySelector('[data-refresh]').onclick=()=>void load().catch(error=>say(error.message));
-window.addEventListener('pagehide',()=>{connection?.close();sheetConnection?.close();tabConnection?.close();},{once:true});
+window.addEventListener('pagehide',()=>{trackerBus?.close();connection?.close();sheetConnection?.close();tabConnection?.close();},{once:true});

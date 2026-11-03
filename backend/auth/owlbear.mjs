@@ -19,27 +19,26 @@ export function createOwlbearRoutes({db,sessions,adminUids,origin,handlers}){
     if(grants.size>=1000){send(429,{message:'Too many extension connections.'});return true;}
     const token=randomBytes(32).toString('hex'),expires=Date.now()+8*3600000;
     const cookie=(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('__Host-comos_session='));
-    grants.set(token,{cookie,expires,scope:body.scope,userId:session.user.id});send(200,{token,expires});return true;
+    grants.set(token,{cookie,expires,scope:body.scope,userId:session.user.id});send(200,{token,expires,admin:session.admin});return true;
    }
    const grant=grants.get((req.headers.authorization||'').replace(/^Bearer /,''));
    if(!grant){send(401,{message:'Reconnect Cosmos.'});return true;}
    const session=await adminSession({headers:{cookie:grant.cookie}},sessions,admins);
    if(!session||session.user.id!==grant.userId){send(401,{message:'Reconnect Cosmos.'});return true;}
    let target,method='GET',payload;
-   if(grant.scope==='party-status'){
+   if(body.method==='capabilities'){send(200,{status:200,data:{admin:session.admin,scope:grant.scope}});return true;}
+   if(body.method==='party-stats'){
+    if(!session.admin)throw Error('Administrator access required.');
+    const value=body.value||{},stats=value.stats,keys=['hp','mp'];
+    if(!/^[0-9a-f-]{36}$/i.test(value.id||'')||!Number.isSafeInteger(value.revision)||!stats||Array.isArray(stats)||Object.keys(stats).length===0||Object.keys(stats).some(k=>!keys.includes(k)||!Number.isFinite(stats[k])||Math.abs(stats[k])>=1e7)||stats.mp!==undefined&&stats.mp<0)throw Error('Invalid character stats.');
+    const row=db.prepare('SELECT c.archived,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.id),data=row?JSON.parse(row.data_json):null;
+    if(!data||row.archived||data.owlbearStatusVisible!==true)throw Error('This character is not shared with the tracker.');
+    const fields={};if(stats.hp!==undefined)fields.hp_curr=stats.hp;if(stats.mp!==undefined)fields.mp_curr=stats.mp;
+    target='/api/v1/character-records/'+value.id;method='POST';payload={op:'sheet',action:'fields',fields,revision:value.revision};
+   }else if(grant.scope==='party-status'){
     if(!session.admin)throw Error('Administrator access required.');
     if(body.method==='party-status')target='/api/v1/admin/owlbear-status';
     else if(body.method==='party-portrait'&&/^[0-9a-f-]{36}$/i.test(body.value?.id||''))target='/api/v1/admin/owlbear-portrait?characterId='+encodeURIComponent(body.value.id);
-    else if(body.method==='party-stats'){
-     const value=body.value||{},stats=value.stats,keys=['hp','mp'];
-     if(!/^[0-9a-f-]{36}$/i.test(value.id||'')||!Number.isSafeInteger(value.revision)||!stats||Array.isArray(stats)||Object.keys(stats).length===0||Object.keys(stats).some(k=>!keys.includes(k)||!Number.isFinite(stats[k])||Math.abs(stats[k])>=1e7)||stats.mp!==undefined&&stats.mp<0)throw Error('Invalid character stats.');
-     const row=db.prepare('SELECT c.archived,d.data_json FROM characters c JOIN character_details d ON d.character_id=c.id WHERE c.id=?').get(value.id),data=row?JSON.parse(row.data_json):null;
-     if(!data||row.archived||data.owlbearStatusVisible!==true)throw Error('This character is not shared with the tracker.');
-     const fields={};
-     if(stats.hp!==undefined)fields.hp_curr=stats.hp;
-     if(stats.mp!==undefined)fields.mp_curr=stats.mp;
-     target='/api/v1/character-records/'+value.id;method='POST';payload={op:'sheet',action:'fields',fields,revision:value.revision};
-    }
    }else if(body.method==='list')target='/api/v1/my/characters'+(body.value?.cursor?'?cursor='+encodeURIComponent(body.value.cursor):'');
    else if(body.method==='api'){
     const value=body.value||{},url=new URL(value.path,origin);method=value.method;payload=value.body;

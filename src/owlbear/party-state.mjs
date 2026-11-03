@@ -1,5 +1,4 @@
-export const KEY='com.cosmos.party-status/state',PORTRAITS='com.cosmos.party-status/portrait',REQUEST='com.cosmos.party-status/portrait-request',UI='com.cosmos.party-status/ui',HUD='com.cosmos.party-status/hud';
-export const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export const KEY='com.cosmos.party-status/state';
 const fields=['hp','hpMax','hpTemp','mp','mpMax','ac','touch','flat','cmd'];
 export function stateFrom(metadata){
  const state=metadata?.[KEY];
@@ -11,4 +10,3 @@ export function stateFrom(metadata){
  }
  return {publisher:state.publisher,updatedAt:state.updatedAt,characters};
 }
-export const validThumbnail=value=>typeof value==='string'&&value.length<=12000&&/^data:image\/(?:jpeg|webp);base64,[a-z0-9+/]+={0,2}$/i.test(value);
