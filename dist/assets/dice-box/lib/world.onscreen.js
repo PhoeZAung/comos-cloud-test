@@ -13056,7 +13056,9 @@ render(e){
     }
   }
   cosmosPlayback(now){
-    const time=Math.max(0,(now-this.cosmosReplayStarted)*60/1000),dice=Object.values(C(this,Z));let finished=true;
+    // Speed changes only the playback clock. Captured physics, screen bounds,
+    // bounces, and the final face stay identical at every speed.
+    const time=Math.max(0,(now-this.cosmosReplayStarted)*60/1000)*(this.config.cosmosPlaybackSpeed||1),dice=Object.values(C(this,Z));let finished=true;
     for(const die of dice){
       const frames=die.cosmosFrames;if(!frames?.length)continue;
       const position=Math.min(time,frames.length-1),first=Math.floor(position),second=Math.min(first+1,frames.length-1),mix=position-first,a=frames[first],b=frames[second];

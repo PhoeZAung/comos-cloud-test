@@ -34,7 +34,7 @@ browser login; complete an interactive sign-in to verify that final step.
 Sheet settings now have three tabs:
 - Main: Discord rolls, portrait background, edit character, level up.
 - Theme: custom dice (no presets), 3D animation, critical effects and sound,
-  full-width volume control, forced Nat 20 / Nat 1 visual rolls, and round
+  roll-speed and full-width volume controls, forced Nat 20 / Nat 1 visual rolls, and round
   color swatches for the four site themes.
 - Site: display name, site effects switches, and archive character. Profile
   photos remain on the normal Account page and are absent from sheet settings.
@@ -88,6 +88,16 @@ pending preparation. This replaces both the last-frame face snap and the
 artificial airborne phase visible in the supplied recordings. Validation is
 limited to builds and syntax checks; the new motion has not been previewed in
 an interactive roll.
+
+Roll speed is saved with dice_options (no new schema migration), defaults to
+1.5× for existing/new users, and ranges from 0.75× to 2× in 0.25× steps in
+Settings → Theme → Dice. It scales the trace playback clock, never the physics
+impulses, collision bounds, or resulting faces. The settled face remains visible
+for 800 ms at every speed. Each queued roll keeps the speed captured when it was
+requested, and its receipt/critical effect still waits until playback ends.
+Older clients can save options without speed; reads apply the default. The
+on-sheet presentation takes inspiration from [D&D Beyond digital dice](https://dndbeyond-support.wizards.com/hc/en-us/articles/7747201888404-Digital-Dice-How-to-roll-your-free-or-premium-Digital-Dice);
+the selected timing is a Cosmos setting, not a claimed copy of its timing.
 
 Standalone sheets now initialize shared galaxy/splash effects lazily, respecting
 Pause stars, Splash cursor, site colors, and reduced motion. Sheet effects use

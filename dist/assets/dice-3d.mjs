@@ -39,7 +39,7 @@ async function run(result,theme,notation,custom,signal){
   if(!box||dismissed)return;
   let dice=notation||resultDice(result);
   const physicalCount=typeof dice==='string'?(()=>{const match=/^(\d+)d(4|6|8|10|12|20|100)$/.exec(dice);return match?Number(match[1])*(Number(match[2])===100?2:1):0;})():dice.reduce((count,die)=>count+(die.qty||1)*(Number(die.sides)===100?2:1),0);
-  await box.updateConfig({theme:'cosmos-'+custom.shape+'-'+custom.material,themeColor:custom.color,scale:diceScale(),cosmosReplay:physicalCount>0,cosmosExpectedDice:physicalCount});
+  await box.updateConfig({theme:'cosmos-'+custom.shape+'-'+custom.material,themeColor:custom.color,scale:diceScale(),cosmosReplay:physicalCount>0,cosmosExpectedDice:physicalCount,cosmosPlaybackSpeed:Math.max(.75,Math.min(2,Number(custom.speed)||1.5))});
   if(dismissed)return;
   box.show();status.textContent='Preparing roll…';
   await Promise.race([new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))),cancelled]);if(dismissed)return;
