@@ -2,7 +2,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {naturalResult} from '../src/ui/critical-fx.mjs';
 import {normalizeDiceOptions,validDiceOptions} from '../src/features/dice-options.mjs';
-import {playDragonWhoosh} from '../src/ui/dragon-whoosh.mjs';
+import {playDragonRoar} from '../src/ui/dragon-roar.mjs';
+import {synthesizeDragonRoar,DRAGON_ROAR_SECONDS} from '../src/features/dragon-roar.mjs';
+import {ashwingWingbeat} from '../src/features/ashwing-wingbeat.mjs';
+import {wingPoseAt} from '../src/features/dragon-wing-pose.mjs';
 import {openDatabase} from '../backend/db/database.mjs';
 import {createUserRepository} from '../backend/repositories/users.mjs';
 import {createAccountService} from '../backend/account/service.mjs';
@@ -43,13 +46,13 @@ test('natural-20 style persists and older preference payloads retain an explicit
 function audio(state='running'){
  const nodes=[];const param=()=>({value:0,setValueAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){}});
  const node=kind=>{const n={kind,gain:param(),frequency:param(),Q:{value:0},connect(){return this;},disconnect(){this.disconnected=true;},start(time){this.started=time;},stop(time){this.stopped=time;}};nodes.push(n);return n;};
- return {state,nodes,currentTime:10,sampleRate:8000,destination:{},createBuffer:(_channels,size)=>({getChannelData:()=>new Float32Array(size)}),createGain:()=>node('gain'),createBufferSource:()=>node('noise'),createBiquadFilter:()=>node('filter'),createOscillator:()=>node('tone')};
+ return {state,nodes,currentTime:10,sampleRate:8000,destination:{},createBuffer(_channels,size){this.bufferCount=(this.bufferCount||0)+1;const data=new Float32Array(size);return {getChannelData:()=>data};},createGain:()=>node('gain'),createBufferSource:()=>node('noise'),createBiquadFilter:()=>node('filter'),createOscillator:()=>node('tone')};
 }
-test('whoosh respects muted/suspended audio, has a bounded duration and releases nodes',()=>{
- for(const [state,volume] of [['suspended',1],['closed',1],['running',0],['running',NaN]]){const context=audio(state);playDragonWhoosh(context,volume)();assert.equal(context.nodes.length,0);}
- const context=audio(),stop=playDragonWhoosh(context,.8),sources=context.nodes.filter(node=>['noise','tone'].includes(node.kind));
- assert.equal(sources.length,5);for(const source of sources){assert.ok(source.started>=10);assert.ok(source.stopped<=10.83);}
- stop();stop();assert.ok(context.nodes.every(node=>node.disconnected));
+test('roar respects muted/suspended audio, has a bounded duration and releases nodes',()=>{
+ for(const [state,volume] of [['suspended',1],['closed',1],['running',0],['running',NaN]]){const context=audio(state);playDragonRoar(context,volume)();assert.equal(context.nodes.length,0);}
+ const context=audio(),stop=playDragonRoar(context,.8),sources=context.nodes.filter(node=>['noise','tone'].includes(node.kind));
+ assert.equal(sources.length,1);for(const source of sources){assert.ok(source.started>=10);assert.ok(source.stopped<=11);}
+ stop();stop();assert.ok(context.nodes.every(node=>node.disconnected));playDragonRoar(context,.5)();assert.equal(context.bufferCount,1,'roar buffer should be reused');
 });
 test('the real static handler serves the lightweight galaxy texture with an image MIME type',async()=>{
  const prefix=path.join(os.tmpdir(),'cosmos-dragon-static-'),dir=await mkdtemp(prefix);let server;
@@ -59,4 +62,14 @@ test('the real static handler serves the lightweight galaxy texture with an imag
   server=http.createServer(await createStaticHandler(dir));await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base='http://127.0.0.1:'+server.address().port;
   const response=await fetch(base+'/assets/roll-fx/galaxy-nebula.webp');assert.equal(response.status,200);assert.equal(response.headers.get('content-type'),'image/webp');assert.equal((await response.arrayBuffer()).byteLength,bytes.length);assert.equal((await fetch(base+'/outside.webp')).status,404);
  }finally{if(server)await new Promise(resolve=>server.close(resolve));assert.ok(path.resolve(dir).startsWith(path.resolve(prefix)));await rm(dir,{recursive:true,force:true});}
+});
+
+test('Ashwing fly_loop drives a visible, continuous wingbeat instead of CSS in a mask',()=>{
+ assert.equal(ashwingWingbeat.clip,'fly_loop');assert.equal(ashwingWingbeat.samples.length,25);assert.ok(Math.abs(ashwingWingbeat.duration-.8)<.00001);assert.match(ashwingWingbeat.sourceSha256,/^[a-f0-9]{64}$/);
+ const start=wingPoseAt(0),end=wingPoseAt(ashwingWingbeat.duration*1000);start.forEach((matrix,i)=>matrix.forEach((v,j)=>assert.ok(Math.abs(v-end[i][j])<.00001)));
+ const point=matrix=>[matrix[0]*428+matrix[2]*63+matrix[4],matrix[1]*428+matrix[3]*63+matrix[5]],a=point(wingPoseAt(80)[0]),b=point(wingPoseAt(320)[0]);assert.ok(Math.hypot(a[0]-b[0],a[1]-b[1])>80,'wing tip must visibly travel');
+ for(let t=0;t<1600;t+=16)for(const [a,b,c,d,...rest] of wingPoseAt(t)){assert.ok([a,b,c,d,...rest].every(Number.isFinite));assert.ok(a*d-b*c>=.279&&a*d-b*c<=1.041,'wings must not invert');}
+});
+test('the original roar waveform is finite, audible, peak-limited, and fades out',()=>{
+ const signal=synthesizeDragonRoar(16000);assert.equal(signal.length,Math.ceil(16000*DRAGON_ROAR_SECONDS));assert.ok(signal.every(Number.isFinite));const peak=signal.reduce((value,x)=>Math.max(value,Math.abs(x)),0),rms=Math.sqrt(signal.reduce((value,x)=>value+x*x,0)/signal.length);assert.ok(peak>.85&&peak<=.861);assert.ok(rms>.03);assert.equal(signal[0],0);assert.ok(Math.abs(signal.at(-1))<.001);assert.deepEqual(synthesizeDragonRoar(16000),signal);assert.throws(()=>synthesizeDragonRoar(0));
 });

@@ -1,4 +1,5 @@
 import {dragonArtwork,DRAGON_DURATION} from '../features/galaxy-dragon-art.mjs';
+import {applyWingPose} from '../features/dragon-wing-pose.mjs';
 let active=null,serial=0,texture;
 export function preloadDragon(){if(!texture&&typeof Image!=='undefined'){texture=new Image();texture.decoding='async';texture.src='/assets/roll-fx/galaxy-nebula.webp';}}
 export function showGalaxyDragon({signal,result,preview=false,onSound}={}){
@@ -10,12 +11,16 @@ export function showGalaxyDragon({signal,result,preview=false,onSound}={}){
  view.querySelectorAll('.galaxy-dragon-trail circle').forEach((point,index)=>point.style.setProperty('--spark-delay',(.12+index*.029)+'s'));
  const attack=result?.kind==='weapon'?result:result?.attack;
  view.querySelector('[data-dragon-result]').textContent=[attack?'Attack '+attack.total:Number.isFinite(result?.total)?'Total '+result.total:'',result?.damage?'Damage '+result.damage.total:''].filter(Boolean).join(' · ');
- let finish,stop=()=>{},timer,closed=false;const done=new Promise(resolve=>finish=resolve);
- const close=()=>{if(closed)return;closed=true;clearTimeout(timer);stop();signal?.removeEventListener('abort',close);document.removeEventListener('keydown',escape);media.removeEventListener?.('change',motionChanged);view.remove();if(active===close)active=null;finish();};
+ let finish,stop=()=>{},timer,frame,closed=false;const done=new Promise(resolve=>finish=resolve);
+ const close=()=>{if(closed)return;closed=true;clearTimeout(timer);cancelAnimationFrame(frame);stop();signal?.removeEventListener('abort',close);document.removeEventListener('keydown',escape);media.removeEventListener?.('change',motionChanged);view.remove();if(active===close)active=null;finish();};
  const escape=event=>{if(event.key==='Escape')close();},media=matchMedia('(prefers-reduced-motion: reduce)'),motionChanged=event=>{if(event.matches)close();};
  active=close;document.body.append(view);try{view.showPopover?.();}catch{/* Fixed overlay remains available without the Popover API. */}
  signal?.addEventListener('abort',close,{once:true});document.addEventListener('keydown',escape);media.addEventListener?.('change',motionChanged);
  timer=setTimeout(close,reduced?900:DRAGON_DURATION);
- if(!reduced){preloadDragon();try{stop=onSound?.()||stop;}catch{/* Audio never holds up the visual or the roll. */}}
+ if(!reduced){
+  preloadDragon();const started=performance.now();applyWingPose(view,0);
+  const animate=now=>{if(closed)return;applyWingPose(view,now-started);frame=requestAnimationFrame(animate);};frame=requestAnimationFrame(animate);
+  try{stop=onSound?.()||stop;}catch{/* Audio never holds up the visual or the roll. */}
+ }
  return done;
 }

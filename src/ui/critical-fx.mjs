@@ -1,6 +1,6 @@
 import {preferences} from './preferences.mjs';
 import {preloadDragon,showGalaxyDragon} from './galaxy-dragon.mjs';
-import {playDragonWhoosh} from './dragon-whoosh.mjs';
+import {playDragonRoar} from './dragon-roar.mjs';
 export {preloadDragon};
 let audioContext;const sounds=new Map();
 export function unlockCriticalAudio(){
@@ -27,7 +27,7 @@ export function showCritical(value,{preview=false,options={...preferences.diceOp
  if(value===20&&(options.nat20Style||'dragon')==='dragon'){
   return showGalaxyDragon({signal,result,preview,onSound:()=>{
    if(!options.critSound||!preferences.diceOptions.critSound)return ()=>{};
-   const stop=playDragonWhoosh(audioContext,options.volume),changed=()=>{if(!preferences.diceOptions.critSound||preferences.diceOptions.volume===0)stop();};
+   const stop=playDragonRoar(audioContext,options.volume),changed=()=>{if(!preferences.diceOptions.critSound||preferences.diceOptions.volume===0)stop();};
    document.addEventListener('comos:preferences',changed);
    return ()=>{stop();document.removeEventListener('comos:preferences',changed);};
   }});

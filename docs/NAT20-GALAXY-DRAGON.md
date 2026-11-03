@@ -21,16 +21,28 @@ The galaxy texture is generated deterministically by build-galaxy-dragon.mjs and
 ships in both portable and live builds. It is about 21 KB WebP, guarded by a
 48 KB asset-budget test, and is preloaded while a natural-20 dice toss plays.
 There is no runtime dragon model, 3D renderer, video, or asset-pack dependency.
-The reference Ashwing model and its animation are not used or redistributed;
-all shipped artwork/texture and the synthesized sound are original Cosmos code.
+The original Cosmos silhouette/texture remain. Its wingbeat is now retargeted
+from the supplied Ashwing Drake Lite fly_loop, sampled at 30 fps over 0.8 seconds.
+The source model, textures, and full skeletal clip stay private. Only small
+compiled extension/sweep/wrist-lift curves ship as part of the Cosmos effect.
+Matrix attributes are updated on animation frames, replacing unreliable CSS
+animation inside the SVG mask. The animation frame is cancelled on all exits.
 
-The wing-whoosh uses a cached noise buffer, a low-pass sweep, faint sine rumble,
-and quiet shimmer tones. It lasts 0.82 seconds. It reuses the existing Sound
+Credit: **Ashwing Drake by Literock Studios**. The [supplied license](licenses/ASHWING-DRAKE-LITE.txt)
+permits modification and packaging inside an end product. It also accompanies
+the compiled motion module. This is not a standalone asset-pack redistribution.
+The offline extractor, `scripts/extract-drake-wing-motion.mjs`, accepts a private
+GLB path and records its SHA-256; normal site builds need no source model.
+
+The original short roar replaces the whoosh. It synthesizes rough vocal pulses,
+subharmonics, breath, and chest/throat resonances into a cached, peak-limited
+0.98-second audio buffer. No recorded sample is required. The ZIP's roar clip
+contains skeletal animation, not an audio recording. It reuses the existing Sound
 switch and volume, respects zero volume, stops immediately when muted, and
 plays only in an already running AudioContext unlocked by the roll gesture.
 Blocked/suspended browser audio stays silent without delaying the result.
 Reduced motion uses a still NAT 20 receipt for 0.9 seconds, with no flyby, trail,
-or whoosh.
+or roar.
 
 Settings → Theme → Critical rolls → Nat 20 animation defaults to Galaxy dragon.
 Fire and Arcane vortex remain explicit alternatives. The new optional JSON
@@ -42,9 +54,10 @@ existing presentation.
 
 ## Verification
 
-- `npm run test:galaxy`: 17 focused tests cover natural-roll detection, defaults,
+- `npm run test:galaxy`: 19 focused tests cover natural-roll detection, defaults,
   preference compatibility/persistence, audio policy and disposal, static asset
-  MIME/size, existing dice faces, combat receipts, and Discord idempotency.
+  MIME/size, periodic/visible retargeted wing motion, roar waveform quality bounds,
+  existing dice faces, combat receipts, and Discord idempotency.
 - `npm run test:galaxy:browser`: rebuilds only portable dist, then runs an
   isolated Playwright preview. On Windows it uses installed Edge; elsewhere
   install Playwright Chromium, or set COSMOS_BROWSER_EXECUTABLE. It never opens
@@ -57,6 +70,9 @@ existing presentation.
   substitutes a controlled dice-settled promise for 3D rendering and confirms
   dice → unchanged receipt → dragon ordering. It does not claim a live game roll
   was visually exercised.
+- A controlled wing-frame comparison pauses the flight/texture, advances the
+  actual renderer callbacks, and verifies over 15,000 painted pixels change as
+  the wings fold/extend. Merely changing a CSS transform property is insufficient.
 
 Remaining manual checks: physical Android/iOS smoothness, preferred sound balance
 on actual speakers/headphones, and the full animation beside real gameplay.

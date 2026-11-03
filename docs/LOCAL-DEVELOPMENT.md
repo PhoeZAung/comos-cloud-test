@@ -57,7 +57,7 @@ legacy preset IDs remain readable for existing saved accounts.
 
 Imported vortex GIFs and spell cues are kept outside Git in
 %USERPROFILE%\.cosmos-dev\roll-fx and copied only into the ignored local build.
-Original archives and the unused drake model remain private; no drake renderer,
+Original archives and the source drake model remain private; no drake renderer,
 model, or Three.js dependency is included in the build. Original licenses stay
 alongside the private source assets. Source sounds/art are not an asset-pack
 redistribution. The sound setting uses a gain stage and compressor with the

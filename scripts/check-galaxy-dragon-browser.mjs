@@ -1,4 +1,5 @@
 import {chromium} from 'playwright';
+import sharp from 'sharp';
 import {fileURLToPath} from 'node:url';import os from 'node:os';
 import http from 'node:http';import fs from 'node:fs/promises';import path from 'node:path';import assert from 'node:assert/strict';
 const root=fileURLToPath(new URL('../dist/',import.meta.url)),output=await fs.mkdtemp(path.join(os.tmpdir(),'cosmos-dragon-')); // Isolated, synthetic preview: never opens an account or sends a roll.
@@ -29,6 +30,14 @@ async function pageFor(viewport,reducedMotion='no-preference'){
  await page.goto(base);await page.waitForFunction(()=>window.harness?.ready);await page.clock.install();return page;
 }
 try{
+ {
+  const page=await pageFor({width:1000,height:800});await page.evaluate(()=>{window.__wingCallbacks=new Map();let serial=0;window.requestAnimationFrame=callback=>{window.__wingBase??=performance.now();const id=++serial;window.__wingCallbacks.set(id,callback);return id;};window.cancelAnimationFrame=id=>window.__wingCallbacks.delete(id);window.__wingStep=time=>{const callbacks=[...window.__wingCallbacks.values()];window.__wingCallbacks.clear();for(const callback of callbacks)callback(window.__wingBase+time);};});await page.click('#nat20');await page.waitForSelector('.galaxy-dragon-fx');
+  await page.evaluate(async()=>{const image=new Image();image.src='/assets/roll-fx/galaxy-nebula.webp';await image.decode();for(const animation of document.getAnimations()){animation.pause();animation.currentTime=575;}});
+  await page.evaluate(()=>window.__wingStep(80));const poseA=await page.locator('.galaxy-wing-upper').getAttribute('transform'),first=await page.screenshot({path:path.join(output,'wings-folded.png')});
+  await page.evaluate(()=>window.__wingStep(250));const poseB=await page.locator('.galaxy-wing-upper').getAttribute('transform'),second=await page.screenshot({path:path.join(output,'wings-extended.png')});assert.notEqual(poseA,poseB);
+  const a=await sharp(first).ensureAlpha().raw().toBuffer(),b=await sharp(second).ensureAlpha().raw().toBuffer();let pixels=0;for(let i=0;i<a.length;i+=4)if(Math.abs(a[i]-b[i])+Math.abs(a[i+1]-b[i+1])+Math.abs(a[i+2]-b[i+2])>30)pixels++;assert.ok(pixels>15000,'mask must visibly repaint as the wings beat: '+pixels);
+  checks.push('Ashwing wingbeat changes actual painted pixels while flight/texture stay fixed ('+pixels+' pixels)');await page.close();
+ }
  for(const [name,viewport] of [['desktop',{width:1440,height:900}],['phone',{width:390,height:844}],['small-phone',{width:320,height:568}],['landscape',{width:844,height:390}]]){
   const page=await pageFor(viewport);await page.click('#nat20');await page.waitForSelector('.galaxy-dragon-fx');
   await page.evaluate(()=>{for(const a of document.getAnimations()){a.pause();a.currentTime=575;}});
@@ -49,7 +58,7 @@ try{
  }
  {
   const page=await pageFor({width:900,height:700});await page.check('#sound');await page.waitForFunction(()=>window.__audio.contexts[0]?.state==='running');await page.click('#nat20');assert.equal(await page.evaluate(()=>window.__audio.started),1);
-  await page.uncheck('#sound');assert.ok(await page.evaluate(()=>window.__audio.stopped)>=1);checks.push('sound on plays original whoosh; switching off stops it immediately');await page.clock.runFor(1250);
+  await page.uncheck('#sound');assert.ok(await page.evaluate(()=>window.__audio.stopped)>=1);checks.push('sound on plays original roar; switching off stops it immediately');await page.clock.runFor(1250);
   await page.check('#sound');await page.locator('#volume').fill('0');await page.locator('#volume').dispatchEvent('change');const before=await page.evaluate(()=>window.__audio.started);await page.click('#nat20');assert.equal(await page.evaluate(()=>window.__audio.started),before);checks.push('zero volume remains silent');await page.close();
  }
  {
