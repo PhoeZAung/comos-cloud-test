@@ -1,24 +1,23 @@
 import OBR from '@owlbear-rodeo/sdk';
 import {peer} from './rpc.mjs';
-import {dicePlus} from './dice-plus.mjs';
+import {connection as connectGrant} from './connection.mjs';
 import {panelSize} from './panel-size.mjs';
-const status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]'),frame=document.querySelector('iframe'),dice=dicePlus(OBR);
+const status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]'),frame=document.querySelector('iframe');
 let popup,nonce,connection,sheetConnection,sheetNonce,activeCharacterId,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID(),openTab=document.querySelector('[data-open-sheet-tab]');
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function say(message){status.textContent=message;}
 function back(){frame.hidden=true;list.hidden=false;document.querySelector('[data-back]').hidden=true;openTab.hidden=true;activeCharacterId=null;sheetConnection?.close();sheetConnection=null;sheetNonce=null;frame.removeAttribute('src');}
 async function sheetRequest(method,value){
- if(!connection||popup?.closed)throw Error('The Cosmos connection window closed. Reconnect your account.');
- if(method==='api')return connection.call('api',value);
- if(method==='dice'){await dice.ready();return dice.roll(value.notation,document.querySelector('[data-audience]').value);}
+ if(!connection)throw Error('Reconnect Cosmos.');
+ if(method==='api'){try{return await connection.call('api',value);}catch(error){say('Disconnected');document.querySelector('[data-connect]').hidden=false;throw error;}}
  throw Error('Unsupported sheet action.');
 }
 async function load(){
  if(!connection)throw Error('Connect your Cosmos account first.');
  const characters=await connection.call('list');
- list.innerHTML=characters.map(c=>'<button class="character-card" data-character="'+esc(c.id)+'"><strong>'+esc(c.name)+'</strong><small>'+esc([c.race,c.className,c.level?'Level '+c.level:''].filter(Boolean).join(' · '))+'</small></button>').join('')||'<p>No characters on this account. Create one on the Cosmos website.</p>';
- say('Choose your character. Keep the Cosmos connection window open.');
+ list.innerHTML=characters.map(c=>'<button class="character-card" data-character="'+esc(c.id)+'"><span class="character-photo">'+(typeof c.portraitUrl==='string'&&/^data:image\/(png|jpeg|webp);base64,/i.test(c.portraitUrl)?'<img src="'+esc(c.portraitUrl)+'" alt="">':'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="13" r="8"/><path d="M5 38v-5a15 15 0 0130 0v5Z"/></svg>')+'</span><strong>'+esc(c.name)+'</strong><span aria-hidden="true">›</span></button>').join('')||'<p>No characters.</p>';
+ say('Connected');document.querySelector('[data-connect]').hidden=true;
 }
 OBR.onReady(()=>{available=true;say('Connect your Cosmos account to load your characters.');void OBR.action.setIcon(new URL('/owlbear/sheet-action.svg',location.origin).href).catch(()=>{});void panelSize(OBR,say).catch(error=>say(error.message));});
 document.querySelector('[data-connect]').onclick=()=>{
@@ -29,8 +28,8 @@ document.querySelector('[data-connect]').onclick=()=>{
 };
 window.addEventListener('message',event=>{
  if(event.origin!==location.origin)return;
- if(event.source===popup&&event.data?.type==='cosmos:connect-ready'&&event.data.nonce===nonce){
-  const channel=new MessageChannel();connection=peer(channel.port1,()=>{throw Error('Unsupported request.');});popup.postMessage({type:'cosmos:connect-port',nonce},location.origin,[channel.port2]);void load().catch(error=>say(error.message));
+ if(event.source===popup&&event.data?.type==='cosmos:connected'&&event.data.nonce===nonce){
+  if(!/^[a-f0-9]{64}$/.test(event.data.token||''))return;connection=connectGrant(event.data.token);popup.postMessage({type:'cosmos:connected-ack',nonce},location.origin);void load().catch(error=>say(error.message));
  }
  const fromFrame=sheetNonce&&event.source===frame.contentWindow&&event.data?.nonce===sheetNonce;
  const fromTab=tabNonce&&event.source===tabWindow&&event.data?.nonce===tabNonce;
@@ -48,7 +47,7 @@ list.onclick=event=>{
  sheetNonce=crypto.randomUUID();frame.src=new URL('sheet.html?characterId='+encodeURIComponent(activeCharacterId)+'#'+sheetNonce,location.href).href;
  list.hidden=true;frame.hidden=false;document.querySelector('[data-back]').hidden=false;openTab.hidden=false;
  document.querySelector('.panel-options').open=false;
- say('Your character sheet · Rolls use Dice+ in this Owlbear room.');
+ say('Connected');
 };
 openTab.onclick=()=>{
  if(!activeCharacterId)return;
@@ -56,9 +55,8 @@ openTab.onclick=()=>{
  tabNonce=crypto.randomUUID();tabConnection?.close();tabConnection=null;
  tabWindow=window.open(new URL('sheet.html?characterId='+encodeURIComponent(activeCharacterId)+'#'+tabNonce,location.href).href,tabName);
  if(!tabWindow){tabCharacterId=null;say('Allow the sheet tab, then click Open in new tab again.');return;}
- tabCharacterId=activeCharacterId;tabWindow.focus();say('Sheet opened in your browser. Keep this Owlbear room and the Cosmos connection window open for Dice+.');
+ tabCharacterId=activeCharacterId;tabWindow.focus();say('Connected');
 };
 document.querySelector('[data-back]').onclick=back;
 document.querySelector('[data-refresh]').onclick=()=>void load().catch(error=>say(error.message));
-document.querySelector('[data-dice-check]').onclick=()=>void dice.ready().then(()=>say('Dice+ is ready.')).catch(error=>say(error.message));
 window.addEventListener('pagehide',()=>{connection?.close();sheetConnection?.close();tabConnection?.close();},{once:true});

@@ -14,6 +14,6 @@ export function statusRoster(db){
  if(rows.length>STATUS_LIMIT)throw Error('Choose up to '+STATUS_LIMIT+' characters for the Owlbear status overlay.');
  return rows.map(row=>{
   const data=JSON.parse(row.data_json),stats=sheetStats(data),portrait=characterPortrait(data);
-  return {id:row.id,name:row.name,revision:row.revision,hp:stats.hp,hpMax:stats.hpMax,hpTemp:stats.hpTemp,mp:stats.mp,mpMax:stats.mpMax,ac:stats.ac,touch:stats.touch,flat:stats.flat,cmd:stats.cmd,portraitHash:portrait?createHash('sha256').update(portrait).digest('hex'):''};
+  return {id:row.id,name:row.name,revision:row.revision,initiative:stats.initiative,hp:stats.hp,hpMax:stats.hpMax,hpTemp:stats.hpTemp,mp:stats.mp,mpMax:stats.mpMax,ac:stats.ac,touch:stats.touch,flat:stats.flat,cmd:stats.cmd,portraitHash:portrait?createHash('sha256').update(portrait).digest('hex'):''};
  });
 }

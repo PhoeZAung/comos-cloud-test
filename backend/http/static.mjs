@@ -24,7 +24,7 @@ export async function createStaticHandler(directory) {
       const type = types[ext] || (owlbearManifest?'application/json':null) || (relative.startsWith('assets'+path.sep+'dice-box'+path.sep)?({'.json':'application/json','.wasm':'application/wasm','.jpg':'image/jpeg','.jpeg':'image/jpeg'}[ext]):null);
       if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !type || !(await stat(target)).isFile()) throw new Error('Not public');
       res.setHeader('Content-Security-Policy', relative.startsWith('preview' + path.sep) ? previewPolicy : liveHeaders['Content-Security-Policy']);
-      if(relative.startsWith('owlbear'+path.sep)){res.setHeader('Content-Security-Policy',liveHeaders['Content-Security-Policy']+"; frame-ancestors 'self' https://owlbear.rodeo https://*.owlbear.rodeo");}
+      if(relative.startsWith('owlbear'+path.sep)){const policy=relative.startsWith('owlbear'+path.sep+'party'+path.sep)?liveHeaders['Content-Security-Policy'].replace("img-src 'self' data: blob:","img-src 'self' data: blob: https:"):liveHeaders['Content-Security-Policy'];res.setHeader('Content-Security-Policy',policy+"; frame-ancestors 'self' https://owlbear.rodeo https://*.owlbear.rodeo");}
       if(owlbearManifest||relative.startsWith('owlbear'+path.sep)&&ext==='.svg')res.setHeader('Access-Control-Allow-Origin','*');
       if(['connect.html','sheet.html'].some(name=>relative==='owlbear'+path.sep+name))res.setHeader('Cross-Origin-Opener-Policy','unsafe-none');
       const body = await readFile(target);

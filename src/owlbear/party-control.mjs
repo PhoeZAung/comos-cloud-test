@@ -1,10 +1,10 @@
 import OBR from '@owlbear-rodeo/sdk';
-import {peer} from './rpc.mjs';
-import {KEY,PORTRAITS,REQUEST,UI,esc} from './party-state.mjs';
-const status=document.querySelector('[data-status]'),connect=document.querySelector('[data-connect-party]'),stop=document.querySelector('[data-stop-party]'),roster=document.querySelector('[data-party-roster]');
+import {connection as connectGrant} from './connection.mjs';
+import {KEY,PORTRAITS,REQUEST,UI,esc,stateFrom} from './party-state.mjs';
+const status=document.querySelector('[data-status]'),connect=document.querySelector('[data-connect-party]');
 let available=false,popup,nonce,connection,timer,generation=0,publishing=false,ownId,lastSignature='',lastPublished=0;
 const portraits=new Map();
-const say=message=>{status.textContent=message;};
+const say=message=>{status.textContent=message;connect.hidden=message==='Connected';};
 async function clear(){const metadata=await OBR.room.getMetadata();if(metadata[KEY]?.publisher===ownId)await OBR.room.setMetadata({[KEY]:null});}
 async function thumbnail(source){
  if(!source)return '';const image=new Image();image.src=source;await image.decode();
@@ -15,7 +15,7 @@ async function thumbnail(source){
 async function tick(run){
  if(!publishing||run!==generation)return;
  try{
-  if(popup?.closed||!connection)throw Error('The Cosmos connection window closed. Reconnect to sync party status.');
+  if(!connection)throw Error('Reconnect Cosmos.');
   if(await OBR.player.getRole()!=='GM')throw Error('Only the Owlbear GM can share party status.');
   const result=await connection.call('party-status'),characters=result.characters;
   if(run!==generation)return;
@@ -27,8 +27,8 @@ async function tick(run){
    if(new TextEncoder().encode(JSON.stringify({...metadata,[KEY]:next})).byteLength>15000)throw Error('Party status exceeds this room’s available space. Hide some characters in Cosmos Admin.');
    if(run!==generation)return;await OBR.room.setMetadata({[KEY]:next});lastSignature=signature;lastPublished=Date.now();
   }
-  roster.innerHTML=characters.map(c=>'<li>'+esc(c.name)+' <span>HP '+esc(c.hp)+'/'+esc(c.hpMax)+' · MP '+esc(c.mp)+'/'+esc(c.mpMax)+'</span></li>').join('');
-  say(characters.length?'Sharing '+characters.length+' character card'+(characters.length===1?'':'s')+' · Synced with Cosmos.':'Connected. Turn on the status-card icon beside a character in Cosmos Admin.');
+
+  say('Connected');
   const active=new Set(characters.map(c=>c.id));for(const id of portraits.keys())if(!active.has(id))portraits.delete(id);
   for(const row of characters){
    if(run!==generation)return;if(!row.portraitHash){portraits.delete(row.id);continue;}
@@ -45,8 +45,8 @@ async function tick(run){
 OBR.onReady(async()=>{
  available=true;ownId=await OBR.player.getConnectionId();
  await OBR.action.setIcon(new URL('/owlbear/party-action.svg',location.origin).href);
- connect.hidden=stop.hidden=await OBR.player.getRole()!=='GM';
- say(connect.hidden?'The GM connects Cosmos and chooses the visible character cards.':'Connect the Cosmos administrator account to share party cards with this room.');
+ const gm=await OBR.player.getRole()==='GM';connect.hidden=!gm;document.querySelector('.party-actions').hidden=!gm;
+ const update=value=>{status.textContent=stateFrom(value)?'Connected':'Disconnected';for(const button of document.querySelectorAll('[data-mode]'))button.setAttribute('aria-pressed',String(button.dataset.mode===(value['com.cosmos.party-status/tracker']?.mode||'party')));};update(await OBR.room.getMetadata());OBR.room.onMetadataChange(update);
  OBR.broadcast.onMessage(REQUEST,({data})=>{if(!publishing||!Array.isArray(data?.ids))return;for(const id of data.ids.slice(0,40)){const portrait=portraits.get(id);if(portrait)void OBR.broadcast.sendMessage(PORTRAITS,portrait,{destination:'ALL'}).catch(()=>{});}});
 });
 connect.onclick=()=>{
@@ -56,12 +56,8 @@ connect.onclick=()=>{
  say(popup?'Connect your Cosmos administrator account in the connection window.':'Allow the Cosmos connection popup and try again.');
 };
 window.addEventListener('message',event=>{
- if(event.origin!==location.origin||event.source!==popup||event.data?.type!=='cosmos:connect-ready'||event.data.nonce!==nonce)return;
- generation++;clearTimeout(timer);connection?.close();const channel=new MessageChannel();connection=peer(channel.port1,()=>{throw Error('Unsupported request.');});
- popup.postMessage({type:'cosmos:connect-port',nonce},location.origin,[channel.port2]);publishing=true;lastPublished=0;lastSignature='';void tick(generation);
+ if(event.origin!==location.origin||event.source!==popup||event.data?.type!=='cosmos:connected'||event.data.nonce!==nonce)return;
+ if(!/^[a-f0-9]{64}$/.test(event.data.token||''))return;generation++;clearTimeout(timer);connection?.close();connection=connectGrant(event.data.token);popup.postMessage({type:'cosmos:connected-ack',nonce},location.origin);publishing=true;lastPublished=0;lastSignature='';void tick(generation);
 });
-stop.onclick=async()=>{generation++;publishing=false;clearTimeout(timer);connection?.close();connection=null;portraits.clear();await clear().catch(()=>{});roster.replaceChildren();say('Party status sharing stopped for this room.');};
-document.querySelector('[data-show-overlay]').onclick=()=>{if(available)void OBR.broadcast.sendMessage(UI,{show:true},{destination:'LOCAL'}).catch(error=>say(error.message));};
-document.querySelector('[data-hide-overlay]').onclick=()=>{if(available)void OBR.broadcast.sendMessage(UI,{show:false},{destination:'LOCAL'}).catch(error=>say(error.message));};
-document.querySelector('[data-overlay-position]').onchange=event=>{if(available)void OBR.broadcast.sendMessage(UI,{position:event.target.value},{destination:'LOCAL'}).catch(error=>say(error.message));};
+for(const button of document.querySelectorAll('[data-mode]'))button.onclick=()=>{if(available)void OBR.broadcast.sendMessage(UI,{mode:button.dataset.mode},{destination:'LOCAL'});};
 window.addEventListener('pagehide',()=>{generation++;publishing=false;clearTimeout(timer);connection?.close();},{once:true});
