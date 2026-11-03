@@ -5,3 +5,4 @@ export const tag=svg('<path d="M3 4h12l14 14-11 11L3 14z"/><circle cx="9" cy="10
 export const external=svg('<path d="M17 4h11v11M28 4L13 19M13 7H5v21h21v-8"/>');
 export const edit=svg('<path d="M5 22L22 5l5 5-17 17-7 2zM19 8l5 5"/>');
 export const levelUp='<span class="cs-level-up-icon" aria-hidden="true"></span>';
+export const statusCard=svg('<rect x="2" y="6" width="28" height="21" rx="4"/><circle cx="10" cy="13" r="3"/><path d="M5 23v-2a5 5 0 0110 0v2M19 12h7M19 17h7M19 22h4"/>');

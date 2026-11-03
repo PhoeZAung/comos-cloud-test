@@ -20,9 +20,13 @@ export async function createStaticHandler(directory) {
       const target = await realpath(path.resolve(root, '.' + name));
       const relative = path.relative(root, target);
       const ext=path.extname(target);
-      const type = types[ext] || (relative.startsWith('assets'+path.sep+'dice-box'+path.sep)?({'.json':'application/json','.wasm':'application/wasm','.jpg':'image/jpeg','.jpeg':'image/jpeg'}[ext]):null);
+      const owlbearManifest=relative==='owlbear'+path.sep+'manifest.json';
+      const type = types[ext] || (owlbearManifest?'application/json':null) || (relative.startsWith('assets'+path.sep+'dice-box'+path.sep)?({'.json':'application/json','.wasm':'application/wasm','.jpg':'image/jpeg','.jpeg':'image/jpeg'}[ext]):null);
       if (!relative || relative.startsWith('..') || path.isAbsolute(relative) || !type || !(await stat(target)).isFile()) throw new Error('Not public');
       res.setHeader('Content-Security-Policy', relative.startsWith('preview' + path.sep) ? previewPolicy : liveHeaders['Content-Security-Policy']);
+      if(relative.startsWith('owlbear'+path.sep))res.setHeader('Content-Security-Policy',liveHeaders['Content-Security-Policy']+"; frame-ancestors 'self' https://owlbear.rodeo https://*.owlbear.rodeo https://owlbear.app https://*.owlbear.app");
+      if(owlbearManifest||relative.startsWith('owlbear'+path.sep)&&ext==='.svg')res.setHeader('Access-Control-Allow-Origin','*');
+      if(['connect.html','sheet.html'].some(name=>relative==='owlbear'+path.sep+name))res.setHeader('Cross-Origin-Opener-Policy','unsafe-none');
       const body = await readFile(target);
       res.writeHead(200, { 'Content-Type': type, 'Content-Length': body.length });
       res.end(req.method === 'HEAD' ? undefined : body);

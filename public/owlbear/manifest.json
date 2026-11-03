@@ -1,0 +1,17 @@
+{
+  "name": "Cosmos",
+  "version": "1.0.1",
+  "manifest_version": 1,
+  "description": "Character sheets, Dice+ rolls, a live party display, and token initiative in one Cosmos extension.",
+  "author": "PhoeZAung",
+  "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/icon.svg",
+  "homepage_url": "https://cosmos-web.burmese-barbel.ts.net/",
+  "background_url": "https://cosmos-web.burmese-barbel.ts.net/owlbear/background.html",
+  "action": {
+    "title": "Cosmos",
+    "icon": "https://cosmos-web.burmese-barbel.ts.net/owlbear/sheet-action.svg",
+    "popover": "https://cosmos-web.burmese-barbel.ts.net/owlbear/index.html",
+    "width": 390,
+    "height": 640
+  }
+}

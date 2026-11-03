@@ -27,6 +27,8 @@ export function parseCharacterImport(input){
   if(!plain(input))throw fail('INVALID_IMPORT','Choose a JSON object containing character data.');
   const payload=plain(input.character)?input.character:input;
   const data=safeData(plain(payload.data)?payload.data:payload);
+  // Only the administrator's directory toggle can enroll a character in the HUD.
+  delete data.owlbearStatusVisible;
   const size=Buffer.byteLength(JSON.stringify(data));
   if(size>250000)throw fail('INVALID_IMPORT','Character file must be under 250 KB of data.');
   const name=String(data.charName||payload.name||data.name||'').trim();

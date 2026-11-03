@@ -1,4 +1,5 @@
 import {createDirectoryRoutes} from '../characters/directory.mjs';
+import {createOwlbearRoutes} from './owlbear.mjs';
 import {createLoreRoutes} from '../lore/service.mjs';
 import {createLoreImageRoutes} from '../lore/images.mjs';
 import {importDirectory} from '../import/legacy.mjs';
@@ -66,7 +67,7 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const adminUids=[...new Set([...administrators.uids,...googleOwner.uids])];
     if(googleOwner.status!=='ready')console.info('Comos Google owner: '+googleOwner.status+'.');
     if(env.COMOS_ADMIN_BOOTSTRAP_EMAIL)console.info('Comos admin bootstrap: '+administrators.status+'.');
-    const directoryRoutes=createDirectoryRoutes({db,sessions,adminUids,origin:config.origin});
+    const directory=createDirectoryRoutes({db,sessions,adminUids,origin:config.origin});
     const loreRoutes=createLoreRoutes({db,sessions,origin:config.origin,adminUids});
     const loreImageRoutes=mediaRoot?await createLoreImageRoutes({db,sessions,origin:config.origin,mediaRoot,adminUids}):null;
     const characterLibraryRoutes=createCharacterLibraryRoutes({db,sessions,origin:config.origin,adminUids});
@@ -80,6 +81,9 @@ export async function initializeAuthentication({ db, mediaRoot, env = process.en
     const postsRoutes=createPostsRoutes({sessions,posts,origin:config.origin,adminUids:googleOwner.uids});
     const backupRoutes=createAdminBackupRoutes({db,sessions,auth:firebaseAuth,adminUids:googleOwner.uids});
     const replyRoutes=createReplyRoutes({sessions,posts,replies:createRepliesService(db,{posts}),origin:config.origin,adminUids});
-    return { loreImageRoutes,loreRoutes,characterLibraryRoutes,directoryRoutes,homeMediaRoutes,itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,replyRoutes,backupRoutes,accountRoutes,sessionRoutes: createSessionRoutes({ sessions, origin: config.origin }), close: () => deleteApp(app) };
+    const sessionRoutes=createSessionRoutes({sessions,origin:config.origin});
+    const owlbear=createOwlbearRoutes({db,sessions,adminUids,origin:config.origin,handlers:[directory,characterLibraryRoutes,accountRoutes,sessionRoutes]});
+    const directoryRoutes=async(...args)=>await owlbear(...args)||await directory(...args);
+    return { loreImageRoutes,loreRoutes,characterLibraryRoutes,directoryRoutes,homeMediaRoutes,itemsRoutes,charactersRoutes,groupsRoutes,postsRoutes,replyRoutes,backupRoutes,accountRoutes,sessionRoutes, close: () => deleteApp(app) };
   } catch (error) { await deleteApp(app);throw error; }
 }
