@@ -13096,7 +13096,7 @@ class da {
         this.handleAsleep(s);
       else {
         const n = this.diceBufferView[t + 1], a = this.diceBufferView[t + 2], o = this.diceBufferView[t + 3], l = this.diceBufferView[t + 4], d = this.diceBufferView[t + 5], h = this.diceBufferView[t + 6], c = this.diceBufferView[t + 7];
-        s.mesh.position.set(n, a, o), s.mesh.rotationQuaternion.set(l, d, h, c);
+        if(!s.asleep){s.mesh.position.set(n, a, o), s.mesh.rotationQuaternion.set(l, d, h, c);}
       }
       t = t + 8;
     }
@@ -13110,10 +13110,10 @@ class da {
   // handle the position updates from the physics worker. It's a simple flat array of numbers for quick and easy transfer
   async handleAsleep(e) {
     var t, i;
-    if (e.asleep = !0, await Oe.getRollResult(e, C(this, K)), e.d10Instance || e.dieParent) {
+    if(e.asleep)return; if (e.asleep = !0, await Oe.getRollResult(e, C(this, K)), e.d10Instance || e.dieParent) {
       if ((t = e == null ? void 0 : e.d10Instance) != null && t.asleep || (i = e == null ? void 0 : e.dieParent) != null && i.asleep) {
         const r = e.config.sides === 100 ? e : e.dieParent, s = e.config.sides === 10 ? e : e.d10Instance;
-        r.rawValue && (r.value = r.rawValue), r.rawValue = r.value, r.value = r.value + s.value, this.onRollResult({
+        r.rawValue && (r.value = r.rawValue), r.rawValue = r.value, r.value = r.value + s.value, r.value === 0 && (r.value = 100), this.onRollResult({
           rollId: r.config.rollId,
           value: r.value
         });

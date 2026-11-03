@@ -1,3 +1,4 @@
+import {patchSettledFaces} from './dice-settled-adapter.mjs';
 import {mkdir,readFile,writeFile,cp} from 'node:fs/promises';
 import {buildCustomDice} from './build-custom-dice.mjs';
 export async function buildDiceAssets(){
@@ -5,33 +6,29 @@ export async function buildDiceAssets(){
  await mkdir(target,{recursive:true});
  for(const name of ['dice-box.es.js','Dice.js','world.onscreen.js','world.offscreen.js','world.none.js']){
   let source=await readFile(new URL('../node_modules/@3d-dice/dice-box/dist/'+name,import.meta.url),'utf8');
-  if(name==='Dice.js'){
-   const anchor='const d = t.pickWithRay(Ze.ray);';
-   if(!source.includes(anchor))throw Error('Dice Box adapter needs review for this library version.');
-   source=source.replace(anchor,`// Cosmos: orient settled visual dice to the authoritative server value.
-      const rawWanted=s.config.data?.targetValue;
-      const wanted=Number.isInteger(rawWanted)?(s.dieParent?((rawWanted-1)%10)+1:s.config.sides===100?Math.floor((rawWanted-1)/10)*10:rawWanted):undefined;
-      if(Number.isInteger(wanted)){
-        const face=Object.keys(o[s.dieType]).find(key=>o[s.dieType][key]===wanted);
-        if(face!==undefined){
-          const indices=c.getIndices(),positions=c.getVerticesData('position'),start=Number(face)*3;
-          const vertex=index=>new p(positions[index*3],positions[index*3+1],positions[index*3+2]);
-          const a=vertex(indices[start]),b=vertex(indices[start+1]),f=vertex(indices[start+2]);
-          const normal=p.Cross(b.subtract(a),f.subtract(a)).normalize();
-          const orient=n=>{
-            const dot=Math.max(-1,Math.min(1,p.Dot(n,u))),axis=p.Cross(n,u);
-            if(axis.length()<0.0001)axis.copyFrom(p.Cross(n,new p(1,0,0)));
-            if(axis.length()<0.0001)axis.copyFrom(new p(0,0,1));
-            const rotation=s.mesh.rotationQuaternion.constructor.RotationAxis(axis.normalize(),Math.acos(dot));
-            s.mesh.rotationQuaternion=rotation;c.rotationQuaternion=rotation;c.computeWorldMatrix(true);s.mesh.computeWorldMatrix(true);
-          };
-          orient(normal);
-          if(o[s.dieType][t.pickWithRay(Ze.ray)?.faceId]!==wanted)orient(normal.negate());
-        }
-      }
-      const d = t.pickWithRay(Ze.ray);`);
+  if(name==='Dice.js')source=patchSettledFaces(source);
+  if(name==='dice-box.es.js'){
+   const start=source.indexOf('  resizeWorld() {'),end=source.indexOf('  async init()',start);
+   if(start<0||end<0)throw Error('Dice resize adapter needs review.');
+   source=source.slice(0,start)+`  resizeWorld() {
+     if(!this.cosmosResize){
+       this.cosmosResize=pl(()=>{const width=this.canvas.clientWidth,height=this.canvas.clientHeight;
+         if(width<1||height<1)return;
+         W(this,u).resize({width,height});
+         if(W(this,p))W(this,p).postMessage({action:'resize',width,height});
+       });
+       window.addEventListener('resize',this.cosmosResize);
+     }
+     this.cosmosResize();
+   }
+`+source.slice(end);
   }
   if(name==='world.onscreen.js'){
+   const transform='s.mesh.position.set(n, a, o), s.mesh.rotationQuaternion.set(l, d, h, c);';
+   const asleep='if (e.asleep = !0, await Oe.getRollResult(e, C(this, K)),';
+   if(!source.includes(transform)||!source.includes(asleep))throw Error('Dice sleep adapter needs review.');
+   source=source.replace(transform,'if(!s.asleep){'+transform+'}').replace(asleep,'if(e.asleep)return; if (e.asleep = !0, await Oe.getRollResult(e, C(this, K)),');
+   source=source.replace('r.value = r.value + s.value, this.onRollResult','r.value = r.value + s.value, r.value === 0 && (r.value = 100), this.onRollResult');
    const anchor='n.AddAttribute("customColor");';
    if(!source.includes(anchor))throw Error('Dice material adapter needs review.');
    source=source.replace(anchor,anchor+`

@@ -68,3 +68,16 @@ created before it was applied. No NAS migration or deployment has occurred; the
 code-only NAS helper refuses that schema change. Plan NAS migration separately.
 Validation is limited to build, syntax, and local startup/health checks. No
 automated tests or interactive multi-roll/effect previews were run.
+
+Dice presentation fixes: throws use lower spin/throw forces, higher damping, and
+a screen-fit scale. Each toss keeps a logical canvas size and is fitted into the
+new screen size during resize; the next toss adopts the new dimensions. The
+pinned Dice Box resize adapter registers once, updates immediately on show, and
+ignores zero-size hidden canvases. Settled mesh/hitbox transforms are unfrozen,
+the recorded face is oriented toward the camera and ray-checked against that
+specific hitbox, then rendered. Sleeping dice ignore later physics transforms.
+An alignment failure hides the 3D dice and preserves the recorded receipt.
+
+Standalone sheets now initialize shared galaxy/splash effects lazily, respecting
+Pause stars, Splash cursor, site colors, and reduced motion. Sheet effects use
+lighter rendering settings and release their contexts/listeners on navigation.

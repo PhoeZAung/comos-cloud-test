@@ -1,10 +1,11 @@
 // Load optional sheet modules behind an error boundary: a missing build asset
 // must not leave the server-rendered loading animation running forever.
-let dispose,leaving=false;
-window.addEventListener('pagehide',()=>{leaving=true;dispose?.();},{once:true});
+let dispose,disposeEffects,leaving=false;
+window.addEventListener('pagehide',()=>{leaving=true;dispose?.();disposeEffects?.();},{once:true});
 window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
 void Promise.all([import('./sheet.mjs'),import('./preferences.mjs')]).then(([sheet,prefs])=>{
  if(leaving)return;dispose=sheet.mountSheet();
+ void import('./effects.mjs').then(module=>{if(!leaving)disposeEffects=module.setupEffects();}).catch(()=>{});
  void fetch('/api/v1/auth/session',{credentials:'same-origin',cache:'no-store',signal:AbortSignal.timeout(15000)}).then(async response=>{if(response.ok&&!leaving)prefs.applyPreferences((await response.json()).user?.preferences);}).catch(()=>{});
 }).catch(()=>{
  if(leaving)return;const root=document.querySelector('main');if(!root)return;

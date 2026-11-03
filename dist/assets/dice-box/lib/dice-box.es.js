@@ -167,11 +167,16 @@ class vl {
     }), this.isVisible = !0) : i(this, y, !1), this.loadThemeQueue = hl();
   }
   resizeWorld() {
-    const b = pl(() => {
-      W(this, u).resize({ width: this.canvas.clientWidth, height: this.canvas.clientHeight }), W(this, p) && W(this, p).postMessage({ action: "resize", width: this.canvas.clientWidth, height: this.canvas.clientHeight });
-    });
-    window.addEventListener("resize", b);
-  }
+     if(!this.cosmosResize){
+       this.cosmosResize=pl(()=>{const width=this.canvas.clientWidth,height=this.canvas.clientHeight;
+         if(width<1||height<1)return;
+         W(this,u).resize({width,height});
+         if(W(this,p))W(this,p).postMessage({action:'resize',width,height});
+       });
+       window.addEventListener('resize',this.cosmosResize);
+     }
+     this.cosmosResize();
+   }
   async init() {
     return W(this, y) ? v(this, E, Gl).call(this) : i(this, K, Promise.resolve()), await v(this, I, cl).call(this), this.resizeWorld(), W(this, u).onRollResult = (l) => {
       const b = this.rollDiceData[l.rollId], d = this.rollGroupData[b.groupId], X = this.rollCollectionData[b.collectionId];
