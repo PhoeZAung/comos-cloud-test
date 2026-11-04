@@ -368,18 +368,22 @@ export function racialChoiceEffects(b,race,traits){
  return effects;
 }
 
-export function racialChoiceIssues(b,race,traits,scores){
+// Step IDs follow the visible controls; every issue still blocks final save.
+export const isRacialScoreChoice=spec=>spec?.choiceType==='ability_score'||spec?.id===IMMORTAL+'flexible-score';
+export const racialChoiceStep=spec=>isRacialScoreChoice(spec)||spec?.choiceType==='language'&&spec.id!==YAGUDO_RANK_LANGUAGES?1:spec?.id===YAGUDO_RANK_LANGUAGES?7:2;
+export function racialChoiceIssues(b,race,traits,scores,{details=false}={}){
  const errors=[],specs=racialChoiceSpecs(race,traits,buildLevel(b),b),byId=new Map(specs.map(s=>[s.id,s]));
+ const add=(poolId,message)=>errors.push(details?{step:racialChoiceStep(byId.get(poolId)),message}:message);
  for(const [id,values] of Object.entries(b.racialChoices||{})){
   const spec=byId.get(id);
-  if(!spec||!Array.isArray(values)){errors.push('Unknown or inactive racial choice.');continue;}
+  if(!spec||!Array.isArray(values)){add(id,'Unknown or inactive racial choice.');continue;}
   const identities=spec.freeText?values.map(v=>languageName(v).toLowerCase()):values;
-  if(new Set(identities).size!==values.length||values.some(v=>spec.freeText?!validLanguageChoice(v):!spec.options.some(o=>o.id===v)))errors.push('Invalid or duplicate '+spec.name+' selection.');
+  if(new Set(identities).size!==values.length||values.some(v=>spec.freeText?!validLanguageChoice(v):!spec.options.some(o=>o.id===v)))add(id,'Invalid or duplicate '+spec.name+' selection.');
  }
  if(race?.id===YAGUDO&&byId.has(YAGUDO_RANK_LANGUAGES)){
   const choices=b.racialChoices?.[YAGUDO_RANK_LANGUAGES]||[];
   if(choices.some(id=>['common','yagudo'].includes(languageName(id).trim().toLowerCase())))
-   errors.push('Yagudo already starts with Common and Yagudo; rank languages must be new.');
+   add(YAGUDO_RANK_LANGUAGES,'Yagudo already starts with Common and Yagudo; rank languages must be new.');
  }
  // A starting language is not also a valid high-INT bonus-language pick.
   if([PALICO,KINDRED].includes(race?.id)){
@@ -387,11 +391,11 @@ export function racialChoiceIssues(b,race,traits,scores){
    const chosen=byId.get(startingPool)?.options.find(o=>o.id===b.racialChoices?.[startingPool]?.[0])?.name?.toLowerCase();
    const bonusPool=byId.get(languageBonusId(race.id));
    if(chosen&&(b.racialChoices?.[bonusPool?.id]||[]).some(id=>bonusPool.options.find(o=>o.id===id)?.name?.toLowerCase()===chosen))
-    errors.push('The chosen starting language cannot be selected again as a bonus language.');
+    add(startingPool,'The chosen starting language cannot be selected again as a bonus language.');
   }
   if(race?.id===GENOME&&byId.has(GENOME+':pool:bonus-languages')&&
     (b.racialChoices?.[GENOME+':pool:bonus-languages']||[]).some(v=>languageName(v).toLowerCase()==='common'))
-    errors.push('Genome already starts with Common; bonus languages must be different.');
+    add(GENOME+':pool:bonus-languages','Genome already starts with Common; bonus languages must be different.');
   for(const [raceId,polyglotId,normalId,starting] of [
   [TARUTARU_ID,TARUTARU_POLYGLOT_LANGUAGE,TARUTARU_LANGUAGES,'lalafellan'],
   [LAMBKIN_ID,LAMBKIN_POLYGLOT_LANGUAGE,LAMBKIN_LANGUAGES,'lambkin']
@@ -399,20 +403,20 @@ export function racialChoiceIssues(b,race,traits,scores){
   const extra=languageName(b.racialChoices?.[polyglotId]?.[0]).toLowerCase();
   const standardPool=byId.get(normalId);
   const normal=new Set((b.racialChoices?.[normalId]||[]).map(id=>standardPool?.options.find(o=>o.id===id)?.name?.toLowerCase()).filter(Boolean));
-  if(extra===starting||normal.has(extra))errors.push('Polyglot extra language must be different from starting languages and selected bonus languages.');
+  if(extra===starting||normal.has(extra))add(polyglotId,'Polyglot extra language must be different from starting languages and selected bonus languages.');
  }
  if(race?.id===NAMAZU&&traits.some(f=>f.id===NAMAZU+':trait:focused-study')){
   const chosen=NAMAZU_FOCUS_LEVELS.filter(n=>n<=buildLevel(b)).map(n=>b.racialChoices?.[namazuFocusSlot(n)]?.[0]).filter(Boolean);
-  if(new Set(chosen).size!==chosen.length)errors.push('Focused Study must choose a different skill at each milestone.');
+  if(new Set(chosen).size!==chosen.length)add(null,'Focused Study must choose a different skill at each milestone.');
  }
  for(const spec of specs){
-  if(spec.id===GRIA_WEAPON&&!spec.options.length)errors.push('Gria Martial Background needs a verified proficient weapon. Keep Weapon Familiarity enabled until class-based proficiency selections are supported.');
-  if(spec.id===ELVAAN_WEAPON&&!spec.options.length)errors.push('Martial Background requires a verified proficient weapon. Keep Elvaan Weapon Familiarity active for this limited integration.');
+  if(spec.id===GRIA_WEAPON&&!spec.options.length)add(spec.id,'Gria Martial Background needs a verified proficient weapon. Keep Weapon Familiarity enabled until class-based proficiency selections are supported.');
+  if(spec.id===ELVAAN_WEAPON&&!spec.options.length)add(spec.id,'Martial Background requires a verified proficient weapon. Keep Elvaan Weapon Familiarity active for this limited integration.');
   const values=b.racialChoices?.[spec.id]||[],maximum=spec.maximum??Math.max(0,Math.floor((scores.int-10)/2));
-  if(values.length<spec.minimum||values.length>maximum)errors.push(spec.name+': choose '+(spec.minimum===maximum?maximum:'up to '+maximum)+' option(s).');
-  if(spec.specialty&&(!spec.specialtyRequiredFor||spec.specialtyRequiredFor.includes(values[0]))&&!(b.racialSpecialties?.[spec.id]||'').trim())errors.push('Name the Craft or Profession specialty for '+spec.name+'.');
+  if(values.length<spec.minimum||values.length>maximum)add(spec.id,spec.name+': choose '+(spec.minimum===maximum?maximum:'up to '+maximum)+' option(s).');
+  if(spec.specialty&&(!spec.specialtyRequiredFor||spec.specialtyRequiredFor.includes(values[0]))&&!(b.racialSpecialties?.[spec.id]||'').trim())add(spec.id,'Name the Craft or Profession specialty for '+spec.name+'.');
  }
- for(const [id,value] of Object.entries(b.racialSpecialties||{}))if(!byId.get(id)?.specialty||typeof value!=='string'||value.length>80||/[\u0000-\u001f]/.test(value))errors.push('Invalid racial skill specialty.');
+ for(const [id,value] of Object.entries(b.racialSpecialties||{}))if(!byId.get(id)?.specialty||typeof value!=='string'||value.length>80||/[\u0000-\u001f]/.test(value))add(id,'Invalid racial skill specialty.');
  return errors;
 }
 

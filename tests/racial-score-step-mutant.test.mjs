@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {registry,newBuild,effectiveScores,buildIssues,raceTraits} from '../src/features/characters/rules/build.mjs';
+import {registry,newBuild,effectiveScores,buildIssues,raceTraits,compileBuild} from '../src/features/characters/rules/build.mjs';
 import {racialChoiceSpecs,pruneRacialChoices} from '../src/features/characters/rules/racial-choices.mjs';
 import {renderBuild} from '../src/ui/rules-wizard.mjs';
 
@@ -17,6 +17,21 @@ test('Hume and Immortal racial ability score picks appear in Ability Scores, not
   assert.match(renderBuild(b,1),new RegExp(fieldFor(id)));
   assert.doesNotMatch(renderBuild(b,2),new RegExp(fieldFor(id)));
  }
+});
+
+test('Immortal missing or invalid +2 selection blocks Ability Scores rather than the earlier Race page',()=>{
+ const b=chosen('immortal'),id=b.raceId+':pool:flexible-score';b.name='Immortal regression';
+ let issue=buildIssues(b).find(issue=>/Immortal chosen \+2 score/.test(issue.message));assert.equal(issue.step,1);assert.throws(()=>compileBuild(b),/choose 1/);
+ b.racialChoices[id]=[id+':option:charisma'];assert.equal(effectiveScores(b).cha,12);assert.ok(!buildIssues(b).some(issue=>/Immortal chosen \+2 score/.test(issue.message)));
+ b.racialChoices[id]=['invalid'];issue=buildIssues(b).find(issue=>/Invalid or duplicate Immortal/.test(issue.message));assert.equal(issue.step,1);
+ b.racialChoices[id]=[id+':option:charisma',id+':option:charisma'];assert.ok(buildIssues(b).filter(issue=>/Immortal chosen \+2 score/.test(issue.message)).every(issue=>issue.step===1));
+});
+
+test('other ability-score and starting-language requirements follow their visible controls',()=>{
+ const hume=chosen('hume');assert.equal(buildIssues(hume).find(issue=>/Hume.*choose 1/i.test(issue.message)).step,1);
+ const mutant=chosen('mutant');for(const issue of buildIssues(mutant).filter(issue=>/Physical \+2 score|Mental \+2 score|Penalty −2 score/.test(issue.message)))assert.equal(issue.step,1);
+ const polyglot=chosen('tarutaru');polyglot.alternateIds.push(polyglot.raceId+':trait:polyglot');const language=buildIssues(polyglot).find(issue=>/Polyglot starting language/.test(issue.message));assert.equal(language.step,1);
+ const inactive=chosen('immortal');inactive.disabledTraits.push(inactive.raceId+':trait:ability-score-adjustment');inactive.racialChoices[inactive.raceId+':pool:flexible-score']=['forged'];assert.equal(buildIssues(inactive).find(issue=>/inactive racial choice/.test(issue.message)).step,2);
 });
 
 test('Mutant three source-defined score choices appear in Ability Scores and have correct signs',()=>{

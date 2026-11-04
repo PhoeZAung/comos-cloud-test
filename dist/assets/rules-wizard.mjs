@@ -5,7 +5,7 @@ import {isBard} from '../features/characters/rules/bard-level-one.mjs';
 import {isBeastmaster,beastmasterSkillBonus} from '../features/characters/rules/beastmaster-level-one.mjs';
 import {isLevelOneClass,FELL_RIDER_ID,DEADLY_LANCER_ID,MOG_KNIGHT_ID,CHOCOBO_KNIGHT_ID} from '../features/characters/rules/level-one-classes.mjs';
 import {classHitDie,classDefaultHp} from '../features/characters/rules/class-adapters.mjs';
-import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,pruneRacialChoices,namazuFocusSlot,YAGUDO_RANK_LANGUAGES,YAGUDO_LINGUISTICS_ROW,YAGUDO_RELIGION_ROW} from '../features/characters/rules/racial-choices.mjs';
+import {supportsRacialPool,replacementRequiresWizard,racialChoiceSpecs,isRacialScoreChoice,pruneRacialChoices,namazuFocusSlot,YAGUDO_RANK_LANGUAGES,YAGUDO_LINGUISTICS_ROW,YAGUDO_RELIGION_ROW} from '../features/characters/rules/racial-choices.mjs';
 import {isSupportedRaceOperation,isSupportedRaceHeritage} from '../features/characters/rules/race-replacement-operations.mjs';
 import {HUME_ID,MITHRA_ID,TARUTARU_ID,humeTraitActive,languageChoice,languageName} from '../features/characters/rules/racial-progress.mjs';
 import {ffd20LanguageNames} from '../features/characters/rules/languages.mjs';
@@ -153,7 +153,6 @@ function racialSelections(b,specs,scores){
  }).join('');
 }
 // Ability-score racial choices live with score generation, not in the Race traits list.
-const isRacialScoreChoice=spec=>spec.choiceType==='ability_score'||spec.id==='ffd20:race:immortal:pool:flexible-score';
 function racialScoreSelections(b){
  return racialSelections(b,racialChoiceSpecs(raceFor(b),raceTraits(b).traits,buildLevel(b)).filter(isRacialScoreChoice),effectiveScores(b));
 }
