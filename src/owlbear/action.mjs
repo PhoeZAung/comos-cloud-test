@@ -5,9 +5,10 @@ import {dicePlus} from './dice-plus.mjs';
 import {panelSize} from './panel-size.mjs';
 import {localChannel} from './local-channel.mjs';
 import {mountPanel} from './panel.mjs';
+import {publicReceipt} from '../features/room-rolls.mjs';
 const status=document.querySelector('[data-status]'),list=document.querySelector('[data-characters]'),frame=document.querySelector('iframe'),dice=dicePlus(OBR);
 let popup,nonce,connection,sheetConnection,sheetNonce,activeCharacterId,tabWindow,tabNonce,tabConnection,tabCharacterId,available=false;
-let trackerBus,grantToken='';
+let disposeSize,trackerBus,grantToken='';const audiences=new Map(),names=new Map();
 const panel=mountPanel(document.querySelector('main'),{history:()=>connection.call('roll-history')});
 const tabName='cosmos-owlbear-sheet-'+crypto.randomUUID(),openTab=document.querySelector('[data-open-sheet-tab]');
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -15,26 +16,28 @@ function say(message){status.textContent=message;}
 function back(){frame.hidden=true;list.hidden=false;document.querySelector('[data-back]').hidden=true;openTab.hidden=true;activeCharacterId=null;sheetConnection?.close();sheetConnection=null;sheetNonce=null;frame.removeAttribute('src');}
 async function sheetRequest(method,value){
  if(!connection)throw Error('Reconnect Cosmos.');
- if(method==='api'){try{const response=await connection.call('api',value);if(response.status===200&&value.body?.op==='roll'&&response.data?.roll)panel.invalidate();return response;}catch(error){panel.connected(false);panel.admin(false);say('Disconnected');document.querySelector('[data-connect]').hidden=false;throw error;}}
- if(method==='dice'){await dice.ready();return dice.roll(value.notation,document.querySelector('[data-roll-audience]').value);}
+ if(method==='roll-context'){if(typeof value?.requestId!=='string')throw Error('Invalid roll.');if(audiences.size>=100)audiences.delete(audiences.keys().next().value);audiences.set(value.requestId,document.querySelector('[data-roll-audience]').value);return {};}
+ if(method==='api'){try{const response=await connection.call('api',value);if(response.data?.character)names.set(response.data.character.id,response.data.character.name);if(response.status===200&&value.body?.op==='roll'&&response.data?.roll){panel.invalidate();const id=/character-records\/([\w-]+)/.exec(value.path)?.[1],entry=publicReceipt({id:value.body.requestId,character:names.get(id)||'Character',label:value.body.label,roll:response.data.roll});if(entry)trackerBus?.send({type:'roll-receipt',entry,target:audiences.get(value.body.requestId)||'self'});audiences.delete(value.body.requestId);}return response;}catch(error){panel.connected(false);panel.admin(false);say('Disconnected');document.querySelector('[data-connect]').hidden=false;throw error;}}
+ if(method==='dice'){await dice.ready();return dice.roll(value.notation,audiences.get(value.requestId)||'self');}
  throw Error('Unsupported sheet action.');
 }
 async function load(){
  if(!connection)throw Error('Connect your Cosmos account first.');
- const characters=await connection.call('list');
+ const characters=await connection.call('list');for(const character of characters)names.set(character.id,character.name);
  list.innerHTML=characters.map(c=>'<button class="character-card" data-character="'+esc(c.id)+'"><span class="character-photo">'+(typeof c.portraitUrl==='string'&&/^data:image\/(png|jpeg|webp);base64,/i.test(c.portraitUrl)?'<img src="'+esc(c.portraitUrl)+'" alt="">':'<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="13" r="8"/><path d="M5 38v-5a15 15 0 0130 0v5Z"/></svg>')+'</span><strong>'+esc(c.name)+'</strong><span aria-hidden="true">›</span></button>').join('')||'<p>No characters.</p>';
  say('Connected');panel.connected(true);document.querySelector('[data-connect]').hidden=true;
 }
 OBR.onReady(async()=>{
- available=true;say('Connect your Cosmos account to load your characters.');void OBR.action.setIcon(new URL('/owlbear/sheet-action.svg',location.origin).href).catch(()=>{});void panelSize(OBR,say).catch(error=>say(error.message));
+ available=true;say('Connect your Cosmos account to load your characters.');void OBR.action.setIcon(new URL('/owlbear/sheet-action.svg',location.origin).href).catch(()=>{});void panelSize(OBR,say).then(dispose=>disposeSize=dispose).catch(error=>say(error.message));
  trackerBus=await localChannel(OBR,data=>{
-  if(data?.type==='grant'&&data.token!==grantToken){grantToken=data.token;connection?.close();connection=connectGrant(data.token);void load().catch(error=>say(error.message));}
+  if(data?.type==='grant'&&data.token!==grantToken){grantToken=data.token;panel.connected(false);connection?.close();connection=connectGrant(data.token);void load().catch(error=>say(error.message));}
   if(data?.type==='state'){
    panel.admin(data.admin===true);document.querySelector('[data-admin-controls]').hidden=data.admin!==true;
    for(const key of ['party','initiative'])document.querySelector('[data-layout="'+key+'"]').checked=data.layout[key];
    for(const key of ['partyDock','initiativeDock'])document.querySelector('[data-layout="'+key+'"]').value=data.layout[key];
    document.querySelector('[data-tracker-status]').textContent=data.feed==='Live'?'Connected':data.feed;
   }
+  if(data?.type==='room-rolls')panel.shared(data.rolls);
   if(data?.type==='result'&&data.error)say(data.error);
  });
  trackerBus.send({type:'hello'});
@@ -79,4 +82,4 @@ openTab.onclick=()=>{
 };
 document.querySelector('[data-back]').onclick=back;
 document.querySelector('[data-refresh]').onclick=()=>void load().catch(error=>say(error.message));
-window.addEventListener('pagehide',()=>{panel.close();trackerBus?.close();connection?.close();sheetConnection?.close();tabConnection?.close();},{once:true});
+window.addEventListener('pagehide',()=>{disposeSize?.();panel.close();trackerBus?.close();connection?.close();sheetConnection?.close();tabConnection?.close();},{once:true});

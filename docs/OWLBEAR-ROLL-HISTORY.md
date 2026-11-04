@@ -1,17 +1,44 @@
 # Cosmos extension: Character / Admin / Roll
 
-Roll shows up to 100 of the connected account's latest saved Cosmos receipts,
-newest first. It includes website rolls and Dice+ extension rolls. Attack,
-damage, confirmation and critical damage totals/faces come directly from the
-existing server receipts. Description-only actions are omitted. History never
-rolls dice, spends resources, or sends a second Discord message.
+Roll combines the connected account's saved Cosmos receipts with public Cosmos
+rolls shared by everyone in the current Owlbear room, newest first (100 entries).
+Personal server history includes earlier website rolls. Room history collects
+public extension rolls even while the action panel is closed, caches them per
+room/browser, and syncs public snapshots when players join and every 30 seconds.
+Old public rolls can be recovered from a connected peer or that browser's cache;
+this is not a server archive of every player's private account history.
 
-History loads when Roll opens, refreshes every five seconds while selected,
-and refreshes after an extension roll or the refresh button. It survives closing
-the extension because it uses the existing sheet_rolls database table. Each
-request revalidates the account's original login. It cannot request another
-account's history, including another player's private Dice+ results. No database
-migration was added for history.
+Private, GM/self and GM-only receipts are never placed in the public history
+broadcast or public cache. Existing private account history remains owner-scoped.
+Public sharing contains only character/player names, label, timestamp, totals,
+formulas and faces. It never includes grants, cookies, character descriptions or
+private account data. Snapshots are chunked below 10 KB and duplicate receipt
+IDs are merged. Live remote receipts also show a short Owlbear notification.
+No game roll, resource use or Discord message is repeated by history syncing.
+
+The audience is captured once before the first die of a logical sheet roll.
+Changing the dropdown during attack/damage does not change that roll's audience.
+Everyone requests use Dice+'s documented ALL destination. Private requests stay
+local. Result matching uses the unique roll ID, player ID and notation rather
+than requiring the replying Dice+ instance to have the roller's connection ID.
+
+Personal history refreshes every five seconds while Roll is selected; incoming
+room receipts render immediately, including before a Cosmos account connects.
+Unchanged history does not replace the list or interrupt scrolling. No database
+migration was added.
+
+Players may click current HP/MP on their own shared party characters. Both the
+background and the backend enforce ownership; other characters remain read-only.
+Ownership/capability lists refresh on panel open and every 30 seconds. Max HP/MP
+are not edited by these controls. Initiative and display settings remain admin
+controls.
+
+The resize grip captures the pointer and previews dimensions during a drag,
+then applies width and height sequentially on release. It saves the size and
+reclamps to the current room viewport when it changes. Arrow keys resize too;
+Shift makes larger steps. Deferring host writes avoids losing pointer capture
+when the host repositions the panel. Ability/weapon pencils use an inline SVG
+sized in em units with no square border or background.
 
 Admin is hidden initially. Both Cosmos administrator capability and Owlbear GM
 role must be verified before the Admin tab, display controls and battle token
@@ -46,7 +73,7 @@ execution and external login/character/media verification remain manual.
 
 After success, hard-refresh Cosmos, reopen the Owlbear room, and reconnect the
 Cosmos account. Existing grants intentionally expire when the backend restarts.
-The extension install URL remains /owlbear/manifest.json; version is 1.1.1.
+The extension install URL remains /owlbear/manifest.json; version is 1.2.0.
 
 Discord rolls are enabled by default in both the website and Owlbear sheet.
 The Main settings switch can disable delivery for the current sheet. Dice+
@@ -55,3 +82,11 @@ Verification: scripts/check-owlbear-discord-browser.mjs drives the real embedded
 sheet and message-port bridge against synthetic dice and a captured relay; it
 checks default delivery, unchanged totals, the off switch, and tab changes.
 No real Discord message is sent by this check.
+
+Current validation includes tests/owlbear-room-rolls.test.mjs (two-player public
+sync/rejoin, deduplication, private-roll isolation, Dice+ routing/correlation and
+viewport bounds). The three Owlbear browser helpers cover the real sheet/pencil
+editors and Discord bridge, shared history/audience capture, and actual party
+HP/MP saves through an isolated database and real ownership routes, plus mouse,
+keyboard, restored and small-viewport resizing. Synthetic room transport does
+not replace a real multiplayer Dice+ animation check after QNAP deployment.

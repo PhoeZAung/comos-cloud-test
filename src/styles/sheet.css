@@ -278,6 +278,6 @@ body.sheet{position:relative;isolation:isolate}.sheet[data-layout=sheet] [data-g
 .cs-ability-wheel .cs-ability-add-options button:hover{background:var(--bg);color:var(--accent)}
 /* Inline edit is immediately after the name, not inside expanded details. */
 .cs-entry-heading>details{flex:0 1 auto;min-width:0;max-width:100%}
-.cs-entry-heading>.cs-entry-name-edit{flex:none;min-width:32px;width:32px;min-height:40px;padding:4px;margin:2px 0;color:var(--muted)}
+.cs-entry-heading>.cs-entry-name-edit{display:inline-flex;align-items:center;justify-content:center;flex:none;align-self:flex-start;width:1.35em;height:1.5em;min-width:0;min-height:0;padding:0;margin:.65em 0;border:0;border-radius:0;background:none;color:var(--muted);font:inherit;cursor:pointer}.cs-entry-name-edit svg{width:1em;height:1em}.cs-entry-name-edit:hover{color:var(--accent);background:none}.cs-entry-name-edit:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .cs-entry-heading>.cs-entry-actions{margin-left:auto}
 .cs-entry-heading>details[open]{flex:1 0 100%;width:100%;max-width:none}

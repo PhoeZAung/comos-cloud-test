@@ -14,7 +14,8 @@ window.fetch=async(input,options={})=>{
  const method=options.method||'GET',body=options.body?JSON.parse(options.body):undefined;
  if(body?.op==='roll'&&body.mode!=='send'){
   if(!character)throw Error('Reload your character before rolling.');
-  body.owlbearRolls=await requestSheetDice(character,body,notation=>connection.call('dice',{notation},100000));
+  await connection.call('roll-context',{requestId:body.requestId});
+  body.owlbearRolls=await requestSheetDice(character,body,notation=>connection.call('dice',{notation,requestId:body.requestId},100000));
  }
  const result=await connection.call('api',{path:url.pathname+url.search,method,body},30000);
  if(result.data?.character)character=result.data.character;

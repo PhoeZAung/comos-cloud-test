@@ -1,6 +1,7 @@
 import OBR,{buildLine,buildLabel} from '@owlbear-rodeo/sdk';
 import {localChannel} from './local-channel.mjs';
 import {adminMenu} from './admin-menu.mjs';
+import {roomHistory} from './room-history.mjs';
 import {connection} from './connection.mjs';
 import {publicPartyClient} from './public-party-client.mjs';
 import {dockedPanels} from './docking.mjs';
@@ -13,6 +14,7 @@ async function start(){
  const allowed=()=>gm&&admin;
   const canEditParty=id=>Boolean(grant&&(allowed()||editableIds.has(id)));
  const rows=()=>battleRows(items,party);
+ const history=await roomHistory(OBR,(rolls,{remote,row})=>{bus?.send({type:'room-rolls',rolls});if(remote&&row)void OBR.notification.show((row.character+' · '+row.parts.map(part=>part.label+' '+part.total).join(' · ')).slice(0,220),'INFO').catch(()=>{});});
  const publish=()=>{void syncMenu();bus?.send({type:'state',admin:allowed(),editableIds:party.filter(row=>canEditParty(row.id)).map(row=>row.id),connected:!!grant,feed,party,battle:rows().filter(row=>gm||row.visible),turn:scene[TURN]||{},layout:layoutFrom(room),ready});};
  const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{publish();void render();},40);};
  async function widget(id,path,rectangle){
@@ -113,11 +115,14 @@ async function start(){
   }
  }
  bus=await localChannel(OBR,d=>{
-  if(d?.type==='hello'){publish();if(token)bus.send({type:'grant',token});return;}
+  if(d?.type==='hello'){publish();bus.send({type:'room-rolls',rolls:history.rows()});if(token)bus.send({type:'grant',token});void refreshAccess();return;}
+  if(d?.type==='roll-receipt'){void history.publish(d.entry,d.target).catch(error);return;}
   if(d?.type==='grant-set'){queue=queue.then(()=>setGrant(d.token)).catch(e=>{admin=false;publish();error(e);});return;}
   if(!['layout','stats','initiative','turn','add','remove'].includes(d?.type))return;
   d.epoch=epoch;queue=queue.then(async()=>{try{const result=await command(d);bus.send({type:'result',requestId:d.requestId,revision:result?.revision});}catch(e){bus.send({type:'result',requestId:d.requestId,error:e.message});if(!d.requestId)error(e);}});
  });
+ async function refreshAccess(){const current=grant;if(!current)return;try{const cap=await current.call('capabilities'),owned=cap.scope==='sheet'?await current.call('list'):[];if(grant!==current)return;admin=cap.admin===true;editableIds=new Set(owned.map(row=>row.id));publish();}catch{if(grant!==current)return;admin=false;editableIds.clear();publish();}}
+ const accessTimer=setInterval(()=>void refreshAccess(),30000);
  const stop=publicPartyClient(snapshot=>{party=snapshot.characters;schedule();},status=>{feed=status;publish();});
  room=await OBR.room.getMetadata();OBR.room.onMetadataChange(value=>{room=value;schedule();});
  async function loadScene(){
@@ -141,6 +146,6 @@ async function start(){
  await syncMenu();
  // Close widgets left by the retired standalone Party extension in this browser.
  await Promise.allSettled(['com.cosmos.party-status/hud/party','com.cosmos.party-status/hud/battle'].map(id=>OBR.popover.close(id)));
- publish();window.addEventListener('pagehide',()=>{stopped=true;clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();clearTimeout(timer);},{once:true});
+ publish();window.addEventListener('pagehide',()=>{stopped=true;history.close();clearInterval(accessTimer);clearInterval(viewportTimer);window.removeEventListener('resize',resize);stop();bus.close();grant?.close();clearTimeout(timer);},{once:true});
 }
 OBR.onReady(()=>void start().catch(e=>console.error('Cosmos:',e)));
