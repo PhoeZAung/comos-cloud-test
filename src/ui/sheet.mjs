@@ -34,7 +34,7 @@ function field(key,value,{weapon=false}={}){
  if(opts)return `<label class="cs-field"><span>${label}</span><select name="${key}">${opts.map(opt=>'<option value="'+opt+'"'+(opt===String(value||opts[0])?' selected':'')+'>'+(key==='attack_type'?(attackTypes[opt]||'None'):opt==='auto'?'Use attack type':abilities.includes(opt)?opt.toUpperCase():opt)+'</option>').join('')}</select></label>`;
  if(boolKeys.has(key))return `<label class="cs-checkbox"><input type="checkbox" name="${key}" ${value?'checked':''}><span>${label}</span></label>`;
  if(['desc','effect','at_higher_lvls','resistances','proficiencies'].includes(key))return `<label class="cs-field cs-field-wide"><span>${label}</span><textarea name="${key}" rows="5" maxlength="12000">${e(value||'')}</textarea></label>`;
-  const isText=textKeys.has(key),optionalZero=!isText&&(/(?:_temp|_misc|_bonus|_adjustment)$/.test(key)||['u_curr','u_max','amount','lvl','temp','attack_misc','dc_misc','mp_adjustment'].includes(key));
+  const isText=textKeys.has(key),optionalZero=!isText&&(/(?:_temp|_misc|_bonus|_adjustment)$/.test(key)||['u_curr','u_max','temp','attack_misc','dc_misc','mp_adjustment'].includes(key));
   const display=optionalZero&&Number(value??0)===0?'':value??(isText?'':0);
   return `<label class="cs-field"><span>${label}</span><input name="${key}" type="${isText?'text':'number'}" ${isText?'maxlength="'+(key==='name'?120:12000)+'"':'step="any" '+(optionalZero||['caster_level','mp_cost'].includes(key)?'':'required')} value="${e(display)}" ${optionalZero?'placeholder="0"':''} ${key==='name'?'required':''}></label>`;
 }
