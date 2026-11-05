@@ -3,7 +3,7 @@ import {gunbreakerAmmoAbilityCost} from '../../src/features/characters/rules/gun
 import {isLimitBreak,limitBreakState} from '../../src/features/sheet/limit-breaks.mjs';
 import {mergeSheetData} from './sheet-fields.mjs';
 import {weaponAttackParts,attackTypes} from '../../src/features/sheet/model.mjs';
-import {entryCalculations,context,damageExpression,diceTerms} from '../../src/features/sheet/calculations.mjs';
+import {entryCalculations,context,damageExpression,diceTerms,damageTypeLine} from '../../src/features/sheet/calculations.mjs';
 import {randomInt} from 'node:crypto';
 const relay='https://weathered-term-1e39.phoeaung2076.workers.dev';
 export function serverRoll(expression){
@@ -19,7 +19,7 @@ export function criticalProfile(row){
 }
 export function criticalResult(row,attack,damage,expression,roll=serverRoll){
  const profile=criticalProfile(row),threat=!!attack&&attack.rolls[0]>=profile.minimum&&attack.rolls[0]!==1;
- const result={...profile,threat};if(threat){result.confirmation=roll(expression);if(damage)result.damage={...damage,expression:profile.multiplier+' × ('+damage.expression+')',rolls:[],bonus:0,total:damage.total*profile.multiplier,breakdown:[]};}
+ const result={...profile,threat};if(threat){result.confirmation=roll(expression);if(damage)result.damage={...damage,expression:profile.multiplier+' × ('+damage.expression+')',rolls:[],bonus:0,total:damage.total*profile.multiplier,breakdown:(damage.breakdown||[]).map(part=>({...part,total:part.total*profile.multiplier}))};}
  return result;
 }
 export function weaponRoll(row,data,roll=serverRoll){
@@ -43,8 +43,8 @@ export function abilityRoll(row,data,key,roll=serverRoll){
  const critical=c.attack?.mode==='cmb'?{threat:false}:criticalResult(row,attack,damage,attack?.expression,roll);
  return {critical,kind:'ability',abilityName:String(row.name||'Ability'),dc:c.dc,attack,damage,description:String(row.desc||''),expression:'ability',rolls:attack?.rolls||damage?.rolls||[],bonus:attack?.bonus||0,total:attack?.total??damage?.total??0};
 }
-function diceLine(r){return r.total+' ('+r.expression+(r.rolls?.length?' · '+r.rolls.join(', '):'')+')';}
-export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push('Dice Roll: '+diceLine(r.damage));if(r.critical?.threat){lines.push('Crit!');lines.push('Attack Roll: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Dice Roll: '+diceLine(r.critical.damage));}return lines;}
+function diceLine(r,{typed=false}={}){const detail=typed?damageTypeLine(r):'';return r.total+' ('+r.expression+(r.rolls?.length?' · '+r.rolls.join(', '):'')+')'+(detail?' — '+detail:'');}
+export function entryReceipt(r){const attack=r.kind==='weapon'?r:r.attack;const lines=[];if(attack)lines.push('Attack Roll: '+diceLine(attack));if(r.damage)lines.push('Dice Roll: '+diceLine(r.damage,{typed:true}));if(r.critical?.threat){lines.push('Crit!');lines.push('Attack Roll: '+diceLine(r.critical.confirmation));if(r.critical.damage)lines.push('Dice Roll: '+diceLine(r.critical.damage,{typed:true}));}return lines;}
 export async function publishRoll({db,userId,character,change,origin,sendFetch=fetch,makeWeaponRoll=weaponRoll,makeSpellRoll=spellRoll,makeAbilityRoll=abilityRoll}){
  const weapon=change.kind==='weapon',spell=change.kind==='spell',ability=change.kind==='ability',entry=weapon||spell||ability;
  if(!/^[\da-f-]{36}$/i.test(change.requestId)||typeof change.discord!=='boolean'||(change.kind!==undefined&&!entry))throw Error('Invalid roll.');
@@ -98,7 +98,7 @@ export async function publishRoll({db,userId,character,change,origin,sendFetch=f
   lines.push(safe(row.desc||'No description.'));
   for(const [key,title]of Object.entries({effect:'Effect',action_type:'Action type',damage_types:'Damage Type',misfire:'Misfire',type:'Type',lvl:'Level',range:'Range',duration:'Duration',target:'Target',saving_throw:'Save',spell_resist:'Spell resistance',damage:'Dice Roll',at_higher_lvls:'At higher levels'}))if(row[key]!==undefined&&row[key]!=='')lines.push(title+': '+safe(row[key]));
  }else if(entry){lines.push(...entryReceipt(roll));if(roll.mpSpent!==undefined)lines.push(roll.mpSpent+' MP');if(roll.remainingInfusedAmmo!==undefined)lines.push(roll.remainingInfusedAmmo+' infused rounds remaining');if(roll.remainingUses!==undefined)lines.push(roll.remainingUses+' usage remaining');}
- else lines.push(diceLine(roll));
+ else lines.push(diceLine(roll,{typed:true}));
  // Send complete stored descriptions in bounded Discord messages. Receipt replay never resends or spends twice.
  const content=lines.join('\n').replaceAll('@','＠'),chunks=[];for(let start=0;start<content.length;){let end=Math.min(start+1900,content.length);if(end<content.length&&/[\uD800-\uDBFF]/.test(content[end-1]))end--;chunks.push(content.slice(start,end));start=end;}
  let state='sent';for(const chunk of chunks){try{const response=await sendFetch(relay,{method:'POST',redirect:'error',headers:{'Content-Type':'application/json',Origin:origin},body:JSON.stringify({content:chunk,allowed_mentions:{parse:[]}}),signal:AbortSignal.timeout(7000)});if(!response.ok){state='failed';break;}}catch{state='failed';break;}}
